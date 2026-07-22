@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document defines when a component-specific token layer is justified.
+This document defines when a component-specific token layer is justified and catalogs approved component-token families.
 
 The Button guideline does not define Button-specific color tokens. It defines:
 
@@ -29,10 +29,10 @@ Primitive tokens
 → Brand
 → Experience
 → Semantic tokens
-→ Component usage
+→ Component tokens
 ```
 
-Do not insert a component-token alias only to rename an existing semantic token.
+Components use Semantic tokens by default. Do not insert a component-token alias only to rename an existing semantic token.
 
 For Button:
 
@@ -101,6 +101,69 @@ Possible uses include:
 - Component-specific motion values
 - A theming abstraction that cannot be represented through shared semantic roles
 
+## Approved Color Family: Tag
+
+Tag is the first approved component-specific color family. It exists because reusable categorical Tag colors need a stable component contract but do not carry a shared Semantic meaning.
+
+Approved variants:
+
+```text
+neutral
+blue
+purple
+green
+orange
+```
+
+Tokens per variant:
+
+```text
+tag-surface-{variant}
+tag-surface-{variant}-hover
+tag-fg-{variant}
+tag-line-{variant}
+```
+
+Complete list:
+
+```text
+tag-surface-neutral
+tag-surface-neutral-hover
+tag-fg-neutral
+tag-line-neutral
+
+tag-surface-blue
+tag-surface-blue-hover
+tag-fg-blue
+tag-line-blue
+
+tag-surface-purple
+tag-surface-purple-hover
+tag-fg-purple
+tag-line-purple
+
+tag-surface-green
+tag-surface-green-hover
+tag-fg-green
+tag-line-green
+
+tag-surface-orange
+tag-surface-orange-hover
+tag-fg-orange
+tag-line-orange
+```
+
+Figma variables are grouped under `05 Component` as `tag/surface/*`, `tag/fg/*`, and `tag/line/*`. Code uses the flattened names above.
+
+Rules:
+
+- These tokens communicate grouping or categorization, not feedback status.
+- Static Tags use `tag-surface-{variant}`, `tag-fg-{variant}`, and optionally `tag-line-{variant}`.
+- Only interactive Tags use `tag-surface-{variant}-hover`.
+- Information, success, warning, and error Tags use Semantic support tokens instead.
+- Other components must not consume the Tag family as a general-purpose categorical palette.
+- Light mappings are defined in `jobvision-color-tokens-v3-surface-model.md`; Dark mappings are still open.
+
 ## Inappropriate Uses
 
 Do not create component tokens for:
@@ -119,7 +182,7 @@ Do not create component tokens for:
 When justified:
 
 ```text
-{component}-{element}-{property}-{variant-or-state}
+{component}-{element-or-property}-{variant-or-state}
 ```
 
 Examples:
@@ -128,6 +191,8 @@ Examples:
 button-container-min-height-small
 button-icon-size-medium
 modal-header-padding-inline
+tag-surface-blue-hover
+tag-fg-blue
 ```
 
 Do not encode primitive color names, pixel values, or product names into a shared component token.
