@@ -2,39 +2,63 @@
 
 > Status: draft
 
-Semantic tokens define stable interface roles. Their meaning does not change when the active Experience mode changes.
+Semantic tokens are the only color tokens consumed by components. Their role meaning remains stable across Brand, Experience, and Light/Dark modes.
 
-## Experience Resolution
-
-Semantic tokens are resolved through the active Experience mode before they are consumed by components:
+## Resolution
 
 ```text
-semantic role
-+ Productive or Expressive mode
-+ optional product override
-= resolved component value
+Primitive Value
+→ Brand: Jobvision or Cando
+→ Experience: Productive or Expressive
+→ Semantic: Light or Dark
+→ Component usage
 ```
 
-A mode may change an approved reference or visual expression, but it must not change the role's meaning. Productive and Expressive therefore share the same semantic families and state model.
+Brand and Experience provide inputs to Semantic mappings. Components never consume those collections directly.
 
-Mode is not included in the semantic token name. Do not duplicate the semantic catalog into `productive-*` and `expressive-*` token families.
+## Backgrounds
 
-See `architecture.md` for mode definitions and selection rules.
+The root background is:
 
-## Surface
+```text
+canvas
+```
+
+All UI backgrounds above canvas use the unified Surface family:
+
+```text
+surface-default
+surface-inset
+surface-muted
+surface-inverse
+surface-control-*
+surface-emphasis-*
+surface-transparent-*
+surface-brand-*
+surface-selected-*
+surface-disabled
+surface-danger-*
+surface-{info|success|warning|error}
+```
+
+`surface-muted` is passive and has no interaction states. `surface-control` is the visible neutral interactive background. The `bg-*` and `fill-*` families are deprecated.
 
 ## Foreground
 
+Use `fg-*` for text and icons. On-surface pairings such as `fg-on-brand`, `fg-on-emphasis`, and `fg-on-selected` remain distinct because their contrast mappings can diverge.
+
 ## Line
 
-## Fill
+Use `line-*` for borders, dividers, and indicators. Do not use `border-*` as the source-token family because it conflicts with Tailwind utilities.
 
 ## Support
 
-Support meaning is invariant across Experience modes. Success, warning, error, and information must not be restyled in a way that changes or weakens their meaning.
-
-## Tag
+Information, success, warning, and error meanings are invariant across all modes. Danger remains separate and is reserved for destructive actions.
 
 ## Focus
 
-Focus must remain clearly visible and meet the same accessibility requirements in Productive and Expressive modes.
+Use `focus-default` and `focus-inverse`. Focus must remain visible across every supported Brand × Experience × Semantic combination.
+
+## Source of truth
+
+The complete current catalog, Button mappings, deprecations, Figma collection structure, and open implementation decisions are defined in `jobvision-color-tokens-v3-surface-model.md`.

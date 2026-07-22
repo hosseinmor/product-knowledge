@@ -4,119 +4,78 @@
 
 ## Purpose
 
-The token architecture separates raw design values from shared meaning, contextual experience, and component implementation.
+The token architecture separates raw values, brand identity, experience context, light/dark semantics, and component consumption.
 
-The default resolution path is:
+The canonical resolution path is:
 
 ```text
-Primitive tokens
-→ Semantic tokens
-→ Experience mode
+Primitive
+→ Brand
+→ Experience
+→ Semantic
 → Component usage
 ```
 
-A component-specific token layer may be added after Experience only when the criteria in `component-tokens.md` are met.
+Components consume Semantic tokens only. A component-specific token layer is exceptional and follows the criteria in `component-tokens.md`.
 
-## Layers
+## Collections and modes
+
+| Collection | Modes | Responsibility |
+|---|---|---|
+| Primitive | Value | Raw values with no UI meaning |
+| Brand | Jobvision, Cando | Accent ramp, on-accent content, and any genuinely brand-specific focus value |
+| Experience | Productive, Expressive | Environment-level choices such as canvas |
+| Semantic | Light, Dark | Stable UI roles consumed by components |
 
 ### Primitive
 
-Primitive tokens store raw values such as color scales, type scales, spacing, radius, elevation, and motion values.
+Primitive tokens store direct values such as color scales, typography, spacing, radius, elevation, and motion. Product UI must not consume them directly.
 
-They do not describe product or interface intent and must not be consumed directly by product UI.
+### Brand
 
-### Semantic
-
-Semantic tokens describe stable roles such as surface, foreground, line, support, and focus.
-
-A semantic role must retain its meaning across products and Experience modes. For example, an error role remains an error role in both Productive and Expressive modes even when its resolved visual value changes.
+Brand aliases primitives into a small set of brand roles such as `accent/*` and `content/on-accent`. Semantic tokens may reference Brand roles, but product names do not enter semantic token names.
 
 ### Experience
 
-Experience is the contextual resolution layer between Semantic tokens and component usage.
-
-It controls how the same semantic system is expressed for a specific kind of experience without changing component meaning or interaction behavior. The layer has two modes:
+Experience resolves contextual design choices before the Semantic Light/Dark mapping.
 
 | Mode | Intent | Default contexts |
 |---|---|---|
-| Productive | Support frequent, task-focused work with clarity, efficiency, and controlled visual emphasis | Product application flows, dashboards, forms, tables, management interfaces, and repeated operational tasks |
-| Expressive | Create a more distinctive, engaging, and brand-forward experience while preserving usability | Brand and marketing surfaces, campaign or editorial moments, selected onboarding or success moments, and other deliberately prominent touchpoints |
+| Productive | Focused, operational, repetitive, and management-oriented work | Employer panels, ATS, onboarding, dashboards, forms, tables, and workflow-heavy tools |
+| Expressive | Discovery, browsing, editorial, marketing, and visually prominent experiences | Jobseeker, job pages, company pages, landing pages, campaigns, and selected prominent moments |
 
-Productive is the default mode for product interfaces. Expressive must be selected intentionally for a defined surface or journey.
+In v3, Experience initially controls `canvas/light` and `canvas/dark`. Expansion to typography, density, layout rhythm, or component treatments remains an open decision.
 
-The distinction is consistent with the Jobvision brand sources: the experience must remain professional, reliable, current, approachable, and free of unnecessary complexity. Expressive mode may increase emotional and brand presence, but must not become decorative at the expense of clarity.
+### Semantic
+
+Semantic has Light and Dark modes and exposes stable roles such as `canvas`, `surface-*`, `fg-*`, `line-*`, and `focus-*`. It aliases the active Brand and Experience values where required.
+
+Light/Dark is separate from Productive/Expressive. Changing either mode must not change action meaning, validation, interaction behavior, or accessibility requirements.
 
 ### Component usage
 
-Components consume tokens through the active Experience mode.
+Components use Semantic tokens only. A Primary Button remains Primary and a danger state remains danger across brands, experiences, and themes.
 
-Components must not branch their semantics based on the mode. A Primary Button remains Primary, and a danger state remains danger. The active mode may alter approved visual qualities such as typography, spacing, radius, elevation, motion, or emphasis only through documented token mappings.
+## Experience mode rules
 
-## Experience Mode Rules
+- Select Experience at the product, journey, or bounded surface level, not independently per component.
+- Use Productive for frequent, dense, data-heavy, or time-sensitive work.
+- Use Expressive for discovery, editorial, marketing, and intentionally brand-forward contexts.
+- Do not mix modes inside a component.
+- Both modes must meet the same contrast, focus, reduced-motion, and target-size requirements.
+- Brand and Light/Dark remain separate mode dimensions.
 
-- Choose the mode at the surface or journey level, not independently for each component.
-- Use Productive when users are completing frequent, dense, data-heavy, or time-sensitive tasks.
-- Use Expressive only when stronger brand expression or emotional emphasis is part of the intended experience.
-- Do not use Expressive merely to make a screen look more important.
-- Do not mix modes within one component.
-- A bounded Expressive region may exist inside a Productive experience only when the boundary and purpose are explicit and the composition is accessibility-tested.
-- Mode changes must not alter information hierarchy, action meaning, validation, state meaning, keyboard behavior, or assistive-technology semantics.
-- Both modes must meet the same accessibility requirements, including contrast, focus visibility, reduced motion, and target size.
-- Product-specific brand mappings are overrides within a mode; they do not create additional Experience modes.
+## Naming
 
-## What Experience Modes Are Not
+Mode names do not appear in Semantic token names. Do not create `productive-surface-*`, `expressive-surface-*`, `jobvision-surface-*`, or `cando-surface-*` families.
 
-Productive and Expressive are not:
-
-- Light and dark themes
-- Product or brand variants
-- Responsive breakpoints
-- Component variants
-- Interaction states
-- Density settings
-- Permission or business-rule changes
-
-These concerns may coexist with an Experience mode but must be modeled separately.
-
-## Naming Model
-
-Mode is a resolution dimension, not part of the semantic role name.
-
-The stable role name should remain the same while its approved value or alias is resolved through the active `Productive` or `Expressive` mode. Do not create pairs such as `productive-surface-*` and `expressive-surface-*` in product code only to duplicate the same semantic role.
-
-The exact Figma collection structure and code API must preserve this separation:
-
-```text
-stable semantic role
-+ active Experience mode
-+ optional product override
-= resolved component value
-```
+The current color vocabulary is defined in `jobvision-color-tokens-v3-surface-model.md`. The deprecated `bg-*` and `fill-*` background families must not be used for new work.
 
 ## References
 
+- `jobvision-color-tokens-v3-surface-model.md`
 - `primitive-tokens.md`
 - `semantic-tokens.md`
 - `component-tokens.md`
 - `product-overrides.md`
 - `usage-rules.md`
-- `../product-variations/brand-variants.md`
-
-Supporting brand references reviewed for this decision:
-
-- Jobvision Guidelines v3
-- Jobvision Brand Platform V1
-- Jobvision Verbal Identity 2.1
-
-The Productive and Expressive mode names and their addition to the token architecture are an approved design-system direction supplied for this update. The brand references support the behavioral constraints but do not define this token taxonomy.
-
-## Ownership
-
-The Design System team owns:
-
-- Mode definitions
-- Token mappings for each mode
-- Criteria for selecting a mode
-- Cross-product accessibility requirements
-
-Product teams may select a documented mode for an eligible surface. New modes, mixed-mode exceptions, or changes to shared mappings require Design System review.
