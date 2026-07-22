@@ -9,6 +9,7 @@ This section defines the token architecture, naming, semantics, Experience modes
 - `architecture.md` — Collection and resolution model for Primitive, Brand, Experience, Semantic, and component usage
 - `primitive-tokens.md` — Raw design values
 - `jobvision-color-tokens-v3-surface-model.md` — Current color-token catalog and canonical Surface-model specification
+- `color-token-aliases.md` — Mode-by-mode alias targets for Brand, Experience, Semantic, and approved Component color variables
 - `semantic-tokens.md` — Stable interface roles and Light/Dark resolution constraints
 - `component-tokens.md` — Criteria and catalog for approved component-specific tokens, currently Tag
 - `product-overrides.md` — Brand-mode rules and product application combinations
