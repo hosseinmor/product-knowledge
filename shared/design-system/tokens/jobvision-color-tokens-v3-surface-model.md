@@ -42,6 +42,8 @@ Collections and modes:
 
 Components consume Semantic tokens by default. Approved component-specific families, currently Tag, are exposed through Component tokens.
 
+The complete mode-by-mode value graph is defined in `color-token-aliases.md`. This catalog remains the source of truth for token meaning and usage.
+
 ---
 
 ## Naming decision
@@ -79,6 +81,8 @@ color/green/*
 color/emerald/*
 color/orange/*
 color/yellow/*
+color/black-alpha/*
+color/white-alpha/*
 color/brand/jobvision/*
 color/brand/cando/*
 ```
@@ -118,7 +122,6 @@ accent/900
 accent/950
 
 content/on-accent
-focus
 ```
 
 All Brand values alias Primitive variables.
@@ -139,7 +142,7 @@ Jobvision → Primitives/color/neutral/0
 Cando     → Primitives/color/neutral/950
 ```
 
-`focus` belongs here only when focus treatment genuinely differs by brand.
+No Brand-level `focus` variable is currently defined. Focus remains Semantic and brand-independent until a real brand-specific treatment is approved.
 
 Do not put these in Brand:
 
@@ -193,7 +196,7 @@ Productive → Primitives/color/neutral/950
 Expressive → Primitives/color/neutral/900
 ```
 
-These values are provisional.
+These are the current Experience alias mappings. The complete resolution graph is defined in `color-token-aliases.md`.
 
 In the current version, Experience controls environment-level surface decisions such as canvas. It may later expand to typography strategy, density, layout rhythm, or selected component treatments.
 
@@ -288,7 +291,7 @@ Example:
 ```text
 surface-brand-emphasis
 Light → Brand/accent/600
-Dark  → Brand/accent/400
+Dark  → Brand/accent/600
 ```
 
 Foreground:
@@ -510,7 +513,7 @@ Rules:
 - Static Tags, labels, and metadata markers do not show hover treatment.
 - Tag colors must not communicate information, success, warning, or error. Use the matching Semantic support tokens for feedback status.
 - Tag tokens are owned by the Tag component and must not be reused as a general categorical palette by unrelated components.
-- Dark mappings are not yet approved and remain an open decision.
+- Light and Dark alias mappings are defined in `color-token-aliases.md`.
 
 ---
 
@@ -593,13 +596,10 @@ Semantic   → Light or Dark
 
 ## Open decisions
 
-1. Final Primitive values
-2. Final Light and Dark mappings
-3. Final Productive and Expressive canvas values
-4. CSS variables adoption
-5. Tailwind v3 implementation mapping
-6. Dual-layer focus treatment for media
-7. Whether Experience expands beyond canvas in the first implementation
-8. Final selected token values
-9. Final inverse surface states
-10. Final Dark mappings for Tag component tokens
+1. Final opaque Primitive scale values
+2. CSS variables adoption
+3. Tailwind v3 implementation mapping
+4. Dual-layer focus treatment for media
+5. Whether Experience expands beyond canvas in the first implementation
+6. Whether inverse surfaces require shared hover and active roles
+7. Accessibility approval of the current alias mappings before promotion from working draft to stable
