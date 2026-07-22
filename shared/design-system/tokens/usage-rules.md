@@ -4,11 +4,11 @@
 
 ## Allowed usage
 
-- Components consume Semantic tokens only.
+- Components consume Semantic tokens by default; use an approved Component token only for its documented owner component.
 - Select Brand, Experience, and Semantic modes independently.
 - Use Productive for operational product interfaces and Expressive for discovery, editorial, marketing, or other intentionally prominent experiences.
 - Use `canvas` only for the root page or workspace background.
-- Use `surface-*` for every UI background above canvas.
+- Use Semantic `surface-*` for every general UI background above canvas. The approved Tag component uses its own `tag-surface-*` family.
 - Document non-default mode combinations in the design specification.
 - Test every supported Brand × Experience × Semantic combination for accessibility.
 
@@ -28,7 +28,7 @@ Do not use `surface-muted` as an interactive control background.
 
 ## Prohibited usage
 
-- Do not consume Primitive, Brand, or Experience variables from components.
+- Do not consume Primitive, Brand, or Experience variables directly from component implementations. Approved Component tokens may alias documented Primitive or Semantic sources.
 - Do not encode mode or product names into Semantic token names.
 - Do not use deprecated `bg-*`, `fill-*`, `fg-on-fill`, `fg-on-primary`, `focus`, or `focus-ring` names for new work.
 - Do not let a mode change action meaning, validation, state meaning, or interaction behavior.
@@ -40,7 +40,7 @@ Do not use `surface-muted` as an interactive control background.
 - Semantic Light/Dark mappings must resolve the active Brand and Experience inputs.
 - If an intended Expressive mapping is not defined, use the approved Productive value and record the gap.
 - If a proposed value fails accessibility, use an accessible approved mapping.
-- Never fall back from Semantic directly to an arbitrary primitive at component level.
+- Never fall back from Semantic or an approved Component token to an arbitrary primitive in component implementation.
 
 ## Migration rules
 
@@ -50,5 +50,6 @@ Do not use `surface-muted` as an interactive control background.
 4. Update Figma and code references together when final implementation mappings are approved.
 5. Validate visual regression, contrast, focus, reduced motion, and supported themes.
 6. Record open values and mappings as open decisions; do not present provisional v3 values as final.
+7. Migrate the former categorical family to the approved `tag-surface-*`, `tag-fg-*`, and `tag-line-*` Component tokens; do not create new `categorical-*` names.
 
 See `architecture.md` and `jobvision-color-tokens-v3-surface-model.md`.
