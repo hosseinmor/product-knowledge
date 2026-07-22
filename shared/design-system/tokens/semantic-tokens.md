@@ -2,7 +2,7 @@
 
 > Status: draft
 
-Semantic tokens are the only color tokens consumed by components. Their role meaning remains stable across Brand, Experience, and Light/Dark modes.
+Semantic tokens are the default color interface consumed by components. Their role meaning remains stable across Brand, Experience, and Light/Dark modes.
 
 ## Resolution
 
@@ -11,10 +11,10 @@ Primitive Value
 → Brand: Jobvision or Cando
 → Experience: Productive or Expressive
 → Semantic: Light or Dark
-→ Component usage
+→ Component
 ```
 
-Brand and Experience provide inputs to Semantic mappings. Components never consume those collections directly.
+Brand and Experience provide inputs to Semantic mappings. Components never consume those collections directly. An approved Component token may alias a Primitive or Semantic source when no shared semantic role exists.
 
 ## Backgrounds
 
@@ -58,6 +58,10 @@ Information, success, warning, and error meanings are invariant across all modes
 ## Focus
 
 Use `focus-default` and `focus-inverse`. Focus must remain visible across every supported Brand × Experience × Semantic combination.
+
+## Component-owned exception
+
+Categorical Tag colors are component-owned rather than Semantic. Use the approved `tag-surface-*`, `tag-fg-*`, and `tag-line-*` families documented in `component-tokens.md`. They communicate grouping, not information, success, warning, or error.
 
 ## Source of truth
 
