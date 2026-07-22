@@ -26,6 +26,8 @@ The default path is:
 
 ```text
 Primitive tokens
+→ Brand
+→ Experience
 → Semantic tokens
 → Component usage
 ```
