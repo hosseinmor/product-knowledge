@@ -8,6 +8,7 @@ This section defines the token architecture, naming, semantics, Experience modes
 
 - `architecture.md` — Layer model, including the Productive and Expressive Experience modes
 - `primitive-tokens.md` — Raw design values
+- `color-tokens-v2.md` — Current color-token catalog, CSS values, Tailwind v4 mapping, override axes, and v1 migration map
 - `semantic-tokens.md` — Stable interface roles and mode resolution constraints
 - `component-tokens.md` — Criteria for justified component-specific tokens
 - `product-overrides.md` — Product and brand mapping rules
