@@ -14,7 +14,7 @@ Primitives
 → Brand
 → Experience
 → Semantic
-→ Component usage
+→ Component
 ```
 
 Collections and modes:
@@ -34,9 +34,13 @@ Collections and modes:
 04 Semantic
 - Light
 - Dark
+
+05 Component
+- Light
+- Dark
 ```
 
-Components consume Semantic tokens only.
+Components consume Semantic tokens by default. Approved component-specific families, currently Tag, are exposed through Component tokens.
 
 ---
 
@@ -69,8 +73,11 @@ Primitive variables contain raw values only:
 ```text
 color/neutral/*
 color/blue/*
+color/purple/*
 color/red/*
 color/green/*
+color/emerald/*
+color/orange/*
 color/yellow/*
 color/brand/jobvision/*
 color/brand/cando/*
@@ -435,6 +442,78 @@ focus-ring
 
 ---
 
+## Component tokens
+
+Modes:
+
+```text
+Light
+Dark
+```
+
+Component tokens are exceptional, component-owned roles. They may alias Semantic tokens or, when no shared semantic role exists, approved Primitive tokens. Components continue to use Semantic tokens unless an approved component family is documented here and in `component-tokens.md`.
+
+### Tag
+
+Tag colors communicate grouping or categorization, not feedback status. The approved variants are:
+
+```text
+neutral
+blue
+purple
+green
+orange
+```
+
+Each variant provides:
+
+```text
+tag-surface-{variant}
+tag-surface-{variant}-hover
+tag-fg-{variant}
+tag-line-{variant}
+```
+
+Example:
+
+```text
+tag-surface-blue
+tag-surface-blue-hover
+tag-fg-blue
+tag-line-blue
+```
+
+Figma variables use slash grouping inside the `05 Component` collection:
+
+```text
+tag/surface/blue
+tag/surface/blue-hover
+tag/fg/blue
+tag/line/blue
+```
+
+The flattened code names remain `tag-surface-blue`, `tag-surface-blue-hover`, `tag-fg-blue`, and `tag-line-blue`.
+
+Current Light mappings, carried forward from the v2 categorical family:
+
+| Variant | Surface | Hover | Foreground | Line |
+|---|---|---|---|---|
+| Neutral | `color/neutral/100` | `color/neutral/200` | `color/neutral/700` | `color/neutral/200` |
+| Blue | `color/blue/50` | `color/blue/100` | `color/blue/700` | `color/blue/200` |
+| Purple | `color/purple/50` | `color/purple/100` | `color/purple/700` | `color/purple/200` |
+| Green | `color/emerald/50` | `color/emerald/100` | `color/emerald/700` | `color/emerald/200` |
+| Orange | `color/orange/50` | `color/orange/100` | `color/orange/700` | `color/orange/200` |
+
+Rules:
+
+- Only interactive Tags use `tag-surface-{variant}-hover`.
+- Static Tags, labels, and metadata markers do not show hover treatment.
+- Tag colors must not communicate information, success, warning, or error. Use the matching Semantic support tokens for feedback status.
+- Tag tokens are owned by the Tag component and must not be reused as a general categorical palette by unrelated components.
+- Dark mappings are not yet approved and remain an open decision.
+
+---
+
 ## Button mapping
 
 | Preset | Rest | Hover | Active | Foreground |
@@ -523,3 +602,4 @@ Semantic   → Light or Dark
 7. Whether Experience expands beyond canvas in the first implementation
 8. Final selected token values
 9. Final inverse surface states
+10. Final Dark mappings for Tag component tokens
