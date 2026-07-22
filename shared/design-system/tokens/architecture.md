@@ -13,10 +13,10 @@ Primitive
 → Brand
 → Experience
 → Semantic
-→ Component usage
+→ Component
 ```
 
-Components consume Semantic tokens only. A component-specific token layer is exceptional and follows the criteria in `component-tokens.md`.
+Components consume Semantic tokens by default. An approved component-specific token layer is exceptional and follows the criteria in `component-tokens.md`; Tag is the first approved color family.
 
 ## Collections and modes
 
@@ -25,7 +25,8 @@ Components consume Semantic tokens only. A component-specific token layer is exc
 | Primitive | Value | Raw values with no UI meaning |
 | Brand | Jobvision, Cando | Accent ramp, on-accent content, and any genuinely brand-specific focus value |
 | Experience | Productive, Expressive | Environment-level choices such as canvas |
-| Semantic | Light, Dark | Stable UI roles consumed by components |
+| Semantic | Light, Dark | Stable shared UI roles consumed by components |
+| Component | Light, Dark | Approved component-owned roles; currently the Tag color family |
 
 ### Primitive
 
@@ -52,9 +53,21 @@ Semantic has Light and Dark modes and exposes stable roles such as `canvas`, `su
 
 Light/Dark is separate from Productive/Expressive. Changing either mode must not change action meaning, validation, interaction behavior, or accessibility requirements.
 
-### Component usage
+### Component
 
-Components use Semantic tokens only. A Primary Button remains Primary and a danger state remains danger across brands, experiences, and themes.
+Components use Semantic tokens by default. Approved Component tokens are allowed only when a stable component-owned role cannot be represented by the shared Semantic vocabulary.
+
+The first approved family is Tag:
+
+```text
+tag-surface-*
+tag-fg-*
+tag-line-*
+```
+
+Tag tokens communicate categorization rather than feedback status. They may alias approved Primitive values because no shared semantic category role exists. Other components must not reuse them as a general color palette.
+
+A Primary Button remains Primary and a danger state remains danger across brands, experiences, and themes.
 
 ## Experience mode rules
 
