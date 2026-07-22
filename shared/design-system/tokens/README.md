@@ -10,7 +10,7 @@ This section defines the token architecture, naming, semantics, Experience modes
 - `primitive-tokens.md` — Raw design values
 - `jobvision-color-tokens-v3-surface-model.md` — Current color-token catalog and canonical Surface-model specification
 - `semantic-tokens.md` — Stable interface roles and Light/Dark resolution constraints
-- `component-tokens.md` — Criteria for justified component-specific tokens
+- `component-tokens.md` — Criteria and catalog for approved component-specific tokens, currently Tag
 - `product-overrides.md` — Brand-mode rules and product application combinations
 - `usage-rules.md` — Experience selection, semantic consumption, fallbacks, and migration rules
 
@@ -21,7 +21,7 @@ Primitive
 → Brand
 → Experience
 → Semantic
-→ Component usage
+→ Component
 ```
 
-Components consume Semantic tokens only. Productive/Expressive and Light/Dark are separate mode dimensions; brand variation is resolved through the Brand collection.
+Components consume Semantic tokens by default. Approved component-owned exceptions are exposed through Component tokens; the current exception is the Tag color family. Productive/Expressive and Light/Dark are separate mode dimensions, and brand variation is resolved through the Brand collection.
