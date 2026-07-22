@@ -65,4 +65,4 @@ Categorical Tag colors are component-owned rather than Semantic. Use the approve
 
 ## Source of truth
 
-The complete current catalog, Button mappings, deprecations, Figma collection structure, and open implementation decisions are defined in `jobvision-color-tokens-v3-surface-model.md`.
+The complete token catalog, Button mappings, deprecations, Figma collection structure, and open implementation decisions are defined in `jobvision-color-tokens-v3-surface-model.md`. The mode-by-mode alias targets are defined separately in `color-token-aliases.md`.

@@ -49,7 +49,7 @@ In v3, Experience initially controls `canvas/light` and `canvas/dark`. Expansion
 
 ### Semantic
 
-Semantic has Light and Dark modes and exposes stable roles such as `canvas`, `surface-*`, `fg-*`, `line-*`, and `focus-*`. It aliases the active Brand and Experience values where required.
+Semantic has Light and Dark modes and exposes stable roles such as `canvas`, `surface-*`, `fg-*`, `line-*`, and `focus-*`. It aliases the active Brand and Experience values where required. The complete mode-by-mode graph is defined in `color-token-aliases.md`.
 
 Light/Dark is separate from Productive/Expressive. Changing either mode must not change action meaning, validation, interaction behavior, or accessibility requirements.
 
@@ -87,6 +87,7 @@ The current color vocabulary is defined in `jobvision-color-tokens-v3-surface-mo
 ## References
 
 - `jobvision-color-tokens-v3-surface-model.md`
+- `color-token-aliases.md`
 - `primitive-tokens.md`
 - `semantic-tokens.md`
 - `component-tokens.md`

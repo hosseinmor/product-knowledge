@@ -52,4 +52,4 @@ Do not use `surface-muted` as an interactive control background.
 6. Record open values and mappings as open decisions; do not present provisional v3 values as final.
 7. Migrate the former categorical family to the approved `tag-surface-*`, `tag-fg-*`, and `tag-line-*` Component tokens; do not create new `categorical-*` names.
 
-See `architecture.md` and `jobvision-color-tokens-v3-surface-model.md`.
+See `architecture.md`, `jobvision-color-tokens-v3-surface-model.md`, and `color-token-aliases.md`.

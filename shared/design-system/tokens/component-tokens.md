@@ -162,7 +162,7 @@ Rules:
 - Only interactive Tags use `tag-surface-{variant}-hover`.
 - Information, success, warning, and error Tags use Semantic support tokens instead.
 - Other components must not consume the Tag family as a general-purpose categorical palette.
-- Light mappings are defined in `jobvision-color-tokens-v3-surface-model.md`; Dark mappings are still open.
+- Light and Dark mappings are defined in `color-token-aliases.md`.
 
 ## Inappropriate Uses
 
