@@ -400,6 +400,43 @@ fg-on-primary
 
 ---
 
+## Link
+
+Figma variables:
+
+```text
+link/default
+link/hover
+link/visited
+link/emphasis
+link/emphasis-hover
+link/inverse
+```
+
+Flattened code names:
+
+```text
+link-default
+link-hover
+link-visited
+link-emphasis
+link-emphasis-hover
+link-inverse
+```
+
+There are two link roles:
+
+- `default`: the normal neutral link. Its affordance comes from underline, placement, or context rather than brand color.
+- `emphasis`: a higher-emphasis, product-specific link. It must not alias `fg-brand` directly because Cando's yellow accent is not a suitable link text color.
+
+`visited` is the persistent state for a previously opened destination. It replaces the incorrectly named `active`; pressed interaction must not use the visited token.
+
+`inverse` adapts the default link for use on `surface-inverse` and is not a third link role.
+
+Alias values for the Link family remain open and must be added to `color-token-aliases.md` after contrast testing.
+
+---
+
 ## Line
 
 ```text
@@ -565,6 +602,7 @@ fg-on-primary           → fg-on-emphasis
 fg-on-fill              → role-specific foreground
 
 focus                   → focus-default
+link-active             → link-visited
 ```
 
 ---
@@ -603,3 +641,4 @@ Semantic   → Light or Dark
 5. Whether Experience expands beyond canvas in the first implementation
 6. Whether inverse surfaces require shared hover and active roles
 7. Accessibility approval of the current alias mappings before promotion from working draft to stable
+8. Final Link alias mappings and contrast validation for default, emphasis, visited, and inverse treatments
