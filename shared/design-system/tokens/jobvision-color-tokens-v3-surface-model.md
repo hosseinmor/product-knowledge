@@ -40,7 +40,18 @@ Collections and modes:
 - Dark
 ```
 
-Components consume Semantic tokens by default. Approved component-specific families, currently Tag, are exposed through Component tokens.
+Approved color-token inventory:
+
+| Collection | Variables |
+|---|---:|
+| `02 Brand` | 12 |
+| `03 Experience` | 2 |
+| `04 Semantic` | 89 |
+| `05 Component` | 20 |
+
+The Primitive count is intentionally not fixed by this catalog.
+
+Components consume Semantic tokens by default. Approved component-specific families, currently Tag, are exposed through Component tokens. Figma variable names use slash grouping; code flattens `/` to `-`.
 
 The complete mode-by-mode value graph is defined in `color-token-aliases.md`. This catalog remains the source of truth for token meaning and usage.
 
@@ -265,7 +276,7 @@ Use for high-emphasis neutral actions such as Primary Button.
 Foreground:
 
 ```text
-fg-on-emphasis
+fg-on-color
 ```
 
 ### Transparent interaction states
@@ -273,9 +284,13 @@ fg-on-emphasis
 ```text
 surface-transparent-hover
 surface-transparent-active
+surface-transparent-inverse-hover
+surface-transparent-inverse-active
 ```
 
-Use when rest is transparent, such as Tertiary, Ghost, toolbar actions, and lightweight icon controls.
+Use `surface-transparent-hover/active` when rest is transparent on normal surfaces, such as Tertiary, Ghost, toolbar actions, and lightweight icon controls.
+
+Use `surface-transparent-inverse-hover/active` for the same interaction on `surface-inverse`.
 
 ### Brand surfaces
 
@@ -300,6 +315,17 @@ Foreground:
 fg-on-brand → Brand/content/on-accent
 ```
 
+### Magic surfaces
+
+```text
+surface-magic-muted
+surface-magic-emphasis
+surface-magic-emphasis-hover
+surface-magic-emphasis-active
+```
+
+Magic is reserved for AI-assisted, generated, or explicitly magical product experiences. It must not replace Brand, Selected, or Support meaning.
+
 ### Selected surfaces
 
 ```text
@@ -310,15 +336,24 @@ surface-selected-muted-active
 surface-selected-emphasis
 surface-selected-emphasis-hover
 surface-selected-emphasis-active
+
+surface-selected-disabled
+
+surface-selected-inverse
+surface-selected-inverse-hover
+surface-selected-inverse-active
 ```
+
+Use `surface-selected-disabled` when a selected control becomes disabled. Use the inverse family when selection appears on `surface-inverse`.
 
 Foreground:
 
 ```text
-fg-on-selected
+fg-on-color
+fg-on-color-disabled
 ```
 
-Brand and selected remain separate semantic roles.
+Brand and selected remain separate semantic roles even when they share a foreground token.
 
 ### Disabled surface
 
@@ -342,11 +377,13 @@ Danger is for destructive actions. Error is for validation or system conditions.
 ### Support surfaces
 
 ```text
-surface-info
-surface-success
-surface-warning
-surface-error
+surface-info-muted
+surface-success-muted
+surface-warning-muted
+surface-error-muted
 ```
+
+The `muted` segment is explicit because these tokens are low-emphasis Support backgrounds, not filled actions.
 
 Matching roles:
 
@@ -369,47 +406,104 @@ line-error
 ```text
 fg-primary
 fg-secondary
-fg-subtle
+fg-tertiary
+fg-placeholder
 fg-disabled
-fg-inverse
+
+fg-on-inverse
+fg-on-brand
+fg-on-color
+fg-on-color-disabled
 
 fg-brand
-fg-on-brand
-fg-on-emphasis
-fg-on-selected
-
+fg-magic
 fg-danger
+
 fg-info
 fg-success
 fg-warning
 fg-error
+
+fg-info-inverse
+fg-success-inverse
+fg-warning-inverse
+fg-error-inverse
 ```
 
 Rules:
 
-- `fg-on-brand` is brand-dependent.
-- Cando may use a dark foreground on yellow brand surfaces.
-- `fg-on-selected` remains separate from `fg-on-brand`.
+- `fg-tertiary` is the lowest general-purpose text/icon emphasis. Do not restore `fg-subtle`.
+- `fg-placeholder` is a distinct input role and must not be substituted with `fg-tertiary`.
+- `fg-on-inverse` is neutral content on `surface-inverse`.
+- `fg-on-brand` is brand-dependent; Cando may use a dark foreground on yellow brand surfaces.
+- `fg-on-color` is shared content on strong neutral, danger, magic, or selected color surfaces.
+- `fg-on-color-disabled` is the disabled counterpart for content that remains on a colored or selected surface.
+- `fg/*-inverse` is colored Support content on a neutral inverse surface; it is not a replacement for `fg-on-color`.
 
 Deprecated:
 
 ```text
-fg-on-fill
-fg-on-primary
+fg-subtle      → fg-tertiary
+fg-inverse     → fg-on-inverse
+fg-on-emphasis → fg-on-color
+fg-on-selected → fg-on-color
+fg-on-fill     → role-specific foreground
+fg-on-primary  → fg-on-color
 ```
+
+---
+
+## Link
+
+Figma variables:
+
+```text
+link/default
+link/hover
+link/visited
+link/emphasis
+link/emphasis-hover
+link/inverse
+link/inverse-hover
+```
+
+Flattened code names:
+
+```text
+link-default
+link-hover
+link-visited
+link-emphasis
+link-emphasis-hover
+link-inverse
+link-inverse-hover
+```
+
+There are two link roles:
+
+- `default`: the normal neutral link. Its affordance comes from underline, placement, or context rather than brand color.
+- `emphasis`: a higher-emphasis, product-specific link. It must not alias `fg-brand` directly because Cando's yellow accent is not a suitable link text color.
+
+`visited` is the persistent state for a previously opened destination. It replaces the incorrectly named `active`; pressed interaction must not use the visited token.
+
+`inverse` adapts the default link for use on `surface-inverse` and is not a third link role. Interactive inverse links use `link/inverse-hover` on hover.
+
+The Link variables are recorded in `color-token-aliases.md`; their unresolved Alias values remain marked `TBD` pending the approved Figma Alias export and contrast testing.
 
 ---
 
 ## Line
 
 ```text
-line-subtle
+line-muted
 line-default
-line-strong
+line-emphasis
 line-disabled
+line-inverse
 
 line-brand
 line-selected
+line-magic
 line-danger
 
 line-info
@@ -419,6 +513,13 @@ line-error
 ```
 
 Use `line-*` instead of `border-*` to avoid conflict with Tailwind utilities.
+
+Deprecated:
+
+```text
+line-subtle → line-muted
+line-strong → line-emphasis
+```
 
 ---
 
@@ -434,7 +535,7 @@ Rules:
 - Independent from component tone
 - Visible across supported surfaces
 - Cando yellow must not be the sole focus indicator
-- Dual-layer media focus remains an open decision
+- Single-layer by default; dual-layer media focus remains an open decision
 
 Deprecated:
 
@@ -442,6 +543,38 @@ Deprecated:
 focus
 focus-ring
 ```
+
+---
+
+## Utility
+
+These roles live in `04 Semantic`, outside the Surface family.
+
+### Highlight
+
+```text
+highlight-default
+highlight-inverse
+```
+
+Use for matched text, search results, or temporary textual emphasis. Do not use Highlight for Warning or Selected state.
+
+### Overlay
+
+```text
+overlay-default
+```
+
+Use for modal, sheet, and dialog backdrops. No separate `scrim` role is approved in v3.
+
+### Skeleton
+
+```text
+skeleton-base
+skeleton-shimmer
+```
+
+`skeleton-base` is the stable body. `skeleton-shimmer` is the moving highlight layer.
 
 ---
 
@@ -522,9 +655,9 @@ Rules:
 | Preset | Rest | Hover | Active | Foreground |
 |---|---|---|---|---|
 | Accent | `surface-brand-emphasis` | `surface-brand-emphasis-hover` | `surface-brand-emphasis-active` | `fg-on-brand` |
-| Primary | `surface-emphasis` | `surface-emphasis-hover` | `surface-emphasis-active` | `fg-on-emphasis` |
+| Primary | `surface-emphasis` | `surface-emphasis-hover` | `surface-emphasis-active` | `fg-on-color` |
 | Secondary | `surface-control` | `surface-control-hover` | `surface-control-active` | `fg-primary` |
-| Danger Filled | `surface-danger-emphasis` | `surface-danger-emphasis-hover` | `surface-danger-emphasis-active` | `fg-on-emphasis` |
+| Danger Filled | `surface-danger-emphasis` | `surface-danger-emphasis-hover` | `surface-danger-emphasis-active` | `fg-on-color` |
 
 | Preset | Rest | Hover | Active | Foreground | Line |
 |---|---|---|---|---|---|
@@ -560,11 +693,29 @@ surface-hover           → surface-transparent-hover
 surface-active          → surface-transparent-active
 surface-muted-hover     → surface-control-hover
 surface-muted-active    → surface-control-active
+surface-info            → surface-info-muted
+surface-success         → surface-success-muted
+surface-warning         → surface-warning-muted
+surface-error           → surface-error-muted
 
-fg-on-primary           → fg-on-emphasis
+fg-subtle               → fg-tertiary
+fg-inverse              → fg-on-inverse
+fg-on-emphasis          → fg-on-color
+fg-on-selected          → fg-on-color
+fg-on-primary           → fg-on-color
 fg-on-fill              → role-specific foreground
 
+line-subtle             → line-muted
+line-strong             → line-emphasis
+
 focus                   → focus-default
+highlight               → highlight-default
+overlay                 → overlay-default
+skeleton-element        → skeleton-base
+skeleton-background     → skeleton-shimmer
+
+link-active             → link-visited
+link-default-hover      → link-hover
 ```
 
 ---
@@ -601,5 +752,5 @@ Semantic   → Light or Dark
 3. Tailwind v3 implementation mapping
 4. Dual-layer focus treatment for media
 5. Whether Experience expands beyond canvas in the first implementation
-6. Whether inverse surfaces require shared hover and active roles
+6. Final unresolved Alias values, especially Link and `fg-on-color-disabled`
 7. Accessibility approval of the current alias mappings before promotion from working draft to stable

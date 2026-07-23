@@ -22,11 +22,11 @@ Components consume Semantic tokens by default. An approved component-specific to
 
 | Collection | Modes | Responsibility |
 |---|---|---|
-| Primitive | Value | Raw values with no UI meaning |
-| Brand | Jobvision, Cando | Accent ramp, on-accent content, and any genuinely brand-specific focus value |
-| Experience | Productive, Expressive | Environment-level choices such as canvas |
-| Semantic | Light, Dark | Stable shared UI roles consumed by components |
-| Component | Light, Dark | Approved component-owned roles; currently the Tag color family |
+| `01 Primitives` | Value | Raw values with no UI meaning |
+| `02 Brand` | Jobvision, Cando | 12 variables: accent ramp and on-accent content |
+| `03 Experience` | Productive, Expressive | 2 variables: environment-level canvas aliases |
+| `04 Semantic` | Light, Dark | 89 stable shared UI roles consumed by components |
+| `05 Component` | Light, Dark | 20 approved Tag color variables |
 
 ### Primitive
 
@@ -49,7 +49,7 @@ In v3, Experience initially controls `canvas/light` and `canvas/dark`. Expansion
 
 ### Semantic
 
-Semantic has Light and Dark modes and exposes stable roles such as `canvas`, `surface-*`, `fg-*`, `line-*`, and `focus-*`. It aliases the active Brand and Experience values where required. The complete mode-by-mode graph is defined in `color-token-aliases.md`.
+Semantic has Light and Dark modes and exposes 89 stable roles across `canvas`, `surface-*`, `fg-*`, `line-*`, `link-*`, Focus, Highlight, Overlay, and Skeleton. It aliases the active Brand and Experience values where required. The complete mode-by-mode graph is defined in `color-token-aliases.md`.
 
 Light/Dark is separate from Productive/Expressive. Changing either mode must not change action meaning, validation, interaction behavior, or accessibility requirements.
 
