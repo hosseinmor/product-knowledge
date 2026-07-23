@@ -20,7 +20,13 @@ Low-emphasis selected
 → surface-selected-muted
 
 Strong selected or on/checked
-→ surface-selected-emphasis + fg-on-selected
+→ surface-selected-emphasis + fg-on-color
+
+Selected on inverse
+→ surface-selected-inverse + fg-on-inverse
+
+Selected and disabled
+→ surface-selected-disabled + fg-on-color-disabled
 ```
 
 Selected and brand roles must remain separate.
