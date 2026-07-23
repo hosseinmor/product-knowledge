@@ -34,22 +34,33 @@ surface-inverse
 surface-control-*
 surface-emphasis-*
 surface-transparent-*
+surface-transparent-inverse-*
 surface-brand-*
+surface-magic-*
 surface-selected-*
+surface-selected-inverse-*
 surface-disabled
 surface-danger-*
-surface-{info|success|warning|error}
+surface-{info|success|warning|error}-muted
 ```
 
 `surface-muted` is passive and has no interaction states. `surface-control` is the visible neutral interactive background. The `bg-*` and `fill-*` families are deprecated.
 
 ## Foreground
 
-Use `fg-*` for text and icons. On-surface pairings such as `fg-on-brand`, `fg-on-emphasis`, and `fg-on-selected` remain distinct because their contrast mappings can diverge.
+Use `fg-*` for text and icons.
+
+- General hierarchy: `fg-primary`, `fg-secondary`, `fg-tertiary`
+- Input role: `fg-placeholder`
+- Contextual content: `fg-on-inverse`, `fg-on-brand`, `fg-on-color`, `fg-on-color-disabled`
+- Semantic color: Brand, Magic, Danger, and Support roles
+- Colored Support on inverse surfaces: `fg-{info|success|warning|error}-inverse`
+
+`fg-subtle`, `fg-inverse`, `fg-on-emphasis`, and `fg-on-selected` are deprecated.
 
 ## Line
 
-Use `line-*` for borders, dividers, and indicators. Do not use `border-*` as the source-token family because it conflicts with Tailwind utilities.
+Use `line-*` for borders, dividers, and indicators. The neutral hierarchy is `line-muted`, `line-default`, and `line-emphasis`; `line-inverse` is for inverse surfaces. Do not use `border-*` as the source-token family because it conflicts with Tailwind utilities.
 
 ## Support
 
@@ -58,6 +69,20 @@ Information, success, warning, and error meanings are invariant across all modes
 ## Focus
 
 Use `focus-default` and `focus-inverse`. Focus must remain visible across every supported Brand × Experience × Semantic combination.
+
+## Link and utility roles
+
+Link provides Default, Hover, Visited, Emphasis, Emphasis Hover, Inverse, and Inverse Hover roles.
+
+Highlight, Overlay, and Skeleton remain Semantic utilities:
+
+```text
+highlight-default
+highlight-inverse
+overlay-default
+skeleton-base
+skeleton-shimmer
+```
 
 ## Component-owned exception
 
