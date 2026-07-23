@@ -411,6 +411,7 @@ link/visited
 link/emphasis
 link/emphasis-hover
 link/inverse
+link/inverse-hover
 ```
 
 Flattened code names:
@@ -422,6 +423,7 @@ link-visited
 link-emphasis
 link-emphasis-hover
 link-inverse
+link-inverse-hover
 ```
 
 There are two link roles:
@@ -431,7 +433,7 @@ There are two link roles:
 
 `visited` is the persistent state for a previously opened destination. It replaces the incorrectly named `active`; pressed interaction must not use the visited token.
 
-`inverse` adapts the default link for use on `surface-inverse` and is not a third link role.
+`inverse` adapts the default link for use on `surface-inverse` and is not a third link role. Interactive inverse links use `link/inverse-hover` on hover.
 
 Alias values for the Link family remain open and must be added to `color-token-aliases.md` after contrast testing.
 
@@ -641,4 +643,4 @@ Semantic   → Light or Dark
 5. Whether Experience expands beyond canvas in the first implementation
 6. Whether inverse surfaces require shared hover and active roles
 7. Accessibility approval of the current alias mappings before promotion from working draft to stable
-8. Final Link alias mappings and contrast validation for default, emphasis, visited, and inverse treatments
+8. Final Link alias mappings and contrast validation for default, emphasis, visited, inverse, and inverse-hover treatments
