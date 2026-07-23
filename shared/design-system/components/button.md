@@ -363,9 +363,9 @@ Every Icon Button without visible text needs an accessible name. Tooltip does no
 | Preset | Background | Hover | Active | Foreground |
 |---|---|---|---|---|
 | Accent | `surface-brand-emphasis` | `surface-brand-emphasis-hover` | `surface-brand-emphasis-active` | `fg-on-brand` |
-| Primary | `surface-emphasis` | `surface-emphasis-hover` | `surface-emphasis-active` | `fg-on-emphasis` |
+| Primary | `surface-emphasis` | `surface-emphasis-hover` | `surface-emphasis-active` | `fg-on-color` |
 | Secondary | `surface-control` | `surface-control-hover` | `surface-control-active` | `fg-primary` |
-| Danger Filled | `surface-danger-emphasis` | `surface-danger-emphasis-hover` | `surface-danger-emphasis-active` | `fg-on-emphasis` |
+| Danger Filled | `surface-danger-emphasis` | `surface-danger-emphasis-hover` | `surface-danger-emphasis-active` | `fg-on-color` |
 
 ### Outline
 
@@ -440,7 +440,13 @@ Low-emphasis selected
 → surface-selected-muted
 
 Strong selected or on/checked
-→ surface-selected-emphasis + fg-on-selected
+→ surface-selected-emphasis + fg-on-color
+
+Selected on inverse
+→ surface-selected-inverse + fg-on-inverse
+
+Selected and disabled
+→ surface-selected-disabled + fg-on-color-disabled
 ```
 
 Selected and brand roles must remain separate even when they look similar in a product theme.
