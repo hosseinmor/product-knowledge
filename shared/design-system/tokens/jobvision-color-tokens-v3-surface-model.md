@@ -445,8 +445,8 @@ Deprecated:
 ```text
 fg-subtle      → fg-tertiary
 fg-inverse     → fg-on-inverse
-fg-on-color → fg-on-color
-fg-on-color → fg-on-color
+fg-on-emphasis → fg-on-color
+fg-on-selected → fg-on-color
 fg-on-fill     → role-specific foreground
 fg-on-primary  → fg-on-color
 ```
