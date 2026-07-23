@@ -18,6 +18,28 @@ A Link may visually resemble a Button, but it must preserve:
 
 Use Button when the control changes state or performs an operation in the current context.
 
+## Token Roles
+
+```text
+link-default
+link-hover
+link-visited
+
+link-emphasis
+link-emphasis-hover
+
+link-inverse
+link-inverse-hover
+```
+
+- Default is the normal Link role.
+- Hover is the pointer-hover state of Default.
+- Visited is the persistent state for a destination that has already been opened. Do not use it for pressed/active interaction.
+- Emphasis is the higher-emphasis product Link role.
+- Inverse adapts Default for `surface-inverse`; it is contextual, not a third Link role.
+
+Figma uses slash-grouped variables such as `link/default` and `link/inverse-hover`. Code uses the flattened names above.
+
 ## Button-Styled Links
 
 Button styling does not change the element type.
