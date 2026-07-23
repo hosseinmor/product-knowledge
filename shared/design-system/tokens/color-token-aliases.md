@@ -144,7 +144,7 @@ The emphasis ramp stays stable across themes because `Brand/content/on-accent` h
 | `surface/warning-muted` | `color/yellow/50` | `color/yellow/950` |
 | `surface/error-muted` | `color/red/50` | `color/red/950` |
 
-Dark danger emphasis uses a light red ramp so the shared Dark `fg/on-emphasis` pairing remains contrast-safe. Danger meaning remains separate from Error even where Primitive aliases overlap.
+Dark danger emphasis uses a light red ramp so the shared Dark `fg/on-color` pairing remains contrast-safe. Danger meaning remains separate from Error even where Primitive aliases overlap.
 
 ### Foreground
 
