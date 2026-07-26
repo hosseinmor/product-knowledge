@@ -17,7 +17,7 @@ ats/
 
 Create Domain and Decision documents only when their additional responsibility is needed.
 
-Major user journeys normally live inside `product-overview.md`. Add an optional `journeys/` folder only when a complex end-to-end journey requires independent documentation and ownership.
+Major user journeys live inside `product-overview.md`. Do not create a `journeys/` folder in the default Product Knowledge structure.
 
 Actors, user outcomes, triggers, preconditions, rules, states, and lifecycles live inside their owning Product overview, Capability, Flow, or Domain documents rather than in separate folders.
 
