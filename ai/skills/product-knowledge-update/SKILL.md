@@ -53,7 +53,7 @@ Extract:
 - Capability or affected product area
 - Released change
 - Actors and roles
-- Scenarios covered
+- Usage contexts covered
 - Source documents
 - Release status
 
@@ -69,9 +69,9 @@ Use the generated manifest to discover the smallest sufficient set of documents,
 - Product overview
 - Capability
 - Flow
-- Domain
-- Journey
-- Accepted Decisions
+- Domain when stable business truth is involved
+- Accepted Decision when durable rationale is involved
+- Optional Journey when a complex end-to-end journey has independent documentation
 
 Check document metadata before using the content:
 
@@ -110,6 +110,9 @@ suspected-bug
 For each changed fact, first identify its canonical owner:
 
 ```text
+Product overview
+→ product purpose, boundaries, major capabilities, and major user journeys
+
 Domain
 → stable business rules, permissions, lifecycle constraints, and entity relationships
 
@@ -117,13 +120,13 @@ Capability
 → product ability, actors, entry points, capability-specific states, and high-level behavior
 
 Flow
-→ scenario steps, transitions, validations, alternate paths, errors, and recovery
-
-Journey
-→ end-to-end user stages and major cross-capability transitions
+→ actor, goal, trigger, preconditions, steps, transitions, validations, alternate paths, errors, and recovery
 
 Decision
 → durable approved rationale requiring historical context
+
+Optional Journey
+→ a complex end-to-end journey only when it has independent canonical documentation
 
 Shared
 → cross-product knowledge whose meaning and ownership are consistent across products
@@ -139,6 +142,8 @@ For each relevant document choose:
 
 Do not duplicate the changed fact across all related documents. Update the owner, then update references or applications only where needed.
 
+Do not create standalone User Goal, Scenario, Rule, State, Lifecycle, or Subdomain documents. Represent those concepts inside their owning Product overview, Capability, Flow, or Domain.
+
 ### 5. Evaluate Decision impact
 
 A working decision, Jira item, meeting outcome, or PRD statement does not automatically require a canonical Decision document.
@@ -151,7 +156,7 @@ Create or update a Decision only when the approved rationale is durable, such as
 - Is likely to be questioned or reopened later
 - Affects several canonical documents
 
-The Decision records why the choice was made. The relevant Domain, Capability, Journey, or Flow still owns the resulting current behavior.
+The Decision records why the choice was made. The relevant Product overview, Domain, Capability, Flow, or optional Journey still owns the resulting current behavior.
 
 When a new Decision replaces an old one:
 
@@ -192,11 +197,12 @@ Require explicit human review for:
 - Entity relationship changes
 - Removal of an existing rule
 - Change from current to intended behavior
-- Generalization from one role or scenario to all users
+- Generalization from one role or usage context to all users
 - Conflicts between PRD and production
 - Moving product-specific knowledge into `shared/`
 - Changing canonical ownership of an existing fact
 - Accepting, superseding, or deprecating a Decision
+- Promoting a Product-overview journey into an independent Journey document
 
 ### 8. Present a reviewable diff
 
