@@ -9,7 +9,7 @@ The AI performs:
 - Product Knowledge discovery
 - Context gathering
 - Problem and scope structuring
-- Actor and scenario extraction
+- Actor and usage-context extraction
 - Dependency analysis
 - Assumption detection
 - Blocking-question prioritization
@@ -69,12 +69,12 @@ Use the generated manifest to discover the smallest sufficient set of documents,
 
 - Shared Product Knowledge
 - Product overview
-- Related journeys
-- Related capabilities
-- Related flows
-- Related domains
-- Accepted decisions
-- Design system patterns
+- Related Capabilities
+- Related Flows
+- Related Domains when business constraints matter
+- Accepted Decisions when prior rationale matters
+- Optional complex Journey documents when explicitly related
+- Design-system patterns
 - Content and product standards
 
 Prefer `knowledge_state: canonical` documents. Treat `observed` knowledge as unconfirmed and surface it explicitly.
@@ -94,7 +94,7 @@ Use this structure:
 ## Proposed Scope
 ### In Scope
 ### Out of Scope
-## Actors and Main Scenarios
+## Actors and Main Usage Contexts
 ## Existing Rules and Constraints
 ## Dependencies
 ## Assumptions
@@ -136,7 +136,7 @@ For each blocking question provide:
 Route decisions to:
 
 - Product behavior or scope → PM
-- Interaction or journey → Designer
+- Interaction or end-to-end journey → Designer
 - Technical feasibility or constraint → Tech
 - Cross-functional rule → PM + Tech
 
@@ -169,7 +169,7 @@ Use this structure unless the team provides another template:
 ### In Scope
 ### Out of Scope
 ## Actors
-## User Scenarios
+## Usage Contexts
 ## Functional Requirements
 ## Business Rules
 ## Permissions
@@ -196,6 +196,7 @@ Verify that:
 - Permissions and lifecycle transitions are explicit
 - Existing Capabilities are not confused with proposed backlog work
 - Accepted Decisions that constrain the change are respected or explicitly reconsidered
+- Major journey impact is reflected in the Product overview or an optional Journey document
 - Open questions remain visible
 - Out-of-scope items are explicit
 
@@ -229,3 +230,4 @@ Humans are responsible for:
 - Do not update canonical Product Knowledge before release
 - Do not treat a PRD as canonical current-product behavior
 - Do not treat Jira Epic, Feature, Story, or Task hierarchy as the Product Knowledge structure
+- Do not create standalone User Goal, Scenario, Rule, State, or Lifecycle documents
