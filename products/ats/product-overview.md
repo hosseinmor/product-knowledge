@@ -1,15 +1,26 @@
 ---
 id: ats
 type: product
-status: draft
+product: ats
+title: ATS
+summary: Defines the ATS purpose, primary users, boundaries, major capabilities, major user journeys, and key business areas.
+knowledge_state: canonical
+document_maturity: draft
+related: []
 ---
 
 # ATS
 
 ## Purpose
-## Primary Users
-## Main Capabilities
-## Product Boundaries
-## Key Concepts
-## Related Journeys
-## Related Domains
+
+## Primary users
+
+## Product boundaries
+
+## Main capabilities
+
+## Major user journeys
+
+## Key business concepts and domains
+
+## Related decisions
