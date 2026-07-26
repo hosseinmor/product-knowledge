@@ -25,6 +25,12 @@ Temporary product work, initiative drafts, PRD drafts, recordings, screenshots, 
 - Product-specific rules remain inside the relevant product.
 - AI prepares documentation changes; humans approve semantic decisions and final diffs.
 
+## Knowledge model
+
+The repository separates business truth, user experience, capability, behavior, and decision history into related document types.
+
+See [`knowledge-model.md`](knowledge-model.md) for the canonical definitions of Product, Domain, Subdomain, Journey, Task, Scenario, Feature, Flow, lifecycle, Rule, Decision, Shared knowledge, and design-system concepts.
+
 ## Main workflows
 
 ### Initiative to PRD
