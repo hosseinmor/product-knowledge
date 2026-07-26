@@ -23,9 +23,10 @@ The goal is to retrieve the smallest sufficient and trustworthy context for the 
 2. Read manifest.generated.json
 3. Filter by product, document type, summary, actors, and related IDs
 4. Read the relevant product-overview.md
-5. Read the smallest sufficient set of canonical documents
-6. Follow related IDs when additional context is required
-7. Report conflicts, observed knowledge, stale verification, and missing documents
+5. Read the smallest sufficient set of Capabilities and Flows
+6. Read Domain rules and accepted Decisions only when relevant
+7. Read a separate Journey only when the Product overview or relationships identify one
+8. Report conflicts, observed knowledge, stale verification, and missing documents
 ```
 
 ## Context by task type
@@ -36,10 +37,10 @@ Read:
 
 ```text
 Product overview
-→ relevant Journeys
-→ relevant Domains
-→ existing Capabilities
-→ accepted Decisions
+→ relevant Capabilities
+→ relevant Domains when business constraints matter
+→ accepted Decisions when prior rationale matters
+→ optional complex Journey when explicitly related
 ```
 
 Use this context to understand current boundaries, known behavior, durable constraints, and decisions that should not be reopened without evidence.
@@ -52,15 +53,15 @@ Read:
 
 ```text
 Product overview
-→ Journey
 → Capability
-→ Flow
+→ relevant Flow
 → referenced Domain rules
 → relevant design-system and content standards
 → accepted Decisions
+→ optional complex Journey when end-to-end context is not sufficient in the Product overview
 ```
 
-Use the Journey for end-to-end outcome context, the Capability for current product ability, the Flow for scenario behavior, and the Domain for rules that must remain true.
+Use the Product overview for product and major-journey context, the Capability for current product ability, the Flow for concrete behavior, and the Domain for rules that must remain true.
 
 ### Requirements and delivery preparation
 
@@ -84,10 +85,11 @@ Read:
 ```text
 Released change evidence
 → affected Capability or Flow
-→ owning Domain rules
-→ related Journey
+→ owning Domain rules when applicable
+→ Product overview when boundaries or major journeys changed
 → affected Decisions
 → related shared knowledge
+→ optional Journey only when it owns a complex end-to-end fact
 ```
 
 Update only documents whose owned facts changed. Do not copy the same rule into every related document.
@@ -120,20 +122,23 @@ When sources conflict:
 Before using or changing a fact, identify its owner:
 
 ```text
+Product purpose, boundary, major capabilities, and major user journeys
+→ Product overview
+
 Stable business rule, permission, entity relationship, or lifecycle
 → Domain
 
 Durable product ability, entry point, availability, or capability-specific state
 → Capability
 
-Scenario steps, branch, validation, error, or recovery behavior
+Behavioral step, branch, validation, error, or recovery path
 → Flow
-
-End-to-end stages and cross-capability transition
-→ Journey
 
 Approved rationale and historical trade-off
 → Decision
+
+Complex end-to-end journey with independent documentation
+→ optional Journey
 
 Cross-product rule with genuinely shared meaning
 → Shared knowledge
@@ -159,6 +164,21 @@ related
 last_verified
 ```
 
+Supported primary types are:
+
+```text
+product
+domain
+capability
+flow
+decision
+shared
+```
+
+`journey` is supported only for optional complex Journey documents.
+
+User goals, usage contexts, rules, states, and lifecycles are represented inside their owning documents and are not standalone retrieval types.
+
 The generated manifest must be rebuilt when metadata, document paths, or relationships change.
 
 The manifest is an index. It is not a source of product rules.
@@ -178,7 +198,7 @@ When a document appears stale:
 
 Stop expanding context when:
 
-- The actor, scenario, current behavior, governing rules, and relevant rationale are clear.
+- The actor, goal, trigger, current behavior, governing rules, and relevant rationale are clear.
 - Additional related documents do not materially affect the task.
 - The next dependency requires unavailable source material or a human decision.
 
