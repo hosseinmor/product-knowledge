@@ -9,27 +9,32 @@ shared/
 → Knowledge that is consistent across multiple products
 
 products/
-→ Product-specific journeys, flows, features, domains, and decisions
+→ Product-specific journeys, flows, capabilities, domains, and decisions
 
 ai/
-→ Stable AI workflows that consume and update Product Knowledge
+→ Stable AI workflows that discover, consume, and update Product Knowledge
 ```
 
 Temporary product work, initiative drafts, PRD drafts, recordings, screenshots, and walkthrough notes belong in the separate `product-work` repository.
 
 ## Main principles
 
-- Canonical documentation describes approved product behavior.
+- Canonical documentation describes approved current product behavior.
 - Proposed or unreleased behavior is not canonical.
 - Shared knowledge should be placed in `shared/` only when its meaning and ownership are genuinely cross-product.
 - Product-specific rules remain inside the relevant product.
+- Every durable product fact has one canonical owner; related documents reference rather than redefine it.
+- Document truth state is separate from document maturity.
+- Stable metadata and generated discovery indexes help AI retrieve the smallest sufficient set of documents.
 - AI prepares documentation changes; humans approve semantic decisions and final diffs.
 
 ## Knowledge model
 
-The repository separates business truth, user experience, capability, behavior, and decision history into related document types.
+The repository separates business truth, user outcomes, product abilities, behavioral paths, and decision history into related document types.
 
-See [`knowledge-model.md`](knowledge-model.md) for the canonical definitions of Product, Domain, Subdomain, Journey, Task, Scenario, Feature, Flow, lifecycle, Rule, Decision, Shared knowledge, and design-system concepts.
+See [`knowledge-model.md`](knowledge-model.md) for the canonical definitions of Product, Domain, Subdomain, Journey, User Goal, Scenario, Capability, Flow, lifecycle, Rule, Decision, Shared knowledge, metadata, retrieval, and design-system concepts.
+
+See [`ai/retrieval-rules.md`](ai/retrieval-rules.md) for the default document-discovery and context-expansion behavior expected from AI workflows.
 
 ## Main workflows
 
