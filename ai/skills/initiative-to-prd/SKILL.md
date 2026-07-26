@@ -59,21 +59,27 @@ Extract:
 - Owner
 - Change type
 
-Do not assume the proposed feature name is the correct solution.
+Do not assume the proposed solution or capability name is correct.
 
 ### 2. Gather relevant knowledge
 
-Read only relevant documents from:
+Follow `ai/retrieval-rules.md`.
+
+Use the generated manifest to discover the smallest sufficient set of documents, then read only relevant documents from:
 
 - Shared Product Knowledge
 - Product overview
 - Related journeys
-- Related features
+- Related capabilities
 - Related flows
 - Related domains
-- Approved decisions
+- Accepted decisions
 - Design system patterns
 - Content and product standards
+
+Prefer `knowledge_state: canonical` documents. Treat `observed` knowledge as unconfirmed and surface it explicitly.
+
+Identify the canonical owner of every important rule instead of copying similar statements from several documents.
 
 ### 3. Build `initiative.md`
 
@@ -97,6 +103,8 @@ Use this structure:
 ## Human Decisions
 ## Related Product Knowledge
 ```
+
+Use stable Product Knowledge IDs in `Related Product Knowledge` when available.
 
 ### 4. Ask only blocking questions
 
@@ -133,6 +141,8 @@ Route decisions to:
 - Cross-functional rule → PM + Tech
 
 The AI may recommend an option, but must not record it as approved without a human decision.
+
+A working decision inside an initiative is not automatically a canonical Decision document. After approval and release, preserve it as a canonical Decision only when its rationale is durable according to `knowledge-model.md`.
 
 ### 5. Apply human decisions
 
@@ -184,6 +194,8 @@ Verify that:
 - Scope is internally consistent
 - Business rules do not silently conflict with existing Domain documentation
 - Permissions and lifecycle transitions are explicit
+- Existing Capabilities are not confused with proposed backlog work
+- Accepted Decisions that constrain the change are respected or explicitly reconsidered
 - Open questions remain visible
 - Out-of-scope items are explicit
 
@@ -216,3 +228,4 @@ Humans are responsible for:
 - Do not create multiple working documents when one `initiative.md` is enough
 - Do not update canonical Product Knowledge before release
 - Do not treat a PRD as canonical current-product behavior
+- Do not treat Jira Epic, Feature, Story, or Task hierarchy as the Product Knowledge structure
