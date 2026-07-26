@@ -14,7 +14,8 @@
 
 ## Surface selection
 
-- Normal container, card, panel, sheet, modal, or popover → `surface-default`
+- Ordinary in-flow container, card, panel, or structural sheet → `surface-default`
+- Surface visually elevated above its immediate parent, such as a menu, popover, dropdown, floating panel, or floating dialog → `surface-raised`
 - Nested recessed region → `surface-inset`
 - Passive supporting or grouping region → `surface-muted`
 - Visible neutral interactive control → `surface-control`
@@ -26,6 +27,10 @@
 - Selected state → matching `surface-selected-*` role; use the inverse family on `surface-inverse`
 - Destructive action → `surface-danger-emphasis`
 - Validation or system feedback → matching `surface-*-muted`, foreground, and line roles
+
+`surface-raised` expresses the color of an elevated layer. Pair it with the approved elevation or shadow token when the component needs visible depth. Do not use `surface-raised` merely because an in-flow card happens to have a shadow; use it when the surface is layered above its immediate parent and may require an independent Light/Dark mapping.
+
+A full-screen or edge-attached sheet that acts as a structural page surface may remain `surface-default`. A floating dialog, menu, or popover uses `surface-raised`.
 
 Do not use `surface-muted` as an interactive control background.
 
@@ -48,12 +53,13 @@ Do not use `surface-muted` as an interactive control background.
 ## Migration rules
 
 1. Replace root `bg-canvas` usage with `canvas`.
-2. Replace other `bg-*` and `fill-*` roles using the mapping in `jobvision-color-tokens-v3-surface-model.md`.
-3. Keep Brand, Experience, and Light/Dark as separate collection modes.
-4. Apply the v3 renames together in Figma and code: `fg-subtle → fg-tertiary`, `fg-inverse → fg-on-inverse`, `fg-on-emphasis/fg-on-selected → fg-on-color`, `line-subtle → line-muted`, and `line-strong → line-emphasis`.
-5. Update Figma and code references together when final implementation mappings are approved.
-6. Validate visual regression, contrast, focus, reduced motion, and supported themes.
-7. Record open values and mappings as open decisions; do not present provisional v3 values as final.
-8. Migrate the former categorical family to the approved `tag-surface-*`, `tag-fg-*`, and `tag-line-*` Component tokens; do not create new `categorical-*` names.
+2. Replace `bg-raised` with `surface-raised`.
+3. Replace other `bg-*` and `fill-*` roles using the mapping in `jobvision-color-tokens-v3-surface-model.md`.
+4. Keep Brand, Experience, and Light/Dark as separate collection modes.
+5. Apply the v3 renames together in Figma and code: `fg-subtle → fg-tertiary`, `fg-inverse → fg-on-inverse`, `fg-on-emphasis/fg-on-selected → fg-on-color`, `line-subtle → line-muted`, and `line-strong → line-emphasis`.
+6. Update Figma and code references together when final implementation mappings are approved.
+7. Validate visual regression, contrast, focus, reduced motion, and supported themes.
+8. Record open values and mappings as open decisions; do not present provisional v3 values as final.
+9. Migrate the former categorical family to the approved `tag-surface-*`, `tag-fg-*`, and `tag-line-*` Component tokens; do not create new `categorical-*` names.
 
 See `architecture.md`, `jobvision-color-tokens-v3-surface-model.md`, and `color-token-aliases.md`.

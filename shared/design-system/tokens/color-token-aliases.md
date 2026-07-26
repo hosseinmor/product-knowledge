@@ -76,9 +76,12 @@ Modes: `Light`, `Dark`.
 |---|---|---|
 | `canvas` | `Experience/canvas/light` | `Experience/canvas/dark` |
 | `surface/default` | `color/neutral/0` | `color/neutral/900` |
+| `surface/raised` | `color/neutral/0` | `color/neutral/800` |
 | `surface/inset` | `color/neutral/100` | `color/neutral/950` |
 | `surface/muted` | `color/neutral/50` | `color/neutral/800` |
 | `surface/inverse` | `color/neutral/950` | `color/neutral/0` |
+
+`surface/raised` intentionally matches `surface/default` in Light mode and becomes lighter than `surface/default` in Dark mode. Elevation or shadow remains a separate token and must be applied by the owning component when required.
 
 ### Neutral interaction surfaces
 
@@ -256,8 +259,8 @@ Before these mappings are promoted from working draft to stable:
 1. Confirm every referenced Primitive variable exists in Figma and code.
 2. Validate text and icon contrast for both Brand modes in Light and Dark.
 3. Validate state distinction for rest, hover, and active surfaces.
-4. Validate directly nested `canvas`, `surface/default`, `surface/inset`, and `surface/muted` combinations in Productive and Expressive contexts.
-5. Validate Tag foreground and line contrast in both themes.
-6. Resolve every `TBD` Alias from the approved Figma export.
-7. Export the alias graph and reject unresolved or circular references in CI.
-
+4. Validate directly nested `canvas`, `surface/default`, `surface/raised`, `surface/inset`, and `surface/muted` combinations in Productive and Expressive contexts.
+5. Validate that `surface/raised` remains distinguishable from its immediate parent in Dark mode without depending on shadow alone.
+6. Validate Tag foreground and line contrast in both themes.
+7. Resolve every `TBD` Alias from the approved Figma export.
+8. Export the alias graph and reject unresolved or circular references in CI.

@@ -46,7 +46,7 @@ Approved color-token inventory:
 |---|---:|
 | `02 Brand` | 12 |
 | `03 Experience` | 2 |
-| `04 Semantic` | 89 |
+| `04 Semantic` | 90 |
 | `05 Component` | 20 |
 
 The Primitive count is intentionally not fixed by this catalog.
@@ -241,15 +241,27 @@ Use for root page or workspace background only.
 
 ```text
 surface-default
+surface-raised
 surface-inset
 surface-muted
 surface-inverse
 ```
 
-- `surface-default`: normal container, card, panel, sheet, modal, or popover
+- `surface-default`: ordinary in-flow container, card, panel, or structural sheet
+- `surface-raised`: surface visually elevated above its immediate parent, such as a menu, popover, dropdown, floating panel, or floating dialog
 - `surface-inset`: nested recessed region
 - `surface-muted`: passive supporting or grouping region
 - `surface-inverse`: high-contrast inverted region
+
+`surface-raised` is a color role and does not replace elevation. Pair it with the approved shadow or elevation token when the component needs visible depth. It may alias `surface-default` in Light mode and resolve independently in Dark mode.
+
+Current mapping:
+
+```text
+surface-raised
+Light → Primitives/color/neutral/0
+Dark  → Primitives/color/neutral/800
+```
 
 `surface-muted` is non-interactive and has no hover or active states.
 
@@ -682,6 +694,7 @@ Ghost   → transparent + fg-disabled
 ## Deprecated token mapping
 
 ```text
+bg-raised               → surface-raised
 bg-*                    → surface-* or canvas
 fill-brand              → surface-brand-emphasis
 fill-primary            → surface-emphasis

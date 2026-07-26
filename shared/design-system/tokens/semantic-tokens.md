@@ -28,6 +28,7 @@ All UI backgrounds above canvas use the unified Surface family:
 
 ```text
 surface-default
+surface-raised
 surface-inset
 surface-muted
 surface-inverse
@@ -44,7 +45,15 @@ surface-danger-*
 surface-{info|success|warning|error}-muted
 ```
 
-`surface-muted` is passive and has no interaction states. `surface-control` is the visible neutral interactive background. The `bg-*` and `fill-*` families are deprecated.
+- `surface-default` is the ordinary background for containers that remain in the document or layout flow.
+- `surface-raised` is the background for a surface visually elevated above its immediate parent, including menus, popovers, dropdowns, floating panels, and non-full-screen dialogs. Pair it with the approved elevation token when depth must be visible.
+- `surface-inset` is a recessed nested region.
+- `surface-muted` is passive and has no interaction states.
+- `surface-control` is the visible neutral interactive background.
+
+`surface-raised` is a color role, not an elevation value. It may alias the same primitive as `surface-default` in Light mode while resolving differently in Dark mode. Components must still apply the appropriate shadow or elevation token when the pattern requires visual depth.
+
+The `bg-*` and `fill-*` families are deprecated.
 
 ## Foreground
 
