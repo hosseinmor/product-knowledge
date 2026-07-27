@@ -6,8 +6,7 @@ title: Documentation Guidelines
 summary: Defines canonical document types, metadata states, ownership, and writing rules for Product Knowledge.
 knowledge_state: canonical
 document_maturity: reviewed
-related:
-  - standard.knowledge-model
+related: []
 owner: product-knowledge
 last_verified: 2026-07-27
 ---
