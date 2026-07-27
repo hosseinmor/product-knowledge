@@ -3,15 +3,22 @@
 ## Inputs
 
 - Approved Jira PRD
-- Relevant Product Overview and Product Areas
-- Relevant Shared Product Concepts
-- Design System and content guidance
+- Relevant Product Knowledge
+- Relevant Design System and content guidance
+
+## Retrieval
+
+1. Read `manifest.generated.json`.
+2. Select the relevant Product Overview and Product Areas by product, title, summary, topics, and related IDs.
+3. Add Shared Product Concepts only when their shared definition or rule affects the design.
+4. Select only the relevant Design System components, patterns, foundations, accessibility rules, and content guidance.
+5. Do not read the entire Design System or repository by default.
 
 ## Process
 
 1. Summarize the user goal, product context, current behavior, intended change, rules, permissions, states, edge cases, and open questions.
-2. Identify relevant Design System components, patterns, foundations, and content rules.
-3. Flag PRD gaps before producing UI.
+2. Identify the selected Design System components, patterns, foundations, and content rules.
+3. Flag PRD or Product Knowledge gaps before producing UI.
 4. Produce the requested initial design artifacts, such as:
    - User flow
    - Information architecture
@@ -22,3 +29,4 @@
    - Copy draft
 5. Clearly distinguish Product Knowledge, PRD requirements, and AI recommendations.
 6. Treat the result as a starting draft for Designer review, not a final design decision.
+7. Link the Product Knowledge and Design System documents used.
