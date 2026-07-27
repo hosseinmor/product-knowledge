@@ -33,16 +33,39 @@ Temporary product work, initiative drafts, PRD drafts, recordings, screenshots, 
 - Every durable product fact has one canonical owner; related documents reference rather than redefine it.
 - Evidence, coverage limitations, unknowns, and blocked areas must remain visible.
 - Document truth state is separate from document maturity.
-- Stable metadata and generated discovery indexes help AI retrieve the smallest sufficient set of documents.
+- Stable metadata and the generated manifest drive discovery and relationship resolution.
 - AI prepares evidence, drafts, and documentation changes; humans approve semantic decisions and final diffs.
 
 ## Knowledge model
 
-The repository uses a minimal model centered on Product overview, Capability, Flow, Domain, and Decision.
+The repository uses a minimal product model centered on Product overview, Capability, Flow, Domain, and Decision.
 
-See [`knowledge-model.md`](knowledge-model.md) for canonical definitions, ownership rules, metadata, retrieval, and the relationship with Scrum and delivery work.
+The repository also indexes Design System, Content, Product Standard, and Shared Domain documents through separate manifest collections and type vocabularies.
 
-See [`ai/retrieval-rules.md`](ai/retrieval-rules.md) for the default document-discovery and context-expansion behavior expected from AI workflows.
+See [`knowledge-model.md`](knowledge-model.md) for canonical definitions and ownership rules.
+
+See [`ai/retrieval-rules.md`](ai/retrieval-rules.md) for document discovery and context expansion.
+
+## Manifest and validation
+
+`manifest.generated.json` is generated from frontmatter. It is an index, not a second source of truth.
+
+```bash
+python -m pip install -r requirements-dev.txt
+python scripts/knowledge.py generate
+python scripts/knowledge.py validate
+python scripts/knowledge.py report
+```
+
+During the metadata migration, documents that cannot be indexed remain visible in the manifest under `unindexed`. AI must report this as a coverage gap rather than silently falling back to filename-based discovery.
+
+After the migration, strict CI uses:
+
+```bash
+python scripts/knowledge.py check --strict
+```
+
+See [`docs/manifest.md`](docs/manifest.md) for the manifest schema, collection taxonomy, and maintenance rules.
 
 ## Templates
 
@@ -83,7 +106,7 @@ ai/skills/product-walkthrough/SKILL.md
 
 ```text
 PM creates a short initiative brief
-→ AI gathers relevant Product Knowledge
+→ AI reads the generated manifest and relevant Product Knowledge
 → AI prepares initiative.md
 → AI asks only blocking questions
 → Humans make required decisions
