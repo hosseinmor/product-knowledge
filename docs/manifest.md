@@ -5,9 +5,11 @@
 The active knowledge model remains simple:
 
 ```text
+Product Group Overview
 Product Overview
 Product Area
 Shared Product Concept
+Shared Product Service
 Design System
 ```
 
@@ -20,6 +22,7 @@ Each entry contains:
 ```text
 id
 kind
+group when relevant
 product when relevant
 title
 summary
@@ -35,17 +38,18 @@ Example:
 
 ```json
 {
-  "id": "ats.recruitment-request",
+  "id": "kando.ats.recruitment-request",
   "kind": "product-area",
+  "group": "kando",
   "product": "ats",
   "title": "Recruitment Request",
-  "summary": "Explains how ATS creates, submits, approves, rejects, resubmits, and fulfills an internal hiring request.",
+  "summary": "Explains how Kando ATS creates, submits, approves, rejects, resubmits, and fulfills an internal hiring request.",
   "status": "draft",
   "owner": "ATS product team",
   "last_reviewed": null,
-  "related": ["ats.overview"],
+  "related": ["kando.ats.overview"],
   "topics": ["approval-workflow", "hiring-capacity", "recruitment-request"],
-  "path": "products/ats/areas/recruitment-request.md"
+  "path": "products/kando/ats/areas/recruitment-request.md"
 }
 ```
 
@@ -54,10 +58,13 @@ Example:
 Product knowledge:
 
 ```text
+product-group-overview
 product-overview
 product-area
 product-area-flow
 shared-product-concept
+shared-product-service-overview
+shared-product-service
 ```
 
 Shared guidance:
@@ -87,12 +94,13 @@ The Design System keeps its existing full structure and metadata. The generator 
 
 ## Required lightweight frontmatter
 
-Product Overview, Product Area, and Shared Product Concept documents use:
+Product Group Overview, Product Overview, Product Area, Shared Product Concept, and Shared Product Service documents use:
 
 ```yaml
 ---
 id:
 kind:
+group: # for Product Groups and product documents
 product: # only for product documents
 title:
 summary:
@@ -112,11 +120,12 @@ AI should:
 
 ```text
 1. Read README.md and manifest.generated.json.
-2. Filter by product, kind, title, summary, and topics.
-3. Read the relevant Product Overview.
+2. Filter by group, product, kind, title, summary, and topics.
+3. Read the relevant Product Group and Product Overview.
 4. Read only the required Product Areas and Shared Product Concepts.
-5. For design work, add the relevant Design System and content documents.
-6. Follow related IDs only when they materially affect the task.
+5. Add relevant Shared Product Services.
+6. For design work, add the relevant Design System and content documents.
+7. Follow related IDs only when they materially affect the task.
 ```
 
 AI should not read the entire repository by default.
@@ -141,7 +150,7 @@ Validate metadata, IDs, relationships, and manifest freshness:
 python scripts/generate_manifest.py check
 ```
 
-Show counts by kind and product:
+Show counts by kind, group, and product:
 
 ```bash
 python scripts/generate_manifest.py report
@@ -154,7 +163,8 @@ The lightweight check validates only retrieval integrity:
 - Every indexed Markdown file has parseable frontmatter.
 - `id`, `title`, and `summary` exist.
 - IDs are unique.
-- Product documents identify their product.
+- Product Group documents identify their group.
+- Product documents identify their group and product.
 - `related` IDs resolve.
 - Dates use `YYYY-MM-DD` when present.
 - The committed manifest matches current documents.
