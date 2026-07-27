@@ -1,109 +1,89 @@
----
-id: standard.documentation
-collection: product-standard
-type: documentation-guideline
-title: Documentation Guidelines
-summary: Defines canonical document types, metadata states, ownership, and writing
-  rules for Product Knowledge.
-knowledge_state: canonical
-document_maturity: reviewed
-related: []
-owner: product-knowledge
-last_verified: 2026-07-27
----
-
 # Documentation Guidelines
 
-## Canonical Product Knowledge types
+## Active document types
+
+The active Product Knowledge model uses:
 
 ```text
-Product overview
-Capability
-Flow
-Domain
-Decision
+Product Overview
+Product Area
+Shared Product Concept
 ```
 
-Product overview, Capability, and Flow form the default documentation set. Create Domain and Decision documents only when their additional responsibility is needed.
+The Design System keeps its own complete document structure under `shared/design-system/`.
 
-Journey and Feature are not canonical document types, templates, or folders. Major user journeys live inside the Product overview. Durable product abilities are documented as Capabilities.
+PRDs live in Jira. A separate Brief document is not required.
 
-User outcome, Scenario, Rule, State, Lifecycle, Validation, and Error are structured content inside their owning documents, not standalone types.
+## Product Overview
 
-## Shared collections
+Use one overview per product to document:
 
-The repository also indexes these shared knowledge collections:
+- Purpose
+- Primary users
+- Product boundaries
+- Main Product Areas
+- Major journeys
+- Integrations
+- Documentation gaps
+
+Path:
 
 ```text
-design-system
-content
-product-standard
-shared-domain
+products/{product}/overview.md
 ```
 
-Each collection has its own allowed document types. `shared` is placement and ownership, not a catch-all type.
+## Product Area
+
+A Product Area is a meaningful and relatively independent part of a product that combines related outcomes, flows, rules, permissions, states, validations, and edge cases.
+
+A Product Area is not just a page, modal, component, Jira item, team, or one requested change.
+
+Keep flows inside the Product Area document by default. Split them into separate files only when the area becomes too large to understand or maintain.
+
+Path:
+
+```text
+products/{product}/areas/{area}.md
+```
+
+## Shared Product Concept
+
+Use a Shared Product Concept only when a business definition, data model, lifecycle, or rule has the same meaning across more than one product.
+
+Product-specific behavior stays in the relevant Product Area. Reusable UI behavior stays in the Design System.
+
+Path:
+
+```text
+shared/product-concepts/{concept}.md
+```
+
+## Status and ownership
+
+Use only:
+
+```text
+Status: Draft | Reviewed
+Owner: person or team
+Last reviewed: date
+```
+
+- `Draft` means incomplete or awaiting owner review.
+- `Reviewed` means the named owner considers the document usable as current team context.
+
+A Reviewed document may still contain explicit unknowns or untested behavior.
 
 ## Writing principles
 
-- Describe approved current behavior and rules.
-- Separate current, observed, unverified, proposed, and deprecated knowledge.
-- Keep stable business rules and lifecycles in Domain documents.
-- Keep durable product abilities and boundaries in Capability documents.
-- Keep step-by-step behavior, branches, validation, persistence, and recovery in Flow documents.
-- Keep major user journeys in Product overview.
-- Keep durable rationale in Decision documents while updating the document that owns resulting current behavior.
-- Give every durable fact one canonical owner.
-- Reference related documents by stable ID rather than redefining owned facts.
-- Preserve evidence, coverage limitations, untested cases, and open questions.
-- Do not infer complete coverage from one role, environment, authentication state, or happy path.
+- Describe current product behavior and known rules.
+- Keep assumptions, unknowns, variations, and untested behavior visible.
+- Do not copy the same behavior into several documents.
+- Put shared definitions in Shared Product Concepts and product-specific behavior in Product Areas.
+- Add source links such as Jira, Figma, research, analytics, or walkthrough evidence.
+- Use clear headings and direct language so humans and AI can retrieve the relevant context.
 
-## Metadata
+## Updating knowledge
 
-All indexable documents use the common envelope:
+AI may propose exact document changes. The named owner reviews and applies them through a normal branch and pull request.
 
-```yaml
-id:
-collection:
-type:
-title:
-summary:
-knowledge_state:
-document_maturity:
-related: []
-```
-
-Product documents also require `product`.
-
-Allowed truth states:
-
-```text
-canonical
-observed
-unverified
-deprecated
-```
-
-Allowed maturity states:
-
-```text
-scaffold
-draft
-reviewed
-stable
-```
-
-A scaffold cannot be canonical. A canonical document must contain substantive owned facts.
-
-Legacy `status` and `maturity` fields must not be used as substitutes for `knowledge_state` and `document_maturity`.
-
-## Manifest and validation
-
-- Generate `manifest.generated.json` from frontmatter.
-- Resolve `related` IDs through the manifest.
-- Treat manifest `unindexed` entries as repository coverage gaps.
-- Run repository validation before merging documentation changes.
-- Do not silently fall back to filename-based discovery when the manifest is missing or stale.
-
-## Shared vs product-specific
-
-Use `shared/` only when meaning, rules, and ownership are genuinely consistent across products. Product-specific exceptions remain with the product unless they do not change the shared definition.
+No manifest, special metadata schema, release handoff, or automated synchronization is required in the active model.
