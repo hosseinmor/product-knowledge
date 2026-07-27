@@ -7,20 +7,34 @@ summary: Defines the ATS purpose, primary users, boundaries, major capabilities,
 knowledge_state: canonical
 document_maturity: draft
 related: []
+owner:
+last_verified:
 ---
 
 # ATS
 
 ## Purpose
 
-## Primary users
+## Primary Users
 
-## Product boundaries
+## Product Boundaries
 
-## Main capabilities
+### In scope
 
-## Major user journeys
+### Out of scope
 
-## Key business concepts and domains
+## Main Capabilities
 
-## Related decisions
+## Major User Journeys
+
+## Key Business Concepts and Domains
+
+## Integrated Products and Systems
+
+## Related Decisions
+
+## Evidence and Source References
+
+## Coverage and Known Gaps
+
+## Open Questions
