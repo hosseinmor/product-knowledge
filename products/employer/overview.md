@@ -1,8 +1,20 @@
-# Employer
+---
+id: employer.overview
+kind: product-overview
+product: employer
+title: Employer
+summary: Overview of the Employer product, its users, candidate Product Areas, and current documentation gaps.
+status: draft
+owner: Employer product team
+last_reviewed:
+related: []
+topics:
+  - employer
+  - recruiting
+  - job-post
+---
 
-**Status:** Draft
-**Owner:** Employer product team
-**Last reviewed:**
+# Employer
 
 ## What this product is
 
