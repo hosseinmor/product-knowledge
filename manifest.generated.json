@@ -18,11 +18,96 @@
       "collection": "product",
       "type": "product",
       "title": "ATS",
-      "summary": "Defines the ATS purpose, primary users, boundaries, major capabilities, major user journeys, and key business areas.",
+      "summary": "Defines the current known ATS purpose, users, boundaries, capabilities, major journeys, and documented coverage gaps.",
       "knowledge_state": "unverified",
-      "document_maturity": "scaffold",
-      "related": [],
-      "product": "ats"
+      "document_maturity": "draft",
+      "related": [
+        "ats.domain.recruitment-request",
+        "ats.capability.manage-recruitment-request",
+        "ats.flow.submit-recruitment-request"
+      ],
+      "product": "ats",
+      "owner": "ats-product",
+      "source_refs": [
+        "product-discussion:ats-recruitment-request-2026"
+      ]
+    },
+    {
+      "id": "ats.capability.manage-recruitment-request",
+      "path": "products/ats/capabilities/manage-recruitment-request.md",
+      "collection": "product",
+      "type": "capability",
+      "title": "Manage Recruitment Request",
+      "summary": "Describes the known ATS ability to create, submit, review, and continue an internal hiring request through approval and hiring.",
+      "knowledge_state": "unverified",
+      "document_maturity": "draft",
+      "related": [
+        "ats",
+        "ats.domain.recruitment-request",
+        "ats.flow.submit-recruitment-request"
+      ],
+      "product": "ats",
+      "owner": "ats-product",
+      "actors": [
+        "request-owner",
+        "approver",
+        "workflow-administrator"
+      ],
+      "domains": [
+        "ats.domain.recruitment-request"
+      ],
+      "source_refs": [
+        "product-discussion:ats-recruitment-request-2026"
+      ]
+    },
+    {
+      "id": "ats.domain.recruitment-request",
+      "path": "products/ats/domains/recruitment-request.md",
+      "collection": "product",
+      "type": "domain",
+      "title": "Recruitment Request",
+      "summary": "Defines the known Recruitment Request, approval workflow, approver, lifecycle, permission, and workflow-editing rules in ATS.",
+      "knowledge_state": "unverified",
+      "document_maturity": "draft",
+      "related": [
+        "ats",
+        "ats.capability.manage-recruitment-request",
+        "ats.flow.submit-recruitment-request"
+      ],
+      "product": "ats",
+      "owner": "ats-product",
+      "source_refs": [
+        "product-discussion:ats-recruitment-request-2026"
+      ]
+    },
+    {
+      "id": "ats.flow.submit-recruitment-request",
+      "path": "products/ats/flows/submit-recruitment-request.md",
+      "collection": "product",
+      "type": "flow",
+      "title": "Submit Recruitment Request",
+      "summary": "Describes the known path, validations, branches, and state transition when a Request Owner submits a draft Recruitment Request for approval.",
+      "knowledge_state": "unverified",
+      "document_maturity": "draft",
+      "related": [
+        "ats",
+        "ats.domain.recruitment-request",
+        "ats.capability.manage-recruitment-request"
+      ],
+      "product": "ats",
+      "owner": "ats-product",
+      "actors": [
+        "request-owner"
+      ],
+      "domains": [
+        "ats.domain.recruitment-request"
+      ],
+      "capabilities": [
+        "ats.capability.manage-recruitment-request"
+      ],
+      "source_refs": [
+        "product-discussion:ats-recruitment-request-2026"
+      ]
     },
     {
       "id": "button",
@@ -1134,7 +1219,7 @@
   ],
   "unindexed": [],
   "summary": {
-    "indexed_documents": 102,
+    "indexed_documents": 105,
     "unindexed_documents": 0
   }
 }
