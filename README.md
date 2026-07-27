@@ -9,7 +9,7 @@ shared/
 → Knowledge that is consistent across multiple products
 
 products/
-→ Product-specific overviews, capabilities, flows, domains, decisions, and optional complex journeys
+→ Product-specific overviews, capabilities, flows, domains, and decisions
 
 ai/
 → Stable AI workflows that discover, consume, and update Product Knowledge
@@ -23,8 +23,8 @@ Temporary product work, initiative drafts, PRD drafts, recordings, screenshots, 
 - Proposed or unreleased behavior is not canonical.
 - The default documentation set is Product overview, Capability, and Flow.
 - Domain and Decision documents are created only when their additional responsibility is needed.
-- Major user journeys normally live in the Product overview; separate Journey documents are optional for complex cases.
-- User goals, usage contexts, rules, states, and lifecycles are content inside their owning documents, not separate document types.
+- Major user journeys live inside the Product overview; Journey is not a separate canonical document type or folder.
+- User outcomes, usage contexts, rules, states, and lifecycles are content inside their owning documents, not separate document types.
 - Shared knowledge should be placed in `shared/` only when its meaning and ownership are genuinely cross-product.
 - Product-specific rules remain inside the relevant product.
 - Every durable product fact has one canonical owner; related documents reference rather than redefine it.
@@ -36,7 +36,7 @@ Temporary product work, initiative drafts, PRD drafts, recordings, screenshots, 
 
 The repository uses a minimal model centered on Product overview, Capability, Flow, Domain, and Decision.
 
-See [`knowledge-model.md`](knowledge-model.md) for canonical definitions, ownership rules, optional Journey guidance, metadata, retrieval, and the relationship with Scrum and delivery work.
+See [`knowledge-model.md`](knowledge-model.md) for canonical definitions, ownership rules, metadata, retrieval, and the relationship with Scrum and delivery work.
 
 See [`ai/retrieval-rules.md`](ai/retrieval-rules.md) for the default document-discovery and context-expansion behavior expected from AI workflows.
 
