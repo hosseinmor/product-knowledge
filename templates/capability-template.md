@@ -1,11 +1,12 @@
 ---
 id: product.capability-id
+collection: product
 type: capability
 product: product-id
 title: Capability name
 summary: Describes the durable product ability and its current boundaries.
-knowledge_state: canonical
-document_maturity: draft
+knowledge_state: unverified
+document_maturity: scaffold
 related: []
 owner:
 actors: []
