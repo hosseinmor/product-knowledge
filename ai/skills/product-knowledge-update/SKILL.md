@@ -8,7 +8,15 @@ AI prepares the evidence classification, ownership analysis, patches, metadata c
 
 ## Required inputs
 
-At least one reviewed change source:
+For changes arriving from `product-work`, require a versioned handoff created from:
+
+```text
+templates/workflows/product-knowledge-handoff-template.yaml
+```
+
+The handoff must identify the exact source repository, path, commit, artifact, readiness state, evidence, and known coverage gaps.
+
+At least one reviewed source must support the handoff:
 
 - Approved PRD plus released implementation evidence
 - Released implementation summary
@@ -31,6 +39,8 @@ Optional sources:
 - Jira tickets
 - QA findings
 
+A confirmed correction made directly in this repository may proceed without a cross-repository handoff when its evidence, reviewer, and affected scope are explicit.
+
 ## Required templates
 
 Use canonical document templates when creating or materially restructuring Product Knowledge:
@@ -43,13 +53,16 @@ templates/domain-template.md
 templates/decision-template.md
 ```
 
-Use this temporary output template for the review proposal:
+Use these workflow contracts:
 
 ```text
+templates/workflows/product-knowledge-handoff-template.yaml
 templates/workflows/product-knowledge-update-proposal-template.md
 ```
 
-Do not duplicate or shorten the proposal structure inside this Skill output.
+See `docs/product-work-handoff.md` for readiness, idempotency, completion acknowledgement, and stop conditions.
+
+Do not duplicate or shorten template structures inside this Skill output.
 
 ## Core principles
 
@@ -66,10 +79,37 @@ Canonical repository knowledge
 - Related documents reference or apply owned facts rather than redefining them.
 - Missing evidence, incomplete coverage, and repository indexing gaps remain visible.
 - A released change updates only the documents whose owned facts changed.
+- A handoff routes reviewed evidence; it does not become a source of truth by itself.
 
 ## Workflow
 
-### 1. Establish scope
+### 1. Validate handoff identity and readiness
+
+When a handoff is provided, verify:
+
+- `schema_version` is supported.
+- `handoff_id` is stable and unique.
+- Product and source artifact type are present.
+- Source repository, path, and immutable commit are present.
+- Evidence references are accessible.
+- A repeated handoff reuses or updates the existing documentation PR rather than creating an unrelated duplicate.
+
+For a released-change handoff, require:
+
+```text
+approval_state: approved
+release_state: released
+```
+
+For a walkthrough handoff, require:
+
+```text
+review_state: reviewed
+```
+
+Stop when source identity or readiness is missing. Do not use a mutable branch name as the only source identity.
+
+### 2. Establish scope
 
 Extract:
 
@@ -78,14 +118,18 @@ Extract:
 - Released change or reviewed recovery scope
 - Actors and roles
 - Usage contexts covered
-- Source documents
-- Release or review status
+- Source documents and source commit
+- Release, approval, or review status
+- Affected stable IDs supplied as discovery hints
+- Known coverage gaps and suspected bugs
 
 Do not update canonical Product Knowledge for unreleased work.
 
-### 2. Validate source readiness
+Affected IDs in the handoff do not authorize editing every listed document. Canonical ownership must still be determined fact by fact.
 
-For release-based updates, require evidence that the change is released or otherwise approved as current behavior.
+### 3. Validate source readiness
+
+For release-based updates, require evidence that the approved change is released as current behavior. Record known differences between intended and released behavior.
 
 For walkthrough-based updates, require:
 
@@ -99,7 +143,7 @@ For walkthrough-based updates, require:
 
 Do not convert an incomplete raw walkthrough directly into canonical documents.
 
-### 3. Validate repository readiness
+### 4. Validate repository readiness
 
 Follow `ai/retrieval-rules.md`.
 
@@ -113,7 +157,7 @@ Before selecting documents:
 
 Do not silently replace manifest discovery with filename globbing.
 
-### 4. Find the smallest sufficient knowledge set
+### 5. Find the smallest sufficient knowledge set
 
 Select by collection, product, type, summary, and related IDs.
 
@@ -148,7 +192,7 @@ deprecated
 → Historical context, not current truth
 ```
 
-### 5. Classify each finding
+### 6. Classify each finding
 
 Use:
 
@@ -180,7 +224,9 @@ suspected-bug
 → Proposed bug ticket, not an intended rule
 ```
 
-### 6. Determine canonical ownership
+Preserve handoff coverage gaps and suspected bugs even when the main released path is understood.
+
+### 7. Determine canonical ownership
 
 For Product Knowledge:
 
@@ -227,7 +273,7 @@ For each affected document choose:
 
 Do not create standalone Journey, Feature, User Goal, Scenario, Rule, State, Lifecycle, or Subdomain documents.
 
-### 7. Evaluate Decision impact
+### 8. Evaluate Decision impact
 
 Create or update a canonical Decision only when the approved rationale is durable, such as when the change:
 
@@ -246,7 +292,7 @@ When superseding a Decision:
 - Set `supersedes` on the new Decision.
 - Preserve historical rationale.
 
-### 8. Prepare the update proposal
+### 9. Prepare the update proposal
 
 Copy and complete:
 
@@ -260,14 +306,16 @@ For every proposed patch record:
 - Canonical owner
 - Changed fact
 - Reason
-- Source
+- Source commit or evidence reference
 - Classification
 - Required reviewer
 - Proposed diff
 
+Record the `handoff_id` so retries can find the same proposal and PR.
+
 Do not rewrite entire documents unless their structure is fundamentally unusable.
 
-### 9. Prepare template-compliant patches
+### 10. Prepare template-compliant patches
 
 When creating or materially updating a file:
 
@@ -281,7 +329,7 @@ When creating or materially updating a file:
 - Preserve Coverage and Unknowns sections where required.
 - Do not remove blocked or untested cases merely to make the document appear complete.
 
-### 10. Validate document and repository quality
+### 11. Validate document and repository quality
 
 Before presenting the final diff, run:
 
@@ -306,7 +354,7 @@ Verify that:
 - No obsolete Journey or Feature type, template, or folder is introduced.
 - `manifest.generated.json` is current and has no unexplained indexing regression.
 
-### 11. Stop on sensitive semantic changes
+### 12. Stop on sensitive semantic changes
 
 Require explicit human review for:
 
@@ -322,12 +370,12 @@ Require explicit human review for:
 - Changing canonical ownership
 - Accepting, superseding, or deprecating a Decision
 
-### 12. Present a reviewable diff
+### 13. Present a reviewable diff
 
 When repository access is available:
 
 ```text
-Create a dedicated branch
+Create or reuse a dedicated branch for the handoff
 → edit only affected files
 → regenerate the manifest
 → run strict validation
@@ -336,7 +384,23 @@ Create a dedicated branch
 → merge after approval
 ```
 
-### 13. Complete the update
+Do not write directly to `main`.
+
+### 14. Acknowledge completion to the source
+
+After merge, update the source handoff when source-repository access is available:
+
+```yaml
+repository_update:
+  status: completed
+  pull_request: URL
+  merge_commit: full-commit-sha
+  completed_at: YYYY-MM-DD
+```
+
+If the source repository is unavailable, report that acknowledgement remains pending. Do not claim an end-to-end completed lifecycle.
+
+### 15. Complete the update
 
 The update is complete when:
 
@@ -350,6 +414,7 @@ The update is complete when:
 - The generated manifest is current.
 - No important confirmed knowledge remains only in a PRD or walkthrough output.
 - The documentation diff is merged.
+- The source handoff is acknowledged, or the missing source access is explicitly reported.
 
 ## Human responsibilities
 
@@ -366,7 +431,8 @@ Humans are responsible for:
 
 - Do not update canonical knowledge before release.
 - Do not turn observation or inference into intended truth without approval.
-- Do not hide repository indexing or coverage gaps.
+- Do not hide source, repository-indexing, or coverage gaps.
 - Do not duplicate canonical facts.
 - Do not create custom document shapes that omit required metadata or quality sections.
 - Do not duplicate workflow template structures inside this Skill.
+- Do not create duplicate PRs for the same `handoff_id`.
