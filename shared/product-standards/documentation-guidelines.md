@@ -1,3 +1,18 @@
+---
+id: standard.documentation-guidelines
+title: Documentation Guidelines
+summary: Defines the active Product Overview, Product Area, Shared Product Concept, status, ownership, and manifest maintenance rules.
+status: reviewed
+owner: Product Knowledge owner
+last_reviewed: 2026-07-27
+related: []
+topics:
+  - product-knowledge
+  - documentation
+  - product-area
+  - manifest
+---
+
 # Documentation Guidelines
 
 ## Active document types
@@ -63,15 +78,34 @@ shared/product-concepts/{concept}.md
 Use only:
 
 ```text
-Status: Draft | Reviewed
-Owner: person or team
-Last reviewed: date
+status: draft | reviewed
+owner: person or team
+last_reviewed: YYYY-MM-DD
 ```
 
-- `Draft` means incomplete or awaiting owner review.
-- `Reviewed` means the named owner considers the document usable as current team context.
+- `draft` means incomplete or awaiting owner review.
+- `reviewed` means the named owner considers the document usable as current team context.
 
-A Reviewed document may still contain explicit unknowns or untested behavior.
+A reviewed document may still contain explicit unknowns or untested behavior.
+
+## Lightweight retrieval metadata
+
+Product Overview, Product Area, and Shared Product Concept documents use:
+
+```yaml
+id:
+kind:
+product: # only for product documents
+title:
+summary:
+status:
+owner:
+last_reviewed:
+related: []
+topics: []
+```
+
+The metadata helps AI find the smallest relevant context. It does not add new Product Knowledge document types or team workflows.
 
 ## Writing principles
 
@@ -80,10 +114,18 @@ A Reviewed document may still contain explicit unknowns or untested behavior.
 - Do not copy the same behavior into several documents.
 - Put shared definitions in Shared Product Concepts and product-specific behavior in Product Areas.
 - Add source links such as Jira, Figma, research, analytics, or walkthrough evidence.
-- Use clear headings and direct language so humans and AI can retrieve the relevant context.
+- Use a specific summary and useful topics so AI can retrieve the document correctly.
+- Use clear headings and direct language.
 
 ## Updating knowledge
 
 AI may propose exact document changes. The named owner reviews and applies them through a normal branch and pull request.
 
-No manifest, special metadata schema, release handoff, or automated synchronization is required in the active model.
+After an indexed document changes:
+
+```bash
+python scripts/generate_manifest.py generate
+python scripts/generate_manifest.py check
+```
+
+The generated manifest is a technical retrieval index. No release handoff or automated synchronization is required in the active model.
