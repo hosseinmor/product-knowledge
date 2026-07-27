@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Update canonical Product Knowledge after an approved product change has been released, or after missing current behavior has been recovered through a reviewed walkthrough.
+Update Product Knowledge after an approved product change has been released, or after missing current behavior has been recovered through a reviewed walkthrough.
 
 The AI prepares the changes. Humans validate meaning and approve the final diff.
 
@@ -57,9 +57,9 @@ Extract:
 - Source documents
 - Release status
 
-Do not update canonical documentation for unreleased work unless the repository explicitly supports future-state documentation.
+Do not update Product Knowledge for unreleased work unless the repository explicitly supports future-state documentation.
 
-### 2. Find relevant canonical documents
+### 2. Find relevant Product Knowledge
 
 Follow `ai/retrieval-rules.md`.
 
@@ -71,7 +71,6 @@ Use the generated manifest to discover the smallest sufficient set of documents,
 - Flow
 - Domain when stable business truth is involved
 - Accepted Decision when durable rationale is involved
-- Optional Journey when a complex end-to-end journey has independent documentation
 
 Check document metadata before using the content:
 
@@ -93,7 +92,7 @@ Route them as follows:
 
 ```text
 confirmed
-→ canonical document patch
+→ Product Knowledge patch
 
 observed
 → observed knowledge or open question
@@ -111,22 +110,19 @@ For each changed fact, first identify its canonical owner:
 
 ```text
 Product overview
-→ product purpose, boundaries, major capabilities, and major user journeys
+→ product purpose, boundaries, major Capabilities, and major user journeys
 
 Domain
 → stable business rules, permissions, lifecycle constraints, and entity relationships
 
 Capability
-→ product ability, actors, entry points, capability-specific states, and high-level behavior
+→ product ability, actors, entry points, Capability-specific states, and high-level behavior
 
 Flow
-→ actor, goal, trigger, preconditions, steps, transitions, validations, alternate paths, errors, and recovery
+→ actor, user outcome, trigger, preconditions, steps, transitions, validations, alternate paths, errors, and recovery
 
 Decision
 → durable approved rationale requiring historical context
-
-Optional Journey
-→ a complex end-to-end journey only when it has independent canonical documentation
 
 Shared
 → cross-product knowledge whose meaning and ownership are consistent across products
@@ -142,7 +138,7 @@ For each relevant document choose:
 
 Do not duplicate the changed fact across all related documents. Update the owner, then update references or applications only where needed.
 
-Do not create standalone User Goal, Scenario, Rule, State, Lifecycle, or Subdomain documents. Represent those concepts inside their owning Product overview, Capability, Flow, or Domain.
+Do not create standalone Journey, User Goal, Scenario, Rule, State, Lifecycle, or Subdomain documents. Represent those concepts inside their owning Product overview, Capability, Flow, or Domain.
 
 ### 5. Evaluate Decision impact
 
@@ -154,9 +150,9 @@ Create or update a Decision only when the approved rationale is durable, such as
 - Changes permission, lifecycle, ownership, or product boundaries
 - Resolves a material trade-off between reasonable alternatives
 - Is likely to be questioned or reopened later
-- Affects several canonical documents
+- Affects several Product Knowledge documents
 
-The Decision records why the choice was made. The relevant Product overview, Domain, Capability, Flow, or optional Journey still owns the resulting current behavior.
+The Decision records why the choice was made. The relevant Product overview, Domain, Capability, or Flow still owns the resulting current behavior.
 
 When a new Decision replaces an old one:
 
@@ -202,7 +198,6 @@ Require explicit human review for:
 - Moving product-specific knowledge into `shared/`
 - Changing canonical ownership of an existing fact
 - Accepting, superseding, or deprecating a Decision
-- Promoting a Product-overview journey into an independent Journey document
 
 ### 8. Present a reviewable diff
 
