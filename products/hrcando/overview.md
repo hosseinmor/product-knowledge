@@ -1,8 +1,20 @@
-# HRCanDo
+---
+id: hrcando.overview
+kind: product-overview
+product: hrcando
+title: HRCanDo
+summary: Overview of the HRCanDo suite, its users, current boundary questions, and documentation gaps.
+status: draft
+owner: HRCanDo product team
+last_reviewed:
+related: []
+topics:
+  - hr-suite
+  - hr-products
+  - people-operations
+---
 
-**Status:** Draft
-**Owner:** HRCanDo product team
-**Last reviewed:**
+# HRCanDo
 
 ## What this product is
 
