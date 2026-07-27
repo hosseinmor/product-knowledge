@@ -58,7 +58,7 @@ jobs:
         env:
           BRANCH: ${{ github.head_ref }}
         run: |
-          if git diff --quiet -- manifest.generated.json; then
+          if [ -z "$(git status --porcelain -- manifest.generated.json)" ]; then
             echo "Manifest is already current."
             exit 0
           fi
