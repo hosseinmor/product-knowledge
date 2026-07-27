@@ -1,0 +1,29 @@
+schema_version: 1
+handoff_id: product.change-id.release-id
+product: product-id
+source:
+  repository: product-work
+  artifact_type: prd-release | walkthrough
+  path:
+  commit:
+  artifact_id:
+readiness:
+  approval_state: approved | not-applicable
+  release_state: released | not-applicable
+  review_state: reviewed | not-applicable
+  approved_by: []
+  reviewed_by: []
+  released_at:
+change:
+  summary:
+  affected_knowledge_ids: []
+  expected_collections:
+    - product
+  evidence_refs: []
+  known_coverage_gaps: []
+  suspected_bugs: []
+repository_update:
+  status: pending
+  pull_request:
+  merge_commit:
+  completed_at:
