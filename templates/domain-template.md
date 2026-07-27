@@ -1,22 +1,41 @@
 ---
-id: domain-id
+id: product.domain-id
 type: domain
 product: product-id
-status: active
-related_features: []
-related_flows: []
+title: Domain name
+summary: Defines stable business concepts, rules, permissions, relationships, and lifecycle constraints.
+knowledge_state: canonical
+document_maturity: draft
+related: []
+owner:
+last_verified:
+source_refs: []
 ---
 
 # Domain Name
 
-## Purpose
-## Core Concepts
-## Entities
-## Business Rules
+## Purpose and Boundaries
+
+## Vocabulary
+
+## Entities and Relationships
+
+## Business Rules and Invariants
+
 ## Permissions
-## Lifecycle
-## Relationships
-## Invariants
-## Exceptions
+
+## States and Lifecycle
+
+## Approved Exceptions
+
+## Related Capabilities
+
+## Related Flows
+
+## Related Decisions
+
+## Evidence
+
+## Coverage and Known Gaps
+
 ## Open Questions
-## Related Knowledge
