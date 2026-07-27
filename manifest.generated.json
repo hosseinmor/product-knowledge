@@ -1,0 +1,1652 @@
+{
+  "schema_version": 1,
+  "documents": [
+    {
+      "id": "accordion",
+      "kind": "design-system-component",
+      "title": "Accordion",
+      "summary": "Accordion uses progressive disclosure to organize related content in a compact vertical list. Each item exposes a short title and lets the user show or hide its associated content without navigating away.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "accordion",
+        "components",
+        "design-system-component"
+      ],
+      "path": "shared/design-system/components/accordion.md"
+    },
+    {
+      "id": "ats.overview",
+      "kind": "product-overview",
+      "title": "ATS",
+      "summary": "Overview of the ATS product, its users, boundaries, main Product Areas, major journeys, and documentation gaps.",
+      "status": "draft",
+      "owner": "ATS product team",
+      "last_reviewed": null,
+      "related": [
+        "ats.recruitment-request"
+      ],
+      "topics": [
+        "approval",
+        "ats",
+        "hiring",
+        "product-overview",
+        "recruitment"
+      ],
+      "path": "products/ats/overview.md",
+      "product": "ats"
+    },
+    {
+      "id": "ats.recruitment-request",
+      "kind": "product-area",
+      "title": "Recruitment Request",
+      "summary": "Explains how ATS creates, submits, approves, rejects, resubmits, and fulfills an internal hiring request.",
+      "status": "draft",
+      "owner": "ATS product team",
+      "last_reviewed": null,
+      "related": [
+        "ats.overview"
+      ],
+      "topics": [
+        "approval-workflow",
+        "ats",
+        "hiring-capacity",
+        "lifecycle",
+        "permissions",
+        "product-area",
+        "recruitment-request"
+      ],
+      "path": "products/ats/areas/recruitment-request.md",
+      "product": "ats"
+    },
+    {
+      "id": "button",
+      "kind": "design-system-component",
+      "title": "Button",
+      "summary": "Buttons trigger actions.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "button",
+        "components",
+        "design-system-component"
+      ],
+      "path": "shared/design-system/components/button.md"
+    },
+    {
+      "id": "checkbox",
+      "kind": "design-system-component",
+      "title": "Checkbox",
+      "summary": "Checkbox lets users select zero or more independent options or control a single boolean choice.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "checkbox",
+        "components",
+        "design-system-component"
+      ],
+      "path": "shared/design-system/components/checkbox.md"
+    },
+    {
+      "id": "content.content-guidelines",
+      "kind": "content-guideline",
+      "title": "Content Guidelines",
+      "summary": "Defines shared content guidance across products.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "content",
+        "content-guideline",
+        "content-guidelines"
+      ],
+      "path": "shared/content/content-guidelines.md"
+    },
+    {
+      "id": "content.localization",
+      "kind": "content-guideline",
+      "title": "Localization",
+      "summary": "Defines shared content guidance across products.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "content",
+        "content-guideline",
+        "localization"
+      ],
+      "path": "shared/content/localization.md"
+    },
+    {
+      "id": "content.terminology",
+      "kind": "content-guideline",
+      "title": "Shared Terminology",
+      "summary": "Use this document for terms whose meaning is consistent across products.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "content",
+        "content-guideline",
+        "terminology"
+      ],
+      "path": "shared/content/terminology.md"
+    },
+    {
+      "id": "design-system.accessibility.color-and-contrast",
+      "kind": "design-system-accessibility",
+      "title": "Color and Contrast",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "accessibility",
+        "color-and-contrast",
+        "design-system-accessibility"
+      ],
+      "path": "shared/design-system/accessibility/color-and-contrast.md"
+    },
+    {
+      "id": "design-system.accessibility.content",
+      "kind": "design-system-accessibility",
+      "title": "Accessible Content",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "accessibility",
+        "content",
+        "design-system-accessibility"
+      ],
+      "path": "shared/design-system/accessibility/content.md"
+    },
+    {
+      "id": "design-system.accessibility.focus-management",
+      "kind": "design-system-accessibility",
+      "title": "Focus Management",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "accessibility",
+        "design-system-accessibility",
+        "focus-management"
+      ],
+      "path": "shared/design-system/accessibility/focus-management.md"
+    },
+    {
+      "id": "design-system.accessibility.forms",
+      "kind": "design-system-accessibility",
+      "title": "Accessible Forms",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "accessibility",
+        "design-system-accessibility",
+        "forms"
+      ],
+      "path": "shared/design-system/accessibility/forms.md"
+    },
+    {
+      "id": "design-system.accessibility.keyboard-navigation",
+      "kind": "design-system-accessibility",
+      "title": "Keyboard Navigation",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "accessibility",
+        "design-system-accessibility",
+        "keyboard-navigation"
+      ],
+      "path": "shared/design-system/accessibility/keyboard-navigation.md"
+    },
+    {
+      "id": "design-system.accessibility.motion",
+      "kind": "design-system-accessibility",
+      "title": "Motion and Reduced Motion",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "accessibility",
+        "design-system-accessibility",
+        "motion"
+      ],
+      "path": "shared/design-system/accessibility/motion.md"
+    },
+    {
+      "id": "design-system.accessibility.principles",
+      "kind": "design-system-accessibility",
+      "title": "Accessibility Principles",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "accessibility",
+        "design-system-accessibility",
+        "principles"
+      ],
+      "path": "shared/design-system/accessibility/principles.md"
+    },
+    {
+      "id": "design-system.accessibility.screen-reader-semantics",
+      "kind": "design-system-accessibility",
+      "title": "Screen Reader Semantics",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "accessibility",
+        "design-system-accessibility",
+        "screen-reader-semantics"
+      ],
+      "path": "shared/design-system/accessibility/screen-reader-semantics.md"
+    },
+    {
+      "id": "design-system.component.badge",
+      "kind": "design-system-component",
+      "title": "Badge",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "badge",
+        "components",
+        "design-system-component"
+      ],
+      "path": "shared/design-system/components/badge.md"
+    },
+    {
+      "id": "design-system.component.drawer",
+      "kind": "design-system-component",
+      "title": "Drawer",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "drawer"
+      ],
+      "path": "shared/design-system/components/drawer.md"
+    },
+    {
+      "id": "design-system.component.dropdown-menu",
+      "kind": "design-system-component",
+      "title": "Dropdown Menu",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "dropdown-menu"
+      ],
+      "path": "shared/design-system/components/dropdown-menu.md"
+    },
+    {
+      "id": "design-system.component.empty-state",
+      "kind": "design-system-component",
+      "title": "Empty State",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "empty-state"
+      ],
+      "path": "shared/design-system/components/empty-state.md"
+    },
+    {
+      "id": "design-system.component.icon-button",
+      "kind": "design-system-component",
+      "title": "Icon Button",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "icon-button"
+      ],
+      "path": "shared/design-system/components/icon-button.md"
+    },
+    {
+      "id": "design-system.component.link",
+      "kind": "design-system-component",
+      "title": "Link",
+      "summary": "Links navigate users to another destination.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "link"
+      ],
+      "path": "shared/design-system/components/link.md"
+    },
+    {
+      "id": "design-system.component.modal",
+      "kind": "design-system-component",
+      "title": "Modal",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "modal"
+      ],
+      "path": "shared/design-system/components/modal.md"
+    },
+    {
+      "id": "design-system.component.notification",
+      "kind": "design-system-component",
+      "title": "Notification",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "notification"
+      ],
+      "path": "shared/design-system/components/notification.md"
+    },
+    {
+      "id": "design-system.component.pagination",
+      "kind": "design-system-component",
+      "title": "Pagination",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "pagination"
+      ],
+      "path": "shared/design-system/components/pagination.md"
+    },
+    {
+      "id": "design-system.component.popover",
+      "kind": "design-system-component",
+      "title": "Popover",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "popover"
+      ],
+      "path": "shared/design-system/components/popover.md"
+    },
+    {
+      "id": "design-system.component.radio",
+      "kind": "design-system-component",
+      "title": "Radio",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "radio"
+      ],
+      "path": "shared/design-system/components/radio.md"
+    },
+    {
+      "id": "design-system.component.select",
+      "kind": "design-system-component",
+      "title": "Select",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "select"
+      ],
+      "path": "shared/design-system/components/select.md"
+    },
+    {
+      "id": "design-system.component.switch",
+      "kind": "design-system-component",
+      "title": "Switch",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "switch"
+      ],
+      "path": "shared/design-system/components/switch.md"
+    },
+    {
+      "id": "design-system.component.table",
+      "kind": "design-system-component",
+      "title": "Table",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "table"
+      ],
+      "path": "shared/design-system/components/table.md"
+    },
+    {
+      "id": "design-system.component.tabs",
+      "kind": "design-system-component",
+      "title": "Tabs",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "tabs"
+      ],
+      "path": "shared/design-system/components/tabs.md"
+    },
+    {
+      "id": "design-system.component.tag",
+      "kind": "design-system-component",
+      "title": "Tag",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "tag"
+      ],
+      "path": "shared/design-system/components/tag.md"
+    },
+    {
+      "id": "design-system.component.text-input",
+      "kind": "design-system-component",
+      "title": "Text Input",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "text-input"
+      ],
+      "path": "shared/design-system/components/text-input.md"
+    },
+    {
+      "id": "design-system.component.textarea",
+      "kind": "design-system-component",
+      "title": "Textarea",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "textarea"
+      ],
+      "path": "shared/design-system/components/textarea.md"
+    },
+    {
+      "id": "design-system.component.toggle-button",
+      "kind": "design-system-component",
+      "title": "Toggle Button",
+      "summary": "Toggle Button represents a Button-like control with persistent selected and unselected states.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "toggle-button"
+      ],
+      "path": "shared/design-system/components/toggle-button.md"
+    },
+    {
+      "id": "design-system.component.tooltip",
+      "kind": "design-system-component",
+      "title": "Tooltip",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "tooltip"
+      ],
+      "path": "shared/design-system/components/tooltip.md"
+    },
+    {
+      "id": "design-system.experience-rule.action-hierarchy",
+      "kind": "design-system-experience-rule",
+      "title": "Action Hierarchy",
+      "summary": "Every action group should have one clear visual leader.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "action-hierarchy",
+        "design-system-experience-rule",
+        "experience-rules"
+      ],
+      "path": "shared/design-system/experience-rules/action-hierarchy.md"
+    },
+    {
+      "id": "design-system.experience-rule.disabled-and-read-only",
+      "kind": "design-system-experience-rule",
+      "title": "Disabled and Read-Only States",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-experience-rule",
+        "disabled-and-read-only",
+        "experience-rules"
+      ],
+      "path": "shared/design-system/experience-rules/disabled-and-read-only.md"
+    },
+    {
+      "id": "design-system.experience-rule.error-recovery",
+      "kind": "design-system-experience-rule",
+      "title": "Error Recovery",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-experience-rule",
+        "error-recovery",
+        "experience-rules"
+      ],
+      "path": "shared/design-system/experience-rules/error-recovery.md"
+    },
+    {
+      "id": "design-system.experience-rule.feedback",
+      "kind": "design-system-experience-rule",
+      "title": "System Feedback",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-experience-rule",
+        "experience-rules",
+        "feedback"
+      ],
+      "path": "shared/design-system/experience-rules/feedback.md"
+    },
+    {
+      "id": "design-system.experience-rule.focus",
+      "kind": "design-system-experience-rule",
+      "title": "Focus",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-experience-rule",
+        "experience-rules",
+        "focus"
+      ],
+      "path": "shared/design-system/experience-rules/focus.md"
+    },
+    {
+      "id": "design-system.experience-rule.loading",
+      "kind": "design-system-experience-rule",
+      "title": "Loading",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-experience-rule",
+        "experience-rules",
+        "loading"
+      ],
+      "path": "shared/design-system/experience-rules/loading.md"
+    },
+    {
+      "id": "design-system.experience-rule.navigation",
+      "kind": "design-system-experience-rule",
+      "title": "Navigation",
+      "summary": "Semantics are independent from visual appearance.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-experience-rule",
+        "experience-rules",
+        "navigation"
+      ],
+      "path": "shared/design-system/experience-rules/navigation.md"
+    },
+    {
+      "id": "design-system.experience-rule.responsive-interaction",
+      "kind": "design-system-experience-rule",
+      "title": "Responsive Interaction",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-experience-rule",
+        "experience-rules",
+        "responsive-interaction"
+      ],
+      "path": "shared/design-system/experience-rules/responsive-interaction.md"
+    },
+    {
+      "id": "design-system.experience-rule.selection",
+      "kind": "design-system-experience-rule",
+      "title": "Selection",
+      "summary": "Selected state is not a normal action Button state.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-experience-rule",
+        "experience-rules",
+        "selection"
+      ],
+      "path": "shared/design-system/experience-rules/selection.md"
+    },
+    {
+      "id": "design-system.experience-rule.validation",
+      "kind": "design-system-experience-rule",
+      "title": "Validation",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-experience-rule",
+        "experience-rules",
+        "validation"
+      ],
+      "path": "shared/design-system/experience-rules/validation.md"
+    },
+    {
+      "id": "design-system.foundation.color",
+      "kind": "design-system-foundation",
+      "title": "Color",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "color",
+        "design-system-foundation",
+        "foundations"
+      ],
+      "path": "shared/design-system/foundations/color.md"
+    },
+    {
+      "id": "design-system.foundation.elevation",
+      "kind": "design-system-foundation",
+      "title": "Elevation",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-foundation",
+        "elevation",
+        "foundations"
+      ],
+      "path": "shared/design-system/foundations/elevation.md"
+    },
+    {
+      "id": "design-system.foundation.iconography",
+      "kind": "design-system-foundation",
+      "title": "Iconography",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-foundation",
+        "foundations",
+        "iconography"
+      ],
+      "path": "shared/design-system/foundations/iconography.md"
+    },
+    {
+      "id": "design-system.foundation.layout",
+      "kind": "design-system-foundation",
+      "title": "Layout",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-foundation",
+        "foundations",
+        "layout"
+      ],
+      "path": "shared/design-system/foundations/layout.md"
+    },
+    {
+      "id": "design-system.foundation.motion",
+      "kind": "design-system-foundation",
+      "title": "Motion",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-foundation",
+        "foundations",
+        "motion"
+      ],
+      "path": "shared/design-system/foundations/motion.md"
+    },
+    {
+      "id": "design-system.foundation.radius",
+      "kind": "design-system-foundation",
+      "title": "Radius",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-foundation",
+        "foundations",
+        "radius"
+      ],
+      "path": "shared/design-system/foundations/radius.md"
+    },
+    {
+      "id": "design-system.foundation.responsive-behavior",
+      "kind": "design-system-foundation",
+      "title": "Responsive Behavior",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-foundation",
+        "foundations",
+        "responsive-behavior"
+      ],
+      "path": "shared/design-system/foundations/responsive-behavior.md"
+    },
+    {
+      "id": "design-system.foundation.spacing",
+      "kind": "design-system-foundation",
+      "title": "Spacing",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-foundation",
+        "foundations",
+        "spacing"
+      ],
+      "path": "shared/design-system/foundations/spacing.md"
+    },
+    {
+      "id": "design-system.foundation.typography",
+      "kind": "design-system-foundation",
+      "title": "Typography",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-foundation",
+        "foundations",
+        "typography"
+      ],
+      "path": "shared/design-system/foundations/typography.md"
+    },
+    {
+      "id": "design-system.governance.change-process",
+      "kind": "design-system-governance",
+      "title": "Change Process",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "change-process",
+        "design-system-governance",
+        "governance"
+      ],
+      "path": "shared/design-system/governance/change-process.md"
+    },
+    {
+      "id": "design-system.governance.contribution",
+      "kind": "design-system-governance",
+      "title": "Contribution",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "contribution",
+        "design-system-governance",
+        "governance"
+      ],
+      "path": "shared/design-system/governance/contribution.md"
+    },
+    {
+      "id": "design-system.governance.deprecation",
+      "kind": "design-system-governance",
+      "title": "Deprecation",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "deprecation",
+        "design-system-governance",
+        "governance"
+      ],
+      "path": "shared/design-system/governance/deprecation.md"
+    },
+    {
+      "id": "design-system.governance.documentation-maintenance",
+      "kind": "design-system-governance",
+      "title": "Documentation Maintenance",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-governance",
+        "documentation-maintenance",
+        "governance"
+      ],
+      "path": "shared/design-system/governance/documentation-maintenance.md"
+    },
+    {
+      "id": "design-system.governance.ownership",
+      "kind": "design-system-governance",
+      "title": "Ownership",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-governance",
+        "governance",
+        "ownership"
+      ],
+      "path": "shared/design-system/governance/ownership.md"
+    },
+    {
+      "id": "design-system.governance.release-and-versioning",
+      "kind": "design-system-governance",
+      "title": "Release and Versioning",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-governance",
+        "governance",
+        "release-and-versioning"
+      ],
+      "path": "shared/design-system/governance/release-and-versioning.md"
+    },
+    {
+      "id": "design-system.overview",
+      "kind": "design-system-overview",
+      "title": "Design System Overview",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-overview"
+      ],
+      "path": "shared/design-system/overview.md"
+    },
+    {
+      "id": "design-system.pattern.ai-entry-points",
+      "kind": "design-system-pattern",
+      "title": "AI Entry Points",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "ai-entry-points",
+        "design-system-pattern",
+        "patterns"
+      ],
+      "path": "shared/design-system/patterns/ai-entry-points.md"
+    },
+    {
+      "id": "design-system.pattern.bulk-actions",
+      "kind": "design-system-pattern",
+      "title": "Bulk Actions",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "bulk-actions",
+        "design-system-pattern",
+        "patterns"
+      ],
+      "path": "shared/design-system/patterns/bulk-actions.md"
+    },
+    {
+      "id": "design-system.pattern.confirmation",
+      "kind": "design-system-pattern",
+      "title": "Confirmation and Modal Actions",
+      "summary": "Cancel is usually Ghost.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "confirmation",
+        "design-system-pattern",
+        "patterns"
+      ],
+      "path": "shared/design-system/patterns/confirmation.md"
+    },
+    {
+      "id": "design-system.pattern.data-views",
+      "kind": "design-system-pattern",
+      "title": "Data Views",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "data-views",
+        "design-system-pattern",
+        "patterns"
+      ],
+      "path": "shared/design-system/patterns/data-views.md"
+    },
+    {
+      "id": "design-system.pattern.destructive-actions",
+      "kind": "design-system-pattern",
+      "title": "Destructive Actions",
+      "summary": "Use destructive treatment when an action:",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-pattern",
+        "destructive-actions",
+        "patterns"
+      ],
+      "path": "shared/design-system/patterns/destructive-actions.md"
+    },
+    {
+      "id": "design-system.pattern.empty-states",
+      "kind": "design-system-pattern",
+      "title": "Empty States",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-pattern",
+        "empty-states",
+        "patterns"
+      ],
+      "path": "shared/design-system/patterns/empty-states.md"
+    },
+    {
+      "id": "design-system.pattern.form-submission",
+      "kind": "design-system-pattern",
+      "title": "Form Submission",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-pattern",
+        "form-submission",
+        "patterns"
+      ],
+      "path": "shared/design-system/patterns/form-submission.md"
+    },
+    {
+      "id": "design-system.pattern.loading-and-progress",
+      "kind": "design-system-pattern",
+      "title": "Loading and Progress",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-pattern",
+        "loading-and-progress",
+        "patterns"
+      ],
+      "path": "shared/design-system/patterns/loading-and-progress.md"
+    },
+    {
+      "id": "design-system.pattern.multi-step-flow",
+      "kind": "design-system-pattern",
+      "title": "Multi-Step Flow",
+      "summary": "Default combination:",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-pattern",
+        "multi-step-flow",
+        "patterns"
+      ],
+      "path": "shared/design-system/patterns/multi-step-flow.md"
+    },
+    {
+      "id": "design-system.pattern.notifications",
+      "kind": "design-system-pattern",
+      "title": "Notifications",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-pattern",
+        "notifications",
+        "patterns"
+      ],
+      "path": "shared/design-system/patterns/notifications.md"
+    },
+    {
+      "id": "design-system.pattern.on-media-controls",
+      "kind": "design-system-pattern",
+      "title": "On-Media Controls",
+      "summary": "The current Core token model does not define dedicated Button tokens for image or video backgrounds.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-pattern",
+        "on-media-controls",
+        "patterns"
+      ],
+      "path": "shared/design-system/patterns/on-media-controls.md"
+    },
+    {
+      "id": "design-system.pattern.search-and-filtering",
+      "kind": "design-system-pattern",
+      "title": "Search and Filtering",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-pattern",
+        "patterns",
+        "search-and-filtering"
+      ],
+      "path": "shared/design-system/patterns/search-and-filtering.md"
+    },
+    {
+      "id": "design-system.product-variation.brand-variants",
+      "kind": "design-system-product-variation",
+      "title": "Brand Variants",
+      "summary": "Accent uses the active product brand color while preserving one shared usage rule.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "brand-variants",
+        "design-system-product-variation",
+        "product-variations"
+      ],
+      "path": "shared/design-system/product-variations/brand-variants.md"
+    },
+    {
+      "id": "design-system.product-variation.product-overrides",
+      "kind": "design-system-product-variation",
+      "title": "Product Overrides",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-product-variation",
+        "product-overrides",
+        "product-variations"
+      ],
+      "path": "shared/design-system/product-variations/product-overrides.md"
+    },
+    {
+      "id": "design-system.reference.code",
+      "kind": "design-system-reference",
+      "title": "Code Reference",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "code",
+        "design-system-reference",
+        "integrations"
+      ],
+      "path": "shared/design-system/integrations/code.md"
+    },
+    {
+      "id": "design-system.reference.figma",
+      "kind": "design-system-reference",
+      "title": "Figma Reference",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-reference",
+        "figma",
+        "integrations"
+      ],
+      "path": "shared/design-system/integrations/figma.md"
+    },
+    {
+      "id": "design-system.reference.source-of-truth",
+      "kind": "design-system-reference",
+      "title": "Sources of Truth",
+      "summary": "> Status: structure only",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-reference",
+        "integrations",
+        "source-of-truth"
+      ],
+      "path": "shared/design-system/integrations/source-of-truth.md"
+    },
+    {
+      "id": "design-system.structure",
+      "kind": "design-system-overview",
+      "title": "Design System Knowledge Structure",
+      "summary": "Overview of the shared Design System and its structure.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-overview"
+      ],
+      "path": "shared/design-system/STRUCTURE.md"
+    },
+    {
+      "id": "design-system.token.architecture",
+      "kind": "design-system-token",
+      "title": "Token Architecture",
+      "summary": "> Status: draft",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "architecture",
+        "design-system-token",
+        "tokens"
+      ],
+      "path": "shared/design-system/tokens/architecture.md"
+    },
+    {
+      "id": "design-system.token.color-token-aliases",
+      "kind": "design-system-token",
+      "title": "Color Token Alias Mappings",
+      "summary": "> Status: working draft > Scope: current Figma alias graph for color collections > Source catalog: `jobvision-color-tokens-v3-surface-model.md`",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "color-token-aliases",
+        "design-system-token",
+        "tokens"
+      ],
+      "path": "shared/design-system/tokens/color-token-aliases.md"
+    },
+    {
+      "id": "design-system.token.component-tokens",
+      "kind": "design-system-token",
+      "title": "Component Tokens",
+      "summary": "This document defines when a component-specific token layer is justified and catalogs approved component-token families.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "component-tokens",
+        "design-system-token",
+        "tokens"
+      ],
+      "path": "shared/design-system/tokens/component-tokens.md"
+    },
+    {
+      "id": "design-system.token.jobvision-color-tokens-v3-surface-model",
+      "kind": "design-system-token",
+      "title": "Jobvision Color Tokens v3 — Surface Model",
+      "summary": "> Status: Working draft > Theme scope: Light + Dark > Implementation target: Tailwind CSS v3 > CSS variables: Open decision > Product variation: Brand override only > Experience variation: Productive / Expressive",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-token",
+        "jobvision-color-tokens-v3-surface-model",
+        "tokens"
+      ],
+      "path": "shared/design-system/tokens/jobvision-color-tokens-v3-surface-model.md"
+    },
+    {
+      "id": "design-system.token.primitive-tokens",
+      "kind": "design-system-token",
+      "title": "Primitive Tokens",
+      "summary": "> Status: partial value catalog",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-token",
+        "primitive-tokens",
+        "tokens"
+      ],
+      "path": "shared/design-system/tokens/primitive-tokens.md"
+    },
+    {
+      "id": "design-system.token.product-overrides",
+      "kind": "design-system-token",
+      "title": "Token Product and Brand Variations",
+      "summary": "> Status: draft",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-token",
+        "product-overrides",
+        "tokens"
+      ],
+      "path": "shared/design-system/tokens/product-overrides.md"
+    },
+    {
+      "id": "design-system.token.semantic-tokens",
+      "kind": "design-system-token",
+      "title": "Semantic Tokens",
+      "summary": "> Status: draft",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-token",
+        "semantic-tokens",
+        "tokens"
+      ],
+      "path": "shared/design-system/tokens/semantic-tokens.md"
+    },
+    {
+      "id": "design-system.token.usage-rules",
+      "kind": "design-system-token",
+      "title": "Token Usage Rules",
+      "summary": "> Status: draft",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-token",
+        "tokens",
+        "usage-rules"
+      ],
+      "path": "shared/design-system/tokens/usage-rules.md"
+    },
+    {
+      "id": "design-system.ui-template.component-template",
+      "kind": "design-system-ui-template",
+      "title": "Component Name",
+      "summary": "Defines a reusable Design System UI template.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "component-template",
+        "design-system-ui-template",
+        "templates"
+      ],
+      "path": "shared/design-system/templates/component-template.md"
+    },
+    {
+      "id": "design-system.ui-template.experience-rule-template",
+      "kind": "design-system-ui-template",
+      "title": "Rule Name",
+      "summary": "Defines a reusable Design System UI template.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-ui-template",
+        "experience-rule-template",
+        "templates"
+      ],
+      "path": "shared/design-system/templates/experience-rule-template.md"
+    },
+    {
+      "id": "design-system.ui-template.foundation-template",
+      "kind": "design-system-ui-template",
+      "title": "Foundation Name",
+      "summary": "Defines a reusable Design System UI template.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-ui-template",
+        "foundation-template",
+        "templates"
+      ],
+      "path": "shared/design-system/templates/foundation-template.md"
+    },
+    {
+      "id": "design-system.ui-template.pattern-template",
+      "kind": "design-system-ui-template",
+      "title": "Pattern Name",
+      "summary": "Defines a reusable Design System UI template.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-ui-template",
+        "pattern-template",
+        "templates"
+      ],
+      "path": "shared/design-system/templates/pattern-template.md"
+    },
+    {
+      "id": "employer.overview",
+      "kind": "product-overview",
+      "title": "Employer",
+      "summary": "Overview of the Employer product, its users, candidate Product Areas, and current documentation gaps.",
+      "status": "draft",
+      "owner": "Employer product team",
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "employer",
+        "job-post",
+        "product-overview",
+        "recruiting"
+      ],
+      "path": "products/employer/overview.md",
+      "product": "employer"
+    },
+    {
+      "id": "hrcando.overview",
+      "kind": "product-overview",
+      "title": "HRCanDo",
+      "summary": "Overview of the HRCanDo suite, its users, current boundary questions, and documentation gaps.",
+      "status": "draft",
+      "owner": "HRCanDo product team",
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "hr-products",
+        "hr-suite",
+        "hrcando",
+        "people-operations",
+        "product-overview"
+      ],
+      "path": "products/hrcando/overview.md",
+      "product": "hrcando"
+    },
+    {
+      "id": "jobseeker.overview",
+      "kind": "product-overview",
+      "title": "Jobseeker",
+      "summary": "Overview of the Jobseeker product, its users, candidate Product Areas, and current documentation gaps.",
+      "status": "draft",
+      "owner": "Jobseeker product team",
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "application",
+        "job-post",
+        "job-search",
+        "jobseeker",
+        "product-overview",
+        "resume"
+      ],
+      "path": "products/jobseeker/overview.md",
+      "product": "jobseeker"
+    },
+    {
+      "id": "menu",
+      "kind": "design-system-component",
+      "title": "Menu",
+      "summary": "Menu presents a temporary list of actions or destinations in a layer positioned above the current interface. Overflow Menu is the compact trigger pattern that opens this list.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "components",
+        "design-system-component",
+        "menu"
+      ],
+      "path": "shared/design-system/components/menu.md"
+    },
+    {
+      "id": "standard.analytics-standards",
+      "kind": "product-standard",
+      "title": "Analytics Standards",
+      "summary": "Defines a shared product standard.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "analytics-standards",
+        "product-standard",
+        "product-standards"
+      ],
+      "path": "shared/product-standards/analytics-standards.md"
+    },
+    {
+      "id": "standard.documentation-guidelines",
+      "kind": "product-standard",
+      "title": "Documentation Guidelines",
+      "summary": "Defines the active Product Overview, Product Area, Shared Product Concept, status, ownership, and manifest maintenance rules.",
+      "status": "reviewed",
+      "owner": "Product Knowledge owner",
+      "last_reviewed": "2026-07-27",
+      "related": [],
+      "topics": [
+        "documentation",
+        "documentation-guidelines",
+        "manifest",
+        "product-area",
+        "product-knowledge",
+        "product-standard",
+        "product-standards"
+      ],
+      "path": "shared/product-standards/documentation-guidelines.md"
+    },
+    {
+      "id": "standard.interaction-standards",
+      "kind": "product-standard",
+      "title": "Interaction Standards",
+      "summary": "Shared UI interaction behavior is documented in:",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "interaction-standards",
+        "product-standard",
+        "product-standards"
+      ],
+      "path": "shared/product-standards/interaction-standards.md"
+    },
+    {
+      "id": "standard.product-principles",
+      "kind": "product-standard",
+      "title": "Product Principles",
+      "summary": "Defines a shared product standard.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "product-principles",
+        "product-standard",
+        "product-standards"
+      ],
+      "path": "shared/product-standards/product-principles.md"
+    }
+  ],
+  "summary": {
+    "documents": 100,
+    "by_kind": {
+      "content-guideline": 3,
+      "design-system-accessibility": 8,
+      "design-system-component": 24,
+      "design-system-experience-rule": 10,
+      "design-system-foundation": 9,
+      "design-system-governance": 6,
+      "design-system-overview": 2,
+      "design-system-pattern": 12,
+      "design-system-product-variation": 2,
+      "design-system-reference": 3,
+      "design-system-token": 8,
+      "design-system-ui-template": 4,
+      "product-area": 1,
+      "product-overview": 4,
+      "product-standard": 4
+    },
+    "by_product": {
+      "ats": 2,
+      "employer": 1,
+      "hrcando": 1,
+      "jobseeker": 1
+    }
+  }
+}
