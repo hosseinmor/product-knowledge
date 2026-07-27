@@ -6,7 +6,7 @@ The goal is to retrieve the smallest sufficient and trustworthy context for the 
 
 ## Retrieval principles
 
-- Read canonical Product Knowledge before proposing changes to existing behavior.
+- Read Product Knowledge before proposing changes to existing behavior.
 - Use document metadata and the generated manifest for discovery.
 - Prefer documents with `knowledge_state: canonical`.
 - Treat `knowledge_state: observed` as evidence that requires explicit uncertainty.
@@ -14,7 +14,7 @@ The goal is to retrieve the smallest sufficient and trustworthy context for the 
 - Keep proposed or unreleased behavior from `product-work` separate from current Product Knowledge.
 - Follow stable document IDs and explicit relationships rather than guessing from folder proximity.
 - Expand context only when the current document indicates a dependency, relationship, conflict, or missing rule.
-- Never silently choose between conflicting canonical documents.
+- Never silently choose between conflicting Product Knowledge documents.
 
 ## Default discovery sequence
 
@@ -25,8 +25,7 @@ The goal is to retrieve the smallest sufficient and trustworthy context for the 
 4. Read the relevant product-overview.md
 5. Read the smallest sufficient set of Capabilities and Flows
 6. Read Domain rules and accepted Decisions only when relevant
-7. Read a separate Journey only when the Product overview or relationships identify one
-8. Report conflicts, observed knowledge, stale verification, and missing documents
+7. Report conflicts, observed knowledge, stale verification, and missing documents
 ```
 
 ## Context by task type
@@ -40,12 +39,11 @@ Product overview
 → relevant Capabilities
 → relevant Domains when business constraints matter
 → accepted Decisions when prior rationale matters
-→ optional complex Journey when explicitly related
 ```
 
-Use this context to understand current boundaries, known behavior, durable constraints, and decisions that should not be reopened without evidence.
+Use this context to understand current boundaries, major user journeys, known behavior, durable constraints, and decisions that should not be reopened without evidence.
 
-Research source material supplied for the current initiative remains in `product-work` and should not automatically become canonical Product Knowledge.
+Research source material supplied for the current initiative remains in `product-work` and should not automatically become Product Knowledge.
 
 ### Product and interaction design
 
@@ -58,7 +56,6 @@ Product overview
 → referenced Domain rules
 → relevant design-system and content standards
 → accepted Decisions
-→ optional complex Journey when end-to-end context is not sufficient in the Product overview
 ```
 
 Use the Product overview for product and major-journey context, the Capability for current product ability, the Flow for concrete behavior, and the Domain for rules that must remain true.
@@ -76,7 +73,7 @@ Product overview
 → shared standards
 ```
 
-Do not convert canonical documents directly into backlog items without identifying the proposed change. Product Knowledge describes the current product; a Product Backlog item describes work intended to change it.
+Do not convert Product Knowledge documents directly into backlog items without identifying the proposed change. Product Knowledge describes the current product; a Product Backlog item describes work intended to change it.
 
 ### Product Knowledge update
 
@@ -86,10 +83,9 @@ Read:
 Released change evidence
 → affected Capability or Flow
 → owning Domain rules when applicable
-→ Product overview when boundaries or major journeys changed
+→ Product overview when boundaries, major Capabilities, or major user journeys changed
 → affected Decisions
 → related shared knowledge
-→ optional Journey only when it owns a complex end-to-end fact
 ```
 
 Update only documents whose owned facts changed. Do not copy the same rule into every related document.
@@ -122,13 +118,13 @@ When sources conflict:
 Before using or changing a fact, identify its owner:
 
 ```text
-Product purpose, boundary, major capabilities, and major user journeys
+Product purpose, boundary, major Capabilities, and major user journeys
 → Product overview
 
 Stable business rule, permission, entity relationship, or lifecycle
 → Domain
 
-Durable product ability, entry point, availability, or capability-specific state
+Durable product ability, entry point, availability, or Capability-specific state
 → Capability
 
 Behavioral step, branch, validation, error, or recovery path
@@ -136,9 +132,6 @@ Behavioral step, branch, validation, error, or recovery path
 
 Approved rationale and historical trade-off
 → Decision
-
-Complex end-to-end journey with independent documentation
-→ optional Journey
 
 Cross-product rule with genuinely shared meaning
 → Shared knowledge
@@ -164,7 +157,7 @@ related
 last_verified
 ```
 
-Supported primary types are:
+Supported document types are:
 
 ```text
 product
@@ -175,9 +168,7 @@ decision
 shared
 ```
 
-`journey` is supported only for optional complex Journey documents.
-
-User goals, usage contexts, rules, states, and lifecycles are represented inside their owning documents and are not standalone retrieval types.
+User outcomes, usage contexts, rules, states, and lifecycles are represented inside their owning documents and are not standalone retrieval types.
 
 The generated manifest must be rebuilt when metadata, document paths, or relationships change.
 
@@ -198,7 +189,7 @@ When a document appears stale:
 
 Stop expanding context when:
 
-- The actor, goal, trigger, current behavior, governing rules, and relevant rationale are clear.
+- The actor, user outcome, trigger, current behavior, governing rules, and relevant rationale are clear.
 - Additional related documents do not materially affect the task.
 - The next dependency requires unavailable source material or a human decision.
 
