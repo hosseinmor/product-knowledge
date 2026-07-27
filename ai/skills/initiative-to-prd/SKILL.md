@@ -2,20 +2,9 @@
 
 ## Purpose
 
-Turn a short product initiative brief into a reviewable Product Requirements Document with minimal manual writing.
+Turn a short product initiative brief into a reviewable initiative analysis and Product Requirements Document with minimal manual writing.
 
-The AI performs:
-
-- Product Knowledge discovery
-- Context gathering
-- Problem and scope structuring
-- Actor and usage-context extraction
-- Dependency analysis
-- Assumption detection
-- Blocking-question prioritization
-- Option comparison
-- PRD drafting
-- Consistency checks
+AI performs discovery, context gathering, scope structuring, assumption detection, blocking-question prioritization, option comparison, drafting, and consistency checks.
 
 Humans remain responsible for product decisions and final approval.
 
@@ -24,17 +13,29 @@ Humans remain responsible for product decisions and final approval.
 - Product identifier
 - Initiative identifier
 - Short initiative brief
-- Access to the relevant Product Knowledge
+- Access to `manifest.generated.json` and relevant repository knowledge
 
 ## Optional inputs
 
-- Jira ticket or epic
+- Jira ticket or Epic
 - User research
 - Data analysis
 - Design references
 - Technical notes
 - Previous PRDs
-- Walkthrough output
+- Reviewed walkthrough output
+
+## Required output templates
+
+Use these files as the output contract:
+
+```text
+templates/workflows/initiative-template.md
+templates/workflows/prd-template.md
+templates/workflows/decision-question-template.md
+```
+
+Do not redefine or shorten their required structure inside the Skill output.
 
 ## Expected workspace
 
@@ -45,6 +46,8 @@ product-work/
         ├── initiative.md
         └── prd.md
 ```
+
+Workflow outputs remain proposed work and are not indexed as canonical Product Knowledge.
 
 ## Workflow
 
@@ -61,51 +64,66 @@ Extract:
 
 Do not assume the proposed solution or Capability name is correct.
 
-### 2. Gather relevant knowledge
+Preserve the original brief in `initiative.md` so later refinements do not replace the initial intent silently.
+
+### 2. Validate repository readiness
 
 Follow `ai/retrieval-rules.md`.
 
-Use the generated manifest to discover the smallest sufficient set of documents, then read only relevant documents from:
+Before discovery:
 
-- Shared Product Knowledge
+- Confirm `manifest.generated.json` exists.
+- Confirm the committed manifest is current when repository tooling is available.
+- Inspect its `summary` and `unindexed` list.
+- Stop and report a repository-quality failure when the manifest is missing or stale.
+- Surface relevant unindexed or unverified knowledge as a coverage gap.
+
+Do not silently replace manifest discovery with filename globbing.
+
+### 3. Gather the smallest sufficient knowledge set
+
+Use manifest collections and stable IDs to find relevant:
+
 - Product overview
-- Related Capabilities
-- Related Flows
-- Related Domains when business constraints matter
+- Capabilities
+- Flows
+- Domains when stable business constraints matter
 - Accepted Decisions when prior rationale matters
-- Design-system Patterns
-- Content and product standards
+- Design System Components, Patterns, foundations, tokens, and accessibility rules
+- Content guidance
+- Product standards
+- Shared Domains
 
-Prefer `knowledge_state: canonical` documents. Treat `observed` knowledge as unconfirmed and surface it explicitly.
+Prefer `knowledge_state: canonical` for intended current truth.
 
-Identify the canonical owner of every important rule instead of copying similar statements from several documents.
+Treat:
 
-### 3. Build `initiative.md`
+```text
+observed
+→ current evidence whose intended meaning is not confirmed
 
-Use this structure:
+unverified
+→ content or migrated metadata requiring semantic review
 
-```md
-# Initiative
-
-## Original Brief
-## Current Product Context
-## Problem and Desired Outcome
-## Proposed Scope
-### In Scope
-### Out of Scope
-## Actors and Main Usage Contexts
-## Existing Rules and Constraints
-## Dependencies
-## Assumptions
-## Blocking Questions
-## Non-Blocking Questions
-## Human Decisions
-## Related Product Knowledge
+deprecated
+→ historical context, not current behavior
 ```
 
-Use stable Product Knowledge IDs in `Related Product Knowledge` when available.
+Read Evidence, Coverage, Unknowns, and last verification before presenting knowledge as complete.
 
-### 4. Ask only blocking questions
+### 4. Build `initiative.md`
+
+Copy and complete:
+
+```text
+templates/workflows/initiative-template.md
+```
+
+Use stable IDs in `Related Product Knowledge`.
+
+Record relevant manifest gaps under `Repository Coverage Gaps`. Do not fill missing product context by inference.
+
+### 5. Identify blocking questions
 
 A blocking question materially changes one or more of:
 
@@ -119,17 +137,10 @@ A blocking question materially changes one or more of:
 
 Do not interrupt humans with cosmetic, copy, layout, or low-impact questions.
 
-For each blocking question provide:
+For each blocking question, copy and complete:
 
-```md
-## Decision
-
-### Question
-### Options
-### AI Recommendation
-### Reason
-### Impact
-### Required Reviewer
+```text
+templates/workflows/decision-question-template.md
 ```
 
 Route decisions to:
@@ -139,77 +150,82 @@ Route decisions to:
 - Technical feasibility or constraint → Tech
 - Cross-functional rule → PM + Tech
 
-The AI may recommend an option, but must not record it as approved without a human decision.
+AI may recommend an option, but must not record it as approved without an explicit human decision.
 
-A working decision inside an initiative is not automatically a canonical Decision document. After approval and release, preserve it as a canonical Decision only when its rationale is durable according to `knowledge-model.md`.
+A working decision is not automatically a canonical Decision document. Preserve it after release only when its rationale is durable under `knowledge-model.md`.
 
-### 5. Apply human decisions
+### 6. Apply human decisions
 
 After each answer:
 
-- Record the decision
-- Update scope and assumptions
-- Resolve contradictions
-- Remove answered blocking questions
-- Keep deferred questions visible
-- Recheck consistency with Product Knowledge
+- Record approver, date, rationale, and approved option.
+- Update scope and assumptions.
+- Resolve contradictions explicitly.
+- Remove the item from blocking questions only after resolution.
+- Keep deferred questions visible.
+- Recheck consistency with repository knowledge.
 
-### 6. Generate `prd.md`
+Do not rewrite the original brief or erase rejected alternatives.
 
-Use this structure unless the team provides another template:
+### 7. Generate `prd.md`
 
-```md
-# Product Requirements Document
+Copy and complete:
 
-## Summary
-## Problem
-## Desired Outcome
-## Scope
-### In Scope
-### Out of Scope
-## Actors
-## Usage Contexts
-## Functional Requirements
-## Business Rules
-## Permissions
-## States and Lifecycle
-## Main Flows
-## Alternative and Error Flows
-## Dependencies
-## Constraints
-## Analytics and Success Indicators
-## Open Questions
-## Deferred Items
-## Related Product Knowledge
+```text
+templates/workflows/prd-template.md
 ```
 
-### 7. Validate the PRD
+Keep these distinctions explicit:
+
+```text
+Current behavior
+→ Supported by repository knowledge or reviewed evidence
+
+Intended behavior
+→ Proposed by the PRD and approved human decisions
+
+Assumption
+→ Necessary but not yet confirmed
+
+Open question
+→ Unresolved and visible
+```
+
+Give functional requirements stable local identifiers.
+
+Reference existing Domain rules by stable ID. Clearly identify new proposed rules that require human approval.
+
+### 8. Validate the PRD
 
 Verify that:
 
-- Every requirement is supported by the brief, Product Knowledge, or an approved human decision
-- Assumptions are not written as confirmed rules
-- Current behavior and intended behavior are not mixed
-- Scope is internally consistent
-- Business rules do not silently conflict with existing Domain documentation
-- Permissions and lifecycle transitions are explicit
-- Existing Capabilities are not confused with proposed backlog work
-- Accepted Decisions that constrain the change are respected or explicitly reconsidered
-- Major journey impact is reflected in the Product overview
-- Open questions remain visible
-- Out-of-scope items are explicit
+- Every requirement is supported by the brief, repository knowledge, or an approved human decision.
+- Assumptions are not written as confirmed rules.
+- Current and intended behavior are separated.
+- Scope is internally consistent.
+- Business rules do not silently conflict with existing Domain documents.
+- Permissions and lifecycle transitions are explicit.
+- Existing Capabilities are not confused with proposed backlog work.
+- Accepted Decisions are respected or explicitly reconsidered.
+- Major user-journey impact is identified for the Product overview.
+- Design System and content constraints are represented when relevant.
+- Repository indexing and coverage gaps remain visible.
+- Open questions and deferred items remain visible.
+- Product Knowledge impact after release is identified.
 
-### 8. Stop for approval
+### 9. Stop for approval
 
 Present:
 
-- The PRD
+- The completed PRD
 - Remaining open questions
 - Important assumptions
-- Conflicts with existing Product Knowledge
-- Major risks or dependencies
+- Conflicts with current repository knowledge
+- Repository coverage gaps
+- Major risks and dependencies
+- Expected Product Knowledge impact after release
 
-Do not mark the PRD as approved on behalf of a human.
+Do not mark the PRD approved on behalf of a human.
 
 ## Human responsibilities
 
@@ -222,11 +238,12 @@ Humans are responsible for:
 
 ## Rules
 
-- Do not invent product decisions
-- Do not hide uncertainty
-- Do not ask non-blocking questions too early
-- Do not create multiple working documents when one `initiative.md` is enough
-- Do not update Product Knowledge before release
-- Do not treat a PRD as canonical current-product behavior
-- Do not treat Jira Epic, Feature, Story, or Task hierarchy as the Product Knowledge structure
-- Do not create standalone Journey, User Goal, Scenario, Rule, State, Lifecycle, or Subdomain documents
+- Do not invent product decisions.
+- Do not hide uncertainty or repository gaps.
+- Do not ask non-blocking questions too early.
+- Do not create multiple working documents when one `initiative.md` is sufficient.
+- Do not update canonical Product Knowledge before release.
+- Do not treat a PRD as current product truth.
+- Do not treat Jira Epic, Feature, Story, or Task hierarchy as the Product Knowledge structure.
+- Do not create standalone Journey, Feature, User Goal, Scenario, Rule, State, Lifecycle, or Subdomain documents.
+- Do not duplicate workflow template structures inside this Skill.

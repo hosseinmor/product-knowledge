@@ -12,7 +12,7 @@ products/
 → Product-specific overviews, capabilities, flows, domains, and decisions
 
 templates/
-→ Required document shapes for Product Knowledge and reviewed walkthrough output
+→ Canonical document, evidence, and workflow output shapes
 
 ai/
 → Stable AI workflows that discover, consume, validate, and update Product Knowledge
@@ -50,26 +50,24 @@ See [`ai/retrieval-rules.md`](ai/retrieval-rules.md) for document discovery and 
 
 `manifest.generated.json` is generated from frontmatter. It is an index, not a second source of truth.
 
+All current indexable documents have migrated to the common metadata envelope. CI runs strict validation on every pull request and push to `main`.
+
 ```bash
 python -m pip install -r requirements-dev.txt
 python scripts/knowledge.py generate
-python scripts/knowledge.py validate
+python scripts/knowledge.py check --strict
 python scripts/knowledge.py report
 ```
 
-During the metadata migration, documents that cannot be indexed remain visible in the manifest under `unindexed`. AI must report this as a coverage gap rather than silently falling back to filename-based discovery.
+Strict validation checks metadata, collection/type compatibility, ID uniqueness, related-ID resolution, truth and maturity states, empty canonical documents, and manifest freshness.
 
-After the migration, strict CI uses:
-
-```bash
-python scripts/knowledge.py check --strict
-```
+The manifest `unindexed` list must remain empty unless an explicit migration plan is reviewed and accepted.
 
 See [`docs/manifest.md`](docs/manifest.md) for the manifest schema, collection taxonomy, and maintenance rules.
 
 ## Templates
 
-Use the repository templates when creating or materially restructuring documents:
+### Canonical Product Knowledge
 
 ```text
 templates/product-overview-template.md
@@ -77,10 +75,24 @@ templates/capability-template.md
 templates/flow-template.md
 templates/domain-template.md
 templates/decision-template.md
+```
+
+### Reviewed walkthrough evidence
+
+```text
 templates/walkthrough-output-template.md
 ```
 
-Templates define required structure and metadata. Skills define how evidence is collected, validated, and converted into Product Knowledge.
+### Temporary workflow outputs
+
+```text
+templates/workflows/initiative-template.md
+templates/workflows/prd-template.md
+templates/workflows/decision-question-template.md
+templates/workflows/product-knowledge-update-proposal-template.md
+```
+
+Templates define output structure and metadata. Skills define collection, reasoning, validation, stop conditions, and handoff.
 
 ## Main workflows
 
@@ -106,11 +118,11 @@ ai/skills/product-walkthrough/SKILL.md
 
 ```text
 PM creates a short initiative brief
-→ AI reads the generated manifest and relevant Product Knowledge
-→ AI prepares initiative.md
-→ AI asks only blocking questions
+→ AI reads the generated manifest and relevant repository knowledge
+→ AI prepares initiative.md from the approved workflow template
+→ AI asks only blocking questions using the decision template
 → Humans make required decisions
-→ AI generates prd.md
+→ AI generates prd.md from the approved workflow template
 → Humans approve the PRD
 ```
 
@@ -124,9 +136,10 @@ ai/skills/initiative-to-prd/SKILL.md
 
 ```text
 Approved change is released or a walkthrough output is reviewed
-→ AI validates source readiness and coverage
+→ AI validates source readiness and repository coverage
 → AI identifies canonical owners
-→ AI prepares template-compliant patches
+→ AI prepares an update proposal and template-compliant patches
+→ AI regenerates the manifest and runs strict validation
 → Humans review the semantic diff
 → Approved changes are merged
 ```

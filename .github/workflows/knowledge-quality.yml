@@ -27,7 +27,7 @@ jobs:
         run: python -m pip install -r requirements-dev.txt
 
       - name: Validate metadata and manifest freshness
-        run: python scripts/knowledge.py check
+        run: python scripts/knowledge.py check --strict
 
       - name: Upload validated manifest
         uses: actions/upload-artifact@v4

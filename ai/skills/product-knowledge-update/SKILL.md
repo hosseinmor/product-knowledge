@@ -2,11 +2,11 @@
 
 ## Purpose
 
-Update Product Knowledge after an approved product change has been released, or after missing current behavior has been recovered through a reviewed walkthrough.
+Update canonical Product Knowledge after an approved product change has been released, or after missing current behavior has been recovered through reviewed evidence.
 
-The AI prepares the changes. Humans validate meaning and approve the final diff.
+AI prepares the evidence classification, ownership analysis, patches, metadata changes, and manifest update. Humans validate semantic meaning and approve the final diff.
 
-## Inputs
+## Required inputs
 
 At least one reviewed change source:
 
@@ -18,23 +18,22 @@ At least one reviewed change source:
 
 And:
 
-- Product identifier
+- Product identifier when product-specific
 - Initiative or change identifier
-- Access to relevant Product Knowledge
+- Access to `manifest.generated.json` and relevant repository knowledge
 
-Optional:
+Optional sources:
 
 - Design specification
 - Technical notes
 - Release notes
-- Screenshots
-- Recordings
+- Screenshots or recordings
 - Jira tickets
 - QA findings
 
 ## Required templates
 
-Use these repository templates when creating a document or materially restructuring one:
+Use canonical document templates when creating or materially restructuring Product Knowledge:
 
 ```text
 templates/product-overview-template.md
@@ -44,19 +43,29 @@ templates/domain-template.md
 templates/decision-template.md
 ```
 
-Do not create custom document shapes that omit required metadata, evidence, coverage, or unknowns.
+Use this temporary output template for the review proposal:
+
+```text
+templates/workflows/product-knowledge-update-proposal-template.md
+```
+
+Do not duplicate or shorten the proposal structure inside this Skill output.
 
 ## Core principles
 
 ```text
-Source material = evidence and approved change intent
-Product Knowledge = permanent canonical understanding
+Source material
+→ Evidence and approved change intent
+
+Canonical repository knowledge
+→ Permanent current understanding after human review
 ```
 
-- Observed production behavior must not automatically become an intended business rule.
-- Every durable fact must have one canonical owner.
-- Related documents may reference or apply a fact, but must not independently redefine it.
-- Missing evidence and incomplete coverage must remain visible.
+- Observed production behavior does not automatically become an intended business rule.
+- Every durable fact has one canonical owner.
+- Related documents reference or apply owned facts rather than redefining them.
+- Missing evidence, incomplete coverage, and repository indexing gaps remain visible.
+- A released change updates only the documents whose owned facts changed.
 
 ## Workflow
 
@@ -64,22 +73,24 @@ Product Knowledge = permanent canonical understanding
 
 Extract:
 
-- Product
-- Capability or affected product area
+- Product or shared collection
+- Capability or affected area
 - Released change or reviewed recovery scope
 - Actors and roles
 - Usage contexts covered
 - Source documents
 - Release or review status
 
-Do not update Product Knowledge for unreleased work.
+Do not update canonical Product Knowledge for unreleased work.
 
 ### 2. Validate source readiness
+
+For release-based updates, require evidence that the change is released or otherwise approved as current behavior.
 
 For walkthrough-based updates, require:
 
 - Explicit scope, actor, role, authentication state, and environment
-- Surface inventory
+- Surface and entry-point inventory
 - Coverage matrix
 - Evidence index
 - Separation of observed, inferred, unknown, blocked, and suspected-bug findings
@@ -88,27 +99,56 @@ For walkthrough-based updates, require:
 
 Do not convert an incomplete raw walkthrough directly into canonical documents.
 
-### 3. Find relevant Product Knowledge
+### 3. Validate repository readiness
 
 Follow `ai/retrieval-rules.md`.
 
-Read the smallest sufficient set from:
+Before selecting documents:
+
+- Confirm `manifest.generated.json` exists.
+- Confirm it is current when repository tooling is available.
+- Inspect the manifest summary and `unindexed` list.
+- Stop when the manifest is missing or stale.
+- Surface relevant unindexed or unverified knowledge as a repository coverage gap.
+
+Do not silently replace manifest discovery with filename globbing.
+
+### 4. Find the smallest sufficient knowledge set
+
+Select by collection, product, type, summary, and related IDs.
+
+Relevant Product Knowledge may include:
 
 - Product overview
 - Capability
 - Flow
-- Domain when stable business truth is involved
-- Accepted Decision when durable rationale is involved
-- Shared knowledge when meaning and ownership are genuinely cross-product
+- Domain
+- Accepted Decision
 
-Check metadata:
+Relevant shared knowledge may include:
 
-- Prefer `knowledge_state: canonical`
-- Surface `observed` content as unconfirmed
-- Ignore `deprecated` content as current behavior
-- Use `document_maturity` as a review signal, not as truth status
+- Design System
+- Content
+- Product Standard
+- Shared Domain
 
-### 4. Classify each finding
+Interpret truth states consistently:
+
+```text
+canonical
+→ Approved current truth
+
+observed
+→ Current evidence whose intended meaning is not confirmed
+
+unverified
+→ Content or metadata awaiting semantic confirmation
+
+deprecated
+→ Historical context, not current truth
+```
+
+### 5. Classify each finding
 
 Use:
 
@@ -125,44 +165,59 @@ Route them as follows:
 
 ```text
 confirmed
-→ candidate Product Knowledge patch
+→ Candidate canonical patch
 
 observed
-→ observed evidence; canonical only after intended meaning is confirmed
+→ Evidence; canonical only after intended meaning is confirmed
 
 inferred
-→ assumption or open question, never canonical by itself
+→ Assumption or open question, never canonical by itself
 
 unknown | blocked
-→ coverage gap or open question
+→ Coverage gap or open question
 
 suspected-bug
-→ proposed bug ticket, not a canonical rule
+→ Proposed bug ticket, not an intended rule
 ```
 
-### 5. Determine canonical ownership
+### 6. Determine canonical ownership
+
+For Product Knowledge:
 
 ```text
 Product overview
-→ product purpose, boundaries, major Capabilities, and major user journeys
+→ Product purpose, boundaries, main Capabilities, and major user journeys
 
 Domain
-→ stable business rules, permissions, lifecycle constraints, and entity relationships
+→ Stable business rules, permissions, lifecycle constraints, and entity relationships
 
 Capability
-→ product ability, actors, entry points, availability, Capability-specific states, and high-level behavior
+→ Durable product ability, actors, entry points, availability, Capability-specific states, and high-level behavior
 
 Flow
-→ actor, user outcome, trigger, preconditions, steps, branches, validations, state transitions, errors, recovery, persistence, and end states
+→ Actor, outcome, trigger, preconditions, steps, branches, validations, transitions, errors, recovery, persistence, and end states
 
 Decision
-→ durable approved rationale requiring historical context
-
-Shared
-→ cross-product knowledge whose meaning and ownership are consistent across products
+→ Durable approved rationale requiring historical context
 ```
 
-For each document choose:
+For shared collections:
+
+```text
+Design System
+→ Reusable foundations, tokens, Components, Patterns, accessibility, variations, and governance
+
+Content
+→ Cross-product content guidance
+
+Product Standard
+→ Cross-product product or documentation rules
+
+Shared Domain
+→ Stable business concepts and rules genuinely shared by products
+```
+
+For each affected document choose:
 
 - `update`
 - `reference update only`
@@ -172,65 +227,86 @@ For each document choose:
 
 Do not create standalone Journey, Feature, User Goal, Scenario, Rule, State, Lifecycle, or Subdomain documents.
 
-### 6. Evaluate Decision impact
+### 7. Evaluate Decision impact
 
-Create or update a Decision only when the approved rationale is durable, such as when the change:
+Create or update a canonical Decision only when the approved rationale is durable, such as when the change:
 
 - Establishes a significant rule or intentional exception
 - Changes permission, lifecycle, ownership, or product boundaries
 - Resolves a material trade-off between reasonable alternatives
 - Is likely to be questioned or reopened later
-- Affects several Product Knowledge documents
+- Affects several canonical documents
 
-The Decision records why. The Product overview, Domain, Capability, or Flow still owns current behavior.
+A Decision records why. The Product overview, Domain, Capability, Flow, or shared document still owns the resulting current truth.
 
 When superseding a Decision:
 
-- Mark the previous Decision as superseded
-- Set `superseded_by`
-- Set `supersedes` on the new Decision
-- Preserve historical rationale
+- Mark the previous Decision as superseded.
+- Set `superseded_by` on the previous Decision.
+- Set `supersedes` on the new Decision.
+- Preserve historical rationale.
 
-### 7. Prepare template-compliant patches
+### 8. Prepare the update proposal
 
-Edit only affected sections.
+Copy and complete:
 
-For every patch record:
+```text
+templates/workflows/product-knowledge-update-proposal-template.md
+```
 
+For every proposed patch record:
+
+- Stable document ID
+- Canonical owner
+- Changed fact
 - Reason
 - Source
 - Classification
-- Canonical owner
 - Required reviewer
+- Proposed diff
+
+Do not rewrite entire documents unless their structure is fundamentally unusable.
+
+### 9. Prepare template-compliant patches
 
 When creating or materially updating a file:
 
-- Use the matching template
-- Add or validate required frontmatter
-- Keep the stable `id`
-- Update `related` IDs
-- Update `last_verified` only after actual review
-- Keep `knowledge_state` separate from `document_maturity`
-- Add evidence or source references
-- Add Coverage and Unknowns sections where required
-- Do not remove untested or blocked cases merely to make the document look complete
+- Use the matching canonical template.
+- Preserve its stable ID.
+- Use the common `collection` and `type` metadata envelope.
+- Update `related` IDs through manifest-resolvable identifiers.
+- Update `last_verified` only after actual review.
+- Keep `knowledge_state` separate from `document_maturity`.
+- Add evidence or source references.
+- Preserve Coverage and Unknowns sections where required.
+- Do not remove blocked or untested cases merely to make the document appear complete.
 
-### 8. Validate document quality
+### 10. Validate document and repository quality
 
-Before presenting the diff, verify:
+Before presenting the final diff, run:
 
-- The document uses an approved canonical template
-- Required sections are present
-- Facts have evidence or an approved source
-- Observations and inferences are not mixed
-- Unknowns are not written as canonical facts
-- Coverage limitations remain explicit
-- Rules are stored in the correct canonical owner
-- Related documents reference rather than duplicate rules
-- Metadata types are limited to `product`, `capability`, `flow`, `domain`, `decision`, and `shared`
-- No Journey or Feature template, type, folder, or document has been introduced
+```bash
+python scripts/knowledge.py generate
+python scripts/knowledge.py check --strict
+```
 
-### 9. Stop on sensitive semantic changes
+Verify that:
+
+- Every indexable document has the common metadata envelope.
+- Collection and type are compatible.
+- IDs are unique.
+- Related IDs resolve through the manifest.
+- A scaffold is not canonical.
+- Canonical documents contain substantive owned facts.
+- Facts have evidence or an approved source.
+- Observations and inferences are separated.
+- Unknowns are not written as canonical facts.
+- Coverage limitations remain explicit.
+- Rules are stored in the correct canonical owner.
+- No obsolete Journey or Feature type, template, or folder is introduced.
+- `manifest.generated.json` is current and has no unexplained indexing regression.
+
+### 11. Stop on sensitive semantic changes
 
 Require explicit human review for:
 
@@ -239,59 +315,41 @@ Require explicit human review for:
 - Lifecycle changes
 - Entity relationship changes
 - Removal of an existing rule
-- Change from observed behavior to intended behavior
-- Generalization from one role, account, or context to all users
+- Change from observed or unverified behavior to canonical intended behavior
+- Generalization from one role, account, environment, or context to all users
 - Conflicts between PRD and production
-- Moving product-specific knowledge into `shared/`
+- Moving product-specific knowledge into a shared collection
 - Changing canonical ownership
 - Accepting, superseding, or deprecating a Decision
 
-### 10. Present a reviewable diff
-
-Use:
-
-```md
-# Product Knowledge Update Proposal
-
-## Scope
-## Sources Reviewed
-## Source Readiness and Coverage
-## Documentation Impact
-## Canonical Ownership
-## Proposed Patches
-## Decision Impact
-## Metadata and Relationship Changes
-## Open Questions
-## Blocked and Untested Areas
-## Suspected Bugs
-## Review Required
-## Files With No Change
-```
+### 12. Present a reviewable diff
 
 When repository access is available:
 
 ```text
-create branch
-→ edit files
-→ rebuild the generated manifest when available
-→ show diff
-→ wait for approval
-→ merge only after human approval
+Create a dedicated branch
+→ edit only affected files
+→ regenerate the manifest
+→ run strict validation
+→ present the semantic and metadata diff
+→ wait for explicit human approval
+→ merge after approval
 ```
 
-### 11. Complete the update
+### 13. Complete the update
 
 The update is complete when:
 
-- All confirmed changes are reflected in their canonical owner documents
-- Related documents reference rather than redefine owned facts
-- Unknowns, blocked areas, and meaningful untested cases remain visible
-- Suspected bugs are not recorded as rules
-- Sensitive changes are approved
-- Durable rationale is preserved in Decisions when required
-- Metadata and relationships remain valid
-- No important confirmed knowledge remains only in a PRD or walkthrough output
-- The documentation diff is merged
+- Confirmed changes are reflected in their canonical owners.
+- Related documents reference rather than redefine owned facts.
+- Unknowns, blocked areas, and meaningful untested cases remain visible.
+- Suspected bugs are not recorded as intended rules.
+- Sensitive changes have explicit approval.
+- Durable rationale is preserved in Decisions when required.
+- Metadata and relationships pass strict validation.
+- The generated manifest is current.
+- No important confirmed knowledge remains only in a PRD or walkthrough output.
+- The documentation diff is merged.
 
 ## Human responsibilities
 
@@ -303,3 +361,12 @@ Humans are responsible for:
 - Accepting coverage limitations
 - Approving durable Decisions
 - Approving the final documentation diff
+
+## Rules
+
+- Do not update canonical knowledge before release.
+- Do not turn observation or inference into intended truth without approval.
+- Do not hide repository indexing or coverage gaps.
+- Do not duplicate canonical facts.
+- Do not create custom document shapes that omit required metadata or quality sections.
+- Do not duplicate workflow template structures inside this Skill.

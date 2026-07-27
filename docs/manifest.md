@@ -2,28 +2,25 @@
 
 `manifest.generated.json` is the deterministic discovery index for Product Knowledge and shared knowledge collections.
 
-It is generated from document frontmatter by:
+Generate and validate it with:
 
 ```bash
 python -m pip install -r requirements-dev.txt
 python scripts/knowledge.py generate
-```
-
-Validate metadata and relationships with:
-
-```bash
-python scripts/knowledge.py validate
-```
-
-After the metadata migration is complete, CI uses strict validation and checks that the committed manifest is current:
-
-```bash
 python scripts/knowledge.py check --strict
 ```
 
+Use `report` for repository quality counts:
+
+```bash
+python scripts/knowledge.py report
+```
+
+CI runs strict validation and checks that the committed manifest is current on every pull request and push to `main`.
+
 ## Manifest responsibilities
 
-The manifest contains discovery metadata only. It does not own product or design-system truth.
+The manifest contains discovery metadata only. It does not own product, Design System, content, or shared business truth.
 
 Each indexed entry contains:
 
@@ -41,7 +38,9 @@ related IDs
 selected retrieval fields
 ```
 
-Documents that cannot yet be indexed appear in `unindexed` with an explicit reason. Agents must treat `unindexed` as a coverage gap and must not infer that an absent document or fact does not exist.
+The repository has completed its common-metadata migration. The `unindexed` list is expected to remain empty.
+
+A new unindexed document is a validation failure unless an explicit migration exception is approved and CI is deliberately changed. Agents must never infer that an absent document or fact does not exist.
 
 ## Collections and types
 
@@ -78,6 +77,8 @@ document_maturity: scaffold | draft | reviewed | stable
 
 A scaffold cannot be canonical. A canonical document must contain substantive owned facts.
 
+Migration does not establish semantic truth. Documents migrated without human verification remain `unverified` even when their metadata is structurally valid.
+
 ## Stable identifiers
 
 Relationships use stable document IDs, not paths. The manifest resolves IDs to current repository paths. Moving a file must not change its ID.
@@ -85,3 +86,7 @@ Relationships use stable document IDs, not paths. The manifest resolves IDs to c
 ## Determinism
 
 The manifest excludes generation timestamps and sorts entries by ID and unindexed paths by path. Running the generator twice without source changes must produce an identical file.
+
+## Pull-request requirement
+
+Any change to indexed Markdown files, metadata, IDs, or relationships must include the regenerated `manifest.generated.json`. CI rejects stale manifests, invalid IDs, broken relationships, and collection/type mismatches.
