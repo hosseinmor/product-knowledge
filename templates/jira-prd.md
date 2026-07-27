@@ -1,5 +1,12 @@
 # {Initiative title}
 
+## Product context
+
+- Product Group:
+- Product:
+- Related Product Areas:
+- Shared Product Services:
+
 ## Problem
 
 ## Why it matters
@@ -29,6 +36,10 @@
 ## States and transitions
 
 ## Validations and edge cases
+
+## Shared service behavior and fallback
+
+Use this section only when the product depends on a cross-product service such as an AI fit, matching, scoring, or generation service. Separate shared service behavior from product-specific thresholds, presentation, permissions, and copy.
 
 ## Dependencies and constraints
 
