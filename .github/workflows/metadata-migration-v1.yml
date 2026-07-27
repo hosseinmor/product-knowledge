@@ -85,7 +85,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Create or update migration pull request
-        if: github.event_name == 'push' && success()
+        if: success() && (github.event_name == 'push' || github.head_ref == 'chore/trigger-metadata-migration')
         env:
           GH_TOKEN: ${{ github.token }}
           BRANCH: automation/metadata-migration-v1
@@ -95,9 +95,13 @@ jobs:
             exit 0
           fi
 
+          cp metadata-migration.patch /tmp/metadata-migration.patch
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git switch -C "$BRANCH"
+          git fetch origin main
+          git reset --hard
+          git switch -C "$BRANCH" origin/main
+          git apply /tmp/metadata-migration.patch
           git add scripts/knowledge.py scripts/migrate_metadata.py products shared manifest.generated.json
           git commit -m "Migrate repository metadata to the common envelope"
           git push --force origin "$BRANCH"
