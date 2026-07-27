@@ -1,6 +1,6 @@
 # Workflow Output Templates
 
-These templates define temporary, reviewable outputs used in `product-work`.
+These templates define temporary, reviewable outputs used in `product-work` or at the boundary between `product-work` and `product-knowledge`.
 
 ```text
 initiative-template.md
@@ -12,12 +12,17 @@ prd-template.md
 decision-question-template.md
 → Structures one blocking human decision
 
+product-knowledge-handoff-template.yaml
+→ Identifies a reviewed or released source and routes it to Product Knowledge update
+
 product-knowledge-update-proposal-template.md
-→ Structures the reviewed handoff from released evidence to canonical documentation changes
+→ Structures the reviewable proposal from source evidence to canonical documentation changes
 ```
 
-Workflow outputs are not canonical Product Knowledge and are not included in `manifest.generated.json`.
+Workflow outputs and handoffs are not canonical Product Knowledge and are not included in `manifest.generated.json`.
 
-Use `artifact_type` and workflow-specific states rather than the canonical Product Knowledge `collection` and `type` fields.
+Use `artifact_type`, handoff fields, and workflow-specific states rather than canonical Product Knowledge `collection` and `type` fields.
 
-Skills own the process and stop conditions. Templates own the output shape. Do not copy template structures back into `SKILL.md` because that creates two sources of truth.
+Skills own process and stop conditions. Templates own output shape. Do not copy template structures back into `SKILL.md` because that creates two sources of truth.
+
+See `docs/product-work-handoff.md` for readiness, idempotency, acknowledgement, and failure rules across repositories.
