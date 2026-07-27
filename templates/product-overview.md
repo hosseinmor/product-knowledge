@@ -1,13 +1,15 @@
 ---
-id: product-id.overview
+id: group-id.product-id.overview
 kind: product-overview
+group: group-id
 product: product-id
 title: Product name
 summary: One-sentence description used by AI to decide when this overview is relevant.
 status: draft
 owner:
 last_reviewed:
-related: []
+related:
+  - group-id.overview
 topics: []
 ---
 
