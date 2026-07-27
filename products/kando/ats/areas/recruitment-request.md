@@ -1,14 +1,15 @@
 ---
-id: ats.recruitment-request
+id: kando.ats.recruitment-request
 kind: product-area
+group: kando
 product: ats
 title: Recruitment Request
-summary: Explains how ATS creates, submits, approves, rejects, resubmits, and fulfills an internal hiring request.
+summary: Explains how Kando ATS creates, submits, approves, rejects, resubmits, and fulfills an internal hiring request.
 status: draft
 owner: ATS product team
 last_reviewed:
 related:
-  - ats.overview
+  - kando.ats.overview
 topics:
   - recruitment-request
   - approval-workflow
@@ -231,5 +232,5 @@ Most of these cases are still untested or unspecified.
 
 ## Sources
 
-- Product and design discussions about ATS Recruitment Request behavior during 2026
+- Product and design discussions about Kando ATS Recruitment Request behavior during 2026
 - Production walkthrough is still recommended to verify branches, permissions, and persistence

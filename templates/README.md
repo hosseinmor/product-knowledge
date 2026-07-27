@@ -1,25 +1,30 @@
 # Templates
 
-The active Product Knowledge model uses four simple templates:
+The active Product Knowledge model uses these simple templates:
 
 ```text
+product-group-overview.md
 product-overview.md
 product-area.md
 shared-product-concept.md
+shared-product-service.md
 jira-prd.md
 ```
 
 ## Product Knowledge templates
 
+- `product-group-overview.md` describes a product group such as Jobvision or Kando and lists its products.
 - `product-overview.md` describes one product and its main Product Areas.
 - `product-area.md` describes one meaningful part of a product, including its flows, rules, permissions, states, validations, and edge cases.
 - `shared-product-concept.md` describes a business concept or rule that is genuinely shared across products.
+- `shared-product-service.md` describes a durable cross-product service, such as an AI fit or matching service.
 
-These three templates include lightweight YAML frontmatter for the AI retrieval manifest:
+These templates include lightweight YAML frontmatter for the AI retrieval manifest:
 
 ```text
 id
 kind
+group when relevant
 product when relevant
 title
 summary

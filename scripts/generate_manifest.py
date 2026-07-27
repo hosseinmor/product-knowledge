@@ -25,6 +25,7 @@ MANIFEST_PATH = ROOT / "manifest.generated.json"
 INDEX_ROOTS = (
     ROOT / "products",
     ROOT / "shared" / "product-concepts",
+    ROOT / "shared" / "product-services",
     ROOT / "shared" / "design-system",
     ROOT / "shared" / "content",
     ROOT / "shared" / "product-standards",
@@ -33,6 +34,8 @@ EXCLUDED_FILENAMES = {"README.md"}
 FRONTMATTER_RE = re.compile(r"\A---\s*\n(.*?)\n---\s*(?:\n|\Z)", re.DOTALL)
 SLUG_RE = re.compile(r"[^a-z0-9]+")
 VALID_STATUS = {"draft", "reviewed"}
+GROUP_KINDS = {"product-group-overview"}
+PRODUCT_KINDS = {"product-overview", "product-area", "product-area-flow"}
 
 
 @dataclass(frozen=True)
@@ -115,12 +118,21 @@ def as_string_list(value: Any) -> list[str]:
     return result
 
 
+def infer_group(path: str, metadata: dict[str, Any]) -> str | None:
+    if nonempty_string(metadata.get("group")):
+        return str(metadata["group"]).strip()
+    parts = Path(path).parts
+    if len(parts) >= 2 and parts[0] == "products":
+        return parts[1]
+    return None
+
+
 def infer_product(path: str, metadata: dict[str, Any]) -> str | None:
     if nonempty_string(metadata.get("product")):
         return str(metadata["product"]).strip()
     parts = Path(path).parts
-    if len(parts) >= 2 and parts[0] == "products":
-        return parts[1]
+    if len(parts) >= 3 and parts[0] == "products" and parts[2] != "overview.md":
+        return parts[2]
     return None
 
 
@@ -131,12 +143,19 @@ def infer_kind(path: str, metadata: dict[str, Any]) -> str:
     parts = Path(path).parts
     if parts[0] == "products":
         if parts[-1] == "overview.md" and len(parts) == 3:
+            return "product-group-overview"
+        if parts[-1] == "overview.md" and len(parts) == 4:
             return "product-overview"
         if "areas" in parts:
             return "product-area-flow" if "flows" in parts else "product-area"
 
     if parts[:2] == ("shared", "product-concepts"):
         return "shared-product-concept"
+
+    if parts[:2] == ("shared", "product-services"):
+        if parts[-1] == "overview.md":
+            return "shared-product-service-overview"
+        return "shared-product-service"
 
     if parts[:2] == ("shared", "design-system"):
         doc_type = metadata.get("type")
@@ -193,8 +212,18 @@ def derive_topics(path: str, metadata: dict[str, Any], kind: str) -> list[str]:
             topics.update(as_string_list(value))
 
     parts = Path(path).parts
+    ignored_parts = {
+        "products",
+        "shared",
+        "areas",
+        "flows",
+        "services",
+        "product-concepts",
+        "product-services",
+        "design-system",
+    }
     for part in parts[:-1]:
-        if part not in {"products", "shared", "areas", "design-system"}:
+        if part not in ignored_parts:
             topics.add(part)
     stem = Path(path).stem
     if stem not in {"overview", "STRUCTURE"}:
@@ -224,9 +253,16 @@ def normalize_document(doc: Document) -> tuple[dict[str, Any] | None, list[Findi
         findings.append(Finding(doc.relative_path, str(exc)))
         return None, findings
 
+    group = infer_group(doc.relative_path, metadata)
     product = infer_product(doc.relative_path, metadata)
-    if kind in {"product-overview", "product-area", "product-area-flow"} and not product:
-        findings.append(Finding(doc.relative_path, "Product documents require `product`."))
+
+    if kind in GROUP_KINDS and not group:
+        findings.append(Finding(doc.relative_path, "Product Group documents require `group`."))
+    if kind in PRODUCT_KINDS:
+        if not group:
+            findings.append(Finding(doc.relative_path, "Product documents require `group`."))
+        if not product:
+            findings.append(Finding(doc.relative_path, "Product documents require `product`."))
 
     try:
         related = as_string_list(metadata.get("related", []))
@@ -254,6 +290,8 @@ def normalize_document(doc: Document) -> tuple[dict[str, Any] | None, list[Findi
         "topics": topics,
         "path": doc.relative_path,
     }
+    if group:
+        entry["group"] = group
     if product:
         entry["product"] = product
 
@@ -290,7 +328,12 @@ def build_manifest(documents: list[Document]) -> tuple[dict[str, Any], list[Find
 
     entries.sort(key=lambda item: item["id"])
     by_kind = Counter(entry["kind"] for entry in entries)
-    by_product = Counter(entry["product"] for entry in entries if "product" in entry)
+    by_group = Counter(entry["group"] for entry in entries if "group" in entry)
+    by_product = Counter(
+        f"{entry['group']}/{entry['product']}"
+        for entry in entries
+        if "group" in entry and "product" in entry
+    )
 
     manifest = {
         "schema_version": 1,
@@ -298,6 +341,7 @@ def build_manifest(documents: list[Document]) -> tuple[dict[str, Any], list[Find
         "summary": {
             "documents": len(entries),
             "by_kind": dict(sorted(by_kind.items())),
+            "by_group": dict(sorted(by_group.items())),
             "by_product": dict(sorted(by_product.items())),
         },
     }

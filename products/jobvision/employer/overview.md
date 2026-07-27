@@ -1,24 +1,27 @@
 ---
-id: employer.overview
+id: jobvision.employer.overview
 kind: product-overview
+group: jobvision
 product: employer
 title: Employer
-summary: Overview of the Employer product, its users, candidate Product Areas, and current documentation gaps.
+summary: Overview of the Jobvision Employer product, its users, candidate Product Areas, and current documentation gaps.
 status: draft
 owner: Employer product team
 last_reviewed:
-related: []
+related:
+  - jobvision.overview
 topics:
   - employer
   - recruiting
   - job-post
+  - candidate-management
 ---
 
 # Employer
 
 ## What this product is
 
-The Employer product helps organizations publish job opportunities, manage employer-side hiring activities, and access Jobvision services for recruiting.
+The Jobvision Employer product helps organizations publish job opportunities, manage employer-side recruiting activities, and use Jobvision employer services.
 
 ## Primary users
 
@@ -39,7 +42,7 @@ To be documented.
 
 ### Out of scope
 
-To be documented.
+Candidate-side job discovery and Kando products are outside this product boundary.
 
 ## Main Product Areas
 
@@ -58,7 +61,7 @@ To be documented.
 
 ## Important integrations
 
-To be documented.
+Shared Job Post, Company, Application, Candidate, and AI product-service relationships need progressive documentation.
 
 ## Known variations
 
@@ -70,4 +73,4 @@ The product currently needs Product Area discovery and owner review.
 
 ## Sources
 
-Add Jira, Figma, research, production, and walkthrough references as the overview is completed.
+Add Jira, Figma, research, analytics, production, and walkthrough references as the overview is completed.

@@ -1,25 +1,28 @@
 ---
-id: jobseeker.overview
+id: jobvision.candidate.overview
 kind: product-overview
-product: jobseeker
-title: Jobseeker
-summary: Overview of the Jobseeker product, its users, candidate Product Areas, and current documentation gaps.
+group: jobvision
+product: candidate
+title: Candidate
+summary: Overview of the Jobvision Candidate product, its users, candidate Product Areas, and current documentation gaps.
 status: draft
-owner: Jobseeker product team
+owner: Candidate product team
 last_reviewed:
-related: []
+related:
+  - jobvision.overview
 topics:
   - job-search
   - job-post
   - application
   - resume
+  - candidate
 ---
 
-# Jobseeker
+# Candidate
 
 ## What this product is
 
-The Jobseeker product helps people discover job opportunities, understand job posts, build and manage their resume, apply, and follow their job-search progress.
+The Jobvision Candidate product helps people discover job opportunities, understand Job Posts, build and manage their resume, apply, and follow their job-search progress.
 
 ## Primary users
 
@@ -39,7 +42,7 @@ To be documented.
 
 ### Out of scope
 
-To be documented.
+Employer-side hiring management and Kando products are outside this product boundary.
 
 ## Main Product Areas
 
@@ -59,7 +62,7 @@ To be documented.
 
 ## Important integrations
 
-To be documented.
+Shared Job Post, Company, Application, Candidate, and AI product-service relationships need progressive documentation.
 
 ## Known variations
 
@@ -71,4 +74,4 @@ The product currently needs Product Area discovery and owner review.
 
 ## Sources
 
-Add Jira, Figma, research, production, and walkthrough references as the overview is completed.
+Add Jira, Figma, research, analytics, production, and walkthrough references as the overview is completed.

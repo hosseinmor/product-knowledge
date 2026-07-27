@@ -1,5 +1,40 @@
 # Simplified Product Knowledge Model
 
+## Product Group
+
+A Product Group is the stable umbrella that contains related products under one brand or suite.
+
+Current Product Groups:
+
+```text
+Jobvision
+→ Candidate
+→ Employer
+
+Kando
+→ ATS
+→ Pulse
+→ Onboarding
+→ Learning
+```
+
+A Product Group overview owns only:
+
+- Group purpose and boundary
+- Products inside the group
+- Major relationships between products
+- Shared journeys at group level
+- Important shared concepts and services
+- Group-level documentation gaps
+
+It does not own detailed product flows, permissions, states, or UI behavior.
+
+Path:
+
+```text
+products/{group}/overview.md
+```
+
 ## Product Overview
 
 One overview per product. It explains:
@@ -16,7 +51,7 @@ One overview per product. It explains:
 Path:
 
 ```text
-products/{product}/overview.md
+products/{group}/{product}/overview.md
 ```
 
 ## Product Area
@@ -44,7 +79,7 @@ A Product Area is not just a page, component, modal, Jira Epic, team, service, o
 Path:
 
 ```text
-products/{product}/areas/{area}.md
+products/{group}/{product}/areas/{area}.md
 ```
 
 ### Splitting a large area
@@ -52,7 +87,7 @@ products/{product}/areas/{area}.md
 Keep flows in one Product Area document by default. Split only when the document becomes hard to understand or maintain:
 
 ```text
-products/{product}/areas/{area}/
+products/{group}/{product}/areas/{area}/
 ├── overview.md
 └── flows/
     ├── create.md
@@ -80,14 +115,49 @@ Example:
 shared/product-concepts/job-post.md
 → shared definition, common fields, shared lifecycle, shared rules
 
-products/employer/areas/job-post-management.md
+products/jobvision/employer/areas/job-post-management.md
 → create, edit, publish, pause, close, and manage
 
-products/jobseeker/areas/job-post-experience.md
+products/jobvision/candidate/areas/job-post-experience.md
 → view, understand, save, share, evaluate, and apply
 ```
 
 Create a fully shared Product Area only when outcomes, behavior, rules, ownership, and flows are genuinely the same across products. This should be uncommon.
+
+## Shared Product Service
+
+A Shared Product Service is a durable product capability consumed by more than one product. It may be delivered by a platform, data, or AI team, but the organizational team is not the knowledge hierarchy.
+
+Path:
+
+```text
+shared/product-services/{service-group}/overview.md
+shared/product-services/{service-group}/services/{service}.md
+```
+
+For AI:
+
+```text
+shared/product-services/ai/overview.md
+shared/product-services/ai/services/{service}.md
+```
+
+Use this split:
+
+```text
+Cross-product AI service behavior
+→ Shared Product Service
+
+How one product uses and presents the service
+→ That product's Product Area
+
+Reusable AI interaction UI
+→ Design System Component or Pattern
+```
+
+For example, a shared fit model may document common inputs, outputs, quality, confidence, limitations, and fallback expectations. Candidate, Employer, ATS, or another product still documents its own user-facing flow, thresholds, permissions, copy, and presentation.
+
+The AI product team can appear as `owner` of a service. It should not be added as a product alongside Candidate, Employer, ATS, Pulse, Onboarding, or Learning unless it later owns a distinct user-facing product with its own users and product boundary.
 
 ## Design System
 
@@ -101,13 +171,14 @@ It owns reusable UI foundations, tokens, components, patterns, accessibility rul
 
 ## Lightweight retrieval metadata
 
-Product Overview, Product Area, and Shared Product Concept documents use a small YAML frontmatter block:
+Product Group Overview, Product Overview, Product Area, Shared Product Concept, and Shared Product Service documents use a small YAML frontmatter block:
 
 ```yaml
 ---
 id:
 kind:
-product: # only for product documents
+group: # for Product Groups and product documents
+product: # for product documents
 title:
 summary:
 status: draft | reviewed
@@ -128,26 +199,27 @@ The Design System keeps its existing full metadata. The manifest generator norma
 
 It helps AI:
 
-- Find documents by product, kind, title, summary, and topics
+- Find documents by group, product, kind, title, summary, and topics
 - Resolve `related` IDs to file paths
 - Avoid reading the whole repository
-- Add only relevant Design System and content guidance to design tasks
+- Add only relevant shared product services, Design System, and content guidance
 
 Recommended retrieval sequence:
 
 ```text
 1. Read README.md and manifest.generated.json.
-2. Select the relevant Product Overview.
+2. Select the relevant Product Group and Product Overview.
 3. Select only the necessary Product Areas and Shared Product Concepts.
-4. For design tasks, add relevant Design System and content documents.
-5. Follow related IDs only when they materially affect the task.
+4. Add relevant Shared Product Services.
+5. For design tasks, add relevant Design System and content documents.
+6. Follow related IDs only when they materially affect the task.
 ```
 
 See `docs/manifest.md` for generation and validation rules.
 
 ## Status and ownership
 
-Every Product Overview, Product Area, and Shared Product Concept should include:
+Every Product Group Overview, Product Overview, Product Area, Shared Product Concept, and Shared Product Service should include:
 
 ```text
 Status: Draft | Reviewed

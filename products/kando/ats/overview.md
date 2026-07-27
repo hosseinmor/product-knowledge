@@ -1,25 +1,28 @@
 ---
-id: ats.overview
+id: kando.ats.overview
 kind: product-overview
+group: kando
 product: ats
 title: ATS
-summary: Overview of the ATS product, its users, boundaries, main Product Areas, major journeys, and documentation gaps.
+summary: Overview of the Kando ATS product, its users, boundaries, main Product Areas, major journeys, and documentation gaps.
 status: draft
 owner: ATS product team
 last_reviewed:
 related:
-  - ats.recruitment-request
+  - kando.overview
+  - kando.ats.recruitment-request
 topics:
   - hiring
   - recruitment
   - approval
+  - ats
 ---
 
 # ATS
 
 ## What this product is
 
-ATS supports organizational hiring operations by keeping hiring needs, approval requests, jobs, and candidate-resume management in one product area.
+Kando ATS supports organizational hiring operations by keeping hiring needs, approval requests, jobs, and candidate-resume management in one product.
 
 ## Primary users
 
@@ -50,8 +53,8 @@ Exact role names and permission inheritance still need review.
 
 ### Out of scope
 
-- Jobseeker-side job discovery and application experience
-- Payroll, onboarding, learning, and other HR-suite modules
+- Jobvision Candidate job discovery and application experience
+- Pulse, Onboarding, and Learning behavior
 
 These boundaries are an initial documentation view and require owner review.
 
@@ -86,7 +89,7 @@ A recruiting user opens a job
 
 ## Important integrations
 
-Organization structure, branches, departments, notifications, job publication, and candidate data may connect to other product areas. Ownership and behavior require further documentation.
+Organization structure, branches, departments, notifications, job publication, candidate data, and shared AI services may connect to other product areas. Ownership and behavior require further documentation.
 
 ## Known variations
 
