@@ -26,15 +26,12 @@ jobs:
       - name: Install tooling dependencies
         run: python -m pip install -r requirements-dev.txt
 
-      - name: Validate metadata and relationships
-        run: python scripts/knowledge.py validate
+      - name: Validate metadata and manifest freshness
+        run: python scripts/knowledge.py check
 
-      - name: Generate manifest artifact
-        run: python scripts/knowledge.py generate --output /tmp/manifest.generated.json
-
-      - name: Upload generated manifest
+      - name: Upload validated manifest
         uses: actions/upload-artifact@v4
         with:
           name: product-knowledge-manifest
-          path: /tmp/manifest.generated.json
+          path: manifest.generated.json
           if-no-files-found: error
