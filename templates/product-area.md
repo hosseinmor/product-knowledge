@@ -1,8 +1,17 @@
-# {Product Area name}
+---
+id: product-id.area-id
+kind: product-area
+product: product-id
+title: Product Area name
+summary: One-sentence description used by AI to decide when this Product Area is relevant.
+status: draft
+owner:
+last_reviewed:
+related: []
+topics: []
+---
 
-**Status:** Draft
-**Owner:**
-**Last reviewed:**
+# {Product Area name}
 
 ## Overview
 

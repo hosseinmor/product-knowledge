@@ -2,7 +2,7 @@
 
 This repository provides the product context that humans and AI need for product research, PRD writing, and design.
 
-The active model is intentionally small:
+The active knowledge model is intentionally small:
 
 ```text
 Product Overview
@@ -18,7 +18,7 @@ Design System
 → Reusable UI foundations, tokens, components, patterns, accessibility, and governance
 ```
 
-The previous, more elaborate knowledge model is preserved in the branch:
+The previous, more elaborate knowledge model is preserved in:
 
 ```text
 archive/product-knowledge-v1-2026-07-27
@@ -46,13 +46,42 @@ ai/
 → Lightweight guidance for PM research, PRD writing, design start, optional walkthroughs, and knowledge updates
 ```
 
+## Lightweight AI retrieval manifest
+
+`manifest.generated.json` is a generated technical index that helps AI find the smallest relevant set of documents. It does not change the simple Product Knowledge model or add a workflow for PMs and Designers.
+
+AI should use the manifest to filter documents by:
+
+```text
+product
+kind
+title
+summary
+topics
+related IDs
+```
+
+Then it should read only the relevant Product Overview, Product Areas, Shared Product Concepts, Design System documents, and content guidance.
+
+Commands:
+
+```bash
+python -m pip install -r requirements-dev.txt
+python scripts/generate_manifest.py generate
+python scripts/generate_manifest.py check
+```
+
+Any change to indexed documents must include the regenerated manifest. CI checks metadata, unique IDs, related IDs, and manifest freshness.
+
+See [`docs/manifest.md`](docs/manifest.md).
+
 ## Main use cases
 
 ### PM research
 
 ```text
 Research question
-→ relevant Product Knowledge
+→ manifest selects relevant Product Knowledge
 → internal product context
 → external research
 → findings and opportunities
@@ -64,7 +93,7 @@ The PRD lives in Jira. No separate Brief document is required.
 
 ```text
 Initial Jira input
-→ relevant Product Knowledge
+→ manifest selects relevant Product Knowledge
 → blocking questions
 → PM decisions
 → complete PRD in Jira
@@ -82,8 +111,8 @@ The initial Jira input should at least state:
 
 ```text
 Approved Jira PRD
-+ relevant Product Knowledge
-+ Design System
++ Product Knowledge selected through the manifest
++ relevant Design System guidance
 → AI prepares design context and an initial draft
 → Designer reviews and develops the solution
 ```
@@ -95,6 +124,7 @@ AI identifies missing or outdated knowledge
 → AI proposes exact document changes
 → the Product Area owner reviews the proposal
 → the owner updates the document through a normal branch and PR
+→ the manifest is regenerated
 ```
 
 No release handoff or automated synchronization is required in the current model.

@@ -1,8 +1,17 @@
-# {Product name}
+---
+id: product-id.overview
+kind: product-overview
+product: product-id
+title: Product name
+summary: One-sentence description used by AI to decide when this overview is relevant.
+status: draft
+owner:
+last_reviewed:
+related: []
+topics: []
+---
 
-**Status:** Draft
-**Owner:**
-**Last reviewed:**
+# {Product name}
 
 ## What this product is
 

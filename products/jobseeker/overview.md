@@ -1,8 +1,21 @@
-# Jobseeker
+---
+id: jobseeker.overview
+kind: product-overview
+product: jobseeker
+title: Jobseeker
+summary: Overview of the Jobseeker product, its users, candidate Product Areas, and current documentation gaps.
+status: draft
+owner: Jobseeker product team
+last_reviewed:
+related: []
+topics:
+  - job-search
+  - job-post
+  - application
+  - resume
+---
 
-**Status:** Draft
-**Owner:** Jobseeker product team
-**Last reviewed:**
+# Jobseeker
 
 ## What this product is
 

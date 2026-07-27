@@ -1,8 +1,16 @@
-# {Shared concept name}
+---
+id: shared.concept-id
+kind: shared-product-concept
+title: Shared concept name
+summary: One-sentence description used by AI to decide when this shared concept is relevant.
+status: draft
+owner:
+last_reviewed:
+related: []
+topics: []
+---
 
-**Status:** Draft
-**Owner:**
-**Last reviewed:**
+# {Shared concept name}
 
 ## Definition
 

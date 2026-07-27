@@ -99,6 +99,52 @@ shared/design-system/
 
 It owns reusable UI foundations, tokens, components, patterns, accessibility rules, product variations, references, templates, and governance.
 
+## Lightweight retrieval metadata
+
+Product Overview, Product Area, and Shared Product Concept documents use a small YAML frontmatter block:
+
+```yaml
+---
+id:
+kind:
+product: # only for product documents
+title:
+summary:
+status: draft | reviewed
+owner:
+last_reviewed:
+related: []
+topics: []
+---
+```
+
+This metadata exists only to support ownership and AI retrieval. It does not introduce Capability, Domain, Decision, release, or handoff concepts.
+
+The Design System keeps its existing full metadata. The manifest generator normalizes it without changing Design System document structure.
+
+## AI retrieval manifest
+
+`manifest.generated.json` is the generated discovery index for the repository.
+
+It helps AI:
+
+- Find documents by product, kind, title, summary, and topics
+- Resolve `related` IDs to file paths
+- Avoid reading the whole repository
+- Add only relevant Design System and content guidance to design tasks
+
+Recommended retrieval sequence:
+
+```text
+1. Read README.md and manifest.generated.json.
+2. Select the relevant Product Overview.
+3. Select only the necessary Product Areas and Shared Product Concepts.
+4. For design tasks, add relevant Design System and content documents.
+5. Follow related IDs only when they materially affect the task.
+```
+
+See `docs/manifest.md` for generation and validation rules.
+
 ## Status and ownership
 
 Every Product Overview, Product Area, and Shared Product Concept should include:
@@ -116,3 +162,5 @@ Unknowns, assumptions, variations, and untested behavior must be written explici
 ## Update rule
 
 AI may identify a gap and propose an exact update. A named owner decides whether the proposal is correct and updates the repository manually through a normal branch and pull request.
+
+After any indexed document changes, regenerate `manifest.generated.json` and include it in the same pull request.

@@ -1,8 +1,23 @@
-# Recruitment Request
+---
+id: ats.recruitment-request
+kind: product-area
+product: ats
+title: Recruitment Request
+summary: Explains how ATS creates, submits, approves, rejects, resubmits, and fulfills an internal hiring request.
+status: draft
+owner: ATS product team
+last_reviewed:
+related:
+  - ats.overview
+topics:
+  - recruitment-request
+  - approval-workflow
+  - hiring-capacity
+  - permissions
+  - lifecycle
+---
 
-**Status:** Draft
-**Owner:** ATS product team
-**Last reviewed:**
+# Recruitment Request
 
 ## Overview
 
