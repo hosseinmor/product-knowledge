@@ -1,14 +1,16 @@
 ---
 id: product-id
+collection: product
 type: product
 product: product-id
 title: Product name
-summary: Canonical overview of the product, its users, boundaries, capabilities, and major journeys.
-knowledge_state: canonical
-document_maturity: draft
+summary: Overview of the product, its users, boundaries, capabilities, and major journeys.
+knowledge_state: unverified
+document_maturity: scaffold
 related: []
 owner:
 last_verified:
+source_refs: []
 ---
 
 # Product Name
