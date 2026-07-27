@@ -1,14 +1,13 @@
 ---
 id: employer
+collection: product
 type: product
 product: employer
 title: Employer
 summary: Canonical overview and boundaries of the employer product.
-knowledge_state: canonical
-document_maturity: draft
+knowledge_state: unverified
+document_maturity: scaffold
 related: []
-owner:
-last_verified:
 ---
 
 # EMPLOYER

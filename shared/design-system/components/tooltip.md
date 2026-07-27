@@ -1,3 +1,14 @@
+---
+id: design-system.component.tooltip
+collection: design-system
+type: component
+title: Tooltip
+summary: '> Status: structure only'
+knowledge_state: unverified
+document_maturity: scaffold
+related: []
+---
+
 # Tooltip
 
 > Status: structure only

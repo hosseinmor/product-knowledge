@@ -1,8 +1,12 @@
 ---
 id: user-account
+collection: shared-domain
 type: domain
-scope: shared
-status: draft
+title: User Account
+summary: Define shared user account concepts across products.
+knowledge_state: unverified
+document_maturity: scaffold
+related: []
 related_products: []
 ---
 

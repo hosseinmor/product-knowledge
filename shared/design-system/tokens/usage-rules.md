@@ -1,3 +1,14 @@
+---
+id: design-system.token.usage-rules
+collection: design-system
+type: token
+title: Token Usage Rules
+summary: '> Status: draft'
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Token Usage Rules
 
 > Status: draft

@@ -1,3 +1,14 @@
+---
+id: design-system.component.popover
+collection: design-system
+type: component
+title: Popover
+summary: '> Status: structure only'
+knowledge_state: unverified
+document_maturity: scaffold
+related: []
+---
+
 # Popover
 
 > Status: structure only

@@ -1,3 +1,14 @@
+---
+id: design-system.experience-rule.selection
+collection: design-system
+type: experience-rule
+title: Selection
+summary: Selected state is not a normal action Button state.
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Selection
 
 ## Button-Like Selection Controls

@@ -1,3 +1,14 @@
+---
+id: design-system.component.drawer
+collection: design-system
+type: component
+title: Drawer
+summary: '> Status: structure only'
+knowledge_state: unverified
+document_maturity: scaffold
+related: []
+---
+
 # Drawer
 
 > Status: structure only

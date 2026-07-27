@@ -1,3 +1,15 @@
+---
+id: design-system.token.color-token-aliases
+collection: design-system
+type: token
+title: Color Token Alias Mappings
+summary: '> Status: working draft > Scope: current Figma alias graph for color collections
+  > Source catalog: `jobvision-color-tokens-v3-surface-model.md`'
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Color Token Alias Mappings
 
 > Status: working draft  

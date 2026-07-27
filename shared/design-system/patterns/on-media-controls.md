@@ -1,5 +1,14 @@
 ---
-status: provisional
+id: design-system.pattern.on-media-controls
+collection: design-system
+type: pattern
+title: On-Media Controls
+summary: The current Core token model does not define dedicated Button tokens for
+  image or video backgrounds.
+knowledge_state: unverified
+document_maturity: draft
+related: []
+design_status: provisional
 source_guideline: button-guidelines-v0.6.md
 ---
 

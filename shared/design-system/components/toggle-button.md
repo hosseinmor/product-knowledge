@@ -1,3 +1,15 @@
+---
+id: design-system.component.toggle-button
+collection: design-system
+type: component
+title: Toggle Button
+summary: Toggle Button represents a Button-like control with persistent selected and
+  unselected states.
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Toggle Button
 
 ## Purpose

@@ -1,3 +1,14 @@
+---
+id: design-system.token.semantic-tokens
+collection: design-system
+type: token
+title: Semantic Tokens
+summary: '> Status: draft'
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Semantic Tokens
 
 > Status: draft

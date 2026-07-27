@@ -1,8 +1,12 @@
 ---
 id: identity-and-access
+collection: shared-domain
 type: domain
-scope: shared
-status: draft
+title: Identity and Access
+summary: Define shared authentication, authorization, and access concepts.
+knowledge_state: unverified
+document_maturity: scaffold
+related: []
 related_products: []
 ---
 

@@ -1,8 +1,12 @@
 ---
 id: organization
+collection: shared-domain
 type: domain
-scope: shared
-status: draft
+title: Organization
+summary: Define shared concepts related to customer organizations or tenants.
+knowledge_state: unverified
+document_maturity: scaffold
+related: []
 related_products: []
 ---
 

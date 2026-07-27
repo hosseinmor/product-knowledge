@@ -1,3 +1,14 @@
+---
+id: design-system.pattern.multi-step-flow
+collection: design-system
+type: pattern
+title: Multi-Step Flow
+summary: 'Default combination:'
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Multi-Step Flow
 
 ## Intermediate Steps

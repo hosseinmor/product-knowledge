@@ -1,3 +1,14 @@
+---
+id: design-system.pattern.confirmation
+collection: design-system
+type: pattern
+title: Confirmation and Modal Actions
+summary: Cancel is usually Ghost.
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Confirmation and Modal Actions
 
 ## Default Modal Combinations

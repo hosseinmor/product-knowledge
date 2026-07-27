@@ -1,3 +1,14 @@
+---
+id: design-system.component.modal
+collection: design-system
+type: component
+title: Modal
+summary: '> Status: structure only'
+knowledge_state: unverified
+document_maturity: scaffold
+related: []
+---
+
 # Modal
 
 > Status: structure only

@@ -1,14 +1,14 @@
 ---
 id: ats
+collection: product
 type: product
 product: ats
 title: ATS
-summary: Defines the ATS purpose, primary users, boundaries, major capabilities, major user journeys, and key business areas.
-knowledge_state: canonical
-document_maturity: draft
+summary: Defines the ATS purpose, primary users, boundaries, major capabilities, major
+  user journeys, and key business areas.
+knowledge_state: unverified
+document_maturity: scaffold
 related: []
-owner:
-last_verified:
 ---
 
 # ATS

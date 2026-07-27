@@ -1,14 +1,13 @@
 ---
 id: hrcando
+collection: product
 type: product
 product: hrcando
 title: HRCanDo
 summary: Canonical overview and boundaries of the HRCanDo product suite.
-knowledge_state: canonical
-document_maturity: draft
+knowledge_state: unverified
+document_maturity: scaffold
 related: []
-owner:
-last_verified:
 ---
 
 # HRCANDO
