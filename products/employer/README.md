@@ -1,24 +1,20 @@
-# EMPLOYER Product Knowledge
-
-Use this directory for product-specific Product Knowledge.
-
-Default structure:
+# Employer Product Knowledge
 
 ```text
 employer/
-├── product-overview.md
-├── capabilities/
-├── flows/
-├── domains/
-└── decisions/
+├── overview.md
+└── areas/
 ```
 
-`product-overview.md`, `capabilities/`, and `flows/` form the default documentation set.
+`overview.md` explains the product boundary, users, main Areas, and major journeys.
 
-Create Domain and Decision documents only when their additional responsibility is needed.
+`areas/` contains one practical document for each meaningful Employer Product Area. Keep related flows, rules, permissions, states, edge cases, unknowns, and sources together.
 
-Major user journeys live inside `product-overview.md`. Do not create a `journeys/` folder or standalone Journey documents.
+Use a Shared Product Concept for definitions or lifecycle rules that are genuinely shared with another product. Keep Employer-specific behavior inside the Employer Area.
 
-Actors, user outcomes, usage contexts, triggers, preconditions, rules, states, and lifecycles live inside their owning Product overview, Capability, Flow, or Domain documents rather than in separate folders.
+Use:
 
-Shared cross-product knowledge should be referenced from `../../shared/`.
+```text
+templates/product-overview.md
+templates/product-area.md
+```
