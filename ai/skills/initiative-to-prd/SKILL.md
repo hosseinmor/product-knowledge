@@ -59,7 +59,7 @@ Extract:
 - Owner
 - Change type
 
-Do not assume the proposed solution or capability name is correct.
+Do not assume the proposed solution or Capability name is correct.
 
 ### 2. Gather relevant knowledge
 
@@ -73,8 +73,7 @@ Use the generated manifest to discover the smallest sufficient set of documents,
 - Related Flows
 - Related Domains when business constraints matter
 - Accepted Decisions when prior rationale matters
-- Optional complex Journey documents when explicitly related
-- Design-system patterns
+- Design-system Patterns
 - Content and product standards
 
 Prefer `knowledge_state: canonical` documents. Treat `observed` knowledge as unconfirmed and surface it explicitly.
@@ -196,7 +195,7 @@ Verify that:
 - Permissions and lifecycle transitions are explicit
 - Existing Capabilities are not confused with proposed backlog work
 - Accepted Decisions that constrain the change are respected or explicitly reconsidered
-- Major journey impact is reflected in the Product overview or an optional Journey document
+- Major journey impact is reflected in the Product overview
 - Open questions remain visible
 - Out-of-scope items are explicit
 
@@ -227,7 +226,7 @@ Humans are responsible for:
 - Do not hide uncertainty
 - Do not ask non-blocking questions too early
 - Do not create multiple working documents when one `initiative.md` is enough
-- Do not update canonical Product Knowledge before release
+- Do not update Product Knowledge before release
 - Do not treat a PRD as canonical current-product behavior
 - Do not treat Jira Epic, Feature, Story, or Task hierarchy as the Product Knowledge structure
-- Do not create standalone User Goal, Scenario, Rule, State, or Lifecycle documents
+- Do not create standalone Journey, User Goal, Scenario, Rule, State, Lifecycle, or Subdomain documents
