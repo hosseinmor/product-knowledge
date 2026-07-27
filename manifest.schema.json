@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hosseinmor/product-knowledge/manifest.schema.json",
+  "title": "Product Knowledge Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "documents", "unindexed", "summary"],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "path",
+          "collection",
+          "type",
+          "title",
+          "summary",
+          "knowledge_state",
+          "document_maturity",
+          "related"
+        ],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "minLength": 1},
+          "collection": {
+            "enum": ["product", "design-system", "content", "product-standard", "shared-domain"]
+          },
+          "type": {"type": "string", "minLength": 1},
+          "product": {"type": "string", "minLength": 1},
+          "title": {"type": "string", "minLength": 1},
+          "summary": {"type": "string", "minLength": 1},
+          "knowledge_state": {
+            "enum": ["canonical", "observed", "unverified", "deprecated"]
+          },
+          "document_maturity": {
+            "enum": ["scaffold", "draft", "reviewed", "stable"]
+          },
+          "related": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "uniqueItems": true
+          },
+          "owner": {"type": "string"},
+          "actors": {"type": "array"},
+          "domains": {"type": "array"},
+          "capabilities": {"type": "array"},
+          "last_verified": {"type": "string", "format": "date"},
+          "source_refs": {"type": "array"},
+          "design_refs": {"type": "array"},
+          "figma_file": {"type": "string"},
+          "figma_node": {"type": ["string", "integer"]},
+          "code_refs": {"type": "array"},
+          "supersedes": {"type": ["string", "array"]},
+          "superseded_by": {"type": ["string", "array"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "unindexed": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "reason", "detail"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "reason": {
+            "enum": [
+              "missing-frontmatter",
+              "invalid-frontmatter",
+              "legacy-metadata",
+              "incomplete-metadata",
+              "invalid-metadata"
+            ]
+          },
+          "detail": {"type": "string"}
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["indexed_documents", "unindexed_documents"],
+      "properties": {
+        "indexed_documents": {"type": "integer", "minimum": 0},
+        "unindexed_documents": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}
