@@ -1,24 +1,21 @@
 # ATS Product Knowledge
 
-Use this directory for product-specific Product Knowledge.
-
-Default structure:
-
 ```text
 ats/
-├── product-overview.md
-├── capabilities/
-├── flows/
-├── domains/
-└── decisions/
+├── overview.md
+└── areas/
+    └── recruitment-request.md
 ```
 
-`product-overview.md`, `capabilities/`, and `flows/` form the default documentation set.
+`overview.md` explains the product boundary, users, main Areas, and major journeys.
 
-Create Domain and Decision documents only when their additional responsibility is needed.
+`areas/` contains one practical document for each meaningful ATS Product Area. Each Area keeps its related flows, rules, permissions, states, edge cases, unknowns, and sources together.
 
-Major user journeys live inside `product-overview.md`. Do not create a `journeys/` folder or standalone Journey documents.
+Create a separate flow file only when an Area document becomes difficult to understand or maintain.
 
-Actors, user outcomes, usage contexts, triggers, preconditions, rules, states, and lifecycles live inside their owning Product overview, Capability, Flow, or Domain documents rather than in separate folders.
+Use:
 
-Shared cross-product knowledge should be referenced from `../../shared/`.
+```text
+templates/product-overview.md
+templates/product-area.md
+```
