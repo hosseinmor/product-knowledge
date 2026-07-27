@@ -1,8 +1,21 @@
-# ATS
+---
+id: ats.overview
+kind: product-overview
+product: ats
+title: ATS
+summary: Overview of the ATS product, its users, boundaries, main Product Areas, major journeys, and documentation gaps.
+status: draft
+owner: ATS product team
+last_reviewed:
+related:
+  - ats.recruitment-request
+topics:
+  - hiring
+  - recruitment
+  - approval
+---
 
-**Status:** Draft
-**Owner:** ATS product team
-**Last reviewed:**
+# ATS
 
 ## What this product is
 
