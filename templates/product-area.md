@@ -1,13 +1,15 @@
 ---
-id: product-id.area-id
+id: group-id.product-id.area-id
 kind: product-area
+group: group-id
 product: product-id
 title: Product Area name
 summary: One-sentence description used by AI to decide when this Product Area is relevant.
 status: draft
 owner:
 last_reviewed:
-related: []
+related:
+  - group-id.product-id.overview
 topics: []
 ---
 
