@@ -1,19 +1,21 @@
 ---
 id: product.DEC-000
+collection: product
 type: decision
 product: product-id
 title: Decision title
 summary: Records the durable rationale for an approved product decision.
-knowledge_state: canonical
-document_maturity: draft
+knowledge_state: unverified
+document_maturity: scaffold
 related: []
 owner:
-status: accepted
+decision_status: accepted
 approved_by: []
 approved_at: YYYY-MM-DD
 supersedes: []
 superseded_by: []
 source_refs: []
+last_verified:
 ---
 
 # Decision Title
