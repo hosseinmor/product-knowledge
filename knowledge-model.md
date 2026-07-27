@@ -1,12 +1,12 @@
 # Product Knowledge Model
 
-This document defines the minimal vocabulary and ownership rules used to organize Product Knowledge in this repository.
+This document defines the canonical vocabulary, ownership rules, metadata contract, and discovery model used in this repository.
 
-The repository is a durable, machine-readable product memory. AI workflows should be able to discover and read only the knowledge needed for research, product design, specification, and implementation work without mixing current product truth with temporary or proposed work.
+The repository is a durable, machine-readable memory for current product and shared organizational knowledge. Temporary exploration, proposed behavior, initiative drafts, PRDs, raw research, and walkthrough evidence remain in `product-work` until they are reviewed and eligible to update canonical knowledge.
 
-## Minimal model
+## Product Knowledge model
 
-Use five primary document types:
+Product-specific knowledge uses five document types:
 
 ```text
 Product overview
@@ -35,24 +35,22 @@ Flow
 
 Create Domain and Decision documents only when their additional responsibility is needed.
 
-The model is not a hierarchy. A Capability may use rules from several Domains, support several user journeys, and have several Flows. A Flow may coordinate more than one Capability. A Decision may affect any canonical document.
+This model is not a hierarchy. A Capability may use several Domains and have several Flows. A Flow may coordinate more than one Capability. A Decision may affect any canonical document.
 
-## Product overview
+### Product overview
 
-A Product overview defines the product boundary and supplies the context needed to interpret all other documents.
+A Product overview defines the product boundary and the context needed to interpret the remaining documents.
 
-It answers:
+It owns:
 
-- Why the product exists
-- Who primarily uses it
-- What major Capabilities it provides
-- What is inside and outside its boundary
-- What the major user journeys are
-- Which business areas may require Domain documentation
+- Product purpose
+- Primary users
+- In-scope and out-of-scope boundaries
+- Main Capabilities
+- Major user journeys
+- Key business areas and integrations
 
-Product-specific knowledge belongs under `products/{product-id}/`.
-
-Major user journeys live inside the Product overview. Document them at a high level:
+Major user journeys remain high-level sections inside the Product overview:
 
 ```text
 Actor and desired outcome
@@ -62,79 +60,52 @@ Actor and desired outcome
 → completion condition
 ```
 
-Do not create Journey as a separate canonical document type or folder. If a journey becomes complex, expand its section inside the Product overview and link to the supporting Capabilities and Flows.
+Journey is not a standalone canonical document type, template, or folder. A complex journey should be expanded inside the Product overview and linked to supporting Capabilities and Flows.
 
-## Capability
+### Capability
 
 A Capability is a coherent and durable product ability that enables a user or the system to achieve a recognizable outcome.
 
-A Capability answers:
-
-- What the product enables
-- Why the ability exists
-- Who can use it
-- Where it can be entered
-- What high-level behavior it provides
-- What Capability-specific states or restrictions apply
-- What its boundaries and dependencies are
-
-Typical Capability content includes:
+It owns:
 
 - Purpose and value
 - Actors and user outcomes
 - Entry points
+- Availability and permissions when Capability-specific
 - High-level behavior
-- Capability-specific states and rules
-- Dependencies
-- Boundaries and exclusions
-- Related Product overview, Domains, Flows, and Decisions
+- Capability-specific states and restrictions
+- Boundaries and dependencies
+- Links to supporting Flows and governing Domain rules
 
-A Capability is not necessarily one page. It may span several screens, entry points, or system operations.
+Use Capability instead of Feature in Product Knowledge. Feature may be used in planning tools for proposed work; Capability describes what the current product is durably able to do.
 
-Use `Capability` instead of `Feature` in Product Knowledge. In planning tools, Feature may describe proposed work, an Epic, or a backlog item. Capability describes what the current product is durably able to do, independent of how many initiatives or backlog items created it.
-
-A Capability must not duplicate stable business truth owned by a Domain. It should reference the Domain rule and explain how the product ability applies it.
-
-## Flow
+### Flow
 
 A Flow describes ordered product behavior for one concrete usage context from trigger to outcome.
 
-A Flow answers:
-
-- Who performs or initiates the behavior
-- What outcome they are trying to achieve
-- What starts the behavior
-- What preconditions must hold
-- Which steps occur
-- Where decisions or branches happen
-- Which validations apply
-- What alternate or error paths exist
-- Which end states are possible
-
-Typical Flow content includes:
+It owns:
 
 ```text
-Actor
-User outcome
+Actor and user outcome
 Trigger
 Preconditions
 Relevant context
 Main path
-Decision points
+Decision points and branches
 State transitions
 Validations
 Alternate paths
 Error and recovery paths
-Completion and cancellation outcomes
+Cancellation and exit behavior
+Persistence and return behavior
+End states
 ```
 
-Actor, user outcome, trigger, preconditions, relevant context, and expected outcome provide the information that might elsewhere be called a Scenario. They remain fields inside the Flow rather than a separate canonical concept or folder.
+Actor, user outcome, trigger, preconditions, relevant context, and expected outcome provide the information that might elsewhere be called a Scenario. Scenario is not a standalone canonical type or folder.
 
-A Flow is behavioral documentation, not a wireframe. It may reference screens and components, but the behavior should remain understandable if the current layout changes.
+A Flow is behavioral documentation, not a wireframe. It may reference screens and components, but its behavior should remain understandable when the layout changes.
 
-One Capability may have several Flows. One Flow may coordinate several Capabilities when the behavior crosses Capability boundaries.
-
-## Domain
+### Domain
 
 A Domain is a stable business area with its own vocabulary, entities, rules, permissions, lifecycle, and relationships.
 
@@ -147,189 +118,85 @@ Create a Domain document only when the subject has one or more of these characte
 - Relationships or invariants that must remain consistent
 - Business terminology that requires one canonical definition
 
-A Domain answers:
+A Domain should remain meaningful when the interface is redesigned. Do not create Domains merely to mirror navigation, a team, a page, or a group of screens.
 
-- What business concepts exist
-- What each concept means
-- Which rules must always hold
-- Who may perform which operations
-- Which states an entity can have
-- Which transitions are valid
-- How entities relate to one another
+Subdomain is not a formal type. Split an oversized Domain directly into separate coherent Domain documents.
 
-Typical Domain content includes:
+### Decision
 
-- Purpose and boundaries
-- Vocabulary
-- Entities and relationships
-- Business rules and invariants
-- Permissions
-- States and lifecycle
-- Approved exceptions
-- Related Capabilities and Product overview
+A Decision records a durable approved choice whose rationale remains useful after the original initiative, meeting, or release is no longer active.
 
-A Domain should remain meaningful even if the interface is redesigned.
+Create a Decision only when the choice:
 
-Do not create a Domain merely to mirror navigation, a team, a page, or a group of screens. Do not create a formal Subdomain type. When a Domain becomes too large, split it directly into separate coherent Domain documents.
+- Establishes or changes a significant rule or intentional exception
+- Affects permissions, lifecycle, ownership, or product boundaries
+- Resolves a material trade-off between reasonable alternatives
+- Is likely to be questioned or reopened later
+- Affects several canonical documents
 
-## Decision
+Do not create a Decision for every UI detail, copy change, unresolved proposal, meeting note, Sprint plan, backlog item, or implementation task.
 
-A Decision records a durable, approved choice whose rationale will remain useful after the original initiative, meeting, or release is no longer active.
+A Decision owns rationale, not current behavior. The approved outcome must also be reflected in the Product overview, Domain, Capability, or Flow that owns the resulting truth.
 
-A Decision answers:
-
-- What problem, ambiguity, or trade-off existed
-- Which options were materially considered
-- What was approved
-- Who approved it and when
-- Why it was approved
-- Which constraints or consequences follow
-- Which canonical documents were affected
-- Whether the Decision is active or has been superseded
-
-Create a Decision document only when one or more of these are true:
-
-- The choice establishes or changes a significant business rule
-- The choice creates an intentional exception
-- The choice affects permissions, lifecycle, ownership, or product boundaries
-- Several reasonable alternatives existed
-- The trade-off is likely to be questioned or reopened later
-- Understanding the rationale prevents an apparently simpler but incorrect future change
-- The choice affects several canonical documents
-
-Do not create a Decision document for:
-
-- Every UI detail or copy change
-- An unresolved proposal
-- A meeting note with no approved outcome
-- A temporary Sprint plan
-- A backlog item or implementation task
-- A fact that needs no historical rationale
-
-A Decision is not the owner of current product behavior. The approved outcome must also be reflected in the document that owns the resulting current truth.
-
-For example:
+Decision lifecycle:
 
 ```text
-Decision
-→ Records why editing an active approval workflow is restricted and which alternatives were rejected
-
-Domain
-→ Owns the approved rule describing which changes are allowed
-
-Capability and Flow
-→ Explain how the restriction is available and behaves in the product
-```
-
-Recommended Decision lifecycle:
-
-```text
-proposed
-→ accepted
+proposed in product-work
+→ accepted and canonical
 → superseded | deprecated
 ```
 
-Only accepted Decisions are canonical. Proposed decisions remain in `product-work` until approved.
-
-A superseding Decision must reference the previous Decision. Do not rewrite historical rationale to make it appear that the new choice was always intended.
+A superseding Decision must reference the previous Decision without rewriting historical rationale.
 
 ## Embedded content, not document types
 
-The following information is useful, but it does not create additional canonical document types or folders.
+The following concepts remain structured content inside their owning documents:
 
-### User outcome
-
-Describe the immediate outcome an actor is trying to achieve inside the relevant Product overview, Capability, or Flow.
-
-Use user intent rather than interface actions:
-
-```text
-Submit a request
-```
-
-not:
-
-```text
-Click the submit button
-```
-
-Do not use `Task` as a Product Knowledge concept. In Jira and other delivery tools, Task commonly means a unit of team work.
-
-### Usage context
-
-Represent a concrete situation through fields inside a Flow:
-
-```text
-Actor
-User outcome
-Trigger
-Preconditions
-Relevant context
-Expected outcome
-```
-
-Do not maintain Scenario as a separate canonical type or folder.
-
-### Rule
-
-A Rule is a constraint that determines allowed product behavior. Its owner depends on scope:
-
-- Stable or cross-Capability business invariant → Domain
-- Capability-specific restriction → Capability
-- Context-specific validation or branch → Flow
-- Cross-product rule with consistent meaning and ownership → Shared knowledge
-
-A Rule is a content element, not a standalone document type.
-
-### State and lifecycle
-
-State describes the current condition of an entity, Capability, or interaction. Lifecycle describes valid progression between states.
+- User outcome or intent
+- Usage context
+- Scenario fields
+- Rule
+- State
+- Lifecycle
+- Validation
+- Error and recovery behavior
 
 Ownership depends on scope:
 
-- Stable entity states and transition rules → Domain
-- Capability availability or presentation states → Capability
-- Step-level transitions and validation outcomes → Flow
+```text
+Stable business rule, permission, entity relationship, or lifecycle
+→ Domain
 
-State and lifecycle are content elements, not standalone document types.
+Capability-specific restriction or availability state
+→ Capability
 
-### Shared knowledge
+Context-specific branch, validation, state transition, error, or recovery behavior
+→ Flow
+```
 
-Shared is a placement rule, not a behavioral document type.
+Task is not a Product Knowledge concept because delivery tools commonly use it for a unit of team work.
+
+## Shared knowledge and Design System
+
+`shared/` is a placement and ownership boundary, not a universal document type.
 
 Knowledge belongs in `shared/` only when:
 
 - More than one product uses it
 - Its meaning is consistent across those products
 - Its ownership is genuinely shared
-- Product-specific exceptions do not change the core definition
+- Product-specific exceptions do not change its core definition
 
-Do not move knowledge into `shared/` merely to avoid duplication.
+The Design System is a separate knowledge family under `shared/design-system/`. It defines reusable interface foundations, tokens, Components, Patterns, accessibility rules, experience rules, product variations, governance, and UI templates. It does not define product-specific business Capabilities.
 
-### Design-system Component and Pattern
-
-A Component is a reusable interface building block. A Pattern is a reusable interaction or composition rule made from one or more Components.
-
-Components and Patterns define interface behavior, anatomy, states, accessibility, and usage rules. They do not define product-specific business Capabilities.
-
-They belong under `shared/design-system/`.
-
-### Screen and UI artifact
-
-A screen, page, modal, wireframe, prototype, screenshot, or recording is a representation or source of evidence, not the primary canonical knowledge unit.
-
-Document product behavior as Product overview, Capability, Flow, or Domain knowledge. Reference the UI artifact when it helps locate or verify behavior.
-
-Temporary design exploration and unreleased specifications belong in the separate `product-work` repository.
+A screen, page, modal, wireframe, prototype, screenshot, or recording is evidence or representation, not a primary canonical knowledge unit.
 
 ## Canonical fact ownership
 
-Every durable product fact must have one canonical owner.
-
-Other documents may summarize or apply the fact, but they should reference its owner rather than redefine it independently.
+Every durable fact has one canonical owner. Related documents may explain how they use a fact, but should reference the owner rather than redefine it.
 
 ```text
-Product purpose, boundary, major Capabilities, and major user journeys
+Product purpose, boundary, main Capabilities, and major user journeys
 → Product overview
 
 Stable business rule, permission, entity relationship, or lifecycle
@@ -338,49 +205,87 @@ Stable business rule, permission, entity relationship, or lifecycle
 Durable product ability, entry point, availability, or Capability-specific state
 → Capability
 
-Behavioral step, branch, validation, error, or recovery path
+Behavioral step, branch, validation, error, recovery, persistence, or end state
 → Flow
 
 Approved rationale and historical trade-off
 → Decision
 
-Cross-product rule with genuinely shared meaning
-→ Shared knowledge
+Reusable UI foundation, token, Component, Pattern, or interaction rule
+→ Design System document with the matching type
+
+Cross-product content or product rule
+→ The matching shared collection
 ```
 
-When two documents disagree, the document that owns the fact by scope is authoritative. The conflict must still be reviewed rather than silently resolved by AI.
+When documents disagree, the document that owns the fact by scope is authoritative. The conflict must still be surfaced for human review rather than silently resolved by AI.
+
+## Collections and document types
+
+Metadata separates the knowledge family from the document type.
+
+```text
+collection
+→ Determines ownership boundary, allowed types, and retrieval rules
+
+type
+→ Identifies the document type inside that collection
+```
+
+Supported combinations:
+
+```text
+collection: product
+type: product | capability | flow | domain | decision
+
+collection: design-system
+type: overview | foundation | token | component | pattern | experience-rule |
+      accessibility | product-variation | reference | governance | ui-template
+
+collection: content
+type: content-guideline
+
+collection: product-standard
+type: product-standard | documentation-guideline
+
+collection: shared-domain
+type: domain
+```
+
+`shared` is not an allowed catch-all type.
 
 ## Knowledge state and document maturity
 
-The truth status of content must be separated from the quality or completeness of its documentation.
-
-Use:
+Truth state and documentation completeness are separate dimensions.
 
 ```yaml
-knowledge_state: canonical | observed | deprecated
-document_maturity: draft | reviewed | stable
+knowledge_state: canonical | observed | unverified | deprecated
+document_maturity: scaffold | draft | reviewed | stable
 ```
 
 Definitions:
 
-- `canonical`: approved current product truth
-- `observed`: current behavior has been observed but its intended meaning is not confirmed
+- `canonical`: approved current truth
+- `observed`: behavior or evidence has been observed but intended meaning is not confirmed
+- `unverified`: the document or migrated metadata has not yet been semantically confirmed
 - `deprecated`: no longer current, retained only when historical context is useful
-- `draft`: the document is incomplete or awaiting review
-- `reviewed`: the document has been semantically reviewed
-- `stable`: the document is reviewed and expected to change infrequently
+- `scaffold`: headings or placeholders exist, but substantive owned facts do not
+- `draft`: substantive content exists but is incomplete or awaiting review
+- `reviewed`: content has been semantically reviewed
+- `stable`: reviewed content expected to change infrequently
 
-Proposed or unreleased behavior does not use these states in Product Knowledge. It remains in `product-work`.
+A scaffold cannot be canonical. A canonical document must contain substantive owned facts.
 
-## Document metadata
+Proposed or unreleased behavior remains in `product-work` and must not be marked canonical.
 
-Product Knowledge documents should use YAML frontmatter so humans and AI workflows can identify, filter, and relate knowledge without reading every file.
+## Common metadata envelope
 
-Minimum metadata:
+All indexable documents use YAML frontmatter with a shared envelope:
 
 ```yaml
 ---
 id: ats.recruitment-request.submit
+collection: product
 type: flow
 product: ats
 title: Submit recruitment request
@@ -398,16 +303,17 @@ last_verified: 2026-07-26
 Required fields:
 
 - `id`: stable repository-wide identifier
-- `type`: product, domain, capability, flow, decision, or shared
+- `collection`
+- `type`
 - `title`: human-readable title
 - `summary`: concise retrieval description
 - `knowledge_state`
 - `document_maturity`
-- `related`: IDs of directly related Product Knowledge documents
+- `related`: directly related stable document IDs
 
-Product-specific documents also require `product`.
+Documents in the `product` collection also require `product`.
 
-Optional metadata may include:
+Optional fields may include:
 
 - `owner`
 - `actors`
@@ -416,55 +322,85 @@ Optional metadata may include:
 - `last_verified`
 - `source_refs`
 - `design_refs`
+- `figma_file`
+- `figma_node`
+- `code_refs`
 - `supersedes`
 - `superseded_by`
 
-IDs must remain stable when a file is moved. Relationships should use IDs rather than relative paths.
+Collection-specific metadata may be added after the common envelope.
 
-## Manifest and AI retrieval
+IDs must remain stable when files move. Relationships use IDs rather than relative paths.
 
-The repository should generate `manifest.generated.json` from document frontmatter.
+Legacy `status` and `maturity` fields are not part of the common envelope and must be migrated deliberately.
 
-The generated manifest contains discovery information only:
+## Generated manifest
+
+`manifest.generated.json` is generated deterministically from frontmatter by `scripts/knowledge.py`.
+
+The manifest contains discovery metadata only:
 
 ```text
 id
 path
+collection
 type
-product
+product when relevant
 title
 summary
 knowledge_state
 document_maturity
 related IDs
-last_verified
+selected retrieval fields
 ```
 
-The manifest is generated output and must not become a second source of product truth.
+Documents that cannot yet be indexed appear in `unindexed` with an explicit reason such as missing, legacy, incomplete, or invalid metadata.
+
+`unindexed` is a migration and coverage signal. Agents must not infer that an absent fact or document does not exist, and must not silently fall back to filename-based repository globbing.
+
+The manifest is not a second source of product or design-system truth.
 
 Default retrieval sequence:
 
 ```text
-1. Read repository guidance and the generated manifest
-2. Select documents by product, type, summary, and related IDs
-3. Read the relevant Product overview
-4. Read the smallest sufficient set of Capabilities and Flows
-5. Read Domain rules and accepted Decisions only when relevant
-6. Surface conflicts, observed knowledge, stale verification dates, and missing documents
+1. Read repository guidance and manifest.generated.json
+2. Check collection coverage and the unindexed list
+3. Select documents by collection, product, type, summary, and related IDs
+4. Read the relevant Product overview or collection overview
+5. Read the smallest sufficient set of related documents
+6. Inspect evidence, coverage, unknowns, and last verification
+7. Surface conflicts, stale verification, and unindexed coverage gaps
 ```
 
-AI should not read the entire repository by default. Detailed operational rules belong in `ai/retrieval-rules.md`.
+Detailed operational behavior belongs in `ai/retrieval-rules.md`. Manifest maintenance belongs in `docs/manifest.md`.
 
-## Choosing the right document type
+## Validation and CI
+
+Repository automation validates:
+
+- Frontmatter parsing
+- Required metadata
+- Collection and type compatibility
+- Stable ID uniqueness
+- Related-ID resolution
+- Valid truth and maturity states
+- `last_verified` date format
+- Forbidden `.DS_Store` files
+- Empty canonical documents
+- Manifest freshness
+
+During migration, missing and legacy metadata may be reported as warnings. After migration, strict validation treats them as errors.
+
+## Choosing the right Product Knowledge type
 
 | Question | Use |
 |---|---|
 | What is this product, who uses it, and what are its major journeys and boundaries? | Product overview |
 | What durable ability does the product provide? | Capability |
-| What exact path, branch, validation, or error behavior occurs? | Flow |
+| What exact path, branch, validation, persistence, or error behavior occurs? | Flow |
 | Would this rule remain true if the entire interface changed? | Domain |
 | Why was an important durable choice approved? | Decision |
-| Is this reusable interface behavior rather than product behavior? | Design-system Component or Pattern |
+| Is this reusable interface behavior rather than product behavior? | Design System collection |
 
 ## Splitting rules
 
@@ -479,7 +415,7 @@ Split a document only when keeping the subject together makes ownership or behav
 ### Split a Flow when
 
 - Actor, trigger, preconditions, or outcome differ materially
-- Branches have become large enough to obscure the main path
+- Branches obscure the main path
 - The same behavior is reused independently by several Capabilities
 
 ### Split a Domain when
@@ -490,7 +426,7 @@ Split a document only when keeping the subject together makes ownership or behav
 
 Do not split documents for every screen, click, API call, minor variant, user outcome, or usage context.
 
-## Minimum document responsibilities
+## Minimum Product Knowledge responsibilities
 
 ### Product overview
 
@@ -501,19 +437,23 @@ Product boundaries
 Main Capabilities
 Major user journeys
 Key business concepts and Domains
+Integrations
 Related Decisions
+Evidence, coverage, and open questions
 ```
 
 ### Capability
 
 ```text
-Purpose
+Purpose and value
 Actors and user outcomes
 Entry points
+Availability and permissions
 High-level behavior
 Capability-specific states and rules
 Dependencies and boundaries
-Related Product overview, Domain, Flows, and Decisions
+Related Product overview, Domains, Flows, and Decisions
+Evidence, coverage, and open questions
 ```
 
 ### Flow
@@ -524,9 +464,12 @@ Trigger and preconditions
 Relevant context
 Main path
 Branches and validations
-Alternate and error paths
+State transitions
+Alternate, error, and recovery paths
+Persistence and return behavior
 End states
 Related Capability and Domain rules
+Evidence, coverage, and untested cases
 ```
 
 ### Domain
@@ -540,6 +483,7 @@ Permissions
 States and lifecycle
 Exceptions
 Related Capabilities
+Evidence and open questions
 ```
 
 ### Decision
@@ -559,9 +503,7 @@ Superseded or superseding Decisions
 
 ## Relationship with Scrum and delivery work
 
-Product Knowledge and Scrum serve different purposes.
-
-Product Knowledge describes durable current understanding. Scrum manages empirical delivery work through the Product Backlog, Sprint Backlog, and Increment.
+Product Knowledge describes durable current understanding. Scrum manages empirical delivery through the Product Backlog, Sprint Backlog, and Increment.
 
 Product overview, Domain, Capability, Flow, and Decision are not Scrum artifacts. They provide persistent context for creating, refining, implementing, and reviewing Product Backlog items.
 
@@ -591,46 +533,18 @@ Done or released Increment
 → changed product behavior
 
 Product Knowledge update
-→ new canonical product truth
+→ new canonical product truth and regenerated manifest
 ```
 
-The organization may include Product Knowledge updates in its Definition of Done or release checklist when an Increment changes a rule, permission, lifecycle, Capability, Flow, product boundary, or major user journey.
+Product Knowledge updates may be part of the Definition of Done or release checklist when an Increment changes a rule, permission, lifecycle, Capability, Flow, product boundary, or major user journey.
 
-Do not mirror a Jira hierarchy such as Epic → Feature → Story → Task inside Product Knowledge. Delivery hierarchy describes work. Product Knowledge describes the product.
-
-## Illustrative example
-
-The following example is only for understanding the model; it does not establish canonical product rules.
-
-```text
-Product overview
-→ ATS purpose, users, boundaries, main Capabilities, and the journey from hiring need to fulfillment
-
-Domain
-→ Recruitment Request
-→ Request, workflow, approval step, approver, permissions, and lifecycle rules
-
-Capability
-→ Create recruitment request
-→ Review and approve request
-→ Manage approval workflow
-
-Flow
-→ A request owner submits a complete draft connected to an approval workflow
-→ Validate the draft
-→ Submit it
-→ Move it to the first approval step
-→ Handle approval, rejection, or error paths
-
-Decision
-→ Record why editing an active workflow is restricted and which alternatives were rejected
-```
+Do not mirror a Jira hierarchy such as Epic → Feature → Story → Task inside Product Knowledge. Delivery hierarchy describes work; Product Knowledge describes the product.
 
 ## Canonical placement summary
 
 ```text
 products/{product-id}/product-overview.md
-→ Product purpose, users, boundaries, major Capabilities, and major user journeys
+→ Product purpose, users, boundaries, main Capabilities, and major user journeys
 
 products/{product-id}/capabilities/
 → Durable product abilities
@@ -644,9 +558,15 @@ products/{product-id}/domains/
 products/{product-id}/decisions/
 → Durable approved rationale when independent Decision documentation is needed
 
-shared/
-→ Genuinely cross-product knowledge
-
 shared/design-system/
-→ Reusable UI foundations, Components, Patterns, and standards
+→ Reusable UI foundations, tokens, Components, Patterns, and standards
+
+shared/content/
+→ Cross-product content guidance
+
+shared/product-standards/
+→ Cross-product product and documentation standards
+
+shared/domains/
+→ Genuinely shared business Domains
 ```

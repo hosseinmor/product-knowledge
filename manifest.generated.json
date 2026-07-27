@@ -1,0 +1,509 @@
+{
+  "schema_version": 1,
+  "documents": [
+    {
+      "id": "standard.documentation",
+      "path": "shared/product-standards/documentation-guidelines.md",
+      "collection": "product-standard",
+      "type": "documentation-guideline",
+      "title": "Documentation Guidelines",
+      "summary": "Defines canonical document types, metadata states, ownership, and writing rules for Product Knowledge.",
+      "knowledge_state": "canonical",
+      "document_maturity": "reviewed",
+      "related": [],
+      "owner": "product-knowledge",
+      "last_verified": "2026-07-27"
+    }
+  ],
+  "unindexed": [
+    {
+      "path": "products/ats/product-overview.md",
+      "reason": "incomplete-metadata",
+      "detail": "Missing required metadata: collection"
+    },
+    {
+      "path": "products/employer/product-overview.md",
+      "reason": "incomplete-metadata",
+      "detail": "Missing required metadata: collection"
+    },
+    {
+      "path": "products/hrcando/product-overview.md",
+      "reason": "incomplete-metadata",
+      "detail": "Missing required metadata: collection"
+    },
+    {
+      "path": "products/jobseeker/product-overview.md",
+      "reason": "incomplete-metadata",
+      "detail": "Missing required metadata: collection"
+    },
+    {
+      "path": "shared/content/content-guidelines.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/content/localization.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/content/terminology.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/STRUCTURE.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/accessibility/color-and-contrast.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/accessibility/content.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/accessibility/focus-management.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/accessibility/forms.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/accessibility/keyboard-navigation.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/accessibility/motion.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/accessibility/principles.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/accessibility/screen-reader-semantics.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/accordion.md",
+      "reason": "legacy-metadata",
+      "detail": "Uses legacy fields and is missing required metadata: collection, document_maturity, knowledge_state, related, summary, title"
+    },
+    {
+      "path": "shared/design-system/components/badge.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/button.md",
+      "reason": "legacy-metadata",
+      "detail": "Uses legacy fields and is missing required metadata: collection, document_maturity, knowledge_state, related, summary, title"
+    },
+    {
+      "path": "shared/design-system/components/checkbox.md",
+      "reason": "legacy-metadata",
+      "detail": "Uses legacy fields and is missing required metadata: collection, document_maturity, knowledge_state, related, summary, title"
+    },
+    {
+      "path": "shared/design-system/components/drawer.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/dropdown-menu.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/empty-state.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/icon-button.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/link.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/menu.md",
+      "reason": "legacy-metadata",
+      "detail": "Uses legacy fields and is missing required metadata: collection, document_maturity, knowledge_state, related, summary, title"
+    },
+    {
+      "path": "shared/design-system/components/modal.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/notification.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/pagination.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/popover.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/radio.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/select.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/switch.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/table.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/tabs.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/tag.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/text-input.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/textarea.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/toggle-button.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/components/tooltip.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/experience-rules/action-hierarchy.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/experience-rules/disabled-and-read-only.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/experience-rules/error-recovery.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/experience-rules/feedback.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/experience-rules/focus.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/experience-rules/loading.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/experience-rules/navigation.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/experience-rules/responsive-interaction.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/experience-rules/selection.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/experience-rules/validation.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/foundations/color.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/foundations/elevation.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/foundations/iconography.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/foundations/layout.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/foundations/motion.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/foundations/radius.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/foundations/responsive-behavior.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/foundations/spacing.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/foundations/typography.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/governance/change-process.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/governance/contribution.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/governance/deprecation.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/governance/documentation-maintenance.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/governance/ownership.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/governance/release-and-versioning.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/integrations/code.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/integrations/figma.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/integrations/source-of-truth.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/overview.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/patterns/ai-entry-points.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/patterns/bulk-actions.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/patterns/confirmation.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/patterns/data-views.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/patterns/destructive-actions.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/patterns/empty-states.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/patterns/form-submission.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/patterns/loading-and-progress.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/patterns/multi-step-flow.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/patterns/notifications.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/patterns/on-media-controls.md",
+      "reason": "legacy-metadata",
+      "detail": "Uses legacy fields and is missing required metadata: collection, document_maturity, id, knowledge_state, related, summary, title, type"
+    },
+    {
+      "path": "shared/design-system/patterns/search-and-filtering.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/product-variations/brand-variants.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/product-variations/product-overrides.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/tokens/architecture.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/tokens/color-token-aliases.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/tokens/component-tokens.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/tokens/jobvision-color-tokens-v3-surface-model.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/tokens/primitive-tokens.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/tokens/product-overrides.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/tokens/semantic-tokens.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/design-system/tokens/usage-rules.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/domains/identity-and-access.md",
+      "reason": "legacy-metadata",
+      "detail": "Uses legacy fields and is missing required metadata: collection, document_maturity, knowledge_state, related, summary, title"
+    },
+    {
+      "path": "shared/domains/organization.md",
+      "reason": "legacy-metadata",
+      "detail": "Uses legacy fields and is missing required metadata: collection, document_maturity, knowledge_state, related, summary, title"
+    },
+    {
+      "path": "shared/domains/user-account.md",
+      "reason": "legacy-metadata",
+      "detail": "Uses legacy fields and is missing required metadata: collection, document_maturity, knowledge_state, related, summary, title"
+    },
+    {
+      "path": "shared/product-standards/analytics-standards.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/product-standards/interaction-standards.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    },
+    {
+      "path": "shared/product-standards/product-principles.md",
+      "reason": "missing-frontmatter",
+      "detail": "Document has no YAML frontmatter."
+    }
+  ],
+  "summary": {
+    "indexed_documents": 1,
+    "unindexed_documents": 97
+  }
+}
