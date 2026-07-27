@@ -1,3 +1,14 @@
+---
+id: content.terminology
+collection: content
+type: content-guideline
+title: Shared Terminology
+summary: Use this document for terms whose meaning is consistent across products.
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Shared Terminology
 
 Use this document for terms whose meaning is consistent across products.

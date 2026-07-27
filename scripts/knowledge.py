@@ -31,7 +31,7 @@ INDEX_ROOTS = (
 )
 
 EXCLUDED_NAMES = {"README.md"}
-EXCLUDED_PARTS = {"templates"}
+EXCLUDED_PARTS: set[str] = set()
 
 ALLOWED_TYPES: dict[str, set[str]] = {
     "product": {"product", "capability", "flow", "domain", "decision"},

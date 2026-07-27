@@ -1,14 +1,13 @@
 ---
 id: jobseeker
+collection: product
 type: product
 product: jobseeker
 title: Jobseeker
 summary: Canonical overview and boundaries of the jobseeker product.
-knowledge_state: canonical
-document_maturity: draft
+knowledge_state: unverified
+document_maturity: scaffold
 related: []
-owner:
-last_verified:
 ---
 
 # JOBSEEKER

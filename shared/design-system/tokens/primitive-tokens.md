@@ -1,3 +1,14 @@
+---
+id: design-system.token.primitive-tokens
+collection: design-system
+type: token
+title: Primitive Tokens
+summary: '> Status: partial value catalog'
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Primitive Tokens
 
 > Status: partial value catalog

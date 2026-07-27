@@ -1,3 +1,14 @@
+---
+id: design-system.component.empty-state
+collection: design-system
+type: component
+title: Empty State
+summary: '> Status: structure only'
+knowledge_state: unverified
+document_maturity: scaffold
+related: []
+---
+
 # Empty State
 
 > Status: structure only

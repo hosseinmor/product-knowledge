@@ -1,3 +1,14 @@
+---
+id: design-system.component.textarea
+collection: design-system
+type: component
+title: Textarea
+summary: '> Status: structure only'
+knowledge_state: unverified
+document_maturity: scaffold
+related: []
+---
+
 # Textarea
 
 > Status: structure only

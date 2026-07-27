@@ -1,3 +1,14 @@
+---
+id: design-system.component.radio
+collection: design-system
+type: component
+title: Radio
+summary: '> Status: structure only'
+knowledge_state: unverified
+document_maturity: scaffold
+related: []
+---
+
 # Radio
 
 > Status: structure only

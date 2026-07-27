@@ -1,3 +1,15 @@
+---
+id: design-system.product-variation.brand-variants
+collection: design-system
+type: product-variation
+title: Brand Variants
+summary: Accent uses the active product brand color while preserving one shared usage
+  rule.
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Brand Variants
 
 ## Accent Button

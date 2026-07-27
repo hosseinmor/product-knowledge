@@ -3,7 +3,8 @@ id: standard.documentation
 collection: product-standard
 type: documentation-guideline
 title: Documentation Guidelines
-summary: Defines canonical document types, metadata states, ownership, and writing rules for Product Knowledge.
+summary: Defines canonical document types, metadata states, ownership, and writing
+  rules for Product Knowledge.
 knowledge_state: canonical
 document_maturity: reviewed
 related: []

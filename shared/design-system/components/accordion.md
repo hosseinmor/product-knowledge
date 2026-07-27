@@ -1,11 +1,18 @@
 ---
 id: accordion
+collection: design-system
 type: component
-scope: shared
-status: draft
-maturity: usable-for-product-testing
+title: Accordion
+summary: Accordion uses progressive disclosure to organize related content in a compact
+  vertical list. Each item exposes a short title and lets the user show or hide its
+  associated content without navigating away.
+knowledge_state: unverified
+document_maturity: draft
+related: []
+design_status: draft
+design_maturity: usable-for-product-testing
 source_figma: https://www.figma.com/design/VA5qSyutH4QkLTfimzdUbe/-DS--Job-Vision?node-id=31-2385
-source_node: "31:2385"
+source_node: 31:2385
 ---
 
 # Accordion

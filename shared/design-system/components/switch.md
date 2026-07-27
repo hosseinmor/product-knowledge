@@ -1,3 +1,14 @@
+---
+id: design-system.component.switch
+collection: design-system
+type: component
+title: Switch
+summary: '> Status: structure only'
+knowledge_state: unverified
+document_maturity: scaffold
+related: []
+---
+
 # Switch
 
 > Status: structure only

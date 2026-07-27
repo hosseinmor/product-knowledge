@@ -1,11 +1,18 @@
 ---
 id: menu
+collection: design-system
 type: component
-scope: shared
-status: draft
-maturity: usable-for-product-testing
+title: Menu
+summary: Menu presents a temporary list of actions or destinations in a layer positioned
+  above the current interface. Overflow Menu is the compact trigger pattern that opens
+  this list.
+knowledge_state: unverified
+document_maturity: draft
+related: []
+design_status: draft
+design_maturity: usable-for-product-testing
 source_figma: https://www.figma.com/design/VA5qSyutH4QkLTfimzdUbe/-DS--Job-Vision?node-id=306-857
-source_node: "306:857"
+source_node: 306:857
 ---
 
 # Menu

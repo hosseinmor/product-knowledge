@@ -1,3 +1,14 @@
+---
+id: design-system.token.architecture
+collection: design-system
+type: token
+title: Token Architecture
+summary: '> Status: draft'
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Token Architecture
 
 > Status: draft

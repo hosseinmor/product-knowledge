@@ -1,3 +1,14 @@
+---
+id: design-system.component.table
+collection: design-system
+type: component
+title: Table
+summary: '> Status: structure only'
+knowledge_state: unverified
+document_maturity: scaffold
+related: []
+---
+
 # Table
 
 > Status: structure only

@@ -1,3 +1,16 @@
+---
+id: design-system.token.jobvision-color-tokens-v3-surface-model
+collection: design-system
+type: token
+title: Jobvision Color Tokens v3 — Surface Model
+summary: '> Status: Working draft > Theme scope: Light + Dark > Implementation target:
+  Tailwind CSS v3 > CSS variables: Open decision > Product variation: Brand override
+  only > Experience variation: Productive / Expressive'
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Jobvision Color Tokens v3 — Surface Model
 
 > Status: Working draft  

@@ -1,3 +1,14 @@
+---
+id: design-system.token.product-overrides
+collection: design-system
+type: token
+title: Token Product and Brand Variations
+summary: '> Status: draft'
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Token Product and Brand Variations
 
 > Status: draft

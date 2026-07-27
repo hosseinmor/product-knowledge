@@ -1,3 +1,14 @@
+---
+id: design-system.experience-rule.action-hierarchy
+collection: design-system
+type: experience-rule
+title: Action Hierarchy
+summary: Every action group should have one clear visual leader.
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Action Hierarchy
 
 ## Principle

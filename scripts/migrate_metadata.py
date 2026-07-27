@@ -38,6 +38,7 @@ DESIGN_SYSTEM_FOLDER_TYPES = {
     "patterns": "pattern",
     "product-variations": "product-variation",
     "tokens": "token",
+    "templates": "ui-template",
 }
 
 GENERIC_SUMMARIES = {

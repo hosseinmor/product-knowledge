@@ -1,9 +1,14 @@
 ---
 id: button
+collection: design-system
 type: component
-scope: shared
-status: draft
-maturity: usable-for-product-testing
+title: Button
+summary: Buttons trigger actions.
+knowledge_state: unverified
+document_maturity: draft
+related: []
+design_status: draft
+design_maturity: usable-for-product-testing
 source_guideline: button-guidelines-v0.6.md
 ---
 

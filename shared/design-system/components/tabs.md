@@ -1,3 +1,14 @@
+---
+id: design-system.component.tabs
+collection: design-system
+type: component
+title: Tabs
+summary: '> Status: structure only'
+knowledge_state: unverified
+document_maturity: scaffold
+related: []
+---
+
 # Tabs
 
 > Status: structure only

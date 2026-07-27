@@ -1,3 +1,15 @@
+---
+id: design-system.token.component-tokens
+collection: design-system
+type: token
+title: Component Tokens
+summary: This document defines when a component-specific token layer is justified
+  and catalogs approved component-token families.
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Component Tokens
 
 ## Purpose

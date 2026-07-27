@@ -1,3 +1,14 @@
+---
+id: design-system.experience-rule.navigation
+collection: design-system
+type: experience-rule
+title: Navigation
+summary: Semantics are independent from visual appearance.
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Navigation
 
 ## Link Versus Button

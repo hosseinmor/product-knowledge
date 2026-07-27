@@ -1,3 +1,14 @@
+---
+id: design-system.pattern.destructive-actions
+collection: design-system
+type: pattern
+title: Destructive Actions
+summary: 'Use destructive treatment when an action:'
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Destructive Actions
 
 ## Determine Whether an Action Is Destructive

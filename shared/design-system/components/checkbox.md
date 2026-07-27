@@ -1,9 +1,15 @@
 ---
 id: checkbox
+collection: design-system
 type: component
-scope: shared
-status: draft
-maturity: design-review
+title: Checkbox
+summary: Checkbox lets users select zero or more independent options or control a
+  single boolean choice.
+knowledge_state: unverified
+document_maturity: draft
+related: []
+design_status: draft
+design_maturity: design-review
 figma_file: https://www.figma.com/design/VA5qSyutH4QkLTfimzdUbe/-DS--Job-Vision
 figma_node: 1880:3970
 reference_system: Carbon Design System

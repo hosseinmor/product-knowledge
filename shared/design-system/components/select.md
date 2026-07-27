@@ -1,3 +1,14 @@
+---
+id: design-system.component.select
+collection: design-system
+type: component
+title: Select
+summary: '> Status: structure only'
+knowledge_state: unverified
+document_maturity: scaffold
+related: []
+---
+
 # Select
 
 > Status: structure only

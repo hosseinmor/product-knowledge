@@ -1,3 +1,14 @@
+---
+id: design-system.component.link
+collection: design-system
+type: component
+title: Link
+summary: Links navigate users to another destination.
+knowledge_state: unverified
+document_maturity: draft
+related: []
+---
+
 # Link
 
 ## Purpose
