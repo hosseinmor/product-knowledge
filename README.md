@@ -83,16 +83,32 @@ templates/decision-template.md
 templates/walkthrough-output-template.md
 ```
 
-### Temporary workflow outputs
+### Temporary workflow outputs and handoff
 
 ```text
 templates/workflows/initiative-template.md
 templates/workflows/prd-template.md
 templates/workflows/decision-question-template.md
+templates/workflows/product-knowledge-handoff-template.yaml
 templates/workflows/product-knowledge-update-proposal-template.md
 ```
 
 Templates define output structure and metadata. Skills define collection, reasoning, validation, stop conditions, and handoff.
+
+## Cross-repository handoff
+
+Released work and reviewed walkthrough evidence should enter this repository through a versioned `knowledge-handoff.yaml` rather than an informal request.
+
+The handoff records source commit, approval or review readiness, release state, affected IDs, evidence, coverage gaps, and completion acknowledgement.
+
+See:
+
+```text
+docs/product-work-handoff.md
+templates/workflows/product-knowledge-handoff-template.yaml
+```
+
+The `product-work` repository is not currently connected here. The source-side trigger and acknowledgement must be implemented and reviewed there before the complete cross-repository lifecycle can be considered verified.
 
 ## Main workflows
 
@@ -135,17 +151,19 @@ ai/skills/initiative-to-prd/SKILL.md
 ### Product Knowledge update
 
 ```text
-Approved change is released or a walkthrough output is reviewed
-→ AI validates source readiness and repository coverage
+Approved and released work or reviewed walkthrough evidence produces a handoff
+→ AI validates handoff readiness and repository coverage
 → AI identifies canonical owners
 → AI prepares an update proposal and template-compliant patches
 → AI regenerates the manifest and runs strict validation
 → Humans review the semantic diff
 → Approved changes are merged
+→ The source handoff records the PR and merge commit
 ```
 
 See:
 
 ```text
 ai/skills/product-knowledge-update/SKILL.md
+docs/product-work-handoff.md
 ```
