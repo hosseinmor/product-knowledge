@@ -1,11 +1,12 @@
 ---
 id: product.flow-id
+collection: product
 type: flow
 product: product-id
 title: Flow name
 summary: Describes one concrete behavior from trigger to outcome.
-knowledge_state: canonical
-document_maturity: draft
+knowledge_state: unverified
+document_maturity: scaffold
 related: []
 owner:
 actors: []
