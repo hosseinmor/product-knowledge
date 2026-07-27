@@ -7,15 +7,18 @@ Keep Product Knowledge useful without introducing a separate release-handoff sys
 ## Process
 
 1. AI or a team member identifies missing, outdated, contradictory, or newly decided knowledge.
-2. AI proposes exact changes to one or more Product Overview, Product Area, or Shared Product Concept documents.
-3. The proposal must state:
+2. Read `manifest.generated.json` to find the affected Product Overview, Product Area, Shared Product Concept, Design System, or shared-guidance documents.
+3. AI proposes exact changes to the smallest relevant document set.
+4. The proposal must state:
    - What should change
    - Why
    - Which source supports it
    - What remains unknown
-4. The named owner reviews the proposal.
-5. The owner edits the document through a normal branch and pull request.
-6. After review, set the document status to `Reviewed` and update `Last reviewed` when appropriate.
+5. The named owner reviews the proposal.
+6. The owner edits the document through a normal branch and pull request.
+7. After review, set `status: reviewed` and update `last_reviewed` when appropriate.
+8. Regenerate `manifest.generated.json` in the same branch.
+9. Run `python scripts/generate_manifest.py check` before merging.
 
 ## Rules
 
@@ -25,3 +28,4 @@ Keep Product Knowledge useful without introducing a separate release-handoff sys
 - Product-specific behavior stays in the Product Area.
 - Genuinely shared definitions and rules belong in Shared Product Concepts.
 - Reusable UI behavior belongs in the Design System.
+- The manifest is generated; do not edit it manually.
