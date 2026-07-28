@@ -1,4 +1,4 @@
-# PM to PRD
+# PRD Writing with Product Knowledge
 
 The PRD lives in Jira. No separate Brief document is required.
 
@@ -25,11 +25,11 @@ Do not scan the entire repository by default.
 1. Summarize current behavior, rules, permissions, states, service dependencies, and known gaps.
 2. Separate shared service behavior from product-specific use, thresholds, permissions, fallback, and presentation.
 3. Ask only blocking questions that materially change scope or behavior.
-4. Record the PM's decisions.
+4. Record the responsible product owner's decisions.
 5. Draft the PRD using `templates/jira-prd.md`.
 6. Keep current behavior, intended behavior, assumptions, and open questions separate.
 7. Add links to the Product Knowledge documents used.
-8. Stop for PM review and approval.
+8. Stop for owner review and approval.
 
 ## Rules
 

@@ -34,6 +34,178 @@
       "path": "shared/design-system/components/button.md"
     },
     {
+      "id": "cando.ats.approval-workflow",
+      "kind": "product-area",
+      "title": "Approval Workflow",
+      "summary": "Explains how Cando ATS defines, scopes, applies, and safely edits approval workflows used by Recruitment Requests.",
+      "status": "draft",
+      "owner": "ATS product team",
+      "last_reviewed": null,
+      "related": [
+        "cando.ats.overview",
+        "cando.ats.recruitment-request"
+      ],
+      "topics": [
+        "approval-step",
+        "approval-workflow",
+        "approver",
+        "ats",
+        "branch",
+        "cando",
+        "department",
+        "permissions",
+        "product-area"
+      ],
+      "path": "products/cando/ats/areas/approval-workflow.md",
+      "group": "cando",
+      "product": "ats"
+    },
+    {
+      "id": "cando.ats.overview",
+      "kind": "product-overview",
+      "title": "ATS",
+      "summary": "Overview of the Cando ATS product, its users, boundaries, main Product Areas, major journeys, and documentation gaps.",
+      "status": "draft",
+      "owner": "ATS product team",
+      "last_reviewed": null,
+      "related": [
+        "cando.overview",
+        "cando.ats.recruitment-request",
+        "cando.ats.approval-workflow"
+      ],
+      "topics": [
+        "approval",
+        "ats",
+        "cando",
+        "hiring",
+        "product-overview",
+        "recruitment"
+      ],
+      "path": "products/cando/ats/overview.md",
+      "group": "cando",
+      "product": "ats"
+    },
+    {
+      "id": "cando.ats.recruitment-request",
+      "kind": "product-area",
+      "title": "Recruitment Request",
+      "summary": "Explains how Cando ATS creates, submits, approves, rejects, resubmits, and fulfills an internal hiring request.",
+      "status": "draft",
+      "owner": "ATS product team",
+      "last_reviewed": null,
+      "related": [
+        "cando.ats.overview",
+        "cando.ats.approval-workflow"
+      ],
+      "topics": [
+        "approval-workflow",
+        "ats",
+        "cando",
+        "hiring-capacity",
+        "lifecycle",
+        "permissions",
+        "product-area",
+        "recruitment-request"
+      ],
+      "path": "products/cando/ats/areas/recruitment-request.md",
+      "group": "cando",
+      "product": "ats"
+    },
+    {
+      "id": "cando.learning.overview",
+      "kind": "product-overview",
+      "title": "Learning",
+      "summary": "Overview of the Cando Learning product, its users, candidate Product Areas, and current documentation gaps.",
+      "status": "draft",
+      "owner": "Learning product team",
+      "last_reviewed": null,
+      "related": [
+        "cando.overview"
+      ],
+      "topics": [
+        "cando",
+        "hr-development",
+        "learning",
+        "learning-and-development",
+        "product-overview",
+        "training"
+      ],
+      "path": "products/cando/learning/overview.md",
+      "group": "cando",
+      "product": "learning"
+    },
+    {
+      "id": "cando.onboarding.overview",
+      "kind": "product-overview",
+      "title": "Onboarding",
+      "summary": "Overview of the Cando Onboarding product, its users, candidate Product Areas, and current documentation gaps.",
+      "status": "draft",
+      "owner": "Onboarding product team",
+      "last_reviewed": null,
+      "related": [
+        "cando.overview"
+      ],
+      "topics": [
+        "cando",
+        "employee-onboarding",
+        "hr-operations",
+        "onboarding",
+        "product-overview"
+      ],
+      "path": "products/cando/onboarding/overview.md",
+      "group": "cando",
+      "product": "onboarding"
+    },
+    {
+      "id": "cando.overview",
+      "kind": "product-group-overview",
+      "title": "Cando",
+      "summary": "Overview of the Cando product group and its ATS, Pulse, Onboarding, and Learning products.",
+      "status": "draft",
+      "owner": "Cando product leadership",
+      "last_reviewed": null,
+      "related": [
+        "cando.ats.overview",
+        "cando.pulse.overview",
+        "cando.onboarding.overview",
+        "cando.learning.overview"
+      ],
+      "topics": [
+        "ats",
+        "cando",
+        "hr-suite",
+        "learning",
+        "onboarding",
+        "product-group-overview",
+        "pulse"
+      ],
+      "path": "products/cando/overview.md",
+      "group": "cando"
+    },
+    {
+      "id": "cando.pulse.overview",
+      "kind": "product-overview",
+      "title": "Pulse",
+      "summary": "Overview of the Cando Pulse product, its organization-level feedback purpose, candidate Product Areas, and current documentation gaps.",
+      "status": "draft",
+      "owner": "Pulse product team",
+      "last_reviewed": null,
+      "related": [
+        "cando.overview"
+      ],
+      "topics": [
+        "cando",
+        "employee-feedback",
+        "engagement",
+        "product-overview",
+        "pulse",
+        "survey"
+      ],
+      "path": "products/cando/pulse/overview.md",
+      "group": "cando",
+      "product": "pulse"
+    },
+    {
       "id": "checkbox",
       "kind": "design-system-component",
       "title": "Checkbox",
@@ -1438,6 +1610,34 @@
       "path": "shared/design-system/templates/pattern-template.md"
     },
     {
+      "id": "jobvision.candidate.job-post-experience",
+      "kind": "product-area",
+      "title": "Job Post Experience",
+      "summary": "Describes how Candidates discover, understand, evaluate, save, share, and apply to Job Posts in Jobvision.",
+      "status": "draft",
+      "owner": "Candidate product team",
+      "last_reviewed": null,
+      "related": [
+        "jobvision.candidate.overview",
+        "shared.job-post",
+        "jobvision.employer.job-post-management"
+      ],
+      "topics": [
+        "apply",
+        "candidate",
+        "job-discovery",
+        "job-post",
+        "job-post-experience",
+        "jobvision",
+        "product-area",
+        "save-job",
+        "share-job"
+      ],
+      "path": "products/jobvision/candidate/areas/job-post-experience.md",
+      "group": "jobvision",
+      "product": "candidate"
+    },
+    {
       "id": "jobvision.candidate.overview",
       "kind": "product-overview",
       "title": "Candidate",
@@ -1446,7 +1646,9 @@
       "owner": "Candidate product team",
       "last_reviewed": null,
       "related": [
-        "jobvision.overview"
+        "jobvision.overview",
+        "shared.job-post",
+        "jobvision.candidate.job-post-experience"
       ],
       "topics": [
         "application",
@@ -1462,6 +1664,33 @@
       "product": "candidate"
     },
     {
+      "id": "jobvision.employer.job-post-management",
+      "kind": "product-area",
+      "title": "Job Post Management",
+      "summary": "Describes how Employers create, review, publish, update, pause, close, and manage Job Posts in Jobvision.",
+      "status": "draft",
+      "owner": "Employer product team",
+      "last_reviewed": null,
+      "related": [
+        "jobvision.employer.overview",
+        "shared.job-post",
+        "jobvision.candidate.job-post-experience"
+      ],
+      "topics": [
+        "create-job-post",
+        "employer",
+        "job-post",
+        "job-post-management",
+        "jobvision",
+        "product-area",
+        "publish-job-post",
+        "recruiting"
+      ],
+      "path": "products/jobvision/employer/areas/job-post-management.md",
+      "group": "jobvision",
+      "product": "employer"
+    },
+    {
       "id": "jobvision.employer.overview",
       "kind": "product-overview",
       "title": "Employer",
@@ -1470,7 +1699,9 @@
       "owner": "Employer product team",
       "last_reviewed": null,
       "related": [
-        "jobvision.overview"
+        "jobvision.overview",
+        "shared.job-post",
+        "jobvision.employer.job-post-management"
       ],
       "topics": [
         "candidate-management",
@@ -1494,160 +1725,19 @@
       "last_reviewed": null,
       "related": [
         "jobvision.candidate.overview",
-        "jobvision.employer.overview"
+        "jobvision.employer.overview",
+        "shared.job-post"
       ],
       "topics": [
         "candidate",
         "employer",
+        "job-post",
         "jobvision",
         "product-group-overview",
         "recruitment-marketplace"
       ],
       "path": "products/jobvision/overview.md",
       "group": "jobvision"
-    },
-    {
-      "id": "kando.ats.overview",
-      "kind": "product-overview",
-      "title": "ATS",
-      "summary": "Overview of the Kando ATS product, its users, boundaries, main Product Areas, major journeys, and documentation gaps.",
-      "status": "draft",
-      "owner": "ATS product team",
-      "last_reviewed": null,
-      "related": [
-        "kando.overview",
-        "kando.ats.recruitment-request"
-      ],
-      "topics": [
-        "approval",
-        "ats",
-        "hiring",
-        "kando",
-        "product-overview",
-        "recruitment"
-      ],
-      "path": "products/kando/ats/overview.md",
-      "group": "kando",
-      "product": "ats"
-    },
-    {
-      "id": "kando.ats.recruitment-request",
-      "kind": "product-area",
-      "title": "Recruitment Request",
-      "summary": "Explains how Kando ATS creates, submits, approves, rejects, resubmits, and fulfills an internal hiring request.",
-      "status": "draft",
-      "owner": "ATS product team",
-      "last_reviewed": null,
-      "related": [
-        "kando.ats.overview"
-      ],
-      "topics": [
-        "approval-workflow",
-        "ats",
-        "hiring-capacity",
-        "kando",
-        "lifecycle",
-        "permissions",
-        "product-area",
-        "recruitment-request"
-      ],
-      "path": "products/kando/ats/areas/recruitment-request.md",
-      "group": "kando",
-      "product": "ats"
-    },
-    {
-      "id": "kando.learning.overview",
-      "kind": "product-overview",
-      "title": "Learning",
-      "summary": "Overview of the Kando Learning product, its users, candidate Product Areas, and current documentation gaps.",
-      "status": "draft",
-      "owner": "Learning product team",
-      "last_reviewed": null,
-      "related": [
-        "kando.overview"
-      ],
-      "topics": [
-        "hr-development",
-        "kando",
-        "learning",
-        "learning-and-development",
-        "product-overview",
-        "training"
-      ],
-      "path": "products/kando/learning/overview.md",
-      "group": "kando",
-      "product": "learning"
-    },
-    {
-      "id": "kando.onboarding.overview",
-      "kind": "product-overview",
-      "title": "Onboarding",
-      "summary": "Overview of the Kando Onboarding product, its users, candidate Product Areas, and current documentation gaps.",
-      "status": "draft",
-      "owner": "Onboarding product team",
-      "last_reviewed": null,
-      "related": [
-        "kando.overview"
-      ],
-      "topics": [
-        "employee-onboarding",
-        "hr-operations",
-        "kando",
-        "onboarding",
-        "product-overview"
-      ],
-      "path": "products/kando/onboarding/overview.md",
-      "group": "kando",
-      "product": "onboarding"
-    },
-    {
-      "id": "kando.overview",
-      "kind": "product-group-overview",
-      "title": "Kando",
-      "summary": "Overview of the Kando product group and its ATS, Pulse, Onboarding, and Learning products.",
-      "status": "draft",
-      "owner": "Kando product leadership",
-      "last_reviewed": null,
-      "related": [
-        "kando.ats.overview",
-        "kando.pulse.overview",
-        "kando.onboarding.overview",
-        "kando.learning.overview"
-      ],
-      "topics": [
-        "ats",
-        "hr-suite",
-        "kando",
-        "learning",
-        "onboarding",
-        "product-group-overview",
-        "pulse"
-      ],
-      "path": "products/kando/overview.md",
-      "group": "kando"
-    },
-    {
-      "id": "kando.pulse.overview",
-      "kind": "product-overview",
-      "title": "Pulse",
-      "summary": "Overview of the Kando Pulse product, its organization-level feedback purpose, candidate Product Areas, and current documentation gaps.",
-      "status": "draft",
-      "owner": "Pulse product team",
-      "last_reviewed": null,
-      "related": [
-        "kando.overview"
-      ],
-      "topics": [
-        "employee-feedback",
-        "engagement",
-        "kando",
-        "product-overview",
-        "pulse",
-        "survey"
-      ],
-      "path": "products/kando/pulse/overview.md",
-      "group": "kando",
-      "product": "pulse"
     },
     {
       "id": "menu",
@@ -1669,13 +1759,13 @@
       "id": "shared.ai-services.overview",
       "kind": "shared-product-service-overview",
       "title": "AI Product Services",
-      "summary": "Overview of shared AI-powered product services used across Jobvision and Kando products.",
+      "summary": "Overview of shared AI-powered product services used across Jobvision and Cando products.",
       "status": "draft",
       "owner": "AI product team",
       "last_reviewed": null,
       "related": [
         "jobvision.overview",
-        "kando.overview"
+        "cando.overview"
       ],
       "topics": [
         "ai",
@@ -1686,6 +1776,29 @@
         "shared-product-service-overview"
       ],
       "path": "shared/product-services/ai/overview.md"
+    },
+    {
+      "id": "shared.job-post",
+      "kind": "shared-product-concept",
+      "title": "Job Post",
+      "summary": "Defines the shared Job Post concept used by Jobvision Employer and Candidate while keeping product-specific behavior in separate Product Areas.",
+      "status": "draft",
+      "owner": "Jobvision product teams",
+      "last_reviewed": null,
+      "related": [
+        "jobvision.overview",
+        "jobvision.employer.job-post-management",
+        "jobvision.candidate.job-post-experience"
+      ],
+      "topics": [
+        "application",
+        "candidate",
+        "employer",
+        "job-opportunity",
+        "job-post",
+        "shared-product-concept"
+      ],
+      "path": "shared/product-concepts/job-post.md"
     },
     {
       "id": "standard.analytics-standards",
@@ -1710,10 +1823,11 @@
       "summary": "Defines Product Group, Product, Product Area, Shared Product Concept, Shared Product Service, status, ownership, and manifest maintenance rules.",
       "status": "reviewed",
       "owner": "Product Knowledge owner",
-      "last_reviewed": "2026-07-27",
+      "last_reviewed": "2026-07-28",
       "related": [
         "jobvision.overview",
-        "kando.overview",
+        "cando.overview",
+        "shared.job-post",
         "shared.ai-services.overview"
       ],
       "topics": [
@@ -1725,6 +1839,7 @@
         "product-knowledge",
         "product-standard",
         "product-standards",
+        "shared-concept",
         "shared-service"
       ],
       "path": "shared/product-standards/documentation-guidelines.md"
@@ -1763,7 +1878,7 @@
     }
   ],
   "summary": {
-    "documents": 105,
+    "documents": 109,
     "by_kind": {
       "content-guideline": 3,
       "design-system-accessibility": 8,
@@ -1777,23 +1892,24 @@
       "design-system-reference": 3,
       "design-system-token": 8,
       "design-system-ui-template": 4,
-      "product-area": 1,
+      "product-area": 4,
       "product-group-overview": 2,
       "product-overview": 6,
       "product-standard": 4,
+      "shared-product-concept": 1,
       "shared-product-service-overview": 1
     },
     "by_group": {
-      "jobvision": 3,
-      "kando": 6
+      "cando": 7,
+      "jobvision": 5
     },
     "by_product": {
-      "jobvision/candidate": 1,
-      "jobvision/employer": 1,
-      "kando/ats": 2,
-      "kando/learning": 1,
-      "kando/onboarding": 1,
-      "kando/pulse": 1
+      "cando/ats": 3,
+      "cando/learning": 1,
+      "cando/onboarding": 1,
+      "cando/pulse": 1,
+      "jobvision/candidate": 2,
+      "jobvision/employer": 2
     }
   }
 }

@@ -1,15 +1,15 @@
 ---
-id: kando.pulse.overview
+id: cando.pulse.overview
 kind: product-overview
-group: kando
+group: cando
 product: pulse
 title: Pulse
-summary: Overview of the Kando Pulse product, its organization-level feedback purpose, candidate Product Areas, and current documentation gaps.
+summary: Overview of the Cando Pulse product, its organization-level feedback purpose, candidate Product Areas, and current documentation gaps.
 status: draft
 owner: Pulse product team
 last_reviewed:
 related:
-  - kando.overview
+  - cando.overview
 topics:
   - pulse
   - employee-feedback
@@ -21,7 +21,7 @@ topics:
 
 ## What this product is
 
-Kando Pulse supports organization-level employee feedback and survey experiences. Current product discussions indicate that the organization owns the survey process and receives aggregated results, while participant responses are expected to remain anonymous.
+Cando Pulse supports organization-level employee feedback and survey experiences. Current product discussions indicate that the organization owns the survey process and receives aggregated results, while participant responses are expected to remain anonymous.
 
 ## Primary users
 

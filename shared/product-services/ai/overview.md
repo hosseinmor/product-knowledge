@@ -2,13 +2,13 @@
 id: shared.ai-services.overview
 kind: shared-product-service-overview
 title: AI Product Services
-summary: Overview of shared AI-powered product services used across Jobvision and Kando products.
+summary: Overview of shared AI-powered product services used across Jobvision and Cando products.
 status: draft
 owner: AI product team
 last_reviewed:
 related:
   - jobvision.overview
-  - kando.overview
+  - cando.overview
 topics:
   - ai
   - machine-learning
@@ -21,7 +21,7 @@ topics:
 
 ## What this service group is
 
-The AI product team develops product services that can support several Jobvision and Kando products.
+The AI product team develops product services that can support several Jobvision and Cando products.
 
 The team itself is not a product in the Product Knowledge hierarchy. Team structures may change; the durable knowledge unit is the AI-powered service and the product behavior it enables.
 

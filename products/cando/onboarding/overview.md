@@ -1,15 +1,15 @@
 ---
-id: kando.onboarding.overview
+id: cando.onboarding.overview
 kind: product-overview
-group: kando
+group: cando
 product: onboarding
 title: Onboarding
-summary: Overview of the Kando Onboarding product, its users, candidate Product Areas, and current documentation gaps.
+summary: Overview of the Cando Onboarding product, its users, candidate Product Areas, and current documentation gaps.
 status: draft
 owner: Onboarding product team
 last_reviewed:
 related:
-  - kando.overview
+  - cando.overview
 topics:
   - onboarding
   - employee-onboarding
@@ -20,7 +20,7 @@ topics:
 
 ## What this product is
 
-Kando Onboarding supports organizations in preparing and managing employee onboarding experiences.
+Cando Onboarding supports organizations in preparing and managing employee onboarding experiences.
 
 ## Primary users
 

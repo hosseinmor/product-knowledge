@@ -1,16 +1,17 @@
 ---
-id: kando.ats.overview
+id: cando.ats.overview
 kind: product-overview
-group: kando
+group: cando
 product: ats
 title: ATS
-summary: Overview of the Kando ATS product, its users, boundaries, main Product Areas, major journeys, and documentation gaps.
+summary: Overview of the Cando ATS product, its users, boundaries, main Product Areas, major journeys, and documentation gaps.
 status: draft
 owner: ATS product team
 last_reviewed:
 related:
-  - kando.overview
-  - kando.ats.recruitment-request
+  - cando.overview
+  - cando.ats.recruitment-request
+  - cando.ats.approval-workflow
 topics:
   - hiring
   - recruitment
@@ -22,7 +23,7 @@ topics:
 
 ## What this product is
 
-Kando ATS supports organizational hiring operations by keeping hiring needs, approval requests, jobs, and candidate-resume management in one product.
+Cando ATS supports organizational hiring operations by keeping hiring needs, approval requests, jobs, and candidate-resume management in one product.
 
 ## Primary users
 
@@ -65,7 +66,7 @@ These boundaries are an initial documentation view and require owner review.
 - Job Management
 - Candidate Management
 
-Only Recruitment Request currently has substantive documentation.
+Recruitment Request and Approval Workflow currently have substantive draft documentation.
 
 ## Major user journeys
 
@@ -77,6 +78,15 @@ A hiring need is created
 → approvers review it
 → an approved request enters hiring
 → recruiting continues until the requested capacity is fulfilled
+```
+
+### Configure an approval workflow
+
+```text
+An authorized administrator defines workflow scope
+→ creates ordered approval steps
+→ assigns approvers
+→ the workflow becomes available for matching Recruitment Requests
 ```
 
 ### Manage candidates for a job

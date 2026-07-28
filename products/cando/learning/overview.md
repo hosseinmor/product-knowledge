@@ -1,15 +1,15 @@
 ---
-id: kando.learning.overview
+id: cando.learning.overview
 kind: product-overview
-group: kando
+group: cando
 product: learning
 title: Learning
-summary: Overview of the Kando Learning product, its users, candidate Product Areas, and current documentation gaps.
+summary: Overview of the Cando Learning product, its users, candidate Product Areas, and current documentation gaps.
 status: draft
 owner: Learning product team
 last_reviewed:
 related:
-  - kando.overview
+  - cando.overview
 topics:
   - learning
   - learning-and-development
@@ -21,7 +21,7 @@ topics:
 
 ## What this product is
 
-Kando Learning supports organizational learning and development experiences.
+Cando Learning supports organizational learning and development experiences.
 
 ## Primary users
 

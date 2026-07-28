@@ -1,26 +1,34 @@
 # AI Workflows
 
-This directory contains stable instructions for AI-assisted product discovery and documentation.
+This directory contains lightweight instructions for using Product Knowledge in recurring AI-assisted product work.
 
-The repository uses three core skills:
-
-- `product-walkthrough`
-- `initiative-to-prd`
-- `product-knowledge-update`
-
-Their responsibilities are distinct:
+The active workflows are:
 
 ```text
-product-walkthrough
-→ Inspect current product behavior and produce reviewed evidence with explicit coverage gaps
+research.md
+→ Use internal Product Knowledge before external research or benchmarking
 
-initiative-to-prd
-→ Use current Product Knowledge to prepare proposed product change documentation
+prd-writing.md
+→ Turn minimum Jira input, Product Knowledge, and owner decisions into a complete PRD draft
 
-product-knowledge-update
-→ Convert released or reviewed evidence into canonical Product Knowledge patches
+design-start.md
+→ Use the approved Jira PRD, Product Knowledge, shared services, and Design System to prepare an initial design draft
+
+product-walkthrough.md
+→ Optionally inspect current product behavior when Product Knowledge is missing, incomplete, disputed, or outdated
+
+knowledge-update.md
+→ Propose focused Product Knowledge changes for review and manual update by the named owner
 ```
 
-Templates define the required document shape. Skills define the workflow, evidence rules, validation, and stop conditions.
+These files are workflow guidance, not Product Knowledge documents and not mandatory sequential stages.
 
-New skills should be added only when a repeated workflow cannot be handled clearly by these three skills.
+Use `manifest.generated.json` as the retrieval entry point. Read only the smallest relevant set of Product Group, Product, Product Area, Shared Product Concept, Shared Product Service, Design System, content, and product-standard documents.
+
+The previous skill-based workflow model is preserved only in the archive branch:
+
+```text
+archive/product-knowledge-v1-2026-07-27
+```
+
+New workflow files should be added only when a repeated need cannot be handled clearly by the existing five workflows.

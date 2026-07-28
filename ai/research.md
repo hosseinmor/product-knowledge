@@ -1,4 +1,4 @@
-# PM Research with Product Knowledge
+# Research with Product Knowledge
 
 ## Goal
 

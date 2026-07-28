@@ -4,30 +4,19 @@
 
 A Product Group is the stable umbrella that contains related products under one brand or suite.
 
-Current Product Groups:
-
 ```text
 Jobvision
 → Candidate
 → Employer
 
-Kando
+Cando
 → ATS
 → Pulse
 → Onboarding
 → Learning
 ```
 
-A Product Group overview owns only:
-
-- Group purpose and boundary
-- Products inside the group
-- Major relationships between products
-- Shared journeys at group level
-- Important shared concepts and services
-- Group-level documentation gaps
-
-It does not own detailed product flows, permissions, states, or UI behavior.
+A Product Group overview owns the group purpose, products, major relationships, shared journeys, important shared concepts and services, and group-level documentation gaps.
 
 Path:
 
@@ -37,16 +26,7 @@ products/{group}/overview.md
 
 ## Product Overview
 
-One overview per product. It explains:
-
-- Product purpose
-- Primary users
-- Problems the product solves
-- Product boundaries
-- Main Product Areas
-- Major journeys
-- Important integrations
-- Known documentation gaps
+One overview per product. It explains purpose, users, boundaries, main Product Areas, major journeys, integrations, and documentation gaps.
 
 Path:
 
@@ -56,23 +36,9 @@ products/{group}/{product}/overview.md
 
 ## Product Area
 
-A Product Area is a meaningful and relatively independent part of a product that supports one coherent outcome or closely related set of outcomes.
+A Product Area is a meaningful and relatively independent part of a product that supports one coherent outcome or a closely related set of outcomes.
 
-A Product Area usually contains several related flows and owns the product-specific explanation of:
-
-- Users and roles
-- Outcomes
-- Entry points
-- Main concepts
-- Main flows
-- Rules
-- Permissions
-- States and transitions
-- Validations
-- Edge cases
-- Relationships with other areas
-- Variations
-- Unknowns and evidence
+It owns product-specific users, outcomes, entry points, concepts, flows, rules, permissions, states, validations, edge cases, variations, unknowns, and evidence.
 
 A Product Area is not just a page, component, modal, Jira Epic, team, service, or one requested change.
 
@@ -82,9 +48,7 @@ Path:
 products/{group}/{product}/areas/{area}.md
 ```
 
-### Splitting a large area
-
-Keep flows in one Product Area document by default. Split only when the document becomes hard to understand or maintain:
+Keep flows inside the Product Area by default. Split a large area only when one document becomes difficult to understand or maintain:
 
 ```text
 products/{group}/{product}/areas/{area}/
@@ -95,7 +59,7 @@ products/{group}/{product}/areas/{area}/
     └── approve.md
 ```
 
-Flow files are an optional extension, not a required document type.
+Flow files are optional, not required.
 
 ## Shared Product Concept
 
@@ -109,33 +73,31 @@ shared/product-concepts/{concept}.md
 
 Shared Product Concepts do not own product-specific user experience.
 
-Example:
+Implemented example:
 
 ```text
 shared/product-concepts/job-post.md
-→ shared definition, common fields, shared lifecycle, shared rules
+→ shared definition and cross-product questions
 
 products/jobvision/employer/areas/job-post-management.md
-→ create, edit, publish, pause, close, and manage
+→ Employer-side creation and management
 
 products/jobvision/candidate/areas/job-post-experience.md
-→ view, understand, save, share, evaluate, and apply
+→ Candidate-side understanding and actions
 ```
 
 Create a fully shared Product Area only when outcomes, behavior, rules, ownership, and flows are genuinely the same across products. This should be uncommon.
 
 ## Shared Product Service
 
-A Shared Product Service is a durable product capability consumed by more than one product. It may be delivered by a platform, data, or AI team, but the organizational team is not the knowledge hierarchy.
-
-Path:
+A Shared Product Service is a durable service consumed by more than one product. The owning team is metadata, not the repository hierarchy.
 
 ```text
 shared/product-services/{service-group}/overview.md
 shared/product-services/{service-group}/services/{service}.md
 ```
 
-For AI:
+For AI services:
 
 ```text
 shared/product-services/ai/overview.md
@@ -145,19 +107,17 @@ shared/product-services/ai/services/{service}.md
 Use this split:
 
 ```text
-Cross-product AI service behavior
+Cross-product service behavior
 → Shared Product Service
 
-How one product uses and presents the service
-→ That product's Product Area
+Product-specific use, flow, threshold, permission, fallback, and presentation
+→ The consuming Product Area
 
-Reusable AI interaction UI
-→ Design System Component or Pattern
+Reusable interaction UI
+→ Design System
 ```
 
-For example, a shared fit model may document common inputs, outputs, quality, confidence, limitations, and fallback expectations. Candidate, Employer, ATS, or another product still documents its own user-facing flow, thresholds, permissions, copy, and presentation.
-
-The AI product team can appear as `owner` of a service. It should not be added as a product alongside Candidate, Employer, ATS, Pulse, Onboarding, or Learning unless it later owns a distinct user-facing product with its own users and product boundary.
+The AI product team may be the `owner` of a service. It is not a product unless it later owns a distinct user-facing product with its own users and boundary.
 
 ## Design System
 
@@ -167,18 +127,18 @@ The Design System remains a complete and independent knowledge structure under:
 shared/design-system/
 ```
 
-It owns reusable UI foundations, tokens, components, patterns, accessibility rules, product variations, references, templates, and governance.
+Its internal structure is unchanged by this model.
 
 ## Lightweight retrieval metadata
 
-Product Group Overview, Product Overview, Product Area, Shared Product Concept, and Shared Product Service documents use a small YAML frontmatter block:
+Product Group Overview, Product Overview, Product Area, Shared Product Concept, and Shared Product Service documents use:
 
 ```yaml
 ---
 id:
 kind:
-group: # for Product Groups and product documents
-product: # for product documents
+group:
+product:
 title:
 summary:
 status: draft | reviewed
@@ -189,22 +149,13 @@ topics: []
 ---
 ```
 
-This metadata exists only to support ownership and AI retrieval. It does not introduce Capability, Domain, Decision, release, or handoff concepts.
-
-The Design System keeps its existing full metadata. The manifest generator normalizes it without changing Design System document structure.
+The Design System keeps its existing metadata. The manifest generator normalizes it into the common retrieval index.
 
 ## AI retrieval manifest
 
-`manifest.generated.json` is the generated discovery index for the repository.
+`manifest.generated.json` helps AI find documents by group, product, kind, title, summary, topics, and related IDs.
 
-It helps AI:
-
-- Find documents by group, product, kind, title, summary, and topics
-- Resolve `related` IDs to file paths
-- Avoid reading the whole repository
-- Add only relevant shared product services, Design System, and content guidance
-
-Recommended retrieval sequence:
+Recommended sequence:
 
 ```text
 1. Read README.md and manifest.generated.json.
@@ -215,24 +166,20 @@ Recommended retrieval sequence:
 6. Follow related IDs only when they materially affect the task.
 ```
 
-See `docs/manifest.md` for generation and validation rules.
-
 ## Status and ownership
 
-Every Product Group Overview, Product Overview, Product Area, Shared Product Concept, and Shared Product Service should include:
-
 ```text
-Status: Draft | Reviewed
-Owner: person or team
-Last reviewed: date
+Draft
+→ Incomplete or awaiting owner review
+
+Reviewed
+→ Reviewed by the named owner and usable as current team context
 ```
 
-`Reviewed` means the owner has reviewed the document as usable current team context. It does not mean every branch and edge case has been tested.
-
-Unknowns, assumptions, variations, and untested behavior must be written explicitly.
+A reviewed document may still contain explicit unknowns or untested behavior.
 
 ## Update rule
 
-AI may identify a gap and propose an exact update. A named owner decides whether the proposal is correct and updates the repository manually through a normal branch and pull request.
+AI may identify a gap and propose an exact update. A named owner reviews and applies it through a normal branch and pull request.
 
-After any indexed document changes, regenerate `manifest.generated.json` and include it in the same pull request.
+After indexed documents change, regenerate `manifest.generated.json` and include it in the same pull request.

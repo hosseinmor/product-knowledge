@@ -1,19 +1,19 @@
 ---
-id: kando.overview
+id: cando.overview
 kind: product-group-overview
-group: kando
-title: Kando
-summary: Overview of the Kando product group and its ATS, Pulse, Onboarding, and Learning products.
+group: cando
+title: Cando
+summary: Overview of the Cando product group and its ATS, Pulse, Onboarding, and Learning products.
 status: draft
-owner: Kando product leadership
+owner: Cando product leadership
 last_reviewed:
 related:
-  - kando.ats.overview
-  - kando.pulse.overview
-  - kando.onboarding.overview
-  - kando.learning.overview
+  - cando.ats.overview
+  - cando.pulse.overview
+  - cando.onboarding.overview
+  - cando.learning.overview
 topics:
-  - kando
+  - cando
   - ats
   - pulse
   - onboarding
@@ -21,11 +21,11 @@ topics:
   - hr-suite
 ---
 
-# Kando
+# Cando
 
 ## What this product group is
 
-Kando is the HR product group that contains four distinct products:
+Cando is the HR product group that contains four distinct products:
 
 - ATS
 - Pulse
@@ -43,7 +43,7 @@ Supports hiring operations, including recruitment requests, approval workflows, 
 Path:
 
 ```text
-products/kando/ats/
+products/cando/ats/
 ```
 
 ### Pulse
@@ -53,7 +53,7 @@ Supports organization-level employee feedback and survey experiences. Its exact 
 Path:
 
 ```text
-products/kando/pulse/
+products/cando/pulse/
 ```
 
 ### Onboarding
@@ -63,7 +63,7 @@ Supports employee onboarding experiences and administration. Its exact product b
 Path:
 
 ```text
-products/kando/onboarding/
+products/cando/onboarding/
 ```
 
 ### Learning
@@ -73,7 +73,7 @@ Supports organizational learning and development experiences. Its exact product 
 Path:
 
 ```text
-products/kando/learning/
+products/cando/learning/
 ```
 
 ## Shared journeys and relationships

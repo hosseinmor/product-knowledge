@@ -4,16 +4,18 @@ title: Documentation Guidelines
 summary: Defines Product Group, Product, Product Area, Shared Product Concept, Shared Product Service, status, ownership, and manifest maintenance rules.
 status: reviewed
 owner: Product Knowledge owner
-last_reviewed: 2026-07-27
+last_reviewed: 2026-07-28
 related:
   - jobvision.overview
-  - kando.overview
+  - cando.overview
+  - shared.job-post
   - shared.ai-services.overview
 topics:
   - product-knowledge
   - documentation
   - product-group
   - product-area
+  - shared-concept
   - shared-service
   - manifest
 ---
@@ -21,8 +23,6 @@ topics:
 # Documentation Guidelines
 
 ## Active document types
-
-The active Product Knowledge model uses:
 
 ```text
 Product Group Overview
@@ -32,21 +32,13 @@ Shared Product Concept
 Shared Product Service
 ```
 
-The Design System keeps its own complete document structure under `shared/design-system/`.
+The Design System keeps its complete structure under `shared/design-system/`.
 
 PRDs live in Jira. A separate Brief document is not required.
 
 ## Product Group Overview
 
-Use one overview per stable product group to document:
-
-- Group purpose and boundary
-- Products inside the group
-- Major relationships and shared journeys
-- Important shared concepts and services
-- Group-level documentation gaps
-
-Path:
+Use one overview per stable product group to document purpose, boundary, included products, major relationships, shared journeys, important shared concepts and services, and group-level gaps.
 
 ```text
 products/{group}/overview.md
@@ -59,7 +51,7 @@ Jobvision
 → Candidate
 → Employer
 
-Kando
+Cando
 → ATS
 → Pulse
 → Onboarding
@@ -68,17 +60,7 @@ Kando
 
 ## Product Overview
 
-Use one overview per product to document:
-
-- Purpose
-- Primary users
-- Product boundaries
-- Main Product Areas
-- Major journeys
-- Integrations
-- Documentation gaps
-
-Path:
+Use one overview per product to document purpose, users, boundaries, main Product Areas, major journeys, integrations, and gaps.
 
 ```text
 products/{group}/{product}/overview.md
@@ -90,9 +72,7 @@ A Product Area is a meaningful and relatively independent part of a product that
 
 A Product Area is not just a page, modal, component, Jira item, team, service, or one requested change.
 
-Keep flows inside the Product Area document by default. Split them into separate files only when the area becomes too large to understand or maintain.
-
-Path:
+Keep flows inside the Product Area by default. Split them only when the area becomes too large to understand or maintain.
 
 ```text
 products/{group}/{product}/areas/{area}.md
@@ -104,41 +84,43 @@ Use a Shared Product Concept only when a business definition, data model, lifecy
 
 Product-specific behavior stays in the relevant Product Area. Reusable UI behavior stays in the Design System.
 
-Path:
-
 ```text
 shared/product-concepts/{concept}.md
+```
+
+Implemented example:
+
+```text
+shared/product-concepts/job-post.md
+products/jobvision/employer/areas/job-post-management.md
+products/jobvision/candidate/areas/job-post-experience.md
 ```
 
 ## Shared Product Service
 
 Use a Shared Product Service when a durable service is consumed by more than one product.
 
-The team that owns the service is metadata, not the repository hierarchy. For example, the AI product team owns shared AI services but is not a Product alongside Candidate, Employer, ATS, Pulse, Onboarding, or Learning.
-
-Path:
+The team that owns the service is metadata, not the repository hierarchy. The AI product team may own shared AI services but is not a Product alongside Candidate, Employer, ATS, Pulse, Onboarding, or Learning.
 
 ```text
 shared/product-services/{service-group}/overview.md
 shared/product-services/{service-group}/services/{service}.md
 ```
 
-Rules:
+Placement rules:
 
 ```text
-Cross-product AI service behavior
-→ shared/product-services/ai/
+Cross-product service behavior
+→ Shared Product Service
 
-Product-specific use, flow, permission, threshold, and presentation
+Product-specific use, flow, permission, threshold, fallback, and presentation
 → the relevant Product Area
 
-Reusable AI interaction UI
+Reusable interaction UI
 → Design System
 ```
 
 ## Status and ownership
-
-Use only:
 
 ```text
 status: draft | reviewed
@@ -148,8 +130,7 @@ last_reviewed: YYYY-MM-DD
 
 - `draft` means incomplete or awaiting owner review.
 - `reviewed` means the named owner considers the document usable as current team context.
-
-A reviewed document may still contain explicit unknowns or untested behavior.
+- A reviewed document may still contain explicit unknowns or untested behavior.
 
 ## Lightweight retrieval metadata
 
@@ -158,8 +139,8 @@ Product Group Overview, Product Overview, Product Area, Shared Product Concept, 
 ```yaml
 id:
 kind:
-group: # for Product Groups and product documents
-product: # for product documents
+group:
+product:
 title:
 summary:
 status:
@@ -173,7 +154,7 @@ The metadata helps AI find the smallest relevant context. It does not add Capabi
 
 ## Writing principles
 
-- Describe current product behavior and known rules.
+- Describe current behavior and known rules.
 - Keep assumptions, unknowns, variations, and untested behavior visible.
 - Do not copy the same behavior into several documents.
 - Put shared definitions in Shared Product Concepts.
