@@ -22,7 +22,7 @@ Layout foundations define how pages and components organize, align, size, and ad
 
 The first active layout guideline is documented under [`responsive-layout/`](responsive-layout/README.md):
 
-- [`responsive-layout/README.md`](responsive-layout/README.md): human-facing guideline and core decisions.
+- [`responsive-layout/guideline.md`](responsive-layout/guideline.md): human-facing guideline and core decisions.
 - [`responsive-layout/spec.md`](responsive-layout/spec.md): atomic rules and decision tables for AI retrieval and implementation.
 - [`responsive-layout/patterns.md`](responsive-layout/patterns.md): adaptive behavior for common product patterns.
 - [`responsive-layout/examples/`](responsive-layout/examples/README.md): reviewed product examples and documentation template.
