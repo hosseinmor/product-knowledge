@@ -19,6 +19,8 @@ related:
 
 Responsive layout defines how page structures and reusable components adapt to the space available to them. It separates breakpoint tokens from device labels, reference design frames, page containers, component-level responsiveness, and QA widths.
 
+This foundation applies across Jobvision and Cando products unless a reviewed product-specific exception is documented.
+
 ## Core decisions
 
 - The system uses a mobile-first breakpoint model.
