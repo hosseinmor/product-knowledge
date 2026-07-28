@@ -2,6 +2,22 @@
 
 This directory contains lightweight instructions for recurring AI-assisted product work.
 
+## Entry and routing
+
+Use the repository-level entry point and router:
+
+```text
+AGENTS.md
+→ Tool-agnostic bootstrap and repository rules
+
+ai/router.md
+→ Detects the requested outcome and selects the appropriate Skill or workflow
+```
+
+After one-time tool setup, a user should only need to describe the problem or provide files and state the desired outcome. The AI environment should read `AGENTS.md` and route the request without requiring the user to paste a long prompt.
+
+See [`../docs/ai-tool-setup.md`](../docs/ai-tool-setup.md) for repository-connected, file-upload, and plain-chat capability modes.
+
 ## Workflows
 
 The active workflows are:
@@ -47,7 +63,7 @@ manifest.generated.json
 → Product Knowledge retrieval
 ```
 
-A Skill becomes automatic only when the AI environment is configured to discover and load `ai/skills/*/SKILL.md`. Otherwise, the user or system instruction must explicitly direct the AI to use the Skill.
+Automatic Skill activation requires a one-time connection between the AI environment and `AGENTS.md`. The repository itself cannot force an unrelated tool to discover its instructions.
 
 See [`skills/README.md`](skills/README.md) for the distinction between Skills, workflows, and templates.
 

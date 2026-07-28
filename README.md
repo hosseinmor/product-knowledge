@@ -2,6 +2,20 @@
 
 This repository provides the product context that humans and AI need for product research, PRD writing, and design.
 
+## AI starting point
+
+AI tools should start with:
+
+```text
+AGENTS.md
+→ Tool-agnostic repository instructions
+
+ai/router.md
+→ Intent routing to the appropriate Skill or workflow
+```
+
+After one-time tool setup, users should be able to provide a problem or files and state the desired outcome without pasting repository paths or a long routing prompt. See [`docs/ai-tool-setup.md`](docs/ai-tool-setup.md).
+
 The active knowledge model is intentionally small:
 
 ```text
@@ -108,6 +122,9 @@ The AI product team can be the `owner` of a shared service. It should appear as 
 ## Repository structure
 
 ```text
+AGENTS.md
+→ Tool-agnostic AI entry point
+
 products/
 → Product Group overviews, Product overviews, and product-specific areas
 
@@ -127,7 +144,7 @@ templates/
 → Simple templates for Product Groups, Products, Product Areas, Shared Concepts, Shared Services, and Jira PRD
 
 ai/
-→ Workflow guidance and active lightweight Skills for recurring AI-assisted product work
+→ Intent routing, workflow guidance, and active lightweight Skills for recurring AI-assisted product work
 ```
 
 ## Lightweight AI retrieval manifest
@@ -199,7 +216,7 @@ The initial Jira input should at least state:
 - Desired outcome
 - Known constraints
 
-When the AI environment loads repository Skills, the product owner only needs to provide this input and ask for a PRD. The template does not need to be pasted into every conversation.
+When the AI environment is connected through `AGENTS.md`, the product owner only needs to provide this input and ask for a PRD. The template and routing prompt do not need to be pasted into every conversation.
 
 ### Design start
 
