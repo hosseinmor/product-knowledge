@@ -1,6 +1,6 @@
 # AI Workflows and Skills
 
-This directory contains lightweight instructions for recurring AI-assisted product work.
+This directory contains lightweight instructions for recurring AI-assisted product work that depends on canonical Product Knowledge.
 
 ## Entry and routing
 
@@ -32,14 +32,13 @@ prd-writing.md
 design-start.md
 → Use the approved Jira PRD, Product Knowledge, shared services, and Design System to prepare an initial design draft
 
-product-walkthrough.md
-→ Optionally inspect current product behavior when Product Knowledge is missing, incomplete, disputed, or outdated
-
 knowledge-update.md
 → Propose focused Product Knowledge changes for review and manual update by the named owner
 ```
 
 Workflow files define the correct process. They are not Product Knowledge documents and are not mandatory sequential stages.
+
+Product walkthrough capture and evidence review are maintained separately in `hosseinmor/product-walkthrough`. Only a reviewed evidence package should enter this repository through the normal knowledge-update workflow.
 
 ## Skills
 
