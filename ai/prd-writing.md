@@ -1,5 +1,7 @@
 # PRD Writing with Product Knowledge
 
+This file is the canonical process contract for PRD writing. The active execution wrapper is `ai/skills/prd-writing/SKILL.md`, and the output contract is `templates/jira-prd.md`.
+
 The PRD lives in Jira. No separate Brief document is required.
 
 ## Minimum Jira input
