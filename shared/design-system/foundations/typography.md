@@ -6,8 +6,7 @@ title: Typography
 summary: '> Status: structure only'
 knowledge_state: unverified
 document_maturity: draft
-related:
-  - design-system.foundation.responsive-layout
+related: []
 ---
 
 # Typography
