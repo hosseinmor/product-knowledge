@@ -43,7 +43,7 @@ products/
 │       ├── overview.md
 │       └── areas/
 │
-└── kando/
+└── cando/
     ├── overview.md
     ├── ats/
     │   ├── overview.md
@@ -59,7 +59,7 @@ products/
         └── areas/
 ```
 
-`Jobvision` and `Kando` are Product Groups. Candidate, Employer, ATS, Pulse, Onboarding, and Learning are Products. Detailed behavior belongs in Product Areas inside those products.
+`Jobvision` and `Cando` are Product Groups. Candidate, Employer, ATS, Pulse, Onboarding, and Learning are Products. Detailed behavior belongs in Product Areas inside those products.
 
 ## Shared structure
 
@@ -127,12 +127,12 @@ templates/
 → Simple templates for Product Groups, Products, Product Areas, Shared Concepts, Shared Services, and Jira PRD
 
 ai/
-→ Lightweight guidance for PM research, PRD writing, design start, optional walkthroughs, and knowledge updates
+→ Lightweight guidance for research, PRD writing, design start, optional walkthroughs, and knowledge updates
 ```
 
 ## Lightweight AI retrieval manifest
 
-`manifest.generated.json` is a generated technical index that helps AI find the smallest relevant set of documents. It does not add a workflow for PMs and Designers.
+`manifest.generated.json` is a generated technical index that helps AI find the smallest relevant set of documents. It does not add a workflow for product teams.
 
 AI should use the manifest to filter documents by:
 
@@ -162,7 +162,9 @@ See [`docs/manifest.md`](docs/manifest.md).
 
 ## Main use cases
 
-### PM research
+### Research
+
+Workflow: [`ai/research.md`](ai/research.md)
 
 ```text
 Research question
@@ -172,7 +174,9 @@ Research question
 → findings and opportunities
 ```
 
-### PM to PRD
+### PRD writing
+
+Workflow: [`ai/prd-writing.md`](ai/prd-writing.md)
 
 The PRD lives in Jira. No separate Brief document is required.
 
@@ -180,7 +184,7 @@ The PRD lives in Jira. No separate Brief document is required.
 Initial Jira input
 → manifest selects relevant Product Knowledge
 → blocking questions
-→ PM decisions
+→ product decisions
 → complete PRD in Jira
 ```
 
@@ -194,6 +198,8 @@ The initial Jira input should at least state:
 
 ### Design start
 
+Workflow: [`ai/design-start.md`](ai/design-start.md)
+
 ```text
 Approved Jira PRD
 + Product Knowledge selected through the manifest
@@ -204,6 +210,8 @@ Approved Jira PRD
 ```
 
 ### Knowledge update
+
+Workflow: [`ai/knowledge-update.md`](ai/knowledge-update.md)
 
 ```text
 AI identifies missing or outdated knowledge
@@ -220,6 +228,8 @@ No release handoff or automated synchronization is required in the current model
 Product Walkthrough is an optional framework for filling knowledge gaps. It is useful when an area is undocumented, disputed, outdated, or difficult to understand from existing sources.
 
 A walkthrough produces evidence and unknowns. It does not automatically overwrite Product Knowledge. The relevant owner reviews the findings and updates the Product Area manually.
+
+See [`ai/product-walkthrough.md`](ai/product-walkthrough.md).
 
 ## Product Area rule
 
@@ -247,7 +257,7 @@ Reusable UI behavior
 → shared/design-system/
 ```
 
-For example, `Job Post` may be a shared concept, while Employer Job Post Management and Candidate Job Post Experience remain separate Product Areas.
+`Job Post` is the first documented Shared Product Concept. Employer Job Post Management and Candidate Job Post Experience remain separate Product Areas.
 
 ## Document status
 
