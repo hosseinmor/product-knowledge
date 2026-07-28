@@ -10,6 +10,8 @@ owner: Employer product team
 last_reviewed:
 related:
   - jobvision.overview
+  - shared.job-post
+  - jobvision.employer.job-post-management
 topics:
   - employer
   - recruiting
@@ -42,7 +44,7 @@ To be documented.
 
 ### Out of scope
 
-Candidate-side job discovery and Kando products are outside this product boundary.
+Candidate-side job discovery and Cando products are outside this product boundary.
 
 ## Main Product Areas
 
@@ -53,7 +55,7 @@ Initial candidates:
 - Candidate and Application Management
 - Employer Products and Plans
 
-These candidates require owner review.
+Job Post Management now has substantive draft documentation. Other candidates require owner review.
 
 ## Major user journeys
 
@@ -69,7 +71,7 @@ To be documented.
 
 ## Documentation gaps and unknowns
 
-The product currently needs Product Area discovery and owner review.
+The product still needs progressive Product Area discovery and owner review beyond Job Post Management.
 
 ## Sources
 
