@@ -10,11 +10,13 @@ last_reviewed:
 related:
   - jobvision.candidate.overview
   - jobvision.employer.overview
+  - shared.job-post
 topics:
   - jobvision
   - candidate
   - employer
   - recruitment-marketplace
+  - job-post
 ---
 
 # Jobvision
@@ -59,12 +61,12 @@ Employer creates and publishes a Job Post
 → Employer reviews the application
 ```
 
-Shared definitions belong in `shared/product-concepts/`. Product-specific behavior remains in each product's Product Areas.
+The shared Job Post definition is documented in `shared/product-concepts/job-post.md`. Product-specific behavior remains in each product's Product Areas.
 
 ## Documentation gaps
 
-- The complete boundary between Candidate, Employer, and Kando needs owner review.
-- Shared concepts and cross-product lifecycle rules are not yet fully documented.
+- The complete boundary between Candidate, Employer, and Cando needs owner review.
+- Shared Company, Application, and Candidate concepts are not yet documented.
 - Candidate and Employer Product Areas need progressive discovery and completion.
 
 ## Sources
