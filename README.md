@@ -243,15 +243,9 @@ AI identifies missing or outdated knowledge
 → the manifest is regenerated
 ```
 
+Reviewed evidence packages from the separate `hosseinmor/product-walkthrough` project may be used as sources for this workflow. Walkthrough capture artifacts do not live in this repository.
+
 No release handoff or automated synchronization is required in the current model.
-
-## Product Walkthrough
-
-Product Walkthrough is an optional framework for filling knowledge gaps. It is useful when an area is undocumented, disputed, outdated, or difficult to understand from existing sources.
-
-A walkthrough produces evidence and unknowns. It does not automatically overwrite Product Knowledge. The relevant owner reviews the findings and updates the Product Area manually.
-
-See [`ai/product-walkthrough.md`](ai/product-walkthrough.md).
 
 ## Product Area rule
 
