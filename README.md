@@ -127,7 +127,7 @@ templates/
 → Simple templates for Product Groups, Products, Product Areas, Shared Concepts, Shared Services, and Jira PRD
 
 ai/
-→ Lightweight guidance for research, PRD writing, design start, optional walkthroughs, and knowledge updates
+→ Workflow guidance and active lightweight Skills for recurring AI-assisted product work
 ```
 
 ## Lightweight AI retrieval manifest
@@ -176,12 +176,15 @@ Research question
 
 ### PRD writing
 
-Workflow: [`ai/prd-writing.md`](ai/prd-writing.md)
+Workflow: [`ai/prd-writing.md`](ai/prd-writing.md)  
+Skill: [`ai/skills/prd-writing/SKILL.md`](ai/skills/prd-writing/SKILL.md)  
+Template: [`templates/jira-prd.md`](templates/jira-prd.md)
 
 The PRD lives in Jira. No separate Brief document is required.
 
 ```text
 Initial Jira input
+→ PRD Skill loads the workflow and template
 → manifest selects relevant Product Knowledge
 → blocking questions
 → product decisions
@@ -195,6 +198,8 @@ The initial Jira input should at least state:
 - Affected users
 - Desired outcome
 - Known constraints
+
+When the AI environment loads repository Skills, the product owner only needs to provide this input and ask for a PRD. The template does not need to be pasted into every conversation.
 
 ### Design start
 
