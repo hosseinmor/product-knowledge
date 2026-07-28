@@ -13,7 +13,7 @@ jira-prd.md
 
 ## Product Knowledge templates
 
-- `product-group-overview.md` describes a product group such as Jobvision or Kando and lists its products.
+- `product-group-overview.md` describes a product group such as Jobvision or Cando and lists its products.
 - `product-overview.md` describes one product and its main Product Areas.
 - `product-area.md` describes one meaningful part of a product, including its flows, rules, permissions, states, validations, and edge cases.
 - `shared-product-concept.md` describes a business concept or rule that is genuinely shared across products.
@@ -46,7 +46,7 @@ python scripts/generate_manifest.py check
 
 ## Jira PRD template
 
-`jira-prd.md` defines the minimum structure AI should use when helping a PM complete a PRD in Jira. The PRD is not stored in this repository.
+`jira-prd.md` defines the minimum structure AI should use when helping complete a PRD in Jira. The PRD is not stored in this repository.
 
 ## Design System templates
 
