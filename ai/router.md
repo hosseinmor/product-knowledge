@@ -68,30 +68,13 @@ ai/design-start.md
 
 Do not route incomplete product definition to design-start when unresolved blocking product decisions should be handled through PRD writing first.
 
-### Inspect current product behavior
-
-Examples:
-
-- Walk through a current product flow
-- Verify production behavior
-- Fill an undocumented or disputed Product Area
-- Record observed, blocked, not-tested, and unknown behavior
-
-Route to:
-
-```text
-ai/product-walkthrough.md
-```
-
-A walkthrough produces evidence. It does not automatically become canonical Product Knowledge.
-
 ### Update Product Knowledge
 
 Examples:
 
 - Add newly approved product behavior
 - Correct outdated or contradictory documentation
-- Propose a focused update after research, PRD work, design, or walkthrough
+- Propose a focused update after research, PRD work, design, or a reviewed external evidence package
 
 Route to:
 
@@ -100,6 +83,8 @@ ai/knowledge-update.md
 ```
 
 Do not silently update Product Knowledge as a side effect of another workflow. Present the proposed update separately and follow the normal owner-reviewed branch and pull-request process.
+
+Walkthrough capture and evidence review are maintained in the separate `hosseinmor/product-walkthrough` repository. This router handles only the later knowledge-update step after a reviewed evidence package is supplied.
 
 ## Multiple intents
 
@@ -113,16 +98,11 @@ Research needed for a PRD
 → Supporting: research workflow
 → Return to PRD blocking decisions and draft
 
-Current behavior is unclear during PRD writing
-→ Primary: PRD Skill
-→ Supporting: optional walkthrough
-→ Keep unobserved behavior unresolved until evidence exists
-
 Approved PRD moves to design
 → Complete PRD Skill and human approval
 → Then use design-start
 
-A completed task exposes missing Product Knowledge
+A completed task or reviewed evidence package exposes missing Product Knowledge
 → Finish the primary task
 → Then use knowledge-update as a separate proposal
 ```
