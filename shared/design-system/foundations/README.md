@@ -7,11 +7,11 @@ Foundations define the shared visual and behavioral building blocks used by toke
 ## Active guidance
 
 - [Layout](layout.md)
-- [Responsive layout](responsive-layout/README.md)
+- [Responsive layout](responsive-layout/guideline.md)
 
 ## Responsive layout documents
 
-- [Human-facing guideline](responsive-layout/README.md)
+- [Human-facing guideline](responsive-layout/guideline.md)
 - [Atomic specification](responsive-layout/spec.md)
 - [Responsive patterns](responsive-layout/patterns.md)
 - [Product example template](responsive-layout/examples/README.md)
