@@ -194,7 +194,7 @@ These cases remain untested in the current repository.
 - Employer Account and Access
 - Candidate and Application Management
 - Employer Products and Plans
-- Candidate Job Post Experience
+- Candidate Job Details & Evaluation
 
 ## Known variations
 
