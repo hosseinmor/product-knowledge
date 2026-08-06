@@ -273,7 +273,7 @@ Reusable UI behavior
 → shared/design-system/
 ```
 
-`Job Post` is the first documented Shared Product Concept. Employer Job Post Management and Candidate Job Post Experience remain separate Product Areas.
+`Job Post` is the first documented Shared Product Concept. Employer Job Post Management and Candidate Job Details & Evaluation remain separate Product Areas.
 
 ## Document status
 
