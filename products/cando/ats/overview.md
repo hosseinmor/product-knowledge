@@ -12,11 +12,14 @@ related:
   - cando.overview
   - cando.ats.recruitment-request
   - cando.ats.approval-workflow
+  - cando.ats.job-management
 topics:
   - hiring
   - recruitment
   - approval
   - ats
+  - job-management
+  - job-publication
 ---
 
 # ATS
@@ -63,10 +66,10 @@ These boundaries are an initial documentation view and require owner review.
 
 - Recruitment Request
 - Approval Workflow
-- Job Management
+- [Job Management](areas/job-management.md)
 - Candidate Management
 
-Recruitment Request and Approval Workflow currently have substantive draft documentation.
+Recruitment Request and Approval Workflow have substantive draft documentation. Job Management has reviewed documentation for the scope observed in one authenticated account.
 
 ## Major user journeys
 
@@ -89,6 +92,18 @@ An authorized administrator defines workflow scope
 → the workflow becomes available for matching Recruitment Requests
 ```
 
+### Define and manage a job
+
+```text
+A recruiting user starts from a new job or a copy
+→ defines job information
+→ configures the application form
+→ configures hiring stages
+→ assigns job-level team access
+→ manages publication or resume sourcing
+→ reviews applications in a stage-aligned candidate board
+```
+
 ### Manage candidates for a job
 
 ```text
@@ -99,7 +114,9 @@ A recruiting user opens a job
 
 ## Important integrations
 
-Organization structure, branches, departments, notifications, job publication, candidate data, and shared AI services may connect to other product areas. Ownership and behavior require further documentation.
+Organization structure, branches, departments, notifications, job publication, candidate data, and shared AI services may connect to other product areas.
+
+The observed Job Management interface offers publication or resume-sourcing actions for the organization's careers page, JobVision, and other recruiting services. It also presents AI-assisted resume relevance ranking based on match with the job description. Channel behavior and the underlying AI service remain undocumented.
 
 ## Known variations
 
@@ -109,11 +126,18 @@ Organization structure, branches, departments, notifications, job publication, c
 ## Documentation gaps and unknowns
 
 - Approved top-level ATS boundary
-- Formal roles and permissions
-- Job and candidate-management behavior
-- Notifications and integrations
-- Empty, error, recovery, and permission states
+- Formal role names, permission inheritance, and job-level access detail
+- Complete job lifecycle from draft through publication, closure, and archival
+- Job relationship to Recruitment Request and fulfillment
+- Save, validation, cancellation, persistence, and recovery behavior across job definition
+- Candidate transitions, rejection, restoration, history, and bulk actions
+- Publication-channel eligibility, synchronization, moderation, cost, and recovery
+- Notification triggers, delivery, and failure behavior
+- Automatic-rejection rules, audit, and recovery
+- AI-ranking inputs, quality, explainability, configuration, and fallback
+- Empty, error, concurrency, and permission states
 
 ## Sources
 
 - Product and design discussions about Recruitment Request and ATS job management during 2026
+- Reviewed walkthrough evidence package `WT-2026-001`, recorded 2026-08-05 and owner-reviewed 2026-08-06
