@@ -51,12 +51,12 @@ Employer-side hiring management and Cando products are outside this product boun
 Initial candidates:
 
 - Job Search
-- Job Post Experience
+- Job Details & Evaluation
 - Application Management
 - Resume Management
 - Premium Insights
 
-Job Post Experience now has substantive draft documentation. Other candidates require owner review.
+Job Details & Evaluation now has substantive draft documentation. Other candidates require owner review.
 
 ## Major user journeys
 
@@ -72,7 +72,7 @@ To be documented.
 
 ## Documentation gaps and unknowns
 
-The product still needs progressive Product Area discovery and owner review beyond Job Post Experience.
+The product still needs progressive Product Area discovery and owner review beyond Job Details & Evaluation.
 
 ## Sources
 
