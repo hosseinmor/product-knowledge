@@ -3,8 +3,8 @@ id: jobvision.candidate.job-post-experience
 kind: product-area
 group: jobvision
 product: candidate
-title: Job Post Experience
-summary: Describes how Candidates discover, understand, evaluate, save, share, and apply to Job Posts in Jobvision.
+title: Job Details & Evaluation
+summary: Describes how Candidates understand and evaluate a specific Job Post, use supporting information and actions, and decide whether to save, share, or begin applying.
 status: draft
 owner: Candidate product team
 last_reviewed:
@@ -21,13 +21,21 @@ topics:
   - candidate
 ---
 
-# Job Post Experience
+# Job Details & Evaluation
 
 ## Overview
 
-Job Post Experience is the Candidate-side Product Area for understanding a job opportunity and deciding whether to save, share, or apply to it.
+Job Details & Evaluation is the Candidate-side Product Area for understanding and evaluating a specific job opportunity and deciding whether to save, share, or begin applying.
 
 This draft is intentionally high-level because the current repository does not yet contain a complete production walkthrough or reviewed specification for the Candidate Job Post experience.
+
+## Relationship to the shared Job Post concept
+
+`shared.job-post` owns the definition, canonical shared attributes, relationships, and lifecycle of a Job Post across Candidate and Employer products.
+
+This Product Area owns the Candidate-specific outcomes, presentation, permissions, states, and flows for understanding and evaluating one Job Post. It may expose actions such as saving, sharing, reporting, or beginning an application, while the detailed submission and post-submission journeys belong in their own Candidate Product Areas.
+
+Employer-specific creation, publication, editing, and management behavior remains in `jobvision.employer.job-post-management`.
 
 ## Why this area exists
 
