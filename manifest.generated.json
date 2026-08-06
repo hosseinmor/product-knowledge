@@ -1709,8 +1709,8 @@
     {
       "id": "jobvision.candidate.job-post-experience",
       "kind": "product-area",
-      "title": "Job Post Experience",
-      "summary": "Describes how Candidates discover, understand, evaluate, save, share, and apply to Job Posts in Jobvision.",
+      "title": "Job Details & Evaluation",
+      "summary": "Describes how Candidates understand and evaluate a specific Job Post, use supporting information and actions, and decide whether to save, share, or begin applying.",
       "status": "draft",
       "owner": "Candidate product team",
       "last_reviewed": null,

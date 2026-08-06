@@ -70,7 +70,7 @@ Rules about visibility, publication eligibility, editing after publication, clos
 
 ### Jobvision Candidate
 
-`jobvision.candidate.job-post-experience` owns candidate-side discovery, understanding, saving, sharing, evaluation, and application behavior.
+`jobvision.candidate.job-post-experience` (`Job Details & Evaluation`) owns how Candidates understand and evaluate a Job Post and access actions such as saving, sharing, reporting, or beginning an application.
 
 ## Product-specific variations
 
