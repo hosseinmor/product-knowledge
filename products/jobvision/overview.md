@@ -11,12 +11,18 @@ related:
   - jobvision.candidate.overview
   - jobvision.employer.overview
   - shared.job-post
+  - shared.application
+  - shared.resume
+  - shared.company
 topics:
   - jobvision
   - candidate
   - employer
   - recruitment-marketplace
   - job-post
+  - application
+  - resume
+  - company
 ---
 
 # Jobvision
@@ -28,7 +34,7 @@ Jobvision is the product group that connects jobseekers and employers through tw
 - Candidate
 - Employer
 
-The two products share business concepts such as Job Post, Company, Application, and Candidate, but their users, outcomes, permissions, and flows are different.
+The two products share Job Post, Application, Resume, and Company concepts, but their users, outcomes, permissions, and flows are different. The cross-product Candidate identity model remains to be clarified.
 
 ## Products
 
@@ -61,12 +67,12 @@ Employer creates and publishes a Job Post
 → Employer reviews the application
 ```
 
-The shared Job Post definition is documented in `shared/product-concepts/job-post.md`. Product-specific behavior remains in each product's Product Areas.
+Shared definitions for Job Post, Application, Resume, and Company are documented under `shared/product-concepts/`. Product-specific behavior remains in each product's Product Areas.
 
 ## Documentation gaps
 
 - The complete boundary between Candidate, Employer, and Cando needs owner review.
-- Shared Company, Application, and Candidate concepts are not yet documented.
+- The relationship among User Account, Candidate Profile, Applicant, and ATS Candidate is not yet documented.
 - Candidate and Employer Product Areas need progressive discovery and completion.
 
 ## Sources

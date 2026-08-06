@@ -1745,6 +1745,9 @@
       "related": [
         "jobvision.overview",
         "shared.job-post",
+        "shared.application",
+        "shared.resume",
+        "shared.company",
         "jobvision.candidate.job-post-experience"
       ],
       "topics": [
@@ -1798,6 +1801,9 @@
       "related": [
         "jobvision.overview",
         "shared.job-post",
+        "shared.application",
+        "shared.resume",
+        "shared.company",
         "jobvision.employer.job-post-management"
       ],
       "topics": [
@@ -1823,15 +1829,21 @@
       "related": [
         "jobvision.candidate.overview",
         "jobvision.employer.overview",
-        "shared.job-post"
+        "shared.job-post",
+        "shared.application",
+        "shared.resume",
+        "shared.company"
       ],
       "topics": [
+        "application",
         "candidate",
+        "company",
         "employer",
         "job-post",
         "jobvision",
         "product-group-overview",
-        "recruitment-marketplace"
+        "recruitment-marketplace",
+        "resume"
       ],
       "path": "products/jobvision/overview.md",
       "group": "jobvision"
@@ -1875,6 +1887,59 @@
       "path": "shared/product-services/ai/overview.md"
     },
     {
+      "id": "shared.application",
+      "kind": "shared-product-concept",
+      "title": "Application",
+      "summary": "Defines the shared Application concept that connects Candidate-side submission and tracking with Employer-side recruiting management.",
+      "status": "draft",
+      "owner": "Jobvision product teams",
+      "last_reviewed": null,
+      "related": [
+        "jobvision.overview",
+        "jobvision.candidate.overview",
+        "jobvision.employer.overview",
+        "shared.job-post",
+        "shared.resume"
+      ],
+      "topics": [
+        "application",
+        "candidate",
+        "employer",
+        "job-application",
+        "job-post",
+        "recruiting",
+        "resume",
+        "shared-product-concept"
+      ],
+      "path": "shared/product-concepts/application.md"
+    },
+    {
+      "id": "shared.company",
+      "kind": "shared-product-concept",
+      "title": "Company",
+      "summary": "Defines the shared Company concept represented in Jobvision Employer and Candidate experiences.",
+      "status": "draft",
+      "owner": "Jobvision product teams",
+      "last_reviewed": null,
+      "related": [
+        "jobvision.overview",
+        "jobvision.candidate.overview",
+        "jobvision.employer.overview",
+        "shared.job-post"
+      ],
+      "topics": [
+        "candidate",
+        "company",
+        "company-profile",
+        "company-review",
+        "employer",
+        "followed-company",
+        "job-post",
+        "shared-product-concept"
+      ],
+      "path": "shared/product-concepts/company.md"
+    },
+    {
       "id": "shared.job-post",
       "kind": "shared-product-concept",
       "title": "Job Post",
@@ -1885,7 +1950,10 @@
       "related": [
         "jobvision.overview",
         "jobvision.employer.job-post-management",
-        "jobvision.candidate.job-post-experience"
+        "jobvision.candidate.job-post-experience",
+        "shared.application",
+        "shared.resume",
+        "shared.company"
       ],
       "topics": [
         "application",
@@ -1896,6 +1964,31 @@
         "shared-product-concept"
       ],
       "path": "shared/product-concepts/job-post.md"
+    },
+    {
+      "id": "shared.resume",
+      "kind": "shared-product-concept",
+      "title": "Resume",
+      "summary": "Defines the shared Resume concept managed by Candidates and consumed in Jobvision recruiting experiences.",
+      "status": "draft",
+      "owner": "Jobvision product teams",
+      "last_reviewed": null,
+      "related": [
+        "jobvision.overview",
+        "jobvision.candidate.overview",
+        "jobvision.employer.overview",
+        "shared.application"
+      ],
+      "topics": [
+        "application",
+        "candidate",
+        "employer",
+        "professional-profile",
+        "recruiting",
+        "resume",
+        "shared-product-concept"
+      ],
+      "path": "shared/product-concepts/resume.md"
     },
     {
       "id": "standard.analytics-standards",
@@ -1975,7 +2068,7 @@
     }
   ],
   "summary": {
-    "documents": 113,
+    "documents": 116,
     "by_kind": {
       "content-guideline": 3,
       "design-system-accessibility": 8,
@@ -1993,7 +2086,7 @@
       "product-group-overview": 2,
       "product-overview": 6,
       "product-standard": 4,
-      "shared-product-concept": 1,
+      "shared-product-concept": 4,
       "shared-product-service-overview": 1
     },
     "by_group": {

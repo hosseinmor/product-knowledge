@@ -10,6 +10,9 @@ related:
   - jobvision.overview
   - jobvision.employer.job-post-management
   - jobvision.candidate.job-post-experience
+  - shared.application
+  - shared.resume
+  - shared.company
 topics:
   - job-post
   - job-opportunity
@@ -71,6 +74,14 @@ Rules about visibility, publication eligibility, editing after publication, clos
 ### Jobvision Candidate
 
 `jobvision.candidate.job-post-experience` (`Job Details & Evaluation`) owns how Candidates understand and evaluate a Job Post and access actions such as saving, sharing, reporting, or beginning an application.
+
+## Related shared concepts
+
+- `shared.company` owns the shared Company identity related to the Job Post.
+- `shared.application` owns the cross-product record created when a Candidate applies to the Job Post.
+- `shared.resume` owns the shared Resume meaning and its relationship with an Application where applicable.
+
+The exact cardinality, historical behavior, snapshots, and synchronization among these concepts remain unknown.
 
 ## Product-specific variations
 

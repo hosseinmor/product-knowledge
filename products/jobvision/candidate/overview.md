@@ -11,6 +11,9 @@ last_reviewed:
 related:
   - jobvision.overview
   - shared.job-post
+  - shared.application
+  - shared.resume
+  - shared.company
   - jobvision.candidate.job-post-experience
 topics:
   - job-search
@@ -64,7 +67,7 @@ To be documented.
 
 ## Important integrations
 
-Shared Job Post, Company, Application, Candidate, and AI product-service relationships need progressive documentation.
+Shared Job Post, Application, Resume, Company, Candidate identity, and AI product-service relationships need progressive documentation.
 
 ## Known variations
 
