@@ -1,16 +1,17 @@
 ---
 id: shared.resume
 kind: shared-product-concept
-title: Resume
-summary: Defines the shared Resume concept managed by Candidates and consumed in Jobvision recruiting experiences.
+title: رزومه
+summary: مفهوم shared Resume را تعریف می‌کند که توسط کارجو مدیریت می‌شود و در تجربه‌های recruiting Jobvision مصرف می‌شود.
 status: draft
-owner: Jobvision product teams
+owner: تیم‌های محصول Jobvision
 last_reviewed:
 related:
   - jobvision.overview
   - jobvision.candidate.overview
   - jobvision.employer.overview
   - shared.application
+  - jobvision.candidate.resume-management
 topics:
   - resume
   - candidate
@@ -20,92 +21,92 @@ topics:
   - recruiting
 ---
 
-# Resume
+# رزومه
 
-## Definition
+## تعریف
 
-A Resume is the shared representation of a Candidate's professional background used in Jobvision recruiting experiences. Candidate owns building and maintaining the Resume experience, while Employer-side recruiting may consume a representation of it.
+Resume نمایش shared پیشینه حرفه‌ای کارجو است که در تجربه‌های recruiting Jobvision استفاده می‌شود. Candidate مالک ساخت و نگهداری تجربه رزومه است، در حالی که recruiting سمت Employer ممکن است نمایی از آن را مصرف کند.
 
-This concept owns only the meaning, relationships, and lifecycle that are genuinely shared across products. Resume creation, editing, completeness guidance, visibility, access, and presentation stay in their respective Product Areas.
+این concept فقط مالک معنا، relationshipها و lifecycleهایی است که واقعاً بین محصولات shared هستند. ساخت، ویرایش، راهنمای completion، visibility، access و presentation رزومه در Product Areaهای مربوط می‌ماند.
 
-## Why it matters
+## چرا مهم است
 
-Resume connects Candidate-managed professional information with recruiting decisions:
+رزومه اطلاعات حرفه‌ای مدیریت‌شده توسط کارجو را به تصمیم‌های recruiting وصل می‌کند:
 
 ```text
-Candidate builds and updates a Resume
-→ Candidate may use it when applying
-→ Employer may view a Resume representation
-→ recruiting activity may depend on that representation
+کارجو رزومه می‌سازد و به‌روزرسانی می‌کند
+-> کارجو ممکن است هنگام apply از آن استفاده کند
+-> Employer ممکن است نمایی از رزومه را ببیند
+-> activity استخدامی ممکن است به آن نما وابسته باشد
 ```
 
-A shared definition is especially important for distinguishing the current editable Resume from the version associated with an Application.
+تعریف shared برای جدا کردن رزومه قابل ویرایش فعلی از نسخه‌ای که به یک Application وصل شده مهم است.
 
-## Shared data and attributes
+## داده‌ها و attributeهای shared
 
-The canonical field set is not yet documented.
+field set canonical هنوز مستند نشده است.
 
-Likely categories such as identity and contact information, work experience, education, skills, languages, preferences, attachments, completeness, and visibility must be verified before being treated as confirmed shared attributes.
+دسته‌های محتمل مثل identity و contact information، سابقه کار، تحصیلات، مهارت‌ها، زبان‌ها، preferences، attachmentها، completeness و visibility باید قبل از confirmed shared attribute شدن بررسی شوند.
 
-## Shared lifecycle
+## Lifecycle مشترک
 
-The complete lifecycle and state model are unknown.
+lifecycle کامل و مدل state نامشخص است.
 
-The repository does not yet establish whether Resume states include incomplete, complete, published, hidden, archived, or versioned, or whether those labels are shared across products.
+repo هنوز مشخص نمی‌کند stateهای رزومه شامل incomplete، complete، published، hidden، archived یا versioned هستند یا این labelها بین محصولات shared هستند یا نه.
 
-## Shared rules
+## قواعد shared
 
-Confirmed at the current level:
+در سطح فعلی تأیید شده است:
 
-- Candidate manages Resume information in the Candidate product.
-- Resume information may be used in application and employer-side recruiting experiences.
-- Product-specific editing, validation, permissions, visibility, and presentation must remain in Product Areas.
-- The relationship between a current Resume and the Resume representation attached to an Application must be explicit.
+- Candidate اطلاعات Resume را در محصول Candidate مدیریت می‌کند.
+- اطلاعات Resume ممکن است در application و تجربه‌های recruiting سمت Employer استفاده شود.
+- ویرایش، validation، permission، visibility و presentationهای product-specific باید در Product Areaها بمانند.
+- رابطه بین Resume فعلی و representation رزومه attach شده به Application باید صریح باشد.
 
-Whether an Application stores a frozen snapshot, a live reference, a generated document, or a combination remains unknown.
+اینکه Application یک frozen snapshot، live reference، generated document یا ترکیبی از آن‌ها را ذخیره می‌کند هنوز نامشخص است.
 
-## Used by products and areas
+## استفاده در محصولات و Areaها
 
 ### Jobvision Candidate
 
-Candidate Product Areas will own Resume creation, editing, completion, preview, export, visibility, and selection during application where applicable.
+`jobvision.candidate.resume-management` مالک ساخت، ویرایش، completion، preview، export و visibility سمت کارجو است. انتخاب یا attachment هنگام application باید با رفتار Application reconcile شود.
 
 ### Jobvision Employer
 
-Employer Product Areas will own access to and use of Resume information in Candidate and Application management, subject to verified permissions and visibility rules.
+Product Areaهای Employer مالک access و استفاده از اطلاعات Resume در مدیریت Candidate و Application هستند، مشروط به permissionها و قواعد visibility تأییدشده.
 
 ### Cando ATS
 
-Whether Resume data is transferred, copied, synchronized, or separately maintained in Cando ATS requires verification.
+اینکه داده Resume به Cando ATS منتقل، copy، synchronize یا جداگانه نگهداری می‌شود هنوز نیاز به بررسی دارد.
 
-## Product-specific variations
+## Variationهای product-specific
 
-- Candidate needs editable structured information, guidance, preview, and control.
-- Employer needs a recruiting-oriented representation with appropriate access.
-- An Application may need a stable historical representation even after Candidate edits the current Resume.
-- ATS may use a separate normalized candidate profile or document.
+- Candidate به اطلاعات ساختاریافته قابل ویرایش، راهنمایی، preview و کنترل نیاز دارد.
+- Employer به representation مناسب recruiting با access درست نیاز دارد.
+- یک Application ممکن است حتی بعد از ویرایش رزومه فعلی توسط کارجو، representation تاریخی پایدار لازم داشته باشد.
+- ATS ممکن است profile یا document نرمال‌شده جداگانه استفاده کند.
 
-Exact differences require product and integration review.
+تفاوت‌های دقیق نیاز به review محصول و integration دارد.
 
-## Unknowns
+## Unknownها
 
-- Canonical shared fields
-- Resume ownership and identity model
-- Current Resume versus Application Resume snapshot
-- Versioning and historical behavior
-- Visibility and privacy rules
-- Multiple Resume or language variants
-- Generated file versus structured-data relationship
-- Export and download rules
-- Employer access before and after application
-- Synchronization or mapping with Cando ATS
-- Deletion and retention behavior
+- fieldهای canonical shared
+- ownership رزومه و مدل identity
+- رزومه فعلی در برابر snapshot رزومه Application
+- versioning و رفتار historical
+- قواعد visibility و privacy
+- چند رزومه یا variantهای زبانی
+- رابطه generated file با structured data
+- قواعد export و download
+- access کارفرما قبل و بعد از application
+- synchronization یا mapping با Cando ATS
+- رفتار deletion و retention
 
-## Sources
+## منابع
 
 - `products/jobvision/overview.md`
 - `products/jobvision/candidate/overview.md`
 - `products/jobvision/employer/overview.md`
 - `shared/product-concepts/application.md`
-- Product-owner decision during Candidate Product Area mapping on 2026-08-06
-- Additional Jira, Figma, production, analytics, and walkthrough evidence is required before review
+- تصمیم مالک محصول هنگام mapping Product Areaهای Candidate در 2026-08-06
+- برای review کامل، evidenceهای Jira، Figma، production، analytics و walkthrough بیشتری لازم است.
