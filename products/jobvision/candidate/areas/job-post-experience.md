@@ -124,18 +124,19 @@ hierarchy دقیق اطلاعات و فیلدهای required هنوز مستند
 
 ### شروع apply روی Job Post
 
-1. کارجو Apply را انتخاب می‌کند.
-2. eligibility، authentication و اطلاعات لازم application بررسی می‌شود.
-3. کارجو application را کامل یا تأیید می‌کند.
-4. محصول موفقیت یا blocking condition را اعلام می‌کند.
-5. Application حاصل در تجربه سمت Employer قابل استفاده می‌شود.
+1. کارجوی واردشده action «ارسال رزومه» را انتخاب می‌کند.
+2. محصول eligibility، authentication و readiness رزومه را بررسی می‌کند.
+3. در walkthrough WT-2026-002، رزومه‌ای با completion کلی ۶۵٪ به gate «رزومه شما تکمیل نیست!» رسید و application ایجاد نشد.
+4. کارجو می‌تواند flow تکمیل رزومه را شروع کند یا آن را ببندد؛ نتیجه submission و مسیر upload شخصی تست نشده‌اند.
+5. در صورت رفع شرط‌ها، محصول باید نتیجه apply را اعلام کند؛ رفتار موفقیت در این walkthrough مشاهده نشد.
 
-flow کامل Application در Product Area مدیریت درخواست‌ها و مستندات بعدی تکمیل می‌شود.
+جزئیات gate و recovery در Product Area مدیریت درخواست‌ها و مدیریت رزومه مستند می‌شود.
 
 ## قواعد
 
 - رفتار Candidate-side Job Post باید از مفهوم shared Job Post استفاده کند و مالک قواعد مدیریت Employer نباشد.
 - apply یک ارتباط بین Candidate و تجربه recruiting سمت Employer ایجاد می‌کند.
+- در session مشاهده‌شده، action Apply روی Job Post به gate readiness رزومه منتقل شد و پیش از ایجاد application متوقف شد.
 - قواعد authentication، eligibility و application-state باید هنگام مستند شدن صریح بمانند.
 - در context مشاهده‌شده برای کارجوی واردشده، save کردن Job Post آن را به Saved Jobs اضافه می‌کند و در refresh همان session باقی می‌ماند.
 - Saved Jobs و Saved Searches دو مقصد و مفهوم جدا هستند.
@@ -222,6 +223,8 @@ flow کامل Application در Product Area مدیریت درخواست‌ها �
 - authentication gateها
 - eligibility و داده‌های required برای application
 - رابطه با resume/profile
+- تعریف universal eligibility و completion رزومه برای apply
+- نتیجه apply موفق و رفتار مسیر upload رزومه شخصی
 - analytics و instrumentation
 - accessibility و keyboard behavior
 
@@ -232,3 +235,5 @@ flow کامل Application در Product Area مدیریت درخواست‌ها �
 - `shared/product-concepts/job-post.md`
 - `product-walkthrough/walkthroughs/products/jobvision/candidate/WT-2026-005/evidence.md` (برای reconciliation prototype به‌عنوان accepted در نظر گرفته شده است)
 - برای تکمیل review، evidenceهای production، Jira، Figma، analytics و research بیشتری لازم است.
+
+- `product-walkthrough/walkthroughs/products/jobvision/candidate/WT-2026-002/evidence.md` (claimهای E-001 تا E-010 توسط Product Owner پذیرفته شده‌اند)
