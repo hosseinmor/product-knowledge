@@ -3,10 +3,10 @@ id: jobvision.candidate.overview
 kind: product-overview
 group: jobvision
 product: candidate
-title: Candidate
-summary: Overview of the Jobvision Candidate product, its users, candidate Product Areas, and current documentation gaps.
+title: کارجو
+summary: نمای کلی محصول کارجوی Jobvision، کاربران، Product Areaهای سمت کارجو و gapهای فعلی مستندات.
 status: draft
-owner: Candidate product team
+owner: تیم محصول کارجو
 last_reviewed:
 related:
   - jobvision.overview
@@ -15,6 +15,10 @@ related:
   - shared.resume
   - shared.company
   - jobvision.candidate.job-post-experience
+  - jobvision.candidate.job-search
+  - jobvision.candidate.resume-management
+  - jobvision.candidate.recommended-jobs
+  - jobvision.candidate.application-management
 topics:
   - job-search
   - job-post
@@ -23,60 +27,64 @@ topics:
   - candidate
 ---
 
-# Candidate
+# کارجو
 
-## What this product is
+## این محصول چیست
 
-The Jobvision Candidate product helps people discover job opportunities, understand Job Posts, build and manage their resume, apply, and follow their job-search progress.
+محصول کارجوی Jobvision به افراد کمک می‌کند فرصت‌های شغلی را پیدا کنند، آگهی‌ها را بفهمند و ارزیابی کنند، رزومه بسازند و مدیریت کنند، apply کنند و پیشرفت جستجوی شغلی خود را دنبال کنند.
 
-## Primary users
+## کاربران اصلی
 
-- Active jobseekers
-- Passive jobseekers
-- People building or improving their professional profile
+- کارجوی فعال
+- کارجوی passive
+- افرادی که در حال ساخت یا بهبود پروفایل حرفه‌ای خود هستند
 
-## Problems it solves
+## مسئله‌هایی که حل می‌کند
 
-To be completed by the Product Area owners.
+این بخش باید توسط مالک‌های Product Area تکمیل شود.
 
-## Product boundaries
+## مرزهای محصول
 
-### In scope
+### داخل scope
 
-To be documented.
+نیاز به تکمیل دارد.
 
-### Out of scope
+### خارج از scope
 
-Employer-side hiring management and Cando products are outside this product boundary.
+مدیریت استخدام سمت کارفرما و محصولات Cando خارج از مرز این محصول هستند.
 
-## Main Product Areas
+## Product Areaهای اصلی
 
-Initial candidates:
+- [جستجوی شغل](areas/job-search.md)
+- [جزئیات و ارزیابی آگهی](areas/job-post-experience.md)
+- [شغل‌های پیشنهادی و ترجیحات](areas/recommended-jobs.md)
+- [مدیریت درخواست‌ها](areas/application-management.md)
+- [مدیریت رزومه](areas/resume-management.md)
+- Premium Insights؛ Area سمت کارجو که هنوز مستند نشده است
 
-- Job Search
-- Job Details & Evaluation
-- Application Management
-- Resume Management
-- Premium Insights
+پنج Area مستندشده شامل رفتار draft مشاهده‌شده در production هستند. review مالک محصول و پوشش کامل‌تر نقش‌ها، حساب‌ها، lifecycleها، failureها و accessibility هنوز لازم است.
 
-Job Details & Evaluation now has substantive draft documentation. Other candidates require owner review.
+## Journeyهای اصلی کاربر
 
-## Major user journeys
+- پیدا کردن و محدود کردن Job Postها، سپس حفظ یا بازبینی یک جستجوی مفید
+- ارزیابی یک Job Post و ذخیره آن برای بعد
+- مرور recommendationهای شخصی‌سازی‌شده و preferenceهایی که روی آن‌ها اثر می‌گذارند
+- ساخت و preview رزومه
+- پیگیری و مدیریت applicationهای ارسال‌شده
 
-To be documented.
+## Integrationهای مهم
 
-## Important integrations
+رابطه با مفاهیم shared شامل Job Post، Application، Resume، Company، Candidate identity و سرویس‌های AI باید به‌تدریج مستند شود.
 
-Shared Job Post, Application, Resume, Company, Candidate identity, and AI product-service relationships need progressive documentation.
+## Variationهای شناخته‌شده
 
-## Known variations
+نیاز به تکمیل دارد.
 
-To be documented.
+## Gapها و Unknownهای مستندات
 
-## Documentation gaps and unknowns
+Areaهای مستندشده هنوز به review مالک محصول نیاز دارند. submission کامل application، Premium Insights، رفتار کاربر واردنشده، اثرهای cross-product سمت Employer، failure recovery و پوشش کامل accessibility هنوز ناقص هستند.
 
-The product still needs progressive Product Area discovery and owner review beyond Job Details & Evaluation.
+## منابع
 
-## Sources
-
-Add Jira, Figma, research, analytics, production, and walkthrough references as the overview is completed.
+- packageهای `WT-2026-001`، `WT-2026-003`، `WT-2026-004`، `WT-2026-005` و `WT-2026-006` در `hosseinmor/product-walkthrough` (برای prototype فعلی به‌عنوان accepted در نظر گرفته شده‌اند)
+- Jira، Figma، research، analytics و referenceهای production تأییدشده توسط owner باید در ادامه اضافه شوند.
