@@ -1,10 +1,10 @@
 ---
 id: shared.company
 kind: shared-product-concept
-title: Company
-summary: Defines the shared Company concept represented in Jobvision Employer and Candidate experiences.
+title: شرکت
+summary: مفهوم shared Company را تعریف می‌کند که در تجربه‌های Employer و Candidate جاب‌ویژن نمایش داده می‌شود.
 status: draft
-owner: Jobvision product teams
+owner: تیم‌های محصول Jobvision
 last_reviewed:
 related:
   - jobvision.overview
@@ -21,93 +21,93 @@ topics:
   - company-review
 ---
 
-# Company
+# شرکت
 
-## Definition
+## تعریف
 
-A Company is the shared representation of an employing organization in Jobvision. Employer-side users manage organization-facing information and recruiting activity, while Candidates encounter the Company through Job Posts, Company information, following, ratings, and reviews.
+Company نمایش shared یک سازمان استخدام‌کننده در Jobvision است. کاربران سمت Employer اطلاعات سازمان و فعالیت‌های استخدامی را مدیریت می‌کنند، در حالی که Candidate از طریق Job Postها، اطلاعات Company، دنبال‌کردن، امتیازدهی و نظرها با آن مواجه می‌شود.
 
-This concept must remain distinct from an Employer user account, an employer subscription or plan, a legal entity, and a brand unless product evidence confirms they are the same object.
+این concept باید از حساب کاربری Employer، اشتراک یا plan کارفرما، شخصیت حقوقی و brand جدا بماند؛ مگر اینکه evidence محصول یکسان‌بودن آن‌ها را تأیید کند.
 
-## Why it matters
+## چرا مهم است
 
-Company connects employer-managed identity with Candidate trust and discovery:
+Company هویت مدیریت‌شده توسط Employer را به اعتماد و discovery سمت Candidate وصل می‌کند:
 
 ```text
-Employer represents an organization
-→ the organization publishes Job Posts
-→ Candidate evaluates the Company and its opportunities
-→ Candidate may follow, rate, or review the Company
+Employer نماینده یک سازمان است
+→ سازمان Job Post منتشر می‌کند
+→ Candidate Company و فرصت‌های آن را ارزیابی می‌کند
+→ Candidate ممکن است Company را دنبال، امتیازدهی یا review کند
 ```
 
-A shared definition prevents inconsistent Company identity and relationships across Employer and Candidate products.
+تعریف shared از توصیف ناسازگار identity و relationshipهای Company در محصولات Employer و Candidate جلوگیری می‌کند.
 
-## Shared data and attributes
+## داده‌ها و attributeهای shared
 
-The canonical field set is not yet documented.
+field set canonical هنوز مستند نشده است.
 
-Likely information such as name, logo, industry, size, description, locations, verification, public profile, and relationships with Employer accounts and Job Posts must be verified before being treated as confirmed shared attributes.
+اطلاعات محتملی مانند name، logo، industry، size، description، locationها، verification، public profile و relationship با حساب‌های Employer و Job Postها باید پیش از درنظرگرفتن به‌عنوان attribute shared تأییدشده، بررسی شوند.
 
-Ratings, reviews, and follow relationships may be separate entities connected to Company rather than Company attributes.
+rating، review و relationship دنبال‌کردن ممکن است entityهای مستقلی متصل به Company باشند، نه attributeهای Company.
 
-## Shared lifecycle
+## Lifecycle مشترک
 
-The complete shared lifecycle is unknown.
+lifecycle کامل shared نامشخص است.
 
-Potential states related to creation, verification, publication, suspension, merging, or archival require owner review. Employer account status and Company visibility may have separate lifecycles.
+stateهای احتمالی مربوط به creation، verification، publication، suspension، merge یا archive نیاز به review مالک دارند. status حساب Employer و visibility شرکت ممکن است lifecycleهای جداگانه داشته باشند.
 
-## Shared rules
+## قواعد shared
 
-Confirmed at the current level:
+در سطح فعلی تأیید شده است:
 
-- Company connects Employer-side organization representation with Candidate-facing information.
-- Job Posts relate to a Company.
-- Candidate experiences include Company following, ratings, or reviews.
-- Product-specific management, permissions, presentation, follow behavior, and review behavior remain in Product Areas.
-- Company must not automatically be equated with Employer account, subscription, legal entity, or brand.
+- Company نمایش سازمان سمت Employer را به اطلاعات سمت Candidate وصل می‌کند.
+- Job Postها به یک Company مرتبط‌اند.
+- تجربه‌های Candidate شامل دنبال‌کردن، rating یا review Company هستند.
+- مدیریت، permission، presentation، رفتار دنبال‌کردن و رفتار review که product-specific هستند در Product Areaها می‌مانند.
+- Company نباید خودبه‌خود هم‌معنای حساب Employer، subscription، شخصیت حقوقی یا brand تلقی شود.
 
-Exact ownership, verification, visibility, duplicate handling, and moderation rules remain unknown.
+قواعد دقیق ownership، verification، visibility، handling رکورد تکراری و moderation هنوز نامشخص‌اند.
 
-## Used by products and areas
+## استفاده در محصولات و Areaها
 
 ### Jobvision Employer
 
-Employer Product Areas will own Company profile management, organization access, account relationships, and recruiting context.
+Product Areaهای Employer مالک مدیریت profile شرکت، access سازمان، relationshipهای حساب و context استخدامی خواهند بود.
 
 ### Jobvision Candidate
 
-Candidate Product Areas will own viewing and evaluating Company information, following Companies, and creating or consuming ratings and reviews where applicable.
+Product Areaهای Candidate مالک مشاهده و ارزیابی اطلاعات Company، دنبال‌کردن Companyها و ایجاد یا مصرف rating و review در صورت کاربرد هستند.
 
-### Job Posts and Applications
+### Job Postها و Applicationها
 
-Company provides organization context for Job Posts and the Applications related to them. Exact historical behavior if Company information changes requires verification.
+Company context سازمان را برای Job Postها و Applicationهای مرتبط با آن‌ها فراهم می‌کند. رفتار تاریخی دقیق در صورت تغییر اطلاعات Company نیاز به verification دارد.
 
-## Product-specific variations
+## Variationهای product-specific
 
-- Employer needs editable organization information, access control, and operational context.
-- Candidate needs trustworthy public information and signals for evaluating opportunities.
-- Ratings, reviews, and follows have Candidate-specific permissions and states that should not be centralized in this concept.
+- Employer به اطلاعات سازمانی قابل ویرایش، access control و context عملیاتی نیاز دارد.
+- Candidate به اطلاعات عمومی قابل اعتماد و signalهایی برای ارزیابی فرصت‌ها نیاز دارد.
+- rating، review و follow permissionها و stateهای مخصوص Candidate دارند و نباید در این concept متمرکز شوند.
 
-Exact differences require Product Area review.
+تفاوت‌های دقیق به review Product Area نیاز دارند.
 
-## Unknowns
+## Unknownها
 
-- Canonical Company fields
-- Company versus Employer account, organization, brand, and legal entity
-- Ownership and administrator relationships
-- Verification and public-visibility rules
-- Duplicate, merge, rename, and archival behavior
-- Relationship with locations and branches
-- Relationship with Job Posts and historical Applications
-- Whether ratings and reviews belong to Company or a separate concept
-- Follow relationship and notification behavior
-- Moderation and employer response permissions
+- fieldهای canonical Company
+- Company در برابر حساب Employer، organization، brand و شخصیت حقوقی
+- relationshipهای ownership و administrator
+- قواعد verification و public-visibility
+- رفتار duplicate، merge، rename و archive
+- رابطه با location و شعبه‌ها
+- رابطه با Job Post و Applicationهای تاریخی
+- اینکه rating و review به Company تعلق دارند یا concept مستقل دیگری هستند
+- رفتار relationship دنبال‌کردن و notification
+- permissionهای moderation و پاسخ Employer
 
-## Sources
+## منابع
 
 - `products/jobvision/overview.md`
 - `products/jobvision/candidate/overview.md`
 - `products/jobvision/employer/overview.md`
 - `shared/product-concepts/job-post.md`
-- Product-owner decision and Candidate product walkthrough on 2026-08-06
-- Additional Jira, Figma, production, analytics, and walkthrough evidence is required before review
+- تصمیم مالک محصول و walkthrough محصول Candidate در 2026-08-06
+- برای review کامل، evidenceهای Jira، Figma، production، analytics و walkthrough بیشتری لازم است.
