@@ -1,10 +1,10 @@
 ---
 id: shared.application
 kind: shared-product-concept
-title: Application
-summary: Defines the shared Application concept that connects Candidate-side submission and tracking with Employer-side recruiting management.
+title: درخواست
+summary: مفهوم shared Application را تعریف می‌کند که submission و tracking سمت کارجو را به مدیریت recruiting سمت کارفرما وصل می‌کند.
 status: draft
-owner: Jobvision product teams
+owner: تیم‌های محصول Jobvision
 last_reviewed:
 related:
   - jobvision.overview
@@ -12,6 +12,7 @@ related:
   - jobvision.employer.overview
   - shared.job-post
   - shared.resume
+  - jobvision.candidate.application-management
 topics:
   - application
   - job-application
@@ -22,92 +23,92 @@ topics:
   - recruiting
 ---
 
-# Application
+# درخواست
 
-## Definition
+## تعریف
 
-An Application is the shared representation of a Candidate applying to a specific Job Post. It connects Candidate-side submission and progress tracking with Employer-side receipt and recruiting management.
+Application نمایش shared این است که یک کارجو برای یک Job Post مشخص apply کرده است. این مفهوم submission و progress tracking سمت کارجو را به دریافت و مدیریت recruiting سمت کارفرما وصل می‌کند.
 
-This concept is distinct from the Apply flow. The shared concept owns the cross-product meaning and relationships of an Application; submission, tracking, review, permissions, and presentation remain in their respective Product Areas.
+این مفهوم از flow خود Apply جداست. shared concept مالک معنای cross-product و relationshipهای Application است؛ submission، tracking، review، permission و presentation در Product Areaهای مربوط به خودشان می‌مانند.
 
-## Why it matters
+## چرا مهم است
 
-Application connects the two sides of the Jobvision product group:
+Application دو سمت گروه محصول Jobvision را به هم وصل می‌کند:
 
 ```text
-Candidate applies to a Job Post
-→ an Application is created
-→ Candidate follows its progress
-→ Employer receives and manages it
+کارجو روی یک Job Post apply می‌کند
+-> یک Application ایجاد می‌شود
+-> کارجو پیشرفت آن را دنبال می‌کند
+-> کارفرما آن را دریافت و مدیریت می‌کند
 ```
 
-A shared definition prevents Candidate and Employer documentation from describing the same recruiting record inconsistently.
+تعریف shared جلوی این را می‌گیرد که مستندات Candidate و Employer یک record استخدامی واحد را ناسازگار توصیف کنند.
 
-## Shared data and attributes
+## داده‌ها و attributeهای shared
 
-The repository currently supports the core relationship between Candidate action, a Job Post, and Employer-side recruiting activity.
+repo فعلاً فقط رابطه اصلی بین action کارجو، یک Job Post و activity استخدامی سمت Employer را پشتیبانی می‌کند.
 
-The canonical field set is not yet documented. Candidate identity, Job Post, submission time, source, attached Resume or Resume version, answers, and status must be verified before being treated as confirmed shared attributes.
+field set canonical هنوز مستند نشده است. Candidate identity، Job Post، زمان submission، source، Resume یا version رزومه attach شده، answerها و status باید قبل از confirmed shared attribute شدن بررسی شوند.
 
-## Shared lifecycle
+## Lifecycle مشترک
 
-The complete lifecycle and exact state names are not yet documented.
+lifecycle کامل و نام دقیق stateها هنوز مستند نشده است.
 
-Potential stages such as started, submitted, viewed, under review, progressed, rejected, withdrawn, or hired require owner review against Candidate, Employer, and ATS behavior.
+مرحله‌های احتمالی مثل started، submitted، viewed، under review، progressed، rejected، withdrawn یا hired باید در برابر رفتار Candidate، Employer و ATS توسط ownerها review شوند.
 
-## Shared rules
+## قواعد shared
 
-Confirmed at the current level:
+در سطح فعلی تأیید شده است:
 
-- An Application relates Candidate action to a specific Job Post.
-- Candidate-side submission and tracking behavior belongs in Candidate Product Areas.
-- Employer-side review and recruiting management belongs in Employer Product Areas.
-- Shared data, relationships, and lifecycle must not be redefined independently by each product.
+- Application action کارجو را به یک Job Post مشخص وصل می‌کند.
+- رفتار submission و tracking سمت کارجو در Product Areaهای Candidate می‌ماند.
+- review و recruiting management سمت Employer در Product Areaهای Employer می‌ماند.
+- داده‌ها، relationshipها و lifecycle shared نباید جداگانه در هر محصول دوباره تعریف شوند.
 
-Rules about duplicate applications, withdrawal, reapplication, deletion, visibility, status synchronization, and retention remain unknown.
+قواعد duplicate application، withdrawal، reapplication، deletion، visibility، synchronization status و retention هنوز نامشخص است.
 
-## Used by products and areas
+## استفاده در محصولات و Areaها
 
 ### Jobvision Candidate
 
-Candidate Product Areas will own starting and submitting an Application, validation and eligibility, confirmation, progress tracking, and Candidate-visible states.
+`jobvision.candidate.application-management` مالک progress tracking و مدیریت سمت کارجو بعد از submission است. flow submission آینده می‌تواند در همان Area بماند یا فقط اگر نگهداری آن سخت شد جدا شود.
 
 ### Jobvision Employer
 
-Employer Product Areas will own receiving, viewing, evaluating, progressing, rejecting, and otherwise managing Applications.
+Product Areaهای Employer مالک دریافت، مشاهده، ارزیابی، پیش‌بردن، رد کردن و سایر مدیریت‌های Application هستند.
 
 ### Cando ATS
 
-Whether a Jobvision Application is transferred, copied, synchronized, or represented as another ATS entity requires verification.
+اینکه یک Jobvision Application به Cando ATS منتقل، copy، synchronize یا به entity دیگری تبدیل می‌شود هنوز نیاز به بررسی دارد.
 
-## Product-specific variations
+## Variationهای product-specific
 
-The same Application may be represented differently because each product supports different users and decisions:
+یک Application واحد ممکن است در محصولات مختلف متفاوت نمایش داده شود، چون هر محصول از کاربر و تصمیم متفاوتی پشتیبانی می‌کند:
 
-- Candidate needs submission feedback and understandable progress.
-- Employer needs recruiting context, evaluation controls, and operational states.
-- ATS may require pipeline-specific data and lifecycle behavior.
+- کارجو به feedback submission و progress قابل فهم نیاز دارد.
+- Employer به context استخدامی، کنترل‌های ارزیابی و stateهای عملیاتی نیاز دارد.
+- ATS ممکن است داده و lifecycle مخصوص pipeline لازم داشته باشد.
 
-Exact variations require Product Area and integration review.
+تفاوت‌های دقیق نیاز به review Product Area و integration دارد.
 
-## Unknowns
+## Unknownها
 
-- Canonical shared fields
-- Exact lifecycle and state ownership
-- Draft versus submitted Application
-- Duplicate-application and reapplication rules
-- Withdrawal and deletion behavior
-- Relationship with the current Resume and any submitted Resume snapshot
-- Relationship with screening questions and answers
-- Visibility and retention rules
-- Synchronization or mapping with Cando ATS
-- Behavior when the related Job Post closes, expires, or is removed
+- fieldهای canonical shared
+- lifecycle دقیق و ownership stateها
+- Application draft در برابر submitted
+- قواعد duplicate application و reapplication
+- رفتار withdrawal و deletion
+- رابطه با رزومه فعلی و snapshot رزومه ارسال‌شده
+- رابطه با screening questionها و answerها
+- قواعد visibility و retention
+- synchronization یا mapping با Cando ATS
+- رفتار وقتی Job Post مرتبط بسته، expired یا حذف می‌شود
 
-## Sources
+## منابع
 
 - `products/jobvision/overview.md`
 - `products/jobvision/candidate/overview.md`
 - `products/jobvision/employer/overview.md`
 - `shared/product-concepts/job-post.md`
-- Product-owner decision during Candidate Product Area mapping on 2026-08-06
-- Additional Jira, Figma, production, analytics, and walkthrough evidence is required before review
+- تصمیم مالک محصول هنگام mapping Product Areaهای Candidate در 2026-08-06
+- برای review کامل، evidenceهای Jira، Figma، production، analytics و walkthrough بیشتری لازم است.

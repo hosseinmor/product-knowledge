@@ -1,15 +1,17 @@
 ---
 id: shared.job-post
 kind: shared-product-concept
-title: Job Post
-summary: Defines the shared Job Post concept used by Jobvision Employer and Candidate while keeping product-specific behavior in separate Product Areas.
+title: آگهی شغلی
+summary: مفهوم shared Job Post را برای Jobvision Employer و Candidate تعریف می‌کند و رفتارهای product-specific را در Product Areaهای جدا نگه می‌دارد.
 status: draft
-owner: Jobvision product teams
+owner: تیم‌های محصول Jobvision
 last_reviewed:
 related:
   - jobvision.overview
   - jobvision.employer.job-post-management
+  - jobvision.candidate.job-search
   - jobvision.candidate.job-post-experience
+  - jobvision.candidate.recommended-jobs
   - shared.application
   - shared.resume
   - shared.company
@@ -21,91 +23,95 @@ topics:
   - application
 ---
 
-# Job Post
+# آگهی شغلی
 
-## Definition
+## تعریف
 
-A Job Post is the shared representation of a job opportunity that an Employer publishes and a Candidate discovers, evaluates, and may apply to.
+Job Post نمایش shared یک فرصت شغلی است که Employer منتشر می‌کند و Candidate آن را کشف، ارزیابی و ممکن است برای آن apply کند.
 
-This document owns only the meaning that is genuinely shared between Jobvision products. Product-specific flows, permissions, presentation, and actions belong in their respective Product Areas.
+این سند فقط مالک معنایی است که واقعاً بین محصولات Jobvision shared است. flowها، permissionها، presentation و actionهای product-specific در Product Areaهای مربوط به خودشان می‌مانند.
 
-## Why it matters
+## چرا مهم است
 
-Job Post connects the two sides of the Jobvision product group:
+Job Post دو سمت گروه محصول Jobvision را به هم وصل می‌کند:
 
 ```text
-Employer creates and manages a Job Post
-→ Candidate discovers and evaluates it
-→ Candidate may apply
-→ Employer receives and manages the resulting application
+Employer یک Job Post می‌سازد و مدیریت می‌کند
+-> Candidate آن را کشف و ارزیابی می‌کند
+-> Candidate ممکن است apply کند
+-> Employer application حاصل را دریافت و مدیریت می‌کند
 ```
 
-A shared definition reduces duplication and prevents Candidate and Employer documentation from describing the same business concept inconsistently.
+تعریف shared باعث کاهش duplication می‌شود و جلوی توصیف ناسازگار یک مفهوم کسب‌وکاری واحد در مستندات Candidate و Employer را می‌گیرد.
 
-## Shared data and attributes
+## داده‌ها و attributeهای shared
 
-The repository currently confirms only that a Job Post represents a job opportunity and is used by both Employer and Candidate products.
+repo فعلاً فقط تأیید می‌کند که Job Post یک فرصت شغلی است و توسط محصولات Employer و Candidate استفاده می‌شود.
 
-The canonical shared field set is not yet documented. Likely fields such as title, company, location, requirements, employment type, and publication information must not be treated as confirmed until they are reviewed against product behavior and source documents.
+field set canonical هنوز مستند نشده است. فیلدهای محتمل مثل title، company، location، requirements، employment type و publication information نباید تا قبل از review در برابر رفتار محصول و source documentها confirmed فرض شوند.
 
-## Shared lifecycle
+## Lifecycle مشترک
 
-The repository establishes that Employers publish Job Posts and Candidates discover them, but it does not yet establish the complete shared lifecycle or exact state names.
+repo مشخص می‌کند Employerها Job Post منتشر می‌کنند و Candidateها آن را کشف می‌کنند، اما lifecycle کامل shared یا نام دقیق stateها هنوز established نشده است.
 
-Potential lifecycle stages such as draft, published, paused, closed, or expired require owner review before being documented as current rules.
+مرحله‌های احتمالی مثل draft، published، paused، closed یا expired قبل از مستند شدن به‌عنوان rule فعلی نیاز به owner review دارند.
 
-## Shared rules
+## قواعد shared
 
-Confirmed at the current level:
+در سطح فعلی تأیید شده است:
 
-- Employer owns the creation and management side of the Job Post.
-- Candidate owns the discovery, understanding, and application side of the experience.
-- Product-specific actions and permissions must not be centralized here.
-- Applications connect a Candidate's action to Employer-side recruiting activity.
+- Employer مالک سمت ساخت و مدیریت Job Post است.
+- Candidate مالک سمت discovery، understanding و application experience است.
+- actionها و permissionهای product-specific نباید در این سند centralized شوند.
+- Applicationها action کارجو را به recruiting activity سمت Employer وصل می‌کنند.
 
-Rules about visibility, publication eligibility, editing after publication, closure, expiration, and application availability remain unknown.
+قواعد visibility، publication eligibility، ویرایش بعد از publication، closure، expiration و application availability هنوز unknown هستند.
 
-## Used by products and areas
+## استفاده در محصولات و Areaها
 
 ### Jobvision Employer
 
-`jobvision.employer.job-post-management` owns employer-side creation, management, publication, and status behavior.
+`jobvision.employer.job-post-management` مالک ساخت، مدیریت، publication و رفتار status سمت Employer است.
 
 ### Jobvision Candidate
 
-`jobvision.candidate.job-post-experience` (`Job Details & Evaluation`) owns how Candidates understand and evaluate a Job Post and access actions such as saving, sharing, reporting, or beginning an application.
+`jobvision.candidate.job-post-experience` مالک این است که کارجو چگونه یک Job Post را می‌فهمد و ارزیابی می‌کند و به actionهایی مثل save، share، report یا شروع application دسترسی پیدا می‌کند.
 
-## Related shared concepts
+`jobvision.candidate.job-search` مالک جستجو، فیلتر، مرتب‌سازی، saved search و recent search سمت کارجو برای result setهای Job Post است.
 
-- `shared.company` owns the shared Company identity related to the Job Post.
-- `shared.application` owns the cross-product record created when a Candidate applies to the Job Post.
-- `shared.resume` owns the shared Resume meaning and its relationship with an Application where applicable.
+`jobvision.candidate.recommended-jobs` مالک فهرست recommendationهای شخصی‌سازی‌شده و سطح‌های preference سمت کارجو است که Job Postها را نمایش می‌دهند.
 
-The exact cardinality, historical behavior, snapshots, and synchronization among these concepts remain unknown.
+## مفاهیم shared مرتبط
 
-## Product-specific variations
+- `shared.company` مالک هویت shared Company مرتبط با Job Post است.
+- `shared.application` مالک record cross-product ایجادشده هنگام apply کارجو روی Job Post است.
+- `shared.resume` مالک معنای shared Resume و رابطه آن با Application در صورت کاربرد است.
 
-The same Job Post may be represented differently because the products serve different users and outcomes:
+cardinality دقیق، رفتار historical، snapshotها و synchronization بین این مفاهیم هنوز unknown است.
 
-- Employer needs management controls, operational status, and recruiting context.
-- Candidate needs understandable opportunity information and actions such as saving or applying.
+## Variationهای product-specific
 
-Exact differences require Product Area review.
+یک Job Post واحد ممکن است در محصولات مختلف متفاوت نمایش داده شود، چون محصولات از کاربران و outcomeهای متفاوت پشتیبانی می‌کنند:
 
-## Unknowns
+- Employer به کنترل‌های مدیریت، status عملیاتی و context recruiting نیاز دارد.
+- Candidate به اطلاعات قابل فهم فرصت و actionهایی مثل save یا apply نیاز دارد.
 
-- Canonical shared fields
-- Shared lifecycle and exact state names
-- Visibility and eligibility rules
-- Relationship with Company
-- Relationship with Application
-- Editing and publication rules
-- Closure, expiration, and reopening behavior
-- Differences between public, private, draft, or restricted opportunities
+تفاوت‌های دقیق نیاز به review Product Area دارد.
 
-## Sources
+## Unknownها
+
+- fieldهای canonical shared
+- lifecycle shared و نام دقیق stateها
+- قواعد visibility و eligibility
+- رابطه با Company
+- رابطه با Application
+- قواعد editing و publication
+- رفتار closure، expiration و reopening
+- تفاوت فرصت‌های public، private، draft یا restricted
+
+## منابع
 
 - `products/jobvision/overview.md`
 - `products/jobvision/employer/overview.md`
 - `products/jobvision/candidate/overview.md`
-- Additional Jira, Figma, production, analytics, and walkthrough evidence is required before review
+- برای review کامل، evidenceهای Jira، Figma، production، analytics و walkthrough بیشتری لازم است.
