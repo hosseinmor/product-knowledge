@@ -2042,10 +2042,10 @@
     {
       "id": "shared.company",
       "kind": "shared-product-concept",
-      "title": "Company",
-      "summary": "Defines the shared Company concept represented in Jobvision Employer and Candidate experiences.",
+      "title": "شرکت",
+      "summary": "مفهوم shared Company را تعریف می‌کند که در تجربه‌های Employer و Candidate جاب‌ویژن نمایش داده می‌شود.",
       "status": "draft",
-      "owner": "Jobvision product teams",
+      "owner": "تیم‌های محصول Jobvision",
       "last_reviewed": null,
       "related": [
         "jobvision.overview",
