@@ -80,7 +80,7 @@ topics:
 
 ### Signal تکمیل
 
-نشانه‌ای در محصول که میزان کامل بودن رزومه یا پروفایل کارجو را منتقل می‌کند. در تجربه مشاهده‌شده، completion می‌تواند کامل باشد حتی اگر بعضی uploadها یا mediaهای اختیاری خالی باشند.
+نشانه‌ای در محصول که میزان کامل بودن رزومه یا پروفایل کارجو را منتقل می‌کند. در تجربه مشاهده‌شده، completion می‌تواند کامل باشد حتی اگر بعضی uploadها یا mediaهای اختیاری خالی باشند. در همان حساب، حذف تصمیم مربوط به تحصیلات، completion کلی را از ۱۰۰٪ به ۶۵٪ تغییر داد؛ تعریف canonical همه اجزای لازم هنوز معلوم نیست.
 
 ### پیش‌نمایش کارفرما
 
@@ -101,6 +101,14 @@ preview قابل دسترس برای کارجو که نشان می‌دهد کا
 5. رزومه به‌روزشده در پروفایل منعکس می‌شود.
 
 Walkthroughها add، edit و delete را در محتوای رزومه نشان می‌دهند، اما فهرست canonical بخش‌ها و فیلدهای الزامی نیاز به review مالک محصول دارد.
+
+### تکمیل رزومه از flow درخواست
+
+1. کارجو از gate رزومه ناقص در context یک Job Post وارد wizard تکمیل رزومه می‌شود.
+2. wizard مشاهده‌شده مرحله‌های اطلاعات اولیه، سوابق تحصیلی، سوابق شغلی و مهارت‌ها را دارد.
+3. در مرحله تحصیلات، کارجو باید یک تصمیم درباره سطح تحصیل ثبت کند؛ حذف این تصمیم در حساب مشاهده‌شده completion کلی را کاهش داد.
+4. در مرحله مهارت‌ها، انتخاب سطح زبان انگلیسی یا اعلام نداشتن آن برای فعال شدن action نهایی wizard لازم بود.
+5. بستن wizard، مسیر جایگزین بارگذاری رزومه شخصی را پیشنهاد می‌کند؛ اثر آن بر application هنوز تست نشده است.
 
 ### پیش‌نمایش رزومه سمت کارفرما
 
@@ -135,6 +143,8 @@ availability، quota، quality signal و رابطه این قابلیت با sha
 - درصد completion لزوماً به معنی پر بودن همه فیلدها یا uploadهای اختیاری نیست.
 - دانلود رزومه در تجربه مشاهده‌شده رفتار page-level است.
 - کنترل‌های ویرایش فقط-کارجو در employer preview مشاهده‌شده پنهان هستند.
+- در حساب مشاهده‌شده، تصمیم تحصیلات در completion کلی رزومه مؤثر بود؛ taxonomy و وزن‌دهی canonical completion هنوز تأیید نشده‌اند.
+- در recovery wizard مشاهده‌شده، انتخاب تصمیم زبان انگلیسی برای فعال شدن action نهایی لازم بود.
 
 این قواعد evidence مربوط به prototype هستند و نیاز به review مالک محصول دارند.
 
@@ -183,6 +193,8 @@ availability، quota، quality signal و رابطه این قابلیت با sha
 - نیازمندی‌های file upload در جاهایی که پشتیبانی می‌شود
 - رفتار بخش‌های تکراری
 - فیلدهای دو زبانه یا localized پروفایل
+- تصمیم تحصیلات در flow تکمیل رزومه
+- انتخاب سطح زبان انگلیسی یا اعلام نداشتن آن در recovery wizard
 
 Walkthrough مشاهده‌شده یک فرم درباره/پروفایل دو زبانه داشت؛ قواعد canonical localization نیاز به review دارد.
 
@@ -196,6 +208,8 @@ Walkthrough مشاهده‌شده یک فرم درباره/پروفایل دو �
 - تفاوت employer preview با permission واقعی Employer
 - در دسترس نبودن یا stale بودن ارزیابی AI
 - خالی بودن upload یا media اختیاری با وجود completion بالا
+- کاهش completion کلی پس از حذف یک تصمیم تحصیلی
+- بستن recovery wizard و انتخاب مسیر بارگذاری رزومه شخصی
 
 ## Product Areaهای مرتبط
 
@@ -222,7 +236,12 @@ Walkthrough مشاهده‌شده یک فرم درباره/پروفایل دو �
 - قواعد visibility اطلاعات تماس برای Employer
 - owner، eligibility، quota و interpretation ارزیابی AI
 - accessibility و رفتار keyboard
+- تعریف canonical «رزومه کامل»، آستانه‌ها و وزن‌دهی completion برای application
+- نتیجه submission یا upload پس از recovery wizard
+- علت تفاوت احتمالی signalهای completion صفحه رزومه و readiness action نهایی wizard
 
 ## منابع
 
 - `product-walkthrough/walkthroughs/products/jobvision/candidate/WT-2026-003/evidence.md` (برای reconciliation prototype به‌عنوان accepted در نظر گرفته شده است)
+
+- `product-walkthrough/walkthroughs/products/jobvision/candidate/WT-2026-002/evidence.md` (claimهای E-001 تا E-010 توسط Product Owner پذیرفته شده‌اند)

@@ -99,6 +99,17 @@ status یا گروه status قابل مشاهده برای کارجو. فیلت�
 
 ## جریان‌های اصلی
 
+### شروع و ارسال درخواست با رزومه
+
+1. کارجوی واردشده در جزئیات Job Post، action «ارسال رزومه» را انتخاب می‌کند.
+2. محصول readiness رزومه را بررسی می‌کند.
+3. در جلسه مشاهده‌شده، وقتی completion کلی رزومه به ۶۵٪ رسیده بود، محصول application ایجاد نکرد و modal «رزومه شما تکمیل نیست!» را نشان داد.
+4. بستن modal و انتخاب دوباره action، همان gate را دوباره نشان می‌دهد؛ در evidence مشاهده‌شده راه مستقیمی برای bypass آن نبود.
+5. کارجو می‌تواند از همان modal وارد تکمیل رزومه Jobvision شود. wizard در context آگهی باز می‌شود و مرحله‌های اطلاعات اولیه، سوابق تحصیلی، سوابق شغلی و مهارت‌ها را دارد.
+6. در wizard مشاهده‌شده، action نهایی تا انتخاب یک تصمیم درباره زبان انگلیسی غیرفعال بود. بستن wizard نیز prompt بارگذاری رزومه شخصی را نشان داد؛ پیامد آن برای application هنوز تست نشده است.
+
+این observation فقط رفتار session و حساب آزمایشی را تثبیت می‌کند؛ تعریف universal completion، شرط‌های همه Job Postها و نتیجه مسیر upload هنوز تأیید نشده‌اند.
+
 ### مشاهده و فیلتر درخواست‌ها
 
 1. کارجو مقصد applicationها را باز می‌کند.
@@ -151,6 +162,8 @@ FAQ مشاهده‌شده نشان می‌داد feedback ممکن است option
 - فیلترهای status مشاهده‌شده شامل همه، دریافت‌شده، بررسی اولیه، بررسی نهایی، ردشده، انصراف‌داده‌شده و بسته‌شده است.
 - قواعد withdrawal فراتر از claimهای UI تأیید نشده‌اند.
 - رفتار My Priority مشاهده شده اما هنوز کامل فهمیده نشده است.
+- در walkthrough WT-2026-002، completion ناکافی رزومه پیش از ایجاد application gate شد؛ close و retry آن را bypass نکرد.
+- در recovery wizard مشاهده‌شده، انتخاب تصمیم زبان انگلیسی برای فعال شدن action نهایی لازم بود.
 
 این قواعد evidence مربوط به prototype هستند و نیاز به review مالک محصول دارند.
 
@@ -237,7 +250,9 @@ Application فعال
 ## Unknownها و رفتارهای تست‌نشده
 
 - lifecycle و تعریف canonical statusهای application
-- flow کامل submission
+- تعریف canonical «رزومه کامل»، همه شرط‌های eligibility و آستانه‌های completion برای submission
+- اینکه gate مشاهده‌شده برای همه Job Postها و همه حساب‌ها یکسان است یا نه
+- نتیجه successful submission و مسیر بارگذاری رزومه شخصی
 - اینکه withdrawal بعد از دیده‌شدن رزومه توسط کارفرما واقعاً از نظر فنی block می‌شود یا نه
 - محدودیت دقیق ویرایش submitted resume
 - پیامدهای actionهای کارجو در سمت Employer
@@ -250,3 +265,5 @@ Application فعال
 ## منابع
 
 - `product-walkthrough/walkthroughs/products/jobvision/candidate/WT-2026-006/evidence.md` (برای reconciliation prototype به‌عنوان accepted در نظر گرفته شده است)
+
+- `product-walkthrough/walkthroughs/products/jobvision/candidate/WT-2026-002/evidence.md` (claimهای E-001 تا E-010 توسط Product Owner پذیرفته شده‌اند)
