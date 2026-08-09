@@ -3,14 +3,17 @@ id: jobvision.candidate.job-post-experience
 kind: product-area
 group: jobvision
 product: candidate
-title: Job Details & Evaluation
-summary: Describes how Candidates understand and evaluate a specific Job Post, use supporting information and actions, and decide whether to save, share, or begin applying.
+title: جزئیات و ارزیابی آگهی
+summary: توضیح می‌دهد کارجو چگونه یک Job Post مشخص را می‌فهمد و ارزیابی می‌کند، از اطلاعات و actionهای پشتیبان استفاده می‌کند و تصمیم می‌گیرد آن را ذخیره، share یا برای apply شروع کند.
 status: draft
-owner: Candidate product team
+owner: تیم محصول کارجو
 last_reviewed:
 related:
   - jobvision.candidate.overview
   - shared.job-post
+  - jobvision.candidate.job-search
+  - jobvision.candidate.recommended-jobs
+  - jobvision.candidate.application-management
   - jobvision.employer.job-post-management
 topics:
   - job-post
@@ -21,167 +24,180 @@ topics:
   - candidate
 ---
 
-# Job Details & Evaluation
+# جزئیات و ارزیابی آگهی
 
-## Overview
+## نمای کلی
 
-Job Details & Evaluation is the Candidate-side Product Area for understanding and evaluating a specific job opportunity and deciding whether to save, share, or begin applying.
+جزئیات و ارزیابی آگهی Product Area سمت کارجو برای فهمیدن و ارزیابی یک فرصت شغلی مشخص و تصمیم‌گیری درباره ذخیره، share یا شروع apply است.
 
-This draft is intentionally high-level because the current repository does not yet contain a complete production walkthrough or reviewed specification for the Candidate Job Post experience.
+این draft شامل evidence مشاهده‌شده برای ذخیره کردن Job Post و بازبینی آن از مسیر Saved Jobs است. رفتار کامل جزئیات، ارزیابی، share، report و apply هنوز کامل نیست.
 
-## Relationship to the shared Job Post concept
+## رابطه با مفهوم shared Job Post
 
-`shared.job-post` owns the definition, canonical shared attributes, relationships, and lifecycle of a Job Post across Candidate and Employer products.
+`shared.job-post` مالک تعریف، attributeهای shared، relationshipها و lifecycle مشترک Job Post بین محصولات Candidate و Employer است.
 
-This Product Area owns the Candidate-specific outcomes, presentation, permissions, states, and flows for understanding and evaluating one Job Post. It may expose actions such as saving, sharing, reporting, or beginning an application, while the detailed submission and post-submission journeys belong in their own Candidate Product Areas.
+این Product Area مالک outcomeها، presentation، permissionها، stateها و flowهای Candidate-specific برای فهمیدن و ارزیابی یک Job Post است. actionهایی مثل save، share، report یا شروع application ممکن است در این Area ظاهر شوند، اما submission کامل و journeyهای بعد از submission در Product Areaهای جداگانه کارجو مستند می‌شوند.
 
-Employer-specific creation, publication, editing, and management behavior remains in `jobvision.employer.job-post-management`.
+ساخت، انتشار، ویرایش و مدیریت سمت Employer در `jobvision.employer.job-post-management` باقی می‌ماند.
 
-## Why this area exists
+## چرا این Area وجود دارد
 
-- Help Candidates understand a job opportunity
-- Present the information needed to evaluate relevance and fit
-- Provide actions such as saving, sharing, and applying
-- Connect Job Post discovery to the application journey
+- کمک به کارجو برای فهمیدن یک فرصت شغلی
+- نمایش اطلاعات لازم برای ارزیابی relevance و fit
+- فراهم کردن actionهایی مثل ذخیره، share و apply
+- اتصال discovery آگهی به journey درخواست شغلی
 
-## Users and roles
+## کاربران و نقش‌ها
 
-- Candidate or jobseeker viewing a Job Post
-- Authenticated Candidate using personalized or application-related actions
-- Unauthenticated visitor when public Job Posts are accessible
+- کارجو یا jobseeker که یک Job Post را می‌بیند
+- کارجوی واردشده که از actionهای شخصی‌سازی‌شده یا application-related استفاده می‌کند
+- بازدیدکننده واردنشده، در صورتی که Job Post عمومی قابل مشاهده باشد
 
-Authentication and permission differences require verification.
+تفاوت‌های authentication و permission نیاز به بررسی دارد.
 
-## User outcomes
+## خروجی‌های کاربر
 
-- Understand the role, employer, requirements, and context of an opportunity
-- Decide whether the opportunity is relevant
-- Save or share the Job Post when needed
-- Apply when eligible and interested
-- Understand what happens after applying
+- فهمیدن نقش، کارفرما، نیازمندی‌ها و context فرصت شغلی
+- تصمیم‌گیری درباره مرتبط بودن فرصت
+- ذخیره یا share کردن Job Post در صورت نیاز
+- apply کردن در صورت eligibility و تمایل
+- فهمیدن اتفاقات بعد از apply
 
-## Entry points
+## نقاط ورود
 
-Known or expected entry points include:
+نقاط ورود مشاهده‌شده یا محتمل:
 
-- Job search results
-- Recommended jobs
-- Saved jobs
-- Shared or external links
-- Application history
-- Notifications or campaigns
+- نتایج جستجوی شغل
+- شغل‌های پیشنهادی
+- آگهی‌های ذخیره‌شده
+- لینک‌های share شده یا external
+- history درخواست‌ها
+- notification یا campaign
 
-The complete list and deep-link behavior require review.
+فهرست کامل entryها و رفتار deep linkها نیاز به review دارد.
 
-## Main concepts
+## مفاهیم اصلی
 
 ### Job Post
 
-The shared opportunity defined in `shared.job-post`.
+فرصت شغلی shared که در `shared.job-post` تعریف می‌شود.
 
-### Candidate Action
+### Action سمت کارجو
 
-An action such as saving, sharing, or applying that is specific to the Candidate experience.
+actionهایی مثل ذخیره، share یا apply که به تجربه کارجو مربوط‌اند.
 
 ### Application
 
-The Candidate's submission or expression of interest connected to a Job Post. The complete Application concept is not yet documented.
+ارسال یا اعلام علاقه کارجو برای یک Job Post. مفهوم کامل Application در `shared.application` و Product Areaهای مرتبط مستند می‌شود.
 
-## Main flows
+### Saved Job
 
-### View and understand a Job Post
+Job Postی که کارجو برای بازبینی بعدی ذخیره کرده است. Saved Job از Saved Search جداست.
 
-1. The Candidate opens a Job Post.
-2. The product presents opportunity and employer information.
-3. The Candidate reviews requirements, context, and available actions.
-4. The Candidate decides whether to leave, save, share, or apply.
+## جریان‌های اصلی
 
-The exact information hierarchy and required fields are not yet documented.
+### مشاهده و فهم Job Post
 
-### Save a Job Post
+1. کارجو یک Job Post را باز می‌کند.
+2. محصول اطلاعات فرصت و کارفرما را نشان می‌دهد.
+3. کارجو نیازمندی‌ها، context و actionهای موجود را بررسی می‌کند.
+4. کارجو تصمیم می‌گیرد خارج شود، ذخیره کند، share کند یا apply را شروع کند.
 
-1. The Candidate chooses Save.
-2. Authentication may be required.
-3. The Job Post becomes available in a saved-jobs experience.
+hierarchy دقیق اطلاعات و فیلدهای required هنوز مستند نشده است.
 
-Persistence, duplicate action, removal, and unavailable-post behavior require verification.
+### ذخیره کردن Job Post
 
-### Share a Job Post
+1. کارجوی واردشده کنترل bookmark را روی کارت یا جزئیات Job Post فعال می‌کند.
+2. کنترل از حالت bookmark خالی به bookmark پر تغییر می‌کند.
+3. Job Post در مقصد Saved Jobs نمایش داده می‌شود.
+4. آیتم ذخیره‌شده بعد از refresh همان مقصد در همان session همچنان دیده شد.
 
-1. The Candidate chooses Share.
-2. The product exposes one or more sharing methods.
-3. The shared link should resolve to the intended Job Post when available.
+وقتی هیچ آیتم ذخیره‌شده‌ای وجود ندارد، Saved Jobs collection را توضیح می‌دهد و کارجو را به کنترل save روی Job Post راهنمایی می‌کند. Saved Jobs از Saved Searches جداست و در navigation فعالیت‌های کارجو قرار دارد. حذف، action تکراری، persistence بلندمدت، failure recovery و رفتار Job Post ناموجود هنوز نیاز به بررسی دارد.
 
-The exact methods and unavailable-link behavior are unknown.
+### Share کردن Job Post
 
-### Apply to a Job Post
+1. کارجو action Share را انتخاب می‌کند.
+2. محصول یک یا چند روش share را ارائه می‌کند.
+3. لینک share شده باید در صورت در دسترس بودن، به همان Job Post resolve شود.
 
-1. The Candidate chooses Apply.
-2. Eligibility, authentication, and required application information are checked.
-3. The Candidate completes or confirms the application.
-4. The product communicates success or a blocking condition.
-5. The resulting Application becomes available to the Employer side.
+روش‌های دقیق share و رفتار لینک ناموجود هنوز نامشخص است.
 
-The detailed Application flow belongs in a future Application Management Product Area.
+### شروع apply روی Job Post
 
-## Rules
+1. کارجو Apply را انتخاب می‌کند.
+2. eligibility، authentication و اطلاعات لازم application بررسی می‌شود.
+3. کارجو application را کامل یا تأیید می‌کند.
+4. محصول موفقیت یا blocking condition را اعلام می‌کند.
+5. Application حاصل در تجربه سمت Employer قابل استفاده می‌شود.
 
-Confirmed only at the current level:
+flow کامل Application در Product Area مدیریت درخواست‌ها و مستندات بعدی تکمیل می‌شود.
 
-- Candidate-side Job Post behavior must use the shared Job Post concept without owning employer management rules.
-- Applying creates a connection between the Candidate and Employer recruiting experience.
-- Authentication, eligibility, and application-state rules must remain explicit when documented.
+## قواعد
 
-Visibility, save, share, application, and personalization rules require owner review.
+- رفتار Candidate-side Job Post باید از مفهوم shared Job Post استفاده کند و مالک قواعد مدیریت Employer نباشد.
+- apply یک ارتباط بین Candidate و تجربه recruiting سمت Employer ایجاد می‌کند.
+- قواعد authentication، eligibility و application-state باید هنگام مستند شدن صریح بمانند.
+- در context مشاهده‌شده برای کارجوی واردشده، save کردن Job Post آن را به Saved Jobs اضافه می‌کند و در refresh همان session باقی می‌ماند.
+- Saved Jobs و Saved Searches دو مقصد و مفهوم جدا هستند.
 
-## Permissions
+قواعد visibility، save، share، application و personalization نیاز به owner review دارند.
 
-Potential permission distinctions include:
+## دسترسی‌ها
 
-- Public viewing versus authenticated viewing
-- Saving or applying while unauthenticated
-- Applying with an incomplete or unavailable resume
-- Viewing personalized insights or premium information
+تفاوت‌های permission محتمل:
 
-None of these distinctions are fully documented yet.
+- مشاهده عمومی در برابر مشاهده authenticated
+- ذخیره یا apply در حالت کاربر واردنشده
+- apply با رزومه ناقص یا ناموجود
+- مشاهده insightهای شخصی‌سازی‌شده یا premium
 
-## States and transitions
+هیچ‌کدام از این تفاوت‌ها هنوز کامل مستند نشده‌اند.
 
-The Candidate experience may need to represent states such as:
+## وضعیت‌ها و گذارها
 
-- Available to view
-- Saved or not saved
-- Eligible or blocked from applying
-- Not applied, applying, applied, or previously applied
-- Job Post unavailable, closed, or expired
+تجربه کارجو ممکن است stateهای زیر را نمایش دهد:
 
-Exact state names and transitions require verification and must align with `shared.job-post` and future Application documentation.
+- قابل مشاهده
+- ذخیره‌شده یا ذخیره‌نشده
+- eligible یا blocked برای apply
+- apply نشده، در حال apply، applied یا previously applied
+- Job Post ناموجود، closed یا expired
 
-## Validations
+نام دقیق stateها و گذارها باید با `shared.job-post` و مستندات Application هماهنگ شود.
 
-Likely validation areas that require evidence:
+گذار save مشاهده‌شده:
 
-- Authentication
-- Candidate profile or resume readiness
-- Job Post availability
-- Duplicate application
-- Required application questions or information
-- Eligibility or account restrictions
+```text
+ذخیره‌نشده (bookmark خالی)
+-> Save
+-> ذخیره‌شده (bookmark پر و آیتم در Saved Jobs)
+```
 
-## Edge cases
+گذار معکوس هنوز تست نشده است.
 
-- Job Post becomes unavailable while open
-- Candidate opens an old or shared link
-- Candidate has already applied
-- Save or apply action is repeated
-- Authentication interrupts the flow
-- Resume or profile is incomplete
-- Application fails after partial progress
-- Premium or AI insight is unavailable or uncertain
+## اعتبارسنجی‌ها
 
-These cases remain untested in the current repository.
+حوزه‌های validation محتمل که evidence لازم دارند:
 
-## Related Product Areas
+- authentication
+- آمادگی profile یا resume کارجو
+- availability آگهی
+- application تکراری
+- سؤال‌ها یا اطلاعات required برای application
+- eligibility یا محدودیت‌های حساب
+
+## حالت‌های مرزی
+
+- ناموجود شدن Job Post هنگام باز بودن صفحه
+- باز کردن لینک قدیمی یا share شده
+- قبلاً apply کرده بودن کارجو
+- تکرار action save یا apply
+- interrupt شدن flow توسط authentication
+- ناقص بودن resume یا profile
+- failure بعد از پیشرفت partial در application
+- ناموجود یا uncertain بودن insightهای premium یا AI
+
+## Product Areaهای مرتبط
 
 - Job Search
 - Application Management
@@ -189,26 +205,30 @@ These cases remain untested in the current repository.
 - Premium Insights
 - Employer Job Post Management
 
-## Known variations
+## Variationهای شناخته‌شده
 
-- Authentication state may change available actions.
-- Premium or AI-powered insights may add product-specific behavior.
-- Mobile and desktop presentations may differ.
+- وضعیت authentication ممکن است actionهای موجود را تغییر دهد.
+- insightهای premium یا AI-powered ممکن است رفتار product-specific اضافه کنند.
+- presentation در mobile و desktop ممکن است متفاوت باشد.
 
-## Unknowns and untested behavior
+## Unknownها و رفتارهای تست‌نشده
 
-- Canonical information hierarchy
-- Exact save and share behavior
-- Authentication gates
-- Application eligibility and required data
-- Duplicate application handling
-- Job Post unavailable and expired states
-- Return behavior after login or application
-- Accessibility and responsive behavior
+- hierarchy اطلاعات canonical
+- رفتار دقیق save و share
+- رفتار حذف و save تکراری
+- persistence در sessionهای بعدی، deviceهای دیگر و loginهای بعدی
+- failure و recovery در save یا removal
+- Job Postهای closed، expired، deleted یا unavailable در Saved Jobs
+- authentication gateها
+- eligibility و داده‌های required برای application
+- رابطه با resume/profile
+- analytics و instrumentation
+- accessibility و keyboard behavior
 
-## Sources
+## منابع
 
 - `products/jobvision/candidate/overview.md`
 - `products/jobvision/overview.md`
 - `shared/product-concepts/job-post.md`
-- A bounded production walkthrough and reviewed Jira/Figma sources are required before marking this document reviewed
+- `product-walkthrough/walkthroughs/products/jobvision/candidate/WT-2026-005/evidence.md` (برای reconciliation prototype به‌عنوان accepted در نظر گرفته شده است)
+- برای تکمیل review، evidenceهای production، Jira، Figma، analytics و research بیشتری لازم است.
