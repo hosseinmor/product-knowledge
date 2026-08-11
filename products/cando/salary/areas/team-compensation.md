@@ -3,147 +3,110 @@ id: cando.salary.team-compensation
 kind: product-area
 group: cando
 product: salary
-title: Team Compensation
-summary: Employee compensation records, team search, benchmark-calculation status, and final-salary entry in Cando Salary.
+title: جبران خدمات تیم
+summary: اطلاعات جبران خدمات همکاران، جستجوی تیم، وضعیت محاسبه بنچمارک و ثبت حقوق نهایی در محصول حقوق و دستمزد کندو.
 status: reviewed
-owner: Cando Salary product owner
+owner: مالک محصول حقوق و دستمزد کندو
 last_reviewed: 2026-08-11
-related:
-  - cando.salary.overview
-  - cando.salary.salary-benchmark
-  - cando.salary.job-profiles
-  - cando.salary.organization-settings
+related: [cando.salary.overview, cando.salary.salary-benchmark, cando.salary.job-profiles, cando.salary.organization-settings]
 topics: [team, employee, compensation, final-salary, suggested-salary]
 ---
 
-# Team Compensation
+# جبران خدمات تیم
 
-## Overview
+## نمای کلی
 
-Team Compensation is the employee-level workspace for finding team members, maintaining compensation inputs, starting benchmark calculation, reviewing suggested ranges, and recording a final salary. This document reflects one owner-accepted authenticated Production walkthrough.
+این حوزه فضای همکارمحور برای یافتن اعضای تیم، نگهداری ورودی‌های جبران خدمات، شروع محاسبه بنچمارک، مشاهده بازه پیشنهادی و ثبت حقوق نهایی است.
 
-## Why this area exists
+## چرایی وجود این حوزه
 
-- Keep employee, organization, job, and compensation inputs together
-- Compare the employee's 1404 salary, suggested 1405 range, and final 1405 salary
-- Make calculation progress and result availability visible
+- نگهداری اطلاعات هویتی، سازمانی، شغلی و جبران خدمات هر همکار در یک رکورد
+- مقایسه حقوق ۱۴۰۴، بازه پیشنهادی ۱۴۰۵ و حقوق نهایی ۱۴۰۵
+- نمایش پیشرفت محاسبه و آماده‌شدن نتیجه
 
-## Users and roles
+## کاربران و نقش‌ها
 
-An authenticated organizational user with visible create, edit, and delete controls was observed. Formal roles and permission boundaries are unknown.
+یک کاربر سازمانی واردشده با کنترل‌های ایجاد، ویرایش و حذف مشاهده شد. نقش‌های رسمی و مرز دسترسی‌ها نامشخص‌اند.
 
-## User outcomes
+## خروجی‌های کاربر
 
-- Find an employee by personnel code
-- Add or edit an employee compensation record
-- Start calculation and see when a suggested range becomes available
-- Record a final salary and compare it with the prior year's salary
+- یافتن همکار با کد پرسنلی
+- افزودن یا ویرایش اطلاعات جبران خدمات
+- شروع محاسبه و مشاهده بازه پیشنهادی
+- ثبت حقوق نهایی و مقایسه آن با حقوق سال قبل
 
-## Entry points
+## نقطه‌های ورود
 
-- Product Home, which redirected to Team in the observed session
-- Team list
-- Employee-detail drawer
+- Home که در session مشاهده‌شده به Team هدایت شد
+- فهرست Team
+- drawer جزئیات همکار
 
-## Main concepts
+## مفاهیم اصلی
 
-### Employee compensation record
+### رکورد جبران خدمات همکار
 
-A record combining identity, organization, job-profile, and compensation information for one employee.
+ترکیب اطلاعات هویتی، سازمانی، شناسنامه شغلی و جبران خدمات یک همکار.
 
-### Current salary
+### حقوق فعلی
 
-The employee's 1404 salary shown as the comparison baseline.
+حقوق ۱۴۰۴ که مبنای مقایسه است.
 
-### Suggested salary range
+### بازه حقوق پیشنهادی
 
-The calculated 1405 range produced after saving sufficient employee inputs. Its formula and authority are unknown.
+بازه محاسبه‌شده ۱۴۰۵ پس از ذخیره ورودی‌های کافی. فرمول و میزان الزام‌آوربودن آن نامشخص است.
 
-### Final salary
+### حقوق نهایی
 
-A separately recorded 1405 amount. In the observed test it was inside the suggested range, so out-of-range behavior is unknown.
+مبلغ مستقل ثبت‌شده برای ۱۴۰۵. رفتار مبلغ خارج از بازه پیشنهادی تست نشده است.
 
-### Calculation status
+### وضعیت محاسبه
 
-The Team row temporarily showed “در حال محاسبه” before displaying the suggested range.
+ردیف همکار پیش از نمایش نتیجه، وضعیت «در حال محاسبه» نشان می‌دهد.
 
-## Main flows
+## جریان‌های اصلی
 
-### Search the team
+### جستجوی تیم
 
-1. Open Team.
-2. Review organizational and compensation columns.
-3. Search by personnel code to narrow the list.
+1. کاربر Team را باز می‌کند.
+2. ستون‌های سازمانی و جبران خدمات را می‌بیند.
+3. با کد پرسنلی فهرست را محدود می‌کند.
 
-Other search semantics were not tested.
+### افزودن همکار و محاسبه
 
-### Add an employee and calculate
+1. کاربر dialog افزودن همکار را باز می‌کند.
+2. اطلاعات هویتی، سازمانی و جبران خدمات را وارد می‌کند.
+3. همکار را به شناسنامه شغلی و ساختار سازمانی وصل می‌کند.
+4. پس از تکمیل ورودی‌های لازم، «ذخیره و محاسبه» را اجرا می‌کند.
+5. وضعیت محاسبه و سپس بازه پیشنهادی را می‌بیند.
 
-1. Open the add-employee dialog.
-2. Enter identity, organization, and compensation information.
-3. Connect the employee to an existing job profile and organization structure.
-4. Save and calculate once required selections make the action available.
-5. Observe the calculation-in-progress state.
-6. Review the resulting suggested salary range.
+### ثبت حقوق نهایی
 
-### Record final salary
+1. کاربر جزئیات همکار را باز می‌کند.
+2. حقوق نهایی ۱۴۰۵ را وارد و ذخیره می‌کند.
+3. مبلغ و درصد مقایسه با حقوق ۱۴۰۴ نمایش داده می‌شود.
 
-1. Open employee detail.
-2. Enter the final 1405 salary.
-3. Save it.
-4. Review the amount and its percentage comparison with the 1404 salary.
+## قوانین
 
-## Rules
+- تا زمان تکمیل ورودی‌های لازم، اقدام ذخیره و محاسبه در دسترس نیست.
+- ذخیره رکورد کامل، محاسبه بنچمارک را آغاز می‌کند.
+- حقوق نهایی مستقل از بازه پیشنهادی ذخیره می‌شود.
 
-- Save and calculate remains unavailable until required inputs and selections are supplied.
-- Saving a complete observed record starts benchmark calculation.
-- Final salary is stored separately from the suggested range.
-
-## Permissions
-
-Create, edit, and delete controls were visible. Role-specific access, field-level restrictions, approval, and audit behavior are unknown.
-
-## States and transitions
+## وضعیت‌ها و انتقال‌ها
 
 ```text
-Employee form incomplete
-→ complete enough to save and calculate
-→ calculating
-→ suggested range available
-→ final salary optionally recorded
+فرم ناقص → آماده ذخیره و محاسبه → در حال محاسبه → بازه پیشنهادی آماده → ثبت اختیاری حقوق نهایی
 ```
 
-Failure, retry, stale-result, and recalculation transitions were not observed.
+## اعتبارسنجی و حالت‌های لبه
 
-## Validations
+ماتریس کامل فیلدهای اجباری، duplicate، failure محاسبه، مبلغ خارج از بازه، حذف حقوق نهایی و guard حذف همکار تست نشده‌اند. حذف همکار بدون تأیید دوم همچنان suspected bug است.
 
-The primary action was disabled for an empty form and enabled after required inputs were provided. The complete required/optional matrix and field-level messages were not captured.
+## حوزه‌های مرتبط
 
-## Edge cases
+- [بنچمارک حقوق](salary-benchmark.md)
+- [شناسنامه‌های شغلی](job-profiles.md)
+- [تنظیمات سازمان](organization-settings.md)
 
-- Search values other than personnel code
-- Missing job profile or organization structure
-- Calculation delay or failure
-- Final salary outside the suggested range
-- Editing or clearing final salary
-- Duplicate employee or personnel code
-- Deleting an employee; the observed deletion appeared to succeed without a second confirmation and is a suspected bug
+## منابع
 
-## Related Product Areas
-
-- [Salary Benchmark](salary-benchmark.md)
-- [Job Profiles](job-profiles.md)
-- [Organization Settings](organization-settings.md)
-
-## Known variations
-
-Employee benchmark detail varies by model and data availability.
-
-## Unknowns and untested behavior
-
-Roles, permissions, complete validation, calculation retry/failure, employee deletion safeguards, empty state, mobile, network failure, and audit history.
-
-## Sources
-
-- Owner-accepted `WT-2026-008`: E-001, E-002, E-003, and E-005; recorded 2026-08-09 and treated as reviewed 2026-08-11
-- `WT-2026-008` suspected bug B-002 remains a suspected bug rather than intended product behavior
+- `WT-2026-008`: ادعاهای پذیرفته‌شده E-001، E-002، E-003 و E-005؛ B-002 فقط suspected bug است.
