@@ -3,125 +3,75 @@ id: cando.salary.job-profiles
 kind: product-area
 group: cando
 product: salary
-title: Job Profiles
-summary: Maps organization job titles to standard titles and creates suggested, editable job-profile content and requirements.
+title: شناسنامه‌های شغلی
+summary: اتصال عنوان شغلی سازمان به عنوان استاندارد و ساخت شناسنامه پیشنهادی با الزامات و محتوای قابل‌ویرایش.
 status: reviewed
-owner: Cando Salary product owner
+owner: مالک محصول حقوق و دستمزد کندو
 last_reviewed: 2026-08-11
-related:
-  - cando.salary.overview
-  - cando.salary.team-compensation
-  - cando.salary.salary-benchmark
+related: [cando.salary.overview, cando.salary.team-compensation, cando.salary.salary-benchmark]
 topics: [job-profile, job-title, standard-title, seniority, requirements]
 ---
 
-# Job Profiles
+# شناسنامه‌های شغلی
 
-## Overview
+## نمای کلی
 
-Job Profiles maps an organization's job title and seniority to a standard job title, then creates a suggested profile with requirements and editable content.
+این حوزه عنوان شغلی سازمان و سطح ارشدیت را به یک عنوان شغلی استاندارد متصل می‌کند و سپس شناسنامه‌ای پیشنهادی با requirementها و محتوای قابل‌ویرایش می‌سازد.
 
-## Why this area exists
+## چرایی وجود این حوزه
 
-- Normalize organization-specific job titles against a standard title
-- Produce a reusable profile for employee and compensation workflows
-- Give users a suggested starting point that can be edited
+- استانداردسازی عنوان‌های اختصاصی سازمان
+- ساخت یک پروفایل قابل استفاده در جریان‌های همکار و جبران خدمات
+- ارائه محتوای پیشنهادی به‌عنوان نقطه شروع قابل‌ویرایش
 
-## Users and roles
+## کاربران و خروجی‌ها
 
-An authenticated user created one real job profile at the user's request. Creation and editing permissions by role are unknown.
+کاربر سازمانی می‌تواند عنوان داخلی سازمان را حفظ کند، سطح ارشدیت و عنوان استاندارد را انتخاب کند، شناسنامه پیشنهادی را بسازد و requirementها و محتوا را بررسی یا ویرایش کند. مجوزها و lifecycle رسمی مشخص نیستند.
 
-## User outcomes
+## مفاهیم اصلی
 
-- Preserve the organization's own title
-- Select seniority and a standard job title
-- Create and review suggested requirements and profile content
-- Edit generated content where necessary
+### عنوان شغلی سازمان
 
-## Entry points
+عنوانی که سازمان برای نقش استفاده می‌کند.
 
-- Job-title or Job Profile area
-- Employee creation's job-profile selection
+### سطح ارشدیت
 
-## Main concepts
+سطح انتخاب‌شده برای شناسنامه شغلی. مقادیر مجاز و اثر آن نامشخص است.
 
-### Organization job title
+### عنوان شغلی استاندارد
 
-The title used by the organization for the role.
+عنوان نرمال‌شده‌ای که هنگام ساخت انتخاب می‌شود. قواعد پیشنهاد و matching آن مشخص نیست.
 
-### Seniority
+### شناسنامه شغلی
 
-The selected level associated with the job profile. Allowed values and effect are unknown.
+رکورد ساخته‌شده شامل requirementها و سایر محتوای پیشنهادی و قابل‌ویرایش.
 
-### Standard job title
+### محتوای پیشنهادی
 
-The normalized title selected during creation. Suggestion and matching rules are unknown.
+محتوایی که پس از ایجاد نمایش داده می‌شود. منبع، روش تولید، review و refresh آن مشخص نیست.
 
-### Job profile
+## جریان اصلی
 
-The created record containing suggested requirements and other editable content.
+1. کاربر عنوان شغلی سازمان را وارد می‌کند.
+2. سطح ارشدیت را انتخاب می‌کند.
+3. عنوان شغلی استاندارد را انتخاب می‌کند.
+4. ساخت را تأیید می‌کند.
+5. شناسنامه، requirementها و محتوای قابل‌ویرایش را بررسی می‌کند.
 
-### Suggested content
+## قوانین و وضعیت‌ها
 
-Content generated or populated after creation. The source, generation method, review status, and refresh behavior are unknown.
-
-## Main flows
-
-### Create a job profile
-
-1. Enter the organization's job title.
-2. Select seniority.
-3. Select a standard job title.
-4. Confirm creation.
-5. Review the suggested job profile, requirements, and editable content.
-
-## Rules
-
-- Creation requires an organization title, seniority, and a standard job title in the observed flow.
-- The created profile supplies suggested requirements and editable content.
-- No automatic title-matching or content-generation rule is confirmed.
-
-## Permissions
-
-Creation was available. View, edit, delete, approval, and publishing permissions are unknown.
-
-## States and transitions
+- در flow مشاهده‌شده، عنوان سازمان، سطح ارشدیت و عنوان استاندارد برای ساخت لازم بودند.
+- شناسنامه ساخته‌شده دارای requirementها و محتوای پیشنهادی قابل‌ویرایش است.
+- هیچ قاعده خودکار matching یا تولید محتوا تأیید نشده است.
 
 ```text
-Creation input
-→ standard title selected
-→ creation confirmed
-→ suggested editable profile available
+ورودی ایجاد → انتخاب عنوان استاندارد → تأیید ایجاد → شناسنامه پیشنهادی قابل‌ویرایش
 ```
 
-Draft, reviewed, approved, archived, and deleted states were not established.
+## موارد نامشخص
 
-## Validations
+قواعد matching و generation، مالک taxonomy، duplicate، persistence ویرایش، lifecycle، guard حذف، permissions و recalculation پس از تغییر تست نشده‌اند.
 
-Duplicate-title behavior, required field messages, invalid combinations, and content validation were not tested.
+## منابع
 
-## Edge cases
-
-- No suitable standard title
-- Multiple possible standard titles
-- Duplicate organization title and seniority
-- Generated content missing or unsuitable
-- Standard taxonomy changes after creation
-- Profile in use by employees when edited or deleted
-
-## Related Product Areas
-
-- [Team Compensation](team-compensation.md)
-- [Salary Benchmark](salary-benchmark.md)
-
-## Known variations
-
-Only one title and selected seniority were tested.
-
-## Unknowns and untested behavior
-
-Matching and generation rules, taxonomy ownership, required fields, edit persistence, lifecycle, deletion safeguards, permissions, and benchmark recalculation after changes.
-
-## Sources
-
-- Owner-accepted `WT-2026-008`: E-008; recorded 2026-08-09 and treated as reviewed 2026-08-11
+- `WT-2026-008`: ادعای پذیرفته‌شده E-008.
