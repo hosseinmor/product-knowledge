@@ -3,18 +3,20 @@ id: cando.overview
 kind: product-group-overview
 group: cando
 title: Cando
-summary: Overview of the Cando product group and its ATS, Pulse, Onboarding, and Learning products.
+summary: Overview of the Cando product group and its ATS, Salary, Pulse, Onboarding, and Learning products.
 status: draft
 owner: Cando product leadership
 last_reviewed:
 related:
   - cando.ats.overview
+  - cando.salary.overview
   - cando.pulse.overview
   - cando.onboarding.overview
   - cando.learning.overview
 topics:
   - cando
   - ats
+  - salary
   - pulse
   - onboarding
   - learning
@@ -25,9 +27,10 @@ topics:
 
 ## What this product group is
 
-Cando is the HR product group that contains four distinct products:
+Cando is the HR product group that contains five distinct products:
 
 - ATS
+- Salary
 - Pulse
 - Onboarding
 - Learning
@@ -56,6 +59,16 @@ Path:
 products/cando/pulse/
 ```
 
+### Salary
+
+Supports organizational compensation planning through employee compensation records, salary benchmarks, scenario analysis, job profiles, reports, and organization settings.
+
+Path:
+
+```text
+products/cando/salary/
+```
+
 ### Onboarding
 
 Supports employee onboarding experiences and administration. Its exact product boundary and Product Areas require owner review.
@@ -78,12 +91,13 @@ products/cando/learning/
 
 ## Shared journeys and relationships
 
-Potential relationships between ATS, Onboarding, Learning, and Pulse should be documented only after their ownership, data transfer, and user journeys are verified.
+Potential relationships between ATS, Salary, Onboarding, Learning, and Pulse should be documented only after their ownership, data transfer, and user journeys are verified.
 
 ## Documentation gaps
 
 - The suite-level boundary and shared concepts need owner review.
 - Pulse, Onboarding, and Learning currently need Product Area discovery.
+- Salary is documented from one owner-accepted Production walkthrough; roles, calculation rules, and integrations remain explicit documentation gaps.
 - Cross-product journeys and integrations are not yet documented.
 
 ## Sources
