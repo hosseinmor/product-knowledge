@@ -3,123 +3,76 @@ id: cando.salary.organization-settings
 kind: product-area
 group: cando
 product: salary
-title: Organization Settings
-summary: Organization profile and structure settings, including departments and business lines used by Cando Salary.
+title: تنظیمات سازمان
+summary: تنظیمات پروفایل و ساختار سازمان شامل دپارتمان‌ها و بیزینس‌لاین‌های مورد استفاده در محصول حقوق و دستمزد.
 status: reviewed
-owner: Cando Salary product owner
+owner: مالک محصول حقوق و دستمزد کندو
 last_reviewed: 2026-08-11
-related:
-  - cando.salary.overview
-  - cando.salary.team-compensation
+related: [cando.salary.overview, cando.salary.team-compensation]
 topics: [organization-settings, department, business-line, referential-integrity]
 ---
 
-# Organization Settings
+# تنظیمات سازمان
 
-## Overview
+## نمای کلی
 
-Organization Settings maintains organization information and the departments and business lines referenced by employee records. The walkthrough tested deletion guards for structures with assigned employees but did not save organization-profile or calculation-model changes.
+تنظیمات سازمان اطلاعات سازمان، دپارتمان‌ها و بیزینس‌لاین‌های متصل به همکاران را نگهداری می‌کند. walkthrough فقط guard حذف ساختار دارای همکار را تست کرد و هیچ تغییر واقعی در پروفایل سازمان یا مدل محاسباتی ذخیره نشد.
 
-## Why this area exists
+## چرایی وجود این حوزه
 
-- Maintain structures used to classify employees
-- Prevent deletion from leaving assigned employees without a valid structure
-- Provide organization-level configuration entry points
+- نگهداری ساختارهای مورد استفاده برای دسته‌بندی همکاران
+- جلوگیری از حذف ساختاری که هنوز همکار به آن تخصیص دارد
+- فراهم‌کردن نقطه ورود تنظیمات سطح سازمان
 
-## Users and roles
+## کاربران و خروجی‌ها
 
-An authenticated user with visible create, edit, and delete controls was observed. Administrator roles and configuration permissions are unknown.
+کاربر سازمانی دارای کنترل‌های مربوط می‌تواند تنظیمات را ببیند، دپارتمان و بیزینس‌لاین را ایجاد یا ویرایش کند و علت مسدودشدن حذف ساختار در حال استفاده را بفهمد. نقش مدیر و permissionهای دقیق نامشخص‌اند.
 
-## User outcomes
+## مفاهیم اصلی
 
-- View organization settings
-- Create or edit departments and business lines
-- Understand why an in-use structure cannot be deleted
-- Move employees before retrying deletion
+### پروفایل سازمان
 
-## Entry points
+اطلاعات سطح سازمان در Settings. ذخیره تغییر واقعی آن تست نشده است.
 
-- Settings
-- Department configuration
-- Business-line configuration
+### دپارتمان
 
-## Main concepts
+واحد سازمانی قابل تخصیص به همکار.
 
-### Organization profile
+### بیزینس‌لاین
 
-Organization-level information visible in Settings. Actual changes were deliberately not saved.
+دسته‌بندی سازمانی قابل تخصیص به همکار.
 
-### Department
+### همکار تخصیص‌یافته
 
-An organizational unit that can be assigned to employees.
+رکورد همکاری که به دپارتمان یا بیزینس‌لاین ارجاع دارد.
 
-### Business line
+### Guard حذف
 
-An organizational classification that can be assigned to employees.
+قاعده‌ای که حذف ساختار دارای همکار را مسدود می‌کند و کاربر را به انتقال همکاران به واحد دیگر راهنمایی می‌کند.
 
-### Assigned employee
+## جریان اصلی حذف ساختار در حال استفاده
 
-An employee record referencing a department or business line.
+1. کاربر تنظیمات دپارتمان یا بیزینس‌لاین را باز می‌کند.
+2. حذف ساختار دارای همکار را انتخاب می‌کند.
+3. محصول حذف را مسدود می‌کند.
+4. محصول انتقال همکاران به واحد دیگر را پیشنهاد می‌دهد.
 
-### Deletion guard
+حذف ساختار خالی تست نشده است.
 
-A rule blocking deletion of a structure that still has assigned employees and directing the user to move those employees elsewhere.
+## قوانین و وضعیت‌ها
 
-## Main flows
-
-### Attempt to delete an in-use structure
-
-1. Open department or business-line settings.
-2. Choose delete for a structure with assigned employees.
-3. Observe that deletion is blocked.
-4. Follow the guidance to transfer employees to another unit before trying again.
-
-Empty-structure deletion was not tested.
-
-## Rules
-
-- A department with assigned employees cannot be deleted in the observed flow.
-- A business line with assigned employees cannot be deleted in the observed flow.
-- The product directs the user to move assigned employees to another unit first.
-
-## Permissions
-
-Create, edit, and delete controls were visible. Exact administrative permissions and field-level access are unknown.
-
-## States and transitions
+- دپارتمان دارای همکار قابل حذف نیست.
+- بیزینس‌لاین دارای همکار قابل حذف نیست.
+- کاربر باید ابتدا همکاران را به واحد دیگری منتقل کند.
 
 ```text
-Structure has assigned employees
-→ deletion blocked
-→ employees moved elsewhere (instructed, not tested)
-→ deletion may become available (not tested)
+ساختار دارای همکار → حذف مسدود → انتقال همکاران (تست‌نشده) → امکان احتمالی حذف (تست‌نشده)
 ```
 
-## Validations
+## موارد نامشخص
 
-Deletion dependency was validated by the product. Naming, uniqueness, hierarchy, required fields, and empty-structure deletion were not tested.
+قواعد ایجاد و ویرایش، hierarchy، uniqueness، bulk transfer، حذف ساختار خالی، ذخیره پروفایل سازمان، تنظیم مدل محاسباتی، permission و audit history تست نشده‌اند.
 
-## Edge cases
+## منابع
 
-- Empty department or business line
-- Moving many employees before deletion
-- Last available structure
-- Concurrent assignments during deletion
-- Structure referenced by scenarios, reports, or historical results
-- Unsaved organization-profile or model changes
-
-## Related Product Areas
-
-- [Team Compensation](team-compensation.md)
-
-## Known variations
-
-Both department and business-line structures exhibited the same observed in-use deletion guard.
-
-## Unknowns and untested behavior
-
-Creation and editing rules, hierarchy, uniqueness, bulk transfer, empty deletion, organization-profile saving, calculation-model settings, permissions, and audit history.
-
-## Sources
-
-- Owner-accepted `WT-2026-008`: E-009; recorded 2026-08-09 and treated as reviewed 2026-08-11
+- `WT-2026-008`: ادعای پذیرفته‌شده E-009.
