@@ -242,10 +242,10 @@
     {
       "id": "cando.salary.job-profiles",
       "kind": "product-area",
-      "title": "Job Profiles",
-      "summary": "Maps organization job titles to standard titles and creates suggested, editable job-profile content and requirements.",
+      "title": "شناسنامه‌های شغلی",
+      "summary": "اتصال عنوان شغلی سازمان به عنوان استاندارد و ساخت شناسنامه پیشنهادی با الزامات و محتوای قابل‌ویرایش.",
       "status": "reviewed",
-      "owner": "Cando Salary product owner",
+      "owner": "مالک محصول حقوق و دستمزد کندو",
       "last_reviewed": "2026-08-11",
       "related": [
         "cando.salary.overview",
@@ -270,10 +270,10 @@
     {
       "id": "cando.salary.organization-settings",
       "kind": "product-area",
-      "title": "Organization Settings",
-      "summary": "Organization profile and structure settings, including departments and business lines used by Cando Salary.",
+      "title": "تنظیمات سازمان",
+      "summary": "تنظیمات پروفایل و ساختار سازمان شامل دپارتمان‌ها و بیزینس‌لاین‌های مورد استفاده در محصول حقوق و دستمزد.",
       "status": "reviewed",
-      "owner": "Cando Salary product owner",
+      "owner": "مالک محصول حقوق و دستمزد کندو",
       "last_reviewed": "2026-08-11",
       "related": [
         "cando.salary.overview",
@@ -295,10 +295,10 @@
     {
       "id": "cando.salary.overview",
       "kind": "product-overview",
-      "title": "Salary",
-      "summary": "Overview of Cando Salary and its compensation benchmarking, planning, job-profile, reporting, and organization-configuration areas.",
+      "title": "حقوق و دستمزد",
+      "summary": "نمای کلی محصول حقوق و دستمزد کندو و حوزه‌های مدیریت جبران خدمات، بنچمارک، سناریو، شناسنامه شغلی و تنظیمات سازمان.",
       "status": "reviewed",
-      "owner": "Cando Salary product owner",
+      "owner": "مالک محصول حقوق و دستمزد کندو",
       "last_reviewed": "2026-08-11",
       "related": [
         "cando.overview",
@@ -326,10 +326,10 @@
     {
       "id": "cando.salary.salary-benchmark",
       "kind": "product-area",
-      "title": "Salary Benchmark",
-      "summary": "Suggested compensation results and the model-level inputs, weights, sources, percentiles, ranges, and insufficient-data states behind them.",
+      "title": "بنچمارک حقوق",
+      "summary": "نتایج حقوق پیشنهادی و اطلاعات مدل‌ها، وزن‌ها، منابع، percentile، range و وضعیت نبود داده کافی.",
       "status": "reviewed",
-      "owner": "Cando Salary product owner",
+      "owner": "مالک محصول حقوق و دستمزد کندو",
       "last_reviewed": "2026-08-11",
       "related": [
         "cando.salary.overview",
@@ -354,10 +354,10 @@
     {
       "id": "cando.salary.scenario-analysis",
       "kind": "product-area",
-      "title": "Scenario Analysis",
-      "summary": "Creates, recalculates, edits, compares, and deletes alternative compensation scenarios in Cando Salary.",
+      "title": "تحلیل سناریو",
+      "summary": "ساخت، محاسبه مجدد، ویرایش، مقایسه و حذف سناریوهای جایگزین جبران خدمات.",
       "status": "reviewed",
-      "owner": "Cando Salary product owner",
+      "owner": "مالک محصول حقوق و دستمزد کندو",
       "last_reviewed": "2026-08-11",
       "related": [
         "cando.salary.overview",
@@ -382,10 +382,10 @@
     {
       "id": "cando.salary.team-compensation",
       "kind": "product-area",
-      "title": "Team Compensation",
-      "summary": "Employee compensation records, team search, benchmark-calculation status, and final-salary entry in Cando Salary.",
+      "title": "جبران خدمات تیم",
+      "summary": "اطلاعات جبران خدمات همکاران، جستجوی تیم، وضعیت محاسبه بنچمارک و ثبت حقوق نهایی در محصول حقوق و دستمزد کندو.",
       "status": "reviewed",
-      "owner": "Cando Salary product owner",
+      "owner": "مالک محصول حقوق و دستمزد کندو",
       "last_reviewed": "2026-08-11",
       "related": [
         "cando.salary.overview",
