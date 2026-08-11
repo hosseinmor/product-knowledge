@@ -192,12 +192,13 @@
       "id": "cando.overview",
       "kind": "product-group-overview",
       "title": "Cando",
-      "summary": "Overview of the Cando product group and its ATS, Pulse, Onboarding, and Learning products.",
+      "summary": "Overview of the Cando product group and its ATS, Salary, Pulse, Onboarding, and Learning products.",
       "status": "draft",
       "owner": "Cando product leadership",
       "last_reviewed": null,
       "related": [
         "cando.ats.overview",
+        "cando.salary.overview",
         "cando.pulse.overview",
         "cando.onboarding.overview",
         "cando.learning.overview"
@@ -209,7 +210,8 @@
         "learning",
         "onboarding",
         "product-group-overview",
-        "pulse"
+        "pulse",
+        "salary"
       ],
       "path": "products/cando/overview.md",
       "group": "cando"
@@ -236,6 +238,175 @@
       "path": "products/cando/pulse/overview.md",
       "group": "cando",
       "product": "pulse"
+    },
+    {
+      "id": "cando.salary.job-profiles",
+      "kind": "product-area",
+      "title": "Job Profiles",
+      "summary": "Maps organization job titles to standard titles and creates suggested, editable job-profile content and requirements.",
+      "status": "reviewed",
+      "owner": "Cando Salary product owner",
+      "last_reviewed": "2026-08-11",
+      "related": [
+        "cando.salary.overview",
+        "cando.salary.team-compensation",
+        "cando.salary.salary-benchmark"
+      ],
+      "topics": [
+        "cando",
+        "job-profile",
+        "job-profiles",
+        "job-title",
+        "product-area",
+        "requirements",
+        "salary",
+        "seniority",
+        "standard-title"
+      ],
+      "path": "products/cando/salary/areas/job-profiles.md",
+      "group": "cando",
+      "product": "salary"
+    },
+    {
+      "id": "cando.salary.organization-settings",
+      "kind": "product-area",
+      "title": "Organization Settings",
+      "summary": "Organization profile and structure settings, including departments and business lines used by Cando Salary.",
+      "status": "reviewed",
+      "owner": "Cando Salary product owner",
+      "last_reviewed": "2026-08-11",
+      "related": [
+        "cando.salary.overview",
+        "cando.salary.team-compensation"
+      ],
+      "topics": [
+        "business-line",
+        "cando",
+        "department",
+        "organization-settings",
+        "product-area",
+        "referential-integrity",
+        "salary"
+      ],
+      "path": "products/cando/salary/areas/organization-settings.md",
+      "group": "cando",
+      "product": "salary"
+    },
+    {
+      "id": "cando.salary.overview",
+      "kind": "product-overview",
+      "title": "Salary",
+      "summary": "Overview of Cando Salary and its compensation benchmarking, planning, job-profile, reporting, and organization-configuration areas.",
+      "status": "reviewed",
+      "owner": "Cando Salary product owner",
+      "last_reviewed": "2026-08-11",
+      "related": [
+        "cando.overview",
+        "cando.salary.team-compensation",
+        "cando.salary.salary-benchmark",
+        "cando.salary.scenario-analysis",
+        "cando.salary.job-profiles",
+        "cando.salary.organization-settings"
+      ],
+      "topics": [
+        "cando",
+        "compensation",
+        "job-profile",
+        "organization-settings",
+        "product-overview",
+        "salary",
+        "salary-benchmark",
+        "scenario-analysis",
+        "team"
+      ],
+      "path": "products/cando/salary/overview.md",
+      "group": "cando",
+      "product": "salary"
+    },
+    {
+      "id": "cando.salary.salary-benchmark",
+      "kind": "product-area",
+      "title": "Salary Benchmark",
+      "summary": "Suggested compensation results and the model-level inputs, weights, sources, percentiles, ranges, and insufficient-data states behind them.",
+      "status": "reviewed",
+      "owner": "Cando Salary product owner",
+      "last_reviewed": "2026-08-11",
+      "related": [
+        "cando.salary.overview",
+        "cando.salary.team-compensation",
+        "cando.salary.scenario-analysis"
+      ],
+      "topics": [
+        "cando",
+        "compensation-model",
+        "complexity",
+        "payment-strategy",
+        "percentile",
+        "product-area",
+        "range",
+        "salary",
+        "salary-benchmark"
+      ],
+      "path": "products/cando/salary/areas/salary-benchmark.md",
+      "group": "cando",
+      "product": "salary"
+    },
+    {
+      "id": "cando.salary.scenario-analysis",
+      "kind": "product-area",
+      "title": "Scenario Analysis",
+      "summary": "Creates, recalculates, edits, compares, and deletes alternative compensation scenarios in Cando Salary.",
+      "status": "reviewed",
+      "owner": "Cando Salary product owner",
+      "last_reviewed": "2026-08-11",
+      "related": [
+        "cando.salary.overview",
+        "cando.salary.salary-benchmark",
+        "cando.salary.team-compensation"
+      ],
+      "topics": [
+        "cando",
+        "compensation-planning",
+        "complexity",
+        "payment-strategy",
+        "product-area",
+        "recalculation",
+        "salary",
+        "scenario",
+        "scenario-analysis"
+      ],
+      "path": "products/cando/salary/areas/scenario-analysis.md",
+      "group": "cando",
+      "product": "salary"
+    },
+    {
+      "id": "cando.salary.team-compensation",
+      "kind": "product-area",
+      "title": "Team Compensation",
+      "summary": "Employee compensation records, team search, benchmark-calculation status, and final-salary entry in Cando Salary.",
+      "status": "reviewed",
+      "owner": "Cando Salary product owner",
+      "last_reviewed": "2026-08-11",
+      "related": [
+        "cando.salary.overview",
+        "cando.salary.salary-benchmark",
+        "cando.salary.job-profiles",
+        "cando.salary.organization-settings"
+      ],
+      "topics": [
+        "cando",
+        "compensation",
+        "employee",
+        "final-salary",
+        "product-area",
+        "salary",
+        "suggested-salary",
+        "team",
+        "team-compensation"
+      ],
+      "path": "products/cando/salary/areas/team-compensation.md",
+      "group": "cando",
+      "product": "salary"
     },
     {
       "id": "checkbox",
@@ -2197,7 +2368,7 @@
     }
   ],
   "summary": {
-    "documents": 120,
+    "documents": 126,
     "by_kind": {
       "content-guideline": 3,
       "design-system-accessibility": 8,
@@ -2211,15 +2382,15 @@
       "design-system-reference": 3,
       "design-system-token": 8,
       "design-system-ui-template": 4,
-      "product-area": 9,
+      "product-area": 14,
       "product-group-overview": 2,
-      "product-overview": 6,
+      "product-overview": 7,
       "product-standard": 4,
       "shared-product-concept": 4,
       "shared-product-service-overview": 1
     },
     "by_group": {
-      "cando": 8,
+      "cando": 14,
       "jobvision": 9
     },
     "by_product": {
@@ -2227,6 +2398,7 @@
       "cando/learning": 1,
       "cando/onboarding": 1,
       "cando/pulse": 1,
+      "cando/salary": 6,
       "jobvision/candidate": 6,
       "jobvision/employer": 2
     }
