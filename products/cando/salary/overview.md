@@ -3,10 +3,10 @@ id: cando.salary.overview
 kind: product-overview
 group: cando
 product: salary
-title: Salary
-summary: Overview of Cando Salary and its compensation benchmarking, planning, job-profile, reporting, and organization-configuration areas.
+title: حقوق و دستمزد
+summary: نمای کلی محصول حقوق و دستمزد کندو و حوزه‌های مدیریت جبران خدمات، بنچمارک، سناریو، شناسنامه شغلی و تنظیمات سازمان.
 status: reviewed
-owner: Cando Salary product owner
+owner: مالک محصول حقوق و دستمزد کندو
 last_reviewed: 2026-08-11
 related:
   - cando.overview
@@ -15,119 +15,113 @@ related:
   - cando.salary.scenario-analysis
   - cando.salary.job-profiles
   - cando.salary.organization-settings
-topics:
-  - compensation
-  - salary-benchmark
-  - team
-  - scenario-analysis
-  - job-profile
-  - organization-settings
+topics: [compensation, salary-benchmark, team, scenario-analysis, job-profile, organization-settings]
 ---
 
-# Salary
+# حقوق و دستمزد
 
-## What this product is
+## این محصول چیست؟
 
-Cando Salary supports an organization in reviewing employee compensation, calculating suggested salary ranges, recording final salaries, comparing alternative compensation scenarios, maintaining job profiles, and configuring the organization structures used by those workflows.
+محصول حقوق و دستمزد کندو به سازمان کمک می‌کند اطلاعات جبران خدمات همکاران را بررسی کند، بازه حقوق پیشنهادی را محاسبه کند، حقوق نهایی را ثبت کند، سناریوهای جایگزین را مقایسه کند، شناسنامه‌های شغلی را بسازد و ساختارهای سازمانی مورد استفاده در این فرایندها را مدیریت کند.
 
-This document is limited to behavior observed in one authenticated Production organization in `WT-2026-008`. The package's E-001 through E-010 claims are treated as owner-accepted for this reconciliation.
+این سند به رفتارهای مشاهده‌شده در یک سازمان واردشده در محیط Production محدود است. بر اساس تصمیم مالک، ادعاهای E-001 تا E-010 در `WT-2026-008` برای این reconciliation پذیرفته‌شده در نظر گرفته شده‌اند.
 
-## Primary users
+## کاربران اصلی
 
-- Authenticated organizational users who can view compensation data
-- Users who can create or edit employee compensation records, scenarios, job profiles, or organization settings
+- کاربران سازمانی دارای دسترسی مشاهده اطلاعات جبران خدمات
+- کاربران دارای دسترسی ایجاد یا ویرایش همکار، سناریو، شناسنامه شغلی یا تنظیمات سازمان
 
-Formal role names and the permission matrix were not identified.
+نام رسمی نقش‌ها و ماتریس دقیق دسترسی هنوز مشخص نیست.
 
-## Problems it solves
+## مسئله‌هایی که حل می‌کند
 
-- Comparing current, suggested, and final employee compensation
-- Explaining benchmark inputs and insufficient-data outcomes
-- Modeling compensation alternatives without replacing the primary result
-- Standardizing job titles and generating editable job-profile content
-- Keeping departments and business lines usable as organizational inputs
+- مقایسه حقوق فعلی، بازه پیشنهادی و حقوق نهایی همکار
+- نمایش ورودی‌های بنچمارک و وضعیت نبود داده کافی
+- مدل‌سازی سناریوهای جایگزین جبران خدمات
+- استانداردسازی عنوان‌های شغلی و ساخت محتوای قابل‌ویرایش شناسنامه شغلی
+- نگهداری دپارتمان‌ها و بیزینس‌لاین‌های مورد استفاده همکاران
 
-## Product boundaries
+## مرزهای محصول
 
-### In scope
+### در محدوده
 
-- Team compensation records
-- Salary benchmark results and inputs
-- Scenario analysis
-- Job profiles
-- Organization structure settings
-- Team and management report entry points
+- اطلاعات جبران خدمات تیم
+- نتایج و ورودی‌های بنچمارک حقوق
+- تحلیل سناریو
+- شناسنامه‌های شغلی
+- تنظیمات ساختار سازمان
+- نقطه‌های ورود گزارش تیم و مدیریت
 
-### Out of scope or not established
+### خارج از محدوده یا تأییدنشده
 
-- Payroll execution and payment
-- Formal performance management
-- Recruiting and applicant tracking
-- Benchmark model ownership, external data collection, and calculation internals
-- Cross-product data synchronization
+- اجرای پرداخت و عملیات حقوق و دستمزد
+- مدیریت عملکرد
+- استخدام و مدیریت متقاضیان
+- منطق داخلی مدل بنچمارک و جمع‌آوری داده بیرونی
+- همگام‌سازی داده با دیگر محصولات
 
-## Main Product Areas
+## حوزه‌های اصلی محصول
 
-- [Team Compensation](areas/team-compensation.md)
-- [Salary Benchmark](areas/salary-benchmark.md)
-- [Scenario Analysis](areas/scenario-analysis.md)
-- [Job Profiles](areas/job-profiles.md)
-- [Organization Settings](areas/organization-settings.md)
+- [جبران خدمات تیم](areas/team-compensation.md)
+- [بنچمارک حقوق](areas/salary-benchmark.md)
+- [تحلیل سناریو](areas/scenario-analysis.md)
+- [شناسنامه‌های شغلی](areas/job-profiles.md)
+- [تنظیمات سازمان](areas/organization-settings.md)
 
-Reporting was observed as an entry point, but the available evidence is not sufficient to define it as an independent Product Area.
+گزارش‌گیری به‌عنوان نقطه ورود مشاهده شد، اما شواهد برای تعریف آن به‌عنوان یک Product Area مستقل کافی نیست.
 
-## Major user journeys
+## سفرهای اصلی کاربر
 
-### Add an employee and calculate a benchmark
-
-```text
-Enter identity, organization, and compensation information
-→ connect the employee to organization structure and a job profile
-→ save and calculate
-→ wait while calculation is in progress
-→ review the suggested salary range
-→ optionally record a final salary
-```
-
-### Compare a scenario
+### افزودن همکار و محاسبه بنچمارک
 
 ```text
-Create a scenario
-→ activate a complexity factor or payment strategy
-→ save and calculate a comparison column
-→ edit and recalculate if needed
-→ delete with confirmation when no longer needed
+ثبت اطلاعات هویتی، سازمانی و جبران خدمات
+→ اتصال همکار به ساختار سازمان و شناسنامه شغلی
+→ ذخیره و محاسبه
+→ انتظار در وضعیت «در حال محاسبه»
+→ مشاهده بازه حقوق پیشنهادی
+→ ثبت اختیاری حقوق نهایی
 ```
 
-### Create a job profile
+### مقایسه یک سناریو
 
 ```text
-Enter the organization's job title and seniority
-→ select a standard job title
-→ confirm creation
-→ review the suggested, editable profile and requirements
+ساخت سناریو
+→ فعال‌کردن ضریب پیچیدگی یا استراتژی پرداخت
+→ ذخیره و محاسبه ستون مقایسه
+→ ویرایش و محاسبه مجدد در صورت نیاز
+→ حذف با تأیید
 ```
 
-## Important integrations
+### ساخت شناسنامه شغلی
 
-The relationship among employee records, job profiles, departments, business lines, benchmark models, and report generation is visible in the product. System boundaries, data ownership, external benchmark sources, and connections to other Cando products remain unknown.
+```text
+ثبت عنوان سازمانی و سطح ارشدیت
+→ انتخاب عنوان شغلی استاندارد
+→ تأیید ایجاد
+→ مشاهده شناسنامه پیشنهادی و قابل‌ویرایش
+```
 
-## Known variations
+## یکپارچگی‌های مهم
 
-- A benchmark model can provide percentile or range values, or show that it lacks sufficient data.
-- Scenario settings can use a complexity factor or a payment strategy; combinations were not tested.
-- Organization structures may or may not have employees assigned to them.
+ارتباط بین همکار، شناسنامه شغلی، دپارتمان، بیزینس‌لاین، مدل‌های بنچمارک و گزارش‌ها در محصول دیده می‌شود. مرز سیستم‌ها، مالکیت داده، منابع بیرونی بنچمارک و ارتباط با سایر محصولات کندو هنوز مشخص نیست.
 
-## Documentation gaps and unknowns
+## تفاوت‌های شناخته‌شده
 
-- Owner, formal roles, permissions, and plan variations
-- Benchmark formulas, weights, sources, timing, retry, and failure handling
-- Required and optional fields for employee and job-profile creation
-- Empty, error, unauthenticated, mobile, and responsive states
-- Report generation and download behavior
-- Organization-profile and calculation-model updates
-- Integration and synchronization with other Cando products
+- هر مدل بنچمارک ممکن است مقدار percentile یا range نمایش دهد یا پیام نبود داده کافی داشته باشد.
+- تنظیمات سناریو می‌تواند شامل ضریب پیچیدگی یا استراتژی پرداخت باشد؛ ترکیب آن‌ها تست نشده است.
+- ساختارهای سازمانی ممکن است همکار تخصیص‌یافته داشته باشند یا خالی باشند.
 
-## Sources
+## شکاف‌های مستندات و موارد نامشخص
 
-- Owner-accepted walkthrough evidence package `WT-2026-008`, recorded 2026-08-09 and treated as reviewed 2026-08-11; accepted evidence IDs: E-001 through E-010
+- نقش‌ها، دسترسی‌ها و تفاوت پلن‌ها
+- فرمول، وزن، منبع، زمان‌بندی، retry و failure بنچمارک
+- ماتریس کامل فیلدهای اجباری و اختیاری
+- حالت‌های empty، error، بدون ورود، موبایل و responsive
+- تولید و دانلود گزارش
+- تغییر پروفایل سازمان و مدل محاسباتی
+- یکپارچگی با دیگر محصولات کندو
+
+## منابع
+
+- بسته شواهد پذیرفته‌شده `WT-2026-008`، ثبت‌شده در ۲۰۲۶-۰۸-۰۹ و نهایی در نظر گرفته‌شده در ۲۰۲۶-۰۸-۱۱؛ ادعاهای پذیرفته‌شده: E-001 تا E-010
