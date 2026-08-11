@@ -3,134 +3,84 @@ id: cando.salary.scenario-analysis
 kind: product-area
 group: cando
 product: salary
-title: Scenario Analysis
-summary: Creates, recalculates, edits, compares, and deletes alternative compensation scenarios in Cando Salary.
+title: تحلیل سناریو
+summary: ساخت، محاسبه مجدد، ویرایش، مقایسه و حذف سناریوهای جایگزین جبران خدمات.
 status: reviewed
-owner: Cando Salary product owner
+owner: مالک محصول حقوق و دستمزد کندو
 last_reviewed: 2026-08-11
-related:
-  - cando.salary.overview
-  - cando.salary.salary-benchmark
-  - cando.salary.team-compensation
+related: [cando.salary.overview, cando.salary.salary-benchmark, cando.salary.team-compensation]
 topics: [scenario, compensation-planning, recalculation, complexity, payment-strategy]
 ---
 
-# Scenario Analysis
+# تحلیل سناریو
 
-## Overview
+## نمای کلی
 
-Scenario Analysis adds a persistent comparison column based on selected compensation settings, then lets the user edit and recalculate or delete it.
+تحلیل سناریو بر اساس تنظیمات انتخابی یک ستون مقایسه پایدار ایجاد می‌کند. کاربر می‌تواند سناریو را دوباره باز کند، تغییر دهد، محاسبه مجدد انجام دهد یا آن را با تأیید حذف کند.
 
-## Why this area exists
+## چرایی وجود این حوزه
 
-- Compare an alternative compensation policy with the primary team result
-- Keep a scenario available for later review and editing
-- Recalculate comparison results when settings change
+- مقایسه یک سیاست جایگزین با نتیجه اصلی تیم
+- نگهداری سناریو برای بازبینی بعدی
+- محاسبه مجدد نتایج پس از تغییر تنظیمات
 
-## Users and roles
+## کاربران و خروجی‌ها
 
-An authenticated user able to create, edit, and delete a test scenario was observed. Formal roles and sharing rules are unknown.
+کاربر سازمانی دارای کنترل‌های لازم می‌تواند سناریو بسازد، ضریب پیچیدگی یا استراتژی پرداخت را فعال کند، نتیجه را در ستون جداگانه مقایسه کند، سناریو را ویرایش و محاسبه مجدد کند یا با تأیید حذف کند. نقش‌ها و قواعد اشتراک‌گذاری نامشخص‌اند.
 
-## User outcomes
+## مفاهیم اصلی
 
-- Create an alternative scenario
-- Apply a complexity factor or payment strategy
-- Compare calculated results in a separate column
-- Revise and recalculate a scenario
-- Remove an obsolete scenario with confirmation
+### سناریو
 
-## Entry points
+مجموعه ذخیره‌شده‌ای از تنظیمات محاسبه جایگزین که به شکل ستون مقایسه نمایش داده می‌شود.
 
-- Scenario Analysis page
-- Scenario column and its overflow actions
+### تنظیم سناریو
 
-## Main concepts
+ورودی فعال‌شده برای محاسبه جایگزین؛ ضریب پیچیدگی و استراتژی پرداخت مشاهده شدند.
 
-### Scenario
+### ستون نتیجه سناریو
 
-A saved set of alternative calculation settings represented as a comparison column.
+خروجی مقایسه‌ای پایدار که پس از ذخیره و محاسبه ایجاد می‌شود.
 
-### Scenario setting
+### محاسبه مجدد
 
-An activated compensation input. Complexity factor and payment strategy were observed.
+به‌روزرسانی نتیجه سناریو پس از ذخیره تنظیمات ویرایش‌شده.
 
-### Scenario result column
+## جریان‌های اصلی
 
-The persisted comparison output produced after saving and calculating a scenario.
+### ساخت و محاسبه
 
-### Recalculation
+1. کاربر سناریوی جدید می‌سازد.
+2. ضریب پیچیدگی یا استراتژی پرداخت را فعال می‌کند.
+3. ذخیره و محاسبه را اجرا می‌کند.
+4. ستون مقایسه سناریو نمایش داده می‌شود.
 
-The update of scenario results after edited settings are saved.
+### ویرایش و محاسبه مجدد
 
-## Main flows
+1. سناریوی موجود دوباره باز می‌شود.
+2. تنظیم تغییر می‌کند.
+3. با ذخیره، نتیجه مجدداً محاسبه می‌شود.
 
-### Create and calculate a scenario
+### حذف
 
-1. Start a new scenario.
-2. Activate a complexity factor or payment strategy.
-3. Save and calculate.
-4. Review the new scenario comparison column.
+1. کاربر حذف را از overflow انتخاب می‌کند.
+2. warning حذف همه اطلاعات سناریو را می‌بیند.
+3. حذف را تأیید می‌کند.
 
-### Edit and recalculate
+## قوانین و وضعیت‌ها
 
-1. Reopen an existing scenario.
-2. Change its setting.
-3. Save.
-4. Review the recalculated result.
-
-### Delete a scenario
-
-1. Choose delete from the scenario overflow.
-2. Review the warning that all scenario information will be removed.
-3. Confirm deletion.
-4. Observe that the test scenario is removed.
-
-## Rules
-
-- A saved scenario creates a persistent comparison column.
-- Saving edits recalculates scenario results.
-- Deletion requires confirmation and removes all scenario information.
-
-## Permissions
-
-Create, edit, and delete were available to the observed user. Ownership, sharing, and role-specific restrictions are unknown.
-
-## States and transitions
+- سناریوی ذخیره‌شده یک ستون مقایسه پایدار می‌سازد.
+- ذخیره ویرایش باعث محاسبه مجدد می‌شود.
+- حذف به تأیید نیاز دارد و همه اطلاعات سناریو را پاک می‌کند.
 
 ```text
-Draft settings
-→ saved and calculated
-→ edited
-→ recalculated
-→ deleted after confirmation
+تنظیمات اولیه → ذخیره و محاسبه → ویرایش → محاسبه مجدد → حذف با تأیید
 ```
 
-## Validations
+## موارد نامشخص
 
-Required settings, valid ranges, conflicting combinations, and duplicate names were not tested.
+ترکیب چند filter و setting، چند سناریو، permission، اشتراک‌گذاری، محدودیت‌ها، failure، تاریخچه، concurrent edit و بازیابی پس از حذف تست نشده‌اند.
 
-## Edge cases
+## منابع
 
-- Multiple filters and settings used together
-- Multiple scenarios and ordering
-- Calculation failure or partial results
-- Concurrent edits
-- Deleted-scenario recovery
-- Scenario based on changed benchmark data
-
-## Related Product Areas
-
-- [Salary Benchmark](salary-benchmark.md)
-- [Team Compensation](team-compensation.md)
-
-## Known variations
-
-Complexity factor and payment strategy were visible settings; only a controlled single-scenario path was tested.
-
-## Unknowns and untested behavior
-
-Setting definitions, combination rules, permissions, sharing, limits, filters, failure behavior, history, and recovery after deletion.
-
-## Sources
-
-- Owner-accepted `WT-2026-008`: E-006 and E-007; recorded 2026-08-09 and treated as reviewed 2026-08-11
+- `WT-2026-008`: ادعاهای پذیرفته‌شده E-006 و E-007.
