@@ -237,13 +237,14 @@ Workflow: [`ai/knowledge-update.md`](ai/knowledge-update.md)
 
 ```text
 AI identifies missing or outdated knowledge
+→ eligible evidence is reconciled against the current product model
 → AI proposes exact document changes
 → the named owner reviews the proposal
 → the owner updates the document through a normal branch and PR
 → the manifest is regenerated
 ```
 
-Reviewed evidence packages from the separate `hosseinmor/product-walkthrough` project may be used as sources for this workflow. Walkthrough capture artifacts do not live in this repository.
+Reviewed evidence packages from the separate `hosseinmor/product-walkthrough` project may be used as sources for this workflow. Draft or unreviewed walkthrough evidence may inform investigation but must not establish canonical Product Knowledge. Walkthrough capture artifacts do not live in this repository.
 
 No release handoff or automated synchronization is required in the current model.
 
@@ -251,9 +252,33 @@ No release handoff or automated synchronization is required in the current model
 
 A Product Area is a meaningful and relatively independent part of a product that combines related user outcomes, flows, rules, permissions, states, validations, and edge cases.
 
-A Product Area is not merely a page, modal, component, Jira Epic, team, service, or one product change.
+A Product Area is not merely a page, modal, component, Jira Epic, team, service, walkthrough scope, navigation destination, or one product change.
+
+Product Area creation is a product-modeling decision made during knowledge reconciliation, not an automatic output of a walkthrough. One walkthrough may update several Product Areas, and several walkthroughs may contribute to one Product Area.
+
+Each Product Area should make its boundary clear: what it owns, what it does not own, where it hands off, and which shared concepts, services, or adjacent Product Areas it depends on.
 
 Keep flows inside the Product Area document by default. Split a large area into an overview and separate flow files only when the single document becomes difficult to understand or maintain.
+
+## Evidence and product truth
+
+Keep evidence, product decisions, and canonical Product Knowledge distinct.
+
+```text
+Owner-confirmed behavior or another authoritative product source
+→ may be documented as confirmed product behavior
+
+Reviewed production walkthrough evidence
+→ may be reconciled into Product Knowledge; if canonical policy is still unconfirmed, keep it explicitly observational
+
+Draft or unreviewed walkthrough evidence
+→ cannot establish canonical Product Knowledge
+
+Unknown, inferred, or untested behavior
+→ keep visible; do not present it as confirmed product truth
+```
+
+See [`ai/knowledge-update.md`](ai/knowledge-update.md) for the reconciliation taxonomy and evidence gate.
 
 ## Shared concepts and services
 
