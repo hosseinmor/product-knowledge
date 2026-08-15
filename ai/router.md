@@ -12,6 +12,33 @@ This file routes a user request to the smallest appropriate Skill or workflow. I
 
 ## Routes
 
+### Create, complete, structure, or review Product Knowledge from owner input
+
+Examples:
+
+- "این بخش محصول رو توضیح می‌دم، تبدیلش کن به Product Area"
+- "از این توضیحات Product Knowledge بساز"
+- "این Factها کدومش Area است و کدوم Concept؟"
+- "این Product Concept را با دانشی که می‌دم کامل کن"
+- "این Area را بررسی کن و knowledgeهای misplaced یا missing را مشخص کن"
+
+Route to:
+
+```text
+ai/skills/product-knowledge-authoring/SKILL.md
+```
+
+The Skill loads:
+
+```text
+ai/product-knowledge-authoring.md
+templates/product-area.md
+templates/shared-product-concept.md
+manifest.generated.json
+```
+
+Use this route when the main task is turning compact or free-form human product knowledge into the canonical Area/Concept structure. Do not require complete walkthrough coverage before producing a review draft.
+
 ### Create, complete, revise, or review a PRD
 
 Examples:
@@ -68,13 +95,14 @@ ai/design-start.md
 
 Do not route incomplete product definition to design-start when unresolved blocking product decisions should be handled through PRD writing first.
 
-### Update Product Knowledge
+### Update canonical Product Knowledge from reviewed evidence or approved decisions
 
 Examples:
 
-- Add newly approved product behavior
-- Correct outdated or contradictory documentation
-- Propose a focused update after research, PRD work, design, or a reviewed external evidence package
+- Apply newly approved product behavior to existing canonical docs
+- Correct outdated or contradictory documentation after owner resolution
+- Reconcile a reviewed walkthrough evidence package
+- Apply an already reviewed Product Knowledge authoring draft to the repository
 
 Route to:
 
@@ -82,9 +110,11 @@ Route to:
 ai/knowledge-update.md
 ```
 
+Use `product-knowledge-authoring` first when raw owner knowledge still needs to be interpreted, structured, or split between Area and Concept ownership.
+
 Do not silently update Product Knowledge as a side effect of another workflow. Present the proposed update separately and follow the normal owner-reviewed branch and pull-request process.
 
-Walkthrough capture and evidence review are maintained in the separate `hosseinmor/product-walkthrough` repository. This router handles only the later knowledge-update step after a reviewed evidence package is supplied.
+Walkthrough capture and evidence review are maintained in the separate `hosseinmor/product-walkthrough` repository. This router handles only later authoring or knowledge-update work after evidence or owner knowledge is available.
 
 ## Multiple intents
 
@@ -93,6 +123,11 @@ Use one primary route and sequence secondary work explicitly.
 Common sequences:
 
 ```text
+Owner explains current product behavior
+→ Primary: Product Knowledge Authoring Skill
+→ Owner reviews structured draft
+→ If approved for repository write: knowledge-update workflow
+
 Research needed for a PRD
 → Primary: PRD Skill
 → Supporting: research workflow
