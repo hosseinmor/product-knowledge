@@ -17,68 +17,167 @@ topics: []
 
 ## Overview
 
+Describe what meaningful product capability, outcome, or business process this Area covers. Do not turn this section into a Flow transcript.
+
 ## Boundaries
 
-### Owns
+Boundaries should be consistent with the full documented behavior. AI may derive them after understanding the Area, even though they appear near the beginning for readers.
 
-### Does not own
+### Includes
 
-### Hands off to
+### Does Not Include
 
-## Why this area exists
+## Why This Area Exists
 
-## Users and roles
+Describe the durable user or business value of this Area, not the history of one initiative.
 
-## User outcomes
+## Users & Roles
 
-## Entry points
+List the main Actors and contextual Roles involved in this Area.
 
-## Main concepts
+Do not model user states such as Anonymous / Logged-in or Plans / Segments such as Pro / Premium as Roles. Put their behavioral differences in Flow, Permissions, Business Rules, or Known Variations.
 
-Keep concepts local to this Product Area here. Promote a concept to `shared/product-concepts/` only when its identity, definition, lifecycle, or rules are genuinely shared across products.
+## User Outcomes
 
-## Main flows
+## Entry Points
+
+Use:
+
+```text
+[Surface] → [Action]
+```
+
+An Entry Point is the last surface outside the Area plus the action that enters Area behavior. Do not document the whole upstream journey. Multiple Entry Points may lead to the same Flow.
+
+## Main Concepts
+
+List the Concepts needed to understand this Area. Reference canonical Product Concepts when available. Do not redefine a Concept inside the Area.
+
+Use `[Candidate Concept]` when an important Concept appears to need a canonical definition but does not yet have one.
+
+# Product Behavior
+
+## Main Flows
+
+Describe behavior, not screens. Differentiate Flows by behavior rather than by the upstream journey that led to the same behavior.
 
 ### {Flow name}
 
-## Rules
+**Goal**  
 
-### Confirmed product behavior
+**Trigger**  
 
-Use this subsection for behavior confirmed by the named owner or another authoritative product source. Cite the supporting source in `Sources`.
+**Preconditions**
 
-### Observed but not yet confirmed
+- 
 
-Use this subsection for behavior observed in reviewed production walkthrough evidence but not yet confirmed as canonical policy. Keep scope and conditions explicit.
+**Steps**
 
-Do not promote narrated, inferred, draft, or unreviewed walkthrough claims into either subsection as product truth.
+1. 
+2. 
+3. 
+
+**Outcome**  
+
+### Alternate / Conditional Flow — {Condition}
+
+Use for a valid conditional path that can still reach the same Goal. Keep failures in `Error & Recovery`.
+
+## Business Rules
+
+Use for rules that govern behavior in this Area.
+
+Context-independent intrinsic rules of a Product Concept belong in that Concept and should not be duplicated here.
+
+```text
+BR-01 — [Rule]
+```
+
+- **BR-01** —
+
+### Data Behavior
+
+Use only when product-meaningful data behavior matters, such as persistence, reuse, prefill, synchronization, or retention. Do not document database or API implementation details.
 
 ## Permissions
 
-## States and transitions
+Use:
 
-## Validations
+```text
+[Action] → [Allowed Role / Permission / Eligibility]
+```
 
-## Edge cases
+## Relevant State Transitions
 
-## Dependencies
+Document only business transitions created, used, or controlled by this Area. Canonical State definitions and the full lifecycle belong in the Product Concept.
 
-### Shared concepts
+```text
+[State A] → [State B]
+Trigger: [Event / Action / Condition]
+```
 
-### Shared services
+A creation event is not automatically a State Transition. If the initial State is unknown, keep it in `Unknowns & Unverified Behavior` rather than guessing.
 
-### Upstream Product Areas
+## Validation
 
-### Downstream Product Areas
+Document conditions required for an input or action to be valid. Do not describe UI error presentation here.
 
-## Related Product Areas
+## Error & Recovery
 
-Use this for relevant peer areas that are not better expressed as an upstream/downstream dependency.
+### {Failure / Error}
 
-## Known variations
+**Behavior:**  
 
-## Unknowns and untested behavior
+**Recovery:**  
 
-## Sources
+Use this section when an operation fails or the normal path cannot continue.
 
-For each material source, make its authority clear where useful: owner-confirmed product decision, reviewed walkthrough evidence, production reference, research, analytics, Jira, Figma, or another canonical Product Knowledge document.
+## Edge Cases
+
+Record real, known, unusual domain conditions whose behavior is defined.
+
+Do not classify normal alternate branches, validation conditions, or ordinary retry behavior as Edge Cases. Do not generate hypothetical Edge Cases merely to fill the section.
+
+### {Edge Case}
+
+**Behavior:**  
+
+## Known Variations
+
+Use only when base behavior differs because of a relatively stable context such as Plan, Platform, Location, User Segment, Role, or Organization Type.
+
+Temporary Flow conditions such as incomplete data, authentication checks, or validation failures are not Known Variations.
+
+| Dimension | Context | Variation |
+| --- | --- | --- |
+|  |  |  |
+
+# Knowledge & References
+
+## Related Knowledge
+
+List Product Areas, Product Concepts, or Services that materially help readers navigate adjacent knowledge.
+
+Do not duplicate semantic relationships between Concepts here; those belong in the Product Concept.
+
+## Unknowns & Unverified Behavior
+
+Do not guess when current behavior is unclear.
+
+### {Unknown}
+
+**What is unclear?**  
+
+**Why is it unverified?**  
+
+**How can it be verified?**  
+
+## Sources & Evidence
+
+List material sources used to write or verify this Area and make source authority clear when useful.
+
+- Production / Walkthrough:
+- Figma:
+- Existing documentation:
+- Jira / PRD:
+- Other:
