@@ -1,6 +1,6 @@
 # Product Knowledge
 
-This repository provides the product context that humans and AI need for product research, PRD writing, and design.
+This repository provides the product context that humans and AI need for product research, Product Knowledge authoring, PRD writing, and design.
 
 ## AI starting point
 
@@ -14,7 +14,7 @@ ai/router.md
 → Intent routing to the appropriate Skill or workflow
 ```
 
-After one-time tool setup, users should be able to provide a problem or files and state the desired outcome without pasting repository paths or a long routing prompt. See [`docs/ai-tool-setup.md`](docs/ai-tool-setup.md).
+After one-time tool setup, users should be able to provide a problem, product knowledge, or files and state the desired outcome without pasting repository paths or a long routing prompt. See [`docs/ai-tool-setup.md`](docs/ai-tool-setup.md).
 
 The active knowledge model is intentionally small:
 
@@ -26,10 +26,10 @@ Product Overview
 → What one product is, who it serves, its boundaries, and its main areas
 
 Product Area
-→ How one meaningful part of a product works
+→ Where meaningful product behavior happens around an outcome, capability, or business process
 
-Shared Product Concept
-→ A business concept or rule that is genuinely shared across products
+Product Concept
+→ What a business entity, actor, or concept means and what is intrinsically true about it
 
 Shared Product Service
 → A durable cross-product service used by several products
@@ -73,13 +73,13 @@ products/
         └── areas/
 ```
 
-`Jobvision` and `Cando` are Product Groups. Candidate, Employer, ATS, Pulse, Onboarding, and Learning are Products. Detailed behavior belongs in Product Areas inside those products.
+`Jobvision` and `Cando` are Product Groups. Candidate, Employer, ATS, Pulse, Onboarding, and Learning are Products. Detailed contextual behavior belongs in Product Areas inside those products.
 
 ## Shared structure
 
 ```text
 shared/product-concepts/
-→ Business definitions and rules shared across products
+→ Canonical business definitions, attributes, relationships, intrinsic rules, and lifecycle used across multiple Product Areas
 
 shared/product-services/
 → Cross-product services such as AI-powered fit or matching services
@@ -93,6 +93,34 @@ shared/content/
 shared/product-standards/
 → Cross-product product and documentation standards
 ```
+
+A Product Concept does not need to be used by different products before it becomes useful as a canonical Concept. Reuse across multiple Product Areas, independent business meaning, intrinsic rules, relationships, or lifecycle can justify promotion. The current repository stores promoted canonical Concepts under `shared/product-concepts/`.
+
+## Core Area / Concept ownership rule
+
+Use this distinction throughout the repository:
+
+```text
+Meaning and intrinsic truth of a thing
+→ Product Concept
+
+Behavior of things in a context
+→ Product Area
+```
+
+Examples:
+
+```text
+Application connects a Candidate to a Job Post
+→ Application Product Concept
+
+After successful Apply, an Application is created
+→ Candidate Apply Product Area
+```
+
+Attribute existence and meaning belong in Product Concepts; context-dependent requiredness or validation belongs in Product Areas. Canonical States and lifecycle belong in Product Concepts; transitions created or controlled by one Area belong in that Area.
+
+Do not duplicate canonical Concept definitions or intrinsic rules inside Product Areas.
 
 ## AI product team placement
 
@@ -129,7 +157,7 @@ products/
 → Product Group overviews, Product overviews, and product-specific areas
 
 shared/product-concepts/
-→ Business concepts shared across products
+→ Canonical Product Concepts
 
 shared/product-services/
 → Durable services shared across products
@@ -141,7 +169,7 @@ shared/content/
 → Shared content and language guidance
 
 templates/
-→ Simple templates for Product Groups, Products, Product Areas, Shared Concepts, Shared Services, and Jira PRD
+→ Simple templates for Product Groups, Products, Product Areas, Product Concepts, Shared Services, and Jira PRD
 
 ai/
 → Intent routing, workflow guidance, and active lightweight Skills for recurring AI-assisted product work
@@ -163,7 +191,7 @@ topics
 related IDs
 ```
 
-Then it should read only the relevant Product Group Overview, Product Overview, Product Areas, Shared Product Concepts, Shared Product Services, Design System documents, and content guidance.
+Then it should read only the relevant Product Group Overview, Product Overview, Product Areas, Product Concepts, Shared Product Services, Design System documents, and content guidance.
 
 Commands:
 
@@ -178,6 +206,27 @@ Any change to indexed documents must include the regenerated manifest. CI checks
 See [`docs/manifest.md`](docs/manifest.md).
 
 ## Main use cases
+
+### Product Knowledge authoring
+
+Workflow: [`ai/product-knowledge-authoring.md`](ai/product-knowledge-authoring.md)  
+Skill: [`ai/skills/product-knowledge-authoring/SKILL.md`](ai/skills/product-knowledge-authoring/SKILL.md)  
+Templates: [`templates/product-area.md`](templates/product-area.md), [`templates/shared-product-concept.md`](templates/shared-product-concept.md)
+
+The owner does not need to fill the complete canonical template manually.
+
+```text
+Short or free-form owner knowledge
++ current Product Knowledge selected through the manifest
++ optional supporting sources
+→ Product Knowledge Authoring Skill classifies Area vs Concept ownership
+→ AI creates a structured review draft and derives boundaries
+→ owner corrects missing or wrong product knowledge
+→ AI normalizes the final draft
+→ approved changes use the normal knowledge-update workflow
+```
+
+This flow is intentionally owner-knowledge-first while walkthrough coverage is incomplete. AI should not treat sparse evidence as sufficient to reconstruct undocumented product behavior.
 
 ### Research
 
@@ -236,12 +285,12 @@ Approved Jira PRD
 Workflow: [`ai/knowledge-update.md`](ai/knowledge-update.md)
 
 ```text
-AI identifies missing or outdated knowledge
-→ eligible evidence is reconciled against the current product model
+Reviewed owner knowledge, approved decision, or eligible evidence
+→ claims are reconciled against the current product model
 → AI proposes exact document changes
 → the named owner reviews the proposal
-→ the owner updates the document through a normal branch and PR
-→ the manifest is regenerated
+→ approved changes are applied through a normal branch and PR
+→ the manifest is regenerated when indexed documents change
 ```
 
 Reviewed evidence packages from the separate `hosseinmor/product-walkthrough` project may be used as sources for this workflow. Draft or unreviewed walkthrough evidence may inform investigation but must not establish canonical Product Knowledge. Walkthrough capture artifacts do not live in this repository.
@@ -250,45 +299,59 @@ No release handoff or automated synchronization is required in the current model
 
 ## Product Area rule
 
-A Product Area is a meaningful and relatively independent part of a product that combines related user outcomes, flows, rules, permissions, states, validations, and edge cases.
+A Product Area is a meaningful and relatively independent part of a product around an outcome, capability, or business process whose behavior is described through flows, rules, actors, permissions, validations, relevant state transitions, errors/recovery, and variations.
 
 A Product Area is not merely a page, modal, component, Jira Epic, team, service, walkthrough scope, navigation destination, or one product change.
 
-Product Area creation is a product-modeling decision made during knowledge reconciliation, not an automatic output of a walkthrough. One walkthrough may update several Product Areas, and several walkthroughs may contribute to one Product Area.
+Product Area creation is a product-modeling decision. One walkthrough or owner explanation may update several Product Areas, and several sources may contribute to one Product Area.
 
-Each Product Area should make its boundary clear: what it owns, what it does not own, where it hands off, and which shared concepts, services, or adjacent Product Areas it depends on.
+Each Product Area should make its boundary clear through `Includes` and `Does Not Include`, and should reference adjacent Product Areas or Concepts without claiming their behavior.
 
 Keep flows inside the Product Area document by default. Split a large area into an overview and separate flow files only when the single document becomes difficult to understand or maintain.
 
+## Product Concept rule
+
+A Product Concept is a business entity, actor, or concept with independent meaning that may be used in several Product Areas and may have its own attributes, relationships, intrinsic rules, states, or lifecycle.
+
+Do not create a Product Concept for every noun. Promote a Concept when an independent canonical definition materially reduces ambiguity or duplication, especially when:
+
+- it is used across multiple Product Areas;
+- it has important business/product attributes;
+- it has semantic relationships to other Concepts;
+- it has intrinsic rules or lifecycle;
+- changes to its definition would affect multiple Areas.
+
+Product Areas own what happens to a Concept in a context. Product Concepts own what the Concept means and what is intrinsically true about it.
+
 ## Evidence and product truth
 
-Keep evidence, product decisions, and canonical Product Knowledge distinct.
+Keep evidence, owner knowledge, product decisions, and canonical Product Knowledge distinct.
 
 ```text
-Owner-confirmed behavior or another authoritative product source
-→ may be documented as confirmed product behavior
+Explicit knowledge confirmed by the responsible owner
+→ eligible for canonical Product Knowledge after review
 
 Reviewed production walkthrough evidence
-→ may be reconciled into Product Knowledge; if canonical policy is still unconfirmed, keep it explicitly observational
+→ eligible supporting evidence; do not generalize beyond what the evidence and owner review support
 
 Draft or unreviewed walkthrough evidence
 → cannot establish canonical Product Knowledge
 
-Unknown, inferred, or untested behavior
+Unknown, inferred, contradictory, or untested behavior
 → keep visible; do not present it as confirmed product truth
 ```
 
 See [`ai/knowledge-update.md`](ai/knowledge-update.md) for the reconciliation taxonomy and evidence gate.
 
-## Shared concepts and services
+## Product Concepts and services
 
-When the same business concept appears in more than one product:
+Use this placement model:
 
 ```text
-Shared definition, data, lifecycle, or rule
+Canonical definition, attributes, relationships, intrinsic rules, or lifecycle reused across Product Areas
 → shared/product-concepts/
 
-Product-specific behavior, outcomes, permissions, and flows
+Contextual behavior, outcomes, permissions, validations, and flows
 → products/{group}/{product}/areas/
 
 Cross-product service behavior
@@ -298,7 +361,7 @@ Reusable UI behavior
 → shared/design-system/
 ```
 
-`Job Post`, `Application`, `Resume`, and `Company` are documented Shared Product Concepts. Product-specific management and experience remain in separate Product Areas.
+`Job Post`, `Application`, `Resume`, and `Company` are currently documented canonical Product Concepts. Product-specific management and experience remain in separate Product Areas.
 
 ## Document status
 

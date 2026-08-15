@@ -23,6 +23,9 @@ See [`../docs/ai-tool-setup.md`](../docs/ai-tool-setup.md) for repository-connec
 The active workflows are:
 
 ```text
+product-knowledge-authoring.md
+→ Turn compact or free-form owner knowledge into a structured Product Area or Product Concept review draft
+
 research.md
 → Use internal Product Knowledge before external research or benchmarking
 
@@ -33,20 +36,39 @@ design-start.md
 → Use the approved Jira PRD, Product Knowledge, shared services, and Design System to prepare an initial design draft
 
 knowledge-update.md
-→ Propose focused Product Knowledge changes for review and manual update by the named owner
+→ Apply reviewed and approved Product Knowledge changes through the normal repository update process
 ```
 
 Workflow files define the correct process. They are not Product Knowledge documents and are not mandatory sequential stages.
 
-Product walkthrough capture and evidence review are maintained separately in `hosseinmor/product-walkthrough`. Only a reviewed evidence package should enter this repository through the normal knowledge-update workflow.
+Product walkthrough capture and evidence review are maintained separately in `hosseinmor/product-walkthrough`. Product Knowledge authoring does not require complete walkthrough coverage when the responsible owner can provide current product knowledge, but sparse evidence must never be treated as permission to invent missing behavior.
 
 ## Skills
 
-The first active lightweight Skill is:
+The active lightweight Skills are:
 
 ```text
+skills/product-knowledge-authoring/SKILL.md
+→ Turns short owner input into a reviewable Product Area or Product Concept and routes facts to the correct canonical owner
+
 skills/prd-writing/SKILL.md
 → Activates and orchestrates PRD creation, revision, or review
+```
+
+The Product Knowledge Authoring Skill uses:
+
+```text
+ai/product-knowledge-authoring.md
+→ Authoring and classification process contract
+
+templates/product-area.md
+→ Product Area output contract
+
+templates/shared-product-concept.md
+→ Product Concept output contract
+
+manifest.generated.json
+→ Product Knowledge retrieval
 ```
 
 The PRD Skill uses:
@@ -78,6 +100,6 @@ The previous complex skill-based workflow model is preserved only in:
 archive/product-knowledge-v1-2026-07-27
 ```
 
-The active PRD Skill does not restore the old Initiative workspace, release handoff, or complex document taxonomy.
+The active Skills do not restore the old Initiative workspace, release handoff, or complex document taxonomy.
 
 Add a new workflow or Skill only when a repeated need cannot be handled clearly by the existing set.
