@@ -1,6 +1,28 @@
 # Templates
 
-The active Product Knowledge model uses these simple templates:
+The repository uses two kinds of templates:
+
+```text
+Owner intake
+→ Lightweight input used to capture human product knowledge
+
+Canonical output
+→ Final Product Knowledge or Jira structure produced after AI classification and review
+```
+
+## Owner intake template
+
+```text
+product-area-owner-input.md
+```
+
+`product-area-owner-input.md` is a lightweight, owner-facing document for capturing current knowledge about one Product Area without requiring the owner to understand the canonical Product Area or Product Concept schema.
+
+It is **not canonical Product Knowledge** and is not indexed by the manifest. AI uses it as input, asks only material follow-up questions, then maps the knowledge into `product-area.md` and relevant Product Concepts.
+
+Because Owner Input is intentionally structure-light, it should remain useful even if the canonical Product Knowledge model is revised later.
+
+## Canonical Product Knowledge templates
 
 ```text
 product-group-overview.md
@@ -8,15 +30,12 @@ product-overview.md
 product-area.md
 shared-product-concept.md
 shared-product-service.md
-jira-prd.md
 ```
-
-## Product Knowledge templates
 
 - `product-group-overview.md` describes a product group such as Jobvision or Cando and lists its products.
 - `product-overview.md` describes one product and its main Product Areas.
 - `product-area.md` describes one meaningful capability, outcome, or business process in a product. It owns contextual behavior: flows, rules, permissions, validations, relevant state transitions, errors/recovery, and variations.
-- `shared-product-concept.md` is the canonical Product Concept template for a business entity, actor, or concept whose definition, attributes, relationships, intrinsic rules, or lifecycle need an independent definition across multiple Product Areas. Promoted concepts are currently stored under `shared/product-concepts/`.
+- `shared-product-concept.md` is the canonical Product Concept template for a business entity, actor, or concept whose definition, attributes, relationships, intrinsic rules, or lifecycle need an independent definition across Product Areas. Promoted concepts are currently stored under `shared/product-concepts/`.
 - `shared-product-service.md` describes a durable cross-product service, such as an AI fit or matching service.
 
 Mental model:
@@ -31,7 +50,7 @@ Product Concept
 
 Do not duplicate canonical Concept definitions or intrinsic rules inside Product Areas. Product Areas reference Concepts and document what happens to them in that context.
 
-These templates include lightweight YAML frontmatter for the AI retrieval manifest:
+Canonical templates include lightweight YAML frontmatter for the AI retrieval manifest:
 
 ```text
 id
@@ -49,12 +68,14 @@ topics
 
 Keep `summary` short and specific. Use `topics` for terms AI is likely to search. Use `related` only for direct relationships that materially help retrieval.
 
-After creating or updating an indexed document, run:
+After creating or updating an indexed canonical document, run:
 
 ```bash
 python scripts/generate_manifest.py generate
 python scripts/generate_manifest.py check
 ```
+
+The Owner Input template does not require manifest regeneration because it is not an indexed Product Knowledge document.
 
 ## Jira PRD template
 
