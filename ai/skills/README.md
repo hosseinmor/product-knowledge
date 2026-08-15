@@ -18,6 +18,9 @@ Skill
 ## Active skills
 
 ```text
+product-knowledge-authoring/SKILL.md
+→ Turns compact or free-form owner knowledge into a reviewable Product Area or Product Concept using current Product Knowledge, the authoring workflow, and canonical templates
+
 prd-writing/SKILL.md
 → Creates, revises, or reviews a Jira-ready PRD using Product Knowledge, the manifest, `ai/prd-writing.md`, and `templates/jira-prd.md`
 ```
