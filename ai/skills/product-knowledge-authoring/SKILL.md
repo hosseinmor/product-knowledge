@@ -1,35 +1,35 @@
 ---
 name: product-knowledge-authoring
-description: Turn short or free-form product-owner knowledge into a reviewable Product Area or Product Concept using the repository's canonical Product Knowledge, authoring workflow, templates, and retrieval manifest.
+description: Turn Product Area Owner Input or a natural-language owner conversation into a reviewable Product Area and correctly routed Product Concept knowledge using the repository's authoring workflow and canonical templates.
 ---
 
 # Product Knowledge Authoring
 
 ## Purpose
 
-Turn compact, natural-language owner input into structured Product Knowledge without requiring the owner to complete the full canonical template manually.
+Turn compact owner knowledge into structured Product Knowledge without requiring the owner to complete the full canonical Product Area or Product Concept template manually.
 
-This Skill is intentionally owner-knowledge-first. It assumes walkthrough and evidence coverage may be incomplete, so AI should structure and classify knowledge rather than pretend it can reconstruct the product from sparse evidence.
+The default authoring path is owner-knowledge-first. Walkthrough and repository coverage may be incomplete, so AI should structure, classify, and ask focused product questions rather than reconstruct undocumented behavior from sparse evidence.
 
-AI performs retrieval, classification, Area/Concept ownership, drafting, gap detection, boundary derivation, and normalization. The responsible human supplies tacit product knowledge, resolves conflicts, and approves the canonical result.
+AI performs classification, Area/Concept ownership, focused follow-up, drafting, gap detection, boundary derivation, and normalization. The responsible human supplies current product knowledge, resolves conflicts, and approves the final result.
 
 ## Activate this skill when
 
 The user asks to:
 
-- Create a Product Area from short notes or a product-owner explanation
+- Create a Product Area from `Product Area Owner Input`
+- Create a Product Area from a product-owner explanation or conversation
+- Turn unstructured PM/owner notes into Product Knowledge
 - Create or complete a Product Concept from raw product knowledge
-- Turn unstructured PM/owner notes into canonical Product Knowledge
 - Review a Product Area or Product Concept for wrong classification, duplication, missing knowledge, or Area/Concept ownership
-- Convert a mixed set of product facts into the correct Area and Concept destinations
-- Reduce the amount of template-filling required from a product owner
+- Convert mixed product facts into the correct Area and Concept destinations
 
 Typical requests include:
 
-- "این بخش محصول رو توضیح می‌دم، تبدیلش کن به Product Area"
-- "از این توضیحات Product Knowledge بساز"
+- "این Owner Input رو تبدیل کن به Product Area"
+- "می‌خوام Product Area مربوط به Candidate Apply رو مستند کنیم"
+- "این بخش محصول رو توضیح می‌دم، ازم سؤال‌های لازم رو بپرس و Area رو بساز"
 - "این Factها کدومش Area است و کدوم Concept؟"
-- "این Concept رو با توجه به اطلاعاتی که می‌دم کامل کن"
 
 ## Do not activate this skill for
 
@@ -48,6 +48,9 @@ Always use these files as contracts:
 ai/product-knowledge-authoring.md
 → Authoring and classification workflow
 
+templates/product-area-owner-input.md
+→ Owner-facing intake guide; useful for a filled document or conversational interview
+
 templates/product-area.md
 → Product Area output contract
 
@@ -55,47 +58,77 @@ templates/shared-product-concept.md
 → Product Concept output contract
 
 manifest.generated.json
-→ Retrieval entry point
+→ Retrieval entry point for reviewed Product Knowledge
 ```
 
 Read `README.md` when product hierarchy or repository placement matters.
 
-Load `ai/knowledge-update.md` only when the user asks to apply the reviewed result to canonical repository files.
+Load `ai/knowledge-update.md` only when the user asks to apply an approved result to canonical repository files.
+
+## Owner experience
+
+The owner should not need to understand the canonical document structure.
+
+The intended experience is:
+
+```text
+Owner names the Product Area
+→ Owner fills Product Area Owner Input or explains the product in their own words
+→ AI asks only material product questions
+→ AI produces Product Area draft and routes Concept knowledge
+→ Owner corrects / approves
+→ AI normalizes the final draft
+```
+
+Do not ask the owner to fill sections such as `Permissions`, `State Transitions`, `Main Concepts`, or `Boundaries` in canonical terminology.
+
+Ask about the product itself.
+
+Bad follow-up:
+
+> لطفاً بخش Known Variations را کامل کنید.
+
+Good follow-up:
+
+> آیا رفتار این Flow برای Plan یا نوع کاربر خاصی متفاوت است؟ اگر بله، چه تفاوتی دارد؟
 
 ## Minimum input
 
 Do not require a full form.
 
-Obtain from the conversation, supplied notes, or the owner only enough to identify:
+Obtain from the conversation, supplied Owner Input, or the owner only enough to identify:
 
 - Product context
-- The subject being documented
-- Some actual product knowledge about its behavior or meaning
+- The Product Area or subject being documented
+- Some actual current product knowledge about its behavior or meaning
 
 Free-form input is acceptable.
 
-Useful but optional owner input includes:
+The Owner Input template asks about:
 
-- Main flows
+- What the Area does
+- Main behavior / flows
 - Important rules and limits
-- Eligibility or permission conditions
-- Variations by stable context
-- Real exceptions
+- Important behavioral differences
+- Real unusual/failure cases
 - Unknowns
-- Sources or links
+- Sources or knowledgeable people
 
-Do not ask the owner to restate information already available in the conversation or current Product Knowledge.
+The owner may leave sections empty when they do not know or do not apply.
 
 ## Source handling
 
 Treat source roles explicitly:
 
-1. Current `main` Product Knowledge → current canonical model and terminology
-2. Explicit responsible-owner input → proposed current product truth for the draft
-3. Supplied evidence or links → supporting evidence with its original authority
-4. External research → only when explicitly requested and never as internal product truth
+1. Explicit responsible-owner input → primary proposed current product truth for the authoring draft
+2. `status: reviewed` Product Knowledge on `main` → trusted current canonical context
+3. Supplied reviewed evidence or other authoritative sources → supporting evidence with their original authority
+4. `status: draft` Product Knowledge → not current truth; ignore by default during authoring unless the user explicitly asks to inspect it for history, conflicts, or recovery of prior notes
+5. External research → only when explicitly requested and never as internal product truth
 
-When current Product Knowledge and owner input conflict, preserve the conflict and ask for resolution if it materially affects the draft. Never silently choose one.
+Do not let a clean-looking draft document override explicit owner knowledge merely because it is already in the repository.
+
+When reviewed Product Knowledge and owner input conflict, preserve the conflict and ask for resolution when it materially affects the result. Never silently choose one.
 
 Sparse evidence is not permission to fabricate missing behavior.
 
@@ -103,7 +136,7 @@ Sparse evidence is not permission to fabricate missing behavior.
 
 ### 1. Load contracts and choose mode
 
-Read the workflow, both canonical templates, and the manifest.
+Read the workflow, Owner Input guide, both canonical templates, and the manifest.
 
 Choose one primary mode:
 
@@ -115,17 +148,19 @@ Mixed intake
 
 Use the workflow's ownership rules rather than the user's wording alone.
 
-### 2. Retrieve only relevant current Product Knowledge
+### 2. Retrieve only trusted relevant context
 
-Use the manifest to read the smallest relevant set of current documents needed to understand:
+Use the manifest to find the smallest relevant set of `status: reviewed` Product Knowledge needed to understand:
 
 - Established naming
-- Existing Area boundaries
-- Existing Concepts
-- Potential duplicate knowledge
-- Adjacent behavior
+- Existing reviewed Area boundaries
+- Existing reviewed Concepts
+- Potential duplicate canonical knowledge
+- Trusted adjacent behavior
 
-Do not scan the full repository by default.
+Do not use draft Areas or Concepts as product truth by default.
+
+Do not scan the full repository.
 
 ### 3. Interpret owner input without forcing template language
 
@@ -155,7 +190,26 @@ Also enforce:
 - Temporary flow condition ≠ Known Variation
 - Normal alternate path/retry ≠ Edge Case
 
-### 4. Draft the semantic model before deriving boundaries
+### 4. Ask focused follow-up questions only when material
+
+Before drafting, identify missing information that can materially change the Area model.
+
+Prioritize gaps about:
+
+- Main Flow or outcome
+- Important Business Rule or limit
+- Eligibility / Permission
+- Important stable-context variation
+- Real exception, failure, or recovery behavior
+- A material ambiguity that changes Area vs Concept ownership
+
+Ask questions about the product, not about template sections.
+
+By default, ask one focused batch of no more than five material questions. If more low-confidence gaps remain, keep them as Unknowns instead of turning the interaction into a long interview.
+
+Do not ask questions whose answers are already present in the Owner Input, current conversation, or trusted reviewed Product Knowledge.
+
+### 5. Draft the semantic model before deriving boundaries
 
 For Product Areas, understand flows, rules, actors, concepts, validations, transitions, variations, errors, and adjacent areas first.
 
@@ -165,11 +219,11 @@ Display Boundaries near the beginning because they help readers, even though AI 
 
 For Product Concepts, understand definition, business meaning, attributes, relationships, intrinsic rules, lifecycle, and meaningful variants before deriving boundaries and terminology.
 
-### 5. Produce the canonical review draft
+### 6. Produce the canonical review draft
 
-Use the matching template.
+Use the matching canonical template.
 
-Do not require the owner to manually provide sections AI can derive from supplied knowledge and current context, such as:
+Do not require the owner to manually provide sections AI can derive from supplied knowledge and trusted context, such as:
 
 - Overview
 - Boundaries
@@ -181,27 +235,23 @@ Do not require the owner to manually provide sections AI can derive from supplie
 
 Do not fill substantive missing behavior merely because the template contains a section.
 
-If raw input contains facts owned by another document, move them conceptually rather than duplicating them. Return a short `Knowledge routing` note showing the affected destination when useful.
+If raw input contains facts owned by another document, route them conceptually rather than duplicating them. Return a short `Knowledge routing` note showing the affected destination when useful.
 
-### 6. Run a focused owner-review pass
+### 7. Run the owner-review pass
 
-After producing a useful draft, surface only high-value gaps or corrections.
+Return the useful draft first.
 
-Prioritize questions such as:
+Then surface only high-value corrections or unresolved Unknowns, for example:
 
-- Is a main Flow missing?
-- Is an important rule or limit missing?
-- Are there permission or eligibility conditions the sources cannot reveal?
-- Does behavior differ by Plan, Platform, Role, Segment, Location, or another stable context?
-- Is a real exception missing?
-- Is an AI-derived boundary wrong?
-- Which Unknowns can the owner resolve now?
+- A potentially missing important Flow
+- A rule or limit that still needs confirmation
+- An AI-derived boundary that needs owner confirmation
+- A Concept candidate that may need canonical definition
+- A conflict with reviewed Product Knowledge
 
 Do not turn review into another full template form.
 
-When no blocking clarification is needed, deliver the draft first and include the focused review items after it.
-
-### 7. Reconcile corrections
+### 8. Reconcile corrections
 
 When the owner responds:
 
@@ -212,7 +262,7 @@ When the owner responds:
 - Keep unresolved contradictions visible
 - Preserve unknowns rather than guessing
 
-### 8. Canonical write only after approval
+### 9. Canonical write only after approval
 
 The authoring draft is not canonical until the responsible human approves it.
 
@@ -230,8 +280,8 @@ For a normal authoring request, return:
 
 1. The reviewable Product Area or Product Concept draft using the canonical template
 2. `Knowledge routing` only when facts belong in other Areas/Concepts or a Candidate Concept emerged
-3. Important conflicts with current Product Knowledge
-4. Focused owner-review questions / remaining Unknowns
+3. Important conflicts with reviewed Product Knowledge
+4. Remaining material Unknowns
 5. Sources used
 
 For a mixed intake, return the primary requested document first, then a compact routing list for other affected canonical destinations.
@@ -244,6 +294,7 @@ Before delivery, verify that:
 
 - No unsupported product behavior was invented.
 - Owner input was not lost merely because it did not match template wording.
+- Draft Product Knowledge was not used as canonical truth.
 - Area behavior and Concept truth are not duplicated.
 - Main Concepts are referenced rather than redefined inside Areas.
 - Intrinsic Concept rules are not rewritten as Area rules.
@@ -260,7 +311,7 @@ Before delivery, verify that:
 
 Humans are responsible for:
 
-- Supplying tacit current product knowledge when sources are incomplete
+- Supplying tacit current product knowledge when trusted sources are incomplete
 - Resolving contradictions
 - Confirming important rules, exceptions, and boundaries
 - Approving final canonical Product Knowledge
@@ -269,8 +320,9 @@ Humans are responsible for:
 
 - Do not make the owner fill the complete canonical template unless they explicitly want to.
 - Do not assume AI-generated completeness from sparse walkthrough or repository evidence.
+- Do not treat `status: draft` Product Knowledge as current truth by default.
 - Do not invent a Product Concept solely to fill a template slot.
 - Do not create competing definitions of the same Concept in multiple Areas.
-- Do not silently overwrite current Product Knowledge.
+- Do not silently overwrite reviewed Product Knowledge.
 - Do not update canonical repository content as a side effect of drafting.
 - Keep this Skill as orchestration; detailed classification rules belong in `ai/product-knowledge-authoring.md` and document structure belongs in the templates.
