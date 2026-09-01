@@ -17,9 +17,11 @@ related: []
 |---|---|
 | Standard modal | Primary + Ghost |
 | Modal with a valid alternative | Primary + Tertiary |
-| Accent conversion modal | Accent + Ghost |
-| Accent modal with a valid alternative | Accent + Tertiary |
+| Approved Brand conversion modal | Brand + Ghost |
+| Brand conversion modal with a valid alternative | Brand + Tertiary |
 | Destructive confirmation | Danger Filled + Ghost |
+
+`Brand` is used only when the modal action is an approved product conversion or product-defining moment. Do not use Brand merely because the modal contains the visually strongest action; ordinary confirmation remains Primary.
 
 ## Cancel
 
@@ -36,6 +38,8 @@ A modal may contain both a Close icon and a Cancel Button when both behaviors ar
 ## Risk and Data Loss
 
 When closing or cancelling causes data loss, show an explicit confirmation. Do not rely on Button appearance alone.
+
+A destructive confirmation may include a `surface/danger-muted` callout when the interface needs a persistent pre-action explanation of irreversible consequences. Danger communicates destructive intent; it is not an Error state.
 
 ## Related Documents
 

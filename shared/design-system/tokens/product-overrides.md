@@ -13,6 +13,10 @@ related: []
 
 > Status: draft
 
+## Scope
+
+This document describes product variation in the v4 **Color token system**. It does not define product modes for Typography, Spacing, Radius, Elevation, or Motion.
+
 ## Brand modes
 
 The Brand collection has two modes:
@@ -61,7 +65,9 @@ Products select Brand and Semantic modes independently:
 | JobVision employer panel | Jobvision | Light or Dark when supported |
 | Cando ATS | Cando | Light or Dark |
 
-Productive/Expressive is no longer a token mode in v4. Those concepts may still guide composition, density, and visual expression outside the color alias graph.
+Productive/Expressive is no longer a Color token mode in v4.
+
+Existing Figma component names that still contain `Productive` are legacy naming references unless the component explicitly documents another active non-color design dimension. A future density/expression model, if needed, must define its own contract instead of being inferred from old Color modes.
 
 ## Brand usage
 
@@ -83,7 +89,7 @@ When JobVision appears explicitly inside Cando, do not rely on blue hue alone to
 
 ## Constraints
 
-- Components consume Semantic tokens by default.
+- Components consume Semantic Color tokens by default.
 - Product names do not enter Semantic token names.
 - Brand modes do not contain general surfaces, selection, feedback, focus, or Accent roles.
 - Light/Dark does not become a Brand mode.

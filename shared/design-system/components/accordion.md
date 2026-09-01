@@ -78,7 +78,7 @@ The full header row is interactive. The Chevron is only a visual indicator and m
 | Medium | 40 px | 16 px | 8 px | 16 px | 16 px |
 | Small | 32 px | 16 px | 4 px | 16 px | 16 px |
 
-The title uses the shared `body-01` typography style, currently 14 px with a 24 px line height.
+The current Figma component uses the legacy `body-01` typography reference, currently 14 px with a 24 px line height. `body-01` is **not** a canonical v4 token name. Final Accordion typography must be rebound to the approved `type.*` typography vocabulary when the shared typography mapping is finalized.
 
 The listed heights are minimums. A long title may wrap and increase the header height. Do not truncate a title when the missing text would make the section unclear.
 
@@ -105,8 +105,8 @@ Medium and Small are intended for dense desktop interfaces. If either size is us
 | State | Background | Foreground | Divider | Behavior |
 |---|---|---|---|---|
 | Enabled | Transparent | Normal | Visible | Can expand or collapse |
-| Hover | `surface-transparent-hover` | Normal | Visible | Pointer feedback on the Header trigger |
-| Active | `surface-transparent-active` | Normal | Visible | Press feedback while the trigger is activated |
+| Hover | `surface/transparent-hover` | Normal | Visible | Pointer feedback on the Header trigger |
+| Active | `surface/transparent-active` | Normal | Visible | Press feedback while the trigger is activated |
 | Focus | Transparent | Normal | Visible | Shows the keyboard focus ring |
 | Disabled | Transparent | Disabled | Structural divider remains visible | Cannot expand or collapse |
 | Skeleton | Skeleton treatment | No readable content | Structural divider may remain visible | Non-interactive loading representation |
@@ -123,9 +123,11 @@ The planned Focus treatment must:
 
 - Apply to the Header trigger, not the expanded content panel
 - Use a non-layout-affecting `box-shadow` or equivalent focus ring
-- Use `focus-default` on normal surfaces
-- Use `focus-inverse` on inverse surfaces
+- Use `focus/default` on normal surfaces
+- Use `focus/inverse` only when Accordion is intentionally supported on an inverse surface
 - Remain visible in both Light and Dark modes
+
+`focus/inverse` does not by itself establish that every Accordion variant is supported on `surface/inverse`; the component's inverse support must remain explicit.
 
 Exact shadow offset, spread, and layering remain open until the Figma component is updated.
 
@@ -190,11 +192,13 @@ Avoid deeply nesting Accordions. If content needs multiple disclosure levels, re
 
 ## Semantic Token Mapping
 
-Accordion does not require component-specific color tokens. It consumes Semantic tokens directly.
+Accordion does not require component-specific Color tokens. It consumes Semantic Color tokens directly.
+
+The implementation mapping for slash-grouped variables is still open. Flattened identifiers in the tables below are **proposed/illustrative code names**, not a production contract.
 
 ### Normal surfaces
 
-| Element or state | Figma variable | Code token |
+| Element or state | Figma variable | Proposed flattened code name |
 |---|---|---|
 | Title | `fg/primary` | `fg-primary` |
 | Chevron | `fg/primary` | `fg-primary` |
@@ -208,13 +212,13 @@ Accordion does not require component-specific color tokens. It consumes Semantic
 | Skeleton body | `skeleton/base` | `skeleton-base` |
 | Skeleton highlight | `skeleton/shimmer` | `skeleton-shimmer` |
 
-The divider is structural. It remains `line-muted` when an item is Disabled; `line-disabled` is reserved for a line that belongs to the disabled control itself.
+The divider is structural. It remains `line/muted` when an item is Disabled; `line/disabled` is reserved for a line that belongs to the disabled control itself.
 
 ### Inverse surfaces
 
-Use these mappings only when the component is intentionally supported on `surface-inverse`.
+Use these mappings only when the component is intentionally supported on `surface/inverse`.
 
-| Element or state | Figma variable | Code token |
+| Element or state | Figma variable | Proposed flattened code name |
 |---|---|---|
 | Title, Chevron, and content | `fg/on-inverse` | `fg-on-inverse` |
 | Item divider | `line/inverse` | `line-inverse` |
@@ -281,13 +285,14 @@ When Skeleton is shown:
 - Enabled, Hover, Focus, Disabled, and Skeleton variants exist for all three sizes.
 - The component's example width is 400 px; production width is responsive.
 - Active behavior is defined in this document but does not yet have a dedicated Figma variant.
+- `body-01` remains a legacy/current-Figma typography reference pending migration to the canonical `type.*` vocabulary.
 
 ## Open Decisions
 
 1. Define the final Focus `box-shadow` specification and update the Figma Focus variants.
 2. Add a dedicated Active variant to the Figma Component Set or document how it is represented in prototypes.
 3. Approve a default group policy for single-open versus multiple-open behavior.
-4. Confirm the final typography binding when the shared product typography decision is implemented in Figma.
+4. Confirm the final `type.*` typography binding when the shared product typography decision is implemented in Figma.
 5. Clean up the optional Slot placeholder without treating it as a blocker for Accordion usage.
 
 ## Related Documents

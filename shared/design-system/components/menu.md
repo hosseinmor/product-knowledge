@@ -36,27 +36,31 @@ The container and items are separate surface roles. The container owns the raise
 
 ## Container Surface
 
-Use `surface/raised` for the Menu container.
+Use `surface/raised` for the standard Menu container.
 
 ```text
 Menu container background → surface/raised
 Menu depth                → approved menu elevation or shadow
 ```
 
-`surface/raised` is a color role, not a shadow token. Both are required when the Menu needs visible depth:
+`surface/raised` is a Color role, not a shadow token. Both are required when the Menu needs visible depth:
 
 - In Light mode, `surface/raised` may match `surface/default`; elevation creates most of the visual separation.
 - In Dark mode, `surface/raised` may resolve differently from `surface/default`, so a floating layer remains distinguishable even when a dark shadow is weak.
 
 v4 has no root `canvas` role. Page/workspace structure uses `surface/default`, `surface/inset`, or another approved structural Surface according to hierarchy.
 
-Do not use `surface/default` for floating menus, popovers, dropdowns, or similar elevated layers. Reserve `surface/default` for ordinary in-flow containers and structural surfaces.
+Do not use `surface/default` for standard floating menus, popovers, dropdowns, or similar elevated layers. Reserve `surface/default` for ordinary in-flow containers and structural surfaces.
+
+## Code Mapping Status
+
+The implementation mapping for slash-grouped Color variables is still open. Flattened identifiers shown below are **proposed/illustrative names**, not an approved production code-token API.
 
 ## Menu Item Color Mapping
 
 ### Standard item
 
-| Element or state | Figma variable | Code token |
+| Element or state | Figma variable | Proposed flattened code name |
 |---|---|---|
 | Rest background | Transparent | Transparent |
 | Hover background | `surface/transparent-hover` | `surface-transparent-hover` |
@@ -74,16 +78,16 @@ When a Menu represents a persistent current choice, use the v4 selected-containe
 
 ```text
 Selected/current item background → surface/selected
-Selected/current item hover      → surface/selected-hover
+Selected/current item hover      → surface/selected-hover only when the selected item remains interactive
 Content                           → fg/primary
 Optional chromatic cue            → fg/accent or line/accent when component anatomy requires it
 ```
 
-Selection is a component state; do not recreate the removed v3 selected color matrix.
+Selection is a component state; do not recreate the removed v3 selected Color matrix.
 
 ### Danger item
 
-| Element or state | Figma variable | Code token |
+| Element or state | Figma variable | Proposed flattened code name |
 |---|---|---|
 | Rest background | Transparent | Transparent |
 | Rest label and icon | `fg/danger` | `fg-danger` |
@@ -97,8 +101,10 @@ A destructive item should not become a solid danger-filled row on Hover. Filled 
 
 Focus uses a non-layout-affecting ring on the full Menu item:
 
-- Normal raised surface → `focus/default`
-- Intentionally inverse Menu → `focus/inverse`
+- Standard Menu on its approved raised surface → `focus/default`
+- If an inverse Menu variant is later explicitly supported → `focus/inverse`
+
+`focus/inverse` does **not** itself establish an inverse Menu variant. The container/item Color recipe for an inverse Menu is not currently approved and must not be inferred from the existence of inverse Semantic tokens.
 
 Do not use a layout-affecting border for keyboard Focus.
 
@@ -173,6 +179,7 @@ Do not use Menu for:
 2. Confirm whether Danger items keep `fg/danger` during Hover and Active across every product theme after contrast testing.
 3. Confirm the default keyboard model for action menus versus ordinary navigation lists.
 4. Update the Figma component bindings after v4 aliases are finalized.
+5. Define the full container/item recipe before declaring an inverse Menu variant supported.
 
 ## Related Documents
 

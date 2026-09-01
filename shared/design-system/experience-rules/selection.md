@@ -37,6 +37,8 @@ Use a dedicated selection component or pattern such as:
 - Selectable Card
 - Selectable row/list item
 
+The items above are a selection taxonomy. Their presence in this document does not by itself mean every item already has a complete shared component specification.
+
 ## Semantic Treatment
 
 Choose the visual treatment based on component anatomy.
@@ -58,6 +60,8 @@ Saved Bookmark
 
 Accent itself does not mean Selected. The component state is using Accent as its visual cue.
 
+A selected line Tab does not need a selected Hover state when the selected Tab itself has no meaningful interaction. Hover on unselected Tabs does not imply Hover on the current Tab.
+
 ### Persistent selected container
 
 For rows/items/containers that need a neutral selected background:
@@ -75,11 +79,15 @@ Examples:
 - Selected navigation item
 - Selectable list item
 
+Use `surface/selected-hover` only when the selected container remains interactive while selected. If selected state removes meaningful interaction, use only `surface/selected`.
+
 Use `fg/primary` for ordinary content unless the component specification defines another semantic foreground.
 
 ### Strong neutral selection
 
-When a current/exclusive choice is clearly communicated by component anatomy and grouping, a component may use an existing strong Neutral treatment such as `surface/neutral-emphasis` rather than introducing a global selected-emphasis token. Pill tabs and current pagination are examples that should be decided in their component specs.
+When a current/exclusive choice is clearly communicated by component anatomy and grouping, a component may use an existing strong Neutral treatment such as `surface/neutral-emphasis` rather than introducing a global selected-emphasis token.
+
+Pill Tabs, Segmented Controls, and current Pagination are examples that should be decided in their component specs. When the selected/current item is not meaningfully interactive, do not generate Hover/Active states merely because the underlying Neutral family has them available.
 
 ## Removed v3 Selected Color Matrix
 
@@ -102,6 +110,8 @@ surface/selected
 surface/selected-hover
 ```
 
+`surface/selected-hover` is conditional on continued interaction; it is not a universal selected-state requirement.
+
 ## Brand Separation
 
 Do not use Brand semantics to represent selection merely because Brand and Accent happen to share a hue in JobVision.
@@ -112,7 +122,32 @@ Brand communicates product identity or an approved key conversion moment. Select
 
 Treat `applied` as a valid selection-like component state, but do not force it into one global visual treatment.
 
+A tonal applied-filter treatment is a validated use case for Accent Muted when the filter remains interactive:
+
+```text
+Applied Filter Chip
+→ surface/accent-muted
+→ surface/accent-muted-hover when interactive
+→ surface/accent-muted-active when a pressed/active visual is required
+→ fg/accent or fg/primary according to anatomy
+→ line/accent only if the component has a semantic Accent outline
+```
+
 First try shared Semantic roles. If the Filter Chip needs a stable component-specific applied treatment that cannot be represented semantically, create a reviewed `filter-chip/*` Component token contract. Do not consume Tag tokens as a generic palette unless the UI is actually rendering the Tag component.
+
+## Stress-Test Summary
+
+The current Color architecture resolves common selection anatomies without a full Selected color matrix:
+
+```text
+Line Tab           → Accent indicator
+Checked Checkbox   → Accent Emphasis
+Applied Filter     → Accent Muted
+Selected Row       → Selected surface
+Strong Pill choice → Neutral Emphasis
+```
+
+The treatment communicates selection; the token family name does not need to repeat the component state name.
 
 ## Related Documents
 

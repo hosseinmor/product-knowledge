@@ -15,6 +15,8 @@ related: []
 
 This document defines when a component-specific token layer is justified and catalogs approved component-token families.
 
+The Color architecture uses Component Color tokens only as exceptions. Other foundations may define component-owned geometry or motion tokens under their own future contracts; they are not required to route through the Color graph.
+
 The Button guideline does not define Button-specific color tokens. It defines:
 
 1. Designer-facing presets
@@ -28,12 +30,12 @@ tone / appearance
 = component properties
 
 surface/* / fg/* / line/* / focus/*
-= semantic tokens
+= semantic color tokens
 ```
 
-## Default Architecture
+## Default Color Architecture
 
-The v4 path is:
+The v4 Color path is:
 
 ```text
 Primitive
@@ -42,7 +44,7 @@ Primitive
 → Component
 ```
 
-Components use Semantic tokens by default. Do not insert a Component-token alias only to rename an existing Semantic token.
+Components use Semantic Color tokens by default. Do not insert a Component-token alias only to rename an existing Semantic token.
 
 For Button:
 
@@ -63,7 +65,7 @@ Danger Filled
 → surface/danger-emphasis
 ```
 
-The complete Button mapping is documented in `../components/button.md`.
+The complete Button mapping is documented in `../components/button.md`, which is the canonical owner of Button preset/state recipes.
 
 ## Button Property Model Is Not a Token Model
 
@@ -102,11 +104,13 @@ Possible uses include:
 - A theming abstraction that cannot be represented through shared Semantic roles
 - A stable component-owned color contract with no shared Semantic meaning
 
+Non-color component tokens must follow the contract of their own foundation; the Color Brand layer must not be inserted into those token graphs by default.
+
 ## Approved Color Family: Tag
 
-Tag remains the approved component-specific color family. It exists because reusable categorical Tag colors need a stable component contract but do not carry a shared Semantic meaning.
+Tag remains the approved component-specific Color family. It exists because reusable categorical Tag colors need a stable component contract but do not carry a shared Semantic meaning.
 
-Approved variants:
+Approved-for-review variants:
 
 ```text
 neutral
@@ -116,7 +120,7 @@ green
 orange
 ```
 
-Tokens per variant:
+Current retained tokens per variant:
 
 ```text
 tag/surface/{variant}
@@ -134,13 +138,17 @@ Rules:
 - Other components must not consume the Tag family as a general-purpose categorical palette.
 - Existing Tag step mappings must be revalidated after the final Primitive palette pass.
 
+The Tag family is retained in v4, but the **full five-variant × Hover × Line matrix is not yet declared permanently required**. The Tag component review must validate which variants are real, which are interactive, and where a line is part of the anatomy.
+
+Until that review is complete, Tag is approved as an architectural exception but its implementation metadata is incomplete. Do not treat the scaffold Tag guideline as proof that every retained token is production-ready.
+
 ## Applied Filter Rule
 
 Do not use Tag tokens merely because an applied Filter Chip visually resembles a colored Tag.
 
 Apply this order:
 
-1. Express the applied state with existing Semantic roles, including Accent when appropriate.
+1. Express the applied state with existing Semantic roles, including `surface/accent-muted*` when an interactive tonal Accent treatment is appropriate.
 2. If the component has a stable treatment that cannot be represented semantically, create a reviewed `filter-chip/*` Component contract.
 3. Reuse Tag tokens only when the UI is actually rendering the Tag component itself.
 
@@ -176,13 +184,13 @@ tag/surface/blue-hover
 tag/fg/blue
 ```
 
-Implementation may flatten `/` to `-` after the code mapping is approved.
+Implementation may flatten `/` to `-` only after the code mapping is approved. Before then, flattened names in documentation are proposed examples rather than a production contract.
 
 Do not encode Primitive color names, pixel values, or product names into a shared Component token unless the component contract itself is explicitly categorical by hue, as with the approved Tag variants.
 
 ## Required Metadata
 
-Every Component token must document:
+Every production-ready Component token must document:
 
 - Purpose
 - Primitive or Semantic source
@@ -194,6 +202,8 @@ Every Component token must document:
 - Code token
 - Owner
 - Deprecation path
+
+A family may be architecturally approved before this metadata is complete, but it must remain explicitly marked as pending implementation/component review until the metadata exists.
 
 ## Review Checklist
 
