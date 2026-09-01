@@ -24,7 +24,7 @@ Example:
 [Continue]  Back
 ```
 
-Do not use Accent for every forward action. Use Accent only at the step where an approved product conversion actually occurs.
+Do not use Brand for every forward action. Intermediate progression is normally an operational action and remains Primary.
 
 ## Final Step
 
@@ -41,8 +41,10 @@ Examples:
 Preset selection:
 
 - Operational result → Primary
-- Defined product conversion → Accent
+- Approved product conversion / product-defining result → Brand
 - Destructive result → Danger Filled
+
+Being the final step does not automatically make an action Brand. Brand is only used when the result belongs to the approved product conversion/product-moment contract.
 
 ## Back, Cancel, Close, and Exit
 
