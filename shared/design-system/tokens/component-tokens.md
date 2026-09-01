@@ -4,9 +4,10 @@ collection: design-system
 type: token
 title: Component Tokens
 summary: This document defines when a component-specific token layer is justified and catalogs approved component-token families.
-knowledge_state: unverified
+knowledge_state: canonical
 document_maturity: draft
-related: []
+related:
+  - design-system.governance.documentation-maintenance
 ---
 
 # Component Tokens
