@@ -4,9 +4,10 @@ collection: design-system
 type: token
 title: Token Architecture
 summary: '> Status: draft'
-knowledge_state: unverified
+knowledge_state: canonical
 document_maturity: draft
-related: []
+related:
+  - design-system.governance.documentation-maintenance
 ---
 
 # Token Architecture
@@ -149,6 +150,7 @@ The current Color vocabulary is defined in `jobvision-color-tokens-v4-surface-mo
 
 ## References
 
+- `../governance/documentation-maintenance.md`
 - `jobvision-color-tokens-v4-surface-model.md`
 - `color-token-aliases.md`
 - `primitive-tokens.md`
