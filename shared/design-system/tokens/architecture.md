@@ -17,18 +17,30 @@ related: []
 
 The v4 architecture described here is the **Color token architecture**. It separates raw color values, product brand identity, shared Light/Dark color semantics, and exceptional component-owned color contracts.
 
-The canonical Color resolution path is:
+The four collections have this **layer order**:
 
 ```text
-Primitive
-→ Brand
-→ Semantic
-→ Component
+01 Primitive
+02 Brand
+03 Semantic
+04 Component
 ```
 
-Components consume Semantic color tokens by default. An approved Component color token is exceptional and follows the criteria in `component-tokens.md`.
+Layer order is not a requirement that every token resolves through every layer. The actual allowed Color alias edges are:
 
-This graph must not be assumed to be the resolution graph for Typography, Spacing, Radius, Elevation, or Motion. Those foundations may use different Primitive/Semantic structures and must document their own resolution model when their shared contracts are finalized. In particular, non-color foundations do not route through Brand merely because Color does.
+```text
+Brand     → Primitive
+Semantic  → Brand | Primitive
+Component → Semantic | Primitive (approved exception only)
+```
+
+Ordinary UI components consume Semantic Color tokens directly. They may consume an approved Component token when that component-owned contract is justified. They do not consume Brand or undocumented Primitive Color values directly.
+
+The Component collection is therefore optional in a resolution path, and Brand is only present when the semantic meaning is product identity. For example, shared Accent may resolve `Semantic → Primitive` without passing through Brand, while an approved categorical Tag token may resolve `Component → Primitive` by exception.
+
+An approved Component color token is exceptional and follows the criteria in `component-tokens.md`.
+
+This graph must not be assumed to be the resolution graph for Typography, Spacing, Radius, Elevation, or Motion. Those foundations may use different Primitive/Semantic structures and must document their own resolution model when their shared contracts are finalized. In particular, non-color foundations do not route through Brand merely because Color can.
 
 ## Collections and modes
 
@@ -81,6 +93,8 @@ skeleton/*
 
 Semantic meaning remains stable across products even when values overlap. For example, Brand, Accent, Info, and Link may all draw from `color/blue/*` in JobVision without becoming the same semantic role.
 
+Semantic may alias Brand when the role is product-dependent, or Primitive directly when the role is shared across products.
+
 ### Component
 
 Components use Semantic color tokens by default. Approved Component color tokens are allowed only when a stable component-owned role cannot be represented by the shared Semantic vocabulary.
@@ -95,19 +109,11 @@ tag/line/*
 
 Tag tokens communicate categorization rather than feedback status and must not be reused by unrelated components as a general-purpose categorical palette.
 
+Approved Component Color tokens should alias Semantic by default. A direct Primitive alias is an explicit exception, currently allowed for categorical Tag roles when no shared Semantic meaning exists.
+
 ## Removed Experience layer
 
-v3 Color used:
-
-```text
-Primitive
-→ Brand
-→ Experience
-→ Semantic
-→ Component
-```
-
-The `Experience` collection is removed in v4. It only controlled the former root `canvas` value and did not justify a dedicated Color alias layer.
+v3 Color used an additional Experience collection between Brand and Semantic. That collection is removed in v4 because it only controlled the former root `canvas` value and did not justify a dedicated Color alias layer.
 
 Productive versus Expressive may remain useful as design guidance, but it is no longer a Color token mode dimension. Existing Figma component names that still contain `Productive` are legacy naming references unless a separate active design dimension is explicitly documented by that component.
 
