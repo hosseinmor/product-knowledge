@@ -1052,7 +1052,7 @@
       "id": "design-system.experience-rule.selection",
       "kind": "design-system-experience-rule",
       "title": "Selection",
-      "summary": "Selected state is not a normal action Button state.",
+      "summary": "Selection is a component state, not a general color family.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
@@ -1595,7 +1595,7 @@
       "id": "design-system.product-variation.brand-variants",
       "kind": "design-system-product-variation",
       "title": "Brand Variants",
-      "summary": "Accent uses the active product brand color while preserving one shared usage rule.",
+      "summary": "Brand Button uses the active product brand while preserving one shared usage rule.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
@@ -1705,7 +1705,7 @@
       "id": "design-system.token.color-token-aliases",
       "kind": "design-system-token",
       "title": "Color Token Alias Mappings",
-      "summary": "> Status: working draft > Scope: current Figma alias graph for color collections > Source catalog: `jobvision-color-tokens-v3-surface-model.md`",
+      "summary": "> Status: working draft > Scope: v4 alias graph and unresolved values",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
@@ -1748,6 +1748,22 @@
         "tokens"
       ],
       "path": "shared/design-system/tokens/jobvision-color-tokens-v3-surface-model.md"
+    },
+    {
+      "id": "design-system.token.jobvision-color-tokens-v4-surface-model",
+      "kind": "design-system-token",
+      "title": "JobVision Color Tokens v4 — Surface Model",
+      "summary": "> Status: working draft",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [],
+      "topics": [
+        "design-system-token",
+        "jobvision-color-tokens-v4-surface-model",
+        "tokens"
+      ],
+      "path": "shared/design-system/tokens/jobvision-color-tokens-v4-surface-model.md"
     },
     {
       "id": "design-system.token.primitive-tokens",
@@ -2368,7 +2384,7 @@
     }
   ],
   "summary": {
-    "documents": 126,
+    "documents": 127,
     "by_kind": {
       "content-guideline": 3,
       "design-system-accessibility": 8,
@@ -2380,7 +2396,7 @@
       "design-system-pattern": 13,
       "design-system-product-variation": 2,
       "design-system-reference": 3,
-      "design-system-token": 8,
+      "design-system-token": 9,
       "design-system-ui-template": 4,
       "product-area": 14,
       "product-group-overview": 2,
