@@ -16,61 +16,169 @@ related: []
 ## Allowed usage
 
 - Components consume Semantic tokens by default; use an approved Component token only for its documented owner component.
-- Select Brand, Experience, and Semantic modes independently.
-- Use Productive for operational product interfaces and Expressive for discovery, editorial, marketing, or other intentionally prominent experiences.
-- Use `canvas` only for the root page or workspace background.
-- Use Semantic `surface-*` for every general UI background above canvas. The approved Tag component uses its own `tag-surface-*` family.
-- Document non-default mode combinations in the design specification.
-- Test every supported Brand × Experience × Semantic combination for accessibility.
+- Select Brand and Semantic Light/Dark modes independently.
+- Use Semantic `surface/*` for general UI backgrounds, including the root page/workspace.
+- The approved Tag component uses its own `tag/*` color family by exception.
+- Test supported Brand × Semantic combinations for accessibility.
+- A shared Primitive value does not merge semantic meaning. Choose tokens by role, not by visual color.
 
 ## Surface selection
 
-- Ordinary in-flow container, card, panel, or structural sheet → `surface-default`
-- Surface visually elevated above its immediate parent, such as a menu, popover, dropdown, floating panel, or floating dialog → `surface-raised`
-- Nested recessed region → `surface-inset`
-- Passive supporting or grouping region → `surface-muted`
-- Visible neutral interactive control → `surface-control`
-- High-emphasis neutral action → `surface-emphasis`
-- Transparent-at-rest interaction → `surface-transparent-hover/active`
-- Transparent interaction on inverse surface → `surface-transparent-inverse-hover/active`
-- Brand conversion action → `surface-brand-emphasis`
-- AI-assisted or generated treatment → matching `surface-magic-*`, `fg-magic`, and `line-magic` roles
-- Selected state → matching `surface-selected-*` role; use the inverse family on `surface-inverse`
-- Destructive action → `surface-danger-emphasis`
-- Validation or system feedback → matching `surface-*-muted`, foreground, and line roles
+- Ordinary root page, in-flow container, card, panel, or structural sheet → `surface/default`
+- Passive lower-emphasis supporting or grouping region → `surface/muted`
+- Region behind the local default surface, such as recessed workspace structure or chrome → `surface/inset`
+- Surface visually elevated above its immediate parent, such as a menu, popover, dropdown, floating panel, or appropriate dialog → `surface/raised`
+- High-contrast inverted region → `surface/inverse`
+- Visible neutral interactive treatment with medium emphasis → `surface/neutral-muted`
+- High-emphasis neutral operational action → `surface/neutral-emphasis`
+- Transparent-at-rest interaction → `surface/transparent-hover/active`
+- Transparent interaction on inverse surface → `surface/transparent-inverse-hover/active`
+- Persistent selected row/item/container → `surface/selected` and `surface/selected-hover`
+- Approved Brand conversion or product-defining moment → `surface/brand*`
+- General chromatic interaction/affordance → matching `surface/accent-*`, `fg/accent`, or `line/accent`
+- AI-assisted/generated treatment → matching Magic roles
+- Destructive action → matching Danger roles
+- Validation or system feedback → matching Support muted surface, foreground, and line roles
+- Disabled filled control → `surface/disabled + fg/disabled`
 
-`surface-raised` expresses the color of an elevated layer. Pair it with the approved elevation or shadow token when the component needs visible depth. Do not use `surface-raised` merely because an in-flow card happens to have a shadow; use it when the surface is layered above its immediate parent and may require an independent Light/Dark mapping.
+`surface/raised` expresses the color role of an elevated layer. Pair it with the approved elevation/shadow token when visible depth is required.
 
-A full-screen or edge-attached sheet that acts as a structural page surface may remain `surface-default`. A floating dialog, menu, or popover uses `surface-raised`.
+Do not use structural `surface/muted` as an interactive control background. Use `surface/neutral-muted` instead.
 
-Do not use `surface-muted` as an interactive control background.
+## Brand versus Accent
+
+Use Brand when the reason for color is product identity or an approved key product/conversion moment.
+
+Use Accent when the reason for color is general interaction or chromatic affordance.
+
+Examples:
+
+```text
+Brand Button at approved conversion
+→ surface/brand
+
+Cando link
+→ link/default
+
+Selected line Tab indicator
+→ line/accent
+
+Saved bookmark
+→ fg/accent
+
+Operational Primary Button
+→ surface/neutral-emphasis
+```
+
+Do not use Brand merely to make an operational action more prominent.
+
+## Selection
+
+Selection is a component state, not a full global color family.
+
+Use Accent for a chromatic selected/current/checked cue when the component anatomy calls for one:
+
+```text
+selected line Tab → fg/primary + line/accent
+checked checkbox  → surface/accent-emphasis + fg/on-color
+saved bookmark    → fg/accent
+```
+
+Use the dedicated neutral selected-container surface for persistent selected containers:
+
+```text
+selected row/item → surface/selected
+selected row/item:hover → surface/selected-hover
+```
+
+Do not invent `fg/selected`, `line/selected`, selected emphasis, inverse, disabled, or active families without a repeated cross-component need.
+
+## Links
+
+Default Link is the recognizable chromatic navigation treatment:
+
+```text
+link/default
+link/hover
+```
+
+Use the neutral Subtle Link only when context already makes clickability clear:
+
+```text
+link/subtle
+link/subtle-hover
+```
+
+Typical Subtle contexts include dense ATS UI, navigation, metadata, and “View all” patterns. Do not use Subtle as the normal inline body-copy Link unless another persistent affordance such as underline preserves recognition.
+
+Use the single inverse Link family on `surface/inverse`:
+
+```text
+link/inverse
+link/inverse-hover
+```
+
+Do not use `link/visited` unless a future reviewed product pattern establishes a persistent visited-state need.
+
+## Disabled
+
+Disabled suppresses tone by default.
+
+```text
+Brand filled disabled
+Primary disabled
+Secondary disabled
+Danger Filled disabled
+→ surface/disabled + fg/disabled
+```
+
+Outline disabled treatments use `fg/disabled + line/disabled`; transparent disabled treatments use `fg/disabled`.
+
+Do not create tone-specific disabled colors merely to preserve the original tone. Disabled has no hover or active state.
+
+## Support on inverse surfaces
+
+The inverse Support foreground roles are intentionally narrow:
+
+```text
+fg/info-inverse
+fg/success-inverse
+fg/warning-inverse
+fg/error-inverse
+```
+
+Use them for colored Support content on `surface/inverse`, such as status icons/text in an inverse Toast. Their existence does not justify Support inverse surfaces or line families.
 
 ## Prohibited usage
 
-- Do not consume Primitive, Brand, or Experience variables directly from component implementations. Approved Component tokens may alias documented Primitive or Semantic sources.
-- Do not encode mode or product names into Semantic token names.
-- Do not use deprecated `bg-*`, `fill-*`, `fg-subtle`, `fg-inverse`, `fg-on-fill`, `fg-on-primary`, `fg-on-emphasis`, `fg-on-selected`, `line-subtle`, `line-strong`, `focus`, or `focus-ring` names for new work.
-- Do not let a mode change action meaning, validation, state meaning, or interaction behavior.
-- Do not invent hover or active states for passive or disabled surfaces.
-- Do not introduce undocumented mixed-mode regions.
+- Do not consume Primitive or Brand variables directly from ordinary component implementations.
+- Do not encode product or mode names into Semantic token names.
+- Do not restore `canvas` or an Experience color collection without a new demonstrated need.
+- Do not use removed v3 names for new work: `surface/control*`, `surface/emphasis*`, `surface/brand-muted`, `fg/brand`, `line/brand`, expanded `surface/selected-*`, `fg/selected`, `line/selected`, `fg/on-color-disabled`, `link/emphasis*`, or `link/visited`.
+- Do not invent hover/active states for passive or disabled surfaces.
+- Do not use Tag tokens as a generic palette for other components.
 
 ## Fallbacks
 
-- Semantic Light/Dark mappings must resolve the active Brand and Experience inputs.
-- If an intended Expressive mapping is not defined, use the approved Productive value and record the gap.
-- If a proposed value fails accessibility, use an accessible approved mapping.
-- Never fall back from Semantic or an approved Component token to an arbitrary primitive in component implementation.
+- Semantic Light/Dark mappings must resolve the active Brand input when Brand meaning is required.
+- A semantic role that does not vary by product may alias a Primitive directly.
+- If a proposed value fails accessibility, choose a contrast-safe approved mapping rather than binding a component to an arbitrary Primitive.
+- If a future product needs a different Accent hue, add the minimum product-aware alias without changing the public Semantic role names.
 
 ## Migration rules
 
-1. Replace root `bg-canvas` usage with `canvas`.
-2. Replace `bg-raised` with `surface-raised`.
-3. Replace other `bg-*` and `fill-*` roles using the mapping in `jobvision-color-tokens-v3-surface-model.md`.
-4. Keep Brand, Experience, and Light/Dark as separate collection modes.
-5. Apply the v3 renames together in Figma and code: `fg-subtle → fg-tertiary`, `fg-inverse → fg-on-inverse`, `fg-on-emphasis/fg-on-selected → fg-on-color`, `line-subtle → line-muted`, and `line-strong → line-emphasis`.
-6. Update Figma and code references together when final implementation mappings are approved.
-7. Validate visual regression, contrast, focus, reduced motion, and supported themes.
-8. Record open values and mappings as open decisions; do not present provisional v3 values as final.
-9. Migrate the former categorical family to the approved `tag-surface-*`, `tag-fg-*`, and `tag-line-*` Component tokens; do not create new `categorical-*` names.
+1. Remove the `Experience` collection from the color resolution path.
+2. Replace root `canvas` usage with the appropriate structural Surface, normally `surface/default` or `surface/inset` according to hierarchy.
+3. Replace `surface/control*` with `surface/neutral-muted*`.
+4. Replace `surface/emphasis*` with `surface/neutral-emphasis*`.
+5. Replace `surface/brand-emphasis*` with `surface/brand*`; remove `surface/brand-muted`, `fg/brand`, and `line/brand`.
+6. Add the approved Accent family and migrate chromatic interaction cues to Accent by meaning.
+7. Replace the expanded Selected matrix with `surface/selected` and `surface/selected-hover`; use existing Accent/Neutral roles for other selection presentations.
+8. Remove `fg/on-color-disabled`; disabled filled controls use the general disabled treatment.
+9. Replace Link `emphasis` with `subtle` using the new direction: Default is chromatic, Subtle is neutral. Remove Visited.
+10. Rename Button Accent preset/tone to Brand and update its semantic mappings.
+11. Rename Brand collection `accent/* → brand/*` and `content/on-accent → content/on-brand`.
+12. Replace product-specific Primitive brand palettes with generic hue palettes during the palette migration.
+13. Update Figma and code references together after final alias values and implementation mapping are approved.
 
-See `architecture.md`, `jobvision-color-tokens-v3-surface-model.md`, and `color-token-aliases.md`.
+See `architecture.md`, `jobvision-color-tokens-v4-surface-model.md`, and `color-token-aliases.md`.

@@ -3,8 +3,7 @@ id: design-system.component.toggle-button
 collection: design-system
 type: component
 title: Toggle Button
-summary: Toggle Button represents a Button-like control with persistent selected and
-  unselected states.
+summary: Toggle Button represents a Button-like control with persistent selected and unselected states.
 knowledge_state: unverified
 document_maturity: draft
 related: []
@@ -26,24 +25,50 @@ Document whether the control supports:
 - Single selection within a group
 - Multiple selection within a group
 
-## Selected Tokens
+## v4 Selection Semantics
 
-- Low-emphasis selected → `surface-selected-muted`
-- Strong selected or on/checked → `surface-selected-emphasis` + `fg-on-color`
-- Selected on inverse → `surface-selected-inverse` + `fg-on-inverse`
-- Selected and disabled → `surface-selected-disabled` + `fg-on-color-disabled`
+Selection is a component state, not a complete global color family.
 
-Do not use Accent or brand tokens as selected-state tokens.
+Do not bind every Toggle Button to one universal selected token. Choose the treatment according to the component anatomy and required emphasis.
 
-## Not Defined in Button Guideline v0.6
+Possible approved directions include:
 
-The source guideline does not define:
+```text
+Chromatic checked/on treatment
+→ surface/accent-emphasis + fg/on-color
+
+Strong neutral current/exclusive treatment
+→ surface/neutral-emphasis + fg/on-color
+
+Selected container treatment when appropriate
+→ surface/selected + fg/primary
+```
+
+A selected/on Toggle Button may use Accent as its visual cue, but Accent itself does not mean Selected.
+
+Disabled suppresses tone:
+
+```text
+Disabled filled control
+→ surface/disabled + fg/disabled
+```
+
+Do not use Brand semantics to represent selected/on state merely because Brand and Accent share Blue in JobVision.
+
+The exact default mapping for Toggle Button remains a component-level design decision and must be validated with the final anatomy rather than inferred from the old v3 Selected matrix.
+
+See `../experience-rules/selection.md`.
+
+## Not Yet Defined
+
+The shared guideline does not yet define:
 
 - Toggle Button anatomy
 - Group behavior
 - Keyboard model
 - Exact states
-- Token mapping for unselected rest state
+- Default mapping for unselected rest state
+- Whether the default selected treatment is Accent or strong Neutral
 - Sizes
 
 These require a separate component guideline.

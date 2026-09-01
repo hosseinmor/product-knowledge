@@ -3,8 +3,7 @@ id: design-system.product-variation.brand-variants
 collection: design-system
 type: product-variation
 title: Brand Variants
-summary: Accent uses the active product brand color while preserving one shared usage
-  rule.
+summary: Brand Button uses the active product brand while preserving one shared usage rule.
 knowledge_state: unverified
 document_maturity: draft
 related: []
@@ -12,33 +11,50 @@ related: []
 
 # Brand Variants
 
-## Accent Button
+## Brand Button
 
-Accent uses the active product brand color while preserving one shared usage rule.
+Brand Button uses the active product brand while preserving one shared usage rule.
 
 ```text
-Jobvision Accent
-→ Jobvision surface-brand-emphasis mapping
+JobVision Brand Button
+→ Jobvision surface/brand mapping
+→ Blue
 
-Cando Accent
-→ Cando surface-brand-emphasis mapping
+Cando Brand Button
+→ Cando surface/brand mapping
+→ Yellow
 ```
 
-A brand-colored Button is not automatically Accent.
+A Brand-colored Button is not justified merely because an action is important. Brand is reserved for approved product conversions and product-defining entry points.
 
-Accent is reserved for approved product conversions.
+Everyday operational actions use Neutral Button hierarchy even when they are the main action in the current context.
+
+## Brand versus Accent
+
+Brand and Accent are separate concepts in v4:
+
+```text
+Brand  → product identity + approved key conversion/product moments
+Accent → general chromatic interaction/affordance
+```
+
+JobVision may map both to the same Blue Primitive family. Cando maps Brand to Yellow and Accent to Blue.
+
+There is no generic Accent Button preset in v4.
 
 ## Foreground Override
 
-`fg-on-brand` must be independently overridable from the brand background.
+`fg/on-brand` must resolve independently from the Brand background.
 
-In Cando, the foreground must preserve sufficient contrast on the yellow brand background.
+In Cando, foreground must preserve sufficient contrast on the yellow Brand surface. In JobVision, the corresponding Blue surface may require a light foreground.
+
+Final mappings must be revalidated after the Primitive scales are built.
 
 ## Product Conversion Lists
 
-Each product must maintain an approved list of Accent use cases.
+Each product should maintain an approved list of Brand Button use cases.
 
-The current shared guideline includes examples such as:
+Shared examples that may qualify include:
 
 - Resume submission
 - Sign-up
@@ -47,11 +63,17 @@ The current shared guideline includes examples such as:
 - Demo request
 - Start of a defined key product journey
 
-The complete official list remains open.
+The same action may use different hierarchy by context. A major first-entry “Create job” moment may qualify as Brand, while a repeated “Create job” action in an ATS toolbar is normally operational and Neutral.
 
-## Prohibited General Presets
+## Cando Frequency
 
-Do not introduce these only because a product has a brand color:
+Brand Button usage may be rare inside Cando ATS. This is expected. The product does not need persistent yellow Buttons to remain recognizably Cando; Brand color is not a quota.
 
-- Accent Outline
-- Accent Ghost as a general preset
+## Unsupported General Presets
+
+Do not introduce these merely because a product has a Brand color:
+
+- Brand Subtle
+- Brand Outline
+- Brand Ghost as a general preset
+- Generic Accent Button

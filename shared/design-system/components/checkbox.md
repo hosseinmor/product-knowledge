@@ -3,8 +3,7 @@ id: checkbox
 collection: design-system
 type: component
 title: Checkbox
-summary: Checkbox lets users select zero or more independent options or control a
-  single boolean choice.
+summary: Checkbox lets users select zero or more independent options or control a single boolean choice.
 knowledge_state: unverified
 document_maturity: draft
 related: []
@@ -88,7 +87,7 @@ Add Hover for:
 
 Hover must apply to the interactive item row, not only the 18px visual box. Disabled and Skeleton do not receive Hover.
 
-The exact Hover token and visual treatment remain open and must be reviewed against the final Semantic token inventory before binding.
+The exact Hover token and visual treatment remain open and must be reviewed against the final Semantic alias values before binding.
 
 ### 3. Remove duplicated Skeleton × Selection variants
 
@@ -149,26 +148,29 @@ Required behavior:
 - The interaction area remains usable in touch layouts without enlarging the visual checkbox mark.
 - Exact minimum touch-target dimensions are not yet approved in the shared system and remain an open accessibility decision.
 
-### 7. Bind selected states to selected semantic roles
+### 7. Bind checked states to v4 selection/Accent semantics
 
-Checked and Indeterminate are selection states. They must not use brand roles.
+Checked and Indeterminate are selection states, but v4 does not use a full global Selected color family. The Checkbox state uses Accent as its chromatic cue.
 
-Approved shared role direction:
+Approved direction:
 
 ```text
 Checked or Indeterminate
-→ surface-selected-emphasis + fg-on-color
+→ surface/accent-emphasis + fg/on-color
 
-Selected and Disabled
-→ surface-selected-disabled + fg-on-color-disabled
+Checked or Indeterminate + Disabled
+→ surface/disabled + fg/disabled
 ```
+
+The check or indeterminate mark geometry continues to communicate the persisted state when Disabled; the color treatment becomes the shared Disabled treatment.
 
 Rules:
 
-- Do not use `surface-brand-emphasis` to represent checked state.
-- Focus remains independent from selected styling and uses the shared focus role.
-- The exact unchecked border token is not approved in this review and must not be guessed.
-- Figma vector assets should be replaced with semantic variable bindings where the component model allows it.
+- Do not use Brand semantics to represent Checked state.
+- Accent is the visual cue; the component state remains `Checked` or `Indeterminate`.
+- Focus remains independent from selection styling and uses the shared Focus role.
+- The exact Unchecked border token is not approved in this review and must not be guessed.
+- Figma vector assets should be replaced with Semantic variable bindings where the component model allows it.
 
 See `../experience-rules/selection.md`.
 
@@ -234,9 +236,9 @@ The supported selection variants are:
 - Checked
 - Indeterminate
 
-No Accent, brand, success, warning, or danger Checkbox variants are defined.
+No Brand, success, warning, or danger Checkbox variants are defined.
 
-Checked state communicates selection, not brand emphasis or validation status.
+Checked state communicates selection, not Brand emphasis or validation status.
 
 ## Sizes
 
@@ -266,7 +268,7 @@ Hover must communicate that the whole item row is interactive without changing l
 
 - Focus must be keyboard-visible.
 - Focus treatment must not change component dimensions.
-- Use the shared `focus-default` role on normal surfaces.
+- Use the shared `focus/default` role on normal surfaces.
 - Focus is independent from Checked and Indeterminate styling.
 
 ### Disabled
@@ -274,6 +276,7 @@ Hover must communicate that the whole item row is interactive without changing l
 - Disabled items do not toggle.
 - Disabled styling applies to both control and item label.
 - Disabled does not receive Hover or Active treatment.
+- Disabled suppresses tone; checked geometry may remain visible while the color treatment becomes neutral Disabled.
 - Disabled must not be used as a substitute for explaining validation requirements.
 
 ### Skeleton
@@ -321,9 +324,9 @@ The exact parent-click behavior for an Indeterminate Checkbox is not yet defined
 
 ## Product Variations
 
-Checkbox is a shared neutral control.
+Checkbox is a shared control.
 
-Product brand color must not change the semantic meaning of Checked or Indeterminate. Product themes may map shared selected roles differently, but they must preserve the shared selection contract and contrast requirements.
+Product Brand color must not change the semantic meaning of Checked or Indeterminate. The checked treatment uses shared Accent semantics in v4; currently Accent resolves to the same Blue Primitive family in JobVision and Cando.
 
 ## Figma Reference
 
@@ -359,9 +362,9 @@ The code API must preserve:
 - [ ] Align the control with the first line of multiline labels
 - [ ] Replace the `20px` indentation Spacer with inline-start padding or nesting
 - [ ] Make the full item row interactive
-- [ ] Bind Checked and Indeterminate to selected semantic roles
-- [ ] Bind selected Disabled to selected-disabled semantic roles
-- [ ] Confirm the unchecked border token
+- [ ] Bind Checked and Indeterminate to `surface/accent-emphasis + fg/on-color`
+- [ ] Bind Disabled to the shared `surface/disabled + fg/disabled` treatment
+- [ ] Confirm the Unchecked border token
 - [ ] Confirm exact touch-target dimensions
 - [ ] Add the code reference after implementation exists
 
@@ -369,7 +372,7 @@ The code API must preserve:
 
 - Hover visual treatment and token mapping are not approved yet.
 - Exact minimum touch-target dimensions are not approved yet.
-- The unchecked border token is not approved yet.
+- The Unchecked border token is not approved yet.
 - The standalone `Field label` use case still needs validation.
 - Parent-click behavior from Indeterminate is not yet defined.
 - The final Figma property implementation for Loading versus Skeleton remains to be selected.
@@ -378,6 +381,7 @@ The code API must preserve:
 ## Related Documents
 
 - `../experience-rules/selection.md`
+- `../tokens/jobvision-color-tokens-v4-surface-model.md`
 - `../tokens/component-tokens.md`
 - `button.md`
 - `radio.md`

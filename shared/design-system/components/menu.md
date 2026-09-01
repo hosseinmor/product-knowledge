@@ -3,9 +3,7 @@ id: menu
 collection: design-system
 type: component
 title: Menu
-summary: Menu presents a temporary list of actions or destinations in a layer positioned
-  above the current interface. Overflow Menu is the compact trigger pattern that opens
-  this list.
+summary: Menu presents a temporary list of actions or destinations in a layer positioned above the current interface. Overflow Menu is the compact trigger pattern that opens this list.
 knowledge_state: unverified
 document_maturity: draft
 related: []
@@ -38,21 +36,21 @@ The container and items are separate surface roles. The container owns the raise
 
 ## Container Surface
 
-Use `surface-raised` for the Menu container.
+Use `surface/raised` for the Menu container.
 
 ```text
-Menu container background → surface-raised
+Menu container background → surface/raised
 Menu depth                → approved menu elevation or shadow
 ```
 
-`surface-raised` is a color role, not a shadow token. Both are required when the Menu needs visible depth:
+`surface/raised` is a color role, not a shadow token. Both are required when the Menu needs visible depth:
 
-- In Light mode, `surface-raised` may match `surface-default`; elevation creates most of the visual separation.
-- In Dark mode, `surface-raised` resolves lighter than `surface-default`, so a floating layer remains distinguishable even when a dark shadow is weak or invisible.
+- In Light mode, `surface/raised` may match `surface/default`; elevation creates most of the visual separation.
+- In Dark mode, `surface/raised` may resolve differently from `surface/default`, so a floating layer remains distinguishable even when a dark shadow is weak.
 
-Do not use `canvas` for the Menu container. `canvas` belongs only to the root page or workspace.
+v4 has no root `canvas` role. Page/workspace structure uses `surface/default`, `surface/inset`, or another approved structural Surface according to hierarchy.
 
-Do not use `surface-default` for floating menus, popovers, dropdowns, or similar elevated layers. Reserve `surface-default` for ordinary in-flow containers and structural surfaces.
+Do not use `surface/default` for floating menus, popovers, dropdowns, or similar elevated layers. Reserve `surface/default` for ordinary in-flow containers and structural surfaces.
 
 ## Menu Item Color Mapping
 
@@ -68,7 +66,20 @@ Do not use `surface-default` for floating menus, popovers, dropdowns, or similar
 | Focus indicator | `focus/default` | `focus-default` |
 | Divider | `line/muted` | `line-muted` |
 
-The item must not receive `surface-raised` or `surface-default` at rest. The Menu container already provides the surface; the item is an interaction layer inside it.
+The item must not receive `surface/raised` or `surface/default` at rest. The Menu container already provides the surface; the item is an interaction layer inside it.
+
+### Selected/current item
+
+When a Menu represents a persistent current choice, use the v4 selected-container role rather than Brand:
+
+```text
+Selected/current item background → surface/selected
+Selected/current item hover      → surface/selected-hover
+Content                           → fg/primary
+Optional chromatic cue            → fg/accent or line/accent when component anatomy requires it
+```
+
+Selection is a component state; do not recreate the removed v3 selected color matrix.
 
 ### Danger item
 
@@ -80,14 +91,14 @@ The item must not receive `surface-raised` or `surface-default` at rest. The Men
 | Active background | `surface/transparent-active` | `surface-transparent-active` |
 | Hover and Active label/icon | `fg/danger` | `fg-danger` |
 
-A destructive item should not become a solid danger-filled row on Hover. Filled danger treatment is reserved for a high-emphasis destructive action, not ordinary Menu feedback.
+A destructive item should not become a solid danger-filled row on Hover. Filled Danger treatment is reserved for a high-emphasis destructive action, not ordinary Menu feedback.
 
 ## Focus
 
 Focus uses a non-layout-affecting ring on the full Menu item:
 
-- Normal raised surface → `focus-default`
-- Intentionally inverse Menu → `focus-inverse`
+- Normal raised surface → `focus/default`
+- Intentionally inverse Menu → `focus/inverse`
 
 Do not use a layout-affecting border for keyboard Focus.
 
@@ -97,23 +108,23 @@ Apply the shared Menu elevation independently from the background color. The exa
 
 Rules:
 
-- Do not encode the shadow inside `surface-raised`.
-- Do not use a darker or lighter primitive directly to simulate elevation.
-- Do not remove the raised color role merely because the Light mapping currently equals `surface-default`.
+- Do not encode the shadow inside `surface/raised`.
+- Do not use a darker or lighter Primitive directly to simulate elevation.
+- Do not remove the raised color role merely because the Light mapping may equal `surface/default`.
 - Validate the Menu against both its page background and any parent container in Light and Dark modes.
 
 ## Figma Token Migration
 
-The current Figma Menu at node `306:857` uses legacy or incorrect bindings. Update them using this mapping:
+Update legacy/current bindings using this mapping:
 
-| Current binding or treatment | Approved binding or treatment |
+| Current binding or treatment | v4 binding or treatment |
 |---|---|
 | Menu container `canvas` | `surface/raised` |
 | Item Rest white/background layer | Transparent |
 | `background-or-layer-hover` | `surface/transparent-hover` |
 | `background-or-layer-active` | `surface/transparent-active` |
-| Item label `fg/fg-secondary` | `fg/primary` |
-| Disabled label `fg/fg-disabled` | `fg/disabled` |
+| Item label legacy secondary | `fg/primary` |
+| Disabled label legacy binding | `fg/disabled` |
 | Divider legacy binding | `line/muted` |
 | Focus border | Non-layout-affecting ring using `focus/default` |
 | Solid filled Danger Hover | Transparent interaction background + `fg/danger` |
@@ -159,13 +170,14 @@ Do not use Menu for:
 ## Open Decisions
 
 1. Finalize the shared Menu elevation token and map the current Figma shadow to it.
-2. Confirm whether Danger items keep `fg-danger` during Hover and Active across every product theme after contrast testing.
+2. Confirm whether Danger items keep `fg/danger` during Hover and Active across every product theme after contrast testing.
 3. Confirm the default keyboard model for action menus versus ordinary navigation lists.
-4. Update the Figma component bindings after `surface/raised` is added to the Semantic collection.
+4. Update the Figma component bindings after v4 aliases are finalized.
 
 ## Related Documents
 
-- `../tokens/jobvision-color-tokens-v3-surface-model.md`
+- `../tokens/jobvision-color-tokens-v4-surface-model.md`
 - `../tokens/color-token-aliases.md`
 - `../tokens/semantic-tokens.md`
 - `../tokens/usage-rules.md`
+- `../experience-rules/selection.md`

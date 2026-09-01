@@ -15,9 +15,86 @@ related: []
 
 ## Purpose
 
-The token architecture separates raw values, brand identity, experience context, light/dark semantics, and component consumption.
+The v4 architecture separates raw values, product brand identity, shared Light/Dark semantics, and exceptional component-owned contracts.
 
 The canonical resolution path is:
+
+```text
+Primitive
+→ Brand
+→ Semantic
+→ Component
+```
+
+Components consume Semantic tokens by default. An approved Component token is exceptional and follows the criteria in `component-tokens.md`.
+
+## Collections and modes
+
+| Collection | Modes | Responsibility |
+|---|---|---|
+| `01 Primitives` | Value | Context-free raw values |
+| `02 Brand` | Jobvision, Cando | Product brand ramp and on-brand content |
+| `03 Semantic` | Light, Dark | Stable shared UI roles consumed by components |
+| `04 Component` | Light, Dark | Approved component-owned roles, currently categorical Tag colors |
+
+### Primitive
+
+Primitive tokens store direct values such as color scales, typography, spacing, radius, elevation, and motion. Product UI must not consume Primitive color values directly unless an approved Component token explicitly aliases a Primitive source.
+
+Primitive color palettes are named by hue rather than product ownership. Product brand colors may share a Primitive palette with other semantics without sharing meaning.
+
+### Brand
+
+Brand aliases generic Primitive hue scales into the active product identity.
+
+```text
+brand/*
+content/on-brand
+```
+
+Current direction:
+
+```text
+Jobvision brand/* → color/blue/*
+Cando brand/*     → color/yellow/*
+```
+
+Brand does not contain general interaction, selection, feedback, focus, or page-surface roles.
+
+### Semantic
+
+Semantic has Light and Dark modes. It owns the stable shared UI vocabulary across:
+
+```text
+surface/*
+fg/*
+line/*
+focus/*
+link/*
+highlight/*
+overlay/*
+skeleton/*
+```
+
+Semantic meaning remains stable across products even when values overlap. For example, Brand, Accent, Info, and Link may all draw from `color/blue/*` in JobVision without becoming the same semantic role.
+
+### Component
+
+Components use Semantic tokens by default. Approved Component tokens are allowed only when a stable component-owned role cannot be represented by the shared Semantic vocabulary.
+
+The approved categorical Tag family is:
+
+```text
+tag/surface/*
+tag/fg/*
+tag/line/*
+```
+
+Tag tokens communicate categorization rather than feedback status and must not be reused by unrelated components as a general-purpose categorical palette.
+
+## Removed Experience layer
+
+v3 used:
 
 ```text
 Primitive
@@ -27,77 +104,43 @@ Primitive
 → Component
 ```
 
-Components consume Semantic tokens by default. An approved component-specific token layer is exceptional and follows the criteria in `component-tokens.md`; Tag is the first approved color family.
+The `Experience` collection is removed in v4. It only controlled the former root `canvas` value and did not justify a dedicated alias layer.
 
-## Collections and modes
+Productive versus Expressive remains useful as design guidance, but it is no longer a token mode dimension.
 
-| Collection | Modes | Responsibility |
-|---|---|---|
-| `01 Primitives` | Value | Raw values with no UI meaning |
-| `02 Brand` | Jobvision, Cando | 12 variables: accent ramp and on-accent content |
-| `03 Experience` | Productive, Expressive | 2 variables: environment-level canvas aliases |
-| `04 Semantic` | Light, Dark | 90 stable shared UI roles consumed by components |
-| `05 Component` | Light, Dark | 20 approved Tag color variables |
+## Root surface model
 
-### Primitive
-
-Primitive tokens store direct values such as color scales, typography, spacing, radius, elevation, and motion. Product UI must not consume them directly.
-
-### Brand
-
-Brand aliases primitives into a small set of brand roles such as `accent/*` and `content/on-accent`. Semantic tokens may reference Brand roles, but product names do not enter semantic token names.
-
-### Experience
-
-Experience resolves contextual design choices before the Semantic Light/Dark mapping.
-
-| Mode | Intent | Default contexts |
-|---|---|---|
-| Productive | Focused, operational, repetitive, and management-oriented work | Employer panels, ATS, onboarding, dashboards, forms, tables, and workflow-heavy tools |
-| Expressive | Discovery, browsing, editorial, marketing, and visually prominent experiences | Jobseeker, job pages, company pages, landing pages, campaigns, and selected prominent moments |
-
-In v3, Experience initially controls `canvas/light` and `canvas/dark`. Expansion to typography, density, layout rhythm, or component treatments remains an open decision.
-
-### Semantic
-
-Semantic has Light and Dark modes and exposes 90 stable roles across `canvas`, `surface-*`, `fg-*`, `line-*`, `link-*`, Focus, Highlight, Overlay, and Skeleton. It aliases the active Brand and Experience values where required. The complete mode-by-mode graph is defined in `color-token-aliases.md`.
-
-Light/Dark is separate from Productive/Expressive. Changing either mode must not change action meaning, validation, interaction behavior, or accessibility requirements.
-
-### Component
-
-Components use Semantic tokens by default. Approved Component tokens are allowed only when a stable component-owned role cannot be represented by the shared Semantic vocabulary.
-
-The first approved family is Tag:
+`canvas` is removed. The root page or workspace uses the same structural Surface vocabulary as nested UI:
 
 ```text
-tag-surface-*
-tag-fg-*
-tag-line-*
+surface/default
+surface/muted
+surface/inset
+surface/raised
+surface/inverse
 ```
 
-Tag tokens communicate categorization rather than feedback status. They may alias approved Primitive values because no shared semantic category role exists. Other components must not reuse them as a general color palette.
+This allows multiple structural surfaces to coexist in one product without switching a product-level canvas mode.
 
-A Primary Button remains Primary and a danger state remains danger across brands, experiences, and themes.
+## Product variation rule
 
-## Experience mode rules
+Introduce a product-aware alias only when a semantic value actually differs by product.
 
-- Select Experience at the product, journey, or bounded surface level, not independently per component.
-- Use Productive for frequent, dense, data-heavy, or time-sensitive work.
-- Use Expressive for discovery, editorial, marketing, and intentionally brand-forward contexts.
-- Do not mix modes inside a component.
-- Both modes must meet the same contrast, focus, reduced-motion, and target-size requirements.
-- Brand and Light/Dark remain separate mode dimensions.
+Today Brand differs by product, so Brand has modes. Accent currently resolves to the shared Blue Primitive palette in both products, so it remains a direct Semantic mapping rather than gaining speculative product variation.
+
+If a future product needs a different Accent hue, add the minimum product-aware alias required at that time while preserving the Semantic API.
 
 ## Naming
 
-Mode names do not appear in Semantic token names. Do not create `productive-surface-*`, `expressive-surface-*`, `jobvision-surface-*`, or `cando-surface-*` families.
+Product names and theme names do not enter Semantic token names. Do not create `jobvision-surface-*`, `cando-surface-*`, `light-*`, or `dark-*` semantic families.
 
-The current color vocabulary is defined in `jobvision-color-tokens-v3-surface-model.md`. The deprecated `bg-*` and `fill-*` background families must not be used for new work.
+Figma variables use slash grouping. Code may flatten `/` to `-` when implementation mapping is approved.
+
+The current color vocabulary is defined in `jobvision-color-tokens-v4-surface-model.md`. The v3 catalog is historical migration reference only.
 
 ## References
 
-- `jobvision-color-tokens-v3-surface-model.md`
+- `jobvision-color-tokens-v4-surface-model.md`
 - `color-token-aliases.md`
 - `primitive-tokens.md`
 - `semantic-tokens.md`

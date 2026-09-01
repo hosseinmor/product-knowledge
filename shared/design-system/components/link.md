@@ -29,35 +29,69 @@ A Link may visually resemble a Button, but it must preserve:
 
 Use Button when the control changes state or performs an operation in the current context.
 
-## Token Roles
+## Variants and Token Roles
+
+### Default
+
+Default is the recognizable chromatic Link treatment.
 
 ```text
-link-default
-link-hover
-link-visited
-
-link-emphasis
-link-emphasis-hover
-
-link-inverse
-link-inverse-hover
+link/default
+link/hover
 ```
 
-- Default is the normal Link role.
-- Hover is the pointer-hover state of Default.
-- Visited is the persistent state for a destination that has already been opened. Do not use it for pressed/active interaction.
-- Emphasis is the higher-emphasis product Link role.
-- Inverse adapts Default for `surface-inverse`; it is contextual, not a third Link role.
+It is the safe default for inline links and other contexts where the link must remain independently recognizable.
 
-Figma uses slash-grouped variables such as `link/default` and `link/inverse-hover`. Code uses the flattened names above.
+Default currently resolves from the shared Blue Primitive family in both JobVision and Cando. It remains a dedicated Link semantic rather than aliasing `fg/accent` directly.
+
+### Subtle
+
+Subtle is the intentional neutral lower-prominence Link treatment.
+
+```text
+link/subtle
+link/subtle-hover
+```
+
+Use it when context already communicates clickability, for example:
+
+- Dense ATS/product UI
+- Navigation
+- Card metadata
+- Breadcrumb-like destinations
+- “View all” and similar contextual navigation
+
+Do not use Subtle as the normal inline body-copy Link unless another persistent cue such as underline makes the link recognizable without color.
+
+### Inverse
+
+```text
+link/inverse
+link/inverse-hover
+```
+
+Inverse adapts Link for `surface/inverse`. v4 intentionally has one inverse treatment rather than separate Default/Subtle inverse families.
+
+## Removed v3 Roles
+
+```text
+link/visited
+link/emphasis
+link/emphasis-hover
+```
+
+Visited is not part of the shared v4 API because no current repeated product pattern requires persistent visited styling. It may be added later if a reviewed use case such as visited search results requires it.
+
+The former Emphasis role is replaced by Subtle with the hierarchy reversed: Default is chromatic; Subtle is the neutral reduced-emphasis variant.
 
 ## Button-Styled Links
 
 Button styling does not change the element type.
 
-Examples such as “Read more” and “View all” may use text-link or Button styling depending on hierarchy and context, while remaining Links when they navigate.
+Examples such as “Read more” and “View all” may use text-Link or Button styling depending on hierarchy and context, while remaining Links when they navigate.
 
 ## Related Documents
 
 - `button.md`
 - `../experience-rules/navigation.md`
+- `../tokens/semantic-tokens.md`
