@@ -72,6 +72,18 @@ link/inverse-hover
 
 Inverse adapts Link for `surface/inverse`. v4 intentionally has one inverse treatment rather than separate Default/Subtle inverse families.
 
+## Focus
+
+Link does not own a separate focus-color family. Focus composes with the current Link variant:
+
+```text
+Default Link → focus/default
+Subtle Link  → focus/default
+Inverse Link → focus/inverse
+```
+
+Focus must remain keyboard-visible and must not be represented only by changing the Link foreground color.
+
 ## Removed v3 Roles
 
 ```text
@@ -89,6 +101,10 @@ The former Emphasis role is replaced by Subtle with the hierarchy reversed: Defa
 Button styling does not change the element type.
 
 Examples such as “Read more” and “View all” may use text-Link or Button styling depending on hierarchy and context, while remaining Links when they navigate.
+
+When a Link visually uses a Button treatment, reuse the selected Button visual recipe from `button.md` rather than creating a parallel Link-specific Button color mapping. Link continues to own navigation semantics and accessibility behavior; Button remains the canonical owner of the visual preset/state recipe.
+
+No `link-button/*` Color-token family is approved.
 
 ## Related Documents
 
