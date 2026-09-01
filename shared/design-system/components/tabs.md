@@ -4,14 +4,15 @@ collection: design-system
 type: component
 title: Tabs
 summary: '> Status: structure only; v4 Color mapping stress-tested'
-knowledge_state: unverified
+knowledge_state: canonical
 document_maturity: scaffold
-related: []
+related:
+  - design-system.governance.documentation-maintenance
 ---
 
 # Tabs
 
-> Status: component specification remains structure-only. The v4 Color mapping below is approved as architecture stress-test evidence; it does not finalize anatomy, sizes, keyboard behavior, or the full variant set.
+> Status: component specification remains structure-only. The v4 Color mapping below is **reviewed Color architecture evidence** and is authoritative for that stated scope; it does not finalize anatomy, sizes, keyboard behavior, or the full variant set.
 
 ## Purpose
 
@@ -73,7 +74,7 @@ Strong pill    → Neutral Emphasis
 Selected row   → Selected surface
 ```
 
-This stress test does not justify a full global Selected Color matrix.
+This reviewed stress test does not justify a full global Selected Color matrix.
 
 ## When to Use
 ## When Not to Use
@@ -98,6 +99,7 @@ This stress test does not justify a full global Selected Color matrix.
 
 ## Related Documents
 
+- `../governance/documentation-maintenance.md`
 - `../experience-rules/selection.md`
 - `../tokens/semantic-tokens.md`
 - `../tokens/usage-rules.md`
