@@ -720,7 +720,9 @@
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.governance.documentation-maintenance"
+      ],
       "topics": [
         "components",
         "design-system-component",
@@ -832,7 +834,9 @@
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.governance.documentation-maintenance"
+      ],
       "topics": [
         "components",
         "design-system-component",
