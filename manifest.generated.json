@@ -1321,7 +1321,7 @@
       "id": "design-system.governance.documentation-maintenance",
       "kind": "design-system-governance",
       "title": "Documentation Maintenance",
-      "summary": "> Status: structure only",
+      "summary": "Defines Design System documentation trust and maturity metadata.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
