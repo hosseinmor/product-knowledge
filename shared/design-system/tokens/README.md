@@ -6,7 +6,7 @@ This section defines the v4 Color token architecture, naming, semantics, themes,
 
 ## Documents
 
-- `architecture.md` — Color collection and resolution model for Primitive, Brand, Semantic, and Component usage
+- `architecture.md` — Color collection order and allowed alias edges for Primitive, Brand, Semantic, and Component usage
 - `primitive-tokens.md` — Raw design values and current Primitive color inventory
 - `jobvision-color-tokens-v4-surface-model.md` — Current color-token catalog and canonical v4 Surface-model specification
 - `jobvision-color-tokens-v3-surface-model.md` — Historical v3 working draft retained for migration reference
@@ -16,18 +16,26 @@ This section defines the v4 Color token architecture, naming, semantics, themes,
 - `product-overrides.md` — Brand-mode rules and product application constraints
 - `usage-rules.md` — Semantic Color consumption, fallbacks, and migration rules
 
-## Color Resolution Order
+## Color Layer Order
 
 ```text
-Primitive
-→ Brand
-→ Semantic
-→ Component
+01 Primitive
+02 Brand
+03 Semantic
+04 Component
 ```
 
-Components consume Semantic Color tokens by default. Approved component-owned Color exceptions are exposed through Component tokens; the current retained exception is the Tag family.
+This is an organizational layer order, not a mandatory linear resolution chain. Allowed Color alias edges are:
 
-Brand variation is resolved through the Brand collection. Light/Dark is resolved in Semantic. The former Productive/Expressive Experience Color collection and root `canvas` role are removed in v4.
+```text
+Brand     → Primitive
+Semantic  → Brand | Primitive
+Component → Semantic | Primitive (approved exception only)
+```
+
+Ordinary UI components consume Semantic Color tokens directly. Approved component-owned Color exceptions are exposed through Component tokens; the current retained exception is the Tag family.
+
+Brand variation is resolved through the Brand collection. Light/Dark is resolved in Semantic. Shared semantics that do not vary by product may alias Primitive directly. The former Productive/Expressive Experience Color collection and root `canvas` role are removed in v4.
 
 Existing Figma names that still include `Productive` are legacy naming references unless a component explicitly documents another active dimension.
 

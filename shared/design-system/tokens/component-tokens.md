@@ -4,9 +4,10 @@ collection: design-system
 type: token
 title: Component Tokens
 summary: This document defines when a component-specific token layer is justified and catalogs approved component-token families.
-knowledge_state: unverified
+knowledge_state: canonical
 document_maturity: draft
-related: []
+related:
+  - design-system.governance.documentation-maintenance
 ---
 
 # Component Tokens
@@ -35,16 +36,24 @@ surface/* / fg/* / line/* / focus/*
 
 ## Default Color Architecture
 
-The v4 Color path is:
+Color collection order:
 
 ```text
-Primitive
-→ Brand
-→ Semantic
-→ Component
+01 Primitive
+02 Brand
+03 Semantic
+04 Component
 ```
 
-Components use Semantic Color tokens by default. Do not insert a Component-token alias only to rename an existing Semantic token.
+This order is not a mandatory alias chain. Relevant allowed edges are:
+
+```text
+Brand     → Primitive
+Semantic  → Brand | Primitive
+Component → Semantic | Primitive (approved exception only)
+```
+
+Ordinary components use Semantic Color tokens directly. Do not insert a Component-token alias only to rename an existing Semantic token.
 
 For Button:
 
@@ -82,6 +91,8 @@ strong | subtle | outline | ghost
 They organize Figma and code variants. They must not be copied directly into Core token names.
 
 Not every theoretical combination is supported. In v4, `brand × strong` is approved; Brand Subtle, Brand Outline, and Brand Ghost must not be created merely to complete the matrix.
+
+Magic is also **not** a Button tone or preset in the current Button model. AI-related Buttons continue to use the normal Button hierarchy. A future Magic Button treatment requires an explicit Button-component review rather than being inferred from `surface/magic-emphasis*`.
 
 ## When to Create a Component Token
 

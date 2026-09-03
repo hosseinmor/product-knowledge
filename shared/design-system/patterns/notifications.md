@@ -4,9 +4,10 @@ collection: design-system
 type: pattern
 title: Notifications
 summary: System feedback uses Info, Success, Warning, and Error; Toast is a transient notification presentation.
-knowledge_state: unverified
+knowledge_state: canonical
 document_maturity: draft
-related: []
+related:
+  - design-system.governance.documentation-maintenance
 ---
 
 # Notifications
@@ -44,11 +45,11 @@ Border       → line/{severity} only when the anatomy uses a semantic border
 
 Do not color every text element with the severity color merely because the notification has a status. Neutral readable content should remain neutral unless the anatomy has a specific reason for colored text.
 
-Only muted Support surfaces are approved globally. Do not generate `surface/{severity}-emphasis*` without a repeated, reviewed use case.
+Only muted Support surfaces are part of the current reviewed shared Color contract. Do not generate `surface/{severity}-emphasis*` without a repeated, reviewed use case.
 
 ## Inverse Toast
 
-The approved inverse Toast composition provides the concrete use case for Support inverse foregrounds:
+The reviewed inverse Toast composition provides the concrete use case for Support inverse foregrounds:
 
 ```text
 Container    → surface/inverse
@@ -57,7 +58,7 @@ Status icon  → fg/{severity}-inverse
 Action Link  → link/inverse
 ```
 
-Approved inverse status roles:
+Current inverse status roles:
 
 ```text
 fg/info-inverse
@@ -128,6 +129,7 @@ The exact component anatomy and timing behavior remain component/pattern impleme
 
 ## Related Documents
 
+- `../governance/documentation-maintenance.md`
 - `../components/notification.md`
 - `../tokens/semantic-tokens.md`
 - `../tokens/usage-rules.md`

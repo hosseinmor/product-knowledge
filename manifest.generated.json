@@ -957,7 +957,9 @@
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.governance.documentation-maintenance"
+      ],
       "topics": [
         "components",
         "design-system-component",
@@ -1069,7 +1071,9 @@
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.governance.documentation-maintenance"
+      ],
       "topics": [
         "components",
         "design-system-component",
@@ -1101,7 +1105,9 @@
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.governance.documentation-maintenance"
+      ],
       "topics": [
         "components",
         "design-system-component",
@@ -1558,7 +1564,7 @@
       "id": "design-system.governance.documentation-maintenance",
       "kind": "design-system-governance",
       "title": "Documentation Maintenance",
-      "summary": "> Status: structure only",
+      "summary": "Defines Design System documentation trust and maturity metadata.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
@@ -1768,7 +1774,9 @@
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.governance.documentation-maintenance"
+      ],
       "topics": [
         "design-system-pattern",
         "notifications",
@@ -1930,7 +1938,9 @@
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.governance.documentation-maintenance"
+      ],
       "topics": [
         "architecture",
         "design-system-token",
@@ -1962,7 +1972,9 @@
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.governance.documentation-maintenance"
+      ],
       "topics": [
         "component-tokens",
         "design-system-token",

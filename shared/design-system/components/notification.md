@@ -4,14 +4,15 @@ collection: design-system
 type: component
 title: Notification
 summary: '> Status: structure only; v4 Color mapping stress-tested'
-knowledge_state: unverified
+knowledge_state: canonical
 document_maturity: scaffold
-related: []
+related:
+  - design-system.governance.documentation-maintenance
 ---
 
 # Notification
 
-> Status: component specification remains structure-only. The v4 Color mappings below are approved as architecture stress-test evidence. Final anatomy, timing, placement, dismissal, and accessibility behavior remain open.
+> Status: component specification remains structure-only. The v4 Color mappings below are **reviewed Color architecture evidence** and are authoritative for that stated scope. Final anatomy, timing, placement, dismissal, and accessibility behavior remain open.
 
 ## Purpose
 
@@ -40,11 +41,11 @@ Description  → fg/secondary
 Border       → line/{severity} only when the anatomy uses a semantic border
 ```
 
-Only muted Support surfaces are approved globally. A Notification does not justify a strong `surface/{severity}-emphasis*` matrix.
+Only muted Support surfaces are part of the current shared Color contract. This reviewed mapping does not justify a strong `surface/{severity}-emphasis*` matrix.
 
 ## Inverse Toast Color Mapping
 
-Toast is a transient Notification presentation. The approved inverse Toast composition is:
+Toast is a transient Notification presentation. The reviewed inverse Toast composition is:
 
 ```text
 Container    → surface/inverse
@@ -53,7 +54,7 @@ Status icon  → fg/{severity}-inverse
 Action Link  → link/inverse
 ```
 
-Approved inverse Support foregrounds:
+Current inverse Support foregrounds:
 
 ```text
 fg/info-inverse
@@ -104,6 +105,7 @@ Example distinction:
 
 ## Related Documents
 
+- `../governance/documentation-maintenance.md`
 - `../patterns/notifications.md`
 - `../tokens/semantic-tokens.md`
 - `../tokens/usage-rules.md`

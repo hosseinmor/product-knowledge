@@ -21,6 +21,7 @@ related: []
 - The approved Tag component uses its own `tag/*` color family by exception.
 - Test supported Brand × Semantic combinations for accessibility.
 - A shared Primitive value does not merge semantic meaning. Choose tokens by role, not by visual color.
+- Do not assume that Color aliases form one mandatory `Primitive → Brand → Semantic → Component` chain. Semantic may resolve directly to Primitive, and approved Component exceptions may do the same.
 
 ## Surface selection
 
@@ -36,7 +37,7 @@ related: []
 - Persistent selected row/item/container → `surface/selected`; add `surface/selected-hover` only if the selected container remains interactive
 - Approved Brand conversion or product-defining moment → `surface/brand*`
 - General chromatic interaction/affordance → matching `surface/accent-*`, `fg/accent`, or `line/accent`
-- AI-assisted/generated treatment → matching Magic roles
+- AI-assisted/generated treatment → matching Magic roles, subject to the Magic/Button boundary below
 - Destructive action or destructive-intent callout → matching Danger roles
 - Validation or system feedback → matching Support muted surface, foreground, and line roles
 - Disabled filled control → `surface/disabled + fg/disabled`
@@ -179,7 +180,7 @@ surface/magic-muted
 → subtle AI card, section, chip, or container
 
 surface/magic-emphasis*
-→ strong interactive AI action / entry point
+→ strong AI-owned interactive surface, such as an AI entry pill/control/container when that anatomy is not the standard shared Button component
 
 fg/magic
 → AI icon, label, or inline emphasis
@@ -187,6 +188,10 @@ fg/magic
 line/magic
 → AI outline/indicator when required by anatomy
 ```
+
+Magic is **not** a current Button tone or preset. A standard shared Button inside an AI experience uses the normal Button hierarchy from `../components/button.md`. Use Magic on the surrounding AI container, icon, label, indicator, or a separately defined AI-owned interactive anatomy.
+
+Do not infer a Magic Button from `surface/magic-emphasis*`. If repeated product evidence later requires a Magic-styled standard Button, review and extend the Button contract explicitly before using that treatment.
 
 Do not use Magic merely as a decorative purple treatment and do not substitute it for Brand, Accent, Selected, or Support meaning.
 
@@ -333,17 +338,19 @@ The proposed `highlight/default` and `highlight/inverse` roles are removed. A fu
 - Do not invent hover/active states for passive or disabled surfaces.
 - Do not treat selected-hover as universal; only interactive selected containers receive it.
 - Do not use Tag tokens as a generic palette for other components.
+- Do not use `surface/magic-emphasis*` to create an undeclared Magic Button preset.
 
 ## Fallbacks
 
 - Semantic Light/Dark mappings must resolve the active Brand input when Brand meaning is required.
 - A semantic role that does not vary by product may alias a Primitive directly.
+- Approved Component Color exceptions may alias Primitive directly only when their component-owned meaning has no shared Semantic role and the exception is documented.
 - If a proposed value fails accessibility, choose a contrast-safe approved mapping rather than binding a component to an arbitrary Primitive.
 - If a future product needs a different Accent hue, add the minimum product-aware alias without changing the public Semantic role names.
 
 ## Migration rules
 
-1. Remove the `Experience` collection from the Color resolution path.
+1. Remove the `Experience` collection from the Color layer model.
 2. Replace root `canvas` usage with the appropriate structural Surface, normally `surface/default` or `surface/inset` according to hierarchy.
 3. Replace `surface/control*` with `surface/neutral-muted*`.
 4. Replace `surface/emphasis*` with `surface/neutral-emphasis*`.

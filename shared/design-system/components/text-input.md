@@ -4,14 +4,15 @@ collection: design-system
 type: component
 title: Text Input
 summary: '> Status: structure only; v4 Color mapping stress-tested'
-knowledge_state: unverified
+knowledge_state: canonical
 document_maturity: scaffold
-related: []
+related:
+  - design-system.governance.documentation-maintenance
 ---
 
 # Text Input
 
-> Status: component specification remains structure-only. The v4 Color mapping below is approved as architecture stress-test evidence; it does not finalize anatomy, dimensions, or all behavior.
+> Status: component specification remains structure-only. The v4 Color mapping below is **reviewed Color architecture evidence** and is authoritative for that stated scope; it does not finalize anatomy, dimensions, or all behavior.
 
 ## Purpose
 
@@ -66,7 +67,7 @@ line/disabled
 focus/default
 ```
 
-No `input/*`, `fg/helper`, `read-only/*`, or input-specific focus Color family is approved from this test.
+No `input/*`, `fg/helper`, `read-only/*`, or input-specific focus Color family is introduced from this test.
 
 ## When to Use
 ## When Not to Use
@@ -87,10 +88,11 @@ No `input/*`, `fg/helper`, `read-only/*`, or input-specific focus Color family i
 - Exact Disabled label/helper treatment
 - Final Read-only treatment
 - Final geometry and Focus ring specification
-- Validation behavior beyond the Color mapping evidence above
+- Validation behavior beyond the reviewed Color mapping evidence above
 
 ## Related Documents
 
+- `../governance/documentation-maintenance.md`
 - `../tokens/semantic-tokens.md`
 - `../tokens/usage-rules.md`
 - `../tokens/jobvision-color-tokens-v4-surface-model.md`

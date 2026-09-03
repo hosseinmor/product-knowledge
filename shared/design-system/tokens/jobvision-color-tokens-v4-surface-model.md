@@ -24,15 +24,24 @@ The architecture below is specific to Color. Typography, Spacing, Radius, Elevat
 
 ## Architecture
 
+Collection layer order:
+
 ```text
 01 Primitives
-      ↓
 02 Brand
-      ↓
 03 Semantic
-      ↓
 04 Component
 ```
+
+This order is organizational, not a mandatory linear resolution path. Allowed Color alias edges are:
+
+```text
+Brand     → Primitive
+Semantic  → Brand | Primitive
+Component → Semantic | Primitive (approved exception only)
+```
+
+Ordinary UI components consume Semantic Color tokens directly. The Component collection is optional and exceptional; Brand appears in a resolution path only when product identity is part of the semantic meaning.
 
 Collections and modes:
 
@@ -55,7 +64,7 @@ Collections and modes:
 
 `Experience` is removed in v4. The former Productive/Expressive distinction was only resolving the root canvas and did not justify a dedicated Color alias layer.
 
-Components consume Semantic Color tokens by default. Component Color tokens remain exceptional and are created only when a stable component-owned contract cannot be expressed by the shared Semantic vocabulary.
+Components consume Semantic Color tokens by default. Component Color tokens remain exceptional and are created only when a stable component-owned contract cannot be expressed by the shared Semantic vocabulary. An approved Component exception may alias Primitive directly when no shared Semantic meaning exists, as with categorical Tag colors.
 
 Figma Color variable names use slash grouping. Code may flatten `/` to `-` only when implementation mapping is approved. Until then, flattened identifiers in component docs are illustrative/proposed rather than production code-token contracts.
 
@@ -353,7 +362,7 @@ surface/magic-muted
 → subtle AI card, AI section, AI chip, or AI container
 
 surface/magic-emphasis*
-→ strong interactive AI action or AI entry point
+→ strong AI-owned interactive surface, such as an AI entry pill/control/container when that anatomy is not the standard shared Button component
 
 fg/magic
 → AI icon, label, sparkle, or inline AI emphasis
@@ -361,6 +370,10 @@ fg/magic
 line/magic
 → AI-specific outline or indicator when anatomy needs a line
 ```
+
+Magic does **not** define a Button preset or Button tone. Standard shared Buttons inside AI experiences continue to use the Button hierarchy defined in `../components/button.md`. Magic may identify the surrounding AI container, icon, label, indicator, or another AI-owned interactive anatomy.
+
+Do not infer a Magic Button from `surface/magic-emphasis*`. A repeated need for a Magic-styled standard Button requires an explicit Button-component review first.
 
 Magic must not replace Brand, Accent, Selected, or Support meaning and must not be used merely as a decorative purple treatment.
 
@@ -708,6 +721,8 @@ Internal Button tone:
 ```text
 brand | neutral | danger
 ```
+
+Magic is not a current Button tone or preset. `surface/magic-emphasis*` belongs to AI-owned interactive surfaces outside the standard Button preset model unless the Button component is explicitly extended in a future review.
 
 `brand × strong` is the currently approved Brand combination. Do not generate Brand Subtle, Brand Outline, or Brand Ghost merely to complete a matrix.
 

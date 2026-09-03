@@ -17,16 +17,26 @@ Semantic tokens are the default Color interface consumed by components. Their ro
 
 ## Resolution
 
+Color collections follow this layer order:
+
 ```text
-Primitive Value
-→ Brand: Jobvision or Cando
-→ Semantic: Light or Dark
-→ Component
+01 Primitive
+02 Brand
+03 Semantic
+04 Component
 ```
 
-This is the Color-token resolution path. Non-color foundations are not required to follow the same graph.
+This is not a mandatory linear alias path. Allowed resolution edges are:
 
-Brand provides product-identity inputs where required. Semantic may also alias generic Primitive hue scales directly when a role does not vary by product. Components do not consume Brand directly.
+```text
+Brand     → Primitive
+Semantic  → Brand | Primitive
+Component → Semantic | Primitive (approved exception only)
+```
+
+Brand provides product-identity inputs where required. Semantic may alias generic Primitive hue scales directly when a role does not vary by product. Ordinary components consume Semantic Color tokens directly and do not consume Brand directly. Approved Component tokens are optional exceptions, not a required hop.
+
+Non-color foundations are not required to follow this Color graph.
 
 ## Surface
 
@@ -136,7 +146,7 @@ surface/disabled
 - `surface/brand` is reserved for product identity and approved key product/conversion moments.
 - Accent communicates chromatic interaction/affordance and may be used by component selection states when a colored cue is appropriate.
 - `surface/accent-muted*` is the tonal interactive Accent treatment for patterns such as applied filters, selected tonal chips, and actionable/promotional banners where the reason for the color is interaction or emphasis rather than system feedback.
-- Magic surfaces are reserved for AI-assisted/generated experiences. Typical uses include AI entry cards, AI sections, AI chips, and AI actions when the treatment is explicitly communicating the AI capability.
+- Magic surfaces are reserved for AI-assisted/generated experiences. Typical uses include AI entry cards, AI sections, AI chips, and AI-owned interactive surfaces whose component contract is not the standard shared Button preset model.
 - `surface/danger-muted` is for destructive-intent callouts or pre-action warning regions. It does not represent a system error.
 
 The `bg-*` and `fill-*` families remain deprecated.
@@ -259,14 +269,14 @@ An actionable Accent banner or applied filter may use Accent Muted. A passive in
 
 ## Magic
 
-Magic communicates an AI-assisted, AI-generated, or explicitly magical product capability. It is a shared Semantic family because the same AI meaning may appear across multiple component types, including cards/sections, chips/labels, icons, outlines, and actions.
+Magic communicates an AI-assisted, AI-generated, or explicitly magical product capability. It is a shared Semantic family because the same AI meaning may appear across multiple component anatomies, including cards/sections, chips/labels, icons, outlines, and AI-specific interactive surfaces.
 
 ```text
 surface/magic-muted
 → subtle AI container/chip/section treatment
 
 surface/magic-emphasis*
-→ strong interactive AI action or entry point
+→ strong AI-owned interactive surface, such as an AI entry pill/control/container when that anatomy is not the standard shared Button component
 
 fg/magic
 → AI icon, label, or inline emphasis
@@ -274,6 +284,10 @@ fg/magic
 line/magic
 → AI-specific outline or indicator when the anatomy needs a line
 ```
+
+Magic does **not** create a Button preset or Button tone. A standard shared Button inside an AI experience continues to use the Button hierarchy defined in `../components/button.md` (`Brand`, `Primary`, `Secondary`, `Tertiary`, `Ghost`, or `Danger` as appropriate). Magic may identify the surrounding AI experience through its container, icon, label, or other AI-owned anatomy.
+
+If a repeated product need later requires a genuinely Magic-styled standard Button, review the Button component contract first. Do not infer a Magic Button from the existence of `surface/magic-emphasis*`.
 
 Magic must not be used merely because purple is visually attractive and must not replace Brand, Accent, Selected, or Support semantics.
 
