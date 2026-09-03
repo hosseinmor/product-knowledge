@@ -1,51 +1,46 @@
 # Design System Knowledge
 
-This directory contains the canonical **meaning and usage knowledge** of the shared JobVision / Cando Design System.
+This directory contains the canonical **decision knowledge** of the shared JobVision/Cando Design System.
 
-The goal is not to reproduce Figma, Storybook, code, or every standards document in Markdown. Keep durable decisions here and route exact live specifications to their owning source.
+The goal is not to mirror Figma, Storybook, code, or token data in Markdown. Keep durable meaning and decisions here; query live sources for exact implementation facts.
 
 ## Start here
 
+For design work:
+
 ```text
 DESIGN.md
-→ design intent and default choices
-
-STRUCTURE.md
-→ what belongs where
-
-components/ or patterns/
-→ reusable decision contracts
-
-foundations/, tokens/, experience-rules/, accessibility/
-→ load only when the task needs specialized rules
-
-integrations/source-of-truth.md
-→ resolve Figma / code / knowledge ownership
+→ relevant Component / Pattern
+→ only relevant specialized rules
+→ live Figma / Code / Storybook source for exact facts
 ```
 
-## Documentation rule
+Do not read the whole Design System by default.
 
-Prefer **small, high-confidence documents with clear ownership** over exhaustive pages.
+## Knowledge layers
 
-A document should primarily contain information that cannot be reliably derived from a live source:
+1. **`DESIGN.md`** — compact design language and default intent.
+2. **Foundations + Tokens** — shared models and semantic vocabulary.
+3. **Components + Patterns** — reusable decision contracts.
+4. **Specialized Rules** — Experience Rules, Accessibility, and Product Variations.
+5. **Integrations + Governance** — source boundaries, ownership, maturity, and maintenance.
 
-- why and when to use something;
-- semantic meaning and decision rules;
-- important behavior/composition constraints;
-- component-specific accessibility requirements;
-- known gaps and unsupported behavior.
+See `STRUCTURE.md` for the detailed ownership model and `integrations/source-of-truth.md` when sources disagree.
 
-Do not manually duplicate generated props, token values, every Figma property, every visual permutation, or migration history when a live source can own them.
+## Documentation principle
 
-## Sections
+Prefer **minimum useful documentation with broad coverage** over exhaustive prose for a small subset of components.
 
-- `foundations/` — durable visual/system models
-- `tokens/` — token architecture, semantics, and approved mappings
-- `components/` — reusable component decision contracts
-- `patterns/` — reusable composition and flow contracts
-- `experience-rules/` — cross-component interaction rules only
-- `accessibility/` — accessibility baseline and specialized rules
-- `product-variations/` — approved product-specific Design System differences
-- `integrations/` — source-of-truth boundaries and live-system references
-- `governance/` — ownership, maturity, contribution, maintenance
-- `templates/` — minimum authoring structures
+A document should usually explain only what another reliable live source cannot answer by itself:
+- why something exists;
+- when to use or avoid it;
+- semantic meaning;
+- meaningful choices;
+- non-obvious behavior;
+- composition constraints;
+- component/pattern-specific accessibility;
+- known gaps.
+
+Do not manually copy generated API tables, every Figma property, exhaustive state permutations, raw token catalogs, test implementation, or completed migration history into normal runtime guidance.
+
+Documentation depth should follow complexity: simple/native components stay compact; composite/custom widgets need fuller behavior/accessibility contracts.
