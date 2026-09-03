@@ -119,7 +119,7 @@ This route is intentionally deeper because accessibility behavior is being encod
 ### D. Design-System Component Implementation
 
 Examples:
-- implement a shared Button, Dialog, Combobox, Tabs, Input, Menu, or other DS component;
+- implement a shared Button, Modal, Combobox, Tabs, Input, Menu, or other DS component;
 - revise shared DOM/ARIA/keyboard behavior.
 
 Default retrieval:
