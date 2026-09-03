@@ -937,11 +937,15 @@
       "id": "design-system.component.modal",
       "kind": "design-system-component",
       "title": "Modal",
-      "summary": "> Status: structure only",
+      "summary": "Modal creates a temporary blocking interaction context for a focused decision or task.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.accessibility.focus-management",
+        "design-system.accessibility.keyboard-navigation",
+        "design-system.accessibility.screen-reader-semantics"
+      ],
       "topics": [
         "components",
         "design-system-component",
