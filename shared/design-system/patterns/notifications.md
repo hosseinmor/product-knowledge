@@ -3,23 +3,26 @@ id: design-system.pattern.notifications
 collection: design-system
 type: pattern
 title: Notifications
-summary: System feedback uses Info, Success, Warning, and Error; Toast is a transient notification presentation.
+summary: Defines shared feedback severity and when feedback appears inline or as a transient Toast.
 knowledge_state: unverified
 document_maturity: draft
-related: []
+related:
+- design-system.accessibility.dynamic-content-and-feedback
 ---
 
 # Notifications
 
-## Problem
+## Problem and Use
 
-System feedback needs a consistent severity model across inline feedback and transient Toast presentations without creating a separate strong color matrix for every severity.
+Notifications communicate system feedback without turning every success, warning, or failure into a different interaction model.
 
-## Taxonomy
+Use this pattern when the interface needs to communicate a system state or result such as:
+- information;
+- success;
+- warning;
+- error.
 
-`Notification` is the shared feedback pattern. A `Toast` is a transient notification presentation, not a fifth severity and not a separate semantic color family.
-
-Standard system-feedback severities are:
+Standard feedback severities are:
 
 ```text
 Info
@@ -28,108 +31,103 @@ Warning
 Error
 ```
 
-`Danger` is intentionally not part of this severity list. Danger communicates destructive intent/action, while Error communicates a validation failure or system/problem state.
+`Danger` is **not** a fifth notification severity. Danger describes destructive intent before an action; Error describes a failure/problem state.
 
-## Inline Notification
+## Structure / Flow
 
-A baseline inline notification uses a muted Support surface with readable neutral text and a severity cue:
+The shared pattern has two common presentations:
 
-```text
-Container    → surface/{severity}-muted
-Status icon  → fg/{severity}
-Title        → fg/primary
-Description  → fg/secondary
-Border       → line/{severity} only when the anatomy uses a semantic border
-```
+### Inline Notification
 
-Do not color every text element with the severity color merely because the notification has a status. Neutral readable content should remain neutral unless the anatomy has a specific reason for colored text.
+Use when the message should remain visible near the affected content or when users may need time to read or act on it.
 
-Only muted Support surfaces are approved globally. Do not generate `surface/{severity}-emphasis*` without a repeated, reviewed use case.
+Baseline visual semantics:
+- muted severity surface;
+- readable neutral title/body;
+- severity cue through icon and/or line when the anatomy uses one.
 
-## Inverse Toast
+Do not color all text simply because the message has a severity.
 
-The approved inverse Toast composition provides the concrete use case for Support inverse foregrounds:
+### Toast
 
-```text
-Container    → surface/inverse
-Title/body   → fg/on-inverse
-Status icon  → fg/{severity}-inverse
-Action Link  → link/inverse
-```
+Toast is a transient presentation of a Notification, not a semantic role and not another severity.
 
-Approved inverse status roles:
+Use for short feedback that does not need to remain in the layout, such as routine confirmation after an action.
 
-```text
-fg/info-inverse
-fg/success-inverse
-fg/warning-inverse
-fg/error-inverse
-```
+A Toast may use an inverse presentation when that is the approved component treatment. Exact visual mappings belong to the current token/component implementation rather than this pattern.
 
-These roles mean **colored Support content on `surface/inverse`**. They do not establish Support inverse surfaces or inverse line families.
+## Rules and States
 
-If a future Toast presentation uses a non-inverse container, map it through the corresponding documented surface contract rather than inventing new inverse semantics.
+### Severity is not urgency
 
-## Destructive Callouts
+Visual severity and assistive-technology announcement urgency are separate decisions.
 
-A pre-action destructive warning is not an Error Notification. Use Danger semantics when the message explains destructive consequences before the action occurs:
+For example:
+- an Error does not automatically require an assertive announcement;
+- a Success does not automatically need a live announcement if focus/context already communicates the result.
 
-```text
-surface/danger-muted
-fg/danger       # status/destructive icon when needed
-fg/primary      # main readable text
-line/danger     # only when anatomy requires a danger outline
-```
+Use the least interruptive mechanism that still communicates the change.
 
-Example meaning:
+### Destructive warning vs Error
 
 ```text
 “This action permanently deletes the job.”
-→ Danger
+→ Danger / destructive pattern
 
 “Deleting the job failed.”
-→ Error
+→ Error Notification
 ```
 
-## Actions and Close Controls
+Do not use Error merely because destructive actions and errors may share a red hue.
 
-Notification actions reuse existing interaction semantics; they do not need Notification-specific action tokens.
+### Actions
 
-On a normal inline notification:
+Notification actions reuse existing Button/Link semantics. Do not create notification-specific action styles only because an action appears inside feedback.
 
-```text
-Close/action control → normal neutral/Link semantics
-```
+If a transient Toast includes an action, users must have enough opportunity to perceive and operate it. A Toast should not steal focus merely because it appeared.
 
-On an inverse Toast:
+### Close / dismissal
 
-```text
-Close control Hover → surface/transparent-inverse-hover
-Close content       → fg/on-inverse
-Navigation action   → link/inverse
-```
+Dismissibility and timing belong to the concrete Notification/Toast component contract. They must be consistent enough that users can predict whether a message persists, disappears, or can be manually dismissed.
 
-The exact component anatomy and timing behavior remain component/pattern implementation decisions.
+## Components
+
+This pattern composes:
+- `Notification` for the feedback container/presentation;
+- existing Button/Link/Icon Button components for actions or dismissal when needed;
+- semantic Support/Danger tokens according to the message meaning.
+
+The component owns anatomy and implementation mechanics; this pattern owns severity meaning and presentation choice.
 
 ## Accessibility
 
-- Severity must not be communicated by color alone when the distinction affects understanding.
-- Status icons need appropriate accessible treatment when they convey meaning.
-- Text and interactive controls must meet the system's eventual approved contrast targets after palette values are finalized.
-- Toast announcements and focus behavior must be defined by the final Notification/Toast component implementation; Color tokens alone do not define accessibility behavior.
+- Severity must not rely on color alone when the distinction affects understanding.
+- A Toast is a visual pattern; choose status/live semantics from message importance, not from the fact that it is a Toast.
+- Routine confirmation should normally be non-interruptive.
+- Do not move focus to a Toast or spinner merely to announce it.
+- Interactive Toast controls must be keyboard accessible without automatic autofocus.
+- If a message disappears automatically, applicable timing requirements must still be met.
+- Avoid duplicate feedback such as focus movement + alert + Toast for the same event unless deliberately justified and tested.
 
-## Anti-Patterns
+Programmatic status/alert behavior is owned by `accessibility/dynamic-content-and-feedback.md`.
 
-- Treating Danger as a standard fifth Notification severity
-- Using `surface/error-muted` for a pre-action destructive warning solely because both Error and Danger may be red
-- Creating strong Support surface matrices without a repeated need
-- Creating `notification/*` Color tokens that merely alias the existing Support semantics
-- Assuming the inverse Support foreground roles imply inverse Support surfaces
+## Variations and Gaps
 
-## Related Documents
+Current reusable decisions still needed before this pattern is `reviewed`:
+- Toast timing and persistence policy;
+- stacking/queue behavior;
+- maximum simultaneous Toasts;
+- dismissibility defaults;
+- actionable Toast persistence/fallback;
+- responsive placement;
+- final relationship between inline Notification and Toast component variants;
+- executable announcement/focus tests.
 
-- `../components/notification.md`
-- `../tokens/semantic-tokens.md`
-- `../tokens/usage-rules.md`
-- `../tokens/jobvision-color-tokens-v4-surface-model.md`
-- `destructive-actions.md`
+Do not invent a full matrix of strong severity surfaces or notification-specific token families to fill these gaps.
+
+## Live References
+
+- Figma: use the current Notification/Toast component when available
+- Storybook / Code: not yet linked
+- Related component: `../components/notification.md`
+- Destructive behavior: `destructive-actions.md`
