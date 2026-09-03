@@ -36,6 +36,7 @@ SLUG_RE = re.compile(r"[^a-z0-9]+")
 VALID_STATUS = {"draft", "reviewed"}
 GROUP_KINDS = {"product-group-overview"}
 PRODUCT_KINDS = {"product-overview", "product-area", "product-area-flow"}
+DESIGN_SYSTEM_TEAM = "Design System team"
 
 
 @dataclass(frozen=True)
@@ -133,6 +134,18 @@ def infer_product(path: str, metadata: dict[str, Any]) -> str | None:
     parts = Path(path).parts
     if len(parts) >= 3 and parts[0] == "products" and parts[2] != "overview.md":
         return parts[2]
+    return None
+
+
+def infer_owner(path: str, metadata: dict[str, Any]) -> str | None:
+    """Resolve explicit ownership plus intentionally narrow collection defaults."""
+    if nonempty_string(metadata.get("owner")):
+        return str(metadata["owner"]).strip()
+
+    parts = Path(path).parts
+    if parts[:3] == ("shared", "design-system", "accessibility"):
+        return DESIGN_SYSTEM_TEAM
+
     return None
 
 
@@ -284,7 +297,7 @@ def normalize_document(doc: Document) -> tuple[dict[str, Any] | None, list[Findi
         "title": str(metadata["title"]).strip(),
         "summary": " ".join(str(metadata["summary"]).split()),
         "status": status,
-        "owner": str(metadata["owner"]).strip() if nonempty_string(metadata.get("owner")) else None,
+        "owner": infer_owner(doc.relative_path, metadata),
         "last_reviewed": last_reviewed,
         "related": related,
         "topics": topics,

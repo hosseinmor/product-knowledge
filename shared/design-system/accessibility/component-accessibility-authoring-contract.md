@@ -6,6 +6,7 @@ title: Component Accessibility Authoring Contract
 summary: Minimum accessibility information a reusable Design System component must define before its accessibility behavior is considered complete.
 knowledge_state: canonical
 document_maturity: reviewed
+owner: Design System team
 related:
 - design-system.accessibility.core
 - design-system.accessibility.router

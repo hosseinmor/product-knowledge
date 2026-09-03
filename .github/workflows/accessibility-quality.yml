@@ -1,0 +1,53 @@
+name: Accessibility knowledge quality
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      - "shared/design-system/accessibility/**"
+      - "shared/design-system/governance/**"
+      - "shared/design-system/components/**"
+      - "shared/design-system/patterns/**"
+      - "ai/design-start.md"
+      - "ai/knowledge-update.md"
+      - "scripts/check_accessibility_knowledge.py"
+      - ".github/workflows/accessibility-quality.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "shared/design-system/accessibility/**"
+      - "shared/design-system/governance/**"
+      - "shared/design-system/components/**"
+      - "shared/design-system/patterns/**"
+      - "ai/design-start.md"
+      - "ai/knowledge-update.md"
+      - "scripts/check_accessibility_knowledge.py"
+      - ".github/workflows/accessibility-quality.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  accessibility-knowledge-gate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install dependency
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Validate accessibility knowledge invariants
+        run: python scripts/check_accessibility_knowledge.py

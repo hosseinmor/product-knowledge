@@ -21,7 +21,7 @@
       "id": "button",
       "kind": "design-system-component",
       "title": "Button",
-      "summary": "Buttons trigger actions and use a small preset hierarchy for Brand, operational, low-emphasis, and destructive actions.",
+      "summary": "Buttons trigger actions.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
@@ -478,7 +478,7 @@
       "title": "Color and Contrast",
       "summary": "Practical contrast, color-use, focus, disabled-state, mode, compositing, and palette-acceptance requirements.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core"
@@ -496,7 +496,7 @@
       "title": "Component Accessibility Authoring Contract",
       "summary": "Minimum accessibility information a reusable Design System component must define before its accessibility behavior is considered complete.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core",
@@ -515,7 +515,7 @@
       "title": "Accessibility Conformance and Policy",
       "summary": "Defines the WCAG baseline, internal requirement levels, evidence language, exceptions, ownership, support expectations, and accessibility-debt policy.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core",
@@ -535,7 +535,7 @@
       "title": "Accessible Content",
       "summary": "Defines accessible UX content, labels, instructions, link purpose, language, abbreviations, error copy, and accessible-name wording.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core",
@@ -555,7 +555,7 @@
       "title": "Accessibility Core",
       "summary": "Compact accessibility baseline that must be considered for every design and frontend implementation task.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.conformance-and-policy",
@@ -574,7 +574,7 @@
       "title": "Dynamic Content and Feedback",
       "summary": "Defines accessible status messages, alerts, loading, async updates, toasts, progress, and dynamic-content announcement behavior.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core",
@@ -595,7 +595,7 @@
       "title": "Focus Management",
       "summary": "Defines practical rules for visible focus, logical focus order, programmatic focus, overlays, dynamic changes, validation, removal, and focus restoration.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core",
@@ -616,7 +616,7 @@
       "title": "Accessible Forms",
       "summary": "Defines form labeling, instructions, validation, errors, input purpose, authentication, redundant-entry, multi-step, and submission requirements.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core",
@@ -638,7 +638,7 @@
       "title": "Images, Icons, and Media",
       "summary": "Defines text alternatives, decorative imagery, icon semantics, complex images, captions, audio description, and media-control accessibility.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core",
@@ -658,7 +658,7 @@
       "title": "Keyboard Navigation",
       "summary": "Defines practical keyboard access, native behavior, composite-widget navigation, shortcuts, disabled-item behavior, and testing requirements.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core",
@@ -679,7 +679,7 @@
       "title": "Motion and Reduced Motion",
       "summary": "Defines animation, reduced-motion, flashing, moving/auto-updating content, timing, autoplay, and vestibular-safety guidance.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core",
@@ -698,7 +698,7 @@
       "title": "Pointer, Touch, and Gestures",
       "summary": "Defines target-size, cancellation, gesture, dragging, concurrent-input, hover, and motion-actuation accessibility requirements.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core",
@@ -718,7 +718,7 @@
       "title": "Responsive and Zoom",
       "summary": "Defines text resize, zoom, reflow, overflow, truncation, reading-order, RTL, and responsive accessibility requirements.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core",
@@ -738,7 +738,7 @@
       "title": "Accessibility Task Router",
       "summary": "Routes design and frontend tasks to the smallest sufficient accessibility context.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core",
@@ -757,7 +757,7 @@
       "title": "Screen Reader Semantics",
       "summary": "Defines native-first semantics, accessible naming, programmatic state and relationship rules, hidden-content behavior, and assistive-technology expectations.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core",
@@ -779,7 +779,7 @@
       "title": "Structure and Navigation",
       "summary": "Defines page structure, headings, landmarks, bypass/navigation, page titles, predictable context changes, and Consistent Help ownership.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core",
@@ -800,7 +800,7 @@
       "title": "Tables and Data Visualization",
       "summary": "Defines Data Table versus Interactive Grid decisions, table semantics, sorting/filtering, custom Grid contracts, virtualization, charts, and accessible data alternatives.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core",
@@ -823,7 +823,7 @@
       "title": "Accessibility Testing",
       "summary": "Defines practical accessibility test scope, evidence, manual and automated checks, complete-process evaluation, and specialized validation coverage.",
       "status": "reviewed",
-      "owner": null,
+      "owner": "Design System team",
       "last_reviewed": "2026-09-02",
       "related": [
         "design-system.accessibility.core",
@@ -937,15 +937,11 @@
       "id": "design-system.component.modal",
       "kind": "design-system-component",
       "title": "Modal",
-      "summary": "Modal creates a temporary blocking interaction context for a focused decision or task.",
+      "summary": "> Status: structure only",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [
-        "design-system.accessibility.focus-management",
-        "design-system.accessibility.keyboard-navigation",
-        "design-system.accessibility.screen-reader-semantics"
-      ],
+      "related": [],
       "topics": [
         "components",
         "design-system-component",
@@ -1160,25 +1156,6 @@
         "tooltip"
       ],
       "path": "shared/design-system/components/tooltip.md"
-    },
-    {
-      "id": "design-system.design-language",
-      "kind": "design-system-design-language",
-      "title": "JV Design Language",
-      "summary": "Compact design-language entry point for human and AI design work; routes exact specifications to the canonical live sources.",
-      "status": "reviewed",
-      "owner": null,
-      "last_reviewed": null,
-      "related": [
-        "design-system.overview",
-        "design-system.structure",
-        "design-system.reference.source-of-truth"
-      ],
-      "topics": [
-        "DESIGN",
-        "design-system-design-language"
-      ],
-      "path": "shared/design-system/DESIGN.md"
     },
     {
       "id": "design-system.experience-rule.action-hierarchy",
@@ -1517,7 +1494,7 @@
       "id": "design-system.foundation.typography",
       "kind": "design-system-foundation",
       "title": "Typography",
-      "summary": "Defines the semantic typography model for labels, body text, headings, compact UI, and responsive expressive type.",
+      "summary": "> Status: structure only",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
@@ -1533,11 +1510,15 @@
       "id": "design-system.governance.change-process",
       "kind": "design-system-governance",
       "title": "Change Process",
-      "summary": "> Status: structure only",
-      "status": "draft",
-      "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "summary": "Defines the branch, review, validation, and maturity rules for canonical Design System knowledge changes.",
+      "status": "reviewed",
+      "owner": "Design System team",
+      "last_reviewed": "2026-09-03",
+      "related": [
+        "design-system.governance.ownership",
+        "design-system.governance.documentation-maintenance",
+        "design-system.accessibility.testing"
+      ],
       "topics": [
         "change-process",
         "design-system-governance",
@@ -1581,11 +1562,15 @@
       "id": "design-system.governance.documentation-maintenance",
       "kind": "design-system-governance",
       "title": "Documentation Maintenance",
-      "summary": "> Status: structure only",
-      "status": "draft",
-      "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "summary": "Defines maintenance triggers, review expectations, and validation for canonical Design System documentation.",
+      "status": "reviewed",
+      "owner": "Design System team",
+      "last_reviewed": "2026-09-03",
+      "related": [
+        "design-system.governance.ownership",
+        "design-system.governance.change-process",
+        "design-system.accessibility.testing"
+      ],
       "topics": [
         "design-system-governance",
         "documentation-maintenance",
@@ -1597,11 +1582,15 @@
       "id": "design-system.governance.ownership",
       "kind": "design-system-governance",
       "title": "Ownership",
-      "summary": "> Status: structure only",
-      "status": "draft",
-      "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "summary": "Defines ownership and review responsibility for shared Design System knowledge, including the accessibility corpus.",
+      "status": "reviewed",
+      "owner": "Design System team",
+      "last_reviewed": "2026-09-03",
+      "related": [
+        "design-system.governance.documentation-maintenance",
+        "design-system.governance.change-process",
+        "design-system.accessibility.conformance-and-policy"
+      ],
       "topics": [
         "design-system-governance",
         "governance",
@@ -1629,15 +1618,11 @@
       "id": "design-system.overview",
       "kind": "design-system-overview",
       "title": "Design System Overview",
-      "summary": "Defines the purpose, scope, boundaries, and operating model of the shared JobVision and Cando Design System.",
-      "status": "reviewed",
+      "summary": "> Status: structure only",
+      "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [
-        "design-system.design-language",
-        "design-system.structure",
-        "design-system.reference.source-of-truth"
-      ],
+      "related": [],
       "topics": [
         "design-system-overview"
       ],
@@ -1791,13 +1776,11 @@
       "id": "design-system.pattern.notifications",
       "kind": "design-system-pattern",
       "title": "Notifications",
-      "summary": "Defines shared feedback severity and when feedback appears inline or as a transient Toast.",
+      "summary": "System feedback uses Info, Success, Warning, and Error; Toast is a transient notification presentation.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [
-        "design-system.accessibility.dynamic-content-and-feedback"
-      ],
+      "related": [],
       "topics": [
         "design-system-pattern",
         "notifications",
@@ -1925,16 +1908,11 @@
       "id": "design-system.reference.source-of-truth",
       "kind": "design-system-reference",
       "title": "Sources of Truth",
-      "summary": "Defines which source owns design meaning, visual construction, runtime implementation, product behavior, and temporary change history.",
-      "status": "reviewed",
+      "summary": "> Status: structure only",
+      "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [
-        "design-system.overview",
-        "design-system.structure",
-        "design-system.reference.figma",
-        "design-system.reference.code"
-      ],
+      "related": [],
       "topics": [
         "design-system-reference",
         "integrations",
@@ -1946,15 +1924,11 @@
       "id": "design-system.structure",
       "kind": "design-system-overview",
       "title": "Design System Knowledge Structure",
-      "summary": "Defines the compact post-AI knowledge architecture and source boundaries for the shared Design System.",
-      "status": "reviewed",
+      "summary": "Overview of the shared Design System and its structure.",
+      "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [
-        "design-system.design-language",
-        "design-system.overview",
-        "design-system.reference.source-of-truth"
-      ],
+      "related": [],
       "topics": [
         "design-system-overview"
       ],
@@ -2108,8 +2082,8 @@
       "id": "design-system.ui-template.component-template",
       "kind": "design-system-ui-template",
       "title": "Component Name",
-      "summary": "Minimum decision-contract template for a reusable Design System component.",
-      "status": "reviewed",
+      "summary": "Defines a reusable Design System UI template.",
+      "status": "draft",
       "owner": null,
       "last_reviewed": null,
       "related": [],
@@ -2124,8 +2098,8 @@
       "id": "design-system.ui-template.experience-rule-template",
       "kind": "design-system-ui-template",
       "title": "Rule Name",
-      "summary": "Minimum template for a cross-component experience rule.",
-      "status": "reviewed",
+      "summary": "Defines a reusable Design System UI template.",
+      "status": "draft",
       "owner": null,
       "last_reviewed": null,
       "related": [],
@@ -2140,8 +2114,8 @@
       "id": "design-system.ui-template.foundation-template",
       "kind": "design-system-ui-template",
       "title": "Foundation Name",
-      "summary": "Minimum template for a durable shared Design System foundation.",
-      "status": "reviewed",
+      "summary": "Defines a reusable Design System UI template.",
+      "status": "draft",
       "owner": null,
       "last_reviewed": null,
       "related": [],
@@ -2156,8 +2130,8 @@
       "id": "design-system.ui-template.pattern-template",
       "kind": "design-system-ui-template",
       "title": "Pattern Name",
-      "summary": "Minimum decision-contract template for reusable component composition or flow behavior.",
-      "status": "reviewed",
+      "summary": "Defines a reusable Design System UI template.",
+      "status": "draft",
       "owner": null,
       "last_reviewed": null,
       "related": [],
@@ -2659,12 +2633,11 @@
     }
   ],
   "summary": {
-    "documents": 138,
+    "documents": 137,
     "by_kind": {
       "content-guideline": 3,
       "design-system-accessibility": 18,
       "design-system-component": 24,
-      "design-system-design-language": 1,
       "design-system-experience-rule": 10,
       "design-system-foundation": 11,
       "design-system-governance": 6,
