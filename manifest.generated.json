@@ -476,11 +476,13 @@
       "id": "design-system.accessibility.color-and-contrast",
       "kind": "design-system-accessibility",
       "title": "Color and Contrast",
-      "summary": "> Status: structure only",
-      "status": "draft",
+      "summary": "Practical contrast, color-use, focus, disabled-state, mode, compositing, and palette-acceptance requirements.",
+      "status": "reviewed",
       "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core"
+      ],
       "topics": [
         "accessibility",
         "color-and-contrast",
@@ -489,14 +491,57 @@
       "path": "shared/design-system/accessibility/color-and-contrast.md"
     },
     {
+      "id": "design-system.accessibility.component-authoring-contract",
+      "kind": "design-system-accessibility",
+      "title": "Component Accessibility Authoring Contract",
+      "summary": "Minimum accessibility information a reusable Design System component must define before its accessibility behavior is considered complete.",
+      "status": "reviewed",
+      "owner": null,
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core",
+        "design-system.accessibility.router"
+      ],
+      "topics": [
+        "accessibility",
+        "component-accessibility-authoring-contract",
+        "design-system-accessibility"
+      ],
+      "path": "shared/design-system/accessibility/component-accessibility-authoring-contract.md"
+    },
+    {
+      "id": "design-system.accessibility.conformance-and-policy",
+      "kind": "design-system-accessibility",
+      "title": "Accessibility Conformance and Policy",
+      "summary": "Defines the WCAG baseline, internal requirement levels, evidence language, exceptions, ownership, support expectations, and accessibility-debt policy.",
+      "status": "reviewed",
+      "owner": null,
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core",
+        "design-system.accessibility.router",
+        "design-system.accessibility.testing"
+      ],
+      "topics": [
+        "accessibility",
+        "conformance-and-policy",
+        "design-system-accessibility"
+      ],
+      "path": "shared/design-system/accessibility/conformance-and-policy.md"
+    },
+    {
       "id": "design-system.accessibility.content",
       "kind": "design-system-accessibility",
       "title": "Accessible Content",
-      "summary": "> Status: structure only",
-      "status": "draft",
+      "summary": "Defines accessible UX content, labels, instructions, link purpose, language, abbreviations, error copy, and accessible-name wording.",
+      "status": "reviewed",
       "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core",
+        "design-system.accessibility.forms",
+        "design-system.accessibility.structure-and-navigation"
+      ],
       "topics": [
         "accessibility",
         "content",
@@ -505,14 +550,59 @@
       "path": "shared/design-system/accessibility/content.md"
     },
     {
+      "id": "design-system.accessibility.core",
+      "kind": "design-system-accessibility",
+      "title": "Accessibility Core",
+      "summary": "Compact accessibility baseline that must be considered for every design and frontend implementation task.",
+      "status": "reviewed",
+      "owner": null,
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.conformance-and-policy",
+        "design-system.accessibility.router"
+      ],
+      "topics": [
+        "accessibility",
+        "core",
+        "design-system-accessibility"
+      ],
+      "path": "shared/design-system/accessibility/core.md"
+    },
+    {
+      "id": "design-system.accessibility.dynamic-content-and-feedback",
+      "kind": "design-system-accessibility",
+      "title": "Dynamic Content and Feedback",
+      "summary": "Defines accessible status messages, alerts, loading, async updates, toasts, progress, and dynamic-content announcement behavior.",
+      "status": "reviewed",
+      "owner": null,
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core",
+        "design-system.accessibility.focus-management",
+        "design-system.accessibility.screen-reader-semantics",
+        "design-system.accessibility.forms"
+      ],
+      "topics": [
+        "accessibility",
+        "design-system-accessibility",
+        "dynamic-content-and-feedback"
+      ],
+      "path": "shared/design-system/accessibility/dynamic-content-and-feedback.md"
+    },
+    {
       "id": "design-system.accessibility.focus-management",
       "kind": "design-system-accessibility",
       "title": "Focus Management",
-      "summary": "> Status: structure only",
-      "status": "draft",
+      "summary": "Defines practical rules for visible focus, logical focus order, programmatic focus, overlays, dynamic changes, validation, removal, and focus restoration.",
+      "status": "reviewed",
       "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core",
+        "design-system.accessibility.keyboard-navigation",
+        "design-system.accessibility.dynamic-content-and-feedback",
+        "design-system.accessibility.forms"
+      ],
       "topics": [
         "accessibility",
         "design-system-accessibility",
@@ -524,11 +614,17 @@
       "id": "design-system.accessibility.forms",
       "kind": "design-system-accessibility",
       "title": "Accessible Forms",
-      "summary": "> Status: structure only",
-      "status": "draft",
+      "summary": "Defines form labeling, instructions, validation, errors, input purpose, authentication, redundant-entry, multi-step, and submission requirements.",
+      "status": "reviewed",
       "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core",
+        "design-system.accessibility.focus-management",
+        "design-system.accessibility.dynamic-content-and-feedback",
+        "design-system.accessibility.content",
+        "design-system.accessibility.structure-and-navigation"
+      ],
       "topics": [
         "accessibility",
         "design-system-accessibility",
@@ -537,14 +633,39 @@
       "path": "shared/design-system/accessibility/forms.md"
     },
     {
+      "id": "design-system.accessibility.images-icons-and-media",
+      "kind": "design-system-accessibility",
+      "title": "Images, Icons, and Media",
+      "summary": "Defines text alternatives, decorative imagery, icon semantics, complex images, captions, audio description, and media-control accessibility.",
+      "status": "reviewed",
+      "owner": null,
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core",
+        "design-system.accessibility.screen-reader-semantics",
+        "design-system.accessibility.content"
+      ],
+      "topics": [
+        "accessibility",
+        "design-system-accessibility",
+        "images-icons-and-media"
+      ],
+      "path": "shared/design-system/accessibility/images-icons-and-media.md"
+    },
+    {
       "id": "design-system.accessibility.keyboard-navigation",
       "kind": "design-system-accessibility",
       "title": "Keyboard Navigation",
-      "summary": "> Status: structure only",
-      "status": "draft",
+      "summary": "Defines practical keyboard access, native behavior, composite-widget navigation, shortcuts, disabled-item behavior, and testing requirements.",
+      "status": "reviewed",
       "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core",
+        "design-system.accessibility.focus-management",
+        "design-system.accessibility.screen-reader-semantics",
+        "design-system.accessibility.pointer-touch-and-gestures"
+      ],
       "topics": [
         "accessibility",
         "design-system-accessibility",
@@ -556,11 +677,14 @@
       "id": "design-system.accessibility.motion",
       "kind": "design-system-accessibility",
       "title": "Motion and Reduced Motion",
-      "summary": "> Status: structure only",
-      "status": "draft",
+      "summary": "Defines animation, reduced-motion, flashing, moving/auto-updating content, timing, autoplay, and vestibular-safety guidance.",
+      "status": "reviewed",
       "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core",
+        "design-system.accessibility.pointer-touch-and-gestures"
+      ],
       "topics": [
         "accessibility",
         "design-system-accessibility",
@@ -569,36 +693,149 @@
       "path": "shared/design-system/accessibility/motion.md"
     },
     {
-      "id": "design-system.accessibility.principles",
+      "id": "design-system.accessibility.pointer-touch-and-gestures",
       "kind": "design-system-accessibility",
-      "title": "Accessibility Principles",
-      "summary": "> Status: structure only",
-      "status": "draft",
+      "title": "Pointer, Touch, and Gestures",
+      "summary": "Defines target-size, cancellation, gesture, dragging, concurrent-input, hover, and motion-actuation accessibility requirements.",
+      "status": "reviewed",
       "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core",
+        "design-system.accessibility.keyboard-navigation",
+        "design-system.accessibility.motion"
+      ],
       "topics": [
         "accessibility",
         "design-system-accessibility",
-        "principles"
+        "pointer-touch-and-gestures"
       ],
-      "path": "shared/design-system/accessibility/principles.md"
+      "path": "shared/design-system/accessibility/pointer-touch-and-gestures.md"
+    },
+    {
+      "id": "design-system.accessibility.responsive-and-zoom",
+      "kind": "design-system-accessibility",
+      "title": "Responsive and Zoom",
+      "summary": "Defines text resize, zoom, reflow, overflow, truncation, reading-order, RTL, and responsive accessibility requirements.",
+      "status": "reviewed",
+      "owner": null,
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core",
+        "design-system.accessibility.focus-management",
+        "design-system.accessibility.structure-and-navigation"
+      ],
+      "topics": [
+        "accessibility",
+        "design-system-accessibility",
+        "responsive-and-zoom"
+      ],
+      "path": "shared/design-system/accessibility/responsive-and-zoom.md"
+    },
+    {
+      "id": "design-system.accessibility.router",
+      "kind": "design-system-accessibility",
+      "title": "Accessibility Task Router",
+      "summary": "Routes design and frontend tasks to the smallest sufficient accessibility context.",
+      "status": "reviewed",
+      "owner": null,
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core",
+        "design-system.accessibility.component-authoring-contract"
+      ],
+      "topics": [
+        "accessibility",
+        "design-system-accessibility",
+        "router"
+      ],
+      "path": "shared/design-system/accessibility/router.md"
     },
     {
       "id": "design-system.accessibility.screen-reader-semantics",
       "kind": "design-system-accessibility",
       "title": "Screen Reader Semantics",
-      "summary": "> Status: structure only",
-      "status": "draft",
+      "summary": "Defines native-first semantics, accessible naming, programmatic state and relationship rules, hidden-content behavior, and assistive-technology expectations.",
+      "status": "reviewed",
       "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core",
+        "design-system.accessibility.keyboard-navigation",
+        "design-system.accessibility.focus-management",
+        "design-system.accessibility.dynamic-content-and-feedback",
+        "design-system.accessibility.structure-and-navigation"
+      ],
       "topics": [
         "accessibility",
         "design-system-accessibility",
         "screen-reader-semantics"
       ],
       "path": "shared/design-system/accessibility/screen-reader-semantics.md"
+    },
+    {
+      "id": "design-system.accessibility.structure-and-navigation",
+      "kind": "design-system-accessibility",
+      "title": "Structure and Navigation",
+      "summary": "Defines page structure, headings, landmarks, bypass/navigation, page titles, predictable context changes, and Consistent Help ownership.",
+      "status": "reviewed",
+      "owner": null,
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core",
+        "design-system.accessibility.focus-management",
+        "design-system.accessibility.content",
+        "design-system.accessibility.forms"
+      ],
+      "topics": [
+        "accessibility",
+        "design-system-accessibility",
+        "structure-and-navigation"
+      ],
+      "path": "shared/design-system/accessibility/structure-and-navigation.md"
+    },
+    {
+      "id": "design-system.accessibility.tables-and-data-visualization",
+      "kind": "design-system-accessibility",
+      "title": "Tables and Data Visualization",
+      "summary": "Defines Data Table versus Interactive Grid decisions, table semantics, sorting/filtering, custom Grid contracts, virtualization, charts, and accessible data alternatives.",
+      "status": "reviewed",
+      "owner": null,
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core",
+        "design-system.accessibility.keyboard-navigation",
+        "design-system.accessibility.focus-management",
+        "design-system.accessibility.screen-reader-semantics",
+        "design-system.accessibility.color-and-contrast",
+        "design-system.accessibility.testing"
+      ],
+      "topics": [
+        "accessibility",
+        "design-system-accessibility",
+        "tables-and-data-visualization"
+      ],
+      "path": "shared/design-system/accessibility/tables-and-data-visualization.md"
+    },
+    {
+      "id": "design-system.accessibility.testing",
+      "kind": "design-system-accessibility",
+      "title": "Accessibility Testing",
+      "summary": "Defines practical accessibility test scope, evidence, manual and automated checks, complete-process evaluation, and specialized validation coverage.",
+      "status": "reviewed",
+      "owner": null,
+      "last_reviewed": "2026-09-02",
+      "related": [
+        "design-system.accessibility.core",
+        "design-system.accessibility.conformance-and-policy",
+        "design-system.accessibility.router"
+      ],
+      "topics": [
+        "accessibility",
+        "design-system-accessibility",
+        "testing"
+      ],
+      "path": "shared/design-system/accessibility/testing.md"
     },
     {
       "id": "design-system.component.badge",
@@ -2384,10 +2621,10 @@
     }
   ],
   "summary": {
-    "documents": 127,
+    "documents": 137,
     "by_kind": {
       "content-guideline": 3,
-      "design-system-accessibility": 8,
+      "design-system-accessibility": 18,
       "design-system-component": 24,
       "design-system-experience-rule": 10,
       "design-system-foundation": 11,
