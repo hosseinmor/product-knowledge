@@ -6,6 +6,7 @@ title: Accessibility Core
 summary: Compact accessibility baseline that must be considered for every design and frontend implementation task.
 knowledge_state: canonical
 document_maturity: reviewed
+owner: Design System team
 related:
 - design-system.accessibility.conformance-and-policy
 - design-system.accessibility.router
