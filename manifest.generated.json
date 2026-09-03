@@ -1517,7 +1517,7 @@
       "id": "design-system.foundation.typography",
       "kind": "design-system-foundation",
       "title": "Typography",
-      "summary": "> Status: structure only",
+      "summary": "Defines the semantic typography model for labels, body text, headings, compact UI, and responsive expressive type.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
