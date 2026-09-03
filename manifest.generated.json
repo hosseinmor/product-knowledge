@@ -21,7 +21,7 @@
       "id": "button",
       "kind": "design-system-component",
       "title": "Button",
-      "summary": "Buttons trigger actions.",
+      "summary": "Buttons trigger actions and use a small preset hierarchy for Brand, operational, low-emphasis, and destructive actions.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
