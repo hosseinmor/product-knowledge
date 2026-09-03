@@ -38,10 +38,12 @@ Designers, engineers, QA, AI agents, and accessibility reviewers may propose cha
 
 ## Process
 
-- Canonical/reviewed Design System documents **SHOULD** identify an owner.
-- The 18 operational documents in `shared/design-system/accessibility/` **MUST** identify `Design System team` as owner unless ownership is explicitly reassigned.
-- Changing an owner is a governance change and requires owner review through a branch and pull request.
-- An absent owner does not make a document invalid for retrieval, but it is a maintenance gap that must be resolved before the document is treated as operationally complete.
+- Canonical/reviewed Design System documents **SHOULD** resolve to an owner.
+- The 18 operational documents in `shared/design-system/accessibility/` inherit `Design System team` as their collection owner unless a document explicitly names another approved owner.
+- The retrieval manifest **MUST** resolve that inherited owner so accessibility documents do not appear ownerless to AI or maintenance tooling.
+- Individual accessibility documents MAY repeat the inherited owner in frontmatter when useful; omission does not mean ownership is unknown.
+- Changing the collection owner or adding a document-specific override is a governance change and requires owner review through a branch and pull request.
+- An unresolved owner outside a defined collection default does not make a document invalid for retrieval, but it is a maintenance gap that must be resolved before the document is treated as operationally complete.
 
 ## Review Requirements
 
@@ -54,8 +56,8 @@ Owner review is required when a change:
 ## Definition of Done
 
 A canonical Design System knowledge change is ownership-ready when:
-- the owning document is clear;
-- the owner field is populated where required;
+- the owning document or collection default is clear;
+- the manifest resolves the effective owner where required;
 - unresolved decisions remain explicit;
 - repository validation passes;
 - required domain-specific regression gates pass.
