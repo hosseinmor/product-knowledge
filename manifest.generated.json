@@ -1158,6 +1158,25 @@
       "path": "shared/design-system/components/tooltip.md"
     },
     {
+      "id": "design-system.design-language",
+      "kind": "design-system-design-language",
+      "title": "JV Design Language",
+      "summary": "Compact design-language entry point for human and AI design work; routes exact specifications to the canonical live sources.",
+      "status": "reviewed",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "design-system.overview",
+        "design-system.structure",
+        "design-system.reference.source-of-truth"
+      ],
+      "topics": [
+        "DESIGN",
+        "design-system-design-language"
+      ],
+      "path": "shared/design-system/DESIGN.md"
+    },
+    {
       "id": "design-system.experience-rule.action-hierarchy",
       "kind": "design-system-experience-rule",
       "title": "Action Hierarchy",
@@ -1606,11 +1625,15 @@
       "id": "design-system.overview",
       "kind": "design-system-overview",
       "title": "Design System Overview",
-      "summary": "> Status: structure only",
-      "status": "draft",
+      "summary": "Defines the purpose, scope, boundaries, and operating model of the shared JobVision and Cando Design System.",
+      "status": "reviewed",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.design-language",
+        "design-system.structure",
+        "design-system.reference.source-of-truth"
+      ],
       "topics": [
         "design-system-overview"
       ],
@@ -1896,11 +1919,16 @@
       "id": "design-system.reference.source-of-truth",
       "kind": "design-system-reference",
       "title": "Sources of Truth",
-      "summary": "> Status: structure only",
-      "status": "draft",
+      "summary": "Defines which source owns design meaning, visual construction, runtime implementation, product behavior, and temporary change history.",
+      "status": "reviewed",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.overview",
+        "design-system.structure",
+        "design-system.reference.figma",
+        "design-system.reference.code"
+      ],
       "topics": [
         "design-system-reference",
         "integrations",
@@ -1912,11 +1940,15 @@
       "id": "design-system.structure",
       "kind": "design-system-overview",
       "title": "Design System Knowledge Structure",
-      "summary": "Overview of the shared Design System and its structure.",
-      "status": "draft",
+      "summary": "Defines the compact post-AI knowledge architecture and source boundaries for the shared Design System.",
+      "status": "reviewed",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.design-language",
+        "design-system.overview",
+        "design-system.reference.source-of-truth"
+      ],
       "topics": [
         "design-system-overview"
       ],
@@ -2070,8 +2102,8 @@
       "id": "design-system.ui-template.component-template",
       "kind": "design-system-ui-template",
       "title": "Component Name",
-      "summary": "Defines a reusable Design System UI template.",
-      "status": "draft",
+      "summary": "Minimum decision-contract template for a reusable Design System component.",
+      "status": "reviewed",
       "owner": null,
       "last_reviewed": null,
       "related": [],
@@ -2086,8 +2118,8 @@
       "id": "design-system.ui-template.experience-rule-template",
       "kind": "design-system-ui-template",
       "title": "Rule Name",
-      "summary": "Defines a reusable Design System UI template.",
-      "status": "draft",
+      "summary": "Minimum template for a cross-component experience rule.",
+      "status": "reviewed",
       "owner": null,
       "last_reviewed": null,
       "related": [],
@@ -2102,8 +2134,8 @@
       "id": "design-system.ui-template.foundation-template",
       "kind": "design-system-ui-template",
       "title": "Foundation Name",
-      "summary": "Defines a reusable Design System UI template.",
-      "status": "draft",
+      "summary": "Minimum template for a durable shared Design System foundation.",
+      "status": "reviewed",
       "owner": null,
       "last_reviewed": null,
       "related": [],
@@ -2118,8 +2150,8 @@
       "id": "design-system.ui-template.pattern-template",
       "kind": "design-system-ui-template",
       "title": "Pattern Name",
-      "summary": "Defines a reusable Design System UI template.",
-      "status": "draft",
+      "summary": "Minimum decision-contract template for reusable component composition or flow behavior.",
+      "status": "reviewed",
       "owner": null,
       "last_reviewed": null,
       "related": [],
@@ -2621,11 +2653,12 @@
     }
   ],
   "summary": {
-    "documents": 137,
+    "documents": 138,
     "by_kind": {
       "content-guideline": 3,
       "design-system-accessibility": 18,
       "design-system-component": 24,
+      "design-system-design-language": 1,
       "design-system-experience-rule": 10,
       "design-system-foundation": 11,
       "design-system-governance": 6,
