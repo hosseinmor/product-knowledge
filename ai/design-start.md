@@ -13,8 +13,11 @@
 2. Select the relevant Product Group, Product Overview, and Product Areas by group, product, title, summary, topics, and related IDs.
 3. Add Shared Product Concepts only when their shared definition or rule affects the design.
 4. Add Shared Product Services when product behavior depends on a cross-product service such as an AI fit or matching model.
-5. Select only the relevant Design System components, patterns, foundations, accessibility rules, and content guidance.
-6. Do not read the entire Design System or repository by default.
+5. Read `shared/design-system/DESIGN.md` for compact design-language defaults.
+6. Select only the relevant Design System Component or Pattern; add Foundations, Experience Rules, Product Variations, accessibility rules, and content guidance only when they materially affect the task.
+7. For web design, read `shared/design-system/accessibility/router.md` and use it to retrieve the smallest sufficient accessibility subset. Do not load the full accessibility library by default.
+8. When exact visual or runtime facts are needed, use the owning live source defined by `shared/design-system/integrations/source-of-truth.md` instead of expanding Markdown context.
+9. Do not read the entire Design System or repository by default.
 
 ## Process
 
