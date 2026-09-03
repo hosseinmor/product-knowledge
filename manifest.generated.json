@@ -1791,11 +1791,13 @@
       "id": "design-system.pattern.notifications",
       "kind": "design-system-pattern",
       "title": "Notifications",
-      "summary": "System feedback uses Info, Success, Warning, and Error; Toast is a transient notification presentation.",
+      "summary": "Defines shared feedback severity and when feedback appears inline or as a transient Toast.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.accessibility.dynamic-content-and-feedback"
+      ],
       "topics": [
         "design-system-pattern",
         "notifications",
