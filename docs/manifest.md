@@ -75,6 +75,21 @@ design-system-{existing type}
 
 The Design System keeps its existing structure and metadata. The generator only normalizes that metadata into the retrieval manifest.
 
+### Design System ownership defaults
+
+The manifest may resolve a narrowly defined collection owner when Design System governance explicitly defines one.
+
+Current rule:
+
+```text
+shared/design-system/accessibility/**
+→ Design System team
+```
+
+An explicit document-level `owner` overrides the collection default. This keeps operational accessibility documents from appearing ownerless without requiring the same owner string to be repeated in every file.
+
+Do not add new inferred-owner rules merely for convenience; they require a corresponding canonical governance decision.
+
 ## Required lightweight frontmatter
 
 Product Group Overview, Product Overview, Product Area, Shared Product Concept, and Shared Product Service documents use:

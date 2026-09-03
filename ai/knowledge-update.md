@@ -46,6 +46,7 @@ An owner-reviewed Product Knowledge Authoring draft is also eligible for reconci
 10. After review, set `status: reviewed` and update `last_reviewed` when appropriate.
 11. Regenerate `manifest.generated.json` in the same branch when indexed documents changed.
 12. Run `python scripts/generate_manifest.py check` before merging.
+13. When the change affects the Design System accessibility corpus, accessibility routing, accessibility governance, or a Component/Pattern maturity state used by accessibility retrieval, run `python scripts/check_accessibility_knowledge.py` and the applicable manual regression gate in `shared/design-system/accessibility/testing.md` before merging.
 
 ## Reconciliation taxonomy
 
@@ -156,3 +157,4 @@ Do not add per-sentence metadata unless traceability needs justify the maintenan
 - Preserve contradictions until an owner resolves them; do not silently overwrite current knowledge.
 - Do not redefine Product Concepts inside Product Areas.
 - The manifest is generated; do not edit it manually.
+- Accessibility audit reports and stress-test evidence must not silently become ordinary operational Design System retrieval content.
