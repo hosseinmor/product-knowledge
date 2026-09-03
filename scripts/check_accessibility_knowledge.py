@@ -67,6 +67,8 @@ def main() -> int:
     errors: list[str] = []
 
     # Canonical operational corpus: exact identity + maintenance metadata.
+    # Ownership is resolved by the collection default in governance/ownership.md
+    # unless a document explicitly overrides it.
     for filename, expected_id in EXPECTED_ACCESSIBILITY_DOCS.items():
         path = ACCESSIBILITY_DIR / filename
         require(path.exists(), f"missing operational accessibility doc: {path.relative_to(ROOT)}", errors)
@@ -83,7 +85,12 @@ def main() -> int:
         require(meta.get("id") == expected_id, f"{rel}: expected id {expected_id!r}, got {meta.get('id')!r}", errors)
         require(meta.get("knowledge_state") == "canonical", f"{rel}: knowledge_state must remain canonical", errors)
         require(meta.get("document_maturity") in {"reviewed", "stable"}, f"{rel}: document_maturity must remain reviewed/stable", errors)
-        require(meta.get("owner") == OWNER, f"{rel}: owner must be {OWNER!r}", errors)
+        explicit_owner = meta.get("owner")
+        require(
+            explicit_owner in (None, "", OWNER),
+            f"{rel}: explicit owner must be {OWNER!r} or omitted to inherit the collection owner",
+            errors,
+        )
 
     # Governance that makes ownership and change gates operational.
     for path in GOVERNANCE_DOCS:
