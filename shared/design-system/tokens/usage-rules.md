@@ -15,12 +15,21 @@ related: []
 
 ## Allowed usage
 
-- Components consume Semantic Color tokens by default; use an approved Component color token only for its documented owner component.
-- Select Brand and Semantic Light/Dark modes independently.
+- Components consume Semantic Color tokens by default; use an approved Component Color token only for its documented owner component.
+- Treat Product and Appearance as independent Theme dimensions.
 - Use Semantic `surface/*` for general UI backgrounds, including the root page/workspace.
-- The approved Tag component uses its own `tag/*` color family by exception.
-- Test supported Brand × Semantic combinations for accessibility.
+- The approved Tag component uses its own `tag/*` Color family by exception.
+- Test supported Product × Appearance combinations for accessibility.
 - A shared Primitive value does not merge semantic meaning. Choose tokens by role, not by visual color.
+
+The current logical Theme values are:
+
+```text
+Product    → JobVision | Cando
+Appearance → Light | Dark
+```
+
+These logical dimensions do not prescribe the final Figma collection/mode implementation.
 
 ## Surface selection
 
@@ -41,7 +50,7 @@ related: []
 - Validation or system feedback → matching Support muted surface, foreground, and line roles
 - Disabled filled control → `surface/disabled + fg/disabled`
 
-`surface/raised` expresses the color role of an elevated layer. Pair it with the approved elevation/shadow token when visible depth is required.
+`surface/raised` expresses the Color role of an elevated layer. Pair it with the approved elevation/shadow token when visible depth is required.
 
 Do not use structural `surface/muted` as an interactive control background. Use `surface/neutral-muted` instead.
 
@@ -104,7 +113,7 @@ Focus remains a separate semantic layer; `line/emphasis` does not replace `focus
 
 ## Brand versus Accent
 
-Use Brand when the reason for color is product identity or an approved key product/conversion moment.
+Use Brand when the reason for color is Product identity or an approved key product/conversion moment.
 
 Use Accent when the reason for color is general interaction or chromatic affordance.
 
@@ -143,7 +152,7 @@ Both may resolve from Blue primitives; the semantic distinction is the purpose o
 
 ## Selection
 
-Selection is a component state, not a full global color family.
+Selection is a component state, not a full global Color family.
 
 Use Accent for a chromatic selected/current/checked cue when the component anatomy calls for one:
 
@@ -326,8 +335,8 @@ The proposed `highlight/default` and `highlight/inverse` roles are removed. A fu
 ## Prohibited usage
 
 - Do not consume Primitive or Brand variables directly from ordinary component implementations.
-- Do not encode product or mode names into Semantic token names.
-- Do not restore `canvas` or an Experience color collection without a new demonstrated need.
+- Do not encode Product or Appearance names into Semantic token names.
+- Do not restore `canvas` or an Experience Color collection without a new demonstrated need.
 - Do not use removed v3 names for new work: `surface/control*`, `surface/emphasis*`, `surface/brand-muted`, `fg/brand`, `line/brand`, expanded `surface/selected-*`, `fg/selected`, `line/selected`, `fg/on-color-disabled`, `link/emphasis*`, or `link/visited`.
 - Do not restore `highlight/*` without a reviewed highlighting use case.
 - Do not invent hover/active states for passive or disabled surfaces.
@@ -336,8 +345,8 @@ The proposed `highlight/default` and `highlight/inverse` roles are removed. A fu
 
 ## Fallbacks
 
-- Semantic Light/Dark mappings must resolve the active Brand input when Brand meaning is required.
-- A semantic role that does not vary by product may alias a Primitive directly.
+- Appearance mappings must resolve the active Brand input when Brand meaning is required.
+- A Semantic role that does not vary by Product may alias a Primitive directly.
 - If a proposed value fails accessibility, choose a contrast-safe approved mapping rather than binding a component to an arbitrary Primitive.
 - If a future product needs a different Accent hue, add the minimum product-aware alias without changing the public Semantic role names.
 
@@ -352,7 +361,7 @@ The proposed `highlight/default` and `highlight/inverse` roles are removed. A fu
 7. Replace the expanded Selected matrix with `surface/selected` and `surface/selected-hover`; use existing Accent/Neutral roles for other selection presentations.
 8. Remove `fg/on-color-disabled`; disabled filled controls use the general disabled treatment.
 9. Replace Link `emphasis` with `subtle` using the new direction: Default is chromatic, Subtle is neutral. Remove Visited.
-10. Rename Button Accent preset/tone to Brand and update its semantic mappings.
+10. Rename Button Accent preset/tone to Brand and update its Semantic mappings.
 11. Rename Brand collection `accent/* → brand/*` and `content/on-accent → content/on-brand`.
 12. Remove the unvalidated `highlight/default` and `highlight/inverse` proposals.
 13. Replace product-specific Primitive brand palettes with generic hue palettes during the palette migration.
