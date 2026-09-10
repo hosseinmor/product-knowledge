@@ -1909,6 +1909,26 @@
       "path": "shared/design-system/product-variations/product-overrides.md"
     },
     {
+      "id": "design-system.product-variation.theme-context",
+      "kind": "design-system-product-variation",
+      "title": "Theme Context",
+      "summary": "Defines Product and Appearance as independent shared Design System theme dimensions and their ownership boundaries.",
+      "status": "reviewed",
+      "owner": null,
+      "last_reviewed": "2026-09-10",
+      "related": [
+        "design-system.token.product-overrides",
+        "design-system.token.architecture",
+        "design-system.reference.code"
+      ],
+      "topics": [
+        "design-system-product-variation",
+        "product-variations",
+        "theme-context"
+      ],
+      "path": "shared/design-system/product-variations/theme-context.md"
+    },
+    {
       "id": "design-system.reference.code",
       "kind": "design-system-reference",
       "title": "Code Reference",
@@ -2678,7 +2698,7 @@
     }
   ],
   "summary": {
-    "documents": 138,
+    "documents": 139,
     "by_kind": {
       "content-guideline": 3,
       "design-system-accessibility": 18,
@@ -2689,7 +2709,7 @@
       "design-system-governance": 6,
       "design-system-overview": 2,
       "design-system-pattern": 13,
-      "design-system-product-variation": 2,
+      "design-system-product-variation": 3,
       "design-system-reference": 3,
       "design-system-token": 9,
       "design-system-ui-template": 4,
