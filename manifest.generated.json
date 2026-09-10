@@ -2079,10 +2079,10 @@
       "id": "design-system.token.product-overrides",
       "kind": "design-system-token",
       "title": "Token Product and Brand Variations",
-      "summary": "> Status: draft",
-      "status": "draft",
+      "summary": "Defines Product identity in Color and its relationship to the independent Appearance dimension.",
+      "status": "reviewed",
       "owner": null,
-      "last_reviewed": null,
+      "last_reviewed": "2026-09-10",
       "related": [],
       "topics": [
         "design-system-token",
