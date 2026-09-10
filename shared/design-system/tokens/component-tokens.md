@@ -3,221 +3,135 @@ id: design-system.token.component-tokens
 collection: design-system
 type: token
 title: Component Tokens
-summary: This document defines when a component-specific token layer is justified and catalogs approved component-token families.
-knowledge_state: unverified
-document_maturity: draft
+summary: Defines when component-specific Color tokens are justified and documents the approved Tag exception.
+knowledge_state: canonical
+document_maturity: reviewed
 related: []
+last_reviewed: '2026-09-10'
 ---
 
 # Component Tokens
 
-> Status: draft
-
 ## Purpose
 
-This document defines when a component-specific token layer is justified and catalogs approved component-token families.
+Component Color tokens are exceptions. Create them only when a stable component-owned contract cannot be expressed clearly through shared Semantic Color roles.
 
-The Color architecture uses Component Color tokens only as exceptions. Other foundations may define component-owned geometry or motion tokens under their own future contracts; they are not required to route through the Color graph.
+Other foundations may define component-owned geometry or motion tokens under their own contracts; they are not required to follow the Color graph.
 
-The Button guideline does not define Button-specific color tokens. It defines:
+## Default rule
 
-1. Designer-facing presets
-2. Internal component properties: `tone × appearance`
-3. Direct mappings from those presets to shared Semantic tokens
-
-These are different concepts.
+Most components consume Semantic Color directly:
 
 ```text
-tone / appearance
-= component properties
-
-surface/* / fg/* / line/* / focus/*
-= semantic color tokens
+Primitive → Semantic → Product UI / Component
 ```
 
-## Default Color Resolution Model
-
-The v4 Color resolution model is:
+Brand-dependent Semantic roles may use:
 
 ```text
-Core path
-Primitive
-→ Semantic
-→ Component
-
-Optional product-identity branch
-Primitive
-→ Brand
-→ Semantic
+Primitive → Brand → Semantic → Product UI / Component
 ```
 
-Brand is not a mandatory hop. Components use Semantic Color tokens by default; Semantic roles use Brand only when their value intentionally depends on product identity. Do not insert a Component-token alias only to rename an existing Semantic token.
+Do not insert a Component-token layer merely to rename an existing Semantic token.
 
-For Button:
+For example, Button presets map directly to Semantic roles. Button does not need its own Color-token family.
+
+## When a Component Color token is justified
+
+Create one only when:
+
+- existing Semantic roles cannot express the value clearly;
+- the meaning is stable and owned by that component;
+- the role recurs across variants, states, or implementations;
+- the extra layer reduces real implementation or theming complexity;
+- the contract can be mapped consistently in Figma and code;
+- the Design System owner approves it.
+
+Do not create Component Color tokens for one-off values, experiments, every Figma property/state, or aliases that only rename Semantic Color.
+
+## Approved Color exception: Tag
+
+Tag owns a categorical Color contract because its hues communicate grouping/categorization rather than shared system semantics such as Success, Warning, or Error.
+
+Canonical Figma contract:
 
 ```text
-Brand
-→ surface/brand
-
-Primary
-→ surface/neutral-emphasis
-
-Secondary
-→ surface/neutral-muted
-
-Tertiary and Ghost hover
-→ surface/transparent-hover
-
-Danger Filled
-→ surface/danger-emphasis
+tag/{color}/surface
+tag/{color}/surface-hover
+tag/{color}/fg
+tag/{color}/line
 ```
 
-The complete Button mapping is documented in `../components/button.md`, which is the canonical owner of Button preset/state recipes.
-
-## Button Property Model Is Not a Token Model
-
-The internal Button properties are:
-
-```text
-tone:
-brand | neutral | danger
-
-appearance:
-strong | subtle | outline | ghost
-```
-
-They organize Figma and code variants. They must not be copied directly into Core token names.
-
-Not every theoretical combination is supported. In v4, `brand × strong` is approved; Brand Subtle, Brand Outline, and Brand Ghost must not be created merely to complete the matrix.
-
-## When to Create a Component Token
-
-Create a component-specific token only when:
-
-- Existing Semantic tokens cannot express the value clearly
-- The value has stable meaning inside the component
-- The value is reused across multiple variants, states, sizes, or implementations
-- The additional layer reduces meaningful implementation or theming complexity
-- The token can be mapped consistently in Figma and code
-- The Design System owner approves it
-
-## Appropriate Uses
-
-Possible uses include:
-
-- Stable component geometry
-- Repeated internal spacing relationships
-- Component-specific motion values
-- A theming abstraction that cannot be represented through shared Semantic roles
-- A stable component-owned color contract with no shared Semantic meaning
-
-Non-color component tokens must follow the contract of their own foundation; the optional Color Brand branch must not be inserted into those token graphs by default.
-
-## Approved Color Family: Tag
-
-Tag remains the approved component-specific Color family. It exists because reusable categorical Tag colors need a stable component contract but do not carry a shared Semantic meaning.
-
-Current variants pending Tag component review:
+Current canonical colors:
 
 ```text
 neutral
+brand
 blue
-purple
+teal
 green
+yellow
 orange
+red
+magenta
+purple
 ```
 
-Current retained tokens per variant:
+This set is intentionally not a complete hue palette. Add a categorical hue only when a real Tag use case requires it. Cyan and Warm Gray are retained only as hidden legacy variables; they are not part of the canonical Tag API.
+
+### Resolution rules
+
+- `neutral` maps directly to Neutral Primitives because it is a Tag color variant, not the shared Semantic neutral-interaction family.
+- `brand` consumes the Product-aware Brand aliases because its hue changes between JobVision and Cando.
+- Other categorical hues map directly to their Primitive ramps.
+- Do not map categorical Green to Success, Yellow to Warning, Red to Error, or Purple to Magic merely because the hues match.
+- Other components must not consume Tag tokens as a general categorical palette.
+
+The current four Tag roles are retained for every canonical color. `surface-hover` is consumed only when the rendered Tag is interactive; its existence does not make every Tag interactive. `line` is part of the Tag visual contract but may be decorative where the surface itself establishes the boundary.
+
+Current Neutral Dark mapping is intentionally subtle:
 
 ```text
-tag/surface/{variant}
-tag/surface/{variant}-hover
-tag/fg/{variant}
-tag/line/{variant}
+tag/neutral/surface       → neutral/900
+tag/neutral/surface-hover → neutral/800
 ```
 
-Rules:
+Exact current Light/Dark alias values live in Figma and are documented in `color-token-aliases.md`.
 
-- These tokens communicate grouping or categorization, not feedback status.
-- Static Tags use `tag/surface/{variant}`, `tag/fg/{variant}`, and optionally `tag/line/{variant}`.
-- Only interactive Tags use `tag/surface/{variant}-hover`.
-- Information, success, warning, and error Tags use Semantic Support tokens instead.
-- Other components must not consume the Tag family as a general-purpose categorical palette.
-- Existing Tag step mappings must be revalidated after the final Primitive palette pass.
+## Applied Filter rule
 
-The Tag family is retained in v4, but the **full five-variant × Hover × Line matrix is not yet declared permanently required**. The Tag component review must validate which variants are real, which are interactive, and where a line is part of the anatomy.
+Do not use Tag tokens merely because an applied Filter Chip visually resembles a Tag.
 
-Tag is an approved architectural exception; its variant/state implementation metadata remains pending review. Do not treat the scaffold Tag guideline as proof that every retained token is production-ready.
+Use this order:
 
-## Applied Filter Rule
-
-Do not use Tag tokens merely because an applied Filter Chip visually resembles a colored Tag.
-
-Apply this order:
-
-1. Express the applied state with existing Semantic roles, including `surface/accent-muted*` when an interactive tonal Accent treatment is appropriate.
-2. If the component has a stable treatment that cannot be represented semantically, create a reviewed `filter-chip/*` Component contract.
-3. Reuse Tag tokens only when the UI is actually rendering the Tag component itself.
-
-## Inappropriate Uses
-
-Do not create Component tokens for:
-
-- Direct aliases of Semantic colors
-- One-off values
-- Temporary experiments
-- Product-specific business behavior
-- Every Figma property
-- Every component state
-- Names that encode a specific Primitive value
-- Button presets that already map cleanly to shared Semantic tokens
-- A generic categorical palette for unrelated components
+1. Express the state with existing Semantic roles, such as `surface/accent-muted*` when appropriate.
+2. If a stable component-owned treatment still cannot be expressed, introduce a reviewed component-specific contract.
+3. Reuse Tag tokens only when the UI is actually rendering the Tag component.
 
 ## Naming
 
-When justified:
+Canonical Tag naming follows:
 
 ```text
-{component}/{element-or-property}/{variant-or-state}
+{component}/{variant}/{role-or-state}
 ```
 
 Examples:
 
 ```text
-button/container-min-height/small
-button/icon-size/medium
-modal/header-padding/inline
-tag/surface/blue-hover
-tag/fg/blue
+tag/blue/surface
+tag/blue/surface-hover
+tag/blue/fg
+tag/blue/line
 ```
 
-Implementation may flatten `/` to `-` only after the code mapping is approved. Before then, flattened names in documentation are proposed examples rather than a production contract.
+Runtime/CSS flattening is a separate implementation decision.
 
-Do not encode Primitive color names, pixel values, or product names into a shared Component token unless the component contract itself is explicitly categorical by hue, as with the approved Tag variants.
-
-## Required Metadata
-
-Every production-ready Component token must document:
-
-- Purpose
-- Primitive or Semantic source
-- Component and element
-- Variant or state
-- Supported Appearance values
-- Supported products
-- Figma variable
-- Code token
-- Owner
-- Deprecation path
-
-A family may be architecturally approved before this metadata is complete, but it must remain explicitly marked as pending implementation/component review until the metadata exists.
-
-## Review Checklist
+## Review checklist
 
 - Can an existing Semantic token express this value?
 - Does the token add stable component meaning?
-- Is it reused?
+- Is it reused enough to justify another layer?
 - Does it reduce real branching or duplication?
-- Is its name independent from an accidental visual value?
-- Is it mapped in both Figma and code?
-- Is ownership clear?
+- Is the name independent from an accidental visual value, except where hue itself is the approved categorical contract?
+- Is the mapping valid across supported Product × Appearance contexts?
