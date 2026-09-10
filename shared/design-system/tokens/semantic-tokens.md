@@ -18,15 +18,20 @@ Semantic tokens are the default Color interface consumed by components. Their ro
 ## Resolution
 
 ```text
-Primitive Value
-→ Brand: Jobvision or Cando
+Core path
+Primitive
 → Semantic: Light or Dark
 → Component
+
+Optional product-identity branch
+Primitive
+→ Brand: Jobvision or Cando
+→ Semantic: Light or Dark
 ```
 
-This is the Color-token resolution path. Non-color foundations are not required to follow the same graph.
+Brand is not a mandatory stage in Semantic resolution. Brand provides product-identity inputs only where required. A Semantic token may alias a generic Primitive directly when its value does not vary by product identity; it aliases Brand when product identity intentionally controls the value. Components do not consume Brand directly.
 
-Brand provides product-identity inputs where required. Semantic may also alias generic Primitive hue scales directly when a role does not vary by product. Components do not consume Brand directly.
+This is the Color-token resolution model. Non-color foundations are not required to follow the same graph.
 
 ## Surface
 
@@ -253,7 +258,7 @@ Brand  → identity + approved key conversion moments
 Accent → chromatic interaction / affordance
 ```
 
-Cando demonstrates the distinction clearly: Brand resolves to Yellow while Accent resolves to Blue.
+Cando demonstrates the distinction clearly: Brand resolves to Yellow while Accent resolves directly to the shared Blue Primitive family because Accent does not currently vary by product.
 
 An actionable Accent banner or applied filter may use Accent Muted. A passive informational/system message uses Support Info instead. The distinction is meaning, not merely the fact that both may appear blue.
 
