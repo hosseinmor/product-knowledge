@@ -3,126 +3,138 @@ id: design-system.token.architecture
 collection: design-system
 type: token
 title: Token Architecture
-summary: '> Status: draft'
-knowledge_state: unverified
-document_maturity: draft
+summary: Current v4 Color token layering, collection responsibilities, and Product × Appearance model.
+knowledge_state: canonical
+document_maturity: reviewed
 related: []
+last_reviewed: '2026-09-10'
 ---
 
 # Token Architecture
 
-> Status: draft
-
 ## Purpose
 
-The v4 architecture described here is the **Color token architecture**. It separates raw color values, Product identity, Appearance-dependent shared UI semantics, and exceptional component-owned color contracts.
+This document defines the **Color token architecture**. It separates raw Color values, Product identity, shared UI semantics, and exceptional component-owned Color contracts.
 
-The canonical Color resolution model is:
-
-```text
-Core path
-Primitive
-→ Semantic
-→ Component
-
-Optional product-identity branch
-Primitive
-→ Brand
-→ Semantic
-```
-
-Brand is not a mandatory hop between Primitive and Semantic. A Semantic token aliases Brand only when its value intentionally depends on Product identity; otherwise it may alias a Primitive directly.
-
-Components consume Semantic Color tokens by default. An approved Component Color token is exceptional and follows the criteria in `component-tokens.md`.
-
-This graph must not be assumed to be the resolution graph for Typography, Spacing, Radius, Elevation, or Motion. Those foundations may use different Primitive/Semantic structures and must document their own resolution model when their shared contracts are finalized. Brand is an optional identity branch even within Color and must not be introduced into another foundation by convention.
-
-## Collections and logical dimensions
-
-The logical Theme dimensions are Product and Appearance. The table below describes how the current Color collections participate in those dimensions; it does **not** define the final Figma collection/mode implementation.
-
-| Collection | Logical variation | Responsibility |
-|---|---|---|
-| `01 Primitives` | Value | Context-free raw color values |
-| `02 Brand` | Product: JobVision, Cando | Optional product-identity aliases for the Brand color ramp and on-brand content |
-| `03 Semantic` | Appearance: Light, Dark | Stable shared UI Color roles consumed by components |
-| `04 Component` | Appearance: Light, Dark | Approved component-owned Color roles, currently categorical Tag colors |
-
-### Primitive
-
-Primitive Color tokens store direct color values such as hue scales and alpha values. Product UI must not consume Primitive color values directly unless an approved Component Color token explicitly aliases a Primitive source.
-
-Primitive color palettes are named by hue rather than product ownership. Product Brand colors may share a Primitive palette with other semantics without sharing meaning.
-
-Typography, Spacing, Radius, Elevation, and Motion may also have primitive values, but their token graphs are outside the scope of this Color architecture document.
-
-### Brand
-
-Brand is the optional product-identity alias branch. It aliases generic Primitive hue scales into the active Product identity when a Semantic role intentionally depends on that identity.
+## Resolution model
 
 ```text
-brand/*
-content/on-brand
+Default
+Primitive → Semantic → Product UI
+
+Optional Product identity
+Primitive → Brand → Semantic → Product UI
+
+Exceptional component-owned contract
+Primitive / Semantic / Brand → Component → Product UI
 ```
 
-Current direction:
+Brand is not a mandatory hop. A Semantic token uses Brand only when Product identity intentionally controls its value; otherwise it may alias a Primitive directly.
+
+Component Color tokens are exceptional. They are justified only when a stable component-owned contract cannot be represented by the shared Semantic vocabulary.
+
+This graph is specific to Color. Typography, Spacing, Radius, Elevation, and Motion may define different token graphs.
+
+## Collections and modes
+
+The current Figma Color model is:
+
+| Collection | Modes | Responsibility | Library exposure |
+|---|---|---|---|
+| `01 Primitives` | `Value` | Context-free Color values and hue scales | Hidden |
+| `02 Brand` | `JobVision`, `Cando` | Product-identity aliases | Hidden |
+| `03 Semantic` | `light`, `dark` | Shared UI Color API | Published |
+| `04 Component` | `Light`, `Dark` | Approved component-owned Color contracts | Published |
+
+Product and Appearance are independent Theme dimensions. Do not encode them into combined Semantic modes.
+
+## Primitive
+
+Primitive Color tokens are named by hue rather than Product or semantic ownership. A hue may feed several meanings without merging those meanings.
+
+Product UI must not consume Primitive Color directly. The only approved direct Primitive consumption above this layer is inside a reviewed Component-token exception such as categorical Tag colors.
+
+Most Semantic values alias Primitive or Brand variables. Transparent interaction colors and overlay are an intentional exception: their resolved RGBA values live directly in the Semantic Color variables, so a published alpha-palette layer is not part of the current Color contract.
+
+## Brand
+
+Brand is the optional Product-identity branch. Current Product modes are `JobVision` and `Cando`.
+
+The core strong roles are:
 
 ```text
-JobVision brand/* → color/blue/*
-Cando brand/*     → color/yellow/*
+brand/brand-default
+brand/brand-hover
+brand/brand-active
+brand/on-brand
 ```
 
-Brand does not contain general interaction, selection, feedback, focus, or page-surface roles. Semantic roles whose values do not vary by Product identity should alias Primitive values directly rather than routing through Brand.
+Tag also requires a small Brand-owned categorical mapping because the Product identity hue differs:
 
-### Semantic
+```text
+brand/brand-muted
+brand/brand-muted-hover
+brand/brand-fg
+brand/brand-line
+```
 
-Semantic resolves the Appearance dimension and owns the stable shared Color vocabulary across:
+Brand does not own general interaction, selection, feedback, focus, or page-surface semantics.
+
+Brand is currently Appearance-agnostic: the same Product mappings feed Light and Dark. If real UI validation proves this insufficient, add the minimum Appearance-aware aliasing without changing public Semantic names.
+
+## Semantic
+
+Semantic is the default Color interface consumed by product UI and most components. It resolves Appearance through `light | dark` while preserving stable role meaning.
+
+Main families include:
 
 ```text
 surface/*
 fg/*
 line/*
-focus/*
 link/*
-overlay/*
-skeleton/*
+utility/*
 ```
 
-A Semantic token may alias a Primitive directly or consume the Brand branch when Product identity is part of the role's value. Semantic meaning remains stable across products and Appearance values even when underlying values overlap. For example, Brand, Accent, Info, and Link may all draw from `color/blue/*` in JobVision without becoming the same semantic role.
+Brand, Accent, Info, and Link may all resolve from Blue primitives in JobVision while remaining distinct semantic roles.
 
-### Component
+Figma keeps picker-friendly names such as `surface/surface-default`, `fg/fg-primary`, `line/line-default`, and `link/link-default`. Canonical documentation may use `surface/default`, `fg/primary`, `line/default`, and `link/default`; the difference is an explicit mapping, not a requirement to rename Figma variables.
 
-Components use Semantic Color tokens by default. Approved Component Color tokens are allowed only when a stable component-owned role cannot be represented by the shared Semantic vocabulary.
+## Component
 
-The approved categorical Tag family is:
+Use Component Color tokens only when Semantic Color cannot express the stable component-owned meaning.
+
+The current approved exception is categorical Tag Color:
 
 ```text
-tag/surface/*
-tag/fg/*
-tag/line/*
+tag/{color}/surface
+tag/{color}/surface-hover
+tag/{color}/fg
+tag/{color}/line
 ```
 
-Tag tokens communicate categorization rather than feedback status and must not be reused by unrelated components as a general-purpose categorical palette.
+Current canonical colors:
+
+```text
+neutral
+brand
+blue
+teal
+green
+yellow
+orange
+red
+magenta
+purple
+```
+
+Neutral and categorical Tag colors may alias Primitives directly. Brand Tag roles consume the Brand branch. Tag colors communicate grouping/categorization and must not become a general-purpose categorical palette for unrelated components.
 
 ## Removed Experience layer
 
-v3 Color used:
+The v3 `Experience` Color collection is removed. Productive/Expressive is no longer a Color Theme dimension, and `canvas` is removed as a separate root Color role.
 
-```text
-Primitive
-→ Brand
-→ Experience
-→ Semantic
-→ Component
-```
-
-The `Experience` collection is removed in v4. It only controlled the former root `canvas` value and did not justify a dedicated Color alias layer.
-
-Productive versus Expressive may remain useful as design guidance, but it is no longer a Color Theme dimension. Existing Figma component names that still contain `Productive` are legacy naming references unless a separate active design dimension is explicitly documented by that component.
-
-## Root surface model
-
-`canvas` is removed. The root page or workspace uses the same Surface vocabulary as nested UI:
+The root page/workspace uses the shared structural Surface vocabulary:
 
 ```text
 surface/default
@@ -132,30 +144,25 @@ surface/raised
 surface/inverse
 ```
 
-This allows multiple structural surfaces to coexist in one product without switching a product-level canvas mode.
-
 ## Product variation rule
 
-Introduce a product-aware alias only when a Semantic value actually differs by Product.
+Introduce Product-aware aliasing only when a value actually varies by Product.
 
-Today Brand differs by Product, so the optional Brand branch carries Product identity. Accent currently resolves to the shared Blue Primitive palette in both products, so it remains a direct Semantic mapping rather than gaining speculative product variation.
+Brand differs by Product and therefore uses `02 Brand`. Accent currently resolves to the same Blue Primitive family for JobVision and Cando, so it remains a direct Semantic mapping.
 
-If a future product needs a different Accent hue, add the minimum product-aware alias required at that time while preserving the Semantic API.
+If a future Product needs a different Accent hue, introduce the minimum new indirection while preserving the public Semantic API.
 
 ## Naming
 
-Product names and Appearance names do not enter Semantic token names. Do not create `jobvision-surface-*`, `cando-surface-*`, `light-*`, or `dark-*` Semantic families.
+Product and Appearance names do not enter Semantic token names. Do not create families such as `jobvision-surface-*`, `cando-surface-*`, `light-*`, or `dark-*`.
 
-Figma Color variables use slash grouping. Code may flatten `/` to `-` **only after** implementation mapping is approved. Until then, flattened names shown in component documentation are illustrative/proposed mappings rather than a production code-token contract.
-
-The current Color vocabulary is defined in `jobvision-color-tokens-v4-surface-model.md`. The v3 catalog is historical migration reference only.
+Figma uses slash grouping. Runtime/CSS naming remains a separate implementation contract and must not be inferred from Figma naming.
 
 ## References
 
-- `jobvision-color-tokens-v4-surface-model.md`
-- `color-token-aliases.md`
-- `primitive-tokens.md`
 - `semantic-tokens.md`
 - `component-tokens.md`
 - `product-overrides.md`
+- `color-token-aliases.md`
+- `primitive-tokens.md`
 - `usage-rules.md`
