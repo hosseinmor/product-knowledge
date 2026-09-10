@@ -3,7 +3,7 @@ id: design-system.token.primitive-tokens
 collection: design-system
 type: token
 title: Primitive Tokens
-summary: '> Status: partial value catalog'
+summary: '> Status: draft'
 knowledge_state: unverified
 document_maturity: draft
 related: []
@@ -11,7 +11,8 @@ related: []
 
 # Primitive Tokens
 
-> Status: partial value catalog
+> Status: draft  
+> Value status: partial — final opaque 50–950 scales remain open
 
 ## Color
 
@@ -30,7 +31,7 @@ color/emerald/*
 color/orange/*
 ```
 
-Product-specific Primitive families such as the former `color/brand/jobvision/*` and `color/brand/cando/*` are removed in v4. Product identity is resolved in the Brand collection.
+Product-specific Primitive families such as the former `color/brand/jobvision/*` and `color/brand/cando/*` are removed in v4. Product identity is represented through the optional Brand alias branch when a Semantic role actually depends on it.
 
 Current brand color anchors:
 
@@ -57,7 +58,7 @@ Alpha primitives store direct RGBA values and support transparent interaction, o
 | `color/white-alpha/8` | `rgba(255, 255, 255, 0.08)` |
 | `color/white-alpha/12` | `rgba(255, 255, 255, 0.12)` |
 
-See `color-token-aliases.md` for mode-specific alias targets and unresolved mappings.
+See `color-token-aliases.md` for Appearance-specific alias targets and unresolved mappings.
 
 ## Typography
 ## Spacing

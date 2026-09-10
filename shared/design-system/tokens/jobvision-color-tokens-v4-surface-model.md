@@ -3,7 +3,7 @@ id: design-system.token.jobvision-color-tokens-v4-surface-model
 collection: design-system
 type: token
 title: JobVision Color Tokens v4 — Surface Model
-summary: '> Status: working draft'
+summary: Draft canonical v4 Color-token catalog; unresolved alias values are tracked separately.
 knowledge_state: unverified
 document_maturity: draft
 related: []
@@ -11,10 +11,11 @@ related: []
 
 # JobVision Color Tokens v4 — Surface Model
 
-> Status: working draft  
-> Theme scope: Light + Dark  
+> Status: draft  
 > Product scope: JobVision + Cando  
-> Implementation mapping: open decision
+> Appearance scope: Light + Dark  
+> Alias value status: partial — unresolved mappings remain `TBD`  
+> Figma implementation mapping: open decision
 
 This document is the canonical v4 **Color-token catalog**. It records the approved semantic structure and the current audited role boundaries. Exact opaque Primitive scale values and final Light/Dark alias steps remain intentionally open until the palette pass.
 
@@ -25,33 +26,40 @@ The architecture below is specific to Color. Typography, Spacing, Radius, Elevat
 ## Architecture
 
 ```text
+Core path
+01 Primitives
+      ↓
+03 Semantic
+      ↓
+04 Component
+
+Optional product-identity branch
 01 Primitives
       ↓
 02 Brand
       ↓
 03 Semantic
-      ↓
-04 Component
 ```
 
-Collections and modes:
+Brand is not a mandatory hop between Primitive and Semantic. Semantic roles alias Brand only when their value intentionally depends on Product identity; otherwise they may alias Primitive values directly.
+
+Collections and logical Theme dimensions:
 
 ```text
 01 Primitives
 - Value
 
 02 Brand
-- Jobvision
-- Cando
+- Product: JobVision | Cando
 
 03 Semantic
-- Light
-- Dark
+- Appearance: Light | Dark
 
 04 Component
-- Light
-- Dark
+- Appearance: Light | Dark
 ```
+
+This describes the logical Product × Appearance model, not the final Figma collection/mode implementation. That implementation remains a separate open decision.
 
 `Experience` is removed in v4. The former Productive/Expressive distinction was only resolving the root canvas and did not justify a dedicated Color alias layer.
 
@@ -118,12 +126,12 @@ Do not create a second blue or yellow palette only to preserve semantic separati
 
 ## Brand collection
 
-Brand resolves product identity only.
+Brand is the optional product-identity alias branch. It resolves Product identity only and is consumed by Semantic roles when Product identity intentionally controls their value.
 
-Modes:
+Current Product values:
 
 ```text
-Jobvision
+JobVision
 Cando
 ```
 
@@ -148,7 +156,7 @@ content/on-brand
 Mappings:
 
 ```text
-Jobvision brand/* → color/blue/*
+JobVision brand/* → color/blue/*
 Cando brand/*     → color/yellow/*
 ```
 
@@ -156,7 +164,7 @@ Cando brand/*     → color/yellow/*
 
 The v3 Brand names `accent/*` and `content/on-accent` are deprecated in favor of `brand/*` and `content/on-brand`. Accent is now a separate Semantic concept.
 
-Do not put general interaction, selection, feedback, focus, or page-surface roles in Brand.
+Do not put general interaction, selection, feedback, focus, or page-surface roles in Brand. Semantic roles that do not vary by Product identity should resolve directly from Primitive values.
 
 The full 50–950 Brand mirror is retained through the palette pass. After final Semantic aliases are chosen, actual Brand-step consumers should be reviewed before treating every step as a permanently required public API.
 
@@ -279,7 +287,7 @@ surface/brand-active
 fg/on-brand
 ```
 
-Brand means product identity or a defined key product/conversion moment. It is not generic emphasis and it is not the default interaction color.
+Brand means Product identity or a defined key product/conversion moment. It is not generic emphasis and it is not the default interaction color.
 
 Removed from v3:
 
@@ -310,7 +318,7 @@ fg/accent
 line/accent
 ```
 
-In the current two-product system, Accent resolves from `color/blue/*` in both JobVision and Cando. It does not need to route through Brand because its value does not currently vary by product.
+In the current two-product system, Accent resolves from `color/blue/*` in both JobVision and Cando. It does not need to route through Brand because its value does not currently vary by Product.
 
 ### Accent Muted
 
@@ -403,7 +411,7 @@ Danger is not a fifth standard Notification severity.
 
 ## Support
 
-Support meanings remain invariant across products and themes.
+Support meanings remain invariant across Product and Appearance values.
 
 ```text
 surface/info-muted
@@ -836,9 +844,10 @@ The following are intentionally not blockers for the v4 Semantic Color architect
 3. Exact Light/Dark alias steps and contrast validation
 4. Consumer review of the full Brand 50–950 mirror after final aliases are known
 5. Final Tag variant/state matrix during Tag component review
-6. CSS variable strategy
-7. Tailwind implementation mapping
-8. Dual-layer focus treatment for media
-9. Non-color foundation architectures for Typography, Spacing, Radius, Elevation, and Motion
+6. Final Figma Product × Appearance mode implementation
+7. CSS variable strategy
+8. Tailwind implementation mapping
+9. Dual-layer focus treatment for media
+10. Non-color foundation architectures for Typography, Spacing, Radius, Elevation, and Motion
 
 Do not infer or ship unresolved opaque values from this document. The alias graph in `color-token-aliases.md` records value-resolution status separately from this Semantic catalog.

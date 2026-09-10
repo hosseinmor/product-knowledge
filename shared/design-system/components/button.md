@@ -94,21 +94,20 @@ A reversible rejection or negative choice is not automatically destructive.
 
 Disabled suppresses the original tone. Do not preserve Brand or Danger chroma merely to show what the enabled action would have been.
 
-Conceptual semantic roles:
+All disabled Button presets use the shared `fg/disabled` foreground role. Filled disabled Buttons additionally use `surface/disabled`; outline disabled Buttons additionally use `line/disabled`.
 
 ```text
-Filled disabled surface
-→ surface/disabled
-→ fg/on-disabled
+Filled disabled
+→ surface/disabled + fg/disabled
 
-Transparent / outline disabled content
-→ fg/disabled
+Outline disabled
+→ transparent + fg/disabled + line/disabled
 
-Disabled outline
-→ line/disabled
+Ghost / transparent disabled
+→ transparent + fg/disabled
 ```
 
-The current Figma-facing token may still be named `fg/on-color-disabled`; treat it as the current implementation name for the conceptual `fg/on-disabled` role until the separate naming pass is completed.
+Do not introduce `fg/on-disabled` or restore `fg/on-color-disabled`. If final palette/contrast validation proves that one `fg/disabled` value cannot work across both `surface/default` and `surface/disabled`, revisit the semantic model explicitly rather than adding a second disabled foreground by convention.
 
 Disabled does not replace validation or error guidance. The reason an action is unavailable should be understandable from the surrounding context when that reason matters to task completion.
 

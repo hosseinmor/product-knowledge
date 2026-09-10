@@ -11,6 +11,8 @@ related: []
 
 # Component Tokens
 
+> Status: draft
+
 ## Purpose
 
 This document defines when a component-specific token layer is justified and catalogs approved component-token families.
@@ -33,18 +35,23 @@ surface/* / fg/* / line/* / focus/*
 = semantic color tokens
 ```
 
-## Default Color Architecture
+## Default Color Resolution Model
 
-The v4 Color path is:
+The v4 Color resolution model is:
 
 ```text
+Core path
+Primitive
+→ Semantic
+→ Component
+
+Optional product-identity branch
 Primitive
 → Brand
 → Semantic
-→ Component
 ```
 
-Components use Semantic Color tokens by default. Do not insert a Component-token alias only to rename an existing Semantic token.
+Brand is not a mandatory hop. Components use Semantic Color tokens by default; Semantic roles use Brand only when their value intentionally depends on product identity. Do not insert a Component-token alias only to rename an existing Semantic token.
 
 For Button:
 
@@ -104,13 +111,13 @@ Possible uses include:
 - A theming abstraction that cannot be represented through shared Semantic roles
 - A stable component-owned color contract with no shared Semantic meaning
 
-Non-color component tokens must follow the contract of their own foundation; the Color Brand layer must not be inserted into those token graphs by default.
+Non-color component tokens must follow the contract of their own foundation; the optional Color Brand branch must not be inserted into those token graphs by default.
 
 ## Approved Color Family: Tag
 
 Tag remains the approved component-specific Color family. It exists because reusable categorical Tag colors need a stable component contract but do not carry a shared Semantic meaning.
 
-Approved-for-review variants:
+Current variants pending Tag component review:
 
 ```text
 neutral
@@ -140,7 +147,7 @@ Rules:
 
 The Tag family is retained in v4, but the **full five-variant × Hover × Line matrix is not yet declared permanently required**. The Tag component review must validate which variants are real, which are interactive, and where a line is part of the anatomy.
 
-Until that review is complete, Tag is approved as an architectural exception but its implementation metadata is incomplete. Do not treat the scaffold Tag guideline as proof that every retained token is production-ready.
+Tag is an approved architectural exception; its variant/state implementation metadata remains pending review. Do not treat the scaffold Tag guideline as proof that every retained token is production-ready.
 
 ## Applied Filter Rule
 
@@ -196,7 +203,7 @@ Every production-ready Component token must document:
 - Primitive or Semantic source
 - Component and element
 - Variant or state
-- Supported themes
+- Supported Appearance values
 - Supported products
 - Figma variable
 - Code token

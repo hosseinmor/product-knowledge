@@ -13,20 +13,25 @@ related: []
 
 > Status: draft
 
-Semantic tokens are the default Color interface consumed by components. Their role meaning remains stable across Brand modes and Light/Dark themes.
+Semantic tokens are the default Color interface consumed by components. Their role meaning remains stable across Product and Appearance Theme dimensions.
 
 ## Resolution
 
 ```text
-Primitive Value
-→ Brand: Jobvision or Cando
-→ Semantic: Light or Dark
+Core path
+Primitive
+→ Semantic (Appearance: Light | Dark)
 → Component
+
+Optional product-identity branch
+Primitive
+→ Brand (Product identity)
+→ Semantic (Appearance: Light | Dark)
 ```
 
-This is the Color-token resolution path. Non-color foundations are not required to follow the same graph.
+Brand is not a mandatory stage in Semantic resolution. Brand provides Product-identity inputs only where required. A Semantic token may alias a generic Primitive directly when its value does not vary by Product identity; it aliases Brand when Product identity intentionally controls the value. Components do not consume Brand directly.
 
-Brand provides product-identity inputs where required. Semantic may also alias generic Primitive hue scales directly when a role does not vary by product. Components do not consume Brand directly.
+This is the Color-token resolution model. The exact Figma collection/mode implementation for Product × Appearance remains a separate open decision. Non-color foundations are not required to follow the same graph.
 
 ## Surface
 
@@ -133,7 +138,7 @@ surface/disabled
 - `surface/neutral-emphasis` is the strong neutral interactive treatment used by operational Primary actions.
 - `surface/selected` is specifically a neutral persistent selected-container background, not a general Selected color family.
 - `surface/selected-hover` is only for selected containers that **remain interactive while selected**, such as a selected menu/list/tree/navigation item. It is not a universal selected state. A selected Tab that no longer has an interaction on the selected item does not need selected-hover styling.
-- `surface/brand` is reserved for product identity and approved key product/conversion moments.
+- `surface/brand` is reserved for Product identity and approved key product/conversion moments.
 - Accent communicates chromatic interaction/affordance and may be used by component selection states when a colored cue is appropriate.
 - `surface/accent-muted*` is the tonal interactive Accent treatment for patterns such as applied filters, selected tonal chips, and actionable/promotional banners where the reason for the color is interaction or emphasis rather than system feedback.
 - Magic surfaces are reserved for AI-assisted/generated experiences. Typical uses include AI entry cards, AI sections, AI chips, and AI actions when the treatment is explicitly communicating the AI capability.
@@ -253,7 +258,7 @@ Brand  → identity + approved key conversion moments
 Accent → chromatic interaction / affordance
 ```
 
-Cando demonstrates the distinction clearly: Brand resolves to Yellow while Accent resolves to Blue.
+Cando demonstrates the distinction clearly: Brand resolves to Yellow while Accent resolves directly to the shared Blue Primitive family because Accent does not currently vary by Product.
 
 An actionable Accent banner or applied filter may use Accent Muted. A passive informational/system message uses Support Info instead. The distinction is meaning, not merely the fact that both may appear blue.
 
@@ -300,7 +305,7 @@ Danger is not a fifth standard Notification severity. Standard system feedback r
 
 ## Support
 
-Information, success, warning, and error meanings are invariant across products and themes.
+Information, success, warning, and error meanings are invariant across Product and Appearance values.
 
 Only muted Support surfaces are approved globally. The baseline inline-notification recipe can use:
 
@@ -329,7 +334,7 @@ focus/default
 focus/inverse
 ```
 
-Focus remains independent from Brand and Accent and must remain visible across supported products, themes, and surfaces.
+Focus remains independent from Brand and Accent and must remain visible across supported Product × Appearance combinations and surfaces.
 
 ## Link
 
@@ -375,4 +380,4 @@ The Tag family is retained for now; its exact variant/state matrix should be val
 
 Component recipe ownership remains with the corresponding component guideline. In particular, `../components/button.md` is the canonical owner of Button presets, states, and Semantic-token mappings; the v4 Color catalog may summarize Button mapping only as an integration example.
 
-Mode-by-mode alias targets and unresolved values are recorded in `color-token-aliases.md`.
+Appearance-specific alias targets and unresolved values are recorded in `color-token-aliases.md`.
