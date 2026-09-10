@@ -15,14 +15,14 @@ related: []
 
 ## Scope
 
-This document describes product variation in the v4 **Color token system**. It does not define product modes for Typography, Spacing, Radius, Elevation, or Motion.
+This document describes Product variation in the v4 **Color token system**. Product and Appearance are independent Theme dimensions. It does not define the final Figma mode implementation for those dimensions or product modes for Typography, Spacing, Radius, Elevation, or Motion.
 
-## Brand modes
+## Product identity in Brand
 
-The Brand collection has two modes:
+The Brand collection represents the Product identity dimension for Color. Current Product values are:
 
 ```text
-Jobvision
+JobVision
 Cando
 ```
 
@@ -36,7 +36,7 @@ content/on-brand
 Current mapping direction:
 
 ```text
-Jobvision brand/* → color/blue/*
+JobVision brand/* → color/blue/*
 Cando brand/*     → color/yellow/*
 ```
 
@@ -55,15 +55,17 @@ Because Accent currently has the same interaction hue in both products, Semantic
 
 If a future product needs a different Accent value, introduce the minimum product-aware alias needed at that time while keeping the public Semantic names stable.
 
-## Product application
+## Product × Appearance application
 
-Products select Brand and Semantic modes independently:
+Products select Product identity and Appearance independently:
 
-| Context | Brand | Semantic |
+| Context | Product | Appearance |
 |---|---|---|
-| JobVision public experience | Jobvision | Light or Dark when supported |
-| JobVision employer panel | Jobvision | Light or Dark when supported |
+| JobVision public experience | JobVision | Light or Dark when supported |
+| JobVision employer panel | JobVision | Light or Dark when supported |
 | Cando ATS | Cando | Light or Dark |
+
+This table describes the logical Theme dimensions, not the final Figma collection/mode structure. That implementation model remains a separate open decision.
 
 Productive/Expressive is no longer a Color token mode in v4.
 
@@ -90,8 +92,9 @@ When JobVision appears explicitly inside Cando, do not rely on blue hue alone to
 ## Constraints
 
 - Components consume Semantic Color tokens by default.
+- Product and Appearance remain independent Theme dimensions.
 - Product names do not enter Semantic token names.
-- Brand modes do not contain general surfaces, selection, feedback, focus, or Accent roles.
-- Light/Dark does not become a Brand mode.
+- Brand does not contain general surfaces, selection, feedback, focus, or Accent roles.
+- Appearance does not become a Brand concern.
 - A product may not redefine semantic meaning locally.
 - Missing product-specific variation must not be solved by direct Primitive binding in component implementation.
