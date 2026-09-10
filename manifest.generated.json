@@ -2095,10 +2095,10 @@
       "id": "design-system.token.semantic-tokens",
       "kind": "design-system-token",
       "title": "Semantic Tokens",
-      "summary": "> Status: draft",
-      "status": "draft",
+      "summary": "Stable shared Color roles and their usage boundaries across Product and Appearance contexts.",
+      "status": "reviewed",
       "owner": null,
-      "last_reviewed": null,
+      "last_reviewed": "2026-09-10",
       "related": [],
       "topics": [
         "design-system-token",
