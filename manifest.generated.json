@@ -1983,10 +1983,10 @@
       "id": "design-system.token.architecture",
       "kind": "design-system-token",
       "title": "Token Architecture",
-      "summary": "> Status: draft",
-      "status": "draft",
+      "summary": "Current v4 Color token layering, collection responsibilities, and Product × Appearance model.",
+      "status": "reviewed",
       "owner": null,
-      "last_reviewed": null,
+      "last_reviewed": "2026-09-10",
       "related": [],
       "topics": [
         "architecture",
