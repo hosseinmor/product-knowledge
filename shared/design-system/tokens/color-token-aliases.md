@@ -3,345 +3,260 @@ id: design-system.token.color-token-aliases
 collection: design-system
 type: token
 title: Color Token Alias Mappings
-summary: Draft v4 Color alias graph with unresolved values explicitly marked TBD.
-knowledge_state: unverified
-document_maturity: draft
+summary: Validated v4 Color mappings synchronized with the current Figma Variables model.
+knowledge_state: canonical
+document_maturity: reviewed
 related: []
+last_reviewed: '2026-09-10'
 ---
 
 # Color Token Alias Mappings
 
-> Status: draft  
-> Value status: partial — unresolved mappings remain `TBD`  
-> Scope: v4 alias graph and unresolved values  
-> Source catalog: `jobvision-color-tokens-v4-surface-model.md`
-
 ## Purpose
 
-This document records how Color variables above Primitive resolve. The token catalog defines meaning and usage; this file defines value resolution and explicitly marks unresolved mappings.
+This document records the current validated Color mappings above Primitive. Figma owns the current editable aliases and values; this file is the documented mapping contract and review snapshot.
 
-Exact opaque palette values and several scale-step choices remain open. Do not infer production values from v3 mappings when a v4 row is marked `TBD`.
+If this document and Figma diverge, treat the mismatch as a maintenance gap and inspect Figma rather than guessing.
+
+Canonical documentation uses names such as `surface/default`; Figma keeps picker-friendly names such as `surface/surface-default`. Alias targets below reproduce the current Figma Primitive spelling `pallete/*` intentionally.
 
 ## Resolution rules
 
-The core Color alias path is:
-
 ```text
-Primitive → Semantic → Component
+Default
+Primitive → Semantic → Product UI
+
+Optional Product identity
+Primitive → Brand → Semantic → Product UI
+
+Exceptional component-owned contract
+Primitive / Semantic / Brand → Component → Product UI
 ```
 
-Brand is an optional product-identity branch:
+Product and Appearance remain independent. Current Figma collections:
 
 ```text
-Primitive → Brand → Semantic
+01 Primitives → Value
+02 Brand      → JobVision | Cando
+03 Semantic   → light | dark
+04 Component  → Light | Dark
 ```
 
-Rules:
-
-- Only `01 Primitives` stores direct Color values.
-- `02 Brand` aliases generic Primitive hue scales only for Product-identity inputs.
-- `03 Semantic` aliases Primitive values directly by default, or Brand variables when Product identity intentionally controls the value.
-- Brand is not a mandatory hop between Primitive and Semantic.
-- `04 Component` aliases Semantic by default; approved categorical Tag tokens may alias Primitive variables directly.
-- Components must not bind directly to undocumented Primitive values.
-- Product and Appearance are independent logical Theme dimensions. The exact Figma collection/mode implementation remains a separate open decision.
-- Figma uses slash-grouped variable names. Code may flatten `/` to `-` only after implementation mapping is approved; flattened names shown before that point are proposed/illustrative mappings.
-
-This resolution graph is the **Color-token graph**. It does not define the resolution model for Typography, Spacing, Radius, Elevation, or Motion.
-
-The v3 `Experience` Color collection is removed.
-
-## Required alpha primitives
-
-| Primitive variable | Direct value |
-|---|---|
-| `color/black-alpha/4` | `rgba(0, 0, 0, 0.04)` |
-| `color/black-alpha/8` | `rgba(0, 0, 0, 0.08)` |
-| `color/black-alpha/40` | `rgba(0, 0, 0, 0.40)` |
-| `color/white-alpha/8` | `rgba(255, 255, 255, 0.08)` |
-| `color/white-alpha/12` | `rgba(255, 255, 255, 0.12)` |
+Most values above Primitive are aliases. Transparent Semantic interaction colors and overlay intentionally store resolved RGBA directly.
 
 ## 02 Brand
 
-Logical Theme dimension: **Product**. Current Product values: `JobVision`, `Cando`.
-
-The numbered Brand ramp mirrors the corresponding generic hue ramp by step:
-
-| Variable | JobVision | Cando |
+| Role | JobVision | Cando |
 |---|---|---|
-| `brand/50` | `color/blue/50` | `color/yellow/50` |
-| `brand/100` | `color/blue/100` | `color/yellow/100` |
-| `brand/200` | `color/blue/200` | `color/yellow/200` |
-| `brand/300` | `color/blue/300` | `color/yellow/300` |
-| `brand/400` | `color/blue/400` | `color/yellow/400` |
-| `brand/500` | `color/blue/500` | `color/yellow/500` |
-| `brand/600` | `color/blue/600` | `color/yellow/600` |
-| `brand/700` | `color/blue/700` | `color/yellow/700` |
-| `brand/800` | `color/blue/800` | `color/yellow/800` |
-| `brand/900` | `color/blue/900` | `color/yellow/900` |
-| `brand/950` | `color/blue/950` | `color/yellow/950` |
-| `content/on-brand` | `color/neutral/0`* | `color/neutral/950`* |
+| `brand-default` | `pallete/blue/700` | `pallete/yellow/500` |
+| `brand-hover` | `pallete/blue/800` | `pallete/yellow/600` |
+| `brand-active` | `pallete/blue/900` | `pallete/yellow/700` |
+| `on-brand` | `pallete/bw/white` | `pallete/neutral/900` |
+| `brand-muted` | `pallete/blue/100` | `pallete/yellow/100` |
+| `brand-muted-hover` | `pallete/blue/200` | `pallete/yellow/200` |
+| `brand-fg` | `pallete/blue/800` | `pallete/yellow/800` |
+| `brand-line` | `pallete/blue/500` | `pallete/yellow/700` |
 
-`*` Foreground polarity is the approved direction but must be revalidated after the final Blue and Yellow scales are built.
+The first four roles feed shared Brand semantics. The muted/fg/line roles exist to resolve the Product-aware Brand Tag variant and are not general Semantic Color roles.
 
-The v3 Brand variables `accent/*` and `content/on-accent` are deprecated.
-
-The full Brand ramp is retained through the palette pass. After final Semantic aliases are chosen, actual consumers should be reviewed before treating every step as a permanently required public API.
+Brand is currently Appearance-agnostic. Light and Dark Semantic Brand roles consume the same Product-specific Brand aliases.
 
 ## 03 Semantic
 
-Logical Theme dimension: **Appearance**. Values: `Light`, `Dark`.
+### Structural Surface
 
-Semantic roles whose values do not vary by Product identity resolve directly to Primitive values. Brand-dependent roles, such as `surface/brand*` and `fg/on-brand`, consume the optional Brand branch.
-
-### Structural surfaces
-
-The roles are approved; exact opaque step mappings remain pending the palette pass.
-
-| Variable | Light | Dark |
+| Canonical role | Light | Dark |
 |---|---|---|
-| `surface/default` | TBD neutral | TBD neutral |
-| `surface/muted` | TBD neutral | TBD neutral |
-| `surface/inset` | TBD neutral | TBD neutral |
-| `surface/raised` | TBD neutral | TBD neutral |
-| `surface/inverse` | TBD neutral | TBD neutral |
+| `surface/default` | `pallete/bw/white` | `pallete/neutral/900` |
+| `surface/muted` | `pallete/neutral/50` | `pallete/neutral/800` |
+| `surface/inset` | `pallete/neutral/100` | `pallete/neutral/950` |
+| `surface/raised` | `pallete/bw/white` | `pallete/neutral/800` |
+| `surface/inverse` | `pallete/neutral/950` | `pallete/bw/white` |
 
-`surface/raised` may equal `surface/default` in Light and diverge in Dark. Elevation remains a separate token.
+Dark uses a dimmed-dark hierarchy rather than numerical inversion.
 
-### Neutral interactive surfaces
+### Neutral interactive Surface
 
-| Variable | Light | Dark |
+| Role | Light | Dark |
 |---|---|---|
-| `surface/neutral-muted` | TBD neutral | TBD neutral |
-| `surface/neutral-muted-hover` | TBD neutral | TBD neutral |
-| `surface/neutral-muted-active` | TBD neutral | TBD neutral |
-| `surface/neutral-emphasis` | TBD neutral | TBD neutral |
-| `surface/neutral-emphasis-hover` | TBD neutral | TBD neutral |
-| `surface/neutral-emphasis-active` | TBD neutral | TBD neutral |
+| `surface/neutral-muted` | `neutral/200` | `neutral/800` |
+| `surface/neutral-muted-hover` | `neutral/300` | `neutral/700` |
+| `surface/neutral-muted-active` | `neutral/400` | `neutral/600` |
+| `surface/neutral-emphasis` | `neutral/900` | `neutral/200` |
+| `surface/neutral-emphasis-hover` | `neutral/800` | `neutral/300` |
+| `surface/neutral-emphasis-active` | `neutral/700` | `neutral/400` |
 
-### Transparent interaction surfaces
+All unqualified hue paths in tables refer to `pallete/{hue}/{step}`.
 
-These mappings remain structurally approved from v3:
+### Transparent Surface
 
-| Variable | Light | Dark |
+| Role | Light | Dark |
 |---|---|---|
-| `surface/transparent-hover` | `color/black-alpha/4` | `color/white-alpha/8` |
-| `surface/transparent-active` | `color/black-alpha/8` | `color/white-alpha/12` |
-| `surface/transparent-inverse-hover` | `color/white-alpha/8` | `color/black-alpha/4` |
-| `surface/transparent-inverse-active` | `color/white-alpha/12` | `color/black-alpha/8` |
+| `surface/transparent-hover` | `rgba(0,0,0,.04)` | `rgba(255,255,255,.08)` |
+| `surface/transparent-active` | `rgba(0,0,0,.08)` | `rgba(255,255,255,.12)` |
+| `surface/transparent-inverse-hover` | `rgba(255,255,255,.08)` | `rgba(0,0,0,.04)` |
+| `surface/transparent-inverse-active` | `rgba(255,255,255,.12)` | `rgba(0,0,0,.08)` |
 
-### Selected container surfaces
+These are direct Semantic COLOR values, not aliases to a published alpha Primitive family.
 
-| Variable | Light | Dark |
+### Selected Surface
+
+| Role | Light | Dark |
 |---|---|---|
-| `surface/selected` | TBD neutral | TBD neutral |
-| `surface/selected-hover` | TBD neutral | TBD neutral |
+| `surface/selected` | `neutral/200` | `neutral/800` |
+| `surface/selected-hover` | `neutral/300` | `neutral/700` |
 
-Selected surfaces are neutral persistent-state backgrounds. `surface/selected-hover` applies only to selected containers that remain interactive while selected; it is not a universal selected-state requirement and is not required for a current Tab that has no meaningful interaction.
+### Brand
 
-Chromatic selection cues use Accent roles rather than a separate selected Color family.
-
-### Brand surfaces
-
-| Variable | Light | Dark |
+| Role | Light | Dark |
 |---|---|---|
-| `surface/brand` | `Brand/brand/{TBD}` | `Brand/brand/{TBD}` |
-| `surface/brand-hover` | `Brand/brand/{TBD}` | `Brand/brand/{TBD}` |
-| `surface/brand-active` | `Brand/brand/{TBD}` | `Brand/brand/{TBD}` |
+| `surface/brand` | `brand/brand-default` | `brand/brand-default` |
+| `surface/brand-hover` | `brand/brand-hover` | `brand/brand-hover` |
+| `surface/brand-active` | `brand/brand-active` | `brand/brand-active` |
+| `fg/on-brand` | `brand/on-brand` | `brand/on-brand` |
 
-`fg/on-brand` resolves to `Brand/content/on-brand` in both Appearance values.
+### Accent
 
-### Accent surfaces
-
-Accent uses the generic Blue Primitive family in both products; exact steps remain TBD. It resolves directly to Primitive Blue rather than through Brand because Accent does not currently vary by Product identity.
-
-| Variable | Light | Dark |
+| Role | Light | Dark |
 |---|---|---|
-| `surface/accent-muted` | `color/blue/{TBD}` | `color/blue/{TBD}` |
-| `surface/accent-muted-hover` | `color/blue/{TBD}` | `color/blue/{TBD}` |
-| `surface/accent-muted-active` | `color/blue/{TBD}` | `color/blue/{TBD}` |
-| `surface/accent-emphasis` | `color/blue/{TBD}` | `color/blue/{TBD}` |
-| `surface/accent-emphasis-hover` | `color/blue/{TBD}` | `color/blue/{TBD}` |
-| `surface/accent-emphasis-active` | `color/blue/{TBD}` | `color/blue/{TBD}` |
+| `surface/accent-muted` | `blue/50` | `blue/950` |
+| `surface/accent-muted-hover` | `blue/100` | `blue/900` |
+| `surface/accent-muted-active` | `blue/200` | `blue/800` |
+| `surface/accent-emphasis` | `blue/600` | `blue/500` |
+| `surface/accent-emphasis-hover` | `blue/700` | `blue/400` |
+| `surface/accent-emphasis-active` | `blue/800` | `blue/300` |
+| `fg/accent` | `blue/700` | `blue/400` |
+| `line/accent` | `blue/600` | `blue/500` |
+| `fg/on-color` | `bw/white` | `neutral/950` |
 
-`surface/accent-muted*` is retained for tonal interactive Accent treatments such as applied filters, selected tonal chips, and actionable/promotional banners. It is not the system-feedback Info surface.
+### Magic
 
-`fg/accent` and `line/accent` also resolve to `color/blue/*` with final steps TBD.
+| Role | Light | Dark |
+|---|---|---|
+| `surface/magic-muted` | `purple/100` | `purple/950` |
+| `surface/magic-emphasis` | `purple/600` | `purple/500` |
+| `surface/magic-emphasis-hover` | `purple/700` | `purple/400` |
+| `surface/magic-emphasis-active` | `purple/800` | `purple/300` |
+| `fg/magic` | `purple/700` | `purple/400` |
+| `line/magic` | `purple/600` | `purple/500` |
 
-### Magic and Danger
+### Danger
 
-| Family | Source direction |
-|---|---|
-| `surface/magic-*`, `fg/magic`, `line/magic` | `color/purple/*`, exact steps TBD |
-| `surface/danger-*`, `fg/danger`, `line/danger` | `color/red/*`, exact steps TBD |
-
-Magic is retained as the shared Semantic family for AI-assisted/generated experiences across containers, actions, foregrounds, and outlines.
-
-Danger remains semantically separate from Error even when both resolve to Red primitives. `surface/danger-muted` is retained for destructive-intent callouts or pre-action warning regions; Error remains the system/validation failure meaning.
+| Role | Light | Dark |
+|---|---|---|
+| `surface/danger-muted` | `red/100` | `red/950` |
+| `surface/danger-emphasis` | `red/600` | `red/500` |
+| `surface/danger-emphasis-hover` | `red/700` | `red/400` |
+| `surface/danger-emphasis-active` | `red/800` | `red/300` |
+| `fg/danger` | `red/700` | `red/400` |
+| `line/danger` | `red/600` | `red/500` |
 
 ### Support
 
-| Family | Source direction |
-|---|---|
-| Info | `color/blue/*`, exact steps TBD |
-| Success | Green/Emerald decision pending; exact steps TBD |
-| Warning | `color/yellow/*`, exact steps TBD |
-| Error | `color/red/*`, exact steps TBD |
+| Severity | Muted Surface Light | Muted Surface Dark | FG Light | FG Dark | Inverse FG Light | Inverse FG Dark | Line Light | Line Dark |
+|---|---|---|---|---|---|---|---|---|
+| Info | `blue/100` | `blue/950` | `blue/700` | `blue/400` | `blue/500` | `blue/700` | `blue/500` | `blue/600` |
+| Success | `green/100` | `green/950` | `green/700` | `green/500` | `green/600` | `green/700` | `green/600` | `green/600` |
+| Warning | `yellow/100` | `yellow/950` | `yellow/800` | `yellow/600` | `yellow/700` | `yellow/800` | `yellow/700` | `yellow/700` |
+| Error | `red/100` | `red/950` | `red/700` | `red/400` | `red/500` | `red/700` | `red/500` | `red/600` |
 
-Approved roles:
+### Neutral Foreground
 
-```text
-surface/{info|success|warning|error}-muted
-fg/{info|success|warning|error}
-line/{info|success|warning|error}
-fg/{info|success|warning|error}-inverse
-```
+| Role | Light | Dark |
+|---|---|---|
+| `fg/primary` | `neutral/950` | `neutral/200` |
+| `fg/secondary` | `neutral/700` | `neutral/400` |
+| `fg/tertiary` | `neutral/600` | `neutral/500` |
+| `fg/placeholder` | `neutral/600` | `neutral/500` |
+| `fg/disabled` | `neutral/500` | `neutral/500` |
+| `fg/on-inverse` | `bw/white` | `neutral/950` |
 
-The inverse foreground roles are specifically colored Support content on `surface/inverse`, such as inverse Toast status icons/text. They do not imply Support inverse surfaces or inverse line families.
+The old Figma variable `fg/fg-on-disabled` remains hidden for migration safety and is not canonical.
 
-### Foreground
+### Neutral Line
 
-Neutral and contextual mappings remain pending final contrast validation:
+| Role | Light | Dark |
+|---|---|---|
+| `line/muted` | `neutral/200` | `neutral/800` |
+| `line/default` | `neutral/300` | `neutral/700` |
+| `line/emphasis` | `neutral/400` | `neutral/600` |
+| `line/disabled` | `neutral/200` | `neutral/800` |
+| `line/inverse` | `neutral/600` | `neutral/500` |
 
-```text
-fg/primary
-fg/secondary
-fg/tertiary
-fg/placeholder
-fg/disabled
-fg/on-inverse
-fg/on-color
-```
+### Disabled Surface
 
-Role intent:
-
-```text
-fg/primary   → essential/default readable content
-fg/secondary → supporting readable content
-fg/tertiary  → auxiliary low-priority metadata
-```
-
-`fg/tertiary` is retained because dense product UI has a recurring auxiliary-metadata layer; it is not a generic lower-opacity styling option.
-
-Product-dependent foreground:
-
-```text
-fg/on-brand → Brand/content/on-brand
-```
-
-Chromatic foregrounds:
-
-```text
-fg/accent → color/blue/{TBD}
-fg/magic → color/purple/{TBD}
-fg/danger → color/red/{TBD}
-```
-
-`fg/brand`, `fg/selected`, and `fg/on-color-disabled` are removed in v4.
-
-### Line
-
-Neutral line steps remain TBD:
-
-```text
-line/muted
-line/default
-line/emphasis
-line/disabled
-line/inverse
-```
-
-Role intent:
-
-```text
-line/muted    → subtle structural separation
-line/default  → normal control/container boundary
-line/emphasis → stronger neutral interactive boundary
-```
-
-A Text Input is a validated stress-test use case for `line/default → line/emphasis` across Rest → Hover/Focus, with Focus still expressed separately by `focus/default`.
-
-Chromatic lines:
-
-```text
-line/accent → color/blue/{TBD}
-line/magic → color/purple/{TBD}
-line/danger → color/red/{TBD}
-line/{info|success|warning|error} → matching support hue, exact step TBD
-```
-
-`line/brand` and `line/selected` are removed.
-
-### Disabled
-
-```text
-surface/disabled → TBD neutral
-fg/disabled      → TBD neutral
-line/disabled    → TBD neutral
-```
-
-Disabled suppresses tone; no tone-specific disabled aliases are approved.
-
-### Focus
-
-```text
-focus/default → TBD contrast-safe neutral
-focus/inverse → TBD contrast-safe neutral
-```
-
-Focus remains Brand- and Accent-independent.
+| Role | Light | Dark |
+|---|---|---|
+| `surface/disabled` | `neutral/100` | `neutral/800` |
 
 ### Link
 
-The six Link variables are structurally approved. Exact alias values remain TBD pending the Blue/Neutral palette pass and contrast validation.
-
-| Variable | Source direction |
-|---|---|
-| `link/default` | `color/blue/*` |
-| `link/hover` | `color/blue/*` |
-| `link/subtle` | neutral foreground scale |
-| `link/subtle-hover` | neutral or Blue depending final interaction test |
-| `link/inverse` | contrast-safe inverse Link treatment |
-| `link/inverse-hover` | contrast-safe inverse hover treatment |
-
-Link remains independent from `fg/accent` even when both resolve to the same Blue Primitive value.
-
-`link/visited`, `link/emphasis`, and `link/emphasis-hover` are removed.
+| Role | Light | Dark |
+|---|---|---|
+| `link/default` | `blue/700` | `blue/400` |
+| `link/hover` | `blue/800` | `blue/300` |
+| `link/subtle` | `neutral/700` | `neutral/400` |
+| `link/subtle-hover` | `neutral/900` | `neutral/200` |
+| `link/inverse` | `blue/400` | `blue/700` |
+| `link/inverse-hover` | `blue/300` | `blue/800` |
 
 ### Utility
 
-| Variable | Light | Dark |
-|---|---|---|
-| `overlay/default` | `color/black-alpha/40` | `color/black-alpha/40` |
-| `skeleton/base` | `color/black-alpha/8` | `color/white-alpha/8` |
-| `skeleton/shimmer` | `color/black-alpha/4` | `color/white-alpha/12` |
+Canonical semantic meaning and current Figma variable names are:
 
-The proposed `highlight/default` and `highlight/inverse` roles are removed. A future text/search highlighting pattern must establish a reviewed cross-component use case before Highlight aliases are introduced.
+| Meaning | Figma variable | Light | Dark |
+|---|---|---|---|
+| Focus default | `utility/focus-default` | `neutral/900` | `neutral/100` |
+| Focus inverse | `utility/focus-inverse` | `bw/white` | `neutral/950` |
+| Overlay | `utility/overlay` | `rgba(0,0,0,.50)` | `rgba(0,0,0,.50)` |
+| Skeleton background | `utility/skeleton-background` | `neutral/100` | `neutral/800` |
+| Skeleton base | `utility/skeleton-base` | `neutral/300` | `neutral/700` |
+| Skeleton element | `utility/skeleton-element` | `neutral/300` | `neutral/700` |
+| Skeleton shimmer | `utility/skeleton-shimmer` | `neutral/100` | `neutral/600` |
 
-## 04 Component
+## 04 Component — Tag
 
-Logical Theme dimension: **Appearance**. Values: `Light`, `Dark`.
-
-The approved categorical Tag family remains structurally unchanged for now:
+Canonical contract:
 
 ```text
-tag/surface/{neutral|blue|purple|green|orange}
-tag/surface/{variant}-hover
-tag/fg/{variant}
-tag/line/{variant}
+tag/{color}/surface
+tag/{color}/surface-hover
+tag/{color}/fg
+tag/{color}/line
 ```
 
-Existing Tag step mappings should be revalidated against the final Primitive palette pass. Tag colors communicate grouping/categorization and must not be reused as a general categorical palette by unrelated components.
+Current canonical colors:
 
-The existence of the current five variants and their full Hover/Line matrix should be validated during the Tag component review rather than expanded by convention.
+```text
+neutral | brand | blue | teal | green | yellow | orange | red | magenta | purple
+```
 
-## Open value decisions
+Cyan and Warm Gray are hidden legacy variants only.
 
-1. Final opaque Primitive 50–950 scales
-2. Exact Light/Dark neutral surface, foreground, and line steps
-3. Exact Brand strong/hover/active steps
-4. Exact Accent, Link, Magic, Danger, and Support steps
-5. Success source family (`green` versus `emerald`)
-6. Final contrast validation for `content/on-brand`, `fg/on-color`, inverse roles, and Link roles
-7. Consumer review of the full Brand ramp after final Semantic alias steps are known
-8. Final validation of the Tag variant/state matrix during Tag component review
+### Tag mappings
+
+| Color | Surface Light | Surface Dark | Hover Light | Hover Dark | FG Light | FG Dark | Line Light | Line Dark |
+|---|---|---|---|---|---|---|---|---|
+| Neutral | `neutral/200` | `neutral/900` | `neutral/300` | `neutral/800` | `neutral/700` | `neutral/200` | `neutral/400` | `neutral/600` |
+| Brand | `brand/brand-muted` | `brand/brand-muted` | `brand/brand-muted-hover` | `brand/brand-muted-hover` | `brand/brand-fg` | `brand/brand-fg` | `brand/brand-line` | `brand/brand-line` |
+| Blue | `blue/100` | `blue/950` | `blue/200` | `blue/900` | `blue/800` | `blue/300` | `blue/500` | `blue/600` |
+| Teal | `teal/100` | `teal/950` | `teal/200` | `teal/900` | `teal/700` | `teal/400` | `teal/500` | `teal/600` |
+| Green | `green/100` | `green/950` | `green/200` | `green/900` | `green/800` | `green/400` | `green/600` | `green/600` |
+| Yellow | `yellow/100` | `yellow/950` | `yellow/200` | `yellow/900` | `yellow/800` | `yellow/400` | `yellow/700` | `yellow/600` |
+| Orange | `orange/100` | `orange/950` | `orange/200` | `orange/900` | `orange/700` | `orange/400` | `orange/500` | `orange/600` |
+| Red | `red/100` | `red/950` | `red/200` | `red/900` | `red/800` | `red/300` | `red/500` | `red/600` |
+| Magenta | `magenta/100` | `magenta/950` | `magenta/200` | `magenta/900` | `magenta/700` | `magenta/400` | `magenta/500` | `magenta/600` |
+| Purple | `purple/100` | `purple/950` | `purple/200` | `purple/900` | `purple/700` | `purple/300` | `purple/500` | `purple/500` |
+
+Categorical Tag mappings are chosen hue-by-hue for appearance and contrast; equivalent roles do not need matching numeric steps.
+
+## Deferred decisions
+
+The current Color alias graph is validated. Remaining decisions are implementation or future-use concerns rather than unresolved Color values:
+
+- whether Brand eventually needs Appearance-aware aliases after real dark-theme UI validation;
+- runtime Theme composition and initialization;
+- CSS variable/package naming and scoping;
+- Tailwind mapping;
+- destructive removal of hidden legacy variables after migration consumers are known;
+- future categorical hues only when real Tag use cases require them.
