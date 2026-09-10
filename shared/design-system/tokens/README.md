@@ -1,54 +1,55 @@
 # Design Tokens
 
-> Status: draft
+This section contains the detailed v4 Color contracts. Start with `../foundations/color.md` for the operational model and use the smallest detailed document needed for the question.
 
-This section defines the v4 Color token architecture, naming, semantics, Product/Appearance theme dimensions, Brand mappings, and approved component-owned Color exceptions. Non-color foundations such as Typography, Spacing, Radius, Elevation, and Motion document their own token structures and are not required to follow the Color graph.
+Non-Color foundations such as Typography, Spacing, Radius, Elevation, and Motion define their own token structures and are not required to follow the Color graph.
 
-## Documents
+## Current Color documents
 
-- `architecture.md` — Color collection and resolution model for Primitive, Brand, Semantic, and Component usage
-- `primitive-tokens.md` — Raw design values and current Primitive color inventory
-- `jobvision-color-tokens-v4-surface-model.md` — Current color-token catalog and canonical v4 Surface-model specification
-- `jobvision-color-tokens-v3-surface-model.md` — Historical v3 working draft retained for migration reference
-- `color-token-aliases.md` — Appearance-specific Color alias targets and unresolved value mappings
-- `semantic-tokens.md` — Stable shared UI Color roles and Appearance resolution constraints
-- `component-tokens.md` — Criteria and catalog for approved component-specific token exceptions; the current Color exception is Tag
-- `product-overrides.md` — Product-identity rules and Product × Appearance application constraints
-- `usage-rules.md` — Semantic Color consumption, fallbacks, and migration rules
+- `architecture.md` — finalized Color layering, Figma collections, and Product × Appearance responsibilities
+- `primitive-tokens.md` — Primitive Color inventory and raw palette values
+- `semantic-tokens.md` — stable shared UI Color roles and usage boundaries
+- `color-token-aliases.md` — validated current Brand, Semantic, and Tag mappings synchronized with Figma
+- `component-tokens.md` — criteria for Component Color exceptions and the finalized categorical Tag contract
+- `product-overrides.md` — Product identity, Brand mappings, and Product × Appearance constraints
+- `usage-rules.md` — Semantic Color consumption and migration rules
 
-## Color Resolution Model
+Historical/working catalogs:
+
+- `jobvision-color-tokens-v4-surface-model.md` — earlier detailed v4 working catalog retained for decision history; do not use it as the source for exact current alias values when it conflicts with the reviewed contracts above
+- `jobvision-color-tokens-v3-surface-model.md` — historical v3 migration reference
+
+## Color resolution model
 
 ```text
-Core path
-Primitive
-→ Semantic
-→ Component
+Default
+Primitive → Semantic → Product UI
 
-Optional product-identity branch
-Primitive
-→ Brand
-→ Semantic
+Optional Product identity
+Primitive → Brand → Semantic → Product UI
+
+Exceptional component-owned contract
+Primitive / Semantic / Brand → Component → Product UI
 ```
 
-Brand is not a mandatory hop. Semantic roles use the Brand branch only when their value intentionally depends on Product identity; otherwise they may alias Primitive values directly.
+Brand is not mandatory. Semantic roles use Brand only when Product identity intentionally controls the value.
 
-Components consume Semantic Color tokens by default. Approved component-owned Color exceptions are exposed through Component tokens; the current retained exception is the Tag family.
+Product UI consumes Semantic Color by default. Component Color tokens are reviewed exceptions; the current approved exception is categorical Tag Color.
 
-## Theme terminology
-
-The two logical Theme dimensions are:
+## Theme dimensions
 
 ```text
 Product    → JobVision | Cando
 Appearance → Light | Dark
 ```
 
-Product identity may feed Semantic roles through the optional Brand branch. Appearance controls Light/Dark Semantic resolution. The exact Figma collection/mode implementation for Product × Appearance remains a separate open decision.
+Product and Appearance are independent. Current Figma resolution:
 
-For example, Cando Brand resolves to Yellow while Cando Accent can resolve directly to the shared Blue Primitive family because Accent does not currently vary by Product.
+```text
+01 Primitives → Value
+02 Brand      → JobVision | Cando
+03 Semantic   → light | dark
+04 Component  → Light | Dark
+```
 
-The former Productive/Expressive Experience Color collection and root `canvas` role are removed in v4.
-
-Existing Figma names that still include `Productive` are legacy naming references unless a component explicitly documents another active dimension.
-
-Exact opaque Primitive scales and final alias steps remain open until the palette pass. Semantic structure should not be expanded only to anticipate hypothetical future values.
+The Figma collection/mode model and Color alias values are finalized for the current scope. Runtime Theme initialization, CSS representation, Tailwind mapping, and SSR behavior remain separate implementation contracts.
