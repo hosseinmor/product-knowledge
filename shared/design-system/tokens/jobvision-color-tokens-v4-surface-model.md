@@ -25,14 +25,22 @@ The architecture below is specific to Color. Typography, Spacing, Radius, Elevat
 ## Architecture
 
 ```text
+Core path
+01 Primitives
+      ↓
+03 Semantic
+      ↓
+04 Component
+
+Optional product-identity branch
 01 Primitives
       ↓
 02 Brand
       ↓
 03 Semantic
-      ↓
-04 Component
 ```
+
+Brand is not a mandatory hop between Primitive and Semantic. Semantic roles alias Brand only when their value intentionally depends on product identity; otherwise they may alias Primitive values directly.
 
 Collections and modes:
 
@@ -118,7 +126,7 @@ Do not create a second blue or yellow palette only to preserve semantic separati
 
 ## Brand collection
 
-Brand resolves product identity only.
+Brand is the optional product-identity alias branch. It resolves product identity only and is consumed by Semantic roles when product identity intentionally controls their value.
 
 Modes:
 
@@ -156,7 +164,7 @@ Cando brand/*     → color/yellow/*
 
 The v3 Brand names `accent/*` and `content/on-accent` are deprecated in favor of `brand/*` and `content/on-brand`. Accent is now a separate Semantic concept.
 
-Do not put general interaction, selection, feedback, focus, or page-surface roles in Brand.
+Do not put general interaction, selection, feedback, focus, or page-surface roles in Brand. Semantic roles that do not vary by product identity should resolve directly from Primitive values.
 
 The full 50–950 Brand mirror is retained through the palette pass. After final Semantic aliases are chosen, actual Brand-step consumers should be reviewed before treating every step as a permanently required public API.
 
