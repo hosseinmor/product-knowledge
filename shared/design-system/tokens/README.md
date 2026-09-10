@@ -16,18 +16,27 @@ This section defines the v4 Color token architecture, naming, semantics, themes,
 - `product-overrides.md` — Brand-mode rules and product application constraints
 - `usage-rules.md` — Semantic Color consumption, fallbacks, and migration rules
 
-## Color Resolution Order
+## Color Resolution Model
 
 ```text
+Core path
+Primitive
+→ Semantic
+→ Component
+
+Optional product-identity branch
 Primitive
 → Brand
 → Semantic
-→ Component
 ```
+
+Brand is not a mandatory hop. Semantic roles use the Brand branch only when their value intentionally depends on product identity; otherwise they may alias Primitive values directly.
 
 Components consume Semantic Color tokens by default. Approved component-owned Color exceptions are exposed through Component tokens; the current retained exception is the Tag family.
 
-Brand variation is resolved through the Brand collection. Light/Dark is resolved in Semantic. The former Productive/Expressive Experience Color collection and root `canvas` role are removed in v4.
+Brand variation is resolved through the optional Brand collection. Light/Dark is resolved in Semantic. For example, Cando Brand resolves to Yellow while Cando Accent can resolve directly to the shared Blue Primitive family because Accent does not currently vary by product.
+
+The former Productive/Expressive Experience Color collection and root `canvas` role are removed in v4.
 
 Existing Figma names that still include `Productive` are legacy naming references unless a component explicitly documents another active dimension.
 
