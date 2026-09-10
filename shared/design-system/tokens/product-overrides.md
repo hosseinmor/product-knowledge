@@ -3,98 +3,120 @@ id: design-system.token.product-overrides
 collection: design-system
 type: token
 title: Token Product and Brand Variations
-summary: '> Status: draft'
-knowledge_state: unverified
-document_maturity: draft
+summary: Defines Product identity in Color and its relationship to the independent Appearance dimension.
+knowledge_state: canonical
+document_maturity: reviewed
 related: []
+last_reviewed: '2026-09-10'
 ---
 
 # Token Product and Brand Variations
 
-> Status: draft
-
 ## Scope
 
-This document describes Product variation in the v4 **Color token system**. Product and Appearance are independent Theme dimensions. It does not define the final Figma mode implementation for those dimensions or product modes for Typography, Spacing, Radius, Elevation, or Motion.
+This document describes Product variation in the v4 **Color token system**. Product and Appearance are independent Theme dimensions.
+
+```text
+Product    → JobVision | Cando
+Appearance → Light | Dark
+```
+
+The current Figma model resolves them in separate collections:
+
+```text
+02 Brand    → JobVision | Cando
+03 Semantic → light | dark
+04 Component → Light | Dark
+```
+
+Do not encode Product and Appearance into combined Semantic modes. Runtime Theme initialization and CSS representation remain separate implementation contracts.
 
 ## Product identity in Brand
 
-The Brand collection represents the Product identity dimension for Color. Current Product values are:
+`02 Brand` is the optional Product-identity alias branch. Its core strong roles are:
+
+```text
+brand/brand-default
+brand/brand-hover
+brand/brand-active
+brand/on-brand
+```
+
+Current Product mapping:
 
 ```text
 JobVision
+brand-default → blue/700
+brand-hover   → blue/800
+brand-active  → blue/900
+on-brand      → white
+
 Cando
+brand-default → yellow/500
+brand-hover   → yellow/600
+brand-active  → yellow/700
+on-brand      → neutral/900
 ```
 
-Brand values alias generic Primitive hue scales into shared product-identity roles:
+Tag requires four additional Brand aliases because its categorical Brand hue also varies by Product:
 
 ```text
-brand/*
-content/on-brand
+brand/brand-muted
+brand/brand-muted-hover
+brand/brand-fg
+brand/brand-line
 ```
 
-Current mapping direction:
+These are Brand implementation inputs for the Tag contract, not general shared UI semantics.
 
-```text
-JobVision brand/* → color/blue/*
-Cando brand/*     → color/yellow/*
-```
-
-Cando may resolve `content/on-brand` to a dark neutral on yellow Brand surfaces. JobVision may resolve it to a light neutral on blue Brand surfaces. Final contrast must be validated after the Primitive palettes are built.
+Brand is currently Appearance-agnostic: the same Product mappings feed Light and Dark. The potential need for Appearance-aware Brand aliases remains a known follow-up only if real dark-theme UI validation demonstrates a problem.
 
 ## Semantic Accent
 
-Accent is not a Brand alias in v4.
+Accent is not Brand.
 
 ```text
-JobVision Accent → color/blue/*
-Cando Accent     → color/blue/*
+JobVision Accent → blue/*
+Cando Accent     → blue/*
 ```
 
-Because Accent currently has the same interaction hue in both products, Semantic Accent may alias Blue primitives directly. Do not create a product-aware Accent layer until a real product requires a different Accent hue.
+Because Accent currently uses the same interaction hue in both Products, its Semantic roles alias Blue Primitives directly. Do not create Product-aware Accent indirection until a real Product requires different values.
 
-If a future product needs a different Accent value, introduce the minimum product-aware alias needed at that time while keeping the public Semantic names stable.
+If that happens, preserve the public Semantic names and introduce only the minimum additional aliasing needed.
 
 ## Product × Appearance application
 
-Products select Product identity and Appearance independently:
+A Product selects identity and Appearance independently. Examples:
 
 | Context | Product | Appearance |
 |---|---|---|
 | JobVision public experience | JobVision | Light or Dark when supported |
-| JobVision employer panel | JobVision | Light or Dark when supported |
+| JobVision employer experience | JobVision | Light or Dark when supported |
 | Cando ATS | Cando | Light or Dark |
 
-This table describes the logical Theme dimensions, not the final Figma collection/mode structure. That implementation model remains a separate open decision.
+This describes the resolved design context. It does not prescribe the runtime Theme API or initialization mechanism.
 
-Productive/Expressive is no longer a Color token mode in v4.
-
-Existing Figma component names that still contain `Productive` are legacy naming references unless the component explicitly documents another active non-color design dimension. A future density/expression model, if needed, must define its own contract instead of being inferred from old Color modes.
+Productive/Expressive is not a Color Theme dimension in v4.
 
 ## Brand usage
 
-Brand color is intentionally rare in operational UI.
+Brand Color is intentionally rare in operational UI.
 
-Use Brand semantics for:
+Use Brand semantics for Product identity, approved key conversions, and Product-defining entry points or feature moments. Do not use Brand merely because an element needs more emphasis.
 
-- Product identity
-- Approved key conversions
-- Product-defining entry points or feature moments
+General chromatic interaction belongs to Accent. Operational action hierarchy is primarily Neutral.
 
-Do not use Brand merely because an element needs more emphasis. General interactive chromatic emphasis belongs to Accent; operational hierarchy is primarily Neutral.
-
-Low frequency of yellow Brand usage inside Cando ATS is expected and is not evidence that the Brand system is underused.
+Low frequency of yellow Brand usage inside Cando ATS is expected and is not evidence that Brand is underused.
 
 ## Cross-product identity
 
-When JobVision appears explicitly inside Cando, do not rely on blue hue alone to communicate identity. Use the JobVision logo, name, or a reviewed branded composition. Cando may already use the same Blue Primitive family for interaction Accent.
+When JobVision appears explicitly inside Cando, do not rely on Blue alone to communicate identity because Cando also uses Blue for Accent. Use the JobVision logo, name, or another reviewed branded composition.
 
 ## Constraints
 
-- Components consume Semantic Color tokens by default.
-- Product and Appearance remain independent Theme dimensions.
+- Product UI consumes Semantic Color or an approved Component Color contract, not Brand directly.
+- Product and Appearance remain independent dimensions.
 - Product names do not enter Semantic token names.
-- Brand does not contain general surfaces, selection, feedback, focus, or Accent roles.
-- Appearance does not become a Brand concern.
-- A product may not redefine semantic meaning locally.
-- Missing product-specific variation must not be solved by direct Primitive binding in component implementation.
+- Brand does not own general surfaces, selection, feedback, focus, or Accent roles.
+- A Product may not redefine semantic meaning locally.
+- Missing Product variation must not be solved by direct Primitive binding in ordinary component implementation.
