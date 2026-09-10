@@ -23,9 +23,24 @@ Exact opaque palette values and several scale-step choices remain open. Do not i
 
 ## Resolution rules
 
+The core Color alias path is:
+
+```text
+Primitive → Semantic → Component
+```
+
+Brand is an optional product-identity branch:
+
+```text
+Primitive → Brand → Semantic
+```
+
+Rules:
+
 - Only `01 Primitives` stores direct color values.
-- `02 Brand` aliases generic Primitive hue scales.
-- `03 Semantic` aliases Primitive or Brand variables.
+- `02 Brand` aliases generic Primitive hue scales only for product-identity inputs.
+- `03 Semantic` aliases Primitive values directly by default, or Brand variables when product identity intentionally controls the value.
+- Brand is not a mandatory hop between Primitive and Semantic.
 - `04 Component` aliases Semantic by default; approved categorical Tag tokens may alias Primitive variables directly.
 - Components must not bind directly to undocumented Primitive values.
 - Figma uses slash-grouped variable names. Code may flatten `/` to `-` only after implementation mapping is approved; flattened names shown before that point are proposed/illustrative mappings.
@@ -74,6 +89,8 @@ The full Brand ramp is retained through the palette pass. After final Semantic a
 ## 03 Semantic
 
 Modes: `Light`, `Dark`.
+
+Semantic roles whose values do not vary by product identity resolve directly to Primitive values. Brand-dependent roles, such as `surface/brand*` and `fg/on-brand`, consume the optional Brand branch.
 
 ### Structural surfaces
 
@@ -134,7 +151,7 @@ Chromatic selection cues use Accent roles rather than a separate selected color 
 
 ### Accent surfaces
 
-Accent uses the generic Blue Primitive family in both products; exact steps remain TBD.
+Accent uses the generic Blue Primitive family in both products; exact steps remain TBD. It resolves directly to Primitive Blue rather than through Brand because Accent does not currently vary by product identity.
 
 | Variable | Light | Dark |
 |---|---|---|
