@@ -3,7 +3,7 @@ id: design-system.token.color-token-aliases
 collection: design-system
 type: token
 title: Color Token Alias Mappings
-summary: '> Status: working draft > Scope: v4 alias graph and unresolved values'
+summary: Draft v4 Color alias graph with unresolved values explicitly marked TBD.
 knowledge_state: unverified
 document_maturity: draft
 related: []
@@ -11,13 +11,14 @@ related: []
 
 # Color Token Alias Mappings
 
-> Status: working draft  
+> Status: draft  
+> Value status: partial — unresolved mappings remain `TBD`  
 > Scope: v4 alias graph and unresolved values  
 > Source catalog: `jobvision-color-tokens-v4-surface-model.md`
 
 ## Purpose
 
-This document records how color variables above Primitive resolve. The token catalog defines meaning and usage; this file defines value resolution and explicitly marks unresolved mappings.
+This document records how Color variables above Primitive resolve. The token catalog defines meaning and usage; this file defines value resolution and explicitly marks unresolved mappings.
 
 Exact opaque palette values and several scale-step choices remain open. Do not infer production values from v3 mappings when a v4 row is marked `TBD`.
 
@@ -37,12 +38,13 @@ Primitive → Brand → Semantic
 
 Rules:
 
-- Only `01 Primitives` stores direct color values.
-- `02 Brand` aliases generic Primitive hue scales only for product-identity inputs.
-- `03 Semantic` aliases Primitive values directly by default, or Brand variables when product identity intentionally controls the value.
+- Only `01 Primitives` stores direct Color values.
+- `02 Brand` aliases generic Primitive hue scales only for Product-identity inputs.
+- `03 Semantic` aliases Primitive values directly by default, or Brand variables when Product identity intentionally controls the value.
 - Brand is not a mandatory hop between Primitive and Semantic.
 - `04 Component` aliases Semantic by default; approved categorical Tag tokens may alias Primitive variables directly.
 - Components must not bind directly to undocumented Primitive values.
+- Product and Appearance are independent logical Theme dimensions. The exact Figma collection/mode implementation remains a separate open decision.
 - Figma uses slash-grouped variable names. Code may flatten `/` to `-` only after implementation mapping is approved; flattened names shown before that point are proposed/illustrative mappings.
 
 This resolution graph is the **Color-token graph**. It does not define the resolution model for Typography, Spacing, Radius, Elevation, or Motion.
@@ -61,11 +63,11 @@ The v3 `Experience` Color collection is removed.
 
 ## 02 Brand
 
-Modes: `Jobvision`, `Cando`.
+Logical Theme dimension: **Product**. Current Product values: `JobVision`, `Cando`.
 
 The numbered Brand ramp mirrors the corresponding generic hue ramp by step:
 
-| Variable | Jobvision | Cando |
+| Variable | JobVision | Cando |
 |---|---|---|
 | `brand/50` | `color/blue/50` | `color/yellow/50` |
 | `brand/100` | `color/blue/100` | `color/yellow/100` |
@@ -88,9 +90,9 @@ The full Brand ramp is retained through the palette pass. After final Semantic a
 
 ## 03 Semantic
 
-Modes: `Light`, `Dark`.
+Logical Theme dimension: **Appearance**. Values: `Light`, `Dark`.
 
-Semantic roles whose values do not vary by product identity resolve directly to Primitive values. Brand-dependent roles, such as `surface/brand*` and `fg/on-brand`, consume the optional Brand branch.
+Semantic roles whose values do not vary by Product identity resolve directly to Primitive values. Brand-dependent roles, such as `surface/brand*` and `fg/on-brand`, consume the optional Brand branch.
 
 ### Structural surfaces
 
@@ -137,7 +139,7 @@ These mappings remain structurally approved from v3:
 
 Selected surfaces are neutral persistent-state backgrounds. `surface/selected-hover` applies only to selected containers that remain interactive while selected; it is not a universal selected-state requirement and is not required for a current Tab that has no meaningful interaction.
 
-Chromatic selection cues use Accent roles rather than a separate selected color family.
+Chromatic selection cues use Accent roles rather than a separate selected Color family.
 
 ### Brand surfaces
 
@@ -147,11 +149,11 @@ Chromatic selection cues use Accent roles rather than a separate selected color 
 | `surface/brand-hover` | `Brand/brand/{TBD}` | `Brand/brand/{TBD}` |
 | `surface/brand-active` | `Brand/brand/{TBD}` | `Brand/brand/{TBD}` |
 
-`fg/on-brand` resolves to `Brand/content/on-brand` in both Semantic modes.
+`fg/on-brand` resolves to `Brand/content/on-brand` in both Appearance values.
 
 ### Accent surfaces
 
-Accent uses the generic Blue Primitive family in both products; exact steps remain TBD. It resolves directly to Primitive Blue rather than through Brand because Accent does not currently vary by product identity.
+Accent uses the generic Blue Primitive family in both products; exact steps remain TBD. It resolves directly to Primitive Blue rather than through Brand because Accent does not currently vary by Product identity.
 
 | Variable | Light | Dark |
 |---|---|---|
@@ -173,7 +175,7 @@ Accent uses the generic Blue Primitive family in both products; exact steps rema
 | `surface/magic-*`, `fg/magic`, `line/magic` | `color/purple/*`, exact steps TBD |
 | `surface/danger-*`, `fg/danger`, `line/danger` | `color/red/*`, exact steps TBD |
 
-Magic is retained as the shared semantic family for AI-assisted/generated experiences across containers, actions, foregrounds, and outlines.
+Magic is retained as the shared Semantic family for AI-assisted/generated experiences across containers, actions, foregrounds, and outlines.
 
 Danger remains semantically separate from Error even when both resolve to Red primitives. `surface/danger-muted` is retained for destructive-intent callouts or pre-action warning regions; Error remains the system/validation failure meaning.
 
@@ -287,11 +289,11 @@ focus/default → TBD contrast-safe neutral
 focus/inverse → TBD contrast-safe neutral
 ```
 
-Focus remains brand- and accent-independent.
+Focus remains Brand- and Accent-independent.
 
 ### Link
 
-The six Link variables are structurally approved. Exact Alias values remain TBD pending the Blue/Neutral palette pass and contrast validation.
+The six Link variables are structurally approved. Exact alias values remain TBD pending the Blue/Neutral palette pass and contrast validation.
 
 | Variable | Source direction |
 |---|---|
@@ -318,7 +320,7 @@ The proposed `highlight/default` and `highlight/inverse` roles are removed. A fu
 
 ## 04 Component
 
-Modes: `Light`, `Dark`.
+Logical Theme dimension: **Appearance**. Values: `Light`, `Dark`.
 
 The approved categorical Tag family remains structurally unchanged for now:
 
