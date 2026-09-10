@@ -1999,10 +1999,10 @@
       "id": "design-system.token.color-token-aliases",
       "kind": "design-system-token",
       "title": "Color Token Alias Mappings",
-      "summary": "Draft v4 Color alias graph with unresolved values explicitly marked TBD.",
-      "status": "draft",
+      "summary": "Validated v4 Color mappings synchronized with the current Figma Variables model.",
+      "status": "reviewed",
       "owner": null,
-      "last_reviewed": null,
+      "last_reviewed": "2026-09-10",
       "related": [],
       "topics": [
         "color-token-aliases",
