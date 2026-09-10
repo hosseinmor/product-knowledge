@@ -1344,11 +1344,18 @@
       "id": "design-system.foundation.color",
       "kind": "design-system-foundation",
       "title": "Color",
-      "summary": "> Status: structure only",
-      "status": "draft",
+      "summary": "Operational entry point for JV Color semantics, token architecture, Product × Appearance behavior, accessibility, and source routing.",
+      "status": "reviewed",
       "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "last_reviewed": "2026-09-10",
+      "related": [
+        "design-system.token.architecture",
+        "design-system.token.semantic-tokens",
+        "design-system.token.component-tokens",
+        "design-system.token.product-overrides",
+        "design-system.accessibility.color-and-contrast",
+        "design-system.reference.source-of-truth"
+      ],
       "topics": [
         "color",
         "design-system-foundation",
