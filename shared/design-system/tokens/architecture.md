@@ -17,25 +17,32 @@ related: []
 
 The v4 architecture described here is the **Color token architecture**. It separates raw color values, product brand identity, shared Light/Dark color semantics, and exceptional component-owned color contracts.
 
-The canonical Color resolution path is:
+The canonical Color resolution model is:
 
 ```text
+Core path
+Primitive
+→ Semantic
+→ Component
+
+Optional product-identity branch
 Primitive
 → Brand
 → Semantic
-→ Component
 ```
+
+Brand is not a mandatory hop between Primitive and Semantic. A Semantic token aliases Brand only when its value intentionally depends on product identity; otherwise it may alias a Primitive directly.
 
 Components consume Semantic color tokens by default. An approved Component color token is exceptional and follows the criteria in `component-tokens.md`.
 
-This graph must not be assumed to be the resolution graph for Typography, Spacing, Radius, Elevation, or Motion. Those foundations may use different Primitive/Semantic structures and must document their own resolution model when their shared contracts are finalized. In particular, non-color foundations do not route through Brand merely because Color does.
+This graph must not be assumed to be the resolution graph for Typography, Spacing, Radius, Elevation, or Motion. Those foundations may use different Primitive/Semantic structures and must document their own resolution model when their shared contracts are finalized. Brand is an optional identity branch even within Color and must not be introduced into another foundation by convention.
 
 ## Collections and modes
 
 | Collection | Modes | Responsibility |
 |---|---|---|
 | `01 Primitives` | Value | Context-free raw color values |
-| `02 Brand` | Jobvision, Cando | Product brand color ramp and on-brand content |
+| `02 Brand` | Jobvision, Cando | Optional product-identity aliases for the brand color ramp and on-brand content |
 | `03 Semantic` | Light, Dark | Stable shared UI color roles consumed by components |
 | `04 Component` | Light, Dark | Approved component-owned color roles, currently categorical Tag colors |
 
@@ -49,7 +56,7 @@ Typography, spacing, radius, elevation, and motion may also have primitive value
 
 ### Brand
 
-Brand aliases generic Primitive hue scales into the active product identity.
+Brand is the optional product-identity alias branch. It aliases generic Primitive hue scales into the active product identity when a Semantic role intentionally depends on that identity.
 
 ```text
 brand/*
@@ -63,7 +70,7 @@ Jobvision brand/* → color/blue/*
 Cando brand/*     → color/yellow/*
 ```
 
-Brand does not contain general interaction, selection, feedback, focus, or page-surface roles.
+Brand does not contain general interaction, selection, feedback, focus, or page-surface roles. Semantic roles whose values do not vary by product identity should alias Primitive values directly rather than routing through Brand.
 
 ### Semantic
 
@@ -79,7 +86,7 @@ overlay/*
 skeleton/*
 ```
 
-Semantic meaning remains stable across products even when values overlap. For example, Brand, Accent, Info, and Link may all draw from `color/blue/*` in JobVision without becoming the same semantic role.
+A Semantic token may alias a Primitive directly or consume the Brand branch when product identity is part of the role's value. Semantic meaning remains stable across products even when values overlap. For example, Brand, Accent, Info, and Link may all draw from `color/blue/*` in JobVision without becoming the same semantic role.
 
 ### Component
 
