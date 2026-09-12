@@ -26,6 +26,8 @@ related:
 
 Tailwind is a Product implementation interface over Design System decisions. It is not the source of truth for semantic Color, Foundation scales, responsive thresholds, or reusable component behavior.
 
+This document records owner-approved Design-side invariants. Frontend review may choose the implementation shape, but it should preserve these boundaries and semantics.
+
 The Design System package must remain framework-agnostic and must not depend on Tailwind.
 
 Where Product code uses Tailwind, its configuration should consume generated Design System artifacts rather than re-authoring Foundation values manually.
