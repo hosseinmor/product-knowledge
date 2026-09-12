@@ -41,6 +41,21 @@ Responsive layout defines how page structures and reusable components adapt to t
 
 Device names are descriptive only. For example, `md` means `viewport >= 768px`; it does not mean “tablet.”
 
+## Breakpoint source contract
+
+The numeric scale in this draft is not yet approved as a final Foundation decision. Regardless of the final values, breakpoint numbers must have **one canonical Design System source of truth**.
+
+That source must generate the runtime representations consumed by:
+- Design System responsive CSS;
+- Product framework configuration such as Tailwind `screens`;
+- any other shared runtime adapter that needs the breakpoint scale.
+
+Do not manually maintain the same breakpoint values in more than one implementation source.
+
+The Design System package itself must remain framework-agnostic and must not depend on Tailwind. Exact machine-readable source format, generated module format, import path, and build integration are Frontend-owned.
+
+Figma's Typography `Breakpoint = SM | LG` modes are a separate design-time mechanism for Fluid Heading size/line-height and must not be treated as the full runtime breakpoint scale.
+
 ## Reference design and QA widths
 
 ### Primary design frames
