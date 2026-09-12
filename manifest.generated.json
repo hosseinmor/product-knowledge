@@ -1471,14 +1471,15 @@
       "id": "design-system.foundation.responsive-layout",
       "kind": "design-system-foundation",
       "title": "Responsive Layout",
-      "summary": "Human-facing guidance for breakpoints, reference screen sizes, grids, containers, adaptive behavior, and responsive testing.",
-      "status": "draft",
-      "owner": null,
-      "last_reviewed": null,
+      "summary": "Canonical guidance for viewport ranges, breakpoint ruler values, content containers, page types, panes, container queries, and responsive testing.",
+      "status": "reviewed",
+      "owner": "Design System team",
+      "last_reviewed": "2026-09-12",
       "related": [
         "design-system.foundation.layout",
         "design-system.foundation.responsive-layout-spec",
-        "design-system.pattern.responsive-layout"
+        "design-system.pattern.responsive-layout",
+        "design-system.reference.tailwind"
       ],
       "topics": [
         "design-system-foundation",
@@ -1492,13 +1493,14 @@
       "id": "design-system.foundation.responsive-layout-spec",
       "kind": "design-system-foundation",
       "title": "Responsive Layout Specification",
-      "summary": "Atomic rules and decision tables for responsive layout behavior, implementation, and AI retrieval.",
-      "status": "draft",
-      "owner": null,
-      "last_reviewed": null,
+      "summary": "Atomic rules and decision tables for viewport ranges, breakpoint ruler values, containers, page types, and responsive implementation.",
+      "status": "reviewed",
+      "owner": "Design System team",
+      "last_reviewed": "2026-09-12",
       "related": [
         "design-system.foundation.responsive-layout",
-        "design-system.pattern.responsive-layout"
+        "design-system.pattern.responsive-layout",
+        "design-system.reference.tailwind"
       ],
       "topics": [
         "design-system-foundation",
