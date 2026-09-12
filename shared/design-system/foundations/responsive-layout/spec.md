@@ -4,183 +4,230 @@ document_type: design-system
 collection: design-system
 type: foundation
 title: Responsive Layout Specification
-summary: Atomic rules and decision tables for responsive layout behavior, implementation, and AI retrieval.
-knowledge_state: unverified
-document_maturity: draft
+summary: Atomic rules and decision tables for viewport ranges, breakpoint ruler values, containers, page types, and responsive implementation.
+knowledge_state: canonical
+document_maturity: reviewed
+owner: Design System team
+last_reviewed: 2026-09-12
 related:
   - design-system.foundation.responsive-layout
   - design-system.pattern.responsive-layout
+  - design-system.reference.tailwind
 ---
 
 # Responsive Layout Specification
 
-> Status: Draft — this file is optimized for precise retrieval and implementation. The Design System owner must review it before approval.
+## Viewport ranges
 
-## Breakpoint tokens
+| Range | Query intent | Major layout regions |
+|---|---|---:|
+| `narrow` | width below `768px` | 1 |
+| `regular` | width at or above `768px` | Up to 2 |
+| `wide` | width at or above `1400px` | Up to 3 |
 
-| Token | Minimum width | Maximum width |
-|---|---:|---:|
-| `base` | `0px` | `639px` |
-| `sm` | `640px` | `767px` |
-| `md` | `768px` | `1023px` |
-| `lg` | `1024px` | `1279px` |
-| `xl` | `1280px` | `1535px` |
-| `2xl` | `1536px` | None |
+Viewport ranges are the preferred semantic API for high-level page structure.
 
-The following CSS custom properties illustrate a **generated runtime output**, not a second authored source of breakpoint values:
+## Breakpoint ruler
 
-```css
---breakpoint-sm: 40rem;
---breakpoint-md: 48rem;
---breakpoint-lg: 64rem;
---breakpoint-xl: 80rem;
---breakpoint-2xl: 96rem;
-```
+| Token | Value | Tailwind adapter |
+|---|---:|---|
+| `xsmall` | `320px` | `xs` |
+| `small` | `544px` | `sm` |
+| `medium` | `768px` | `md` |
+| `large` | `1012px` | `lg` |
+| `xlarge` | `1280px` | `xl` |
+| `xxlarge` | `1400px` | `2xl` |
 
-The final breakpoint scale must be authored once in a canonical Design System source and generated into Design System CSS, Product Tailwind configuration, and other framework adapters. The Design System package must not depend on Tailwind. Exact source/artifact format and build integration remain Frontend-owned.
+Breakpoint values are ruler values for fine-tuning. They must not be interpreted as six separate page modes.
 
-Figma Typography `SM | LG` modes are design-time Fluid Heading modes and are not aliases for this complete runtime breakpoint scale.
+Generated runtime artifacts must originate from one canonical Design System source. Tailwind, CSS custom media, or other framework outputs must not re-author these numbers independently.
+
+## Container and padding tokens
+
+| Token | Value |
+|---|---:|
+| `container/interstitial` | `320px` |
+| `container/medium` | `768px` |
+| `container/large` | `1012px` |
+| `container/xlarge` | `1280px` |
+| `container/full` | `100%` |
+| `content-padding/default` | `16px` |
+| `content-padding/wide` | `24px` |
+| `pane-padding` | `16px` |
+
+Content padding is `16px` through `large`, then `24px` at `xlarge` and `xxlarge`. Pane padding remains `16px`.
+
+A numeric container max-width includes its horizontal padding.
 
 ## Rules
 
-### RSP-001 — Mobile-first implementation
+### RSP-001 — Use viewport ranges for page structure
 
-- **Rule:** Base styles must represent the narrowest supported layout.
-- **Requirement:** Base styles must not require a minimum-width media query.
-- **Requirement:** Wider layouts must progressively add or adapt structure.
-- **Exception:** A documented legacy constraint may temporarily use another model during migration.
+- **Rule:** Prefer `narrow / regular / wide` for high-level page and navigation adaptations.
+- **Requirement:** Do not create a new page mode at every breakpoint ruler value.
+- **Example:** Entering `regular` at `768px` permits desktop-friendly patterns but does not force a list-detail split.
 
-### RSP-002 — Breakpoints are not devices
+### RSP-002 — Breakpoints are ruler values, not devices
 
-- **Rule:** Breakpoint tokens describe viewport thresholds only.
-- **Incorrect:** `md = tablet`.
-- **Correct:** `md starts at 768px`.
+- **Rule:** `xsmall / small / medium / large / xlarge / xxlarge` are shared numeric thresholds.
+- **Incorrect:** `large = desktop device`.
+- **Correct:** `large = 1012px`, usable as a fine-tune threshold when needed.
 - **Requirement:** Device labels may appear only as non-normative examples.
 
-### RSP-003 — Use viewport queries for page structure
+### RSP-003 — Fine-tune locally before adding global semantics
 
-- **Rule:** Page-level structural changes must use viewport breakpoints.
-- **Includes:** global navigation, persistent sidebars, page grids, page padding, major panes, and page-level master-detail behavior.
+- **Rule:** Use the shared breakpoint ruler or a local query for responsive cases not expressed by viewport ranges.
+- **Requirement:** Do not add a global breakpoint for one page or component.
+- **Fallback:** Prefer a container query when the dependency is the parent region's width.
 
-### RSP-004 — Use container queries for reusable components
+### RSP-004 — Use container queries for reusable components and panes
 
-- **Rule:** A reusable component should use a container query when its layout depends on its own available width rather than the viewport.
-- **Includes:** cards, filter bars, toolbars, result rows, profile summaries, and chart panels.
-- **Exception:** A component tied permanently to one page region may use the page breakpoint when the dependency is explicit and documented.
+- **Rule:** A reusable component should respond to its own container width when viewport width is not a reliable proxy.
+- **Includes:** cards, toolbars, result rows, filter bars, candidate panes, chart panels, and master-detail subregions.
 
-### RSP-005 — Remain fluid between breakpoints
+### RSP-005 — Keep container width independent from viewport range
 
-- **Rule:** Layouts must work throughout every range, not only at reference frame widths.
-- **Requirement:** Content must not overflow, overlap, become unreachable, or create unintended horizontal scrolling between thresholds.
+- **Rule:** Viewport range determines page structure; container role determines content growth.
+- **Requirement:** Do not create a new breakpoint only to impose a max-width.
 
-### RSP-006 — Add global breakpoints conservatively
+### RSP-006 — Container max-width includes padding
 
-- **Rule:** Do not add a global breakpoint for one page or component.
-- **Requirement:** A proposed global breakpoint must solve a repeated need across multiple products, patterns, or components.
-- **Fallback:** Use a local media query or container query for isolated behavior.
+- **Rule:** Horizontal content padding belongs to the content region itself.
+- **Requirement:** Numeric container max-width includes that padding.
+- **Incorrect:** `1280px` max-width wrapper plus an additional outer `24px` page padding layer for the same region.
+- **Correct:** `1280px` content region whose internal padding is `24px` per side.
 
-### RSP-007 — Name variants by behavior
+### RSP-007 — Use semantic page types
 
-- **Rule:** Component variants must describe behavior or composition, not device categories.
+- **Full page:** centered constrained content; default `xlarge = 1280px`.
+- **Split page:** pane/sidebar plus main content; main content may be `full / medium / large / xlarge`.
+- **Interstitial page:** focused single-task content; default `320px`.
+
+### RSP-008 — Split-page panes are outside main content max-width
+
+- **Rule:** Navigation or pane width does not consume the numeric max-width token of the main content region.
+- **Requirement:** If main content is constrained, center it in the remaining main region, not the full viewport.
+- **RTL:** Direction is independent from breakpoint logic; persistent primary navigation normally appears on the right in JV RTL products.
+
+### RSP-009 — Operational ATS workspaces use Full main content
+
+- **Rule:** Candidate Management, data tables, boards, Resume Bank, and similar operational ATS pages normally use Split page + `full` main content.
+- **Requirement:** Do not impose a page-level max-width on the operational workspace.
+- **Requirement:** Use container queries for constrained internal panes/components.
+
+### RSP-010 — Constrain focused ATS tasks
+
+- **Rule:** ATS forms/settings may keep the Split-page shell while constraining the main task.
+- **Preferred roles:** `medium = 768px` for focused forms; `large = 1012px` for larger settings/application pages.
+
+### RSP-011 — JobVision Full pages default to XLarge
+
+- **Rule:** New ordinary centered JobVision pages should default to `xlarge = 1280px` unless the content benefits from another role.
+- **Migration:** Legacy `1140px` containers migrate page-by-page; do not mechanically resize every existing page without visual QA.
+
+### RSP-012 — JobVision list-detail uses Split-page behavior
+
+- **Rule:** List-detail does not automatically split at the start of `regular`.
+- **Preferred mechanism:** Use a fine-tune threshold such as `large = 1012px` or a container query when list + detail minimum widths fit.
+- **Migration:** Existing ~`992px` behavior should be tested against `1012px`.
+
+### RSP-013 — Remain fluid between thresholds
+
+- **Rule:** Layouts must work throughout every interval, not only at reference widths.
+- **Requirement:** No unintended overflow, overlap, inaccessible actions, or accidental horizontal page scrolling.
+
+### RSP-014 — Name variants by behavior
+
 - **Incorrect:** `Card / Tablet`, `Modal / Desktop`.
 - **Correct:** `Card / Vertical`, `Card / Horizontal`, `Modal / Dialog`, `Modal / Full-screen`.
 
-### RSP-008 — Do not infer input capability from width
+### RSP-015 — Do not infer input capability from width
 
-- **Rule:** Viewport width must not be used to assume touch, mouse, hover, or keyboard availability.
+- **Rule:** Width must not be used to assume touch, mouse, hover, or keyboard support.
 - **Requirement:** Essential actions must not depend on hover.
-- **Requirement:** Pointer- or hover-specific refinements must use the relevant capability media features.
+- **Requirement:** Pointer/hover refinements use capability media features.
 
-### RSP-009 — Keep RTL independent from breakpoint logic
+### RSP-016 — Keep RTL independent from responsive thresholds
 
-- **Rule:** Breakpoint thresholds are direction-independent.
-- **Requirement:** Directional spacing and positioning must use logical properties.
-- **Preferred properties:** `padding-inline`, `margin-inline`, `inset-inline-start`, `border-inline-end`.
+- **Rule:** Threshold values are direction-independent.
+- **Preferred CSS:** logical properties such as `padding-inline`, `margin-inline`, `inset-inline-start`, and `border-inline-end`.
 
-### RSP-010 — Separate containers from breakpoints
+### RSP-017 — Stable UI typography by default
 
-- **Rule:** Breakpoints determine behavior changes; containers determine content growth limits.
-- **Requirement:** Do not create a new breakpoint only to impose a content maximum width.
+- **Rule:** Body, Label, Button, and ordinary UI text do not receive a new type size at each breakpoint.
+- **Requirement:** Use the Typography Foundation; Fluid Heading owns its approved design-time responsive mapping separately.
 
-### RSP-011 — Use stable UI type sizes by default
+### RSP-018 — Test boundaries and ranges
 
-- **Rule:** Body text, labels, buttons, and common UI text should not receive a new size at every breakpoint.
-- **Requirement:** Fluid type is reserved primarily for large headings, display text, marketing, and editorial contexts.
+Minimum responsive QA widths:
 
-### RSP-012 — Test boundaries and ranges
+`320`, `543`, `544`, `767`, `768`, `1011`, `1012`, `1279`, `1280`, `1399`, `1400`, and `1920px`.
 
-- **Rule:** Responsive QA must include both sides of each meaningful breakpoint.
-- **Minimum QA widths:** `360`, `640`, `767`, `768`, `1023`, `1024`, `1279`, `1280`, `1535`, `1536`, and `1920px`.
-- **Requirement:** Also test content expansion, RTL, zoom, and keyboard navigation where applicable.
+Also test intermediate widths, content expansion, RTL, 200% zoom/reflow, keyboard navigation, and side pane open/closed states.
+
+## Page-type decision table
+
+| Situation | Preferred page/layout |
+|---|---|
+| Ordinary centered JobVision page | Full / XLarge |
+| Focused form | Full or Split / Medium |
+| Settings or larger constrained task | Full or Split / Large |
+| ATS data table / Candidate Management / board | Split / Full |
+| List-detail | Split; fine-tune split threshold |
+| Sign-in / verification / one-task screen | Interstitial |
+| Reusable pane/component becomes cramped | Container query |
+
+## Tailwind mapping
+
+Tailwind may map the shared ruler to custom screens:
+
+| DS token | Tailwind key | Value |
+|---|---|---:|
+| `xsmall` | `xs` | `320px` |
+| `small` | `sm` | `544px` |
+| `medium` | `md` | `768px` |
+| `large` | `lg` | `1012px` |
+| `xlarge` | `xl` | `1280px` |
+| `xxlarge` | `2xl` | `1400px` |
+
+Tailwind screen keys are an implementation adapter over the breakpoint ruler. They do not replace `narrow / regular / wide` as page-layout semantics.
+
+Exact custom media/variant implementation for viewport ranges and container queries remains Frontend-owned.
 
 ## Reference frames
 
 | Purpose | Width |
 |---|---:|
-| Primary mobile design | `390px` |
-| Tablet adaptation | `768px` |
-| Compact desktop adaptation | `1024px` |
-| Primary desktop design | `1440px` |
+| Compact mobile reference | `390px` |
+| Regular boundary | `768px` |
+| Large fine-tune reference | `1012px` |
+| XLarge container reference | `1280px` |
+| Primary wide desktop design | `1440px` |
 
-Reference frames are design and communication aids. They do not replace testing across intermediate widths.
+## Migration from current/legacy thresholds
 
-## Grid specification
+Migration is behavior-led.
 
-| Range | Columns | Margin | Gutter |
-|---|---:|---:|---:|
-| `base`–`sm` | 4 | `16px` | `16px` |
-| `md` | 8 | `24px` | `16px` |
-| `lg` and above | 12 | `24–32px` | `24px` |
-
-## Suggested content containers
-
-| Token or role | Suggested maximum width |
-|---|---:|
-| Reading content | `640–720px` |
-| Form content | `720–800px` |
-| Settings content | `960px` |
-| Standard marketing page | `1200–1280px` |
-| Wide marketing page | `1440px` |
-| Data workspace | Fluid |
-
-These values remain draft until validated against existing products.
-
-## Decision table
-
-| Situation | Preferred mechanism |
+| Existing threshold/convention | Shared target direction |
 |---|---|
-| Global navigation changes with viewport | Viewport breakpoint |
-| Sidebar becomes persistent | Viewport breakpoint |
-| Number of major page panes changes | Viewport breakpoint |
-| Card changes because its parent becomes narrow | Container query |
-| Toolbar wraps based on its own region | Container query |
-| Display heading scales gradually | Fluid value such as `clamp()` |
-| One component requires an isolated threshold | Local query |
-| The same threshold recurs across products | Consider a global token |
-| Content must stop expanding | Max-width container |
+| Bootstrap `576px` | Usually `small = 544px` or a local threshold |
+| `768px` | `medium = 768px` |
+| JobVision / Bootstrap ~`992px` | Test against `large = 1012px` |
+| Bootstrap `1200px` | Usually `xlarge = 1280px` |
+| `1400px` | `xxlarge = 1400px` / Wide range |
+| JobVision `1140px` container | Migrate page-by-page toward Full / XLarge `1280px` |
+
+Do not change a threshold until navigation, tables, forms, panes, dialogs, content wrapping, and zoom/reflow have been checked across the affected width interval.
 
 ## Prohibited patterns
 
-- Do not create one breakpoint per device or screen model.
-- Do not use `mobile`, `tablet`, or `desktop` as normative breakpoint token names.
-- Do not expose breakpoint names as component variant semantics.
-- Do not assume a desktop-width viewport has hover support.
-- Do not assume a compact viewport is touch-only.
-- Do not require hover to discover or perform an essential action.
-- Do not add a global breakpoint without repeated cross-product evidence.
-- Do not design only at `390px` and `1440px` without checking intermediate behavior.
-- Do not stretch reading text, forms, dialogs, or cards indefinitely on wide screens.
-
-## Migration from Bootstrap breakpoints
-
-Existing products may still use Bootstrap thresholds. Migration must be behavior-led rather than a blind numeric replacement.
-
-| Existing Bootstrap threshold | Target shared threshold |
-|---:|---:|
-| `576px` | Review case by case; usually `640px` or a local threshold |
-| `768px` | `768px` |
-| `992px` | `1024px` |
-| `1200px` | `1280px` |
-| `1400px` | Review case by case; usually `1536px` or a container limit |
-
-Before changing a threshold, verify navigation, tables, forms, sidebars, dialogs, and content wrapping throughout the affected width range.
+- Do not define page structure with six independent breakpoint modes.
+- Do not name global breakpoints after devices.
+- Do not add a global breakpoint for one component.
+- Do not maintain a second hard-coded breakpoint scale in Product Tailwind configuration.
+- Do not add outer page padding around a constrained content container that already owns its horizontal padding.
+- Do not include persistent nav/pane width inside the main content max-width token.
+- Do not constrain operational ATS workspaces with a global page max-width.
+- Do not stretch reading/form content indefinitely on wide screens.
+- Do not assume desktop width means hover or mouse.
+- Do not design only at 390px and 1440px without checking boundary and intermediate behavior.
