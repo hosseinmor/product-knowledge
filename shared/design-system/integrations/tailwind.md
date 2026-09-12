@@ -159,18 +159,35 @@ Component-owned directional or representational shadows, such as non-modal Drawe
 
 ## Responsive breakpoints
 
-Breakpoint values have one canonical Design System source of truth.
+Responsive Layout exposes two related concepts:
 
-The same source must generate:
-- Design System responsive outputs;
-- Product framework artifacts such as Tailwind `screens`;
-- any other runtime representation that needs the shared breakpoint scale.
+- semantic viewport ranges for page structure: `narrow <768`, `regular >=768`, `wide >=1400`;
+- a breakpoint ruler for fine-tuning.
+
+The breakpoint ruler maps to Product Tailwind screens as follows:
+
+| Design System token | Tailwind key | Value |
+|---|---|---:|
+| `xsmall` | `xs` | `320px` |
+| `small` | `sm` | `544px` |
+| `medium` | `md` | `768px` |
+| `large` | `lg` | `1012px` |
+| `xlarge` | `xl` | `1280px` |
+| `xxlarge` | `2xl` | `1400px` |
+
+Tailwind screen keys are an implementation adapter over the ruler. They do not imply six semantic page modes.
+
+Breakpoint values have one canonical Design System source of truth. The same source must generate Design System responsive outputs, Product Tailwind `screens`, and any other runtime representation that needs the shared ruler.
 
 Do not manually maintain a second set of breakpoint numbers in Product Tailwind configuration.
 
-The Design System package must not depend on Tailwind. The exact canonical machine-readable format, generated module format, and import/build integration remain Frontend-owned.
+Page-level structure should prefer the `narrow / regular / wide` semantics. Exact Tailwind/custom-media variants for those ranges remain Frontend-owned.
 
-Figma's Typography `Breakpoint = SM | LG` modes are design-time modes for Fluid Heading and are not the runtime breakpoint scale.
+Container-query implementation is also Frontend-owned. On Tailwind 3 this may use native CSS `@container`, an approved plugin/adapter, or component CSS; do not invent viewport breakpoints to substitute for a container-width dependency.
+
+The Design System package must not depend on Tailwind. Exact machine-readable source format, generated module format, and build/import integration remain Frontend-owned.
+
+Figma's `Typography breakpoint` modes are design-time Fluid Heading modes and are not the runtime breakpoint ruler.
 
 ## Arbitrary and raw values
 
