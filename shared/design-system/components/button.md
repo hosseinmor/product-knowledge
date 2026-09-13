@@ -99,10 +99,15 @@ Loading is modeled separately from the interaction-state property because it rep
 
 ### Loading
 
-- The triggering Button may enter Loading after submission.
-- Prevent repeated submission while the operation is in progress.
-- Keep the Button width stable when practical so surrounding layout does not jump.
-- Flow-level rules decide whether competing actions are also disabled; that policy does not belong to Button alone.
+Loading is a separate boolean condition from the interaction-state property.
+
+For v1:
+- use the existing `Loading Small` component as the loading indicator;
+- prevent repeated activation while the operation is in progress;
+- preserve the Button's Style and Size;
+- keep the Button width stable when practical so surrounding layout does not jump;
+- keep exact spinner placement and label/icon treatment as TBD until the visual options are reviewed in Figma;
+- flow-level rules decide whether competing actions are also disabled; that policy does not belong to Button alone.
 
 ### Disabled
 
@@ -153,6 +158,8 @@ The previous Expressive size is not part of the canonical Button scale. Large re
 Button labels use the Label typography family, not Heading. Exact Label recipes per size will be bound during Figma reconciliation.
 
 Button icons use a fixed 18px size across Large, Medium, Small, and Extra Small. The icon-to-label gap is a fixed 8px across all sizes. The current icon library is primarily authored on 24px masters with internal safe space, so the Button contract does not normalize them down to 16px or introduce size-dependent icon scaling.
+
+Button Size defines a fixed visual height. Vertical padding does not determine Button height; content is vertically centered within the fixed-height control.
 
 Button is Hug contents by default. Instances may Fill container when layout requires a full-width action; full width is not a separate Button variant.
 
