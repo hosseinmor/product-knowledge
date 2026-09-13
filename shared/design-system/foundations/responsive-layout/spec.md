@@ -111,7 +111,7 @@ A numeric container max-width includes its horizontal padding.
 - **LTR:** Start Pane is on the left and End Pane is on the right.
 - **Requirement:** Do not encode direction into canonical region names such as `Right pane` or `Left pane`.
 
-### RSP-010 — Split-page panes are outside Content max-width
+### RSP-009 — Split-page panes are outside Content max-width
 
 - **Rule:** Start/End pane width does not consume the numeric max-width token of Content.
 - **Requirement:** If Content is constrained, center it in the remaining main region, not the full viewport.
