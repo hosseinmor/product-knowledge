@@ -116,27 +116,25 @@ A numeric container max-width includes its horizontal padding.
 - **Rule:** Start/End pane width does not consume the numeric max-width token of Content.
 - **Requirement:** If Content is constrained, center it in the remaining main region, not the full viewport.
 
-### RSP-010 — Operational ATS workspaces use Full main content
+### RSP-010 — Operational workspaces use Full Content
 
-- **Rule:** Candidate Management, data tables, boards, Resume Bank, and similar operational ATS pages normally use Split page + `full` main content.
-- **Requirement:** Do not impose a page-level max-width on the operational workspace.
+- **Rule:** Data tables, boards, management views, and similar operational pages normally use Split page + `full` Content.
+- **Requirement:** Do not impose a page-level max-width on a dense operational workspace.
 - **Requirement:** Use container queries for constrained internal panes/components.
 
-### RSP-011 — Constrain focused ATS tasks
+### RSP-011 — Constrain focused tasks when useful
 
-- **Rule:** ATS forms/settings may keep the Split-page shell while constraining the main task.
+- **Rule:** Forms, settings, and other focused tasks may keep the Split-page shell while constraining Content.
 - **Preferred roles:** `medium = 768px` for focused forms; `large = 1012px` for larger settings/application pages.
 
-### RSP-012 — JobVision Full pages default to XLarge
+### RSP-012 — Ordinary Full pages default to XLarge
 
-- **Rule:** New ordinary centered JobVision pages should default to `xlarge = 1280px` unless the content benefits from another role.
-- **Migration:** Legacy `1140px` containers migrate page-by-page; do not mechanically resize every existing page without visual QA.
+- **Rule:** New ordinary centered Full pages should default to `xlarge = 1280px` unless the content benefits from another role.
 
-### RSP-013 — JobVision list-detail uses Split-page behavior
+### RSP-013 — List-detail uses Split-page behavior
 
 - **Rule:** List-detail does not automatically split at the start of `regular`.
 - **Preferred mechanism:** Use a fine-tune threshold such as `large = 1012px` or a container query when list + detail minimum widths fit.
-- **Migration:** Existing ~`992px` behavior should be tested against `1012px`.
 
 ### RSP-014 — Remain fluid between thresholds
 
@@ -191,10 +189,10 @@ Also test intermediate widths, content expansion, RTL, 200% zoom/reflow, keyboar
 
 | Situation | Preferred page/layout |
 |---|---|
-| Ordinary centered JobVision page | Full / XLarge |
+| Ordinary centered page | Full / XLarge |
 | Focused form | Full or Split / Medium |
 | Settings or larger constrained task | Full or Split / Large |
-| ATS data table / Candidate Management / board | Split / Full |
+| Data table / board / operational workspace | Split / Full |
 | List-detail | Split; fine-tune split threshold |
 | Sign-in / verification / one-task screen | Interstitial |
 | Reusable pane/component becomes cramped | Container query |
@@ -237,10 +235,8 @@ Migration is behavior-led.
 |---|---|
 | Bootstrap `576px` | Usually `small = 544px` or a local threshold |
 | `768px` | `medium = 768px` |
-| JobVision / Bootstrap ~`992px` | Test against `large = 1012px` |
 | Bootstrap `1200px` | Usually `xlarge = 1280px` |
 | `1400px` | `xxlarge = 1400px` / Wide range |
-| JobVision `1140px` container | Migrate page-by-page toward Full / XLarge `1280px` |
 
 Do not change a threshold until navigation, tables, forms, panes, dialogs, content wrapping, and zoom/reflow have been checked across the affected width interval.
 
@@ -255,7 +251,7 @@ Do not change a threshold until navigation, tables, forms, panes, dialogs, conte
 - Do not encode physical direction into canonical layout-region names.
 - Do not establish a global 4/8/12-column grid or global gutter contract without a new repeated cross-product requirement.
 - Do not default every multi-region responsive transformation to stacking.
-- Do not constrain operational ATS workspaces with a global page max-width.
+- Do not constrain dense operational workspaces with a global page max-width.
 - Do not stretch reading/form content indefinitely on wide screens.
 - Do not assume desktop width means hover or mouse.
 - Do not design only at 390px and 1440px without checking boundary and intermediate behavior.
