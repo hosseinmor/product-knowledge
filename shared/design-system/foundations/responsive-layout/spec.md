@@ -4,7 +4,7 @@ document_type: design-system
 collection: design-system
 type: foundation
 title: Responsive Layout Specification
-summary: Atomic rules and decision tables for viewport ranges, breakpoint ruler values, containers, page types, and responsive implementation.
+summary: Atomic rules and decision tables for viewport ranges, breakpoint ruler values, page types, layout regions, containers, responsive strategies, and responsive implementation.
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
@@ -99,71 +99,93 @@ A numeric container max-width includes its horizontal padding.
 
 ### RSP-007 — Use semantic page types
 
-- **Full page:** centered constrained content; default `xlarge = 1280px`.
-- **Split page:** pane/sidebar plus main content; main content may be `full / medium / large / xlarge`.
-- **Interstitial page:** focused single-task content; default `320px`.
+- **Full page:** centered constrained Content; default `xlarge = 1280px`.
+- **Split page:** Start Pane and/or End Pane plus Content; Content may be `full / medium / large / xlarge`.
+- **Interstitial page:** focused single-task Content; default `320px`.
 
-### RSP-008 — Split-page panes are outside main content max-width
+### RSP-008 — Use logical layout-region names
 
-- **Rule:** Navigation or pane width does not consume the numeric max-width token of the main content region.
-- **Requirement:** If main content is constrained, center it in the remaining main region, not the full viewport.
-- **RTL:** Direction is independent from breakpoint logic; persistent primary navigation normally appears on the right in JV RTL products.
+- **Canonical regions:** `Header / Start Pane / Content / End Pane / Footer`.
+- **Rule:** Start/End describe logical page edges, not physical left/right.
+- **RTL:** Start Pane is on the right and End Pane is on the left.
+- **LTR:** Start Pane is on the left and End Pane is on the right.
+- **Requirement:** Do not encode direction into canonical region names such as `Right pane` or `Left pane`.
 
-### RSP-009 — Operational ATS workspaces use Full main content
+### RSP-010 — Split-page panes are outside Content max-width
+
+- **Rule:** Start/End pane width does not consume the numeric max-width token of Content.
+- **Requirement:** If Content is constrained, center it in the remaining main region, not the full viewport.
+
+### RSP-010 — Operational ATS workspaces use Full main content
 
 - **Rule:** Candidate Management, data tables, boards, Resume Bank, and similar operational ATS pages normally use Split page + `full` main content.
 - **Requirement:** Do not impose a page-level max-width on the operational workspace.
 - **Requirement:** Use container queries for constrained internal panes/components.
 
-### RSP-010 — Constrain focused ATS tasks
+### RSP-011 — Constrain focused ATS tasks
 
 - **Rule:** ATS forms/settings may keep the Split-page shell while constraining the main task.
 - **Preferred roles:** `medium = 768px` for focused forms; `large = 1012px` for larger settings/application pages.
 
-### RSP-011 — JobVision Full pages default to XLarge
+### RSP-012 — JobVision Full pages default to XLarge
 
 - **Rule:** New ordinary centered JobVision pages should default to `xlarge = 1280px` unless the content benefits from another role.
 - **Migration:** Legacy `1140px` containers migrate page-by-page; do not mechanically resize every existing page without visual QA.
 
-### RSP-012 — JobVision list-detail uses Split-page behavior
+### RSP-013 — JobVision list-detail uses Split-page behavior
 
 - **Rule:** List-detail does not automatically split at the start of `regular`.
 - **Preferred mechanism:** Use a fine-tune threshold such as `large = 1012px` or a container query when list + detail minimum widths fit.
 - **Migration:** Existing ~`992px` behavior should be tested against `1012px`.
 
-### RSP-013 — Remain fluid between thresholds
+### RSP-014 — Remain fluid between thresholds
 
 - **Rule:** Layouts must work throughout every interval, not only at reference widths.
 - **Requirement:** No unintended overflow, overlap, inaccessible actions, or accidental horizontal page scrolling.
 
-### RSP-014 — Name variants by behavior
+### RSP-015 — Name variants by behavior
 
 - **Incorrect:** `Card / Tablet`, `Modal / Desktop`.
 - **Correct:** `Card / Vertical`, `Card / Horizontal`, `Modal / Dialog`, `Modal / Full-screen`.
 
-### RSP-015 — Do not infer input capability from width
+### RSP-016 — Do not infer input capability from width
 
 - **Rule:** Width must not be used to assume touch, mouse, hover, or keyboard support.
 - **Requirement:** Essential actions must not depend on hover.
 - **Requirement:** Pointer/hover refinements use capability media features.
 
-### RSP-016 — Keep RTL independent from responsive thresholds
+### RSP-017 — Keep RTL independent from responsive thresholds
 
 - **Rule:** Threshold values are direction-independent.
 - **Preferred CSS:** logical properties such as `padding-inline`, `margin-inline`, `inset-inline-start`, and `border-inline-end`.
 
-### RSP-017 — Stable UI typography by default
+### RSP-018 — Stable UI typography by default
 
 - **Rule:** Body, Label, Button, and ordinary UI text do not receive a new type size at each breakpoint.
 - **Requirement:** Use the Typography Foundation; Fluid Heading owns its approved design-time responsive mapping separately.
 
-### RSP-018 — Test boundaries and ranges
+### RSP-019 — Test boundaries and ranges
 
 Minimum responsive QA widths:
 
 `320`, `543`, `544`, `767`, `768`, `1011`, `1012`, `1279`, `1280`, `1399`, `1400`, and `1920px`.
 
 Also test intermediate widths, content expansion, RTL, 200% zoom/reflow, keyboard navigation, and side pane open/closed states.
+
+### RSP-020 — Choose a responsive transformation explicitly
+
+- **Split into views:** use when master/detail or list/detail should become navigable separate views in Narrow.
+- **Pane → overlay:** use when a persistent filter/secondary pane should become a drawer, sheet, or bottom sheet.
+- **Stack:** use when vertical order preserves comprehension and task continuity.
+- **Requirement:** Do not default every multi-region page to stacking.
+- **Requirement:** Required actions/information must remain reachable after the transformation.
+
+### RSP-021 — Keep column grids local
+
+- **Rule:** Flexbox and CSS Grid remain normal local layout tools inside Header, Content, Start Pane, End Pane, and Footer regions.
+- **Requirement:** Do not treat 4/8/12 columns, global gutters, or Figma Grid styles as canonical Responsive Layout tokens.
+- **Legacy:** `Grid/Base`, `Grid/MD`, `Grid/LG`, and `Grid/XL` are retained only as hidden `Legacy/Working/*` bindings during migration.
+- **Promotion rule:** Add a shared grid contract only if a repeated cross-product requirement cannot be expressed cleanly through page types, regions, containers, spacing, and local layout primitives.
 
 ## Page-type decision table
 
@@ -176,6 +198,9 @@ Also test intermediate widths, content expansion, RTL, 200% zoom/reflow, keyboar
 | List-detail | Split; fine-tune split threshold |
 | Sign-in / verification / one-task screen | Interstitial |
 | Reusable pane/component becomes cramped | Container query |
+| List-detail cannot fit both regions | Split into views |
+| Filter/secondary pane cannot remain persistent | Pane → overlay |
+| Secondary content can follow primary content naturally | Stack |
 
 ## Tailwind mapping
 
@@ -226,7 +251,10 @@ Do not change a threshold until navigation, tables, forms, panes, dialogs, conte
 - Do not add a global breakpoint for one component.
 - Do not maintain a second hard-coded breakpoint scale in Product Tailwind configuration.
 - Do not add outer page padding around a constrained content container that already owns its horizontal padding.
-- Do not include persistent nav/pane width inside the main content max-width token.
+- Do not include Start/End pane width inside the Content max-width token.
+- Do not encode physical direction into canonical layout-region names.
+- Do not establish a global 4/8/12-column grid or global gutter contract without a new repeated cross-product requirement.
+- Do not default every multi-region responsive transformation to stacking.
 - Do not constrain operational ATS workspaces with a global page max-width.
 - Do not stretch reading/form content indefinitely on wide screens.
 - Do not assume desktop width means hover or mouse.
