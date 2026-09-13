@@ -17,14 +17,14 @@ related:
 
 > Status: Scaffold — no product example has been validated and added yet.
 
-This directory is reserved for reviewed examples from real Jobvision and Cando product behavior. Examples must not invent product rules or present Figma-only behavior as implemented behavior.
+This directory is reserved for reviewed examples from real product behavior. Examples are non-normative evidence: they must not redefine Foundation rules or present Figma-only behavior as implemented behavior.
 
 ## Suggested files
 
 ```text
-ats-job-page.md
-employer-resume-list.md
-job-search-results.md
+list-detail.md
+operational-workspace.md
+settings-form.md
 ```
 
 Create an example only when it adds reusable evidence beyond the general guideline.
