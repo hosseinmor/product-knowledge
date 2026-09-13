@@ -4,7 +4,7 @@ document_type: design-system
 collection: design-system
 type: foundation
 title: Responsive Layout
-summary: Canonical guidance for viewport ranges, breakpoint ruler values, content containers, page types, panes, container queries, and responsive testing.
+summary: Canonical guidance for viewport ranges, breakpoint ruler values, page types, layout regions, content containers, responsive strategies, container queries, and responsive testing.
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
@@ -18,12 +18,14 @@ related:
 
 # Responsive Layout
 
-Responsive layout separates four decisions that should not be collapsed into one breakpoint system:
+Responsive layout separates six decisions that should not be collapsed into one breakpoint system:
 
 1. **Viewport ranges** — high-level page and navigation structure.
 2. **Breakpoint ruler values** — fine-tuning thresholds for specific responsive scenarios.
-3. **Content containers** — how far a content region is allowed to grow.
-4. **Container queries** — component or pane adaptation based on its own available width.
+3. **Page types and layout regions** — how shared regions compose into Full, Split, and Interstitial pages.
+4. **Content containers** — how far a content region is allowed to grow.
+5. **Responsive strategies** — how regions transform when available space changes.
+6. **Container queries** — component or pane adaptation based on its own available width.
 
 The model is intentionally close to Primer's responsive foundation because it fits both JobVision's public product and Cando/ATS's multi-region application layouts.
 
@@ -101,13 +103,15 @@ For JobVision, this becomes the preferred replacement direction for the legacy `
 
 ### Split page
 
-Use for side navigation, filtering, list-detail, persistent panes, and operational workspaces.
+Use for navigation, filtering, list-detail, persistent panes, and operational workspaces.
+
+Compose Split pages from logical **Start Pane / Content / End Pane** regions as needed.
 
 Rules:
-- pane/navigation width is outside the constrained content max-width;
-- the main content may be `full`, `medium`, `large`, or `xlarge`;
-- if constrained, center the main content inside the **remaining main region**, not relative to the full viewport;
-- in RTL products, persistent primary navigation normally appears on the right;
+- Start/End pane width is outside the constrained Content max-width;
+- the Content region may be `full`, `medium`, `large`, or `xlarge`;
+- if constrained, center Content inside the **remaining main region**, not relative to the full viewport;
+- direction is independent from the layout contract; in RTL products, Start Pane appears on the right;
 - use independent scrolling only when the pattern requires it and accessibility remains intact.
 
 #### ATS operational workspace
@@ -127,6 +131,41 @@ The legacy JobVision threshold around `992px` should migrate toward the shared `
 ### Interstitial page
 
 Use for sign-in, verification, focused loading/transition tasks, and similar single-purpose experiences. Default maximum width: `320px`.
+
+## Layout regions
+
+Page types are compositions of a small shared region vocabulary:
+
+- **Header** — page-level header/chrome when present.
+- **Start Pane** — primary edge pane; appears on the right in RTL and left in LTR.
+- **Content** — the primary task/content region.
+- **End Pane** — secondary edge pane; appears on the left in RTL and right in LTR.
+- **Footer** — page-level footer when present.
+
+Use logical Start/End names in Design System and implementation contracts. Avoid encoding physical direction in region names such as `Right pane` or `Left pane`.
+
+A page type does not require every region. For example:
+- Full pages normally center Content and may include Header/Footer.
+- Split pages add Start Pane and/or End Pane around Content.
+- Interstitial pages normally use only focused Content plus minimal surrounding chrome.
+
+## Responsive strategies
+
+When available space shrinks, do not assume every region should simply stack. Choose the transformation that best preserves task continuity and information hierarchy:
+
+1. **Split into views** — for master/detail or list/detail flows, Narrow may navigate between views instead of rendering both at once.
+2. **Pane → overlay** — filters and secondary panes may become a drawer, sheet, or bottom sheet when persistent pane width is unavailable.
+3. **Stack** — place secondary content below primary content when reading order remains clear and the workflow stays coherent.
+
+Hide or remove a region only when its information/action is genuinely non-essential at that width; responsiveness must not silently make required functionality unreachable.
+
+## Local layout inside regions
+
+Use Flexbox, CSS Grid, or other local layout primitives inside a region when they best fit the composition.
+
+The Responsive Layout Foundation does **not** define a canonical global 4/8/12-column grid, global column count, or global gutter scale. Column count and track definitions are local layout decisions unless a separate repeated cross-product need is explicitly promoted later.
+
+The previous experimental `Grid/Base`, `Grid/MD`, `Grid/LG`, and `Grid/XL` Figma styles remain legacy working artifacts only.
 
 ## Container queries
 
@@ -176,7 +215,7 @@ pane-padding            16
 
 The previous experimental `Grid/Base`, `Grid/MD`, `Grid/LG`, and `Grid/XL` styles are not part of the canonical responsive foundation. They remain hidden under `Legacy/Working/*` only to preserve existing bindings during migration.
 
-The Figma page is named **Responsive layout** and documents Full, Split, Interstitial, JobVision, and ATS examples.
+The Figma page is named **Responsive layout** and documents viewport ranges, page types, canonical Layout regions, responsive strategies, JobVision examples, and ATS examples.
 
 ## Related documents
 
