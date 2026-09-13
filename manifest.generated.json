@@ -2051,7 +2051,7 @@
       "id": "design-system.token.frontend-contract",
       "kind": "design-system-token",
       "title": "Frontend Token Contract",
-      "summary": "Design-side contract for runtime token packaging, public versus internal consumption, alias preservation, naming, and enforcement.",
+      "summary": "Design-side contract for token distribution, consumption audiences, alias preservation, CSS namespace, and enforcement.",
       "status": "draft",
       "owner": null,
       "last_reviewed": "2026-09-10",
