@@ -152,7 +152,7 @@ The previous Expressive size is not part of the canonical Button scale. If a lar
 
 Button labels use the Label typography family, not Heading. Exact Label recipes per size will be bound during Figma reconciliation.
 
-Button icons use a fixed 18px size across Large, Medium, Small, and Extra Small. The current icon library is primarily authored on 24px masters with internal safe space, so the Button contract does not normalize them down to 16px or introduce size-dependent icon scaling.
+Button icons use a fixed 18px size across Large, Medium, Small, and Extra Small. The icon-to-label gap is a fixed 8px across all sizes. The current icon library is primarily authored on 24px masters with internal safe space, so the Button contract does not normalize them down to 16px or introduce size-dependent icon scaling.
 
 Button is Hug contents by default. Instances may Fill container when layout requires a full-width action; full width is not a separate Button variant.
 
@@ -226,7 +226,6 @@ General keyboard, focus, target-size, contrast, and semantics requirements come 
 Still unresolved:
 
 - remaining anatomy details beyond the approved visible-label + optional Start/End Icon model;
-- final icon-to-label gap rules;
 - final Loading visual treatment and spinner placement rules;
 - minimum visual dimensions beyond the approved Button heights, if any are needed;
 - exact code API;
