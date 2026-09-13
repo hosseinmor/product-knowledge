@@ -27,7 +27,7 @@ Responsive layout separates six decisions that should not be collapsed into one 
 5. **Responsive strategies** — how regions transform when available space changes.
 6. **Container queries** — component or pane adaptation based on its own available width.
 
-The model is intentionally close to Primer's responsive foundation because it fits both JobVision's public product and Cando/ATS's multi-region application layouts.
+The model is intentionally close to Primer's responsive foundation because it supports both content-focused pages and dense multi-region application layouts without tying the Foundation to a specific product.
 
 ## Viewport ranges
 
@@ -99,7 +99,7 @@ The numeric max-width includes the region's padding.
 
 Use for ordinary centered pages. Default to `xlarge = 1280px`. Use `medium` or `large` when the task benefits from a narrower form or reading width.
 
-For JobVision, this becomes the preferred replacement direction for the legacy `1140px` page-container convention. Migrate page-by-page rather than changing every old screen blindly.
+Use `xlarge` as the default for ordinary centered pages unless the task benefits from a narrower container.
 
 ### Split page
 
@@ -114,19 +114,17 @@ Rules:
 - direction is independent from the layout contract; in RTL products, Start Pane appears on the right;
 - use independent scrolling only when the pattern requires it and accessibility remains intact.
 
-#### ATS operational workspace
+#### Full operational workspace
 
-Candidate Management, data tables, boards, Resume Bank, and similar operational pages should normally use Split page + `full` main content. There is no page-level max-width for the operational workspace. Use container queries for internal panes/components that become constrained.
+Data-heavy tables, boards, management views, and similar operational pages should normally use Split page + `full` Content. There is no page-level max-width for the operational workspace. Use container queries for internal panes/components that become constrained.
 
-#### ATS settings and forms
+#### Constrained task inside a Split page
 
-Keep the same Split-page shell, but constrain the main task when useful: `medium` for focused forms and `large` for settings/larger application pages. Center the constrained region inside the remaining main region after navigation/panes are accounted for.
+Keep the same Split-page shell, but constrain the primary task when useful: `medium` for focused forms and `large` for settings or larger task flows. Center constrained Content inside the remaining main region after Start/End panes are accounted for.
 
-#### JobVision list-detail
+#### List-detail
 
-Treat Job list-detail as a Split page. The `regular` range begins at `768px`, but this does not force list-detail to split at `768px`. Use a fine-tune threshold such as `large = 1012px` or a container query when the minimum list + detail widths actually fit.
-
-The legacy JobVision threshold around `992px` should migrate toward the shared `large` ruler value only after behavior is validated across the affected width interval.
+Treat list-detail as a Split page. The `regular` range begins at `768px`, but this does not force list-detail to split at `768px`. Use a fine-tune threshold such as `large = 1012px` or a container query when the minimum list + detail widths actually fit.
 
 ### Interstitial page
 
@@ -169,7 +167,7 @@ The previous experimental `Grid/Base`, `Grid/MD`, `Grid/LG`, and `Grid/XL` Figma
 
 ## Container queries
 
-Use a container query when a reusable component or pane should react to its own available width rather than the full viewport. Good candidates include candidate cards, result rows, filter bars, toolbars, profile summaries, chart panels, and master-detail subregions inside ATS.
+Use a container query when a reusable component or pane should react to its own available width rather than the full viewport. Good candidates include cards, result rows, filter bars, toolbars, summaries, chart panels, and master-detail subregions.
 
 Viewport range and container query may be active at the same time. The page can be in `wide` while a candidate-list pane is still narrow enough to require its compact component composition.
 
@@ -215,7 +213,7 @@ pane-padding            16
 
 The previous experimental `Grid/Base`, `Grid/MD`, `Grid/LG`, and `Grid/XL` styles are not part of the canonical responsive foundation. They remain hidden under `Legacy/Working/*` only to preserve existing bindings during migration.
 
-The Figma page is named **Responsive layout** and documents viewport ranges, page types, canonical Layout regions, responsive strategies, JobVision examples, and ATS examples.
+The Figma page is named **Responsive layout** and documents viewport ranges, page types, canonical Layout regions, responsive strategies, and generic Full/Split/Interstitial examples.
 
 ## Related documents
 
