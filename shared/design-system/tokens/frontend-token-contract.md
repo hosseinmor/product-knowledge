@@ -56,11 +56,19 @@ For example, Color benefits from runtime custom properties and alias resolution,
 
 The required invariant is one canonical Design System source per governed decision, not one physical output format for every Foundation.
 
-## Preserve aliases at runtime
+## Preserve alias meaning in the canonical source
 
-The runtime representation should preserve the token alias graph rather than flattening public tokens to final raw values.
+The canonical token source must preserve intentional aliases and dependency relationships. Generated runtime output does **not** need to reproduce every internal alias hop literally.
 
-Conceptually:
+Canonical source, conceptually:
+
+```text
+blue/700
+→ brand/default
+→ surface/brand
+```
+
+A runtime implementation may preserve those hops:
 
 ```css
 --jvds-blue-700: #0053ff;
@@ -68,13 +76,17 @@ Conceptually:
 --jvds-surface-brand: var(--jvds-brand-default);
 ```
 
-Do not reduce the public role to a raw value such as:
+or flatten an internal hop when the generated Theme behavior remains equivalent.
 
-```css
---jvds-surface-brand: #0053ff;
-```
+Runtime optimization is acceptable only when it preserves these invariants:
 
-when doing so would erase an intentional runtime dependency or Product-aware mapping.
+- Product-facing token names and meanings remain stable;
+- Product × Appearance resolution remains correct;
+- Product code does not need to know which internal aliases were flattened;
+- the canonical source still records the real alias/dependency graph;
+- generation remains deterministic and traceable back to the canonical token identity.
+
+Whether internal aliases remain as CSS `var()` references or are resolved during generation is a Frontend implementation decision.
 
 ## Consumption audiences
 
@@ -262,8 +274,8 @@ Exact selector, attribute, class, and initialization mechanics remain outside th
 
 Frontend review should explicitly confirm or revise:
 
-1. Can one shared logical distribution preserve required alias graphs without unacceptable payload or loading complexity?
-2. Is keeping Primitive and Brand Color dependencies at runtime while treating them as Internal practical in the current stack?
+1. Can one shared logical distribution generate the required Foundation artifacts without unacceptable payload or loading complexity?
+2. Which internal aliases should remain explicit at runtime versus be safely flattened during generation?
 3. Can Product / Component / Internal consumption audiences be enforced through generated registries plus lint/CI?
 4. Is the reserved `--jvds-*` CSS namespace compatible with current legacy applications and build tooling?
 5. What exact CSS scoping mechanism should resolve independent Product and Appearance dimensions?
