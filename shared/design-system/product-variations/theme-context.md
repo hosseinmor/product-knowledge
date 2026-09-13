@@ -10,6 +10,7 @@ related:
   - design-system.token.product-overrides
   - design-system.token.architecture
   - design-system.reference.code
+  - design-system.reference.theme-initialization
 last_reviewed: '2026-09-10'
 ---
 
@@ -173,4 +174,4 @@ This document intentionally does not define:
 - Appearance preference persistence and precedence;
 - SSR resolution and no-flash initialization.
 
-Those are owned by the frontend token package, Tailwind, and SSR Theme integration contracts.
+Those are owned by the frontend token package, Tailwind, and Theme initialization/SSR integration contracts. See `../integrations/theme-initialization.md` for the first-paint and Appearance-resolution contract.
