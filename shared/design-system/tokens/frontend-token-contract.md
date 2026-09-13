@@ -21,32 +21,40 @@ This document records the current **Design System-side approved direction** for 
 
 Define the boundary between Design Tokens and Product frontend code without turning raw values or implementation details into the public Design System API.
 
-## Package model
+## Package scope
 
-Use one shared token package for JobVision and Cando rather than separate Product- or Appearance-specific packages.
+Use one shared **logical Design System token distribution** across Products and Appearances rather than Product- or Appearance-specific token forks.
 
-Conceptual layers:
+The distribution may generate multiple artifacts by Foundation, audience, or target format, plus an aggregate entry point. Exact npm package boundaries, file names, module formats, and import paths remain Frontend implementation decisions.
 
-```text
-Token package
-├── Primitive   internal runtime dependency
-├── Brand       internal runtime dependency
-├── Semantic    public Product API
-└── Component   public only for approved component-owned contracts
-```
+The package contract is Foundation-agnostic. Do not impose the Color graph on Typography, Spacing, Radius, Elevation, Motion, or Responsive Layout.
 
-A layered generated output with one aggregate entry point is the preferred implementation shape. Exact package names and file names remain an implementation detail for Frontend review.
-
-Runtime load/dependency order may be:
+Color currently resolves through its own graph:
 
 ```text
-Primitive
-→ Brand
-→ Semantic
-→ Component
+Primitive → Semantic
+Primitive → Brand → Semantic
+Primitive / Semantic / Brand → Component
 ```
 
-This ordering does not mean Brand or Component are mandatory hops in every alias path.
+Other Foundations define their own scales, roles, recipes, or generated maps.
+
+### Artifact forms
+
+A Design System contract does not imply that every token becomes a public CSS custom property.
+
+Depending on the owning Foundation, generated artifacts may include:
+
+- runtime CSS custom properties;
+- framework-agnostic value maps;
+- responsive breakpoint/container maps;
+- semantic recipe metadata;
+- developer registries and type information;
+- framework adapters generated from those canonical artifacts.
+
+For example, Color benefits from runtime custom properties and alias resolution, while breakpoint data is primarily a shared build-time/configuration source and Typography may resolve through a recipe adapter rather than one public custom property per style.
+
+The required invariant is one canonical Design System source per governed decision, not one physical output format for every Foundation.
 
 ## Preserve aliases at runtime
 
@@ -68,53 +76,61 @@ Do not reduce the public role to a raw value such as:
 
 when doing so would erase an intentional runtime dependency or Product-aware mapping.
 
-## Public versus internal API
+## Consumption audiences
 
-Runtime presence and Product API visibility are separate concerns.
+Runtime presence, generated-artifact presence, and Product API visibility are separate concerns.
 
 ```text
-Exists at runtime ≠ Public Product API
+Exists in generated output ≠ Product-facing API
 ```
 
-### Internal
+Every governed token/recipe/artifact must be classifiable by its intended consumption audience. Exact metadata field names are Frontend-owned, but generation/tooling must be able to distinguish at least these three contracts deterministically.
 
-Primitive and Brand tokens are internal runtime dependencies.
+### Product-facing Design System API
 
-Internal means they are:
+Product code may directly consume contracts explicitly exposed by their owning Foundation.
 
-- available where required for alias resolution;
-- not documented as the normal Product-code API;
-- not exposed through normal public token registries or generated developer interfaces;
-- not mapped to normal Product Tailwind utilities;
-- blocked from direct Product-code consumption by lint/CI where practical;
-- not covered by the same public compatibility guarantee as Semantic and approved Component tokens.
+Current examples include:
 
-Internal does **not** mean the CSS custom property is physically inaccessible once loaded in the document.
+- Semantic Color roles;
+- the shared Spacing scale through approved Product tooling;
+- public Radius roles;
+- approved Typography recipes;
+- semantic Elevation recipes;
+- responsive breakpoint/container values through generated framework/build adapters.
 
-### Public
+The owning Foundation determines what is public. Publicness must not be inferred from whether a value happens to exist in Figma or CSS.
 
-Product code normally consumes:
+### Component implementation API
 
-- Semantic tokens;
-- approved Component tokens when the component has a reviewed component-owned token contract.
+Approved Component tokens are implementation contracts for their owning Design System component.
 
 Example:
 
-```css
-.card {
-  background: var(--surface-muted);
-  color: var(--fg-primary);
-}
+```text
+tag/blue/surface
+tag/blue/fg
+tag/blue/line
 ```
 
-Product code should not normally consume:
+They may exist in generated output and may be consumed by the Tag implementation, but they are **not** general Product-facing tokens by default.
 
-```css
-.card {
-  background: var(--neutral-50);
-  color: var(--brand-default);
-}
+Product code should consume the Design System component rather than reconstructing it from Component-token recipes. If a Component token repeatedly represents a cross-component Product need, review promotion into the appropriate shared Semantic/Foundation contract.
+
+### Internal resolution dependencies
+
+Primitive and Brand Color tokens are current examples of internal resolution dependencies.
+
+Internal means they may be required in generated/runtime output for alias resolution but are not normal Product or component-authoring APIs.
+
+```text
+blue/700       → internal
+brand/default  → internal
+surface/default → product
+tag/blue/surface → component
 ```
+
+CSS cannot make an already-loaded custom property physically private. API boundaries are therefore enforced through source classification, generated developer surfaces, documentation, and lint/CI rather than through assumed runtime invisibility.
 
 ## Primitive consumption policy
 
@@ -139,23 +155,9 @@ Do not normalize raw Primitive usage by allowing unrestricted lint-disable comme
 
 Do not rely on CSS visibility to enforce API boundaries. Enforce them from the token source and developer tooling.
 
-The token source should carry machine-readable API visibility metadata or an equivalent classification:
+The canonical source should carry machine-readable consumption classification or an equivalent capability.
 
-```text
-blue/700
-→ internal
-
-brand/default
-→ internal
-
-surface/default
-→ public
-
-tag/neutral/surface
-→ public
-```
-
-The exact metadata field/schema is an implementation decision; the required capability is that generation/tooling can distinguish public from internal tokens deterministically.
+The exact metadata field/schema is an implementation decision; the required capability is that generation/tooling can distinguish Product-facing, Component-implementation, and Internal contracts deterministically.
 
 From the same source, tooling should be able to generate or validate:
 
@@ -163,14 +165,17 @@ From the same source, tooling should be able to generate or validate:
 runtime CSS
 → all dependencies required for resolution
 
-public token registry / developer surface
-→ Semantic + approved Component only
+Product-facing registry / developer surface
+→ Product-facing contracts only
 
-Tailwind mapping
-→ public tokens only
+Component implementation registry
+→ owning-component contracts only, when such a registry is useful
+
+framework adapters such as Tailwind
+→ only the Product-facing subset approved by the owning Foundation
 
 lint / CI allowlist
-→ public Product API only
+→ Product-facing API for Product code
 ```
 
 ### Lint/CI guardrail
@@ -182,14 +187,14 @@ Conceptually:
 ```text
 --surface-default      allowed
 --fg-primary           allowed
---tag-blue-surface     allowed
+--tag-blue-surface     blocked in ordinary Product code
 
 --neutral-100          blocked
 --blue-700             blocked
 --brand-default        blocked
 ```
 
-Design System implementation/build code may consume internal layers as required by the alias graph.
+Design System build code may consume Internal dependencies as required by an owning Foundation. Design System component implementation may additionally consume the Component-implementation contracts owned by that component.
 
 ## CSS custom-property namespace
 
@@ -250,6 +255,7 @@ Exact selector, attribute, class, and initialization mechanics remain outside th
 - Exact token metadata schema used to encode public/internal visibility.
 - Exact lint implementation and repository integration.
 - Tailwind utility naming and preset generation.
+- Exact output format used by each non-Color Foundation where its runtime adapter is still under review.
 - SSR Appearance persistence, precedence, and no-flash initialization.
 
 ## Frontend review questions
