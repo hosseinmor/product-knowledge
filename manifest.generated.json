@@ -1919,7 +1919,8 @@
       "related": [
         "design-system.token.product-overrides",
         "design-system.token.architecture",
-        "design-system.reference.code"
+        "design-system.reference.code",
+        "design-system.reference.theme-initialization"
       ],
       "topics": [
         "design-system-product-variation",
@@ -1980,6 +1981,25 @@
         "source-of-truth"
       ],
       "path": "shared/design-system/integrations/source-of-truth.md"
+    },
+    {
+      "id": "design-system.reference.theme-initialization",
+      "kind": "design-system-reference",
+      "title": "Theme Initialization Contract",
+      "summary": "Defines Product and Appearance resolution, first-paint invariants, hydration continuity, and no-flash requirements for SSR-capable applications.",
+      "status": "draft",
+      "owner": "Design System team",
+      "last_reviewed": "2026-09-13",
+      "related": [
+        "design-system.product-variation.theme-context",
+        "design-system.reference.source-of-truth"
+      ],
+      "topics": [
+        "design-system-reference",
+        "integrations",
+        "theme-initialization"
+      ],
+      "path": "shared/design-system/integrations/theme-initialization.md"
     },
     {
       "id": "design-system.structure",
@@ -2698,7 +2718,7 @@
     }
   ],
   "summary": {
-    "documents": 139,
+    "documents": 140,
     "by_kind": {
       "content-guideline": 3,
       "design-system-accessibility": 18,
@@ -2710,7 +2730,7 @@
       "design-system-overview": 2,
       "design-system-pattern": 13,
       "design-system-product-variation": 3,
-      "design-system-reference": 3,
+      "design-system-reference": 4,
       "design-system-token": 9,
       "design-system-ui-template": 4,
       "product-area": 14,
