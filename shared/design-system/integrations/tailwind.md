@@ -240,6 +240,10 @@ overflow-*
 positioning utilities
 ```
 
+Use Flexbox or CSS Grid locally inside Layout regions when the composition requires it. Contextual track definitions such as `grid-cols-[280px_1fr]` remain allowed when they are genuinely page/component-specific.
+
+Responsive Layout does not define a public global 4/8/12-column utility contract or global grid gutters. Product code must not infer such a contract from legacy Figma Grid styles.
+
 The Design System should govern reusable semantic visual decisions, not replace every CSS/layout primitive with a token.
 
 ## Frontend-owned decisions
