@@ -146,9 +146,9 @@ Button uses four sizes:
 | Large | 48px |
 | Medium | 40px |
 | Small | 32px |
-| Extra Small | 24px |
+| Extra Small | 28px |
 
-The previous Expressive size is not part of the canonical Button scale. If a larger call-to-action size is later needed, define it as a genuinely larger size rather than a second 48px variant.
+The previous Expressive size is not part of the canonical Button scale. Large remains the 48px Button size; Button does not currently expose an XLarge size. Extra Small uses a 28px visual height rather than the previous 24px treatment.
 
 Button labels use the Label typography family, not Heading. Exact Label recipes per size will be bound during Figma reconciliation.
 
@@ -217,7 +217,7 @@ Everyday Cando operational actions remain Neutral even when Brand usage is rare.
 - Visible focus must follow the shared Focus contract.
 - Loading must not create repeated activation or unexpectedly move focus.
 - Disabled, loading, destructive intent, and validation are different concepts; do not collapse them into one state.
-- Target size follows the shared Accessibility baseline. The approved visual Button heights are 48 / 40 / 32 / 24px; accessibility target-size requirements remain authoritative when a larger interactive target is required.
+- Target size follows the shared Accessibility baseline. The approved visual Button heights are 48 / 40 / 32 / 28px; accessibility target-size requirements remain authoritative when a larger interactive target is required.
 
 General keyboard, focus, target-size, contrast, and semantics requirements come from the Accessibility corpus. This section owns only Button-specific behavior.
 
