@@ -35,8 +35,8 @@ Use a dedicated control rather than Button when the interaction represents selec
 | Supporting medium-emphasis action | Secondary |
 | General, filter, dropdown, toolbar, or utility action | Tertiary |
 | Back, Cancel, Later, or another low-emphasis action | Ghost |
-| Final destructive confirmation | Danger Filled |
-| Visible independent destructive action | Danger Outline |
+| Final destructive confirmation | Danger Primary |
+| Visible independent destructive action | Danger Tertiary |
 | Low-emphasis or inline destructive action | Danger Ghost |
 
 ### Brand
@@ -75,8 +75,8 @@ If Ghost still feels too prominent, reconsider placement, copy, or whether the c
 
 Use Danger only for destructive intent, not merely negative wording.
 
-- Final destructive confirmation → Danger Filled
-- Visible independent destructive action → Danger Outline
+- Final destructive confirmation → Danger Primary
+- Visible independent destructive action → Danger Tertiary
 - Low-emphasis destructive entry point or inline action → Danger Ghost
 
 A reversible rejection or negative choice is not automatically destructive.
@@ -147,8 +147,8 @@ The component consumes shared Semantic color roles; it does not need Button-spec
 | Secondary | `surface/neutral-muted` + normal foreground |
 | Tertiary | transparent + `line/default` + normal foreground |
 | Ghost | transparent + normal foreground |
-| Danger Filled | `surface/danger-emphasis` + on-color foreground |
-| Danger Outline | transparent + `line/danger` + `fg/danger` |
+| Danger Primary | `surface/danger-emphasis` + on-color foreground |
+| Danger Tertiary | transparent + `line/danger` + `fg/danger` |
 | Danger Ghost | transparent + `fg/danger` |
 
 Hover and Active states follow the corresponding Semantic family. Do not duplicate the complete token state matrix here when it can be resolved from the token system/live implementation.
@@ -159,7 +159,9 @@ Hover and Active states follow the corresponding Semantic family. Do not duplica
 
 Brand uses the active product Brand mapping: JobVision Blue and Cando Yellow. Brand meaning remains the same across products.
 
-Everyday Cando operational actions remain Neutral even when Brand usage is rare. General chromatic interaction is Accent semantics, not another Button tone.
+Button does not expose an Accent preset. General chromatic interaction may use Accent semantics elsewhere in the system, but the Button preset that consumes `surface/brand` is named Brand.
+
+Everyday Cando operational actions remain Neutral even when Brand usage is rare.
 
 ## Accessibility
 
@@ -181,7 +183,7 @@ Still unresolved:
 - size scale, dimensions, spacing, icon size/gap, and radius mapping;
 - minimum visual dimensions for each size;
 - exact code API;
-- final Figma property names;
+- final Figma property names beyond the approved `Style` taxonomy and Button/Icon Button boundary;
 - final approved Brand use-case list by product;
 - whether Modal Cancel has one shared default treatment across products.
 
