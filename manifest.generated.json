@@ -1932,11 +1932,15 @@
       "id": "design-system.reference.code",
       "kind": "design-system-reference",
       "title": "Code Reference",
-      "summary": "> Status: structure only",
-      "status": "draft",
-      "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "summary": "Operational boundary for Design System runtime code sources; the real repository/package is not yet registered in Design System Knowledge.",
+      "status": "reviewed",
+      "owner": "Design System team",
+      "last_reviewed": "2026-09-13",
+      "related": [
+        "design-system.reference.source-of-truth",
+        "design-system.reference.component-mapping",
+        "design-system.reference.storybook"
+      ],
       "topics": [
         "code",
         "design-system-reference",
@@ -1945,14 +1949,37 @@
       "path": "shared/design-system/integrations/code.md"
     },
     {
+      "id": "design-system.reference.component-mapping",
+      "kind": "design-system-reference",
+      "title": "Design-to-Code Component Mapping",
+      "summary": "Registry contract for mapping stable Figma component identities to runtime components and Storybook; records current verified mappings and gaps.",
+      "status": "reviewed",
+      "owner": "Design System team",
+      "last_reviewed": "2026-09-13",
+      "related": [
+        "design-system.reference.figma",
+        "design-system.reference.code",
+        "design-system.reference.storybook"
+      ],
+      "topics": [
+        "component-mapping",
+        "design-system-reference",
+        "integrations"
+      ],
+      "path": "shared/design-system/integrations/component-mapping.md"
+    },
+    {
       "id": "design-system.reference.figma",
       "kind": "design-system-reference",
       "title": "Figma Reference",
-      "summary": "> Status: structure only",
-      "status": "draft",
-      "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "summary": "Operational reference for the current JV Design System Figma file, its Foundation collections, component identities, and live-source boundaries.",
+      "status": "reviewed",
+      "owner": "Design System team",
+      "last_reviewed": "2026-09-13",
+      "related": [
+        "design-system.reference.source-of-truth",
+        "design-system.reference.component-mapping"
+      ],
       "topics": [
         "design-system-reference",
         "figma",
@@ -1972,7 +1999,9 @@
         "design-system.overview",
         "design-system.structure",
         "design-system.reference.figma",
-        "design-system.reference.code"
+        "design-system.reference.code",
+        "design-system.reference.storybook",
+        "design-system.reference.component-mapping"
       ],
       "topics": [
         "design-system-reference",
@@ -1980,6 +2009,26 @@
         "source-of-truth"
       ],
       "path": "shared/design-system/integrations/source-of-truth.md"
+    },
+    {
+      "id": "design-system.reference.storybook",
+      "kind": "design-system-reference",
+      "title": "Storybook Reference",
+      "summary": "Defines Storybook as the executable component reference when registered and records the current absence of a verified JV Design System Storybook source.",
+      "status": "reviewed",
+      "owner": "Design System team",
+      "last_reviewed": "2026-09-13",
+      "related": [
+        "design-system.reference.source-of-truth",
+        "design-system.reference.code",
+        "design-system.reference.component-mapping"
+      ],
+      "topics": [
+        "design-system-reference",
+        "integrations",
+        "storybook"
+      ],
+      "path": "shared/design-system/integrations/storybook.md"
     },
     {
       "id": "design-system.structure",
@@ -2698,7 +2747,7 @@
     }
   ],
   "summary": {
-    "documents": 139,
+    "documents": 141,
     "by_kind": {
       "content-guideline": 3,
       "design-system-accessibility": 18,
@@ -2710,7 +2759,7 @@
       "design-system-overview": 2,
       "design-system-pattern": 13,
       "design-system-product-variation": 3,
-      "design-system-reference": 3,
+      "design-system-reference": 5,
       "design-system-token": 9,
       "design-system-ui-template": 4,
       "product-area": 14,
