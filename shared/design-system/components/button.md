@@ -244,8 +244,9 @@ These gaps must not be inferred from this document or from legacy screenshots.
 
 ## Live References
 
-- Figma: `Button / Default` in file `rROD8ctH9UfPGAMrRrOzHe`, node `1854:1776`. The current live set still includes legacy `Type=Icon only` variants that must be reconciled with the approved separate Icon Button boundary.
-- Storybook / Code: not yet connected as a canonical live reference.
+- Figma current/legacy set: `Button / Default` in file `rROD8ctH9UfPGAMrRrOzHe`, node `1854:1776`. This remains untouched and is still the migration source for existing instances.
+- Figma HOS-14 pilot: `Button / Default — Pilot`, node `22657:9`. The pilot is structurally validated against the approved v1 contract but is not yet the canonical published replacement.
+- Storybook / Code: not yet connected as a canonical live reference; runtime parity remains unverified.
 
 ## Related
 
