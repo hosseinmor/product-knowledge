@@ -115,12 +115,19 @@ Disabled does not replace validation or error guidance. The reason an action is 
 
 Focus treatment is independent from Button tone. Use the shared Focus contract rather than Brand or Danger color as the sole focus indication.
 
-### Icon-only
+### Icon Button boundary
 
-An icon-only action is an Icon Button, not a Button preset. It requires its own accessible name and target-size contract.
+Button always has a visible text label. It may optionally include a Start Icon, an End Icon, or both when the icon adds useful recognition or directional meaning.
+
+Start Icon and End Icon are opt-in properties; the default Button composition is text only.
+
+An icon-only action is not a Button variant. It belongs to a separate Icon Button component with its own accessible-name and target-size contract.
 
 ## Composition and Content
 
+- Button requires a visible text label.
+- Start Icon and End Icon are optional; both are off by default.
+- Do not use Button for icon-only actions; use Icon Button.
 - Prefer one strongest action per action group.
 - Do not use Brand merely to create visual emphasis.
 - Avoid repeating high-emphasis Buttons across every row/card in dense interfaces.
@@ -170,7 +177,7 @@ General keyboard, focus, target-size, contrast, and semantics requirements come 
 
 Still unresolved:
 
-- exact Button anatomy;
+- remaining anatomy details beyond the approved visible-label + optional Start/End Icon model;
 - size scale, dimensions, spacing, icon size/gap, and radius mapping;
 - minimum visual dimensions for each size;
 - exact code API;
@@ -182,7 +189,7 @@ These gaps must not be inferred from this document or from legacy screenshots.
 
 ## Live References
 
-- Figma: current shared Design System Button component; exact component/property reference still needs to be recorded.
+- Figma: `Button / Default` in file `rROD8ctH9UfPGAMrRrOzHe`, node `1854:1776`. The current live set still includes legacy `Type=Icon only` variants that must be reconciled with the approved separate Icon Button boundary.
 - Storybook / Code: not yet connected as a canonical live reference.
 
 ## Related
