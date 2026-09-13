@@ -3,7 +3,7 @@ id: design-system.token.frontend-contract
 collection: design-system
 type: token
 title: Frontend Token Contract
-summary: Design-side contract for runtime token packaging, public versus internal consumption, alias preservation, naming, and enforcement.
+summary: Design-side contract for token distribution, consumption audiences, alias preservation, CSS namespace, and enforcement.
 knowledge_state: unverified
 document_maturity: draft
 related:
@@ -63,15 +63,15 @@ The runtime representation should preserve the token alias graph rather than fla
 Conceptually:
 
 ```css
---blue-700: #0053ff;
---brand-default: var(--blue-700);
---surface-brand: var(--brand-default);
+--jvds-blue-700: #0053ff;
+--jvds-brand-default: var(--jvds-blue-700);
+--jvds-surface-brand: var(--jvds-brand-default);
 ```
 
 Do not reduce the public role to a raw value such as:
 
 ```css
---surface-brand: #0053ff;
+--jvds-surface-brand: #0053ff;
 ```
 
 when doing so would erase an intentional runtime dependency or Product-aware mapping.
@@ -185,13 +185,13 @@ Product repositories should reject direct internal token use where practical.
 Conceptually:
 
 ```text
---surface-default      allowed
---fg-primary           allowed
---tag-blue-surface     blocked in ordinary Product code
+--jvds-surface-default      allowed
+--jvds-fg-primary           allowed
+--jvds-tag-blue-surface     blocked in ordinary Product code
 
---neutral-100          blocked
---blue-700             blocked
---brand-default        blocked
+--jvds-neutral-100          blocked
+--jvds-blue-700             blocked
+--jvds-brand-default        blocked
 ```
 
 Design System build code may consume Internal dependencies as required by an owning Foundation. Design System component implementation may additionally consume the Component-implementation contracts owned by that component.
@@ -252,7 +252,7 @@ Exact selector, attribute, class, and initialization mechanics remain outside th
 
 - Exact package name and physical file layout.
 - Exact CSS selector/attribute/class mechanism for Product and Appearance scoping.
-- Exact token metadata schema used to encode public/internal visibility.
+- Exact token metadata schema used to encode consumption audience.
 - Exact lint implementation and repository integration.
 - Tailwind utility naming and preset generation.
 - Exact output format used by each non-Color Foundation where its runtime adapter is still under review.
@@ -262,8 +262,8 @@ Exact selector, attribute, class, and initialization mechanics remain outside th
 
 Frontend review should explicitly confirm or revise:
 
-1. Can one shared package preserve the alias graph without unacceptable payload or loading complexity?
-2. Is keeping Primitive and Brand at runtime while treating them as internal API practical in the current stack?
-3. Can public/internal consumption be enforced through generated registries plus lint/CI?
+1. Can one shared logical distribution preserve required alias graphs without unacceptable payload or loading complexity?
+2. Is keeping Primitive and Brand Color dependencies at runtime while treating them as Internal practical in the current stack?
+3. Can Product / Component / Internal consumption audiences be enforced through generated registries plus lint/CI?
 4. Is the reserved `--jvds-*` CSS namespace compatible with current legacy applications and build tooling?
 5. What exact CSS scoping mechanism should resolve independent Product and Appearance dimensions?
