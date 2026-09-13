@@ -83,6 +83,20 @@ A reversible rejection or negative choice is not automatically destructive.
 
 ## Behavior and States
 
+### Interaction states
+
+Button uses these interaction/availability states:
+
+- Enabled
+- Hover
+- Active
+- Focus
+- Disabled
+
+Skeleton is not a Button state.
+
+Loading is modeled separately from the interaction-state property because it represents an in-progress action rather than an interaction state.
+
 ### Loading
 
 - The triggering Button may enter Loading after submission.
@@ -122,6 +136,36 @@ Button always has a visible text label. It may optionally include a Start Icon, 
 Start Icon and End Icon are opt-in properties; the default Button composition is text only.
 
 An icon-only action is not a Button variant. It belongs to a separate Icon Button component with its own accessible-name and target-size contract.
+
+## Size and Layout
+
+Button uses four sizes:
+
+| Size | Height |
+|---|---:|
+| Large | 48px |
+| Medium | 40px |
+| Small | 32px |
+| Extra Small | 24px |
+
+The previous Expressive size is not part of the canonical Button scale. If a larger call-to-action size is later needed, define it as a genuinely larger size rather than a second 48px variant.
+
+Button labels use the Label typography family, not Heading. Exact Label recipes per size will be bound during Figma reconciliation.
+
+Button is Hug contents by default. Instances may Fill container when layout requires a full-width action; full width is not a separate Button variant.
+
+Horizontal padding follows the size scale:
+
+| Size | Horizontal padding |
+|---|---:|
+| Large | 20px |
+| Medium | 16px |
+| Small | 12px |
+| Extra Small | 8px |
+
+Do not define a generic minimum width unless a specific use case establishes one.
+
+All Button sizes use the shared `Radius/Control` role. Do not create size-specific radius variants.
 
 ## Composition and Content
 
@@ -171,7 +215,7 @@ Everyday Cando operational actions remain Neutral even when Brand usage is rare.
 - Visible focus must follow the shared Focus contract.
 - Loading must not create repeated activation or unexpectedly move focus.
 - Disabled, loading, destructive intent, and validation are different concepts; do not collapse them into one state.
-- Target size follows the shared Accessibility baseline; exact Button sizing remains unresolved until the size contract is approved.
+- Target size follows the shared Accessibility baseline. The approved visual Button heights are 48 / 40 / 32 / 24px; accessibility target-size requirements remain authoritative when a larger interactive target is required.
 
 General keyboard, focus, target-size, contrast, and semantics requirements come from the Accessibility corpus. This section owns only Button-specific behavior.
 
@@ -180,8 +224,9 @@ General keyboard, focus, target-size, contrast, and semantics requirements come 
 Still unresolved:
 
 - remaining anatomy details beyond the approved visible-label + optional Start/End Icon model;
-- size scale, dimensions, spacing, icon size/gap, and radius mapping;
-- minimum visual dimensions for each size;
+- final icon size and icon-to-label gap rules;
+- final Loading visual treatment and spinner placement rules;
+- minimum visual dimensions beyond the approved Button heights, if any are needed;
 - exact code API;
 - final Figma property names beyond the approved `Style` taxonomy and Button/Icon Button boundary;
 - final approved Brand use-case list by product;
