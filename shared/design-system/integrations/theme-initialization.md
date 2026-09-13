@@ -10,7 +10,6 @@ owner: Design System team
 last_reviewed: 2026-09-13
 related:
   - design-system.product-variation.theme-context
-  - design-system.token.frontend-contract
   - design-system.reference.source-of-truth
 ---
 
