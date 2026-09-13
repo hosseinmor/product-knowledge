@@ -155,7 +155,10 @@ Button uses four sizes:
 
 The previous Expressive size is not part of the canonical Button scale. Large remains the 48px Button size; Button does not currently expose an XLarge size. Extra Small uses a 28px visual height rather than the previous 24px treatment.
 
-Button labels use the Label typography family, not Heading. Exact Label recipes per size will be bound during Figma reconciliation.
+Button labels use the Label typography family, not Heading.
+
+- Large, Medium, and Small → `Label/SM`
+- Extra Small → `Label/XS`
 
 Button icons use a fixed 18px size across Large, Medium, Small, and Extra Small. The icon-to-label gap is a fixed 8px across all sizes. The current icon library is primarily authored on 24px masters with internal safe space, so the Button contract does not normalize them down to 16px or introduce size-dependent icon scaling.
 
@@ -175,6 +178,17 @@ Horizontal padding follows the size scale:
 Do not define a generic minimum width unless a specific use case establishes one.
 
 All Button sizes use the shared `Radius/Control` role. Do not create size-specific radius variants.
+
+## Figma Properties
+
+The canonical Figma Button exposes:
+
+- Variant properties: `Style`, `Size`, `State`
+- Content property: `Button text`
+- Optional booleans: `Start Icon`, `End Icon`
+- Icon swaps: `Swap Start Icon`, `Swap End Icon`
+
+`Type` is not part of the canonical Button API. Icon-only actions belong to Icon Button.
 
 ## Composition and Content
 
@@ -232,11 +246,9 @@ General keyboard, focus, target-size, contrast, and semantics requirements come 
 
 Still unresolved:
 
-- remaining anatomy details beyond the approved visible-label + optional Start/End Icon model;
 - final Loading visual treatment and spinner placement rules;
 - minimum visual dimensions beyond the approved Button heights, if any are needed;
 - exact code API;
-- final Figma property names beyond the approved `Style` taxonomy and Button/Icon Button boundary;
 - final approved Brand use-case list by product;
 - whether Modal Cancel has one shared default treatment across products.
 
@@ -244,8 +256,8 @@ These gaps must not be inferred from this document or from legacy screenshots.
 
 ## Live References
 
-- Figma current/legacy set: `Button / Default` in file `rROD8ctH9UfPGAMrRrOzHe`, node `1854:1776`. This remains untouched and is still the migration source for existing instances.
-- Figma HOS-14 pilot: `Button / Default — Pilot`, node `22657:9`. The pilot is structurally validated against the approved v1 contract but is not yet the canonical published replacement.
+- Figma canonical: `Button / Default` in file `rROD8ctH9UfPGAMrRrOzHe`, node `1854:1776`. HOS-14 migrated this set in place to the approved v1 contract while preserving the original component-set identity.
+- Figma backward compatibility: `Legacy / Button`, node `22674:125660`. It contains the 217 deprecated Icon-only, Expressive, and Skeleton combinations retained for existing-instance compatibility. Do not use it for new designs.
 - Storybook / Code: not yet connected as a canonical live reference; runtime parity remains unverified.
 
 ## Related
