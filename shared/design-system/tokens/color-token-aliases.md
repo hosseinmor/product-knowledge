@@ -258,12 +258,14 @@ Cyan and Warm Gray are hidden legacy variants only.
 | `tag/brand/line` | `blue/500` | `blue/500` | `yellow/700` | `yellow/700` |
 Categorical Tag mappings are chosen hue-by-hue for appearance and contrast; equivalent roles do not need matching numeric steps.
 
-## Deferred decisions
+## Remaining implementation decisions
 
-The current Figma alias values are validated as the migration baseline. Remaining architecture decisions include:
+The Figma Color architecture and current alias values are synchronized.
 
-- target categorical Tag Theme resolution;
-- Figma collection migration from shared Primitive/Brand authoring to the Theme package model;
-- CSS/package serialization of Theme-local Primitives and Semantic values;
-- destructive removal of legacy variables only after migration consumers are known;
-- future categorical hues only when real Tag use cases require them.
+Remaining concerns are downstream implementation or future evolution:
+
+- runtime Theme package serialization and build pipeline;
+- CSS representation of Theme-local Primitives;
+- removal of hidden legacy variables only after migration consumers are known;
+- future categorical hues only when real Tag use cases require them;
+- promotion to a shared categorical contract only if repeated cross-component categorization needs emerge.
