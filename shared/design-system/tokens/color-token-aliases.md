@@ -248,6 +248,14 @@ Cyan and Warm Gray are hidden legacy variants only.
 | Magenta | `magenta/100` | `magenta/950` | `magenta/200` | `magenta/900` | `magenta/700` | `magenta/400` | `magenta/500` | `magenta/600` |
 | Purple | `purple/100` | `purple/950` | `purple/200` | `purple/900` | `purple/700` | `purple/300` | `purple/500` | `purple/500` |
 
+### Brand Tag mappings
+
+| Role | JobVision Light | JobVision Dark | Cando Light | Cando Dark |
+|---|---|---|---|---|
+| `tag/brand/surface` | `blue/100` | `blue/100` | `yellow/100` | `yellow/100` |
+| `tag/brand/surface-hover` | `blue/200` | `blue/200` | `yellow/200` | `yellow/200` |
+| `tag/brand/fg` | `blue/800` | `blue/800` | `yellow/800` | `yellow/800` |
+| `tag/brand/line` | `blue/500` | `blue/500` | `yellow/700` | `yellow/700` |
 Categorical Tag mappings are chosen hue-by-hue for appearance and contrast; equivalent roles do not need matching numeric steps.
 
 ## Deferred decisions
