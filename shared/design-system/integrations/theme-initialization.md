@@ -3,11 +3,11 @@ id: design-system.reference.theme-initialization
 collection: design-system
 type: reference
 title: Theme Initialization Contract
-summary: Defines Product and Appearance resolution, first-paint invariants, hydration continuity, and no-flash requirements for SSR-capable applications.
+summary: Defines installed Theme package readiness, Appearance resolution, first-paint invariants, hydration continuity, and no-flash requirements.
 knowledge_state: unverified
 document_maturity: draft
 owner: Design System team
-last_reviewed: 2026-09-13
+last_reviewed: '2026-09-14'
 related:
   - design-system.product-variation.theme-context
   - design-system.reference.source-of-truth
@@ -17,20 +17,37 @@ related:
 
 ## Status
 
-Design-side runtime contract for HOS-9. Exact framework, storage, DOM, CSS selector, bootstrap-script, and server integration mechanics remain Frontend-owned.
+Design-side runtime contract for HOS-9 after adopting installable Theme packages. Exact framework, storage, DOM, selector, bootstrap-script, and server integration mechanics remain Frontend-owned.
 
 ## Purpose
 
-Theme initialization must make the correct Product identity and effective Appearance available for the **first styled paint** and preserve that same effective Theme through hydration.
+The application must have a compatible Theme package available and the correct Appearance effective for the **first styled paint**.
 
-The Theme dimensions remain independent:
+The runtime concerns are now:
 
 ```text
-Product    → application/deployment identity
-Appearance → resolved light | dark
+Application/deployment
+→ selects/imports Theme package
+
+Theme package
+→ provides token values
+
+Appearance preference
+→ resolves light | dark inside the installed Theme
 ```
 
-Do not create combined Theme identities such as `jobvision-dark`.
+Product identity itself is not a runtime token-resolution dimension.
+
+## Theme package readiness
+
+Theme selection/import is an application/deployment concern.
+
+- A compatible Theme package must be available before DS-governed UI is styled.
+- The Design System does not define a fallback Theme package.
+- Missing/incompatible Theme integration is a configuration/build/integration error; do not silently fall back to another Product Theme.
+- Current intended application mapping is JobVision → JobVision Theme and Cando → Cando Theme, but this is not a permanent Product=Theme identity rule.
+
+How the package is imported, bundled, lazy/eager loaded, versioned, or injected is Frontend-owned as long as the first-paint invariant is met.
 
 ## Appearance preference model
 
@@ -46,127 +63,105 @@ Resolved Appearance remains only:
 light | dark
 ```
 
-`system` is a preference source, not a resolved Appearance.
+`system` is a preference source, not a third resolved Appearance.
 
 ### Resolution precedence
 
 Resolve Appearance in this order:
 
 1. explicit user preference `light` or `dark`;
-2. current system/user-agent color-scheme preference when the effective preference is `system` or no explicit preference exists;
+2. current system/user-agent color-scheme preference when effective preference is `system` or no explicit preference exists;
 3. `light` when system preference cannot be determined.
 
-Invalid or unknown stored preference values are treated as no explicit preference; they do not create additional Theme values.
+Invalid/unknown stored values are treated as no explicit preference.
 
-The Design System does not define where preference is stored or how conflicting storage sources are reconciled. The application must provide one effective preference to initialization.
-
-## Product resolution
-
-Product is not a user preference.
-
-- Product must be known deterministically from application/deployment context before SSR rendering begins.
-- Product normally remains stable for the document lifetime.
-- The Design System defines no fallback Product.
-- An unresolved Product is an application integration/configuration error; do not silently render another Product's identity.
-
-An independently embedded application may own a separate root Theme context when its integration explicitly requires it. Nested Product theming remains outside the general Theme API.
+The Design System does not define preference storage or precedence between multiple storage locations. The application provides one effective preference to initialization.
 
 ## First-paint invariant
 
 The first styled paint must already use:
 
-- the correct Product identity; and
-- the effective Appearance for the current preference context.
+- values from the selected compatible Theme package; and
+- the effective Light/Dark Appearance.
 
-A compliant implementation must not intentionally paint a guessed Light or Dark Theme and then correct it after hydration.
+A compliant implementation must not intentionally paint one Appearance and then correct it after hydration.
 
-The contract does not require one specific technical mechanism. Valid strategies may include:
+It must also not paint using a different Theme package and later swap to the intended Theme as the normal initialization strategy.
+
+Valid strategies may include:
 
 - server-readable effective preference;
-- CSS-native `prefers-color-scheme` resolution for system behavior;
+- CSS-native `prefers-color-scheme` resolution;
 - a minimal pre-paint client bootstrap;
-- another mechanism that meets the same first-paint invariant.
+- another mechanism that satisfies the same invariant.
 
-Client hints or any other browser capability may be used as an optimization, but the Theme contract must not depend on a non-universal experimental signal.
-
-### User-agent UI
-
-Browser-provided UI such as form controls, scrollbars, and the document canvas should be informed of the effective supported color scheme early enough to avoid a mismatch with application surfaces.
-
-Exact use of HTML metadata, the CSS `color-scheme` property, or another platform mechanism is Frontend-owned.
+If the server cannot know a `system` preference on the first request, implementation must still avoid painting a guessed Appearance and then visibly correcting it.
 
 ## Hydration continuity
 
-Hydration must adopt or reconcile with the Theme already effective at first paint.
-
-It must not independently choose a conflicting initial Product or Appearance.
-
-Conceptually:
+Hydration must adopt/reconcile with the Theme values and Appearance already effective at first paint.
 
 ```text
-request / application context
-→ Product identity
-→ effective Appearance preference
-→ first-paint Theme
-→ hydration adopts same effective Theme
-→ normal runtime Theme updates
+installed Theme package
++ effective Appearance
+→ first styled paint
+→ hydration adopts same effective visual state
+→ normal runtime Appearance updates
 ```
 
-Theme initialization belongs to the application shell/runtime integration. Individual components must not implement their own flash prevention or initial Product/Appearance detection.
+Individual components must not implement their own Theme detection, package selection, or flash prevention.
 
-## Runtime changes after initialization
+## Runtime Appearance changes
 
-Appearance may change after initialization.
-
-- Explicit `light` ignores later system Light/Dark changes.
-- Explicit `dark` ignores later system Light/Dark changes.
-- `system` follows the current system/user-agent color-scheme and should react when that preference changes.
+- Explicit `light` ignores later OS Light/Dark changes.
+- Explicit `dark` ignores later OS Light/Dark changes.
+- `system` follows current system/user-agent color-scheme changes.
 - When no explicit preference exists, system behavior follows the same rule as `system`.
-- A user changing the preference should update the effective Appearance without requiring component-specific Theme branches.
+- Changing Appearance updates Semantic resolution within the already-selected Theme package.
 
-Persistence timing, cross-device preference sync, account-vs-device policy, and storage technology are Product/Frontend concerns.
+Switching Theme packages at runtime is **not required by the v1 contract**. If a future application requires runtime Theme switching, treat that as a separate capability with its own compatibility and loading contract.
+
+## User-agent UI
+
+Browser-provided UI such as form controls, scrollbars, and document canvas should be informed of the effective supported color scheme early enough to avoid mismatch with application surfaces.
+
+Exact use of HTML metadata, CSS `color-scheme`, or another platform mechanism is Frontend-owned.
 
 ## No-flash acceptance criteria
 
-At minimum, validate these cases:
+At minimum, validate:
 
 | Scenario | Required first paint |
 |---|---|
-| Explicit Light preference | Light |
-| Explicit Dark preference | Dark |
-| System preference + system Dark | Dark |
-| System preference + system Light | Light |
-| No explicit preference + system Dark | Dark |
-| No explicit preference + system Light | Light |
-| System preference unavailable | Light fallback |
-| Invalid stored Appearance preference | Resolve as no explicit preference |
-| Any supported Product | Correct Product identity from first paint |
+| Selected Theme + explicit Light | selected Theme / Light |
+| Selected Theme + explicit Dark | selected Theme / Dark |
+| Selected Theme + system Dark | selected Theme / Dark |
+| Selected Theme + system Light | selected Theme / Light |
+| Selected Theme + no explicit preference + system Dark | selected Theme / Dark |
+| Selected Theme + no explicit preference + system Light | selected Theme / Light |
+| System preference unavailable | selected Theme / Light fallback |
+| Invalid stored Appearance preference | resolve as no explicit preference |
+| Theme package missing/incompatible | configuration error; do not silently substitute another Theme |
 
 Also verify:
 
-- hydration does not visibly change the effective Theme;
+- hydration does not visibly change Theme or Appearance;
 - system preference changes update Appearance only while effective preference is `system` or absent;
-- explicit Light/Dark remains stable when the OS Theme changes;
-- native/browser-controlled UI does not visibly contradict the application Theme;
+- explicit Light/Dark remains stable when OS Theme changes;
+- browser-controlled UI does not visibly contradict the application Appearance;
 - components do not need individual initialization guards;
-- initial Theme correctness is not achieved by globally hiding normal page content until hydration as the default strategy.
+- correctness is not achieved by globally hiding normal page content until hydration as the default strategy.
 
 ## Frontend-owned decisions
 
 This contract intentionally does not define:
 
-- cookie, profile, local-storage, or other preference persistence;
-- precedence between multiple storage locations;
+- package import/bundle mechanism;
+- Theme package naming;
+- cookie/profile/local-storage preference persistence;
+- precedence between multiple persistence locations;
 - exact SSR framework integration;
-- exact root attribute/class names;
-- exact CSS selector/scoping strategy;
+- root attribute/class/selector names;
 - inline script versus external bootstrap;
-- exact use of `<meta name="color-scheme">`, CSS `color-scheme`, or equivalent platform APIs;
-- performance optimizations and caching strategy.
-
-Those choices are valid when they preserve the ThemeContext contract and the first-paint/hydration invariants above.
-
-## Web-platform references
-
-- `prefers-color-scheme` represents a user's Light/Dark system or user-agent preference.
-- `color-scheme` and the HTML color-scheme metadata allow the user agent to align browser-provided UI with supported schemes.
+- caching strategy;
+- runtime Theme switching beyond v1.
