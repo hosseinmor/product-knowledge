@@ -2,104 +2,104 @@
 id: design-system.product-variation.theme-context
 collection: design-system
 type: product-variation
-title: Theme Context
-summary: Defines Product and Appearance as independent shared Design System theme dimensions and their ownership boundaries.
+title: Theme Package Architecture
+summary: Defines Theme as an installable visual-token implementation selected by an application, with stable shared Design System contracts and runtime Appearance resolution.
 knowledge_state: canonical
 document_maturity: reviewed
 related:
   - design-system.token.product-overrides
   - design-system.token.architecture
   - design-system.reference.code
-last_reviewed: '2026-09-10'
+last_reviewed: '2026-09-14'
 ---
 
-# Theme Context
+# Theme Package Architecture
 
-Theme is a shared Design System context and mapping mechanism. It is **not** an additional token layer.
+Theme is an **installable implementation of Design System visual token values**. It is not Product identity itself and it does not own token meaning.
 
-The current context has two independent dimensions:
-
-```text
-Product    → JobVision | Cando
-Appearance → Light | Dark
-```
-
-Do not encode them as combined theme identities such as `jobvision-dark` or `cando-light`.
-
-## Resolved contexts
-
-The current supported combinations are:
+The architecture separates three concerns:
 
 ```text
-JobVision Light
-→ Product: JobVision
-→ Appearance: Light
+Product / application
+→ selects an installed Theme package
 
-JobVision Dark
-→ Product: JobVision
-→ Appearance: Dark
+Theme package
+→ provides token values for supported Foundations
 
-Cando Light
-→ Product: Cando
-→ Appearance: Light
-
-Cando Dark
-→ Product: Cando
-→ Appearance: Dark
+Appearance
+→ selects the runtime appearance variant inside that Theme
 ```
 
-For Color in the current Figma model these dimensions resolve independently:
+## Product is not Theme
+
+Product and Theme are related but not identical.
 
 ```text
-Product    → 02 Brand: JobVision | Cando
-Appearance → 03 Semantic: light | dark
-             04 Component: Light | Dark
+JobVision application → JobVision Theme package
+Cando application     → Cando Theme package
 ```
 
-The Figma collection model is a design representation of the same logical dimensions; runtime implementation does not need to mirror Figma collection structure exactly.
+This is the current mapping, not a permanent one-to-one architectural rule. A future Product may reuse an existing Theme, and a deployment may intentionally select another compatible Theme.
 
-## Theme scope
+Product remains application/business identity. Theme is visual-system implementation.
 
-In v1, Theme resolves at the application/document root.
+## Shared contract versus Theme implementation
 
-- **Product** is root-level application/deployment identity and is normally stable for the document lifetime.
-- **Appearance** is root-level runtime state and may change between Light and Dark.
-- Nested Product Theme is not part of the general Design System API.
-- Nested Appearance Theme is not part of the general Design System API.
+The shared Design System owns stable token names, meanings, component contracts, accessibility rules, and consumption policy.
 
-A locally dark or inverse region inside a Light page should use Semantic roles such as `surface/inverse`, not a nested Dark Appearance context.
-
-A JobVision-branded region inside Cando should use explicit identity such as the JobVision logo, name, or another approved branded composition rather than changing Product for a subtree.
-
-An independently embedded application or microfrontend may define its own root Theme contract when a real integration requires it. This does not make nested Theme a general-purpose composition pattern.
-
-## Runtime ownership
-
-Responsibility is intentionally separated:
+Each Theme package owns the concrete values needed to implement those contracts.
 
 ```text
-App / deployment
-→ owns Product identity
-
-Application shell / Theme service
-→ owns Appearance preference and resolution
-→ applies the resolved Theme context at the root
-
-Design System / token runtime
-→ consumes the resolved context
-→ resolves Theme-aware token values
-→ does not own user preference persistence or product business logic
-
-Components
-→ consume Semantic or approved Component tokens
-→ do not branch on Product or Appearance for normal styling
+Shared DS contract
+  surface/default
+  surface/brand
+  fg/primary
+  line/default
+  ...
+        │
+        ├── JobVision Theme → values
+        └── Cando Theme     → values
 ```
 
-Product should not expose a general user-facing runtime switch. In ordinary applications it is known from the application/deployment context and remains stable.
+Product code consumes the stable Design System contract. It must not depend on which Primitive value a Theme uses to implement that contract.
 
-Appearance may change at runtime. When it changes, token resolution should update without components carrying separate Product- or Dark-specific styling branches for normal Design System Color.
+## Theme package scope
 
-## Resolved Appearance versus preference
+Theme packages are Foundation-agnostic by architecture but intentionally narrow by implementation.
+
+### v1
+
+Theme packages provide **Color only**:
+
+```text
+Theme package
+├── theme-local Color Primitives
+└── Semantic Color values
+    ├── Light
+    └── Dark
+```
+
+Both Light and Dark belong to the same Theme package. Do not create separate packages such as `jobvision-light` and `jobvision-dark`.
+
+### Future-ready
+
+A Theme may later provide values for other Foundations when a validated cross-theme difference exists:
+
+```text
+Theme
+├── color        v1
+├── spacing      future if needed
+├── radius       future if needed
+├── typography   future if needed
+├── elevation    future if needed
+└── motion       future if needed
+```
+
+Do not move a Foundation into Theme merely because the architecture permits it. Shared Foundations remain shared until a real Theme-level variation requires otherwise.
+
+## Appearance
+
+Appearance remains a runtime choice inside the installed Theme.
 
 Resolved Appearance is only:
 
@@ -107,70 +107,98 @@ Resolved Appearance is only:
 light | dark
 ```
 
-If the product supports a user preference such as:
+If the application supports:
 
 ```text
 light | dark | system
 ```
 
-`system` is a **preference/source**, not a third resolved Appearance value. It must resolve to Light or Dark before the final Theme context reaches token resolution.
+`system` is a preference/source, not a third resolved Appearance.
 
-Preference storage, precedence, server visibility, and no-flash initialization are separate runtime concerns and are not defined here.
+Appearance may change at runtime without installing or switching Theme packages.
 
-## Foundation participation
+## Primitive ownership
 
-ThemeContext is shared across the Design System, but Theme awareness is opt-in per Foundation. A Foundation consumes only the dimensions that materially affect its contract.
+Primitive values are **Theme-local implementation details** in the target runtime architecture.
 
-Current participation:
+The Design System may define required semantic behavior and palette quality constraints, but Product code must not depend on a global cross-Theme Primitive identity.
 
-| Foundation | Product | Appearance | Current rule |
-|---|---|---|---|
-| Color | Yes | Yes | Product may affect Brand; Appearance resolves Light/Dark Semantic and Component Color. |
-| Typography | No | No | Invariant for current scope. |
-| Spacing | No | No | Invariant for current scope. |
-| Radius | No | No | Invariant for current scope. |
-| Elevation | No | No | Invariant for current scope; add Appearance dependence only if a validated need emerges. |
-| Motion | No | No | Invariant for current scope. |
+For example, two Themes may both contain a Blue ramp but they are not required to share identical Primitive values merely because their Semantic contracts use the same token names.
 
-Do not create Product or Appearance modes for a Foundation merely because ThemeContext contains those dimensions.
+## Brand
 
-If a future Foundation genuinely varies by Product or Appearance, it may consume the existing ThemeContext dimension without introducing a parallel foundation-specific ThemeContext.
+Brand is semantic meaning, not a required runtime token layer.
 
-## Future dimensions
+In the target architecture, a Theme may resolve Brand semantics directly from its local Primitives:
 
-Do not assume High Contrast is a third Appearance value. If future accessibility requirements need both Light/Dark and Standard/High Contrast combinations, Contrast should be evaluated as an independent dimension rather than forcing it into Appearance.
+```text
+JobVision Theme
+  surface/brand → local blue
 
-Do not add that dimension until a concrete product and accessibility contract requires it.
+Cando Theme
+  surface/brand → local yellow
+```
 
-## Component rule
+A separate global `Brand` alias layer is therefore not required by the runtime contract.
 
-Normal component styling must resolve through Semantic or approved Component tokens:
+The current Figma `02 Brand` collection remains a transitional design implementation until the Figma Theme model is migrated. Do not infer the target runtime graph from that temporary collection structure.
+
+## Components
+
+Default component behavior:
 
 ```text
 Component
-→ Semantic / approved Component token
-→ Theme-aware resolution
+→ Semantic tokens
+→ values supplied by installed Theme
 ```
 
-Avoid component logic such as:
+Private Component tokens may alias Semantic tokens when they add useful component-owned meaning, but they do not become Theme responsibilities merely because they exist.
+
+The categorical Tag case remains an explicit open architecture decision. Current Tag token names and Figma mappings stay valid as the current design contract until the replacement Theme-resolution mechanism is approved.
+
+## Runtime ownership
 
 ```text
-if Product is Cando → choose yellow primitive
-if Appearance is Dark → choose dark primitive
+Application / deployment
+→ selects and installs Theme package
+→ owns Product identity
+
+Application shell / Theme service
+→ owns Appearance preference and runtime Light/Dark resolution
+
+Theme package
+→ provides Foundation values for the selected visual system
+
+Design System components
+→ consume shared Semantic / approved private component contracts
+→ do not branch on Product identity for normal styling
 ```
 
-Such branching belongs in the Theme/token mapping contract, not in ordinary component styling.
+## Figma migration status
 
-Business behavior may still legitimately depend on Product; this document governs Design System theming, not product-feature logic.
+The current Figma implementation still uses:
+
+```text
+01 Primitives → Value
+02 Brand      → JobVision | Cando
+03 Semantic   → light | dark
+04 Component  → Light | Dark
+```
+
+This remains the current editable design source but is **not** the target package architecture.
+
+Do not restructure these collections until the remaining Component/Tag Theme-resolution decision is closed. The migration should happen once against the final target model.
 
 ## Deferred implementation contracts
 
-This document intentionally does not define:
+This document does not define:
 
-- exact DOM attribute or class names;
-- CSS variable names, package structure, or scoping;
-- Tailwind utility mappings;
-- Appearance preference persistence and precedence;
-- SSR resolution and no-flash initialization.
+- exact package names or import syntax;
+- whether Theme artifacts are CSS, JSON, TypeScript, or generated combinations;
+- exact CSS selector/attribute mechanism;
+- exact Theme build/publish pipeline;
+- categorical Tag Theme resolution;
+- SSR preference persistence and no-flash mechanism.
 
-Those are owned by the frontend token package, Tailwind, and SSR Theme integration contracts.
+Those belong to the frontend token-package, Tailwind, component-token, and Theme-initialization contracts.
