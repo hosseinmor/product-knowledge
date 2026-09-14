@@ -155,7 +155,9 @@ Component
 
 Private Component tokens may alias Semantic tokens when they add useful component-owned meaning, but they do not become Theme responsibilities merely because they exist.
 
-The categorical Tag case remains an explicit open architecture decision. Current Tag token names and Figma mappings stay valid as the current design contract until the replacement Theme-resolution mechanism is approved.
+Categorical Tag is the approved sparse Component Theme Extension. Tag owns the `tag/{color}/*` contract; each Theme implements its values. The extension remains component-only and is not Product-facing API.
+
+In v1 these values may ship inside the same physical Theme package. Separate component-extension packages or entry points are optional future optimizations rather than required architecture.
 
 ## Runtime ownership
 
@@ -175,20 +177,26 @@ Design System components
 → do not branch on Product identity for normal styling
 ```
 
-## Figma migration status
+## Figma target model
 
-The current Figma implementation still uses:
+Figma represents the final contract with:
 
 ```text
-01 Primitives → Value
-02 Brand      → JobVision | Cando
-03 Semantic   → light | dark
-04 Component  → Light | Dark
+01 Primitives            → Value
+02 Product               → JobVision | Cando
+03 Semantic              → JobVision Light | JobVision Dark | Cando Light | Cando Dark
+04 Component Extensions  → same four contexts
 ```
 
-This remains the current editable design source but is **not** the target package architecture.
+Rules:
 
-Do not restructure these collections until the remaining Component/Tag Theme-resolution decision is closed. The migration should happen once against the final target model.
+- `01 Primitives` remains a hidden authoring palette while runtime Theme packages own their Primitive implementation.
+- `02 Product` is not a Color Theme layer; it retains Product-aware authoring concerns such as the current font-family variable.
+- old `02 Brand` Color aliases become hidden legacy after Semantic/Tag mappings stop depending on them.
+- `03 Semantic` keeps the stable shared token names while modes hold Theme × Appearance values.
+- `04 Component Extensions` is hidden from normal library consumption and currently owns the Tag extension values.
+
+Combined Figma mode labels are an authoring representation only. Product/Theme/Appearance still do not enter public Semantic token names.
 
 ## Deferred implementation contracts
 
@@ -198,7 +206,6 @@ This document does not define:
 - whether Theme artifacts are CSS, JSON, TypeScript, or generated combinations;
 - exact CSS selector/attribute mechanism;
 - exact Theme build/publish pipeline;
-- categorical Tag Theme resolution;
 - SSR preference persistence and no-flash mechanism.
 
 Those belong to the frontend token-package, Tailwind, component-token, and Theme-initialization contracts.
