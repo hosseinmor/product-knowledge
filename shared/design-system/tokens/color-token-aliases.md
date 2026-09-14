@@ -3,7 +3,7 @@ id: design-system.token.color-token-aliases
 collection: design-system
 type: token
 title: Color Token Alias Mappings
-summary: Validated v4 Color mappings synchronized with the current Figma Variables model.
+summary: Validated snapshot of the current Figma Color mappings during migration to Theme-owned token values.
 knowledge_state: canonical
 document_maturity: reviewed
 related: []
@@ -14,26 +14,31 @@ last_reviewed: '2026-09-10'
 
 ## Purpose
 
-This document records the current validated Color mappings above Primitive. Figma owns the current editable aliases and values; this file is the documented mapping contract and review snapshot.
+This document records the current validated **Figma** Color mappings during migration to the Theme package architecture. Figma owns the current editable aliases and values; this file is a review snapshot of that current implementation, not the target runtime package graph.
 
 If this document and Figma diverge, treat the mismatch as a maintenance gap and inspect Figma rather than guessing.
 
 Canonical documentation uses names such as `surface/default`; Figma keeps picker-friendly names such as `surface/surface-default`. Alias targets below reproduce the current Figma Primitive spelling `pallete/*` intentionally.
 
-## Resolution rules
+## Current Figma resolution
+
+The tables below describe the current authoring model only:
 
 ```text
-Default
-Primitive → Semantic → Product UI
-
-Optional Product identity
-Primitive → Brand → Semantic → Product UI
-
-Exceptional component-owned contract
-Primitive / Semantic / Brand → Component → Product UI
+Primitive → Semantic
+Primitive → Brand → Semantic
+Primitive / Semantic / Brand → Component
 ```
 
-Product and Appearance remain independent. Current Figma collections:
+The target runtime architecture is now:
+
+```text
+Theme-local Primitive → shared Semantic role → Product UI / Component
+```
+
+A separate Brand layer is not required in the target runtime model. The current Figma collections remain transitional until the Tag/component Theme boundary is finalized and the Figma migration is performed.
+
+Current Figma collections:
 
 ```text
 01 Primitives → Value
@@ -252,11 +257,10 @@ Categorical Tag mappings are chosen hue-by-hue for appearance and contrast; equi
 
 ## Deferred decisions
 
-The current Color alias graph is validated. Remaining decisions are implementation or future-use concerns rather than unresolved Color values:
+The current Figma alias values are validated as the migration baseline. Remaining architecture decisions include:
 
-- whether Brand eventually needs Appearance-aware aliases after real dark-theme UI validation;
-- runtime Theme composition and initialization;
-- CSS variable/package naming and scoping;
-- Tailwind mapping;
-- destructive removal of hidden legacy variables after migration consumers are known;
+- target categorical Tag Theme resolution;
+- Figma collection migration from shared Primitive/Brand authoring to the Theme package model;
+- CSS/package serialization of Theme-local Primitives and Semantic values;
+- destructive removal of legacy variables only after migration consumers are known;
 - future categorical hues only when real Tag use cases require them.
