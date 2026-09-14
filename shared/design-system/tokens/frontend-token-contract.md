@@ -172,18 +172,38 @@ Theme-local Primitives are internal. They may exist in generated output for reso
 
 Any future Theme-internal slot must have an explicit DS contract and must not become a general Product escape hatch.
 
-## Categorical Tag — open boundary
+## Categorical Tag Theme extension
 
-Tag remains the exceptional unresolved case.
+Tag is the approved sparse Component Theme Extension.
 
-Current constraints are locked:
+Ownership:
 
-- Tag categorical hues communicate categorization/grouping rather than Support semantics;
-- ordinary Product code must not consume Tag tokens as a general categorical palette;
-- the Theme package should not be coupled to Tag anatomy if avoidable;
-- the global Semantic API should not be expanded solely to solve a Tag-specific value need.
+```text
+Tag / Design System
+→ owns tag/{color}/* names + meaning
 
-The exact target mechanism for Theme-varying categorical values is still open. Current Figma `tag/{color}/*` mappings remain the migration baseline until this is decided.
+Theme package
+→ implements Tag values
+
+Tag component implementation
+→ consumes tag/*
+
+Product code
+→ must not consume tag/*
+```
+
+Theme packages therefore know only the declared Tag extension contract, not Tag anatomy.
+
+For v1, Tag extension values may ship inside the same physical Theme package as Semantic Color. A separate package or entry point is not required. Frontend may split component extensions later for payload/build reasons without changing the logical contract.
+
+Product-facing tooling must not expose `tag/*` as general DS API:
+- no public Tailwind utilities;
+- no general Product token registry/autocomplete;
+- lint/CI should reject direct use in ordinary Product code where practical.
+
+If Tag tokens are emitted as global CSS variables, their physical visibility does not make them public API.
+
+Do not introduce a shared `categorical/*` contract until categorization becomes a demonstrated cross-component need.
 
 ## CSS custom-property namespace
 
@@ -253,6 +273,5 @@ Exact Tailwind configuration remains HOS-8.
 - exact Theme source format and build pipeline;
 - exact CSS selector/attribute mechanism for Light/Dark;
 - exact Primitive serialization;
-- exact categorical Tag Theme boundary;
 - exact lint/CI implementation;
 - release/version compatibility policy between DS components and Theme packages.
