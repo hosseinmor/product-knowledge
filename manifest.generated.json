@@ -1996,7 +1996,7 @@
       "summary": "Defines the Design System boundary for Tailwind consumption across Color, Spacing, Radius, Typography, Elevation, responsive breakpoints, component tokens, and arbitrary values.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-12",
+      "last_reviewed": "2026-09-14",
       "related": [
         "design-system.token.architecture",
         "design-system.token.semantic-tokens",
