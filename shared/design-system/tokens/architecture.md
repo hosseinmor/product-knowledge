@@ -15,7 +15,7 @@ last_reviewed: '2026-09-14'
 
 ## Purpose
 
-This document defines the target **Color token architecture** after adopting installable Theme packages.
+This document defines the current **Color token architecture** for installable Theme packages.
 
 The central separation is:
 
@@ -91,7 +91,7 @@ Rules:
 - different Themes may use different Primitive values or ramps while implementing the same Semantic API;
 - Primitive naming remains hue/value-oriented inside a Theme rather than semantic.
 
-The current shared Figma Primitive collection is a transitional authoring structure and may be reorganized during the Figma Theme migration.
+Figma intentionally keeps one hidden `01 Primitives` authoring palette. This does not make Primitive a shared runtime API: each runtime Theme package owns its Primitive implementation. If Theme palettes later diverge materially, the Figma authoring strategy can evolve without changing the public Semantic contract.
 
 ## Brand
 
@@ -113,7 +113,7 @@ JobVision Theme → Brand semantics resolve from JobVision-local Blue values
 Cando Theme     → Brand semantics resolve from Cando-local Yellow values
 ```
 
-The current Figma `02 Brand` collection is transitional and should not be reproduced as a mandatory runtime package layer.
+The former Figma `02 Brand` collection has been retired as a live Color layer. It is now `02 Product`; only Product-aware authoring concerns such as `typography/font-family` remain active there, while former Brand Color variables are hidden legacy only.
 
 ## Appearance
 
@@ -167,15 +167,15 @@ In v1, Tag extension values may ship inside the same physical Theme package as c
 
 Do not promote Tag-specific needs into the global Semantic API solely to make Theme packaging easier. Do not introduce shared `categorical/*` tokens until categorization becomes a demonstrated cross-component contract.
 
-## Current Figma transition model
+## Current Figma model
 
 Current editable Figma structure:
 
 | Collection | Current modes | Migration status |
 |---|---|---|
 | `01 Primitives` | `Value` | hidden authoring palette; runtime Primitives remain Theme-local |
-| `02 Product` | `JobVision / Cando` | Product-aware non-Color authoring such as current font family; old Brand Color aliases become hidden legacy |
-| `03 Semantic` | `JobVision Light / JobVision Dark / Cando Light / Cando Dark` | shared Semantic contract with Theme × Appearance value contexts |
+| `02 Product` | `JobVision / Cando` | hidden Product-aware authoring; currently `typography/font-family`; former Brand Color vars are hidden legacy |
+| `03 Semantic` | `JobVision Light / JobVision Dark / Cando Light / Cando Dark` | published shared Semantic contract with Theme × Appearance value contexts |
 | `04 Component Extensions` | same four contexts | hidden component-only Theme values; currently Tag |
 
 Figma combines Theme and Appearance in mode names as an authoring convenience. This does not create combined public token identities or require the runtime package API to mirror Figma modes.
