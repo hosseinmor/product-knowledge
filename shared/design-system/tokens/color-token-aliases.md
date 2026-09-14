@@ -30,11 +30,11 @@ The active Color resolution is now:
 → Product UI / Components
 
 01 Primitives
-→ 04 Component Extensions
+→ 04 Component Tokens
 → owning DS component
 ```
 
-`02 Product` is **not** an active Color-resolution layer. Its former Brand Color variables remain hidden under `_legacy/brand/*` for migration continuity only; current Semantic and Component Extension values do not depend on them.
+`02 Product` is **not** an active Color-resolution layer. Its former Brand Color variables remain hidden under `_legacy/brand/*` for migration continuity only; current Semantic values do not depend on them.
 
 The runtime architecture remains:
 
@@ -42,7 +42,7 @@ The runtime architecture remains:
 Theme-local Primitive → shared Semantic role → Product UI / Component
 ```
 
-with approved sparse Component Theme Extensions such as Tag implemented by each Theme.
+Component Tokens such as Tag are owned by the Design System/component implementation and are not Theme-provided when their values are shared across Products.
 
 Current Figma collections:
 
@@ -53,11 +53,11 @@ Current Figma collections:
 04 Component Extensions  → same four contexts
 ```
 
-Figma mode labels represent authoring contexts; they do not enter public Semantic token names.
+Figma mode labels represent authoring contexts. Semantic Color uses Theme × Appearance modes; Component Tokens use only Light/Dark because Tag values are shared across Products.
 
 `01 Primitives` is a hidden authoring palette and does not imply one shared runtime Primitive package. `03 Semantic` is the published shared Color API. `04 Component Extensions` is hidden and currently contains only the Tag extension contract.
 
-Most non-Brand values currently resolve identically in JobVision and Cando, so their tables show Light/Dark once and apply to both Themes. Transparent Semantic interaction colors and overlay intentionally store resolved RGBA directly.
+Most non-Brand Semantic values currently resolve identically in JobVision and Cando, so their tables show Light/Dark once and apply to both Themes. Tag Component Tokens are explicitly Product-independent. Transparent Semantic interaction colors and overlay intentionally store resolved RGBA directly.
 
 ## 02 Product
 
@@ -67,7 +67,7 @@ Active Product-aware authoring:
 |---|---|---|
 | `typography/font-family` | `Vazirmatn` | `IRANYekanX` |
 
-Former Brand Color variables are retained under `_legacy/brand/*` only for migration continuity. They are hidden and have no current Semantic or Component Extension dependencies.
+Former Brand Color variables are retained under `_legacy/brand/*` only for migration continuity. They are hidden and have no current Semantic dependencies.
 
 ## 03 Semantic
 
@@ -238,7 +238,7 @@ tag/{color}/line
 Current canonical colors:
 
 ```text
-neutral | brand | blue | teal | green | yellow | orange | red | magenta | purple
+neutral | blue | teal | green | yellow | orange | red | magenta | purple
 ```
 
 Cyan and Warm Gray are hidden legacy variants only.
@@ -248,7 +248,6 @@ Cyan and Warm Gray are hidden legacy variants only.
 | Color | Surface Light | Surface Dark | Hover Light | Hover Dark | FG Light | FG Dark | Line Light | Line Dark |
 |---|---|---|---|---|---|---|---|---|
 | Neutral | `neutral/200` | `neutral/900` | `neutral/300` | `neutral/800` | `neutral/700` | `neutral/200` | `neutral/400` | `neutral/600` |
-| Brand | See Theme table below | See Theme table below | See Theme table below | See Theme table below | See Theme table below | See Theme table below | See Theme table below | See Theme table below |
 | Blue | `blue/100` | `blue/950` | `blue/200` | `blue/900` | `blue/800` | `blue/300` | `blue/500` | `blue/600` |
 | Teal | `teal/100` | `teal/950` | `teal/200` | `teal/900` | `teal/700` | `teal/400` | `teal/500` | `teal/600` |
 | Green | `green/100` | `green/950` | `green/200` | `green/900` | `green/800` | `green/400` | `green/600` | `green/600` |
@@ -257,15 +256,6 @@ Cyan and Warm Gray are hidden legacy variants only.
 | Red | `red/100` | `red/950` | `red/200` | `red/900` | `red/800` | `red/300` | `red/500` | `red/600` |
 | Magenta | `magenta/100` | `magenta/950` | `magenta/200` | `magenta/900` | `magenta/700` | `magenta/400` | `magenta/500` | `magenta/600` |
 | Purple | `purple/100` | `purple/950` | `purple/200` | `purple/900` | `purple/700` | `purple/300` | `purple/500` | `purple/500` |
-
-### Brand Tag mappings
-
-| Role | JobVision Light | JobVision Dark | Cando Light | Cando Dark |
-|---|---|---|---|---|
-| `tag/brand/surface` | `blue/100` | `blue/100` | `yellow/100` | `yellow/100` |
-| `tag/brand/surface-hover` | `blue/200` | `blue/200` | `yellow/200` | `yellow/200` |
-| `tag/brand/fg` | `blue/800` | `blue/800` | `yellow/800` | `yellow/800` |
-| `tag/brand/line` | `blue/500` | `blue/500` | `yellow/700` | `yellow/700` |
 
 Categorical Tag mappings are chosen hue-by-hue for appearance and contrast; equivalent roles do not need matching numeric steps.
 
