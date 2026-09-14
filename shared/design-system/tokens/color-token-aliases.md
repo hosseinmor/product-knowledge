@@ -47,7 +47,7 @@ Current Figma collections:
 
 Figma mode labels represent authoring contexts; they do not enter public Semantic token names.
 
-Most values above Primitive are aliases. Transparent Semantic interaction colors and overlay intentionally store resolved RGBA directly.
+Most non-Brand values currently resolve identically in JobVision and Cando, so their tables show Light/Dark once and apply to both Themes. Transparent Semantic interaction colors and overlay intentionally store resolved RGBA directly.
 
 ## 02 Product
 
@@ -104,14 +104,16 @@ These are direct Semantic COLOR values, not aliases to a published alpha Primiti
 | `surface/selected` | `neutral/200` | `neutral/800` |
 | `surface/selected-hover` | `neutral/300` | `neutral/700` |
 
-### Brand
+### Brand — Theme-specific
 
-| Role | Light | Dark |
-|---|---|---|
-| `surface/brand` | `brand/brand-default` | `brand/brand-default` |
-| `surface/brand-hover` | `brand/brand-hover` | `brand/brand-hover` |
-| `surface/brand-active` | `brand/brand-active` | `brand/brand-active` |
-| `fg/on-brand` | `brand/on-brand` | `brand/on-brand` |
+| Role | JobVision Light | JobVision Dark | Cando Light | Cando Dark |
+|---|---|---|---|---|
+| `surface/brand` | `blue/700` | `blue/700` | `yellow/500` | `yellow/500` |
+| `surface/brand-hover` | `blue/800` | `blue/800` | `yellow/600` | `yellow/600` |
+| `surface/brand-active` | `blue/900` | `blue/900` | `yellow/700` | `yellow/700` |
+| `fg/on-brand` | `bw/white` | `bw/white` | `neutral/900` | `neutral/900` |
+
+These roles alias the Theme-appropriate Primitives directly; no active Brand Color layer sits between Primitive and Semantic.
 
 ### Accent
 
