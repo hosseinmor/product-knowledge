@@ -16,7 +16,7 @@ last_reviewed: '2026-09-14'
 
 ## Status
 
-This document reflects the revised architecture agreed with Frontend on 2026-09-14. Exact package names, build tooling, serialization, and the categorical Tag Theme boundary remain open.
+This document reflects the revised architecture agreed with Frontend on 2026-09-14. The logical Theme-package, Semantic API, and sparse Component Theme Extension contracts are defined. Exact package names, build tooling, serialization, lint implementation, and release compatibility remain implementation-owned/open.
 
 ## Purpose
 
@@ -61,12 +61,16 @@ Theme packages provide Color:
 ```text
 Theme package
 ├── Theme-local Color Primitives
-└── shared Semantic Color API values
-    ├── Light
-    └── Dark
+├── shared Semantic Color API values
+│   ├── Light
+│   └── Dark
+└── approved Component Theme Extension values
+    └── Tag in v1
 ```
 
 Both Light and Dark live in the same Theme package. Do not model Appearance as separate packages such as `theme-jobvision-light` and `theme-jobvision-dark`.
+
+Component Theme Extensions are logical ownership boundaries; they do not require separate physical packages. In v1, Tag extension values may ship in the same Theme package as core Color values.
 
 ### Future Foundation extension
 
@@ -98,6 +102,7 @@ The Theme owns:
 
 - Primitive Color inventory and values;
 - Light/Dark Semantic Color values;
+- approved Component Theme Extension values;
 - future Theme-specific Foundation values;
 - approved internal Theme implementation values required by the final contract.
 
@@ -197,9 +202,11 @@ Theme packages therefore know only the declared Tag extension contract, not Tag 
 For v1, Tag extension values may ship inside the same physical Theme package as Semantic Color. A separate package or entry point is not required. Frontend may split component extensions later for payload/build reasons without changing the logical contract.
 
 Product-facing tooling must not expose `tag/*` as general DS API:
+
 - no public Tailwind utilities;
 - no general Product token registry/autocomplete;
-- lint/CI should reject direct use in ordinary Product code where practical.
+- lint/CI should reject direct use in ordinary Product code where practical;
+- only the Tag implementation (and DS-owned tooling/build code that implements it) consumes the contract directly.
 
 If Tag tokens are emitted as global CSS variables, their physical visibility does not make them public API.
 
@@ -251,7 +258,7 @@ From that classification, tooling may generate registries, framework adapters, l
 
 ## Tailwind boundary
 
-Tailwind consumes the stable Design System-facing contract, not Theme-local Primitives.
+Tailwind consumes the stable Design System-facing contract, not Theme-local Primitives or Component Theme Extensions.
 
 Changing from JobVision Theme to another compatible Theme must not require changing ordinary semantic Tailwind utility names.
 
@@ -264,7 +271,9 @@ Exact Tailwind configuration remains HOS-8.
 - Semantic Color token names remain fixed while their values are Theme-owned;
 - one Theme package contains both Light and Dark mappings;
 - the architecture is ready to include Foundations such as Spacing/Radius later;
-- v1 Theme scope is expected to be Color.
+- v1 Theme scope is expected to be Color;
+- Tag is a private sparse Component Theme Extension whose values may ship in the same Theme package;
+- Product code does not treat `tag/*` as a public token API.
 
 ## Still open / implementation-owned
 
