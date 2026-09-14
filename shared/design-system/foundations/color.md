@@ -51,7 +51,7 @@ Theme-local Primitive → Semantic → Product UI / Component
 
 Product UI must not bind directly to Theme-local Primitives.
 
-Categorical Tag is the current approved sparse Component Theme Extension. Tag owns the `tag/{color}/*` contract, each Theme supplies its values, and Product code must not consume those tokens directly.
+Categorical Tag is the current approved Component Color-token exception. Its `tag/{color}/*` values are shared across Products, vary only by Light/Dark Appearance, and are not available as Product-facing tokens.
 
 ## Theme and Appearance
 
@@ -82,10 +82,10 @@ The current Figma Variables model is:
 01 Primitives            → Value
 02 Product               → JobVision | Cando
 03 Semantic              → JobVision Light | JobVision Dark | Cando Light | Cando Dark
-04 Component Extensions  → same four contexts
+04 Component Tokens      → Light | Dark
 ```
 
-`01 Primitives`, `02 Product`, and `04 Component Extensions` are hidden from normal library publishing. `03 Semantic` is the published shared Color API. The four-mode Figma representation is an authoring convenience and does not require the runtime package model to expose combined Theme/Appearance token names.
+`01 Primitives`, `02 Product`, and `04 Component Tokens` are hidden from normal library publishing. `03 Semantic` is the published shared Color API. Semantic uses Theme × Appearance modes because its values can vary by Theme; Component Tokens use only Light/Dark because current Tag values are Product-independent.
 
 ## Semantic boundaries
 
