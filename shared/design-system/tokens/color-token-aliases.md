@@ -22,19 +22,27 @@ Canonical documentation uses names such as `surface/default`; Figma keeps picker
 
 ## Current Figma resolution
 
-The current Figma Color model is:
+The active Color resolution is now:
 
 ```text
-Primitive → Semantic
-Primitive → Brand → Semantic
-Primitive / Semantic / Brand → Component
+01 Primitives
+→ 03 Semantic
+→ Product UI / Components
+
+01 Primitives
+→ 04 Component Extensions
+→ owning DS component
 ```
+
+`02 Product` is **not** an active Color-resolution layer. Its former Brand Color variables remain hidden under `_legacy/brand/*` for migration continuity only; current Semantic and Component Extension values do not depend on them.
 
 The runtime architecture remains:
 
 ```text
 Theme-local Primitive → shared Semantic role → Product UI / Component
 ```
+
+with approved sparse Component Theme Extensions such as Tag implemented by each Theme.
 
 Current Figma collections:
 
@@ -46,6 +54,8 @@ Current Figma collections:
 ```
 
 Figma mode labels represent authoring contexts; they do not enter public Semantic token names.
+
+`01 Primitives` is a hidden authoring palette and does not imply one shared runtime Primitive package. `03 Semantic` is the published shared Color API. `04 Component Extensions` is hidden and currently contains only the Tag extension contract.
 
 Most non-Brand values currently resolve identically in JobVision and Cando, so their tables show Light/Dark once and apply to both Themes. Transparent Semantic interaction colors and overlay intentionally store resolved RGBA directly.
 
@@ -256,6 +266,7 @@ Cyan and Warm Gray are hidden legacy variants only.
 | `tag/brand/surface-hover` | `blue/200` | `blue/200` | `yellow/200` | `yellow/200` |
 | `tag/brand/fg` | `blue/800` | `blue/800` | `yellow/800` | `yellow/800` |
 | `tag/brand/line` | `blue/500` | `blue/500` | `yellow/700` | `yellow/700` |
+
 Categorical Tag mappings are chosen hue-by-hue for appearance and contrast; equivalent roles do not need matching numeric steps.
 
 ## Remaining implementation decisions
