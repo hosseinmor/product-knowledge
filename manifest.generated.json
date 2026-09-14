@@ -2040,7 +2040,7 @@
       "summary": "Defines when component-specific Color tokens are justified and documents the approved Tag exception.",
       "status": "reviewed",
       "owner": null,
-      "last_reviewed": "2026-09-10",
+      "last_reviewed": "2026-09-14",
       "related": [],
       "topics": [
         "component-tokens",
