@@ -50,7 +50,7 @@ These logical dimensions do not prescribe the final Figma collection/mode implem
 - Validation or system feedback → matching Support muted surface, foreground, and line roles
 - Disabled filled control → `surface/disabled + fg/disabled`
 
-`surface/raised` expresses the Color role of an elevated layer. Pair it with the approved elevation/shadow token when visible depth is required.
+`surface/raised` expresses the Color role of an elevated layer. For a temporary floating surface that needs visible depth, pair it with the approved `Shadow/Floating` recipe. Do not add shadow merely because a surface uses `surface/raised`; scrim-backed Modal/Dialog surfaces and in-flow surfaces follow the Elevation Foundation rules.
 
 Do not use structural `surface/muted` as an interactive control background. Use `surface/neutral-muted` instead.
 

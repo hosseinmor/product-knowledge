@@ -3,190 +3,158 @@ id: design-system.foundation.typography
 collection: design-system
 type: foundation
 title: Typography
-summary: Defines the semantic typography model for labels, body text, headings, compact UI, and responsive expressive type.
-knowledge_state: unverified
-document_maturity: draft
-related: []
----
+summary: Defines the shared Label, Body, and Heading recipes, Product-aware font identity, compact and fluid variants, and the boundary with local Tailwind typography.
+knowledge_state: canonical
+document_maturity: reviewed
+owner: Design System team
+last_reviewed: 2026-09-12
+related:
+  - design-system.reference.tailwind
+--- 
 
 # Typography
 
-## Purpose and Model
+## Model
 
-Typography uses **semantic composite tokens** so product teams choose text by role rather than repeatedly choosing raw font size, line height, and weight.
+Typography uses a small set of semantic composite recipes so Product teams choose recurring text by role rather than repeatedly choosing raw font size, line height, and weight.
 
-Each typography token owns:
+The core recipe owns:
 - font size;
 - line height;
-- weight.
+- weight;
+- Product-aware font family.
 
-Foreground color is separate and comes from semantic color tokens.
+Foreground color is separate and comes from Semantic Color.
 
-The shared families are:
-
-```text
-type.label.*
-→ short control/component text
-
-type.body.*
-→ readable body/supporting text
-
-type.body.compact.*
-→ short text in dense UI
-
-type.heading.*
-→ fixed headings
-
-type.heading.compact.*
-→ headings in dense UI
-
-type.fluid.heading.*
-type.fluid.paragraph.*
-type.fluid.display.*
-→ responsive expressive/editorial type
-```
-
-Typography roles are independent from product font-family choice. Product implementations should map the approved JobVision/Cando font family into the shared semantic styles rather than creating parallel semantic scales.
-
-## Usage Rules
-
-### Choose role before size
-
-1. Choose the semantic family from the content role.
-2. Use Compact only when text is short and the UI genuinely benefits from higher density.
-3. Choose a size inside that family.
-4. Do not choose a larger token only to create importance; use the hierarchy of the composition.
-
-### Fixed vs fluid
-
-Use fixed typography for ordinary product UI:
-- controls and labels;
-- forms;
-- tables and boards;
-- menus and lists;
-- cards and Modals;
-- standard product body text.
-
-Use fluid typography for intentionally expressive/page-level content:
-- prominent page or marketing headings;
-- hero/campaign surfaces;
-- editorial lead paragraphs;
-- display text.
-
-Do not use Fluid Heading or Display inside a reusable component merely because that component is responsive.
-
-### Compact text
-
-Compact styles reduce line height without changing the semantic purpose of the text. Use them for short content in dense regions such as tables, menus, kanban boards, and compact cards.
-
-Do not use Compact Body for paragraphs or long-form reading.
-
-### Weight and state
-
-Shared semantic weights are:
+Shared core families are:
 
 ```text
-regular  → 400
-medium   → 500
-semibold → 600
-bold     → 700
+Label
+Body
+Body / Compact
+Heading
+Heading / Compact
+Heading / Fluid
 ```
 
-Do not create parallel typography families for link, error, selected, disabled, or other color/state meanings. Combine the typography role with the appropriate foreground/component semantics instead.
+Paragraph and Display are intentionally not part of the core Product recipe set. Landing pages, marketing surfaces, lead paragraphs, display text, and other one-off expressive compositions may use native Tailwind typography utilities.
 
-A component-specific typography token requires a real need to vary independently from the shared semantic role; do not create one only to alias an existing typography token.
+## Product-aware font family
 
-## Definitions / Scale
-
-The values below are the **current draft scale**. They remain subject to final Persian font-metric and implementation validation.
-
-### Fixed styles
-
-| Token | Size / line height | Weight |
-|---|---:|---|
-| `type.label.xs` | `12 / 18px` | Medium |
-| `type.label.sm` | `14 / 20px` | Medium |
-| `type.label.md` | `16 / 24px` | Medium |
-| `type.body.xs` | `12 / 18px` | Regular |
-| `type.body.sm` | `14 / 24px` | Regular |
-| `type.body.md` | `16 / 28px` | Regular |
-| `type.body.compact.xs` | `12 / 16px` | Regular |
-| `type.body.compact.sm` | `14 / 20px` | Regular |
-| `type.body.compact.md` | `16 / 24px` | Regular |
-| `type.heading.compact.sm` | `14 / 20px` | SemiBold |
-| `type.heading.compact.md` | `16 / 24px` | SemiBold |
-| `type.heading.sm` | `14 / 22px` | SemiBold |
-| `type.heading.md` | `16 / 24px` | SemiBold |
-| `type.heading.lg` | `18 / 28px` | SemiBold |
-| `type.heading.xl` | `20 / 30px` | SemiBold |
-| `type.heading.2xl` | `24 / 34px` | Bold |
-| `type.heading.3xl` | `32 / 42px` | Bold |
-| `type.heading.4xl` | `42 / 54px` | Bold |
-
-Current defaults:
+The semantic recipes are shared between JobVision and Cando.
 
 ```text
-standard control label → type.label.sm
-standard product body  → type.body.sm
-compact product body   → type.body.compact.sm
+JobVision → Vazirmatn
+Cando     → IRANYekanX
 ```
 
-Size suffixes are shared across fixed families where they represent the same font size (`xs=12`, `sm=14`, `md=16`, `lg=18`, `xl=20`, `2xl=24`, `3xl=32`, `4xl=42`). Do not add `default` to token names; defaults are usage guidance rather than token identity.
+Figma binds all Typography Text Styles directly to `02 Brand / brand/Brand font`, so the Product mode changes font identity without duplicating the semantic scale.
 
-### Fluid styles
+Typography does not depend on Appearance. Exact Cando font style/weight compatibility remains subject to visual validation when IRANYekanX is available in the implementation environment.
 
-Fluid styles use responsive values by layout mode rather than exposing a public min/max pair.
+## Weight roles
 
-| Token | Mobile | Tablet | Desktop | Weight |
-|---|---:|---:|---:|---|
-| `type.fluid.heading.xl` | `18/28` | `18/28` | `20/30` | SemiBold |
-| `type.fluid.heading.2xl` | `20/30` | `20/30` | `24/34` | SemiBold |
-| `type.fluid.heading.3xl` | `24/34` | `28/38` | `32/42` | Bold |
-| `type.fluid.heading.4xl` | `32/42` | `36/46` | `42/54` | Bold |
-| `type.fluid.paragraph.sm` | `16/28` | `16/28` | `18/32` | Regular |
-| `type.fluid.paragraph.md` | `18/32` | `20/34` | `24/42` | Regular |
-| `type.fluid.display.sm` | `32/42` | `40/50` | `48/60` | Bold |
-| `type.fluid.display.md` | `40/50` | `48/60` | `60/72` | Bold |
-| `type.fluid.display.lg` | `48/60` | `60/72` | `72/86` | Bold |
-| `type.fluid.display.xl` | `48/60` | `72/86` | `96/112` | Bold |
+```text
+Label   → 500 Medium
+Body    → 400 Regular
+Heading → 700 Bold
+```
 
-Values are `font-size / line-height` in px.
+Do not create parallel typography families for Link, Error, Selected, Disabled, or other state/color meanings. Combine the typography role with the appropriate Semantic foreground or component state.
 
-The shared `48/60` Mobile value for Display `lg` and `xl` is intentional: very large desktop hierarchy must not force proportionally huge mobile type.
+## Canonical fixed styles
 
-Whether implementation switches discretely at layout modes or interpolates within a range is still unresolved and must not be inferred from this table.
+### Label
+
+| Figma style | Size / line height | Weight |
+|---|---:|---:|
+| `Label / XS` | 12 / 16px | 500 |
+| `Label / SM` | 14 / 20px | 500 |
+| `Label / MD` | 16 / 24px | 500 |
+
+Use Label for short UI labels, metadata, captions, and control-supporting text. Do not use it as general body copy.
+
+### Body Compact
+
+| Figma style | Size / line height | Weight |
+|---|---:|---:|
+| `Body / Compact / XS` | 12 / 16px | 400 |
+| `Body / Compact / SM` | 14 / 20px | 400 |
+| `Body / Compact / MD` | 16 / 24px | 400 |
+
+Use Compact only when vertical density matters and the text is short.
+
+### Body
+
+| Figma style | Size / line height | Weight |
+|---|---:|---:|
+| `Body / XS` | 12 / 20px | 400 |
+| `Body / SM` | 14 / 24px | 400 |
+| `Body / MD` | 16 / 28px | 400 |
+
+`Body / SM` is the default readable Product body style. Prefer Body over Compact for multi-line content.
+
+### Heading Compact
+
+| Figma style | Size / line height | Weight |
+|---|---:|---:|
+| `Heading / Compact / XS` | 12 / 16px | 700 |
+| `Heading / Compact / SM` | 14 / 18px | 700 |
+| `Heading / Compact / MD` | 16 / 22px | 700 |
+
+Use Compact Heading for short, dense component titles where vertical space matters.
+
+### Heading
+
+| Figma style | Size / line height | Weight |
+|---|---:|---:|
+| `Heading / XS` | 12 / 18px | 700 |
+| `Heading / SM` | 14 / 20px | 700 |
+| `Heading / MD` | 16 / 24px | 700 |
+| `Heading / LG` | 18 / 28px | 700 |
+| `Heading / XL` | 20 / 28px | 700 |
+| `Heading / 2XL` | 24 / 32px | 700 |
+| `Heading / 3XL` | 32 / 40px | 700 |
+| `Heading / 4XL` | 42 / 52px | 700 |
+
+Regular Heading is the default hierarchy family and may wrap. Do not use Compact merely because a heading is visually small.
+
+## Fluid Heading
+
+Fluid Heading is reserved for large responsive page/layout headings. The recipe owns its responsive size and line-height behavior; Product code should not manually recreate the breakpoint mapping.
+
+| Figma style | SM | LG | Weight |
+|---|---:|---:|---:|
+| `Heading / Fluid / XL` | 18 / 28px | 20 / 28px | 700 |
+| `Heading / Fluid / 2XL` | 20 / 28px | 24 / 32px | 700 |
+| `Heading / Fluid / 3XL` | 24 / 32px | 32 / 40px | 700 |
+| `Heading / Fluid / 4XL` | 32 / 40px | 42 / 52px | 700 |
+
+The Fluid tier reaches the same-named fixed Heading tier at the large mode and generally steps down at the small mode.
+
+Figma's `Breakpoint = SM | LG` modes are design-time typography modes. They are not the full runtime Responsive Layout breakpoint scale.
+
+## DS recipe versus Tailwind utility
+
+Use a Design System typography recipe for recurring Product typography.
+
+Use native Tailwind `text-*`, `font-*`, and `leading-*` utilities for local/exceptional typography and expressive landing/marketing composition.
+
+Do not override `font-size`, `line-height`, or `font-weight` with Tailwind utilities on an element that already consumes a DS typography recipe. Utilities for unrelated properties such as text alignment are fine.
+
+The exact runtime API for consuming a DS recipe—CSS class, Angular directive/component, or another generated adapter—is Frontend-owned and remains to be finalized. Figma therefore does not encode a `type-` implementation prefix in Text Style names.
 
 ## Accessibility
 
-Typography must remain usable with the actual supported Persian UI font, mixed Persian/English content, zoom, text-spacing overrides, wrapping, and responsive reflow.
+- Do not use automatic line height in shared recipes.
+- Keep each recipe's size and line height together.
+- Validate compact styles with real Persian text.
+- Do not truncate headings or essential text merely to preserve a fixed height.
+- Validate mixed Persian/English content, zoom, text-spacing overrides, wrapping, and responsive reflow.
 
-Foundation-specific requirements:
-- do not use automatic line height in shared semantic styles;
-- keep font size and its token-defined line height together;
-- validate dense/compact styles with real Persian text before treating them as stable;
-- do not truncate headings or essential text merely to preserve a fixed component height.
+General text resize, reflow, contrast, language, and content requirements belong to the Accessibility corpus.
 
-General text resize, reflow, contrast, language, and content requirements belong to the Accessibility corpus rather than being duplicated here.
+## Live references
 
-## Product Variations
-
-The semantic typography vocabulary should remain shared between JobVision and Cando.
-
-A product may provide a different approved font-family alias when needed, but that should not automatically create a parallel `type.*` scale. Product-specific metric differences that cannot preserve the shared contract require explicit review.
-
-## Known Gaps
-
-This foundation remains `draft` until these items are resolved or validated:
-- final product font-family aliases;
-- Persian font metrics across controls and multi-line content;
-- `type.heading.sm` (`14/22`) validation;
-- large Heading/Display line-height validation;
-- final responsive implementation strategy for fluid type;
-- canonical machine-readable token/source mapping to Figma and code.
-
-Recommended validation frames include representative Mobile, Tablet, and Desktop widths; exact test frames are implementation/test evidence rather than part of the semantic contract.
-
-## Live References
-
-- Figma / Variables: exact canonical typography-variable link not yet recorded
-- Token data / Code: canonical machine-readable implementation source not yet linked
+- Figma Typography page: current Text Styles and usage rules are the editable visual source.
+- Runtime adapter syntax and generated artifact: pending Frontend implementation review.
