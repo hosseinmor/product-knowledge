@@ -341,7 +341,7 @@ tag/{color}/line
 for:
 
 ```text
-neutral | brand | blue | teal | green | yellow | orange | red | magenta | purple
+neutral | blue | teal | green | yellow | orange | red | magenta | purple
 ```
 
 Categorical hues communicate grouping, not Support meaning. Cyan and Warm Gray are hidden legacy variants, not canonical API.
