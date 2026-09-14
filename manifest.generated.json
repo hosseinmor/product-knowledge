@@ -2021,10 +2021,10 @@
       "id": "design-system.token.color-token-aliases",
       "kind": "design-system-token",
       "title": "Color Token Alias Mappings",
-      "summary": "Validated snapshot of the current Figma Color mappings during migration to Theme-owned token values.",
+      "summary": "Validated current Figma Color mappings for the Theme package architecture.",
       "status": "reviewed",
       "owner": null,
-      "last_reviewed": "2026-09-10",
+      "last_reviewed": "2026-09-14",
       "related": [],
       "topics": [
         "color-token-aliases",
