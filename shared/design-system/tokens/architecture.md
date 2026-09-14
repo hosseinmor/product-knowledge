@@ -145,14 +145,11 @@ where the private Button alias may exist in component implementation but Theme o
 
 ### Categorical Tag
 
-Categorical Tag is the approved **sparse Component Theme Extension**.
+Categorical Tag is the approved **Component Color-token exception**.
 
 ```text
-Tag contract
-→ owns tag/{color}/* names + meaning
-
-Theme package
-→ implements values for that contract
+Tag / Design System
+→ owns tag/{color}/* names + meaning + Light/Dark values
 
 Tag implementation
 → consumes tag/*
@@ -161,11 +158,9 @@ Product code
 → does not consume tag/*
 ```
 
-This keeps Theme aware only of a declared extension contract, not Tag anatomy or implementation details.
+Tag values are Product-independent and therefore do not belong to Theme packages. The current contract varies only by Appearance.
 
-In v1, Tag extension values may ship inside the same physical Theme package as core Color values. A separate Tag package/entry point is optional implementation optimization, not an architectural requirement.
-
-Do not promote Tag-specific needs into the global Semantic API solely to make Theme packaging easier. Do not introduce shared `categorical/*` tokens until categorization becomes a demonstrated cross-component contract.
+Do not promote Tag-specific needs into the global Semantic API merely to create a reusable palette. Do not introduce shared `categorical/*` tokens until categorization becomes a demonstrated cross-component contract.
 
 ## Current Figma model
 
@@ -176,9 +171,9 @@ Current editable Figma structure:
 | `01 Primitives` | `Value` | hidden authoring palette; runtime Primitives remain Theme-local |
 | `02 Product` | `JobVision / Cando` | hidden Product-aware authoring; currently `typography/font-family`; former Brand Color vars are hidden legacy |
 | `03 Semantic` | `JobVision Light / JobVision Dark / Cando Light / Cando Dark` | published shared Semantic contract with Theme × Appearance value contexts |
-| `04 Component Extensions` | same four contexts | hidden component-only Theme values; currently Tag |
+| `04 Component Tokens` | `Light / Dark` | hidden component-only values; currently Tag; Product-independent |
 
-Figma combines Theme and Appearance in mode names as an authoring convenience. This does not create combined public token identities or require the runtime package API to mirror Figma modes.
+Figma combines Theme and Appearance only where Theme variation actually exists, such as Semantic Color. Component Tokens use only Light/Dark when their values are shared across Products.
 
 Do not interpret Figma collection boundaries as public runtime package boundaries.
 
