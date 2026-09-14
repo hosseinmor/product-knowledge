@@ -155,9 +155,9 @@ Component
 
 Private Component tokens may alias Semantic tokens when they add useful component-owned meaning, but they do not become Theme responsibilities merely because they exist.
 
-Categorical Tag is the approved sparse Component Theme Extension. Tag owns the `tag/{color}/*` contract; each Theme implements its values. The extension remains component-only and is not Product-facing API.
+Categorical Tag is the approved Component Color-token exception. Tag owns the `tag/{color}/*` contract and those values are shared across Products; only Light/Dark Appearance affects them.
 
-In v1 these values may ship inside the same physical Theme package. Separate component-extension packages or entry points are optional future optimizations rather than required architecture.
+Tag Component Tokens are component-implementation API, not Product-facing API, and they are not supplied by Theme packages.
 
 ## Runtime ownership
 
@@ -185,18 +185,18 @@ The Figma Variables model was migrated in place on 2026-09-14, preserving existi
 01 Primitives            → Value
 02 Product               → JobVision | Cando
 03 Semantic              → JobVision Light | JobVision Dark | Cando Light | Cando Dark
-04 Component Extensions  → same four contexts
+04 Component Tokens      → Light | Dark
 ```
 
 Rules:
 
 - `01 Primitives` remains a hidden authoring palette while runtime Theme packages own their Primitive implementation.
 - `02 Product` is not a Color Theme layer; it retains Product-aware authoring concerns such as the current font-family variable.
-- old Brand Color aliases are hidden legacy variables; Semantic and Component Extension variables have no remaining dependency on them.
+- old Brand Color aliases are hidden legacy variables; Semantic variables have no remaining dependency on them.
 - `03 Semantic` keeps the stable shared token names while modes hold Theme × Appearance values.
-- `04 Component Extensions` is hidden from normal library consumption and currently owns the Tag extension values.
+- `04 Component Tokens` is hidden from normal library consumption, currently contains Tag Color tokens, and has only `Light | Dark` modes because its values are Product-independent.
 
-Combined Figma mode labels are an authoring representation only. Product/Theme/Appearance still do not enter public Semantic token names.
+Combined modes remain only where Theme variation is real. Product/Theme/Appearance still do not enter public Semantic token names.
 
 ## Deferred implementation contracts
 
