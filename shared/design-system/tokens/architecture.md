@@ -145,11 +145,27 @@ where the private Button alias may exist in component implementation but Theme o
 
 ### Categorical Tag
 
-Categorical Tag remains the one unresolved exception because some of its values are intentionally categorical rather than shared UI semantics and the Brand categorical variant varies by Theme.
+Categorical Tag is the approved **sparse Component Theme Extension**.
 
-Current `tag/{color}/*` contract and current Figma mappings remain valid during migration. The target Theme boundary for this contract will be decided separately before Figma collections are restructured.
+```text
+Tag contract
+→ owns tag/{color}/* names + meaning
 
-Do not promote Tag-specific needs into the global Semantic API solely to make Theme packaging easier.
+Theme package
+→ implements values for that contract
+
+Tag implementation
+→ consumes tag/*
+
+Product code
+→ does not consume tag/*
+```
+
+This keeps Theme aware only of a declared extension contract, not Tag anatomy or implementation details.
+
+In v1, Tag extension values may ship inside the same physical Theme package as core Color values. A separate Tag package/entry point is optional implementation optimization, not an architectural requirement.
+
+Do not promote Tag-specific needs into the global Semantic API solely to make Theme packaging easier. Do not introduce shared `categorical/*` tokens until categorization becomes a demonstrated cross-component contract.
 
 ## Current Figma transition model
 
@@ -157,12 +173,14 @@ Current editable Figma structure:
 
 | Collection | Current modes | Migration status |
 |---|---|---|
-| `01 Primitives` | `Value` | transitional; target values become Theme-local |
-| `02 Brand` | `JobVision / Cando` | transitional; not required as target runtime layer |
-| `03 Semantic` | `light / dark` | contract survives; values move into Theme implementations |
-| `04 Component` | `Light / Dark` | retained until Tag/component Theme boundary is finalized |
+| `01 Primitives` | `Value` | hidden authoring palette; runtime Primitives remain Theme-local |
+| `02 Product` | `JobVision / Cando` | Product-aware non-Color authoring such as current font family; old Brand Color aliases become hidden legacy |
+| `03 Semantic` | `JobVision Light / JobVision Dark / Cando Light / Cando Dark` | shared Semantic contract with Theme × Appearance value contexts |
+| `04 Component Extensions` | same four contexts | hidden component-only Theme values; currently Tag |
 
-Do not interpret transitional Figma collection boundaries as public runtime package boundaries.
+Figma combines Theme and Appearance in mode names as an authoring convenience. This does not create combined public token identities or require the runtime package API to mirror Figma modes.
+
+Do not interpret Figma collection boundaries as public runtime package boundaries.
 
 ## Non-Color Foundations
 
