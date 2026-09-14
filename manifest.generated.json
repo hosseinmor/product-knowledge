@@ -2050,13 +2050,14 @@
     {
       "id": "design-system.token.frontend-contract",
       "kind": "design-system-token",
-      "title": "Frontend Token Contract",
-      "summary": "Design-side contract for token distribution, consumption audiences, alias preservation, CSS namespace, and enforcement.",
+      "title": "Frontend Token and Theme Package Contract",
+      "summary": "Design-side contract for installable Theme packages, stable token APIs, consumption audiences, CSS namespace, and future Foundation extension.",
       "status": "draft",
       "owner": null,
-      "last_reviewed": "2026-09-10",
+      "last_reviewed": "2026-09-14",
       "related": [
-        "design-system.token.architecture"
+        "design-system.token.architecture",
+        "design-system.product-variation.theme-context"
       ],
       "topics": [
         "design-system-token",
