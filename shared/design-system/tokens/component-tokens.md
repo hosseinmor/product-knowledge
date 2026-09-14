@@ -7,7 +7,7 @@ summary: Defines when component-specific Color tokens are justified and document
 knowledge_state: canonical
 document_maturity: reviewed
 related: []
-last_reviewed: '2026-09-10'
+last_reviewed: '2026-09-14'
 ---
 
 # Component Tokens
@@ -62,7 +62,6 @@ Current canonical colors:
 
 ```text
 neutral
-brand
 blue
 teal
 green
@@ -75,47 +74,19 @@ purple
 
 This set is intentionally not a complete hue palette. Cyan and Warm Gray remain legacy-only.
 
-### Theme extension model
+### Product and Appearance model
 
-Tag is a **sparse Component Theme Extension**.
-
-Ownership is split intentionally:
+Tag categorical values are **shared across Products**. They are not Brand/Theme values.
 
 ```text
-Tag / Design System
-→ owns token names + meaning
-
-Theme package
-→ provides values for those Tag contracts
-
-Tag implementation
-→ consumes tag/*
-
-Product code
-→ must not consume tag/*
+04 Component Tokens
+├── Light
+└── Dark
 ```
 
-The Theme does not own Tag anatomy and must not invent Tag token names. It only implements the stable Tag contract declared by the component.
+The Tag contract does not include a `brand` color. Product identity is handled by shared Brand Semantic roles elsewhere in the Color system, not by categorical Tag variants.
 
-For v1, Tag extension values may ship inside the same physical Theme package as Semantic Color. A separate package or entry point is **not required** merely because the logical contract is component-specific.
-
-Conceptually:
-
-```text
-@theme-jobvision
-├── color primitives
-├── semantic color values
-└── component extensions
-    └── tag values
-
-@theme-cando
-├── color primitives
-├── semantic color values
-└── component extensions
-    └── tag values
-```
-
-Physical packaging may be split later for payload/build reasons without changing ownership or token identity.
+Tag Component Tokens belong to the Design System/component implementation rather than Theme packages.
 
 ### Consumption boundary
 
@@ -132,9 +103,9 @@ If CSS custom properties for Tag are emitted globally, physical CSS visibility d
 
 ### Resolution rules
 
-- `neutral` resolves from Theme values chosen for neutral categorization.
-- `brand` varies by Theme: JobVision resolves from its Brand hue; Cando resolves from its Brand hue.
-- other categorical hues resolve from the Theme's appropriate categorical/Primitive values;
+- `neutral` resolves from the shared neutral categorization treatment.
+- categorical hue mappings are shared across Products.
+- Light/Dark Appearance may resolve different Primitive steps for contrast and visual balance;
 - do not map categorical Green to Success, Yellow to Warning, Red to Error, or Purple to Magic merely because the hues match;
 - equivalent Tag roles across hues do not need identical numeric Primitive steps when contrast/appearance requires otherwise.
 
@@ -184,4 +155,4 @@ Runtime/CSS flattening is a separate implementation decision.
 - Is it reused enough to justify another layer?
 - Does it reduce real branching or duplication?
 - Is the name independent from an accidental visual value, except where hue itself is the approved categorical contract?
-- Is the mapping valid across supported Theme × Appearance contexts?
+- Is the mapping valid across supported Light/Dark Appearance contexts?
