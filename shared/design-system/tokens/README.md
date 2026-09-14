@@ -28,7 +28,7 @@ Shared DS contract
 Installed Theme package
   Theme-local Primitives
   Light/Dark Semantic values
-  approved sparse Component Extensions
+  private Component Tokens
           │
           ▼
 Product UI / DS Components
@@ -38,7 +38,7 @@ Product UI consumes Semantic Color by default. Theme-local Primitives are implem
 
 Brand remains Semantic meaning, not a required runtime alias layer.
 
-Categorical Tag is currently the only approved sparse Component Theme Extension. Its `tag/*` contract is component-only and not Product-facing API.
+Categorical Tag is currently the only approved Component Color-token exception. Its `tag/*` contract is shared across Products, varies only by Light/Dark Appearance, and is not Product-facing API.
 
 ## Current Figma model
 
@@ -46,10 +46,10 @@ Categorical Tag is currently the only approved sparse Component Theme Extension.
 01 Primitives            → Value
 02 Product               → JobVision | Cando
 03 Semantic              → JobVision Light | JobVision Dark | Cando Light | Cando Dark
-04 Component Extensions  → JobVision Light | JobVision Dark | Cando Light | Cando Dark
+04 Component Tokens      → Light | Dark
 ```
 
 - `01 Primitives` is hidden.
 - `02 Product` is hidden and currently carries `typography/font-family`; former Brand Color aliases are hidden legacy.
 - `03 Semantic` is the published shared Color contract.
-- `04 Component Extensions` is hidden and currently contains Tag extension values.
+- `04 Component Tokens` is hidden and currently contains Product-independent Tag Color tokens.
