@@ -2,280 +2,257 @@
 id: design-system.token.frontend-contract
 collection: design-system
 type: token
-title: Frontend Token Contract
-summary: Design-side contract for token distribution, consumption audiences, alias preservation, CSS namespace, and enforcement.
+title: Frontend Token and Theme Package Contract
+summary: Design-side contract for installable Theme packages, stable token APIs, consumption audiences, CSS namespace, and future Foundation extension.
 knowledge_state: unverified
 document_maturity: draft
 related:
   - design-system.token.architecture
-last_reviewed: '2026-09-10'
+  - design-system.product-variation.theme-context
+last_reviewed: '2026-09-14'
 ---
 
-# Frontend Token Contract
+# Frontend Token and Theme Package Contract
 
 ## Status
 
-This document records the current **Design System-side approved direction** for HOS-7. Frontend review is still required before the runtime implementation contract is considered final.
+This document reflects the revised architecture agreed with Frontend on 2026-09-14. Exact package names, build tooling, serialization, and the categorical Tag Theme boundary remain open.
 
 ## Purpose
 
-Define the boundary between Design Tokens and Product frontend code without turning raw values or implementation details into the public Design System API.
+Define how a Product consumes a stable Design System token API while concrete visual values are supplied by an installable Theme package.
 
-## Package scope
-
-Use one shared **logical Design System token distribution** across Products and Appearances rather than Product- or Appearance-specific token forks.
-
-The distribution may generate multiple artifacts by Foundation, audience, or target format, plus an aggregate entry point. Exact npm package boundaries, file names, module formats, and import paths remain Frontend implementation decisions.
-
-The package contract is Foundation-agnostic. Do not impose the Color graph on Typography, Spacing, Radius, Elevation, Motion, or Responsive Layout.
-
-Color currently resolves through its own graph:
+## Core architecture
 
 ```text
-Primitive → Semantic
-Primitive → Brand → Semantic
-Primitive / Semantic / Brand → Component
+Shared Design System contract
+→ stable token names + meaning
+
+Product/application
+→ selects and imports a compatible Theme package
+
+Theme package
+→ provides concrete values
+→ includes Light/Dark Appearance mappings
+
+Product UI / DS Components
+→ consume the stable shared contract
 ```
 
-Other Foundations define their own scales, roles, recipes, or generated maps.
+Product identity and Theme identity are related but not the same architectural concept.
 
-### Artifact forms
-
-A Design System contract does not imply that every token becomes a public CSS custom property.
-
-Depending on the owning Foundation, generated artifacts may include:
-
-- runtime CSS custom properties;
-- framework-agnostic value maps;
-- responsive breakpoint/container maps;
-- semantic recipe metadata;
-- developer registries and type information;
-- framework adapters generated from those canonical artifacts.
-
-For example, Color benefits from runtime custom properties and alias resolution, while breakpoint data is primarily a shared build-time/configuration source and Typography may resolve through a recipe adapter rather than one public custom property per style.
-
-The required invariant is one canonical Design System source per governed decision, not one physical output format for every Foundation.
-
-## Preserve alias meaning in the canonical source
-
-The canonical token source must preserve intentional aliases and dependency relationships. Generated runtime output does **not** need to reproduce every internal alias hop literally.
-
-Canonical source, conceptually:
+Current intended mapping:
 
 ```text
-blue/700
-→ brand/default
-→ surface/brand
+JobVision application → JobVision Theme package
+Cando application     → Cando Theme package
 ```
 
-A runtime implementation may preserve those hops:
+A future Product may reuse an existing compatible Theme or intentionally select another Theme without changing the shared Semantic vocabulary.
 
-```css
---jvds-blue-700: #0053ff;
---jvds-brand-default: var(--jvds-blue-700);
---jvds-surface-brand: var(--jvds-brand-default);
-```
+## Theme package contract
 
-or flatten an internal hop when the generated Theme behavior remains equivalent.
+Each Theme is an independently installable package.
 
-Runtime optimization is acceptable only when it preserves these invariants:
+### v1 required scope
 
-- Product-facing token names and meanings remain stable;
-- Product × Appearance resolution remains correct;
-- Product code does not need to know which internal aliases were flattened;
-- the canonical source still records the real alias/dependency graph;
-- generation remains deterministic and traceable back to the canonical token identity.
-
-Whether internal aliases remain as CSS `var()` references or are resolved during generation is a Frontend implementation decision.
-
-## Consumption audiences
-
-Runtime presence, generated-artifact presence, and Product API visibility are separate concerns.
+Theme packages provide Color:
 
 ```text
-Exists in generated output ≠ Product-facing API
+Theme package
+├── Theme-local Color Primitives
+└── shared Semantic Color API values
+    ├── Light
+    └── Dark
 ```
 
-Every governed token/recipe/artifact must be classifiable by its intended consumption audience. Exact metadata field names are Frontend-owned, but generation/tooling must be able to distinguish at least these three contracts deterministically.
+Both Light and Dark live in the same Theme package. Do not model Appearance as separate packages such as `theme-jobvision-light` and `theme-jobvision-dark`.
 
-### Product-facing Design System API
+### Future Foundation extension
 
-Product code may directly consume contracts explicitly exposed by their owning Foundation.
-
-Current examples include:
-
-- Semantic Color roles;
-- the shared Spacing scale through approved Product tooling;
-- public Radius roles;
-- approved Typography recipes;
-- semantic Elevation recipes;
-- responsive breakpoint/container values through generated framework/build adapters.
-
-The owning Foundation determines what is public. Publicness must not be inferred from whether a value happens to exist in Figma or CSS.
-
-### Component implementation API
-
-Approved Component tokens are implementation contracts for their owning Design System component.
-
-Example:
+The package model must be capable of providing additional Foundation values later when a real Theme-level difference exists:
 
 ```text
-tag/blue/surface
-tag/blue/fg
-tag/blue/line
+Theme
+├── color        required in v1
+├── spacing      future if needed
+├── radius       future if needed
+├── typography   future if needed
+├── elevation    future if needed
+└── motion       future if needed
 ```
 
-They may exist in generated output and may be consumed by the Tag implementation, but they are **not** general Product-facing tokens by default.
+Do not duplicate an invariant Foundation into every Theme package merely because the architecture supports it. Shared Foundations remain outside Theme until Theme-level variation is justified.
 
-Product code should consume the Design System component rather than reconstructing it from Component-token recipes. If a Component token repeatedly represents a cross-component Product need, review promotion into the appropriate shared Semantic/Foundation contract.
+## Shared contract versus Theme-owned values
 
-### Internal resolution dependencies
+The Design System owns:
 
-Primitive and Brand Color tokens are current examples of internal resolution dependencies.
+- token names;
+- token meaning and usage;
+- Product-facing API boundaries;
+- component contracts;
+- accessibility and compatibility requirements.
 
-Internal means they may be required in generated/runtime output for alias resolution but are not normal Product or component-authoring APIs.
+The Theme owns:
+
+- Primitive Color inventory and values;
+- Light/Dark Semantic Color values;
+- future Theme-specific Foundation values;
+- approved internal Theme implementation values required by the final contract.
+
+Therefore:
 
 ```text
-blue/700       → internal
-brand/default  → internal
-surface/default → product
-tag/blue/surface → component
+surface/brand
+fg/primary
+line/default
+...
 ```
 
-CSS cannot make an already-loaded custom property physically private. API boundaries are therefore enforced through source classification, generated developer surfaces, documentation, and lint/CI rather than through assumed runtime invisibility.
+remain stable across Themes even when their concrete values differ.
 
-## Primitive consumption policy
+## Primitive policy
 
-Direct Primitive use is not a Product-code escape hatch.
+Primitive Color is Theme-local internal implementation detail.
 
-When a public token is insufficient:
-
-```text
-recurring semantic need
-→ add or refine a Semantic token
-
-stable component-owned need
-→ add an approved Component token
-
-truly temporary exceptional case
-→ explicitly documented exception with a migration path
-```
-
-Do not normalize raw Primitive usage by allowing unrestricted lint-disable comments.
-
-## Enforcement model
-
-Do not rely on CSS visibility to enforce API boundaries. Enforce them from the token source and developer tooling.
-
-The canonical source should carry machine-readable consumption classification or an equivalent capability.
-
-The exact metadata field/schema is an implementation decision; the required capability is that generation/tooling can distinguish Product-facing, Component-implementation, and Internal contracts deterministically.
-
-From the same source, tooling should be able to generate or validate:
-
-```text
-runtime CSS
-→ all dependencies required for resolution
-
-Product-facing registry / developer surface
-→ Product-facing contracts only
-
-Component implementation registry
-→ owning-component contracts only, when such a registry is useful
-
-framework adapters such as Tailwind
-→ only the Product-facing subset approved by the owning Foundation
-
-lint / CI allowlist
-→ Product-facing API for Product code
-```
-
-### Lint/CI guardrail
-
-Product repositories should reject direct internal token use where practical.
+Product code and ordinary component code must not depend on Theme-local Primitive names or values.
 
 Conceptually:
 
 ```text
---jvds-surface-default      allowed
---jvds-fg-primary           allowed
---jvds-tag-blue-surface     blocked in ordinary Product code
-
---jvds-neutral-100          blocked
---jvds-blue-700             blocked
---jvds-brand-default        blocked
+JobVision Theme local blue → surface/brand
+Cando Theme local yellow   → surface/brand
 ```
 
-Design System build code may consume Internal dependencies as required by an owning Foundation. Design System component implementation may additionally consume the Component-implementation contracts owned by that component.
+A shared global `Brand` alias layer is not required.
+
+## Appearance
+
+Appearance is runtime state inside the installed Theme:
+
+```text
+light | dark
+```
+
+If a preference supports `system`, it resolves to Light or Dark before final token resolution.
+
+Appearance names do not enter public Semantic token names.
+
+## Consumption audiences
+
+Generated/runtime presence and Product-facing API visibility are separate concerns.
+
+### Product-facing Design System API
+
+Product code consumes contracts explicitly exposed by their owning Foundation.
+
+For Color, this is the shared Semantic API such as `surface/*`, `fg/*`, `line/*`, `link/*`, and approved utility roles.
+
+For non-Color Foundations, current shared contracts such as Spacing, Radius, Typography, Elevation, and Responsive Layout remain Product-facing according to their own Foundation rules.
+
+### Component implementation API
+
+Ordinary component-owned tokens are private implementation contracts and should normally alias shared Semantic roles.
+
+Example:
+
+```text
+button/primary/surface
+→ surface/accent-emphasis
+```
+
+The Theme package should not need to know about Button anatomy to provide this value.
+
+Component-owned tokens do not generate general Product utilities by default.
+
+### Theme-internal dependencies
+
+Theme-local Primitives are internal. They may exist in generated output for resolution but are not Product-facing API.
+
+Any future Theme-internal slot must have an explicit DS contract and must not become a general Product escape hatch.
+
+## Categorical Tag — open boundary
+
+Tag remains the exceptional unresolved case.
+
+Current constraints are locked:
+
+- Tag categorical hues communicate categorization/grouping rather than Support semantics;
+- ordinary Product code must not consume Tag tokens as a general categorical palette;
+- the Theme package should not be coupled to Tag anatomy if avoidable;
+- the global Semantic API should not be expanded solely to solve a Tag-specific value need.
+
+The exact target mechanism for Theme-varying categorical values is still open. Current Figma `tag/{color}/*` mappings remain the migration baseline until this is decided.
 
 ## CSS custom-property namespace
 
-Keep generated CSS custom-property names close to the canonical token vocabulary, but reserve one explicit Design System namespace.
+All generated Design System CSS custom properties use the reserved `--jvds-*` namespace.
 
-Canonical Design-side contract:
-
-```text
-surface/default     → --jvds-surface-default
-fg/primary          → --jvds-fg-primary
-line/accent         → --jvds-line-accent
-brand/brand-default → --jvds-brand-default
-palette/blue/700    → --jvds-blue-700
-```
-
-Rules:
-
-- all CSS custom properties generated by the Design System use the `--jvds-` namespace;
-- `jvds` identifies Design System ownership, not Product identity;
-- Product code must not define new Product-owned custom properties inside the reserved `--jvds-*` namespace;
-- canonical token names and Figma variable names do not gain the `jvds` segment;
-- do not add a redundant `color-` segment;
-- Product, Appearance, and API visibility do not enter the custom-property name.
+Examples:
 
 ```text
-Product     → jobvision / cando
-Appearance  → light / dark
-API status  → public / internal
+surface/default → --jvds-surface-default
+fg/primary      → --jvds-fg-primary
+line/accent     → --jvds-line-accent
 ```
 
-Those are context or policy, not token meaning.
+Theme, Product, Appearance, and API audience do not enter public Semantic variable names.
 
-The namespace solves global CSS collision and ownership concerns without coupling the public token vocabulary to a Product or Theme context. Exact selector/scoping mechanics and generated file organization remain Frontend-owned.
+Theme-local Primitive variables, if emitted as CSS custom properties, remain internal even though CSS cannot make them physically private.
 
-This decision applies specifically to CSS custom properties. Exact naming transforms for other generated formats may follow their platform conventions while preserving the same canonical token identity.
+The exact serialization of Theme-local Primitive names is Frontend-owned as long as Product code is not expected to consume them.
 
-## Product and Appearance
+## Alias and generation rules
 
-Do not publish separate bundles such as `tokens-jobvision`, `tokens-cando`, `tokens-light`, or `tokens-dark` as the primary model merely to represent Theme combinations.
+The canonical source must preserve intentional dependency/alias meaning. Generated runtime output may flatten internal Theme-local aliases when behavior remains equivalent.
 
-The intended model is:
+Runtime optimization is acceptable only when:
+
+- Product-facing token identity stays stable;
+- Light/Dark values resolve correctly;
+- Product code does not depend on internal alias structure;
+- generation remains deterministic;
+- the canonical Theme source remains traceable.
+
+## Enforcement
+
+Do not rely on CSS visibility to enforce internal boundaries.
+
+Tooling should be able to distinguish at least:
 
 ```text
-one token system
-+
-independent Product context
-+
-independent Appearance context
-→ resolved public tokens
+Product-facing DS contract
+Component implementation contract
+Theme-internal dependency
 ```
 
-Exact selector, attribute, class, and initialization mechanics remain outside this document until the related frontend Theme contracts are reviewed.
+From that classification, tooling may generate registries, framework adapters, lint allowlists, and documentation surfaces.
 
-## Deferred to follow-up implementation work
+## Tailwind boundary
 
-- Exact package name and physical file layout.
-- Exact CSS selector/attribute/class mechanism for Product and Appearance scoping.
-- Exact token metadata schema used to encode consumption audience.
-- Exact lint implementation and repository integration.
-- Tailwind utility naming and preset generation.
-- Exact output format used by each non-Color Foundation where its runtime adapter is still under review.
-- SSR Appearance persistence, precedence, and no-flash initialization.
+Tailwind consumes the stable Design System-facing contract, not Theme-local Primitives.
 
-## Frontend review questions
+Changing from JobVision Theme to another compatible Theme must not require changing ordinary semantic Tailwind utility names.
 
-Frontend review should explicitly confirm or revise:
+Exact Tailwind configuration remains HOS-8.
 
-1. Can one shared logical distribution generate the required Foundation artifacts without unacceptable payload or loading complexity?
-2. Which internal aliases should remain explicit at runtime versus be safely flattened during generation?
-3. Can Product / Component / Internal consumption audiences be enforced through generated registries plus lint/CI?
-4. Is the reserved `--jvds-*` CSS namespace compatible with current legacy applications and build tooling?
-5. What exact CSS scoping mechanism should resolve independent Product and Appearance dimensions?
+## Confirmed with Frontend
+
+- each Theme is imported as a package by the project that needs it;
+- Primitive Color values are Theme-owned;
+- Semantic Color token names remain fixed while their values are Theme-owned;
+- one Theme package contains both Light and Dark mappings;
+- the architecture is ready to include Foundations such as Spacing/Radius later;
+- v1 Theme scope is expected to be Color.
+
+## Still open / implementation-owned
+
+- exact package names and repository layout;
+- whether shared contract metadata/types live in a separate physical package;
+- exact Theme source format and build pipeline;
+- exact CSS selector/attribute mechanism for Light/Dark;
+- exact Primitive serialization;
+- exact categorical Tag Theme boundary;
+- exact lint/CI implementation;
+- release/version compatibility policy between DS components and Theme packages.
