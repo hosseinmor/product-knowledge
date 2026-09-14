@@ -3,7 +3,7 @@ id: design-system.foundation.color
 collection: design-system
 type: foundation
 title: Color
-summary: Operational entry point for JV Color semantics, token architecture, Product × Appearance behavior, accessibility, and source routing.
+summary: Operational entry point for JV Color semantics, installable Theme architecture, Appearance behavior, accessibility, and source routing.
 knowledge_state: canonical
 document_maturity: reviewed
 related:
@@ -13,7 +13,7 @@ related:
   - design-system.token.product-overrides
   - design-system.accessibility.color-and-contrast
   - design-system.reference.source-of-truth
-last_reviewed: '2026-09-10'
+last_reviewed: '2026-09-14'
 ---
 
 # Color
@@ -51,7 +51,7 @@ Theme-local Primitive → Semantic → Product UI / Component
 
 Product UI must not bind directly to Theme-local Primitives.
 
-The categorical Tag case remains the one open component-token architecture question. Its current Figma contract remains valid during migration, but its target Theme boundary will be finalized separately.
+Categorical Tag is the current approved sparse Component Theme Extension. Tag owns the `tag/{color}/*` contract, each Theme supplies its values, and Product code must not consume those tokens directly.
 
 ## Theme and Appearance
 
@@ -76,16 +76,16 @@ Appearance may change at runtime without switching Theme package.
 
 Semantic token names remain stable across Themes and Appearances. Do not encode Product, Theme, Light, or Dark into public Semantic names.
 
-The current Figma model remains transitional:
+The current Figma Variables model is:
 
 ```text
-01 Primitives → Value
-02 Brand      → JobVision | Cando
-03 Semantic   → light | dark
-04 Component  → Light | Dark
+01 Primitives            → Value
+02 Product               → JobVision | Cando
+03 Semantic              → JobVision Light | JobVision Dark | Cando Light | Cando Dark
+04 Component Extensions  → same four contexts
 ```
 
-This structure is still the editable design source but should not be treated as the target runtime package graph. Figma migration is deferred until the Tag/component Theme boundary is finalized.
+`01 Primitives`, `02 Product`, and `04 Component Extensions` are hidden from normal library publishing. `03 Semantic` is the published shared Color API. The four-mode Figma representation is an authoring convenience and does not require the runtime package model to expose combined Theme/Appearance token names.
 
 ## Semantic boundaries
 
