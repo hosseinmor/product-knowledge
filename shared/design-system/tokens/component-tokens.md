@@ -23,14 +23,10 @@ Other foundations may define component-owned geometry or motion tokens under the
 Most components consume Semantic Color directly:
 
 ```text
-Primitive → Semantic → Product UI / Component
+Theme-local Primitive → Semantic → Product UI / Component
 ```
 
-Brand-dependent Semantic roles may use:
-
-```text
-Primitive → Brand → Semantic → Product UI / Component
-```
+A private Component token may alias a Semantic role when that indirection adds useful component-owned meaning, but Theme packages should not need to know about ordinary component anatomy.
 
 Do not insert a Component-token layer merely to rename an existing Semantic token.
 
@@ -79,13 +75,18 @@ purple
 
 This set is intentionally not a complete hue palette. Add a categorical hue only when a real Tag use case requires it. Cyan and Warm Gray are retained only as hidden legacy variables; they are not part of the canonical Tag API.
 
-### Resolution rules
+### Current resolution and migration status
 
-- `neutral` maps directly to Neutral Primitives because it is a Tag color variant, not the shared Semantic neutral-interaction family.
-- `brand` consumes the Product-aware Brand aliases because its hue changes between JobVision and Cando.
-- Other categorical hues map directly to their Primitive ramps.
-- Do not map categorical Green to Success, Yellow to Warning, Red to Error, or Purple to Magic merely because the hues match.
-- Other components must not consume Tag tokens as a general categorical palette.
+The current Figma implementation resolves Tag categorical values from the existing shared Primitive/Brand structure. That implementation remains valid until the Theme migration is completed.
+
+The **target Theme boundary for categorical Tag is intentionally open**. We still need to decide how a Theme supplies Product/Theme-varying categorical values without making the Theme package depend on Tag anatomy and without inflating the global Semantic API.
+
+Locked rules remain:
+
+- categorical hues communicate grouping/categorization, not Support semantics;
+- do not map categorical Green to Success, Yellow to Warning, Red to Error, or Purple to Magic merely because the hues match;
+- other components must not consume Tag tokens as a general categorical palette;
+- ordinary components such as Button should continue resolving from Semantic roles rather than require Theme-specific component slots.
 
 The current four Tag roles are retained for every canonical color. `surface-hover` is consumed only when the rendered Tag is interactive; its existence does not make every Tag interactive. `line` is part of the Tag visual contract but may be decorative where the surface itself establishes the boundary.
 
@@ -134,4 +135,4 @@ Runtime/CSS flattening is a separate implementation decision.
 - Is it reused enough to justify another layer?
 - Does it reduce real branching or duplication?
 - Is the name independent from an accidental visual value, except where hue itself is the approved categorical contract?
-- Is the mapping valid across supported Product × Appearance contexts?
+- Is the mapping valid across supported Theme × Appearance contexts?
