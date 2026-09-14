@@ -214,7 +214,7 @@ Canonical semantic meaning and current Figma variable names are:
 | Skeleton element | `utility/skeleton-element` | `neutral/300` | `neutral/700` |
 | Skeleton shimmer | `utility/skeleton-shimmer` | `neutral/100` | `neutral/600` |
 
-## 04 Component — Tag
+## 04 Component Extensions — Tag
 
 Canonical contract:
 
@@ -238,7 +238,7 @@ Cyan and Warm Gray are hidden legacy variants only.
 | Color | Surface Light | Surface Dark | Hover Light | Hover Dark | FG Light | FG Dark | Line Light | Line Dark |
 |---|---|---|---|---|---|---|---|---|
 | Neutral | `neutral/200` | `neutral/900` | `neutral/300` | `neutral/800` | `neutral/700` | `neutral/200` | `neutral/400` | `neutral/600` |
-| Brand | `brand/brand-muted` | `brand/brand-muted` | `brand/brand-muted-hover` | `brand/brand-muted-hover` | `brand/brand-fg` | `brand/brand-fg` | `brand/brand-line` | `brand/brand-line` |
+| Brand | See Theme table below | See Theme table below | See Theme table below | See Theme table below | See Theme table below | See Theme table below | See Theme table below | See Theme table below |
 | Blue | `blue/100` | `blue/950` | `blue/200` | `blue/900` | `blue/800` | `blue/300` | `blue/500` | `blue/600` |
 | Teal | `teal/100` | `teal/950` | `teal/200` | `teal/900` | `teal/700` | `teal/400` | `teal/500` | `teal/600` |
 | Green | `green/100` | `green/950` | `green/200` | `green/900` | `green/800` | `green/400` | `green/600` | `green/600` |
