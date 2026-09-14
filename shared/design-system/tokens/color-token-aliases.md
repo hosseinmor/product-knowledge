@@ -3,63 +3,71 @@ id: design-system.token.color-token-aliases
 collection: design-system
 type: token
 title: Color Token Alias Mappings
-summary: Validated v4 Color mappings synchronized with the current Figma Variables model.
+summary: Validated current Figma Color mappings for the Theme package architecture.
 knowledge_state: canonical
 document_maturity: reviewed
 related: []
-last_reviewed: '2026-09-10'
+last_reviewed: '2026-09-14'
 ---
 
 # Color Token Alias Mappings
 
 ## Purpose
 
-This document records the current validated Color mappings above Primitive. Figma owns the current editable aliases and values; this file is the documented mapping contract and review snapshot.
+This document records the current validated Figma Color mappings after the Theme architecture migration. Figma owns the editable aliases and values; this file is the documented review snapshot.
 
 If this document and Figma diverge, treat the mismatch as a maintenance gap and inspect Figma rather than guessing.
 
 Canonical documentation uses names such as `surface/default`; Figma keeps picker-friendly names such as `surface/surface-default`. Alias targets below reproduce the current Figma Primitive spelling `pallete/*` intentionally.
 
-## Resolution rules
+## Current Figma resolution
+
+The active Color resolution is now:
 
 ```text
-Default
-Primitive → Semantic → Product UI
+01 Primitives
+→ 03 Semantic
+→ Product UI / Components
 
-Optional Product identity
-Primitive → Brand → Semantic → Product UI
-
-Exceptional component-owned contract
-Primitive / Semantic / Brand → Component → Product UI
+01 Primitives
+→ 04 Component Tokens
+→ owning DS component
 ```
 
-Product and Appearance remain independent. Current Figma collections:
+`02 Product` is **not** an active Color-resolution layer. Its former Brand Color variables remain hidden under `_legacy/brand/*` for migration continuity only; current Semantic values do not depend on them.
+
+The runtime architecture remains:
 
 ```text
-01 Primitives → Value
-02 Brand      → JobVision | Cando
-03 Semantic   → light | dark
-04 Component  → Light | Dark
+Theme-local Primitive → shared Semantic role → Product UI / Component
 ```
 
-Most values above Primitive are aliases. Transparent Semantic interaction colors and overlay intentionally store resolved RGBA directly.
+Component Tokens such as Tag are owned by the Design System/component implementation and are not Theme-provided when their values are shared across Products.
 
-## 02 Brand
+Current Figma collections:
+
+```text
+01 Primitives            → Value
+02 Product               → JobVision | Cando
+03 Semantic              → JobVision Light | JobVision Dark | Cando Light | Cando Dark
+04 Component Tokens      → Light | Dark
+```
+
+Figma mode labels represent authoring contexts. Semantic Color uses Theme × Appearance modes; Component Tokens use only Light/Dark because Tag values are shared across Products.
+
+`01 Primitives` is a hidden authoring palette and does not imply one shared runtime Primitive package. `03 Semantic` is the published shared Color API. `04 Component Tokens` is hidden and currently contains only Product-independent Tag Color tokens with Light/Dark modes.
+
+Most non-Brand Semantic values currently resolve identically in JobVision and Cando, so their tables show Light/Dark once and apply to both Themes. Tag Component Tokens are explicitly Product-independent. Transparent Semantic interaction colors and overlay intentionally store resolved RGBA directly.
+
+## 02 Product
+
+Active Product-aware authoring:
 
 | Role | JobVision | Cando |
 |---|---|---|
-| `brand-default` | `pallete/blue/700` | `pallete/yellow/500` |
-| `brand-hover` | `pallete/blue/800` | `pallete/yellow/600` |
-| `brand-active` | `pallete/blue/900` | `pallete/yellow/700` |
-| `on-brand` | `pallete/bw/white` | `pallete/neutral/900` |
-| `brand-muted` | `pallete/blue/100` | `pallete/yellow/100` |
-| `brand-muted-hover` | `pallete/blue/200` | `pallete/yellow/200` |
-| `brand-fg` | `pallete/blue/800` | `pallete/yellow/800` |
-| `brand-line` | `pallete/blue/500` | `pallete/yellow/700` |
+| `typography/font-family` | `Vazirmatn` | `IRANYekanX` |
 
-The first four roles feed shared Brand semantics. The muted/fg/line roles exist to resolve the Product-aware Brand Tag variant and are not general Semantic Color roles.
-
-Brand is currently Appearance-agnostic. Light and Dark Semantic Brand roles consume the same Product-specific Brand aliases.
+Former Brand Color variables are retained under `_legacy/brand/*` only for migration continuity. They are hidden and have no current Semantic dependencies.
 
 ## 03 Semantic
 
@@ -106,14 +114,16 @@ These are direct Semantic COLOR values, not aliases to a published alpha Primiti
 | `surface/selected` | `neutral/200` | `neutral/800` |
 | `surface/selected-hover` | `neutral/300` | `neutral/700` |
 
-### Brand
+### Brand — Theme-specific
 
-| Role | Light | Dark |
-|---|---|---|
-| `surface/brand` | `brand/brand-default` | `brand/brand-default` |
-| `surface/brand-hover` | `brand/brand-hover` | `brand/brand-hover` |
-| `surface/brand-active` | `brand/brand-active` | `brand/brand-active` |
-| `fg/on-brand` | `brand/on-brand` | `brand/on-brand` |
+| Role | JobVision Light | JobVision Dark | Cando Light | Cando Dark |
+|---|---|---|---|---|
+| `surface/brand` | `blue/700` | `blue/700` | `yellow/500` | `yellow/500` |
+| `surface/brand-hover` | `blue/800` | `blue/800` | `yellow/600` | `yellow/600` |
+| `surface/brand-active` | `blue/900` | `blue/900` | `yellow/700` | `yellow/700` |
+| `fg/on-brand` | `bw/white` | `bw/white` | `neutral/900` | `neutral/900` |
+
+These roles alias the Theme-appropriate Primitives directly; no active Brand Color layer sits between Primitive and Semantic.
 
 ### Accent
 
@@ -214,7 +224,7 @@ Canonical semantic meaning and current Figma variable names are:
 | Skeleton element | `utility/skeleton-element` | `neutral/300` | `neutral/700` |
 | Skeleton shimmer | `utility/skeleton-shimmer` | `neutral/100` | `neutral/600` |
 
-## 04 Component — Tag
+## 04 Component Tokens — Tag
 
 Canonical contract:
 
@@ -228,7 +238,7 @@ tag/{color}/line
 Current canonical colors:
 
 ```text
-neutral | brand | blue | teal | green | yellow | orange | red | magenta | purple
+neutral | blue | teal | green | yellow | orange | red | magenta | purple
 ```
 
 Cyan and Warm Gray are hidden legacy variants only.
@@ -238,7 +248,6 @@ Cyan and Warm Gray are hidden legacy variants only.
 | Color | Surface Light | Surface Dark | Hover Light | Hover Dark | FG Light | FG Dark | Line Light | Line Dark |
 |---|---|---|---|---|---|---|---|---|
 | Neutral | `neutral/200` | `neutral/900` | `neutral/300` | `neutral/800` | `neutral/700` | `neutral/200` | `neutral/400` | `neutral/600` |
-| Brand | `brand/brand-muted` | `brand/brand-muted` | `brand/brand-muted-hover` | `brand/brand-muted-hover` | `brand/brand-fg` | `brand/brand-fg` | `brand/brand-line` | `brand/brand-line` |
 | Blue | `blue/100` | `blue/950` | `blue/200` | `blue/900` | `blue/800` | `blue/300` | `blue/500` | `blue/600` |
 | Teal | `teal/100` | `teal/950` | `teal/200` | `teal/900` | `teal/700` | `teal/400` | `teal/500` | `teal/600` |
 | Green | `green/100` | `green/950` | `green/200` | `green/900` | `green/800` | `green/400` | `green/600` | `green/600` |
@@ -250,13 +259,14 @@ Cyan and Warm Gray are hidden legacy variants only.
 
 Categorical Tag mappings are chosen hue-by-hue for appearance and contrast; equivalent roles do not need matching numeric steps.
 
-## Deferred decisions
+## Remaining implementation decisions
 
-The current Color alias graph is validated. Remaining decisions are implementation or future-use concerns rather than unresolved Color values:
+The Figma Color architecture and current alias values are synchronized.
 
-- whether Brand eventually needs Appearance-aware aliases after real dark-theme UI validation;
-- runtime Theme composition and initialization;
-- CSS variable/package naming and scoping;
-- Tailwind mapping;
-- destructive removal of hidden legacy variables after migration consumers are known;
-- future categorical hues only when real Tag use cases require them.
+Remaining concerns are downstream implementation or future evolution:
+
+- runtime Theme package serialization and build pipeline;
+- CSS representation of Theme-local Primitives;
+- removal of hidden legacy variables only after migration consumers are known;
+- future categorical hues only when real Tag use cases require them;
+- promotion to a shared categorical contract only if repeated cross-component categorization needs emerge.
