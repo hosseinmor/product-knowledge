@@ -7,7 +7,7 @@ summary: Defines the Design System boundary for Tailwind consumption across Colo
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-09-12
+last_reviewed: 2026-09-14
 related:
   - design-system.token.architecture
   - design-system.token.semantic-tokens
@@ -81,9 +81,9 @@ Product code should consume the existing Design System component rather than rec
 
 If a Component token repeatedly represents a cross-component Product need, evaluate promotion into the shared Semantic/Foundation contract instead of exposing the Component token directly.
 
-Categorical Tag is the approved sparse Component Theme Extension. Its `tag/{color}/*` contract remains component-only and must not generate Product-facing Tailwind utilities.
+Categorical Tag is the approved Component Color-token exception. Its `tag/{color}/*` values are shared across Products, vary only by Light/Dark Appearance, and must not generate Product-facing Tailwind utilities.
 
-The installed Theme may provide the Tag extension values, but Product code should consume the Tag component rather than reconstructing categorical Tag styling from utilities.
+Tag Component Tokens are not Theme package values. Product code should consume the Tag component rather than reconstructing categorical Tag styling from utilities.
 
 ## Spacing
 
