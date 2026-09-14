@@ -141,7 +141,7 @@ Cando Theme
 
 A separate global `Brand` alias layer is therefore not required by the runtime contract.
 
-The current Figma `02 Brand` collection remains a transitional design implementation until the Figma Theme model is migrated. Do not infer the target runtime graph from that temporary collection structure.
+Figma no longer uses a live Brand Color layer. The former `02 Brand` collection is now `02 Product`; Product-aware typography remains there, while former Brand Color aliases are hidden legacy variables only. Semantic and Tag contracts no longer depend on those legacy aliases.
 
 ## Components
 
@@ -177,9 +177,9 @@ Design System components
 → do not branch on Product identity for normal styling
 ```
 
-## Figma target model
+## Current Figma model
 
-Figma represents the final contract with:
+The Figma Variables model was migrated in place on 2026-09-14, preserving existing variable IDs and bindings:
 
 ```text
 01 Primitives            → Value
@@ -192,7 +192,7 @@ Rules:
 
 - `01 Primitives` remains a hidden authoring palette while runtime Theme packages own their Primitive implementation.
 - `02 Product` is not a Color Theme layer; it retains Product-aware authoring concerns such as the current font-family variable.
-- old `02 Brand` Color aliases become hidden legacy after Semantic/Tag mappings stop depending on them.
+- old Brand Color aliases are hidden legacy variables; Semantic and Component Extension variables have no remaining dependency on them.
 - `03 Semantic` keeps the stable shared token names while modes hold Theme × Appearance values.
 - `04 Component Extensions` is hidden from normal library consumption and currently owns the Tag extension values.
 
