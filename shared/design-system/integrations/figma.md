@@ -7,7 +7,7 @@ summary: Operational reference for the current JV Design System Figma file, its 
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: '2026-09-13'
+last_reviewed: '2026-09-14'
 related:
   - design-system.reference.source-of-truth
   - design-system.reference.component-mapping
@@ -31,20 +31,31 @@ Use the live file for exact visual facts instead of copying those facts into Mar
 
 ## Current Foundation collections
 
-Verified from the live file on 2026-09-13:
+Verified from the live file after the Theme migration on 2026-09-14:
 
 | Collection | Modes | Current role |
 |---|---|---|
-| `01 Primitives` | `Value` | Primitive Color values |
-| `02 Brand` | `JobVision / Cando` | Product-aware Brand identity inputs |
-| `03 Semantic` | `light / dark` | Semantic Color resolution |
-| `04 Component` | `Light / Dark` | approved component-owned Color contracts |
+| `01 Primitives` | `Value` | hidden Color authoring palette; runtime Primitives remain Theme-local |
+| `02 Product` | `JobVision / Cando` | hidden Product-aware authoring; currently `typography/font-family`; former Brand Color variables are hidden legacy |
+| `03 Semantic` | `JobVision Light / JobVision Dark / Cando Light / Cando Dark` | published shared Semantic Color contract with Theme × Appearance values |
+| `04 Component Extensions` | same four contexts | hidden component-only Theme extensions; currently categorical Tag |
 | `Spacing` | `Mode 1` | shared spacing values |
 | `Radius` | `Mode 1` | shared radius roles/values |
 | `Typography breakpoint` | `LG / SM` | design-time Fluid Heading resolution |
 | `Responsive layout` | `Value` | breakpoint/container/padding foundation values |
 
 Exact values and bindings remain live Figma facts. Knowledge documents explain meaning and usage.
+
+### Theme migration validation
+
+The migration preserved the existing Semantic and Tag variable IDs/bindings while changing collection modes and aliases.
+
+Verified outcomes:
+- Semantic Brand roles now alias Theme-appropriate Primitives directly.
+- Tag Brand extension values resolve directly per Theme.
+- no Semantic or Component Extension variable still depends on former Brand Color aliases;
+- `02 Product` retains the existing Product font-family binding;
+- `04 Component Extensions` is hidden from normal library publishing.
 
 ## Canonical Foundation pages
 
