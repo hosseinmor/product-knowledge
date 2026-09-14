@@ -7,14 +7,14 @@ summary: Validated current Figma Color mappings for the Theme package architectu
 knowledge_state: canonical
 document_maturity: reviewed
 related: []
-last_reviewed: '2026-09-10'
+last_reviewed: '2026-09-14'
 ---
 
 # Color Token Alias Mappings
 
 ## Purpose
 
-This document records the current validated **Figma** Color mappings during migration to the Theme package architecture. Figma owns the current editable aliases and values; this file is a review snapshot of that current implementation, not the target runtime package graph.
+This document records the current validated Figma Color mappings after the Theme architecture migration. Figma owns the editable aliases and values; this file is the documented review snapshot.
 
 If this document and Figma diverge, treat the mismatch as a maintenance gap and inspect Figma rather than guessing.
 
@@ -22,7 +22,7 @@ Canonical documentation uses names such as `surface/default`; Figma keeps picker
 
 ## Current Figma resolution
 
-The tables below describe the current authoring model only:
+The current Figma Color model is:
 
 ```text
 Primitive → Semantic
@@ -30,22 +30,22 @@ Primitive → Brand → Semantic
 Primitive / Semantic / Brand → Component
 ```
 
-The target runtime architecture is now:
+The runtime architecture remains:
 
 ```text
 Theme-local Primitive → shared Semantic role → Product UI / Component
 ```
 
-A separate Brand layer is not required in the target runtime model. The current Figma collections remain transitional until the Tag/component Theme boundary is finalized and the Figma migration is performed.
-
 Current Figma collections:
 
 ```text
-01 Primitives → Value
-02 Brand      → JobVision | Cando
-03 Semantic   → light | dark
-04 Component  → Light | Dark
+01 Primitives            → Value
+02 Product               → JobVision | Cando
+03 Semantic              → JobVision Light | JobVision Dark | Cando Light | Cando Dark
+04 Component Extensions  → same four contexts
 ```
+
+Figma mode labels represent authoring contexts; they do not enter public Semantic token names.
 
 Most values above Primitive are aliases. Transparent Semantic interaction colors and overlay intentionally store resolved RGBA directly.
 
