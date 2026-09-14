@@ -49,22 +49,15 @@ Figma mode labels represent authoring contexts; they do not enter public Semanti
 
 Most values above Primitive are aliases. Transparent Semantic interaction colors and overlay intentionally store resolved RGBA directly.
 
-## 02 Brand
+## 02 Product
+
+Active Product-aware authoring:
 
 | Role | JobVision | Cando |
 |---|---|---|
-| `brand-default` | `pallete/blue/700` | `pallete/yellow/500` |
-| `brand-hover` | `pallete/blue/800` | `pallete/yellow/600` |
-| `brand-active` | `pallete/blue/900` | `pallete/yellow/700` |
-| `on-brand` | `pallete/bw/white` | `pallete/neutral/900` |
-| `brand-muted` | `pallete/blue/100` | `pallete/yellow/100` |
-| `brand-muted-hover` | `pallete/blue/200` | `pallete/yellow/200` |
-| `brand-fg` | `pallete/blue/800` | `pallete/yellow/800` |
-| `brand-line` | `pallete/blue/500` | `pallete/yellow/700` |
+| `typography/font-family` | `Vazirmatn` | `IRANYekanX` |
 
-The first four roles feed shared Brand semantics. The muted/fg/line roles exist to resolve the Product-aware Brand Tag variant and are not general Semantic Color roles.
-
-Brand is currently Appearance-agnostic. Light and Dark Semantic Brand roles consume the same Product-specific Brand aliases.
+Former Brand Color variables are retained under `_legacy/brand/*` only for migration continuity. They are hidden and have no current Semantic or Component Extension dependencies.
 
 ## 03 Semantic
 
