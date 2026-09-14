@@ -3,16 +3,16 @@ id: design-system.token.semantic-tokens
 collection: design-system
 type: token
 title: Semantic Tokens
-summary: Stable shared Color roles and their usage boundaries across Product and Appearance contexts.
+summary: Stable shared Color roles and their usage boundaries across compatible Theme and Appearance contexts.
 knowledge_state: canonical
 document_maturity: reviewed
 related: []
-last_reviewed: '2026-09-10'
+last_reviewed: '2026-09-14'
 ---
 
 # Semantic Tokens
 
-Semantic tokens are the default Color interface consumed by product UI and most components. Their role meaning remains stable across Product and Appearance.
+Semantic tokens are the default Color interface consumed by product UI and most components. Their role meaning remains stable across compatible Themes and Appearances.
 
 ## Resolution
 
@@ -30,7 +30,9 @@ Brand is represented by Semantic roles such as `surface/brand` and `fg/on-brand`
 
 Product UI does not consume Theme-local Primitives directly.
 
-The current Figma implementation still resolves Product-aware values through `02 Brand` and Appearance through `03 Semantic`. Treat that as transitional authoring structure until Figma is migrated to the Theme package model.
+Current Figma `03 Semantic` represents Theme × Appearance through four modes: `JobVision Light`, `JobVision Dark`, `Cando Light`, and `Cando Dark`. Brand Semantic roles resolve directly to the appropriate Primitive values in those modes; no active Brand Color alias layer remains.
+
+These mode labels are Figma authoring contexts, not part of Semantic token names or the required runtime package API.
 
 ## Surface
 
