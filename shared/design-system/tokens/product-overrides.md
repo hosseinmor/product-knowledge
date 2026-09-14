@@ -100,8 +100,18 @@ Product code consumes shared Design System contracts. It must not:
 
 Product-specific business behavior may still depend on Product identity; this document governs visual token resolution only.
 
-## Current Figma transition
+## Current Figma representation
 
-The existing Figma model still represents Product variation through `02 Brand → JobVision | Cando`. This is transitional authoring structure, not the target runtime package model.
+Product-aware Color values now live directly in the Theme × Appearance modes of `03 Semantic`.
 
-Figma migration is intentionally deferred until the categorical Tag/component Theme boundary is finalized.
+```text
+03 Semantic
+├── JobVision Light
+├── JobVision Dark
+├── Cando Light
+└── Cando Dark
+```
+
+Brand Semantic roles alias the appropriate Primitive values directly in each Theme context; there is no active Brand Color alias layer.
+
+`02 Product → JobVision | Cando` remains a hidden Figma authoring collection for Product-aware non-Color concerns such as `typography/font-family`. Former Brand Color variables remain hidden legacy only and have no Semantic/Tag dependencies.
