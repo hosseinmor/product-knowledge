@@ -13,6 +13,7 @@ Non-Color foundations such as Typography, Spacing, Radius, Elevation, and Motion
 - `component-tokens.md` — criteria for Component Color exceptions and the finalized categorical Tag contract
 - `product-overrides.md` — Product identity, Brand mappings, and Product × Appearance constraints
 - `usage-rules.md` — Semantic Color consumption and migration rules
+- `frontend-token-contract.md` — draft Design-side runtime package, public/internal API, alias-preservation, naming, and enforcement contract; Frontend review is still required
 
 Historical/working catalogs:
 
@@ -35,6 +36,19 @@ Primitive / Semantic / Brand → Component → Product UI
 Brand is not mandatory. Semantic roles use Brand only when Product identity intentionally controls the value.
 
 Product UI consumes Semantic Color by default. Component Color tokens are reviewed exceptions; the current approved exception is categorical Tag Color.
+
+## Runtime consumption boundary
+
+Current Design-side direction for frontend consumption is:
+
+```text
+Primitive → internal runtime dependency
+Brand → internal runtime dependency
+Semantic → public Product API
+Component → public only for approved component-owned contracts
+```
+
+Runtime presence does not make a token public. See `frontend-token-contract.md` for the draft package/enforcement contract and the remaining Frontend review questions.
 
 ## Theme dimensions
 
