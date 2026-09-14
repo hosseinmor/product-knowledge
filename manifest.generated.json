@@ -1986,10 +1986,10 @@
       "id": "design-system.reference.theme-initialization",
       "kind": "design-system-reference",
       "title": "Theme Initialization Contract",
-      "summary": "Defines Product and Appearance resolution, first-paint invariants, hydration continuity, and no-flash requirements for SSR-capable applications.",
+      "summary": "Defines installed Theme package readiness, Appearance resolution, first-paint invariants, hydration continuity, and no-flash requirements.",
       "status": "draft",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-13",
+      "last_reviewed": "2026-09-14",
       "related": [
         "design-system.product-variation.theme-context",
         "design-system.reference.source-of-truth"
