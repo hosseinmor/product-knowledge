@@ -3,7 +3,7 @@ id: design-system.token.color-token-aliases
 collection: design-system
 type: token
 title: Color Token Alias Mappings
-summary: Validated snapshot of the current Figma Color mappings during migration to Theme-owned token values.
+summary: Validated current Figma Color mappings for the Theme package architecture.
 knowledge_state: canonical
 document_maturity: reviewed
 related: []
