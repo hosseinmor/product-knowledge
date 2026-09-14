@@ -28,9 +28,9 @@ Tailwind is a Product implementation interface over Design System decisions. It 
 
 This document records owner-approved Design-side invariants. Frontend review may choose the implementation shape, but it should preserve these boundaries and semantics.
 
-The Design System package must remain framework-agnostic and must not depend on Tailwind.
+The Design System and Theme-package sources must remain framework-agnostic and must not depend on Tailwind.
 
-Where Product code uses Tailwind, its configuration should consume generated Design System artifacts rather than re-authoring Foundation values manually.
+Where Product code uses Tailwind, its configuration should consume generated Design System/Theme artifacts rather than re-authoring Foundation values manually.
 
 ## Color mapping
 
@@ -63,29 +63,25 @@ focus/default   → ring-default
 
 Special semantic families keep enough identity to avoid ambiguity. For example Link roles may map to `text-link*` instead of colliding with general foreground roles.
 
-Primitive and Brand colors must not become normal Product-facing Tailwind utilities.
+Theme-local Primitive colors must not become normal Product-facing Tailwind utilities.
 
-Normal Product theming should not require Tailwind `dark:` variants for Design System Color; Semantic variables resolve Appearance underneath the utility contract.
+Tailwind should consume the stable shared Semantic API exposed by the installed Theme package. Utility names must not vary by Theme identity.
+
+Normal Product theming should not require Tailwind `dark:` variants for Design System Color; the installed Theme package resolves Light/Dark Semantic values underneath the utility contract.
 
 For Tailwind 3, prefer property-specific mappings such as `backgroundColor`, `textColor`, `borderColor`, and `ringColor` over one unrestricted shared `theme.colors` pool. Exact preset/config mechanics remain Frontend-owned.
 
 ## Component-token boundary
 
-Approved Component tokens are implementation contracts for their owning Design System component. They do not generate general Product-facing Tailwind utilities by default.
+Ordinary Component tokens are implementation contracts for their owning Design System component. They do not generate general Product-facing Tailwind utilities by default.
 
-Example:
-
-```text
-tag/blue/surface
-tag/blue/fg
-tag/blue/line
-```
-
-remain Tag-owned implementation roles; they should not automatically create Product utilities such as `bg-tag-blue-surface` or `text-tag-blue-fg`.
+Private component aliases should normally resolve from the shared Semantic API, so changing Theme packages does not require component-specific Product utilities.
 
 Product code should consume the existing Design System component rather than reconstruct it from utility recipes.
 
 If a Component token repeatedly represents a cross-component Product need, evaluate promotion into the shared Semantic/Foundation contract instead of exposing the Component token directly.
+
+Categorical Tag is still an open Theme-boundary exception. Until its target architecture is finalized, do not expose current `tag/{color}/*` implementation tokens as Product Tailwind utilities.
 
 ## Spacing
 
@@ -168,7 +164,7 @@ The same source must generate:
 
 Do not manually maintain a second set of breakpoint numbers in Product Tailwind configuration.
 
-The Design System package must not depend on Tailwind. The exact canonical machine-readable format, generated module format, and import/build integration remain Frontend-owned.
+The Design System source must not depend on Tailwind. The exact canonical machine-readable format, generated module format, and import/build integration remain Frontend-owned.
 
 Figma's Typography `Breakpoint = SM | LG` modes are design-time modes for Fluid Heading and are not the runtime breakpoint scale.
 
