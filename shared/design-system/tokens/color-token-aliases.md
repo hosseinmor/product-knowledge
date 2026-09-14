@@ -50,12 +50,12 @@ Current Figma collections:
 01 Primitives            → Value
 02 Product               → JobVision | Cando
 03 Semantic              → JobVision Light | JobVision Dark | Cando Light | Cando Dark
-04 Component Extensions  → same four contexts
+04 Component Tokens      → Light | Dark
 ```
 
 Figma mode labels represent authoring contexts. Semantic Color uses Theme × Appearance modes; Component Tokens use only Light/Dark because Tag values are shared across Products.
 
-`01 Primitives` is a hidden authoring palette and does not imply one shared runtime Primitive package. `03 Semantic` is the published shared Color API. `04 Component Extensions` is hidden and currently contains only the Tag extension contract.
+`01 Primitives` is a hidden authoring palette and does not imply one shared runtime Primitive package. `03 Semantic` is the published shared Color API. `04 Component Tokens` is hidden and currently contains only Product-independent Tag Color tokens with Light/Dark modes.
 
 Most non-Brand Semantic values currently resolve identically in JobVision and Cando, so their tables show Light/Dark once and apply to both Themes. Tag Component Tokens are explicitly Product-independent. Transparent Semantic interaction colors and overlay intentionally store resolved RGBA directly.
 
@@ -224,7 +224,7 @@ Canonical semantic meaning and current Figma variable names are:
 | Skeleton element | `utility/skeleton-element` | `neutral/300` | `neutral/700` |
 | Skeleton shimmer | `utility/skeleton-shimmer` | `neutral/100` | `neutral/600` |
 
-## 04 Component Extensions — Tag
+## 04 Component Tokens — Tag
 
 Canonical contract:
 
