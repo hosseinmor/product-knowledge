@@ -11,6 +11,8 @@ related:
   - design-system.structure
   - design-system.reference.figma
   - design-system.reference.code
+  - design-system.reference.storybook
+  - design-system.reference.component-mapping
 ---
 
 # Sources of Truth
@@ -25,8 +27,9 @@ Use ownership by question:
 | When should it be used or avoided? | Design System Knowledge |
 | What does a semantic token/state mean? | Design System Knowledge |
 | What are the current editable visual properties/layouts? | Figma |
-| What is the runtime API/default/implemented behavior? | Code / Storybook when available |
-| Which examples and interaction tests actually run? | Storybook / test suite when available |
+| What is the runtime API/default/implemented behavior? | Registered Code source |
+| Which rendered examples actually run? | Registered Storybook source |
+| Which interaction/accessibility tests actually pass? | Registered Storybook/test source |
 | What business rule or product workflow applies? | Product Knowledge |
 | What changed during migration? | Migration/change artifact |
 
@@ -64,6 +67,29 @@ Examples that normally belong outside prose documentation:
 
 Design System Knowledge should retain durable semantic decisions, decision rules, important constraints, and known gaps.
 
+## Live-source availability rule
+
+A source-of-truth role does not prove that the live source is currently registered or accessible.
+
+```text
+source registered and accessible
+→ query it for exact facts
+
+source role known but source unregistered/unavailable
+→ use Knowledge only for the semantic contract
+→ explicitly mark exact live fact as unverified
+→ do not infer it from another source
+```
+
+Examples:
+
+- Figma property name does not prove a runtime prop name.
+- Figma component presence does not prove code shipment.
+- Markdown state lists do not prove a runnable Storybook story or test.
+- Code implementation does not override Design System semantic meaning merely because it currently differs; the mismatch must be reconciled.
+
+Use `component-mapping.md` for verified Figma ↔ Code ↔ Storybook identities.
+
 ## AI use
 
-AI should retrieve the smallest relevant knowledge set, then query the owning live source for exact facts. If a required source is unavailable or the contract is incomplete, surface the gap rather than guessing.
+AI should retrieve the smallest relevant knowledge set, then query the owning registered live source for exact facts. If a required source is unavailable, unregistered, or the mapping is incomplete, surface the gap rather than guessing.
