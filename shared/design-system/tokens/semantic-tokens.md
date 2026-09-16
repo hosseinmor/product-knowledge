@@ -3,40 +3,43 @@ id: design-system.token.semantic-tokens
 collection: design-system
 type: token
 title: Semantic Tokens
-summary: Stable shared Color roles and their usage boundaries across Product and Appearance contexts.
+summary: Stable shared Color roles and their usage boundaries across compatible Theme and Appearance contexts.
 knowledge_state: canonical
 document_maturity: reviewed
 related: []
-last_reviewed: '2026-09-10'
+last_reviewed: '2026-09-14'
 ---
 
 # Semantic Tokens
 
-Semantic tokens are the default Color interface consumed by product UI and most components. Their role meaning remains stable across Product and Appearance.
+Semantic tokens are the default Color interface consumed by product UI and most components. Their role meaning remains stable across compatible Themes and Appearances.
 
 ## Resolution
 
-```text
-Default
-Primitive → Semantic → Product UI / Component
-
-Optional Product identity
-Primitive → Brand → Semantic → Product UI / Component
-```
-
-Brand is not a mandatory stage. A Semantic token may alias a Primitive directly when its value does not vary by Product; it uses Brand when Product identity intentionally controls the value.
-
-Approved component-owned exceptions such as categorical Tag Color may resolve through Primitive, Semantic, or Brand according to their own documented contract. Ordinary product UI does not consume Primitive or Brand directly.
-
-Figma resolves Product and Appearance independently:
+Semantic tokens are the stable shared Color interface. Their names and role meaning remain constant across compatible Themes and Appearances.
 
 ```text
-02 Brand    → JobVision | Cando
-03 Semantic → light | dark
-04 Component → Light | Dark
+Theme-local Primitive
+→ Semantic role
+→ Product UI / Component
 ```
 
-This is the Color-token model. Runtime Theme composition and non-Color foundation graphs are separate contracts.
+The installed Theme provides concrete values for every required Semantic role in both Light and Dark Appearance.
+
+Brand is represented by Semantic roles such as `surface/brand` and `fg/on-brand`; a separate Brand alias layer is not required by the target runtime architecture.
+
+Product UI does not consume Theme-local Primitives directly.
+
+Current Figma authoring keeps the public `03 Semantic` contract in a single `Value` mode. Product and Appearance are resolved behind it through two independent collections:
+
+```text
+02 Product          → JobVision | Cando
+03 Semantic Values  → Light | Dark
+                      ├── jobvision/*
+                      └── cando/*
+```
+
+The public Semantic variables alias through the Product router to the selected Product branch, while `03 Semantic Values` supplies the selected Light/Dark value. Product and Appearance therefore do not enter public Semantic token names.
 
 ## Surface
 
@@ -189,7 +192,7 @@ Role boundaries:
 - `fg/disabled`: unavailable control/content styling; read-only is not Disabled.
 - inverse Support foregrounds are intentionally narrow: colored Support content on `surface/inverse`.
 
-`fg/brand`, `fg/selected`, `fg/on-disabled`, and `fg/on-color-disabled` are not part of the canonical v4 API. The old Figma `fg/fg-on-disabled` variable remains hidden only for migration safety.
+`fg/brand`, `fg/selected`, `fg/on-disabled`, and `fg/on-color-disabled` are not part of the canonical v4 API. The old disabled-foreground variable remains hidden only for migration safety and is not part of the canonical API.
 
 ## Line
 
@@ -241,7 +244,7 @@ Brand  → Product identity + approved key conversion moments
 Accent → general chromatic interaction / affordance
 ```
 
-JobVision may map both to Blue while Cando maps Brand to Yellow and Accent to Blue. Shared hue does not merge semantic meaning.
+The JobVision Theme may map Brand and Accent to Blue while the Cando Theme maps Brand to Yellow and Accent to Blue. Shared hue does not merge semantic meaning.
 
 An actionable Accent banner or applied filter may use Accent Muted. A passive informational/system message uses Support Info.
 
@@ -298,7 +301,7 @@ focus/default
 focus/inverse
 ```
 
-Current Figma variable names are `utility/focus-default` and `utility/focus-inverse`. Focus remains independent from Brand and Accent.
+Figma uses the same canonical names: `focus/default` and `focus/inverse`. Focus remains independent from Brand and Accent.
 
 ## Link
 
@@ -317,11 +320,9 @@ Default is chromatic and recognizable; Subtle is intentionally neutral where cli
 
 ## Utility
 
-Current shared utility Color roles cover focus, overlay, and skeleton treatments. In Figma they live under:
+Current shared utility Color roles cover overlay and skeleton treatments. Focus is its own Semantic family. In Figma the utility roles are:
 
 ```text
-utility/focus-default
-utility/focus-inverse
 utility/overlay
 utility/skeleton-background
 utility/skeleton-base
@@ -345,7 +346,7 @@ tag/{color}/line
 for:
 
 ```text
-neutral | brand | blue | teal | green | yellow | orange | red | magenta | purple
+neutral | blue | teal | green | yellow | orange | red | magenta | purple
 ```
 
 Categorical hues communicate grouping, not Support meaning. Cyan and Warm Gray are hidden legacy variants, not canonical API.

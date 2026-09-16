@@ -16,7 +16,7 @@ related: []
 
 ## Color
 
-Primitive color scales are context-free and are named by hue rather than product ownership.
+Primitive color scales are named by hue/value rather than semantic meaning. In the target runtime architecture, Primitive Color is Theme-local implementation detail rather than a shared Product-facing contract.
 
 Current opaque families:
 
@@ -31,7 +31,7 @@ color/emerald/*
 color/orange/*
 ```
 
-Product-specific Primitive families such as the former `color/brand/jobvision/*` and `color/brand/cando/*` are removed in v4. Product identity is represented through the optional Brand alias branch when a Semantic role actually depends on it.
+Product-specific public Primitive families remain prohibited. A Theme may define the local Primitive values it needs, but Product code must not depend on Theme-local Primitive identities. Product identity is expressed through shared Semantic roles whose values are supplied by the selected Theme.
 
 Current brand color anchors:
 
@@ -44,7 +44,7 @@ These anchors do not yet define a numbered scale step. The final 50–950 opaque
 
 The `green/*` versus `emerald/*` inventory also remains open until that pass; do not remove either family from implementation solely from this draft.
 
-A Primitive palette may feed multiple Semantic or Component roles. For example, the same `blue/*` scale may feed JobVision Brand, Accent, Link, Info, and categorical Blue without merging those meanings.
+A Theme-local Primitive palette may feed multiple Semantic or Component roles. For example, one Blue ramp may feed Brand semantics, Accent, Link, Info, and categorical Blue without merging those meanings.
 
 ### Alpha primitives
 

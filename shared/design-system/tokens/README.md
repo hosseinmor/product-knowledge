@@ -1,55 +1,58 @@
 # Design Tokens
 
-This section contains the detailed v4 Color contracts. Start with `../foundations/color.md` for the operational model and use the smallest detailed document needed for the question.
+This section contains the detailed Color contracts. Start with `../foundations/color.md` for the operational model and use the smallest detailed document needed for the question.
 
-Non-Color foundations such as Typography, Spacing, Radius, Elevation, and Motion define their own token structures and are not required to follow the Color graph.
+The current architecture separates a **shared Design System token contract** from **installable Theme packages that provide values**.
+
+Non-Color Foundations such as Typography, Spacing, Radius, Elevation, Motion, and Responsive Layout keep their own contracts. Theme packages are Foundation-agnostic in architecture, but v1 Theme packages provide Color only.
 
 ## Current Color documents
 
-- `architecture.md` — finalized Color layering, Figma collections, and Product × Appearance responsibilities
-- `primitive-tokens.md` — Primitive Color inventory and raw palette values
+- `architecture.md` — shared-contract ↔ Theme-implementation model and current Figma representation
+- `primitive-tokens.md` — current Primitive inventory and palette work; runtime ownership is Theme-local
 - `semantic-tokens.md` — stable shared UI Color roles and usage boundaries
-- `color-token-aliases.md` — validated current Brand, Semantic, and Tag mappings synchronized with Figma
-- `component-tokens.md` — criteria for Component Color exceptions and the finalized categorical Tag contract
-- `product-overrides.md` — Product identity, Brand mappings, and Product × Appearance constraints
+- `color-token-aliases.md` — current validated Figma Theme × Appearance mappings
+- `component-tokens.md` — component-token criteria and the finalized categorical Tag Theme Extension
+- `product-overrides.md` — Product ↔ Theme selection and Brand semantic resolution
 - `usage-rules.md` — Semantic Color consumption and migration rules
 
-Historical/working catalogs:
+Historical/working catalogs remain reference material only when they conflict with the reviewed contracts above.
 
-- `jobvision-color-tokens-v4-surface-model.md` — earlier detailed v4 working catalog retained for decision history; do not use it as the source for exact current alias values when it conflicts with the reviewed contracts above
-- `jobvision-color-tokens-v3-surface-model.md` — historical v3 migration reference
-
-## Color resolution model
+## Color model
 
 ```text
-Default
-Primitive → Semantic → Product UI
-
-Optional Product identity
-Primitive → Brand → Semantic → Product UI
-
-Exceptional component-owned contract
-Primitive / Semantic / Brand → Component → Product UI
+Shared DS contract
+  Semantic names + meanings
+          │
+          ▼
+Installed Theme package
+  Theme-local Primitives
+  Light/Dark Semantic values
+  private Component Tokens
+          │
+          ▼
+Product UI / DS Components
 ```
 
-Brand is not mandatory. Semantic roles use Brand only when Product identity intentionally controls the value.
+Product UI consumes Semantic Color by default. Theme-local Primitives are implementation detail.
 
-Product UI consumes Semantic Color by default. Component Color tokens are reviewed exceptions; the current approved exception is categorical Tag Color.
+Brand remains Semantic meaning, not a required runtime alias layer.
 
-## Theme dimensions
+Categorical Tag is currently the only approved Component Color-token exception. Its `tag/*` contract is shared across Products, varies only by Light/Dark Appearance, and is not Product-facing API.
+
+## Current Figma model
 
 ```text
-Product    → JobVision | Cando
-Appearance → Light | Dark
+01 Primitives            → Value
+02 Product               → JobVision | Cando
+03 Semantic              → Value
+03 Semantic Values       → Light | Dark
+  ├── jobvision/*
+  └── cando/*
+04 Component Tokens      → Light | Dark
 ```
 
-Product and Appearance are independent. Current Figma resolution:
-
-```text
-01 Primitives → Value
-02 Brand      → JobVision | Cando
-03 Semantic   → light | dark
-04 Component  → Light | Dark
-```
-
-The Figma collection/mode model and Color alias values are finalized for the current scope. Runtime Theme initialization, CSS representation, Tailwind mapping, and SSR behavior remain separate implementation contracts.
+- `02 Product` is the Figma Product selector and switches both Product-aware typography and Semantic routing.
+- `03 Semantic` is the published stable Color contract.
+- `03 Semantic Values` holds Product-nested Light/Dark implementation values.
+- `04 Component Tokens` remains Product-independent and component-only.

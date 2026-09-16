@@ -7,7 +7,7 @@ summary: Defines when component-specific Color tokens are justified and document
 knowledge_state: canonical
 document_maturity: reviewed
 related: []
-last_reviewed: '2026-09-10'
+last_reviewed: '2026-09-14'
 ---
 
 # Component Tokens
@@ -23,14 +23,10 @@ Other foundations may define component-owned geometry or motion tokens under the
 Most components consume Semantic Color directly:
 
 ```text
-Primitive → Semantic → Product UI / Component
+Theme-local Primitive → Semantic → Product UI / Component
 ```
 
-Brand-dependent Semantic roles may use:
-
-```text
-Primitive → Brand → Semantic → Product UI / Component
-```
+A private Component token may alias a Semantic role when that indirection adds useful component-owned meaning, but Theme packages should not need to know about ordinary component anatomy.
 
 Do not insert a Component-token layer merely to rename an existing Semantic token.
 
@@ -51,9 +47,9 @@ Do not create Component Color tokens for one-off values, experiments, every Figm
 
 ## Approved Color exception: Tag
 
-Tag owns a categorical Color contract because its hues communicate grouping/categorization rather than shared system semantics such as Success, Warning, or Error.
+Tag owns a private categorical Color contract because its hues communicate grouping/categorization rather than shared system semantics such as Success, Warning, or Error.
 
-Canonical Figma contract:
+Canonical component contract:
 
 ```text
 tag/{color}/surface
@@ -66,7 +62,6 @@ Current canonical colors:
 
 ```text
 neutral
-brand
 blue
 teal
 green
@@ -77,26 +72,52 @@ magenta
 purple
 ```
 
-This set is intentionally not a complete hue palette. Add a categorical hue only when a real Tag use case requires it. Cyan and Warm Gray are retained only as hidden legacy variables; they are not part of the canonical Tag API.
+This set is intentionally not a complete hue palette. Cyan and Warm Gray remain legacy-only.
+
+### Product and Appearance model
+
+Tag categorical values are **shared across Products**. They are not Brand/Theme values.
+
+```text
+04 Component Tokens
+├── Light
+└── Dark
+```
+
+The Tag contract does not include a `brand` color. Product identity is handled by shared Brand Semantic roles elsewhere in the Color system, not by categorical Tag variants.
+
+Tag Component Tokens belong to the Design System/component implementation rather than Theme packages.
+
+### Consumption boundary
+
+Tag tokens are component-implementation API, not Product-facing Design System API.
+
+Product tooling should therefore:
+
+- omit `tag/*` from general Semantic token registries/autocomplete;
+- not generate public Tailwind utilities for `tag/*`;
+- reject direct `tag/*` use in ordinary Product code where lint/CI can enforce it;
+- allow the Tag implementation to consume the contract.
+
+If CSS custom properties for Tag are emitted globally, physical CSS visibility does not make them public API.
 
 ### Resolution rules
 
-- `neutral` maps directly to Neutral Primitives because it is a Tag color variant, not the shared Semantic neutral-interaction family.
-- `brand` consumes the Product-aware Brand aliases because its hue changes between JobVision and Cando.
-- Other categorical hues map directly to their Primitive ramps.
-- Do not map categorical Green to Success, Yellow to Warning, Red to Error, or Purple to Magic merely because the hues match.
-- Other components must not consume Tag tokens as a general categorical palette.
+- `neutral` resolves from the shared neutral categorization treatment.
+- categorical hue mappings are shared across Products.
+- Light/Dark Appearance may resolve different Primitive steps for contrast and visual balance;
+- do not map categorical Green to Success, Yellow to Warning, Red to Error, or Purple to Magic merely because the hues match;
+- equivalent Tag roles across hues do not need identical numeric Primitive steps when contrast/appearance requires otherwise.
 
-The current four Tag roles are retained for every canonical color. `surface-hover` is consumed only when the rendered Tag is interactive; its existence does not make every Tag interactive. `line` is part of the Tag visual contract but may be decorative where the surface itself establishes the boundary.
+The current four Tag roles are retained for every canonical color. `surface-hover` is consumed only when the rendered Tag is interactive.
 
-Current Neutral Dark mapping is intentionally subtle:
+### Promotion rule
 
-```text
-tag/neutral/surface       → neutral/900
-tag/neutral/surface-hover → neutral/800
-```
+Do not create a shared `categorical/*` API while Tag is the only real consumer.
 
-Exact current Light/Dark alias values live in Figma and are documented in `color-token-aliases.md`.
+If the same categorization meaning later becomes a stable cross-component need—for example across Tag, Legend, Category Badge, and other reviewed components—evaluate promotion from `tag/*` into a shared categorical contract at that time.
+
+Abstract after repeated cross-component need, not before it.
 
 ## Applied Filter rule
 
@@ -134,4 +155,4 @@ Runtime/CSS flattening is a separate implementation decision.
 - Is it reused enough to justify another layer?
 - Does it reduce real branching or duplication?
 - Is the name independent from an accidental visual value, except where hue itself is the approved categorical contract?
-- Is the mapping valid across supported Product × Appearance contexts?
+- Is the mapping valid across supported Light/Dark Appearance contexts?

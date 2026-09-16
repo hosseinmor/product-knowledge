@@ -1344,10 +1344,10 @@
       "id": "design-system.foundation.color",
       "kind": "design-system-foundation",
       "title": "Color",
-      "summary": "Operational entry point for JV Color semantics, token architecture, Product × Appearance behavior, accessibility, and source routing.",
+      "summary": "Operational entry point for JV Color semantics, installable Theme architecture, Appearance behavior, accessibility, and source routing.",
       "status": "reviewed",
       "owner": null,
-      "last_reviewed": "2026-09-10",
+      "last_reviewed": "2026-09-14",
       "related": [
         "design-system.token.architecture",
         "design-system.token.semantic-tokens",
@@ -1911,11 +1911,11 @@
     {
       "id": "design-system.product-variation.theme-context",
       "kind": "design-system-product-variation",
-      "title": "Theme Context",
-      "summary": "Defines Product and Appearance as independent shared Design System theme dimensions and their ownership boundaries.",
+      "title": "Theme Package Architecture",
+      "summary": "Defines Theme as an installable visual-token implementation selected by an application, with stable shared Design System contracts and runtime Appearance resolution.",
       "status": "reviewed",
       "owner": null,
-      "last_reviewed": "2026-09-10",
+      "last_reviewed": "2026-09-14",
       "related": [
         "design-system.token.product-overrides",
         "design-system.token.architecture",
@@ -2003,11 +2003,13 @@
       "id": "design-system.token.architecture",
       "kind": "design-system-token",
       "title": "Token Architecture",
-      "summary": "Current v4 Color token layering, collection responsibilities, and Product × Appearance model.",
+      "summary": "Defines the shared Color contract versus Theme-owned Color implementation, including Theme-local Primitives, stable Semantic roles, and component-token boundaries.",
       "status": "reviewed",
       "owner": null,
-      "last_reviewed": "2026-09-10",
-      "related": [],
+      "last_reviewed": "2026-09-14",
+      "related": [
+        "design-system.product-variation.theme-context"
+      ],
       "topics": [
         "architecture",
         "design-system-token",
@@ -2019,10 +2021,10 @@
       "id": "design-system.token.color-token-aliases",
       "kind": "design-system-token",
       "title": "Color Token Alias Mappings",
-      "summary": "Validated v4 Color mappings synchronized with the current Figma Variables model.",
+      "summary": "Validated current Figma Color mappings for the Theme package architecture.",
       "status": "reviewed",
       "owner": null,
-      "last_reviewed": "2026-09-10",
+      "last_reviewed": "2026-09-14",
       "related": [],
       "topics": [
         "color-token-aliases",
@@ -2038,7 +2040,7 @@
       "summary": "Defines when component-specific Color tokens are justified and documents the approved Tag exception.",
       "status": "reviewed",
       "owner": null,
-      "last_reviewed": "2026-09-10",
+      "last_reviewed": "2026-09-14",
       "related": [],
       "topics": [
         "component-tokens",
@@ -2098,12 +2100,15 @@
     {
       "id": "design-system.token.product-overrides",
       "kind": "design-system-token",
-      "title": "Token Product and Brand Variations",
-      "summary": "Defines Product identity in Color and its relationship to the independent Appearance dimension.",
+      "title": "Product and Theme Selection",
+      "summary": "Defines the relationship between Product identity, installable Theme packages, and Appearance without making Product a token dimension.",
       "status": "reviewed",
       "owner": null,
-      "last_reviewed": "2026-09-10",
-      "related": [],
+      "last_reviewed": "2026-09-14",
+      "related": [
+        "design-system.product-variation.theme-context",
+        "design-system.token.architecture"
+      ],
       "topics": [
         "design-system-token",
         "product-overrides",
@@ -2115,10 +2120,10 @@
       "id": "design-system.token.semantic-tokens",
       "kind": "design-system-token",
       "title": "Semantic Tokens",
-      "summary": "Stable shared Color roles and their usage boundaries across Product and Appearance contexts.",
+      "summary": "Stable shared Color roles and their usage boundaries across compatible Theme and Appearance contexts.",
       "status": "reviewed",
       "owner": null,
-      "last_reviewed": "2026-09-10",
+      "last_reviewed": "2026-09-14",
       "related": [],
       "topics": [
         "design-system-token",
