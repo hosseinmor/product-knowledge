@@ -30,9 +30,16 @@ Brand is represented by Semantic roles such as `surface/brand` and `fg/on-brand`
 
 Product UI does not consume Theme-local Primitives directly.
 
-Current Figma `03 Semantic` represents Theme × Appearance through four modes: `JobVision Light`, `JobVision Dark`, `Cando Light`, and `Cando Dark`. Brand Semantic roles resolve directly to the appropriate Primitive values in those modes; no active Brand Color alias layer remains.
+Current Figma authoring keeps the public `03 Semantic` contract in a single `Value` mode. Product and Appearance are resolved behind it through two independent collections:
 
-These mode labels are Figma authoring contexts, not part of Semantic token names or the required runtime package API.
+```text
+02 Product          → JobVision | Cando
+03 Semantic Values  → Light | Dark
+                      ├── jobvision/*
+                      └── cando/*
+```
+
+The public Semantic variables alias through the Product router to the selected Product branch, while `03 Semantic Values` supplies the selected Light/Dark value. Product and Appearance therefore do not enter public Semantic token names.
 
 ## Surface
 
