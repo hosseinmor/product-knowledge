@@ -27,6 +27,8 @@ related:
 | `xl` | `1280px` | `1535px` |
 | `2xl` | `1536px` | None |
 
+The following CSS custom properties illustrate a **generated runtime output**, not a second authored source of breakpoint values:
+
 ```css
 --breakpoint-sm: 40rem;
 --breakpoint-md: 48rem;
@@ -34,6 +36,10 @@ related:
 --breakpoint-xl: 80rem;
 --breakpoint-2xl: 96rem;
 ```
+
+The final breakpoint scale must be authored once in a canonical Design System source and generated into Design System CSS, Product Tailwind configuration, and other framework adapters. The Design System package must not depend on Tailwind. Exact source/artifact format and build integration remain Frontend-owned.
+
+Figma Typography `SM | LG` modes are design-time Fluid Heading modes and are not aliases for this complete runtime breakpoint scale.
 
 ## Rules
 
