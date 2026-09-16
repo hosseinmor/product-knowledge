@@ -179,24 +179,35 @@ Design System components
 
 ## Current Figma model
 
-The Figma Variables model was migrated in place on 2026-09-14, preserving existing variable IDs and bindings:
+The Figma authoring model separates Product and Appearance into independent selectors while preserving the existing public Semantic variable IDs and bindings:
 
 ```text
 01 Primitives            → Value
+
 02 Product               → JobVision | Cando
-03 Semantic              → JobVision Light | JobVision Dark | Cando Light | Cando Dark
+  ├── typography/font-family
+  └── semantic/* router values
+
+03 Semantic              → Value
+  └── public surface/*, fg/*, line/*, link/*, focus/* contracts
+
+03 Semantic Values       → Light | Dark
+  ├── jobvision/*
+  └── cando/*
+
 04 Component Tokens      → Light | Dark
 ```
 
 Rules:
 
-- `01 Primitives` remains a hidden authoring palette while runtime Theme packages own their Primitive implementation.
-- `02 Product` is not a Color Theme layer; it retains Product-aware authoring concerns such as the current font-family variable.
-- old Brand Color aliases are hidden legacy variables; Semantic variables have no remaining dependency on them.
-- `03 Semantic` keeps the stable shared token names while modes hold Theme × Appearance values.
-- `04 Component Tokens` is hidden from normal library consumption, currently contains Tag Color tokens, and has only `Light | Dark` modes because its values are Product-independent.
+- `01 Primitives` remains the raw authoring palette.
+- `02 Product` is the Product selector in Figma. Switching its mode changes both Product-aware typography and the Product branch used by Semantic Color.
+- `03 Semantic` remains the public stable token contract; it has no Product or Appearance names in its public token paths.
+- `03 Semantic Values` is the Figma implementation matrix: Product is nested by variable group and Appearance is selected by `Light | Dark` modes.
+- `04 Component Tokens` remains Product-independent and uses only `Light | Dark`.
+- old Brand Color aliases remain hidden legacy only.
 
-Combined modes remain only where Theme variation is real. Product/Theme/Appearance still do not enter public Semantic token names.
+This routing is a Figma authoring mechanism; runtime Theme packages do not need to reproduce the router layers.
 
 ## Deferred implementation contracts
 
