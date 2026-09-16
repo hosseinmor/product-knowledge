@@ -185,7 +185,7 @@ Role boundaries:
 - `fg/disabled`: unavailable control/content styling; read-only is not Disabled.
 - inverse Support foregrounds are intentionally narrow: colored Support content on `surface/inverse`.
 
-`fg/brand`, `fg/selected`, `fg/on-disabled`, and `fg/on-color-disabled` are not part of the canonical v4 API. The old Figma `fg/fg-on-disabled` variable remains hidden only for migration safety.
+`fg/brand`, `fg/selected`, `fg/on-disabled`, and `fg/on-color-disabled` are not part of the canonical v4 API. The old disabled-foreground variable remains hidden only for migration safety and is not part of the canonical API.
 
 ## Line
 
@@ -294,7 +294,7 @@ focus/default
 focus/inverse
 ```
 
-Current Figma variable names are `utility/focus-default` and `utility/focus-inverse`. Focus remains independent from Brand and Accent.
+Figma uses the same canonical names: `focus/default` and `focus/inverse`. Focus remains independent from Brand and Accent.
 
 ## Link
 
@@ -313,11 +313,9 @@ Default is chromatic and recognizable; Subtle is intentionally neutral where cli
 
 ## Utility
 
-Current shared utility Color roles cover focus, overlay, and skeleton treatments. In Figma they live under:
+Current shared utility Color roles cover overlay and skeleton treatments. Focus is its own Semantic family. In Figma the utility roles are:
 
 ```text
-utility/focus-default
-utility/focus-inverse
 utility/overlay
 utility/skeleton-background
 utility/skeleton-base
