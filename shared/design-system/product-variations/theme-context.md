@@ -10,6 +10,7 @@ related:
   - design-system.token.product-overrides
   - design-system.token.architecture
   - design-system.reference.code
+  - design-system.reference.theme-initialization
 last_reviewed: '2026-09-14'
 ---
 
