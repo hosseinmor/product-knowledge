@@ -15,6 +15,7 @@ Non-Color Foundations such as Typography, Spacing, Radius, Elevation, Motion, an
 - `component-tokens.md` — component-token criteria and the finalized categorical Tag Theme Extension
 - `product-overrides.md` — Product ↔ Theme selection and Brand semantic resolution
 - `usage-rules.md` — Semantic Color consumption and migration rules
+- `frontend-token-contract.md` — Design-side contract for Theme packages, public/internal token boundaries, serialization, and frontend consumption
 
 Historical/working catalogs remain reference material only when they conflict with the reviewed contracts above.
 
