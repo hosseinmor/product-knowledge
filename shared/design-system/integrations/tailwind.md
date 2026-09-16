@@ -7,7 +7,7 @@ summary: Defines the Design System boundary for Tailwind consumption across Colo
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-09-14
+last_reviewed: 2026-09-12
 related:
   - design-system.token.architecture
   - design-system.token.semantic-tokens
@@ -28,9 +28,9 @@ Tailwind is a Product implementation interface over Design System decisions. It 
 
 This document records owner-approved Design-side invariants. Frontend review may choose the implementation shape, but it should preserve these boundaries and semantics.
 
-The Design System and Theme-package sources must remain framework-agnostic and must not depend on Tailwind.
+The Design System package must remain framework-agnostic and must not depend on Tailwind.
 
-Where Product code uses Tailwind, its configuration should consume generated Design System/Theme artifacts rather than re-authoring Foundation values manually.
+Where Product code uses Tailwind, its configuration should consume generated Design System artifacts rather than re-authoring Foundation values manually.
 
 ## Color mapping
 
@@ -63,27 +63,29 @@ focus/default   → ring-default
 
 Special semantic families keep enough identity to avoid ambiguity. For example Link roles may map to `text-link*` instead of colliding with general foreground roles.
 
-Theme-local Primitive colors must not become normal Product-facing Tailwind utilities.
+Primitive and Brand colors must not become normal Product-facing Tailwind utilities.
 
-Tailwind should consume the stable shared Semantic API exposed by the installed Theme package. Utility names must not vary by Theme identity.
-
-Normal Product theming should not require Tailwind `dark:` variants for Design System Color; the installed Theme package resolves Light/Dark Semantic values underneath the utility contract.
+Normal Product theming should not require Tailwind `dark:` variants for Design System Color; Semantic variables resolve Appearance underneath the utility contract.
 
 For Tailwind 3, prefer property-specific mappings such as `backgroundColor`, `textColor`, `borderColor`, and `ringColor` over one unrestricted shared `theme.colors` pool. Exact preset/config mechanics remain Frontend-owned.
 
 ## Component-token boundary
 
-Ordinary Component tokens are implementation contracts for their owning Design System component. They do not generate general Product-facing Tailwind utilities by default.
+Approved Component tokens are implementation contracts for their owning Design System component. They do not generate general Product-facing Tailwind utilities by default.
 
-Private component aliases should normally resolve from the shared Semantic API, so changing Theme packages does not require component-specific Product utilities.
+Example:
+
+```text
+tag/blue/surface
+tag/blue/fg
+tag/blue/line
+```
+
+remain Tag-owned implementation roles; they should not automatically create Product utilities such as `bg-tag-blue-surface` or `text-tag-blue-fg`.
 
 Product code should consume the existing Design System component rather than reconstruct it from utility recipes.
 
 If a Component token repeatedly represents a cross-component Product need, evaluate promotion into the shared Semantic/Foundation contract instead of exposing the Component token directly.
-
-Categorical Tag is the approved Component Color-token exception. Its `tag/{color}/*` values are shared across Products, vary only by Light/Dark Appearance, and must not generate Product-facing Tailwind utilities.
-
-Tag Component Tokens are not Theme package values. Product code should consume the Tag component rather than reconstructing categorical Tag styling from utilities.
 
 ## Spacing
 
@@ -157,18 +159,35 @@ Component-owned directional or representational shadows, such as non-modal Drawe
 
 ## Responsive breakpoints
 
-Breakpoint values have one canonical Design System source of truth.
+Responsive Layout exposes two related concepts:
 
-The same source must generate:
-- Design System responsive outputs;
-- Product framework artifacts such as Tailwind `screens`;
-- any other runtime representation that needs the shared breakpoint scale.
+- semantic viewport ranges for page structure: `narrow <768`, `regular >=768`, `wide >=1400`;
+- a breakpoint ruler for fine-tuning.
+
+The breakpoint ruler maps to Product Tailwind screens as follows:
+
+| Design System token | Tailwind key | Value |
+|---|---|---:|
+| `xsmall` | `xs` | `320px` |
+| `small` | `sm` | `544px` |
+| `medium` | `md` | `768px` |
+| `large` | `lg` | `1012px` |
+| `xlarge` | `xl` | `1280px` |
+| `xxlarge` | `2xl` | `1400px` |
+
+Tailwind screen keys are an implementation adapter over the ruler. They do not imply six semantic page modes.
+
+Breakpoint values have one canonical Design System source of truth. The same source must generate Design System responsive outputs, Product Tailwind `screens`, and any other runtime representation that needs the shared ruler.
 
 Do not manually maintain a second set of breakpoint numbers in Product Tailwind configuration.
 
-The Design System source must not depend on Tailwind. The exact canonical machine-readable format, generated module format, and import/build integration remain Frontend-owned.
+Page-level structure should prefer the `narrow / regular / wide` semantics. Exact Tailwind/custom-media variants for those ranges remain Frontend-owned.
 
-Figma's Typography `Breakpoint = SM | LG` modes are design-time modes for Fluid Heading and are not the runtime breakpoint scale.
+Container-query implementation is also Frontend-owned. On Tailwind 3 this may use native CSS `@container`, an approved plugin/adapter, or component CSS; do not invent viewport breakpoints to substitute for a container-width dependency.
+
+The Design System package must not depend on Tailwind. Exact machine-readable source format, generated module format, and build/import integration remain Frontend-owned.
+
+Figma's `Typography breakpoint` modes are design-time Fluid Heading modes and are not the runtime breakpoint ruler.
 
 ## Arbitrary and raw values
 
@@ -220,6 +239,10 @@ order-*
 overflow-*
 positioning utilities
 ```
+
+Use Flexbox or CSS Grid locally inside Layout regions when the composition requires it. Contextual track definitions such as `grid-cols-[280px_1fr]` remain allowed when they are genuinely page/component-specific.
+
+Responsive Layout does not define a public global 4/8/12-column utility contract or global grid gutters. Product code must not infer such a contract from legacy Figma Grid styles.
 
 The Design System should govern reusable semantic visual decisions, not replace every CSS/layout primitive with a token.
 
