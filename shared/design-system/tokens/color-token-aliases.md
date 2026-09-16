@@ -22,11 +22,13 @@ Figma variable names now match the canonical token contract directly. Semantic n
 
 ## Current Figma resolution
 
-The active Color resolution is now:
+The active Figma Color resolution is now:
 
 ```text
 01 Primitives
-→ 03 Semantic
+→ 03 Semantic Values (jobvision/* + cando/*, Light | Dark)
+→ 02 Product semantic/* router (JobVision | Cando)
+→ 03 Semantic public contract
 → Product UI / Components
 
 01 Primitives
@@ -34,7 +36,7 @@ The active Color resolution is now:
 → owning DS component
 ```
 
-`02 Product` is **not** an active Color-resolution layer. Its former Brand Color variables remain hidden under `_legacy/brand/*` for migration continuity only; current Semantic values do not depend on them.
+`02 Product` is an active **Figma authoring router** for Product selection. This does not make Product a public Color-token dimension or require runtime packages to reproduce the Figma routing layers.
 
 The runtime architecture remains:
 
@@ -49,13 +51,16 @@ Current Figma collections:
 ```text
 01 Primitives            → Value
 02 Product               → JobVision | Cando
-03 Semantic              → JobVision Light | JobVision Dark | Cando Light | Cando Dark
+03 Semantic              → Value
+03 Semantic Values       → Light | Dark
+  ├── jobvision/*
+  └── cando/*
 04 Component Tokens      → Light | Dark
 ```
 
-Figma mode labels represent authoring contexts. Semantic Color uses Theme × Appearance modes; Component Tokens use only Light/Dark because Tag values are shared across Products.
+Product and Appearance are independent Figma mode axes. `02 Product` selects the Product branch; `03 Semantic Values` selects Light/Dark. `03 Semantic` remains the stable public Color API and keeps its existing variable IDs/bindings.
 
-`01 Primitives` is a hidden authoring palette and does not imply one shared runtime Primitive package. `03 Semantic` is the published shared Color API. `04 Component Tokens` is hidden and currently contains only Product-independent Tag Color tokens with Light/Dark modes.
+`01 Primitives` is the raw authoring palette. `04 Component Tokens` remains Product-independent and currently contains Tag Color tokens.
 
 Most non-Brand Semantic values currently resolve identically in JobVision and Cando, so their tables show Light/Dark once and apply to both Themes. Tag Component Tokens are explicitly Product-independent. Transparent Semantic interaction colors and overlay intentionally store resolved RGBA directly.
 
@@ -66,8 +71,28 @@ Active Product-aware authoring:
 | Role | JobVision | Cando |
 |---|---|---|
 | `typography/font-family` | `Vazirmatn` | `IRANYekanX` |
+| `semantic/{role}` | aliases `jobvision/{role}` | aliases `cando/{role}` |
 
-Former Brand Color variables are retained under `_legacy/brand/*` only for migration continuity. They are hidden and have no current Semantic dependencies.
+The `semantic/*` variables are Figma-only router values with no property scopes. Product UI continues to bind to the public `03 Semantic` variables, not to these router variables.
+
+Former Brand Color variables are retained under `_legacy/brand/*` only for migration continuity.
+
+## 03 Semantic Values
+
+`03 Semantic Values` contains two nested Product groups:
+
+```text
+jobvision/{semantic-role}
+cando/{semantic-role}
+```
+
+and two modes:
+
+```text
+Light | Dark
+```
+
+These variables are implementation values used by the Product router.
 
 ## 03 Semantic
 
