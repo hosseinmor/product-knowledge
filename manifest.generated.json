@@ -1983,11 +1983,14 @@
       "id": "design-system.reference.figma",
       "kind": "design-system-reference",
       "title": "Figma Reference",
-      "summary": "> Status: structure only",
-      "status": "draft",
-      "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "summary": "Operational reference for the current JV Design System Figma file, its variable architecture, stable component identities, and live-source boundaries.",
+      "status": "reviewed",
+      "owner": "Design System team",
+      "last_reviewed": "2026-09-16",
+      "related": [
+        "design-system.reference.source-of-truth",
+        "design-system.reference.component-mapping"
+      ],
       "topics": [
         "design-system-reference",
         "figma",
