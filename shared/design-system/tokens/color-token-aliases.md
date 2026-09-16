@@ -181,7 +181,7 @@ These roles alias the Theme-appropriate Primitives directly; no active Brand Col
 | `fg/disabled` | `neutral/500` | `neutral/500` |
 | `fg/on-inverse` | `bw/white` | `neutral/950` |
 
-The old Figma variable `fg/fg-on-disabled` remains hidden for migration safety and is not canonical.
+The old disabled-foreground variable remains hidden for migration safety and is not canonical.
 
 ### Neutral Line
 
