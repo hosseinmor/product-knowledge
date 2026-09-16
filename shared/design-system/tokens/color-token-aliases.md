@@ -18,7 +18,7 @@ This document records the current validated Figma Color mappings after the Theme
 
 If this document and Figma diverge, treat the mismatch as a maintenance gap and inspect Figma rather than guessing.
 
-Canonical documentation uses names such as `surface/default`; Figma keeps picker-friendly names such as `surface/surface-default`. Alias targets below reproduce the current Figma Primitive spelling `pallete/*` intentionally.
+Figma variable names now match the canonical token contract directly. Semantic names use forms such as `surface/default`, `fg/primary`, `line/default`, `link/default`, and `focus/default`; Primitive names use the `palette/*` prefix.
 
 ## Current Figma resolution
 
@@ -75,11 +75,11 @@ Former Brand Color variables are retained under `_legacy/brand/*` only for migra
 
 | Canonical role | Light | Dark |
 |---|---|---|
-| `surface/default` | `pallete/bw/white` | `pallete/neutral/900` |
-| `surface/muted` | `pallete/neutral/50` | `pallete/neutral/800` |
-| `surface/inset` | `pallete/neutral/100` | `pallete/neutral/950` |
-| `surface/raised` | `pallete/bw/white` | `pallete/neutral/800` |
-| `surface/inverse` | `pallete/neutral/950` | `pallete/bw/white` |
+| `surface/default` | `palette/bw/white` | `palette/neutral/900` |
+| `surface/muted` | `palette/neutral/50` | `palette/neutral/800` |
+| `surface/inset` | `palette/neutral/100` | `palette/neutral/950` |
+| `surface/raised` | `palette/bw/white` | `palette/neutral/800` |
+| `surface/inverse` | `palette/neutral/950` | `palette/bw/white` |
 
 Dark uses a dimmed-dark hierarchy rather than numerical inversion.
 
@@ -94,7 +94,7 @@ Dark uses a dimmed-dark hierarchy rather than numerical inversion.
 | `surface/neutral-emphasis-hover` | `neutral/800` | `neutral/300` |
 | `surface/neutral-emphasis-active` | `neutral/700` | `neutral/400` |
 
-All unqualified hue paths in tables refer to `pallete/{hue}/{step}`.
+All unqualified hue paths in tables refer to `palette/{hue}/{step}`.
 
 ### Transparent Surface
 
@@ -216,8 +216,8 @@ Canonical semantic meaning and current Figma variable names are:
 
 | Meaning | Figma variable | Light | Dark |
 |---|---|---|---|
-| Focus default | `utility/focus-default` | `neutral/900` | `neutral/100` |
-| Focus inverse | `utility/focus-inverse` | `bw/white` | `neutral/950` |
+| Focus default | `focus/default` | `neutral/900` | `neutral/100` |
+| Focus inverse | `focus/inverse` | `bw/white` | `neutral/950` |
 | Overlay | `utility/overlay` | `rgba(0,0,0,.50)` | `rgba(0,0,0,.50)` |
 | Skeleton background | `utility/skeleton-background` | `neutral/100` | `neutral/800` |
 | Skeleton base | `utility/skeleton-base` | `neutral/300` | `neutral/700` |
