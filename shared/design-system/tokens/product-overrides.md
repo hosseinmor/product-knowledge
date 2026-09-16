@@ -102,16 +102,24 @@ Product-specific business behavior may still depend on Product identity; this do
 
 ## Current Figma representation
 
-Product-aware Color values now live directly in the Theme × Appearance modes of `03 Semantic`.
+Figma separates Product selection from Appearance selection.
 
 ```text
+02 Product
+├── JobVision
+└── Cando
+
+03 Semantic Values
+├── jobvision/*
+├── cando/*
+└── modes: Light | Dark
+
 03 Semantic
-├── JobVision Light
-├── JobVision Dark
-├── Cando Light
-└── Cando Dark
+└── stable public contract
 ```
 
-Brand Semantic roles alias the appropriate Primitive values directly in each Theme context; there is no active Brand Color alias layer.
+`02 Product` is the Figma Product selector. It switches Product-aware typography and routes every public Semantic role to the matching Product branch in `03 Semantic Values`.
 
-`02 Product → JobVision | Cando` remains a hidden Figma authoring collection for Product-aware non-Color concerns such as `typography/font-family`. Former Brand Color variables remain hidden legacy only and have no Semantic/Tag dependencies.
+`03 Semantic Values` then resolves Light/Dark independently. This means switching Product does not require changing Appearance, and switching Appearance does not require changing Product.
+
+Former Brand Color variables remain hidden legacy only and are outside the active routing graph.
