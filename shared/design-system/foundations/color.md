@@ -81,11 +81,14 @@ The current Figma Variables model is:
 ```text
 01 Primitives            → Value
 02 Product               → JobVision | Cando
-03 Semantic              → JobVision Light | JobVision Dark | Cando Light | Cando Dark
+03 Semantic              → Value
+03 Semantic Values       → Light | Dark
+  ├── jobvision/*
+  └── cando/*
 04 Component Tokens      → Light | Dark
 ```
 
-`01 Primitives`, `02 Product`, and `04 Component Tokens` are hidden from normal library publishing. `03 Semantic` is the published shared Color API. Semantic uses Theme × Appearance modes because its values can vary by Theme; Component Tokens use only Light/Dark because current Tag values are Product-independent.
+`03 Semantic` remains the stable public Color API. `02 Product` is the Figma Product-mode selector and routes Semantic values to the selected Product branch in `03 Semantic Values`; `03 Semantic Values` independently selects Light/Dark. `04 Component Tokens` remains Product-independent and component-only.
 
 ## Semantic boundaries
 
