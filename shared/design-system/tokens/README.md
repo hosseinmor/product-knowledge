@@ -45,11 +45,14 @@ Categorical Tag is currently the only approved Component Color-token exception. 
 ```text
 01 Primitives            → Value
 02 Product               → JobVision | Cando
-03 Semantic              → JobVision Light | JobVision Dark | Cando Light | Cando Dark
+03 Semantic              → Value
+03 Semantic Values       → Light | Dark
+  ├── jobvision/*
+  └── cando/*
 04 Component Tokens      → Light | Dark
 ```
 
-- `01 Primitives` is hidden.
-- `02 Product` is hidden and currently carries `typography/font-family`; former Brand Color aliases are hidden legacy.
-- `03 Semantic` is the published shared Color contract.
-- `04 Component Tokens` is hidden and currently contains Product-independent Tag Color tokens.
+- `02 Product` is the Figma Product selector and switches both Product-aware typography and Semantic routing.
+- `03 Semantic` is the published stable Color contract.
+- `03 Semantic Values` holds Product-nested Light/Dark implementation values.
+- `04 Component Tokens` remains Product-independent and component-only.
