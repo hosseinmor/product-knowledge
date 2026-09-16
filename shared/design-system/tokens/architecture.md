@@ -168,12 +168,13 @@ Current editable Figma structure:
 
 | Collection | Current modes | Migration status |
 |---|---|---|
-| `01 Primitives` | `Value` | hidden authoring palette; runtime Primitives remain Theme-local |
-| `02 Product` | `JobVision / Cando` | hidden Product-aware authoring; currently `typography/font-family`; former Brand Color vars are hidden legacy |
-| `03 Semantic` | `JobVision Light / JobVision Dark / Cando Light / Cando Dark` | published shared Semantic contract with Theme × Appearance value contexts |
+| `01 Primitives` | `Value` | raw authoring palette; runtime Primitives remain Theme-local |
+| `02 Product` | `JobVision / Cando` | Figma Product selector; routes Semantic values and switches Product-aware font family |
+| `03 Semantic` | `Value` | published stable Semantic contract; existing component/product bindings remain here |
+| `03 Semantic Values` | `Light / Dark` | Product-nested implementation values under `jobvision/*` and `cando/*` |
 | `04 Component Tokens` | `Light / Dark` | hidden component-only values; currently Tag; Product-independent |
 
-Figma combines Theme and Appearance only where Theme variation actually exists, such as Semantic Color. Component Tokens use only Light/Dark when their values are shared across Products.
+Figma therefore exposes Product and Appearance as independent authoring axes rather than a four-mode Cartesian product.
 
 Do not interpret Figma collection boundaries as public runtime package boundaries.
 
