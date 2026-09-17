@@ -7,7 +7,7 @@ summary: Registry contract for mapping stable Figma component identities to runt
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: '2026-09-13'
+last_reviewed: '2026-09-17'
 related:
   - design-system.reference.figma
   - design-system.reference.code
@@ -52,15 +52,20 @@ Known mismatch/gap
 | Figma component set | `Button / Default` |
 | Figma component key | `be5d0d9cd5fdd02f9d7afa1e371c2f2a23acb329` |
 | Figma node ID | `1854:1776` |
-| Figma properties | `Style / Type / Size / State` + text/icon properties |
+| Figma variant properties | `Style / Size / State / Loading` |
+| Figma content properties | `Button text / Start Icon / End Icon / Swap Start Icon / Swap End Icon` |
+| Figma styles | `Brand / Primary / Secondary / Tertiary / Ghost / Danger Primary / Danger Tertiary / Danger Ghost` |
+| Figma sizes | `Extra Small 28 / Small 32 / Medium 40 / Large 48` |
+| Figma states | `Enabled / Hover / Active / Focus / Disabled` |
+| Loading representation | `False / True`, separate from interaction State; uses shared `Loading / Small / Active` component |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified** |
-| Property mapping | **Unverified** |
+| Property mapping | **Unverified** — do not infer code prop names from Figma property names |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-09-13 |
+| Last Figma verification | 2026-09-17 |
 
-The Button entry is deliberately incomplete. It proves the design identity is known while making the runtime gap explicit.
+The Button design identity and current Figma property model are verified. Runtime API, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified because the owning runtime Design System repository/package and Storybook source are not yet registered. Track that source gap through the integration contract rather than guessing from Figma.
 
 ## Rules
 
