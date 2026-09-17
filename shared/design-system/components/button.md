@@ -3,12 +3,12 @@ id: button
 collection: design-system
 type: component
 title: Button
-summary: Buttons trigger actions and use a small preset hierarchy for Brand, operational, low-emphasis, and destructive actions.
-knowledge_state: unverified
+summary: Buttons trigger actions through a constrained hierarchy of Brand, operational, low-emphasis, and destructive styles.
+knowledge_state: verified
 document_maturity: draft
 related: []
-design_status: draft
-design_maturity: usable-for-product-testing
+design_status: ready-for-dev
+design_maturity: handoff-ready
 source_guideline: button-guidelines-v0.6.md
 ---
 
@@ -16,27 +16,64 @@ source_guideline: button-guidelines-v0.6.md
 
 ## Purpose
 
-Buttons trigger actions. Designers choose from a small set of named presets rather than solving an unrestricted style matrix.
-
-## Use / Avoid
+Buttons trigger actions. Designers choose from the approved Button styles rather than creating ad-hoc visual treatments.
 
 Use Button when an action changes state, submits data, confirms a decision, opens an operation, or otherwise performs work in the current context.
 
-Use Link when the primary behavior is navigation to another destination.
+Use Link when the primary behavior is navigation. Use dedicated controls for selection and specialized interactions such as Tab, Segmented Control, Toggle, Filter Chip, or Icon Button.
 
-Use a dedicated control rather than Button when the interaction represents selection or another specialized behavior, such as Tab, Segmented Control, Toggle Button, Filter Chip, or Icon Button.
+## Canonical Figma API
 
-## Choices
+Component set: `Button / Default`
 
-| Need | Preset |
+### Properties
+
+| Property | Values / behavior |
 |---|---|
-| Defined product conversion or product-defining entry point | Brand |
+| `Style` | `Brand`, `Primary`, `Secondary`, `Tertiary`, `Ghost`, `Danger Primary`, `Danger Tertiary`, `Danger Ghost` |
+| `Size` | `Extra Small`, `Small`, `Medium`, `Large` |
+| `State` | `Enabled`, `Hover`, `Active`, `Focus`, `Disabled` |
+| `Loading` | `False`, `True`; independent from interaction `State` |
+| `Button text` | Required visible action label |
+| `Start Icon` | Optional boolean |
+| `End Icon` | Optional boolean |
+| `Swap Start Icon` | Instance swap |
+| `Swap End Icon` | Instance swap |
+
+Button always has a visible text label when not loading. Icon-only actions use Icon Button.
+
+## Sizes and Anatomy
+
+| Size | Height |
+|---|---:|
+| Extra Small | 28 px |
+| Small | 32 px |
+| Medium | 40 px |
+| Large | 48 px |
+
+Shared anatomy rules:
+
+- Border radius: `6px`.
+- Width: hug contents by default.
+- Label must remain on one line; implementation must use `white-space: nowrap` / `whitespace-nowrap` or the framework equivalent.
+- Start and End icons are optional.
+- Button icon size is `18px` across all Button sizes.
+- Gap between icon and label is `8px`.
+- Button text weight is `500`.
+- Button height is fixed by `Size`; content is vertically centered.
+- Do not change width, padding, or label layout between interaction states.
+
+## Style Selection
+
+| Need | Style |
+|---|---|
+| Approved product conversion or product-defining entry point | Brand |
 | Main operational action | Primary |
 | Supporting medium-emphasis action | Secondary |
-| General, filter, dropdown, toolbar, or utility action | Tertiary |
-| Back, Cancel, Later, or another low-emphasis action | Ghost |
-| Final destructive confirmation | Danger Filled |
-| Visible independent destructive action | Danger Outline |
+| General utility, filter, dropdown, toolbar, or control-like action | Tertiary |
+| Back, Cancel, Later, or another intentionally low-emphasis action | Ghost |
+| Final destructive confirmation | Danger Primary |
+| Visible independent destructive action | Danger Tertiary |
 | Low-emphasis or inline destructive action | Danger Ghost |
 
 ### Brand
@@ -75,8 +112,8 @@ If Ghost still feels too prominent, reconsider placement, copy, or whether the c
 
 Use Danger only for destructive intent, not merely negative wording.
 
-- Final destructive confirmation → Danger Filled
-- Visible independent destructive action → Danger Outline
+- Final destructive confirmation → Danger Primary
+- Visible independent destructive action → Danger Tertiary
 - Low-emphasis destructive entry point or inline action → Danger Ghost
 
 A reversible rejection or negative choice is not automatically destructive.
@@ -85,16 +122,29 @@ A reversible rejection or negative choice is not automatically destructive.
 
 ### Loading
 
-- The triggering Button may enter Loading after submission.
-- Prevent repeated submission while the operation is in progress.
-- Keep the Button width stable when practical so surrounding layout does not jump.
-- Flow-level rules decide whether competing actions are also disabled; that policy does not belong to Button alone.
+Loading is independent from interaction `State` in the Figma API and should map to a boolean such as `loading` in code.
+
+When `Loading=True`:
+
+- Use the existing `Loading / Size=Small / State=Active` component (`16×16`); do not create a Button-specific spinner.
+- Preserve the Button's exact width and height.
+- Preserve the label and icon layout space while visually hiding their content, so entering Loading never causes layout shift.
+- Center the Loading component relative to the current Button width. It must remain centered when the label changes or Start/End icons are toggled.
+- Prevent repeated activation/submission while the operation is in progress.
+- Preserve focus when possible; Loading must not unexpectedly move keyboard focus.
+- Expose the busy state to assistive technology, e.g. `aria-busy="true"` where appropriate.
+- Do not visually convert Loading into Disabled. Style identity remains Brand/Primary/etc. while the action is busy.
+- Do not animate Button width or layout when entering or leaving Loading.
+
+Framework-specific implementation may use `disabled`, `aria-disabled`, event suppression, or a combination, but must satisfy the behavior above. Prefer an approach that does not unexpectedly remove keyboard focus from the triggering Button.
+
+Flow-level rules decide whether competing actions are also disabled; that policy does not belong to Button alone.
 
 ### Disabled
 
 Disabled suppresses the original tone. Do not preserve Brand or Danger chroma merely to show what the enabled action would have been.
 
-All disabled Button presets use the shared `fg/disabled` foreground role. Filled disabled Buttons additionally use `surface/disabled`; outline disabled Buttons additionally use `line/disabled`.
+All disabled Button styles use the shared `fg/disabled` foreground role. Filled disabled Buttons additionally use `surface/disabled`; outline disabled Buttons additionally use `line/disabled`.
 
 ```text
 Filled disabled
@@ -107,17 +157,28 @@ Ghost / transparent disabled
 → transparent + fg/disabled
 ```
 
-Do not introduce `fg/on-disabled` or restore `fg/on-color-disabled`. If final palette/contrast validation proves that one `fg/disabled` value cannot work across both `surface/default` and `surface/disabled`, revisit the semantic model explicitly rather than adding a second disabled foreground by convention.
+Disabled does not replace validation or error guidance. The reason an action is unavailable should be understandable from surrounding context when that reason matters to task completion.
 
-Disabled does not replace validation or error guidance. The reason an action is unavailable should be understandable from the surrounding context when that reason matters to task completion.
+### Hover / Active
+
+- Hover and Active must use the corresponding semantic token state for the selected Style.
+- Do not implement these states through opacity changes that reduce contrast unpredictably.
+- State transitions must not affect dimensions or layout.
 
 ### Focus
 
-Focus treatment is independent from Button tone. Use the shared Focus contract rather than Brand or Danger color as the sole focus indication.
+- Focus treatment is independent from Button tone.
+- Use the shared Focus contract; Brand or Danger color alone is not a sufficient focus indication.
+- Keyboard focus must remain visibly distinguishable from Hover and Active.
+- Do not remove the native focus behavior without replacing it with the approved focus treatment.
 
-### Icon-only
+## Motion / Transition Contract
 
-An icon-only action is an Icon Button, not a Button preset. It requires its own accessible name and target-size contract.
+Use the shared motion/transition tokens when available. Button does not define a component-specific duration or easing.
+
+Allowed transition targets are visual state properties such as background, foreground, border, and focus treatment. Do not transition width, height, padding, gap, or other layout-affecting properties.
+
+Loading may animate internally through the shared Loading component, but the Button container must remain dimensionally stable.
 
 ## Composition and Content
 
@@ -125,64 +186,123 @@ An icon-only action is an Icon Button, not a Button preset. It requires its own 
 - Do not use Brand merely to create visual emphasis.
 - Avoid repeating high-emphasis Buttons across every row/card in dense interfaces.
 - Use concise action labels that describe the result of activation.
+- Keep labels on one line; do not allow wrapping inside Button.
 - If an action navigates rather than performs an operation, use Link semantics even when its visual treatment resembles a Button.
 
 Cross-component action hierarchy belongs in `../experience-rules/action-hierarchy.md`.
 
 ## Semantic Mapping
 
-The component consumes shared Semantic color roles; it does not need Button-specific Color tokens.
+The component consumes shared Semantic color roles; it does not introduce Button-specific color tokens.
 
-| Preset | Semantic treatment |
+| Style | Semantic treatment |
 |---|---|
 | Brand | `surface/brand` + `fg/on-brand` |
 | Primary | `surface/neutral-emphasis` + on-color foreground |
 | Secondary | `surface/neutral-muted` + normal foreground |
-| Tertiary | transparent + `line/default` + normal foreground |
+| Tertiary | transparent + normal border + normal foreground |
 | Ghost | transparent + normal foreground |
-| Danger Filled | `surface/danger-emphasis` + on-color foreground |
-| Danger Outline | transparent + `line/danger` + `fg/danger` |
+| Danger Primary | danger emphasis surface + on-color foreground |
+| Danger Tertiary | transparent + danger border + `fg/danger` |
 | Danger Ghost | transparent + `fg/danger` |
 
-Hover and Active states follow the corresponding Semantic family. Do not duplicate the complete token state matrix here when it can be resolved from the token system/live implementation.
+Hover and Active states resolve through the corresponding Semantic family. Do not duplicate the complete token state matrix here when it can be resolved from the token system/live implementation.
 
 `surface/muted` is a passive structural surface and must not be used as the Secondary Button background.
 
 ## Product Variation
 
-Brand uses the active product Brand mapping: JobVision Blue and Cando Yellow. Brand meaning remains the same across products.
+Brand uses the active product Brand mapping. Brand meaning remains the same across products.
 
 Everyday Cando operational actions remain Neutral even when Brand usage is rare. General chromatic interaction is Accent semantics, not another Button tone.
 
-## Accessibility
+## Accessibility and Interaction Contract
 
-- Prefer a native `button` element for Button behavior.
-- Preserve native keyboard activation unless a documented platform constraint requires otherwise.
-- Every Button needs an accessible name that communicates the action.
+- Prefer a native `<button>` element for Button behavior.
+- Preserve native keyboard activation: `Enter` and `Space` must activate a focused Button according to platform semantics.
+- Every Button requires an accessible name; for standard Button this is normally the visible label.
 - Visible focus must follow the shared Focus contract.
-- Loading must not create repeated activation or unexpectedly move focus.
-- Disabled, loading, destructive intent, and validation are different concepts; do not collapse them into one state.
-- Target size follows the shared Accessibility baseline; exact Button sizing remains unresolved until the size contract is approved.
+- Disabled and Loading are different concepts and must not be collapsed into one visual/semantic state.
+- Prevent duplicate activation while Loading.
+- Loading should preserve focus when possible and expose busy state semantically.
+- Start/End icons are decorative when the visible label already communicates the action; avoid duplicate accessible names from decorative icons.
+- Button label must not wrap.
+- Do not use color alone to communicate destructive state or focus.
 
-General keyboard, focus, target-size, contrast, and semantics requirements come from the Accessibility corpus. This section owns only Button-specific behavior.
+## Development Contract
 
-## Known Gaps
+The code component should expose semantic inputs equivalent to the Figma API, but it does not need to model interaction pseudo-states as application props.
 
-Still unresolved:
+Expected conceptual API:
 
-- exact Button anatomy;
-- size scale, dimensions, spacing, icon size/gap, and radius mapping;
-- minimum visual dimensions for each size;
-- exact code API;
-- final Figma property names;
-- final approved Brand use-case list by product;
-- whether Modal Cancel has one shared default treatment across products.
+```text
+Button
+- style: brand | primary | secondary | tertiary | ghost | danger-primary | danger-tertiary | danger-ghost
+- size: xs | sm | md | lg
+- loading: boolean
+- disabled: boolean
+- startIcon?: icon
+- endIcon?: icon
+- children / label
+```
 
-These gaps must not be inferred from this document or from legacy screenshots.
+`hover`, `active`, and `focus` are interaction states and should normally be implemented through platform/CSS state mechanisms rather than public component props.
+
+Implementation requirements:
+
+- label: `white-space: nowrap` / `whitespace-nowrap`;
+- fixed height per size: 28 / 32 / 40 / 48 px;
+- radius: 6 px;
+- icon size: 18 px;
+- icon-label gap: 8 px;
+- no layout-changing transitions;
+- loading spinner: shared Loading Small / Active, 16 px;
+- no width jump during Loading;
+- suppress repeated activation while Loading;
+- preserve keyboard/focus behavior and visible focus treatment.
+
+### Class architecture — Open with Frontend
+
+The exact CSS/Tailwind class architecture is intentionally not locked by design. Candidate decomposition discussed so far is approximately:
+
+```text
+btn
+btn-[size]
+btn-[style]
+```
+
+Before implementation, align with frontend on whether this remains separate composable classes, becomes a variant utility/CVA-style API, or follows the existing Angular/Tailwind component convention. The semantic API and behavior contract above are fixed; the class-authoring strategy is not.
+
+## QA Checklist
+
+For each Style and Size, verify:
+
+- Enabled, Hover, Active, Focus, Disabled render with the intended tokens.
+- Height matches the size contract.
+- Label never wraps.
+- Start and End icons remain 18 px and preserve the 8 px label gap.
+- Keyboard focus is visible.
+- Disabled does not trigger the action.
+- Loading prevents repeated activation.
+- Switching Loading on/off does not change width or height, including with custom labels and Start/End icon combinations.
+- Shared Loading Small / Active remains centered at every Button width.
+- No interaction state causes layout shift.
+
+## Open Items
+
+Still open and requiring frontend coordination:
+
+- exact class / variant authoring architecture in Angular + Tailwind;
+- exact shared motion token to use for Button state transitions if one is not already established;
+- Storybook / code canonical reference and eventual Code Connect mapping.
+
+These are implementation-system decisions; the Button visual and behavioral contract is otherwise complete.
 
 ## Live References
 
-- Figma: current shared Design System Button component; exact component/property reference still needs to be recorded.
+- Figma component set: `Button / Default` in `[DS] Job Vision NEXT`.
+- Figma properties: `Style`, `Size`, `State`, `Loading`, `Button text`, Start/End Icon, Start/End Icon swap.
+- Loading dependency: shared `Loading / Size=Small / State=Active`.
 - Storybook / Code: not yet connected as a canonical live reference.
 
 ## Related
