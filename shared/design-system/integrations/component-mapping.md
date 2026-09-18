@@ -94,6 +94,34 @@ The Button design identity and current Figma property model are verified. Runtim
 
 The Icon Button design identity and current Figma property model are verified. Its accessible-name, Tooltip, sizing, destructive-action, migration, and state boundaries are defined in `../components/icon-button.md`. Runtime API, Storybook identity, Tooltip composition strategy, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
+
+### Accordion
+
+| Field | Current value |
+|---|---|
+| DS component | Accordion / Disclosure |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component set | `Accordion / Item` |
+| Figma component key | `2728144865f9616dd66228719b4fb71936e3062a` |
+| Figma node ID | `22794:548` |
+| Figma variant properties | `Size / State / Expanded` |
+| Figma content properties | `Title / Body / Body text / Custom content / Content swap` |
+| Figma sizes | `Large 48 / Medium 40 / Small 32` minimum Trigger heights |
+| Figma states | `Enabled / Hover / Focus / Disabled`; Active is runtime-only |
+| Composition | Same Item used standalone as Disclosure or stacked as Accordion |
+| Group behavior | Multiple-open default; Single-open explicit option; both allow all-collapsed |
+| Direction | RTL-first; Indicator at logical Start; no physical Alignment axis |
+| Legacy assets | Old `Accordion` / `_Accordion item` / skeleton sets remain for migration only |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-18 |
+
+The Accordion design identity, visual state model, composition boundary, RTL construction, and Figma content-property model are verified. Runtime API, exact DOM/animation implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
+
+
 ## Rules
 
 - Figma property labels do not automatically become code prop names.
