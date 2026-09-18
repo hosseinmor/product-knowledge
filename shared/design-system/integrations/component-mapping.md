@@ -7,7 +7,7 @@ summary: Registry contract for mapping stable Figma component identities to runt
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: '2026-09-17'
+last_reviewed: '2026-09-18'
 related:
   - design-system.reference.figma
   - design-system.reference.code
@@ -66,6 +66,33 @@ Known mismatch/gap
 | Last Figma verification | 2026-09-17 |
 
 The Button design identity and current Figma property model are verified. Runtime API, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified because the owning runtime Design System repository/package and Storybook source are not yet registered. Track that source gap through the integration contract rather than guessing from Figma.
+
+
+### Icon Button
+
+| Field | Current value |
+|---|---|
+| DS component | Icon Button |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component set | `Icon Button / Default` |
+| Figma component key | `f9b7af4bd9afaf768ae955c51ccddd29833c5ca7` |
+| Figma node ID | `22685:1410` |
+| Figma variant properties | `Style / Size / State` |
+| Figma content properties | `Icon` instance swap |
+| Figma styles | `Brand / Primary / Secondary / Tertiary / Ghost / Danger Tertiary / Danger Ghost` |
+| Figma sizes | `Extra Small 28 / Small 32 / Medium 40 / Large 48` |
+| Figma states | `Enabled / Hover / Active / Focus / Disabled` |
+| Icon size | Fixed `18px` |
+| Tooltip contract | Required for operable Icon Buttons on hover/focus; Tooltip does not replace the accessible name |
+| Loading / Selected | Not part of the current Icon Button contract |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer code prop names from Figma property names |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-18 |
+
+The Icon Button design identity and current Figma property model are verified. Its accessible-name, Tooltip, sizing, destructive-action, migration, and state boundaries are defined in `../components/icon-button.md`. Runtime API, Storybook identity, Tooltip composition strategy, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
 ## Rules
 
