@@ -3,301 +3,311 @@ id: accordion
 collection: design-system
 type: component
 title: Accordion
-summary: Accordion uses progressive disclosure to organize related content in a compact
-  vertical list. Each item exposes a short title and lets the user show or hide its
-  associated content without navigating away.
-knowledge_state: unverified
+summary: Accordion groups related disclosure items so users can reveal supporting content in place while keeping the page scannable.
+knowledge_state: verified
 document_maturity: draft
 related: []
-design_status: draft
-design_maturity: usable-for-product-testing
-source_figma: https://www.figma.com/design/VA5qSyutH4QkLTfimzdUbe/-DS--Job-Vision?node-id=31-2385
-source_node: 31:2385
+design_status: ready-for-dev
+design_maturity: handoff-ready
+source_figma: https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=22794-548
+source_node: 22794:548
 ---
 
 # Accordion
 
 ## Purpose
 
-Accordion uses progressive disclosure to organize related content in a compact vertical list. Each item exposes a short title and lets the user show or hide its associated content without navigating away.
+Accordion organizes related supporting content as a vertical set of expandable sections.
 
-Use Accordion when users benefit from scanning several section titles before deciding which details to read.
+Use it when users benefit from scanning section titles before deciding which details to read. Do not use it to hide information that is required to understand or complete the current task.
 
-## Documentation Ownership
+## Accordion vs Disclosure
 
-This document is the canonical source for:
+The shared design unit is **Accordion Item**.
 
-- Accordion anatomy
-- Figma properties and variants
-- Size and layout rules
-- Interaction behavior and states
-- Semantic-token mappings
-- Usage and content guidance
-- Accessibility requirements
+- Two or more related items stacked together form an **Accordion**.
+- One item used by itself is a **Disclosure / Collapsible section** pattern.
+- Do not create a duplicate Figma component only to represent the standalone case; the same Accordion Item owns the interaction and anatomy.
+- Accordion is not navigation. Use Tabs, navigation, Tree, or another navigation pattern when changing sections changes destination/context rather than revealing content in place.
 
-The Figma component remains the source for editable assets and variant construction. This document defines how those variants should be interpreted and used.
+## Canonical Figma source
+
+Current design source:
+
+- File: `-DS--Job-Vision-NEXT`
+- File key: `rROD8ctH9UfPGAMrRrOzHe`
+- Component set: `Accordion / Item`
+- Node ID: `22794:548`
+- Component key: `2728144865f9616dd66228719b4fb71936e3062a`
+
+The older `Accordion`, `_Accordion item`, and Accordion skeleton constructions on the same page are legacy assets retained for migration compatibility. Do not use them as the source for new work.
 
 ## Anatomy
 
-An Accordion consists of one or more Accordion items.
+Each Accordion Item contains:
 
-Each item contains:
+1. **Trigger** — the full interactive header row.
+2. **Title** — the accessible visible label of the Trigger.
+3. **Indicator** — decorative expand/collapse Chevron.
+4. **Panel** — content region controlled by the Trigger.
+5. **Body** — optional standard body copy.
+6. **Custom content** — optional instance-swap region for richer Panel content.
+7. **Divider** — structural separation between adjacent items.
 
-1. **Item container** — groups the trigger and its content panel.
-2. **Header trigger** — the full interactive row that expands or collapses the item.
-3. **Title** — describes the content revealed by the item.
-4. **Chevron** — indicates the current collapsed or expanded state.
-5. **Content panel** — contains the disclosed content.
-6. **Optional content slot** — accepts custom content below the main body.
-7. **Divider** — separates adjacent items.
+The Trigger owns expand/collapse interaction. The Chevron is not a separate control.
 
-The full header row is interactive. The Chevron is only a visual indicator and must not act as a separate control.
+Do not place arbitrary interactive controls inside the Trigger. If a persistent action must sit beside an Accordion heading, keep it outside the heading/Trigger as a sibling control with its own semantics and focus target.
 
-## Figma Properties
+## Figma API
+
+### Variant properties
 
 | Property | Values | Meaning |
 |---|---|---|
-| `Size` | `Large`, `Medium`, `Small` | Controls the minimum header height through vertical padding |
-| `State` | `Enabled`, `Hover`, `Focus`, `Disabled`, `Skeleton` | Represents the current visual or loading state |
-| `Alignment` | `Right`, `Left` | Controls which side contains the Chevron |
-| `Expanded` | `True`, `False` | Controls panel visibility and Chevron direction |
-| `Title text` | Text property | Sets the header label |
-| `Content text` | Text property | Sets the primary panel text |
-| `Slot` | Boolean | Shows or hides the optional custom-content region |
-| `Swap slot` | Instance swap | Replaces the placeholder with another component |
+| `Size` | `Large / Medium / Small` | Minimum Trigger height and title typography |
+| `State` | `Enabled / Hover / Focus / Disabled` | Design-time interaction state |
+| `Expanded` | `False / True` | Panel visibility and Indicator direction |
 
-`Alignment` controls the position of the Chevron, not the text direction. Text direction follows the product locale and content.
+There are 24 visual variants: `3 Size × 4 State × 2 Expanded`.
 
-## Sizes and Layout
+`Alignment` and `Skeleton` are intentionally not variant axes.
 
-### Header
+### Content properties
 
-| Size | Minimum height | Horizontal padding | Vertical padding | Chevron | Title–Chevron gap |
-|---|---:|---:|---:|---:|---:|
-| Large | 48 px | 16 px | 12 px | 16 px | 16 px |
-| Medium | 40 px | 16 px | 8 px | 16 px | 16 px |
-| Small | 32 px | 16 px | 4 px | 16 px | 16 px |
+| Property | Type | Default |
+|---|---|---|
+| `Title` | Text | `عنوان آکاردئون` |
+| `Body` | Boolean | `True` |
+| `Body text` | Text | sample Panel copy |
+| `Custom content` | Boolean | `False` |
+| `Content swap` | Instance swap | shared Slot placeholder |
 
-The current Figma component uses the legacy `body-01` typography reference, currently 14 px with a 24 px line height. `body-01` is **not** a canonical v4 token name. Final Accordion typography must be rebound to the approved `type.*` typography vocabulary when the shared typography mapping is finalized.
+The Panel may contain Body only, custom content only, or both.
 
-The listed heights are minimums. A long title may wrap and increase the header height. Do not truncate a title when the missing text would make the section unclear.
+The Figma Slot placeholder is authoring scaffolding, not part of the runtime Accordion appearance. Swapped content follows its own component contract.
 
-The component should fill its parent width. The 400 px width shown in the Figma component set is an example width, not a fixed component width.
+## Size and layout
 
-### Content panel
+| Size | Trigger min-height | Title style | Vertical padding |
+|---|---:|---|---:|
+| Large | 48 px | `Label/MD` — 16/24, 500 | 8 px |
+| Medium | 40 px | `Label/SM` — 14/20, 500 | 8 px |
+| Small | 32 px | `Label/SM` — 14/20, 500 | 4 px |
 
-- Top padding: 8 px
-- Bottom padding: 24 px
-- Outer-side padding: 16 px
-- Chevron-side padding: 48 px
-- Gap between the primary content and optional slot: 16 px
+Shared Trigger construction:
 
-The 48 px inset aligns the content with the title rather than the Chevron.
+- horizontal padding: 16 px;
+- Title–Indicator gap: 16 px;
+- Indicator: 16 px;
+- Trigger width: fill container;
+- title: wrapping allowed, no truncation by default;
+- listed heights are minimums; multiline titles increase Trigger height.
 
-### Target size
+Panel construction:
 
-Large is the default size for general use and touch-oriented interfaces.
+- typography: `Body/SM` — 14/24, 400;
+- top padding: 8 px;
+- logical Start inset: 48 px;
+- logical End inset: 16 px;
+- bottom padding: 16 px;
+- Body ↔ custom-content gap: 12 px.
 
-Medium and Small are intended for dense desktop interfaces. If either size is used in a touch context, the implementation must provide an effective target size of at least 44 × 44 px without changing the visible layout.
+The Start inset aligns Panel content with the Title rather than the Indicator.
+
+The 400 px width used in the component-set variants is a presentation width only. Product instances should fill the available container.
+
+## Visual treatment
+
+Accordion is intentionally low-decoration:
+
+- no card background by default;
+- no outer surface border;
+- no radius;
+- no elevation shadow;
+- a 1 px `line/muted` divider separates items;
+- expanded is disclosure state, not selection state, so it does not receive Brand, Accent, or Selected treatment.
 
 ## States
 
-| State | Background | Foreground | Divider | Behavior |
-|---|---|---|---|---|
-| Enabled | Transparent | Normal | Visible | Can expand or collapse |
-| Hover | `surface/transparent-hover` | Normal | Visible | Pointer feedback on the Header trigger |
-| Active | `surface/transparent-active` | Normal | Visible | Press feedback while the trigger is activated |
-| Focus | Transparent | Normal | Visible | Shows the keyboard focus ring |
-| Disabled | Transparent | Disabled | Structural divider remains visible | Cannot expand or collapse |
-| Skeleton | Skeleton treatment | No readable content | Structural divider may remain visible | Non-interactive loading representation |
+| State | Trigger treatment | Title / Indicator | Divider |
+|---|---|---|---|
+| Enabled | transparent | normal semantic foreground | `line/muted` |
+| Hover | `surface/transparent-hover` | normal semantic foreground | `line/muted` |
+| Active | runtime-only `surface/transparent-active` feedback | normal semantic foreground | `line/muted` |
+| Focus | shared Focus treatment on Trigger only | normal semantic foreground | `line/muted` |
+| Disabled | transparent | `fg/disabled` | `line/muted` |
 
-Disabled has no Hover or Active state.
+Focus uses the shared `focus - Outer/Border all` Effect Style, bound to `focus/default`. It must not resize the Trigger or wrap the Panel.
 
-Skeleton is a loading representation, not an interactive state. It must not receive focus or expose an expandable control until the real content is available.
+Active is a transient runtime pseudo-state and is intentionally not a Figma variant axis.
 
-### Focus status
+If a Disabled item is already expanded, Panel content remains readable. Avoid a collapsed Disabled item when disabling it would make otherwise necessary content inaccessible.
 
-The current Figma component uses a two-pixel border around the item for Focus. This treatment is temporary and is not the canonical implementation.
+## Loading
 
-The planned Focus treatment must:
+Loading is not an Accordion interaction state and is not part of the Accordion variant matrix.
 
-- Apply to the Header trigger, not the expanded content panel
-- Use a non-layout-affecting `box-shadow` or equivalent focus ring
-- Use `focus/default` on normal surfaces
-- Use `focus/inverse` only when Accordion is intentionally supported on an inverse surface
-- Remain visible in both Light and Dark modes
+- If the whole Accordion is unavailable while data loads, use the shared loading/skeleton pattern outside the interactive Accordion contract.
+- If only expanded Panel content is loading, the Panel may contain an appropriate Loading/Skeleton component.
+- Do not expose placeholder Accordion headers as operable controls.
 
-`focus/inverse` does not by itself establish that every Accordion variant is supported on `surface/inverse`; the component's inverse support must remain explicit.
+This avoids multiplying every interactive state by a loading representation.
 
-Exact shadow offset, spread, and layering remain open until the Figma component is updated.
+## Expanded and collapsed behavior
 
-## Expanded and Collapsed Behavior
+Default initial state is **collapsed** unless product context has a clear reason to reveal specific content initially.
 
-Expanded is disclosure state, not selection state. Do not use selected, Accent, or Brand tokens to distinguish an expanded item.
+Collapsed:
+- Panel hidden;
+- Indicator points down;
+- accessible expanded state is false.
 
-### Collapsed
+Expanded:
+- Panel visible directly below the Trigger;
+- Indicator points up;
+- accessible expanded state is true.
 
-- The Content panel is hidden.
-- The Chevron points down.
-- The trigger sets `aria-expanded="false"`.
+Opening/closing must not change horizontal alignment.
 
-### Expanded
+## Group behavior
 
-- The Content panel is visible directly below the Header.
-- The Chevron points up.
-- The trigger sets `aria-expanded="true"`.
-- The Header keeps the same Rest, Hover, Active, Focus, and Disabled mappings used when collapsed.
+Accordion supports both group policies:
 
-Opening or closing an item must not shift the horizontal alignment of adjacent content.
+- **Multiple-open — default.** Items own independent expanded state and any number may remain open.
+- **Single-open — explicit option.** Opening one item closes another open item in the same group.
 
-If expansion is animated, keep the motion short and preserve the user's `prefers-reduced-motion` setting. Do not delay access to content for decorative animation.
+Both policies allow all items to be collapsed. A “one item must always remain open” model is not part of the default Accordion contract and requires a product-specific reason.
 
-## Group Behavior
+Use Single-open only when limiting simultaneous expansion is materially useful. Do not use it only to make the interface look tidier.
 
-Each Accordion item owns its own disclosure state.
+Figma does not add a group-behavior variant because this behavior does not change the visual anatomy of an individual item. QA examples on the Accordion page demonstrate grouped multiple-open usage.
 
-The current Figma component does not determine whether an Accordion group allows one or multiple items to remain open. The implementation must expose and document the selected group behavior instead of changing it implicitly between screens.
+## RTL and direction
 
-Until a shared default is approved:
+Persian/RTL is the primary authored context.
 
-- Use multiple-open behavior when users may need to compare content between sections.
-- Use one-open-at-a-time behavior only when space is constrained and comparison is not important.
+- Indicator sits at logical **Start**: right in RTL.
+- Title is right-aligned for Persian content.
+- Panel Start inset follows the Title alignment.
+- Chevron up/down expresses expanded state and does not need horizontal mirroring.
+- Runtime implementations should use logical Start/End layout rather than physical left/right rules.
 
-## Usage
+The Figma candidate is RTL-first and intentionally does not restore the old physical `Alignment=Right/Left` axis. If a product later needs first-class LTR authoring in Figma, add a direction-aware authoring mechanism rather than reintroducing a physical alignment property.
 
-### Use for
+## Accessibility contract
 
-- Long supporting information divided into clear sections
-- FAQs
-- Settings or form sections that users may inspect selectively
-- Secondary details that do not need to remain visible at all times
-
-### Do not use for
-
-- A small amount of content that can be shown directly
-- The primary action or primary message of a page
-- Step-by-step flows where users must complete sections in order
-- Tabs or other navigation between separate destinations
-- Hiding information required to understand or complete the current task
-
-Avoid deeply nesting Accordions. If content needs multiple disclosure levels, reconsider the information architecture.
-
-## Content Guidance
-
-- Write short, specific titles that describe the hidden content.
-- Keep titles unique within the same Accordion group.
-- Do not phrase every title as “More information.”
-- Do not put the only indication of an error, required action, or important status inside a collapsed panel.
-- Custom slot content must follow its own component and token rules; the placeholder appearance in Figma is not part of the Accordion visual specification.
-
-## Semantic Token Mapping
-
-Accordion does not require component-specific Color tokens. It consumes Semantic Color tokens directly.
-
-The implementation mapping for slash-grouped variables is still open. Flattened identifiers in the tables below are **proposed/illustrative code names**, not a production contract.
-
-### Normal surfaces
-
-| Element or state | Figma variable | Proposed flattened code name |
-|---|---|---|
-| Title | `fg/primary` | `fg-primary` |
-| Chevron | `fg/primary` | `fg-primary` |
-| Content text | `fg/primary` | `fg-primary` |
-| Item divider | `line/muted` | `line-muted` |
-| Header Rest | Transparent | Transparent |
-| Header Hover | `surface/transparent-hover` | `surface-transparent-hover` |
-| Header Active | `surface/transparent-active` | `surface-transparent-active` |
-| Disabled title and Chevron | `fg/disabled` | `fg-disabled` |
-| Focus ring | `focus/default` | `focus-default` |
-| Skeleton body | `skeleton/base` | `skeleton-base` |
-| Skeleton highlight | `skeleton/shimmer` | `skeleton-shimmer` |
-
-The divider is structural. It remains `line/muted` when an item is Disabled; `line/disabled` is reserved for a line that belongs to the disabled control itself.
-
-### Inverse surfaces
-
-Use these mappings only when the component is intentionally supported on `surface/inverse`.
-
-| Element or state | Figma variable | Proposed flattened code name |
-|---|---|---|
-| Title, Chevron, and content | `fg/on-inverse` | `fg-on-inverse` |
-| Item divider | `line/inverse` | `line-inverse` |
-| Header Hover | `surface/transparent-inverse-hover` | `surface-transparent-inverse-hover` |
-| Header Active | `surface/transparent-inverse-active` | `surface-transparent-inverse-active` |
-| Focus ring | `focus/inverse` | `focus-inverse` |
-
-## Figma Token Migration
-
-The current Figma component still contains legacy variable names. Update the bindings using this mapping:
-
-| Current binding | Approved binding |
-|---|---|
-| `fg/fg-primary` | `fg/primary` |
-| `fg/fg-disabled` | `fg/disabled` |
-| `border-stroke-subtle` | `line/muted` |
-| `$border-subtle-01 - Inner/Border top` | Use `line/muted` as the divider color |
-| `surface/surface-transparent-hover` | `surface/transparent-hover` |
-| `utility/focus-default` | `focus/default` |
-
-Transparent Rest does not need a component-specific token.
-
-The optional Slot's placeholder styles and tokens are outside this migration. Replacement content owns its own Semantic or approved Component tokens.
-
-## Accessibility
+Follow the current WAI-ARIA Accordion pattern.
 
 ### Semantics
 
-- Implement each Header trigger as a native `button`.
-- Set `aria-expanded` to reflect the current state.
-- Connect the trigger to its Content panel with `aria-controls`.
-- Give the panel a stable `id`.
-- Associate the panel with its trigger using `aria-labelledby` when the panel needs an accessible region label.
-- Treat the Chevron as decorative with `aria-hidden="true"`.
-- Place the trigger inside an appropriate heading level when the Accordion represents document sections.
+- Use a native `button` for each Trigger.
+- Place the Trigger in the appropriate heading level when the items represent document sections.
+- Keep the heading limited to the Trigger; persistent sibling actions do not belong inside that heading/button.
+- Reflect Panel visibility with `aria-expanded`.
+- Associate Trigger and Panel with `aria-controls` and a stable Panel ID.
+- Indicator is decorative and hidden from assistive technology.
+- Add `role="region"` + `aria-labelledby` only when the extra landmark structure is useful; avoid landmark proliferation in large groups where many Panels can be open.
 
 ### Keyboard
 
-- `Tab` and `Shift+Tab` move between focusable controls in normal document order.
-- `Enter` or `Space` toggles the focused item.
-- Focus remains on the Header trigger after expansion or collapse.
-- Do not move focus into the panel automatically.
+- `Enter` and `Space` toggle the focused Trigger.
+- `Tab` and `Shift+Tab` follow normal page focus order through all focusable controls.
+- Focus remains on the Trigger after expand/collapse.
+- Do not automatically move focus into the Panel.
+- Do not add Arrow/Home/End navigation or a roving-focus model to the base Accordion contract.
 
-Arrow-key navigation is optional unless the implementation adopts a composite widget model. Do not add it inconsistently across products.
+### Disabled
 
-### Disabled items
+Disabled suppresses Trigger operation but does not make required explanatory content unreadable. If only controls inside a Panel are unavailable, keep the Accordion itself operable and disable those inner controls instead.
 
-Avoid a Disabled collapsed item when its content is otherwise unavailable. If users need to read the content but must not change something inside it, keep the Accordion item expandable and disable only the affected inner controls.
+External reference: https://www.w3.org/WAI/ARIA/apg/patterns/accordion/
 
-### Loading
+## Motion
 
-When Skeleton is shown:
+Motion should explain disclosure, not delay access to content.
 
-- Do not expose placeholder text to assistive technology.
-- Mark the containing region as busy when appropriate.
-- Replace Skeleton with the real interactive item when loading completes.
+The shared Motion foundation does not yet define a verified duration/easing contract, so Accordion does not invent component-specific timing.
 
-## Figma Implementation Notes
+When runtime motion is implemented:
+- animate only the disclosure change, not unrelated layout;
+- keep the transition short;
+- do not use motion as the only state cue;
+- respect reduced-motion preferences.
 
-- Component set: `Accordion`
-- Source node: `31:2385`
-- Current sizes: Large 48 px, Medium 40 px, Small 32 px
-- Both `Alignment` values support collapsed and expanded variants.
-- Enabled, Hover, Focus, Disabled, and Skeleton variants exist for all three sizes.
-- The component's example width is 400 px; production width is responsive.
-- Active behavior is defined in this document but does not yet have a dedicated Figma variant.
-- `body-01` remains a legacy/current-Figma typography reference pending migration to the canonical `type.*` vocabulary.
+Exact duration, easing, DOM measurement technique, and animation implementation remain runtime-owned and unverified until the shared Motion/runtime source is registered.
 
-## Open Decisions
+## Usage
 
-1. Define the final Focus `box-shadow` specification and update the Figma Focus variants.
-2. Add a dedicated Active variant to the Figma Component Set or document how it is represented in prototypes.
-3. Approve a default group policy for single-open versus multiple-open behavior.
-4. Confirm the final `type.*` typography binding when the shared product typography decision is implemented in Figma.
-5. Clean up the optional Slot placeholder without treating it as a blocker for Accordion usage.
+Use Accordion for:
+- FAQs;
+- optional supporting information split into clear sections;
+- settings/details users may inspect selectively;
+- secondary content where simultaneous comparison may be useful.
 
-## Related Documents
+Do not use Accordion for:
+- small content that is clearer when shown directly;
+- primary page messaging or critical task requirements;
+- sequential step flows;
+- navigation between destinations;
+- content whose collapsed state would hide an error or required action;
+- deeply nested disclosure structures.
 
-- `../tokens/semantic-tokens.md`
-- `../tokens/usage-rules.md`
-- `../tokens/color-token-aliases.md`
-- `../accessibility/README.md`
+## Content guidance
+
+- Titles should be short, specific, and unique within a group.
+- Avoid generic repeated labels such as “More information”.
+- Keep essential status/error information outside collapsed Panels.
+- Panel content can be richer than text, but nested interactive content must follow normal focus order and its own component rules.
+- Avoid nested Accordions unless the information architecture clearly requires another disclosure level.
+
+## Semantic token mapping
+
+Accordion uses shared Semantic roles and introduces no Accordion-specific Color tokens.
+
+| Need | Semantic role |
+|---|---|
+| Title | `fg/primary` |
+| Indicator | `fg/secondary` |
+| Panel copy | `fg/primary` |
+| Disabled Trigger content | `fg/disabled` |
+| Divider | `line/muted` |
+| Hover | `surface/transparent-hover` |
+| Active | `surface/transparent-active` |
+| Focus | `focus/default` |
+
+## Runtime boundary
+
+Current Code and Storybook sources are not registered.
+
+Therefore this document does **not** assert:
+- exact Angular component names;
+- prop/input names;
+- DOM wrapper structure beyond the accessibility contract;
+- animation library or implementation;
+- exact class names;
+- Storybook story IDs.
+
+Conceptually, runtime must support item expanded/disabled state and group Multiple/Single policy, but exact API naming is implementation-owned.
+
+## QA checklist
+
+Verify:
+- 24 Figma variants exist with only `Size / State / Expanded`;
+- Trigger fills the available width;
+- Large/Medium/Small min-heights are 48/40/32;
+- multiline titles grow rather than truncate;
+- Expanded changes Indicator and Panel visibility without horizontal shift;
+- Focus appears on Trigger only;
+- Disabled mutes Trigger content while readable expanded Panel content remains readable;
+- Body-only, custom-only, and combined Panel content work;
+- grouped items can show more than one expanded Panel;
+- RTL Indicator and Panel inset align with the Title;
+- no legacy Alignment/Skeleton axis is introduced into the canonical set.
+
+## Open implementation items
+
+- Publish/migrate away from the legacy Accordion assets after product migration risk is reviewed.
+- Register runtime Design System repository/package and Storybook.
+- Verify Figma ↔ runtime property mapping from the actual implementation source.
+- Adopt shared Motion timing/easing when the Motion foundation is finalized.
+- Add an explicit Figma direction-authoring control only if first-class LTR product design becomes a real requirement.
