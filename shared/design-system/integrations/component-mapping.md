@@ -137,8 +137,8 @@ The Menu Button design identity, Button composition, native Menu Slot, Size × O
 | Variant count | `24 = 3 Style × 4 Size × 2 Open` |
 | Figma styles | `Primary / Secondary / Tertiary` |
 | Figma sizes | `Extra Small 28 / Small 32 / Medium 40 / Large 48` |
-| Composition | Exposed canonical `Primary Action / Button` + exposed canonical `Menu Trigger / Icon Button` + 1×18 Divider + native `Menu content` SLOT |
-| Divider mapping | Primary → `line/inverse`; Secondary/Tertiary → `line/default` |
+| Composition | Exposed canonical `Primary Action / Button` + exposed canonical `Menu Trigger / Icon Button` + direct zero-gap connection + native `Menu content` SLOT |
+| Inner-edge treatment | No standalone Divider; Primary/Secondary connect seamlessly; Tertiary keeps one shared state-aware inner border edge from Menu Trigger |
 | Open representation | Only Menu Trigger maps to Active + chevron-up; Primary Action state remains independent |
 | Anchor gap | `2px` |
 | Loading | Owned by nested Primary Action; no outer Loading axis |
@@ -151,7 +151,7 @@ The Menu Button design identity, Button composition, native Menu Slot, Size × O
 | Code Connect | **No registered mapping** |
 | Last Figma verification | 2026-09-19 |
 
-The Combo Button design identity, connected-segment geometry, native Menu Slot, Style × Size × Open matrix, independent segment behavior, Divider mapping, 2px anchoring rule, RTL geometry, loading boundary, and accessibility contract are verified in `../components/combo-button.md`. Runtime component/API, Storybook identity, and exact Figma-to-code property mapping remain unverified.
+The Combo Button design identity, connected-segment geometry, native Menu Slot, Style × Size × Open matrix, independent segment behavior, zero-gap inner-edge treatment, 2px anchoring rule, RTL geometry, loading boundary, and accessibility contract are verified in `../components/combo-button.md`. Runtime component/API, Storybook identity, and exact Figma-to-code property mapping remain unverified.
 
 
 ### Tooltip
