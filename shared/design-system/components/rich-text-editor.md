@@ -87,14 +87,13 @@ Rich Text Editor
 │       │   ├── Placeholder
 │       │   ├── Value overlay
 │       │   └── Resize handle
-│       ├── Border
-│       └── Focus ring
+│       └── Border
 └── Supporting content
     ├── Helper / Count
     └── Error / Count
 ```
 
-Focus and validation styling belong to the complete Editor shell, not only the editable area.
+Focus and validation styling belong to the complete Editor shell, not only the editable area. In Figma, Focus is applied to the Editor shell with the shared `Focus/Default` Effect Style rather than a separate Focus-ring layer.
 
 ## Geometry
 
@@ -109,7 +108,7 @@ Shared editor geometry:
 - editable-area typography → shared Textarea body style, currently Vazirmatn Regular `14/20`
 - toolbar/body divider → `1px`
 - editable-area minimum height → `120px`
-- Toolbar owns the top `6px` corner radii and clips its own content; Editable area owns the bottom `6px` corner radii and clips body content. The outer Field/Editor must not clip the outside Focus ring.
+- Toolbar owns the top `6px` corner radii and clips its own content; Editable area owns the bottom `6px` corner radii and clips body content. The outer Field/Editor must not clip the outside Focus effect.
 - In Figma, the Filled Value layer starts at the same `16px` inset as Placeholder. A fixed `20px` surface overlay covers the one-line Placeholder while the Value text itself may grow to multiple lines; this keeps the top inset stable during horizontal and vertical resizing.
 
 ### Compact toolbar
@@ -174,7 +173,7 @@ Real-instance QA has been run at `480px` width and increased vertical height.
 
 ```text
 Editor line → line/emphasis, 1px
-Focus indicator → focus/default, 2px outside
+Focus indicator → focus/default, 2px ring + 1px offset
 ```
 
 ### Error
@@ -193,7 +192,7 @@ Error meaning and keyboard focus remain independently visible:
 
 ```text
 Editor line → line/error, 2px
-Focus indicator → focus/default, 2px outside
+Focus indicator → focus/default, 2px ring + 1px offset
 Error message → fg/error
 ```
 
@@ -425,7 +424,7 @@ Verify:
 - horizontal resizing stretches toolbar/body/support/border/focus;
 - Toolbar/background content never bleeds outside the 6px editor corners;
 - Error border always covers the complete Editor shell height;
-- Focus ring remains visible outside the Editor shell and is not clipped by Field/Editor containers;
+- The Focus effect remains visible outside the Editor shell and is not clipped by Field/Editor containers;
 - Filled Value and Placeholder remain anchored at the 16px top inset during multiline content growth and resizing;
 - vertical resizing grows only the editable area;
 - Resizable controls only resize-handle visibility;
