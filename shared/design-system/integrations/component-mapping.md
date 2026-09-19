@@ -137,8 +137,8 @@ The Menu Button design identity, Button composition, native Menu Slot, Size × O
 | Variant count | `24 = 3 Style × 4 Size × 2 Open` |
 | Figma styles | `Primary / Secondary / Tertiary` |
 | Figma sizes | `Extra Small 28 / Small 32 / Medium 40 / Large 48` |
-| Composition | Exposed canonical `Primary Action / Button` + exposed canonical `Menu Trigger / Icon Button` + `0px` layout gap + 1px internal boundary + native `Menu content` SLOT |
-| Inter-segment treatment | No standalone Divider and no layout gap; Primary uses `line/inverse`, Secondary uses `line/emphasis`, Tertiary uses one shared `line/default` joining border edge |
+| Composition | Exposed canonical `Primary Action / Button` + internal canonical `Menu Trigger / Icon Button` (not exposed) + `0px` layout gap + style-specific 1px internal boundary + native `Menu content` SLOT |
+| Inter-segment treatment | No standalone Divider and no layout gap; Primary/Secondary use locked Combo-owned 1px absolute separator layers (`line/inverse` / `line/emphasis`), while Tertiary uses one shared `line/default` joining border edge |
 | Open representation | Only Menu Trigger maps to Active + chevron-up; Primary Action state remains independent |
 | Anchor gap | `2px` |
 | Loading | Owned by nested Primary Action; no outer Loading axis |
@@ -151,7 +151,7 @@ The Menu Button design identity, Button composition, native Menu Slot, Size × O
 | Code Connect | **No registered mapping** |
 | Last Figma verification | 2026-09-19 |
 
-The Combo Button design identity, connected-segment geometry, native Menu Slot, Style × Size × Open matrix, independent segment behavior, connected 1px internal-boundary treatment, 2px anchoring rule, RTL geometry, loading boundary, and accessibility contract are verified in `../components/combo-button.md`. Runtime component/API, Storybook identity, and exact Figma-to-code property mapping remain unverified.
+The Combo Button design identity, connected-segment geometry, native Menu Slot, Style × Size × Open matrix, fixed internal Menu Trigger authoring model, Combo-owned filled-style separator layers, independent segment behavior, connected 1px internal-boundary treatment, 2px anchoring rule, RTL geometry, loading boundary, and accessibility contract are verified in `../components/combo-button.md`. Runtime component/API, Storybook identity, and exact Figma-to-code property mapping remain unverified.
 
 
 ### Tooltip
