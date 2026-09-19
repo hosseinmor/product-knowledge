@@ -174,11 +174,14 @@ Move preserved material into a clearly separated top-level area named:
 
 `Archive — legacy & scratch`
 
-Use separate `Legacy assets` and `Scratch / exploration` groups where useful.
+Use that archive only when preserved legacy material still has migration/reference value. If no legacy material needs to remain, delete it rather than carrying obsolete assets forward and keep only a top-level `Scratch / exploration` area when current exploration still exists.
+
+Use separate `Legacy assets` and `Scratch / exploration` groups only when both kinds of material are intentionally retained.
 
 Archive rules:
 
-- preserve legacy material when migration/reference value still exists;
+- preserve legacy material only when migration/reference value still exists;
+- delete obsolete legacy material when an authoritative prior version is already preserved elsewhere and no migration dependency remains;
 - do not treat archived assets as canonical;
 - do not delete user-owned exploration material merely to make the page cleaner;
 - canonical documentation must start at the page origin and remain visually separate from the Archive.
