@@ -8,6 +8,7 @@ knowledge_state: verified
 document_maturity: draft
 related:
 - design-system.component.text-input
+- design-system.component.rich-text-editor
 - design-system.accessibility.forms
 - design-system.accessibility.component-authoring-contract
 design_status: ready-for-dev
@@ -582,12 +583,18 @@ Canonical editable source:
 
 - Figma file: `-DS--Job-Vision-NEXT`
 - File key: `rROD8ctH9UfPGAMrRrOzHe`
-- Page: `🔤 Text area`
+- Page: `Textarea`
 - Page node: `5564:279849`
+- Documentation frame: `22880:132462`
+- Header: `22880:132463`
+- Variant matrix: `22880:132470`
+- Axes & properties: `22880:132471`
 - Canonical component set: `Textarea`
 - Component set node: `22800:128313`
-- Examples: `Textarea / Examples`
-- Examples node: `22810:865`
+- Playground: `22880:132541`
+- Examples: `22810:865`
+- Archive: `Archive — legacy & scratch`
+- Archive node: `22880:132544`
 
 Internal canonical helpers:
 
@@ -609,7 +616,6 @@ Do not infer implemented Angular API, class names, native-resize CSS, or Storybo
 - align the exact Angular/Tailwind public API with Frontend;
 - confirm runtime resize policy and native-browser handle behavior;
 - validate whether any product requires auto-grow behavior;
-- decide whether rich text / toolbar editing becomes a separate component family;
 - validate the shared Field architecture again with Password Input.
 
 These open items do not block the current Textarea visual and authoring contract.
@@ -617,6 +623,7 @@ These open items do not block the current Textarea visual and authoring contract
 ## Related Documents
 
 - `./text-input.md`
+- `./rich-text-editor.md`
 - `../accessibility/forms.md`
 - `../accessibility/component-accessibility-authoring-contract.md`
 - `../tokens/semantic-tokens.md`
