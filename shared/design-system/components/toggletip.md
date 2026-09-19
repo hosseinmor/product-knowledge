@@ -68,7 +68,9 @@ Component key: `54bf6a92136594a94c18def1a16c5378786884cf`
 | `Side` | `Top`, `Bottom`, `Left`, `Right` |
 | `Align` | `Start`, `Center`, `End` |
 
-There is intentionally no `Visible`, `Open`, `State`, `Shadow`, or `Type` property in the canonical Figma API.
+There is intentionally no `Visible`, `Open`, `State`, `Shadow`, `Type`, or `Arrow` property in the canonical Figma API.
+
+The caret is part of canonical Toggletip anatomy and is always shown.
 
 Runtime open/close state, outside dismissal, focus behavior, collision, and portal behavior are code-owned.
 
