@@ -320,9 +320,9 @@ The Toast design identity, Status × Contrast matrix, native Action Slot, timeou
 | Variant count | `6 = 2 Selected × 3 State` |
 | Figma content properties | `Label / Show label` |
 | Figma states | `Default / Focus / Disabled` |
-| Visual size | `20px` Radio control using previous JobVision Radio geometry |
+| Visual size | `24px` icon instance / `20px` visual vector |
 | Label gap | `8px` |
-| Selection semantics | Previous unchecked/checked Radio geometry; Unselected = `fg/secondary`, Selected = `fg/accent` |
+| Selection semantics | Exact local Icons-page components: unchecked node `15087:365350` key `c8005abc2598ad492de5ac17df5cfb9dc1a4509b`; checked node `15087:365346` key `5acf2d061791622a49c9826cd671f165d6648f73`; Unselected = `fg/secondary`, Selected = `fg/accent` |
 | Focus | shared `focus/default` 2px outside ring with 1px gap; independent from selection |
 | RTL | logical inline-start control / inline-end label; no Position variant |
 | Radio Group set | `Radio Group / Default` |
@@ -338,7 +338,7 @@ The Toast design identity, Status × Contrast matrix, native Action Slot, timeou
 | Code Connect | **No registered mapping** |
 | Last Figma verification | 2026-09-19 |
 
-The Radio design identity, reused previous checked/unchecked geometry, Selected × State matrix, center-aligned label behavior, semantic color mapping, focus treatment, flexible-width/multiline behavior, Radio Group direction contract, validation boundary, RTL geometry, and accessibility contract are verified in `../components/radio.md`. Runtime API, exact DOM/event semantics, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
+The Radio design identity, exact local icon-library sources, Selected × State matrix, center-aligned label behavior, semantic color mapping, focus treatment, flexible-width/multiline behavior, Radio Group direction contract, validation boundary, RTL geometry, and accessibility contract are verified in `../components/radio.md`. Runtime API, exact DOM/event semantics, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
 
 ### Toggle
