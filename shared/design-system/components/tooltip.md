@@ -31,7 +31,7 @@ Use Tooltip when:
 - the information is supplementary and can remain unavailable on touch-only discovery;
 - the content can be understood without actions, links, fields, or other interactive elements.
 
-Every operable Icon Button must provide a visible Tooltip label unless another approved pattern supplies an equivalent persistent visible label.
+Every operable Icon Button must provide a visible Tooltip label.
 
 ## When Not to Use
 
@@ -235,6 +235,7 @@ Do not model hover/focus visibility, collision results, or automatic flip as app
 
 Runtime must handle:
 
+- use the canonical 2px Surface-to-trigger anchor offset;
 - hover + focus triggers;
 - Escape dismissal;
 - collision/flip;
@@ -249,6 +250,7 @@ Verify:
 
 - text is readable and right-aligned in RTL;
 - Tooltip renders without a caret in every Side × Align combination;
+- Surface-to-trigger spacing remains 2px in every placement;
 - Top/Bottom Start maps to the right in RTL;
 - Top/Bottom End maps to the left in RTL;
 - Left/Right Start maps to top;
