@@ -152,9 +152,11 @@ Example:
 ۲ از ۴
 ```
 
-Progress must be derived from Tour state.
+Production Progress must be derived from Tour state.
 
 Do not manually maintain inconsistent progress text per screen.
+
+Static Figma flows and isolated Storybook stories may hard-code representative progress values for demonstration only. Such examples do not define the production state model.
 
 ## Targeting
 
