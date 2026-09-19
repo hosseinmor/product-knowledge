@@ -241,7 +241,7 @@ Canonical semantic meaning and current Figma variable names are:
 
 | Meaning | Figma variable | Light | Dark |
 |---|---|---|---|
-| Focus default | `focus/default` | `neutral/900` | `neutral/100` |
+| Focus default | `focus/default` | `blue/600` | `blue/500` |
 | Focus inverse | `focus/inverse` | `bw/white` | `neutral/950` |
 | Overlay | `utility/overlay` | `rgba(0,0,0,.50)` | `rgba(0,0,0,.50)` |
 | Skeleton background | `utility/skeleton-background` | `neutral/100` | `neutral/800` |
