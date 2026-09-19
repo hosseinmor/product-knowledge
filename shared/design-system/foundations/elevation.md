@@ -7,7 +7,7 @@ summary: Defines the semantic shadow model for floating UI and active drag state
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-09-12
+last_reviewed: 2026-09-19
 related:
   - design-system.reference.tailwind
 ---
@@ -40,17 +40,22 @@ Typical uses:
 - Toast;
 - floating controls such as the Support FAB.
 
-The approved Light recipe follows Primer's `floating-small` baseline:
+The current approved Light recipe is derived from the soft elevation portion of Primer's floating treatment, with the outline layer intentionally removed:
 
 ```css
-0 0 0 1px #d1d9e040,
 0 6px 12px -3px #25292e0a,
 0 6px 18px 0 #25292e1f
 ```
 
-Dark keeps the same geometry but uses stronger appearance-aware colors: a solid semantic outline plus stronger dark shadow layers, following Primer's Dark strategy.
+`Shadow/Floating` represents **elevation only**. It must not include a `0 0 0 1px` outline-like layer or any hidden border treatment.
 
-Figma implements Light/Dark resolution inside one Effect Style by binding its effect colors to hidden implementation variables in the Semantic Appearance collection.
+When a component intentionally needs a visible boundary, use the appropriate Line semantic token as a separate component decision.
+
+Dark keeps the same two-layer geometry and resolves to stronger appearance-aware shadow colors. It does not add an outline layer.
+
+Figma implements Light/Dark resolution inside one Effect Style by binding the two active effect colors to hidden implementation variables in the Semantic Appearance collection.
+
+Legacy `shadow/floating/border` variables from the previous three-layer recipe are deprecated, hidden from publishing, and retained temporarily for migration only. They are not part of the active Effect Style and must not be implemented in new code.
 
 ## Shadow / Dragged
 
@@ -122,4 +127,6 @@ Exact generated artifact and utility implementation remain Frontend-owned.
 
 ## Figma migration
 
-The previous `Shadows/Menu` Effect Style was migrated in place to `Shadow/Floating` so existing consumers retain the same Style ID and automatically receive the new recipe. `Shadow/Dragged` is a separate public Effect Style.
+The previous `Shadows/Menu` Effect Style was migrated in place to `Shadow/Floating` so existing consumers retain the same Style ID and automatically receive the current two-layer recipe. `Shadow/Dragged` is a separate public Effect Style.
+
+The obsolete floating-outline color chain is retained only as deprecated migration data in Figma and must not be exported as an active Design System shadow layer.
