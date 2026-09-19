@@ -97,10 +97,12 @@ Do not add checkboxes, inputs, multiple Buttons, selectors, or other task contro
 - Padding: 16px
 - Internal gap: 8px
 - Radius: 12px
-- Border: none
-- Elevation: `Shadow/Floating`
+- Explicit border: none
+- Floating separation: `Shadow/Floating` (1px outline-like layer + two elevation layers)
 - Maximum surface width: 320px
-- Caret visual: 12×6px inside the shared 44×6 caret wrapper
+- Caret wrapper: 44×7px
+- Caret outer boundary layer: 14×7px using the Floating boundary color
+- Caret inner raised-surface layer: 12×6px using `surface/raised`
 
 Toggletip uses the same raised floating-surface language as Popover and Coachmark.
 
@@ -126,7 +128,7 @@ For `Left` and `Right`:
 
 Title, Body, and Action align to the right.
 
-The caret follows the verified shared floating-caret geometry:
+The caret follows the verified shared two-layer floating-caret geometry. The outer layer continues the Floating boundary around the arrow while the inner layer matches `surface/raised` without adding an explicit stroke to the triangle:
 
 - Top: surface then caret; caret rotation 0;
 - Bottom: caret then surface; caret rotation 180;
@@ -242,8 +244,9 @@ Verify:
 - Action true/false;
 - Title/Body/Action remain right-aligned;
 - width does not exceed 320px;
-- `surface/raised`, radius 12, and `Shadow/Floating` are used;
-- no border is present;
+- `surface/raised`, radius 12, and the canonical three-layer `Shadow/Floating` are used;
+- no additional explicit component border is present;
+- the shared caret shows the same boundary treatment as the floating Surface without a seam;
 - click/tap/keyboard activation works in runtime;
 - Action is keyboard reachable when visible;
 - Escape dismisses the Toggletip;

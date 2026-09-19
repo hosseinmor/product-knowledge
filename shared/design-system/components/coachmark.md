@@ -100,8 +100,8 @@ Do not add a generic media slot until a real recurring product need establishes 
 - Radius: 12px
 - Surface padding: 16px
 - Section gap: 16px
-- Border: none
-- Elevation: `Shadow/Floating`
+- Explicit border: none
+- Floating separation: `Shadow/Floating` (1px outline-like layer + two elevation layers)
 - Surface width: 320px
 - Content width at current padding: 288px
 - Title typography: `Heading/Compact/SM`
@@ -213,7 +213,7 @@ For `Left` and `Right`:
 
 Title and Description are right-aligned.
 
-The caret uses the shared raised floating-caret geometry.
+The caret uses the shared raised two-layer floating-caret geometry: an outer Floating boundary layer and an inner `surface/raised` layer. This continues the floating outline around the arrow without adding a separate stroke to the triangle.
 
 Runtime target collision/flip must preserve logical Start/End semantics.
 
@@ -340,8 +340,9 @@ Verify:
 - Dismiss hit area is absolute at top-left, flush to the Surface edge;
 - Title maintains an 8px safe gap from the Dismiss hit area;
 - Description can use the full 288px content width;
-- Surface uses `surface/raised`, radius 12, and `Shadow/Floating`;
-- no border is present;
+- Surface uses `surface/raised`, radius 12, and the canonical three-layer `Shadow/Floating`;
+- no additional explicit component border is present;
+- caret boundary visually continues the Floating boundary without a seam;
 - keyboard access and dismissal work in runtime;
 - the production implementation defines and tests a non-visual target-association / announcement strategy; a visual caret alone does not pass accessibility QA.
 

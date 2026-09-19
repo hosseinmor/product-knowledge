@@ -121,14 +121,16 @@ Popover shell:
 - Foreground: content-owned; normal text starts from `fg/primary`
 - Radius: 12px
 - Padding: 16px
-- Border: none
-- Elevation: `Shadow/Floating`
+- Explicit border: none
+- Floating separation: `Shadow/Floating` (1px outline-like layer + two elevation layers)
 - Surface minimum width: 240px
 - Surface maximum width: 360px
 - Content Slot minimum width: 208px
 - Content Slot maximum width: 328px
 
-`Shadow/Floating` owns elevation only. Do not reintroduce an outline-like 1px shadow layer or hidden border.
+`Shadow/Floating` intentionally includes the subtle 1px outline-like first layer used by the floating family. Do not add a second explicit border to Popover by default.
+
+When `Arrow=True`, the shared raised caret uses a two-layer construction so the Floating boundary visually continues around the arrow without a seam.
 
 ## Placement and RTL
 
@@ -269,8 +271,9 @@ Verify:
 - caret direction for all four sides;
 - Start/End mapping in RTL;
 - Arrow true/false;
-- `surface/raised`, radius 12, and `Shadow/Floating`;
-- no border;
+- `surface/raised`, radius 12, and the canonical three-layer `Shadow/Floating`;
+- no additional explicit component border;
+- Arrow uses the shared two-layer raised caret and preserves the floating boundary without a seam;
 - Surface remains within 240–360px;
 - Slot remains within 208–328px;
 - default `Popover content` is present and editable;

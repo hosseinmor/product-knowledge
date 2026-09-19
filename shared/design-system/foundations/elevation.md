@@ -40,22 +40,26 @@ Typical uses:
 - Toast;
 - floating controls such as the Support FAB.
 
-The current approved Light recipe is derived from the soft elevation portion of Primer's floating treatment, with the outline layer intentionally removed:
+The approved Light recipe follows the Primer-style floating separation model:
 
 ```css
+0 0 0 1px #d1d9e040,
 0 6px 12px -3px #25292e0a,
 0 6px 18px 0 #25292e1f
 ```
 
-`Shadow/Floating` represents **elevation only**. It must not include a `0 0 0 1px` outline-like layer or any hidden border treatment.
+`Shadow/Floating` is a **composite floating-surface recipe**:
 
-When a component intentionally needs a visible boundary, use the appropriate Line semantic token as a separate component decision.
+1. the first `0 0 0 1px` layer provides a subtle outline-like boundary so white raised surfaces remain legible on white backgrounds;
+2. the second and third layers provide elevation.
 
-Dark keeps the same two-layer geometry and resolves to stronger appearance-aware shadow colors. It does not add an outline layer.
+The first layer is part of the shared Floating effect, not an explicit component border. Components using `Shadow/Floating` therefore do not add a separate 1px border by default.
 
-Figma implements Light/Dark resolution inside one Effect Style by binding the two active effect colors to hidden implementation variables in the Semantic Appearance collection.
+Dark keeps the same three-layer geometry and resolves to appearance-aware boundary/shadow colors.
 
-Legacy `shadow/floating/border` variables from the previous three-layer recipe are deprecated, hidden from publishing, and retained temporarily for migration only. They are not part of the active Effect Style and must not be implemented in new code.
+Figma implements Light/Dark resolution inside one Effect Style by binding the three effect colors to hidden implementation variables in the Semantic Appearance collection.
+
+The internal `shadow/floating/border` color chain is active implementation data for the first Floating layer and remains hidden from publishing as a standalone public token.
 
 ## Shadow / Dragged
 
@@ -127,6 +131,6 @@ Exact generated artifact and utility implementation remain Frontend-owned.
 
 ## Figma migration
 
-The previous `Shadows/Menu` Effect Style was migrated in place to `Shadow/Floating` so existing consumers retain the same Style ID and automatically receive the current two-layer recipe. `Shadow/Dragged` is a separate public Effect Style.
+The previous `Shadows/Menu` Effect Style was migrated in place to `Shadow/Floating` so existing consumers retain the same Style ID and automatically receive the canonical three-layer recipe. `Shadow/Dragged` is a separate public Effect Style.
 
-The obsolete floating-outline color chain is retained only as deprecated migration data in Figma and must not be exported as an active Design System shadow layer.
+The floating boundary color remains an internal implementation variable consumed by `Shadow/Floating`; consumers should use the Effect Style / semantic shadow utility rather than binding that color variable directly.
