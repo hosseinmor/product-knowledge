@@ -7,7 +7,7 @@ summary: Defines the shared Label, Body, and Heading recipes, Product-aware font
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-09-12
+last_reviewed: 2026-09-19
 related:
   - design-system.reference.tailwind
 --- 
@@ -82,7 +82,7 @@ Use Label for short UI labels, metadata, captions, and control-supporting text. 
 | `Body / Compact / SM` | 14 / 20px | 400 |
 | `Body / Compact / MD` | 16 / 24px | 400 |
 
-Use Compact only when vertical density matters and the text is short.
+Use Compact when vertical density matters and the content is short, component-level copy. Wrapping to one or two lines does not by itself require switching to regular Body. Do not use Compact for paragraph-like or reading-oriented content.
 
 ### Body
 
@@ -92,7 +92,7 @@ Use Compact only when vertical density matters and the text is short.
 | `Body / SM` | 14 / 24px | 400 |
 | `Body / MD` | 16 / 28px | 400 |
 
-`Body / SM` is the default readable Product body style. Prefer Body over Compact for multi-line content.
+`Body / SM` is the default readable Product body style. Prefer Body for paragraph-like, reading-oriented content, or copy expected to run beyond a short one-to-two-line UI message. Choose Body versus Compact by content role and expected reading length, not by incidental wrapping caused by container width.
 
 ### Heading Compact
 
