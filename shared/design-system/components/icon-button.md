@@ -118,7 +118,7 @@ All current sizes exceed the shared 24×24px minimum pointer-target baseline.
 
 For frequently used controls in touch-oriented interfaces, prefer Medium or Large rather than relying on the minimum. Visual icon size and hit-target size are independent.
 
-Do not reduce Extra Small back to the legacy 24px container.
+Do not use a 24px container; Extra Small is 28px.
 
 ## Style Selection
 
@@ -409,30 +409,6 @@ Danger Primary
 ```
 
 Tooltip may be composed internally by the future runtime Icon Button or externally through the shared Tooltip component. That authoring choice remains a runtime decision, but the resulting product behavior must satisfy the Tooltip Contract above.
-
-## Migration from Legacy Icon-only Button
-
-Legacy icon-only Button variants are migration/reference material only.
-
-Migrate them to canonical Icon Button as follows:
-
-| Legacy visual size | Canonical Icon Button |
-|---:|---|
-| 24px | Extra Small 28px |
-| 32px | Small 32px |
-| 40px | Medium 40px |
-| 48px | Large 48px |
-
-During migration:
-
-- do not keep the legacy 24px container; move to 28px Extra Small;
-- keep the approved icon at 18px;
-- map the old visual hierarchy to the closest current semantic Style rather than preserving historical names blindly;
-- do not migrate destructive confirmation into an icon-only `Danger Primary`; use a labeled Button;
-- add/verify a meaningful accessible name;
-- add/verify the Tooltip label;
-- verify keyboard focus and target size;
-- remove dependencies on legacy `Button / Type=Icon only` structures.
 
 ## QA Checklist
 
