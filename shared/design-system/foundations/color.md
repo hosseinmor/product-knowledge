@@ -129,7 +129,7 @@ WCAG 2.2 AA is the web baseline. Validate **actual Semantic pairings and compone
 - Essential non-text boundaries and focus indicators should meet their applicable contrast requirement.
 - Disabled appearance is not a reason to make required explanatory content unreadable.
 - Color must not be the only signal for state, validation, status, or meaning when another perceivable cue is required.
-- Focus is independent from Brand and Accent so it remains visible across supported Theme × Appearance contexts.
+- Focus remains a dedicated Semantic role even when it shares a Primitive with Accent. The current default mapping uses the approved Accent Blue primitive for each Appearance; components still consume `focus/default`, and the actual Focus pairing must be validated across supported Theme × Appearance contexts.
 
 For exact acceptance rules and edge cases, use [`../accessibility/color-and-contrast.md`](../accessibility/color-and-contrast.md).
 
