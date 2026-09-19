@@ -139,6 +139,8 @@ The caret follows the verified shared two-layer floating-caret geometry. The out
 
 Runtime collision/flip must preserve logical Start/End semantics.
 
+Toggletip uses a 2px anchor offset measured from the caret tip to the trigger edge.
+
 ## Behavior
 
 ### Trigger
