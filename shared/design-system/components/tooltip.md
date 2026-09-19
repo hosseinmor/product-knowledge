@@ -121,6 +121,8 @@ Text is right-aligned in the current RTL products.
 
 Runtime collision and automatic side flipping must preserve the logical meaning of Start/End rather than hard-coding physical left/right assumptions.
 
+Tooltip uses a 2px anchor offset. Because Tooltip has no arrow, measure this from the Tooltip Surface edge to the trigger edge.
+
 ## Behavior
 
 ### Trigger
