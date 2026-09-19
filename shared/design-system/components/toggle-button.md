@@ -6,7 +6,8 @@ title: Toggle Button
 summary: Toggle Button represents a Button-like control with persistent selected and unselected states.
 knowledge_state: unverified
 document_maturity: draft
-related: []
+related:
+- design-system.component.rich-text-editor
 ---
 
 # Toggle Button
@@ -58,6 +59,19 @@ Do not use Brand semantics to represent selected/on state merely because Brand a
 The exact default mapping for Toggle Button remains a component-level design decision and must be validated with the final anatomy rather than inferred from the old v3 Selected matrix.
 
 See `../experience-rules/selection.md`.
+
+## Known TBD Use Case
+
+Rich Text Editor currently uses a temporary internal `_Rich Text Toolbar Toggle` to represent persistent selected formatting such as Bold, list type, alignment, and text direction.
+
+TBD when the shared Toggle Button component is designed:
+
+- define whether `Icon Toggle Button` is a first-class shared form of Toggle Button;
+- replace the Rich Text Editor internal toggle with the shared component;
+- preserve the semantic distinction between persistent `Selected` state and transient Button `Active` interaction state;
+- define group behavior for independent/multiple selection versus mutually-exclusive single selection.
+
+This is intentionally deferred; the current Rich Text Editor internal toggle is temporary and must not be treated as the final shared Toggle Button API.
 
 ## Not Yet Defined
 
