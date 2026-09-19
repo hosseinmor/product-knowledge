@@ -94,6 +94,7 @@ Shared geometry:
 - Clear glyph: 16 px inside a 24 px action area.
 - Gap between structural items: 8 px.
 - Width is flexible.
+- Placeholder and Query fill the available Content width in Figma and use single-line ending ellipsis when they overflow.
 - Border and focus layers must not shift content.
 
 ### Legacy Expressive migration
@@ -204,6 +205,7 @@ The exact post-clear focus/result-update policy belongs to the consuming Product
 - Do not use Skeleton as a Search state.
 - Do not expose a separate visual Fill style; the canonical control remains border-based.
 - Query presence is content state, not a Figma variant axis.
+- In Figma, Placeholder and Query are single-line, fill the available Content width, and truncate with ending ellipsis. Runtime editing may preserve native horizontal scrolling behavior.
 - Search submission timing is not owned by the visual component.
 - Enter-to-submit, instant filtering, debounce, network behavior, result count, empty state, and loading behavior belong to the consuming search experience.
 - Suggestions/autocomplete/results popup are not part of base Search.
@@ -336,6 +338,7 @@ Verify:
 - Small/Large property bindings work after cloning;
 - Focus uses line/emphasis + 2 px outer focus indicator;
 - Disabled uses disabled semantic roles;
+- Placeholder and Query fill Content and use single-line ending ellipsis in Figma;
 - horizontal resize preserves padding, order, border, and clipping;
 - no Fill-style, Skeleton, Expandable, Expanded, or Expressive axis exists in canonical Search.
 
