@@ -3,7 +3,7 @@ id: design-system.component.link
 collection: design-system
 type: component
 title: Link
-summary: Links navigate users to another destination through a minimal standalone component and an inline native-text recipe.
+summary: Links navigate users to another destination through a standalone component with three sizes and an inline native-text recipe.
 knowledge_state: verified
 document_maturity: draft
 related: []
@@ -22,13 +22,15 @@ Use native anchor semantics when activation changes the current destination. Use
 
 ## Authoring Model
 
-v4 deliberately separates two use cases:
+v4 separates two authoring cases.
 
 ### Standalone Link
 
-Use the canonical Figma component when the Link is a standalone/contextual control.
+Use the canonical Figma component when the Link is a standalone or contextual control.
 
 Component set: `Link / Default`
+
+Standalone Link exposes Style and Size authoring choices. Interaction states are documented in the Figma set, but runtime hover, active, and focus behavior should normally be implemented through CSS/platform states rather than application props.
 
 ### Inline Link
 
@@ -40,7 +42,7 @@ Use a native Text layer and style only the Link range with:
 - a persistent underline;
 - the typography inherited from the surrounding text.
 
-This keeps inline Links naturally multiline and lets them follow any surrounding Body typography without creating Size or Underline variants on the standalone component.
+This keeps inline Links naturally multiline and avoids forcing the standalone Size model onto running copy.
 
 ## Canonical Figma API
 
@@ -48,17 +50,21 @@ Canonical file: `[DS] Job Vision NEXT`
 
 - Figma file key: `rROD8ctH9UfPGAMrRrOzHe`
 - Component set: `Link / Default`
-- Figma node ID: `22915:125435`
-- Figma component key: `185633dee3397a6e143c8c4acf2471cac65911d7`
-- Variant count: `12`
-- Default variant: `Style=Default, State=Enabled`
+- Figma node ID: `22920:125581`
+- Figma component key: `f31eac5461a0d8a608089f696b3b1402590be8a9`
+- Variant count: `27`
+- Matrix: `3 Style × 3 Size × 3 Figma State`
+- Default variant: `Style=Default, Size=Medium, State=Enabled`
 
 ### Variant properties
 
 | Property | Values |
 |---|---|
 | `Style` | `Default`, `Subtle`, `Inverse` |
-| `State` | `Enabled`, `Hover`, `Active`, `Focus` |
+| `Size` | `Small`, `Medium`, `Large` |
+| `State` | `Enabled`, `Hover`, `Focus` |
+
+`Active` is intentionally not a separate Figma variant because its approved visual treatment is identical to Hover. Runtime Active must use the same foreground token and underline treatment as Hover.
 
 ### Content properties
 
@@ -68,35 +74,38 @@ Canonical file: `[DS] Job Vision NEXT`
 | `End icon` | Optional boolean |
 | `Swap end icon` | Instance swap |
 
-The canonical component intentionally has **no** Size, Underline, Start icon, Visited, Disabled, or Bold axis/property.
+The canonical component intentionally has **no** Underline, Start icon, Visited, Disabled, Bold, or legacy Inline axis/property.
 
 The pre-v4 component is retained in Figma as `Link / Legacy` only for migration compatibility and must not be used for new designs.
 
-## Typography and Anatomy
+## Sizes, Typography, and Anatomy
 
-Standalone Link uses one typography recipe:
+| Size | Typography |
+|---|---|
+| Small | Body / Compact / XS — 12/16, Regular 400 |
+| Medium | Body / Compact / SM — 14/20, Regular 400 |
+| Large | Body / Compact / MD — 16/24, Regular 400 |
 
-```text
-Body / Compact / SM
-14 / 20
-Regular 400
-```
+Medium is the default standalone size.
 
-Rules:
+Why Size remains in the Figma component:
 
-- width hugs content in the atomic Figma component;
-- text weight is always Regular `400`;
+- standalone Links are used in more than one text scale across product surfaces;
+- an atomic Figma component cannot cleanly inherit arbitrary surrounding typography from its consumer;
+- the three approved sizes preserve consistent text styles without detaching the component;
+- inline Links still inherit surrounding typography and therefore do not use this Size axis.
+
+Shared anatomy:
+
+- component background is transparent in every Style, Size, and State;
+- the internal label wrapper also has no fill or stroke;
+- width hugs content by default;
+- text weight is Regular `400`;
 - one optional End icon is supported;
-- icon size is fixed at `18px`;
+- icon size is fixed at `18px` at every Link size;
 - icon-label gap is `8px`;
 - no Start icon is exposed;
-- do not create visual hierarchy by changing Link weight or font size.
-
-Why there is no Size axis:
-
-- standalone Links should normally match the product's default compact Body scale;
-- inline Links inherit the typography of the surrounding Text;
-- removing Size prevents an unnecessary `3×` expansion of the standalone component matrix.
+- do not add background, border, or container styling to create another Link treatment.
 
 ## Style Selection
 
@@ -139,31 +148,33 @@ Enabled / Focus → link/inverse
 Hover / Active → link/inverse-hover
 ```
 
-Focus composes with the shared `focus/inverse` treatment.
+Focus composes with the shared inverse Focus treatment.
 
 ## State Behavior
 
 Standalone Link behavior:
 
-| State | Foreground | Underline | Focus treatment |
-|---|---|---|---|
-| Enabled | style rest token | No | No |
-| Hover | style hover token | Yes | No |
-| Active | style hover token | Yes | No |
-| Focus | style rest token | Yes | shared focus recipe |
+| Runtime state | Foreground | Underline | Focus treatment | Figma representation |
+|---|---|---|---|---|
+| Enabled | style rest token | No | No | `Enabled` |
+| Hover | style hover token | Yes | No | `Hover` |
+| Active | style hover token | Yes | No | same visual as `Hover`; no separate variant |
+| Focus | style rest token | Yes | shared focus recipe | `Focus` |
 
-Default and Subtle use the shared default focus recipe. Inverse uses the shared inverse focus recipe.
+Default and Subtle use the shared default Focus recipe. Inverse uses the shared inverse Focus recipe.
 
-There is no Link-specific Active color token; Active reuses the relevant hover semantic token.
+There is no Link-specific Active color token; Active deliberately reuses the relevant Hover semantic token.
 
 ### Figma underline implementation
 
-Figma normalizes native Text-decoration across component variants, so the canonical component uses a **Figma-only responsive 1px underline helper** inside the label wrapper:
+Figma normalizes native Text decoration across component variants, so the canonical component uses a **Figma-only responsive 1px underline helper** inside the label wrapper:
 
 - opacity `0` in Enabled;
-- opacity `1` in Hover, Active, and Focus;
+- opacity `1` in Hover and Focus;
 - width follows the current Link text automatically;
-- component height remains `20px`.
+- the helper does not change the component's approved line-height.
+
+Active is not represented separately; its runtime visual equals Hover.
 
 This helper is a design-authoring implementation detail.
 
@@ -189,16 +200,17 @@ Use an End icon when it adds destination or navigation meaning.
 Examples:
 
 - external destination → `launch`;
-- reviewed directional/destination cue where an icon materially improves comprehension.
+- a reviewed destination/directional cue where an icon materially improves comprehension.
 
 Rules:
 
 - no Start icon;
 - no icon for ordinary inline sentence Links;
-- icon is normally decorative when the visible label already communicates the destination;
+- the icon is normally decorative when the visible label already communicates the destination;
 - the icon uses the same semantic foreground color as the Link text;
 - icon size is `18px`;
-- icon-label gap is `8px`.
+- icon-label gap is `8px`;
+- the component itself and label wrapper stay transparent when an icon is present.
 
 The external-link icon does not define whether the browser opens a new tab.
 
@@ -216,7 +228,7 @@ Recipe:
 
 Runtime anchors may wrap naturally in constrained layouts. Do not force `white-space: nowrap` globally on Links.
 
-For a long standalone Link that must wrap in a design mockup, use the same native-Text recipe rather than detaching the atomic component or introducing a Width/Size variant.
+For a long standalone Link that must wrap in a design mockup, use the same native-Text recipe rather than detaching the atomic component or introducing a Width variant.
 
 ## Link vs Button
 
@@ -228,13 +240,9 @@ A navigation element may use a reviewed Button visual treatment while remaining 
 
 ## Deliberate Exclusions
 
-### Size
-
-No standalone Size axis. Standalone uses 14/20; inline inherits surrounding typography.
-
 ### Underline property
 
-No author-facing Underline toggle.
+There is no author-facing Underline toggle.
 
 - standalone underline behavior is state-driven;
 - inline underline is persistent by definition.
@@ -242,6 +250,10 @@ No author-facing Underline toggle.
 ### Start icon
 
 Not part of the current Link contract. Destination cues belong in the optional End slot.
+
+### Active Figma variant
+
+Active remains part of the runtime interaction contract but does not need a duplicate Figma variant because it is visually identical to Hover.
 
 ### Disabled
 
@@ -272,7 +284,7 @@ Directional glyphs must follow the icon-system RTL behavior rather than being ma
 - Preserve expected browser Link behavior.
 - Keyboard focus must follow the shared Focus contract and remain visibly distinct.
 - Inline body-copy Links use persistent underline.
-- Standalone Links without a persistent underline rely on approved Link color/context at rest and add underline on Hover, Active, and Focus.
+- Standalone Links have no underline at rest and add underline on Hover, Active, and Focus.
 - Link foreground must meet applicable text contrast against its background.
 - Do not expose Disabled as a Link state.
 - End icons are decorative when the visible label already communicates the destination.
@@ -285,6 +297,7 @@ Expected conceptual API:
 ```text
 Link
 - style: default | subtle | inverse
+- size: sm | md | lg
 - endIcon?: icon
 - href / destination
 - children / label
@@ -293,36 +306,43 @@ Link
 Implementation requirements:
 
 - native anchor semantics for navigation;
-- typography: 14/20, weight 400 for the standalone component;
+- Small = 12/16, Medium = 14/20, Large = 16/24;
+- weight 400 at every standalone size;
 - icon size: 18px;
 - icon-label gap: 8px;
+- transparent background;
 - optional End icon only;
 - default style: Default;
+- default size: Medium;
 - Enabled has no underline;
-- Hover and Active use the style hover token and underline;
-- Focus keeps the style rest foreground, adds underline, and composes the shared focus treatment;
-- no public `size`, `underline`, `startIcon`, `visited`, `disabled`, or `bold` Link variants;
+- Hover and Active use the Style hover token and underline;
+- Focus keeps the Style rest foreground, adds underline, and composes the shared Focus treatment;
+- no public `underline`, `startIcon`, `visited`, `disabled`, or `bold` Link variants;
 - runtime Links may wrap naturally;
 - interaction pseudo-states should normally be CSS/platform behavior, not public application props;
 - do not duplicate Link semantic tokens as component-local colors.
 
-The exact framework/class architecture remains unverified until the runtime Design System source is registered.
+The exact framework/class architecture and exact runtime prop names remain unverified until the owning runtime Design System source is registered.
 
 ## QA Checklist
 
 Verify:
 
-- exactly 12 Figma variants: 3 Style × 4 State;
-- only `Style` and `State` are variant axes;
-- only `Link text`, `End icon`, and `Swap end icon` are content properties;
-- standalone typography is 14/20 Regular;
-- End icon is 18px with 8px gap;
+- exactly 27 Figma variants: 3 Style × 3 Size × 3 Figma State;
+- variant axes are `Style / Size / State`;
+- default is `Default / Medium / Enabled`;
+- Figma States are `Enabled / Hover / Focus`;
+- Active runtime visual matches Hover and is not reintroduced as a duplicate Figma variant;
+- content properties are only `Link text / End icon / Swap end icon`;
+- Small / Medium / Large use 12/16, 14/20, and 16/24 Regular typography;
+- component and Label wrapper have no background fill or stroke;
+- End icon is 18px with an 8px gap at every size;
 - Enabled underline helper opacity is 0;
-- Hover / Active / Focus underline helper opacity is 1;
+- Hover and Focus underline helper opacity is 1;
 - underline width follows Link text overrides;
-- Focus uses the correct default/inverse focus treatment;
+- Focus uses the correct default/inverse treatment;
 - all semantic Link color bindings resolve correctly;
-- no Size, Underline, Start icon, Visited, Disabled, Bold, or legacy Inline axes are reintroduced;
+- no Underline, Start icon, Visited, Disabled, Bold, or legacy Inline axes are reintroduced;
 - inline body-copy Links use native Text with persistent underline;
 - inline/multiline authoring preserves wrapping;
 - runtime anchors can wrap naturally;
@@ -336,11 +356,14 @@ Figma retains `Link / Legacy` only for migration.
 Inline=True
 → native Text + link token + persistent underline
 
+Small / Medium / Large
+→ map to the equivalent canonical Size
+
+Active
+→ runtime Hover visual treatment; no separate Figma variant
+
 Bold=True
 → remove; use surrounding typography hierarchy
-
-Small / Large standalone Link
-→ migrate to canonical 14/20 standalone Link unless the use case is actually inline text
 
 Visited
 → remove unless a future reviewed pattern explicitly requires it
@@ -370,9 +393,9 @@ Still requiring runtime verification:
 
 - Figma file: `[DS] Job Vision NEXT`
 - Figma component set: `Link / Default`
-- Figma node ID: `22915:125435`
-- Figma component key: `185633dee3397a6e143c8c4acf2471cac65911d7`
-- Figma default: `Style=Default, State=Enabled`
+- Figma node ID: `22920:125581`
+- Figma component key: `f31eac5461a0d8a608089f696b3b1402590be8a9`
+- Figma default: `Style=Default, Size=Medium, State=Enabled`
 - Figma Playground: Default, Hover/underline, End icon, External, Subtle, Focus, Inverse, and native Text inline/multiline examples
 - Storybook / Code: not yet connected as a canonical live reference
 
