@@ -69,7 +69,7 @@ Component key: `da0cc1d606dfad2870fa6f93cbaac7b616aee278`
 | `Description` | Text |
 | `Progress text` | Text |
 
-Default variant: `Top / Center / One`.
+Default variant: `Top / Start / One`.
 
 There is intentionally no `Open`, `Visible`, lifecycle trigger, spotlight, target, or persistence property in the Figma API.
 
@@ -334,6 +334,7 @@ Do not encode Tour orchestration as Coachmark visual variants.
 Verify:
 
 - all 24 Side × Align × Actions combinations;
+- default variant is `Top / Start / One`;
 - caret direction for four sides;
 - Start/End semantics in RTL;
 - Dismiss true/false;
