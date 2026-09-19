@@ -1448,7 +1448,7 @@
       "summary": "Defines the semantic shadow model for floating UI and active drag states, plus the boundaries for component-owned shadows.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-12",
+      "last_reviewed": "2026-09-19",
       "related": [
         "design-system.reference.tailwind"
       ],

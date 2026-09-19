@@ -143,7 +143,11 @@ Exact open and close delays are not yet locked in the design-system runtime cont
 
 Hover/focus-triggered supplemental content must satisfy the shared accessibility requirement for dismissible, hoverable, and persistent content where applicable.
 
-Do not make the Tooltip disappear merely because the pointer moves from the trigger toward the Tooltip surface when the user reasonably needs to inspect the content.
+The rendered Tooltip surface must participate in pointer hit-testing when that is necessary to preserve hover. Do **not** use `pointer-events: none` on the Tooltip surface if doing so causes the Tooltip to close while the pointer moves from the trigger onto the Tooltip.
+
+Runtime may satisfy the transition between trigger and Tooltip through direct hover retention, a hover bridge / safe-polygon strategy, or a short close grace interval. The implementation technique and exact timing remain code-owned; the behavioral requirement is that a user can move the pointer onto the Tooltip without it disappearing prematurely.
+
+This hoverability requirement does not make Tooltip content interactive or keyboard-focusable.
 
 ## Content Guidelines
 
@@ -247,6 +251,7 @@ Verify:
 - max width and wrapping do not exceed the contract;
 - Tooltip has no border or shadow;
 - hover and keyboard focus both reveal Tooltip;
+- moving the pointer from the trigger onto the Tooltip does not cause premature dismissal;
 - Tooltip does not create a tab stop;
 - Escape dismisses it;
 - essential information is not Tooltip-only;
