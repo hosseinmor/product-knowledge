@@ -195,6 +195,55 @@ Accordion and Accordion Item design identities, native Slot composition, visual 
 
 The Link design identity, current Figma property model, semantic token mapping, underline behavior, icon geometry, RTL logical positions, and inline/multiline Figma authoring boundary are verified in `../components/link.md`. Runtime API, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
+
+### Inline Notification
+
+| Field | Current value |
+|---|---|
+| DS component | Inline Notification |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component set | `Inline Notification` |
+| Figma component key | `eb09e1db167646902904f70dfd4e3a194a8a265d` |
+| Figma node ID | `22838:3046` |
+| Figma variant properties | `Status` |
+| Figma content properties | `Message / Description / Show description / Action / Dismissible / Action content` |
+| Variant count | 4 = Info / Success / Warning / Error |
+| Action composition | Native `Action content` SLOT; current preferred components are shared Link and Tertiary Small Button |
+| Dismiss composition | Shared `Icon Button / Ghost / Medium`, absolute top-left in RTL |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-19 |
+
+The Inline Notification design identity, severity matrix, content anatomy, native Action Slot, RTL dismiss geometry, typography, and semantic token mapping are verified in `../components/notification.md`.
+
+### Toast
+
+| Field | Current value |
+|---|---|
+| DS component | Toast |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component set | `Toast` |
+| Figma component key | `5c164a8b212650d4e9e322a9088fbc4fc4e7628f` |
+| Figma node ID | `22839:3058` |
+| Figma variant properties | `Status / Contrast` |
+| Figma content properties | `Title / Message / Show title / Action / Dismissible / Timeout indicator / Action content` |
+| Variant count | 8 = 4 Status × 2 Contrast |
+| Contrast | `Normal / High`; High is inverse-surface treatment, not severity |
+| Action composition | Native `Action content` SLOT; Normal defaults to Default Link, High defaults to Inverse Link |
+| Dismiss composition | Shared `Icon Button / Ghost / Medium`, absolute top-left in RTL |
+| Elevation | `Shadow/Floating` |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-19 |
+
+The Toast design identity, Status × Contrast matrix, native Action Slot, timeout-indicator capability, RTL dismiss geometry, typography, elevation, and semantic token mapping are verified in `../components/notification.md`. Exact runtime timing, queue/stack behavior, placement, announcement behavior, and High-Toast Button treatment remain unverified.
+
 ## Rules
 
 - Figma property labels do not automatically become code prop names.
