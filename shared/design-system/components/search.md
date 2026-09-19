@@ -350,14 +350,16 @@ Canonical editable source:
 - File key: `rROD8ctH9UfPGAMrRrOzHe`
 - Page: `Search`
 - Page node: `453:14562`
-- Section: `HOS-16 / Canonical Search`
-- Section node: `22827:215`
+- Documentation frame: `22884:126873`
+- Header: `22884:126874`
+- Variant matrix: `22884:126881`
+- Axes & properties: `22884:126882`
 - Component set: `Search`
 - Component set node: `22827:261`
-- Examples: `Search / Examples`
-- Examples node: `22828:290`
+- Playground: `22884:126912`
+- Examples: `22828:290`
 
-Legacy `Search / Outline` and `Search / Fill` remain migration sources only and are not part of the canonical contract.
+Legacy Outline/Fill sets, Expandable/Expanded variants, Expressive naming, Skeleton states, and scratch instances were removed from the canonical Figma page.
 
 ## Code / Storybook Reference
 
