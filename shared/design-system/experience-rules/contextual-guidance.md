@@ -6,6 +6,8 @@ title: Contextual Guidance
 summary: Choose Tooltip, Toggletip, Popover, Coachmark, or Tour based on user intent, initiator, and interaction complexity.
 knowledge_state: verified
 document_maturity: draft
+owner: Design System team
+last_reviewed: 2026-09-19
 related:
   - design-system.component.tooltip
   - design-system.component.toggletip
