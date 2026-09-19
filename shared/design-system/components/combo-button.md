@@ -107,7 +107,7 @@ Logical anatomy:
 There is **no standalone Divider node** and **no layout gap** between Combo Button segments.
 
 - **Primary:** the Menu Trigger owns a 1px internal separator using `line/inverse`; the Primary Action adds no touching-edge stroke.
-- **Secondary:** the Menu Trigger owns a 1px internal separator using `line/inverse` (white/inverse); the Primary Action adds no touching-edge stroke.
+- **Secondary:** the Menu Trigger owns a 1px internal separator using `line/emphasis`; the Primary Action adds no touching-edge stroke.
 - **Tertiary:** both segments keep their canonical outer borders, but only the Menu Trigger owns the shared joining edge; the Primary Action removes its touching left edge so the join renders as a single 1px border rather than a doubled border.
 - The boundary contributes **0px** to total Combo width.
 
@@ -336,7 +336,7 @@ Verify:
 - outer corners are 6px and touching corners are 0;
 - no standalone Divider node exists;
 - the two segments use 0px layout gap;
-- Primary/Secondary render one 1px `line/inverse` internal separator edge on Menu Trigger;
+- Primary renders a 1px `line/inverse` internal separator edge; Secondary renders a 1px `line/emphasis` internal separator edge;
 - Tertiary renders one shared 1px joining border edge with no doubled touching border;
 - Open changes only Menu Trigger active treatment/chevron;
 - Primary Action remains independently interactive;
