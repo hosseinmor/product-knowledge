@@ -541,11 +541,21 @@ Canonical editable source:
 
 - Figma file: `-DS--Job-Vision-NEXT`
 - File key: `rROD8ctH9UfPGAMrRrOzHe`
-- Page: `🔤 Text input`
+- Page: `Text Input`
+- Page node: `395:4`
+- Documentation frame: `22884:401`
+- Header: `22884:402`
+- Variant matrix: `22884:409`
+- Axes & properties: `22884:410`
 - Component set: `Text Input`
-- Node: `22780:548`
+- Component set node: `22780:548`
+- Internal Field Label: `22766:61`
+- Internal Field Helper: `22785:585`
+- Internal Field Error: `22785:587`
+- Playground: `22884:126397`
+- Examples: `22780:127670`
 
-Legacy Fill-style input sets are not part of the new canonical contract.
+Legacy Outline/Fill sets, the obsolete shared Supporting/Content drafts, and scratch instances were removed from the canonical Figma page.
 
 ## Code / Storybook Reference
 
