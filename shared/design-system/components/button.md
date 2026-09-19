@@ -9,7 +9,6 @@ document_maturity: draft
 related: []
 design_status: ready-for-dev
 design_maturity: handoff-ready
-source_guideline: button-guidelines-v0.6.md
 ---
 
 # Button
@@ -44,12 +43,12 @@ Button always has a visible text label when not loading. Icon-only actions use I
 
 ## Sizes and Anatomy
 
-| Size | Height |
-|---|---:|
-| Extra Small | 28 px |
-| Small | 32 px |
-| Medium | 40 px |
-| Large | 48 px |
+| Size | Height | Horizontal padding | Label typography |
+|---|---:|---:|---|
+| Extra Small | 28 px | 8 px | 12/16, weight 500 |
+| Small | 32 px | 12 px | 14/20, weight 500 |
+| Medium | 40 px | 16 px | 14/20, weight 500 |
+| Large | 48 px | 20 px | 14/20, weight 500 |
 
 Shared anatomy rules:
 
@@ -252,6 +251,8 @@ Implementation requirements:
 
 - label: `white-space: nowrap` / `whitespace-nowrap`;
 - fixed height per size: 28 / 32 / 40 / 48 px;
+- horizontal padding per size: 8 / 12 / 16 / 20 px for XS / S / M / L;
+- label typography: XS = 12/16; S / M / L = 14/20; weight 500;
 - radius: 6 px;
 - icon size: 18 px;
 - icon-label gap: 8 px;
@@ -278,7 +279,7 @@ Before implementation, align with frontend on whether this remains separate comp
 For each Style and Size, verify:
 
 - Enabled, Hover, Active, Focus, Disabled render with the intended tokens.
-- Height matches the size contract.
+- Height, horizontal padding, and label typography match the size contract.
 - Label never wraps.
 - Start and End icons remain 18 px and preserve the 8 px label gap.
 - Keyboard focus is visible.
