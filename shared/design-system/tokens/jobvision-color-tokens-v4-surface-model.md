@@ -566,7 +566,7 @@ A Text Input is a canonical stress-test example:
 ```text
 Rest border  → line/default
 Hover border → line/emphasis
-Focus border → line/emphasis + focus/default
+Focus        → line/emphasis + focus/default ring
 Error border → line/error
 Disabled     → line/disabled
 ```
