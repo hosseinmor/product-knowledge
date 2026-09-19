@@ -50,7 +50,7 @@ Tailwind maps those families to property-oriented utility namespaces:
 | `surface/{role}` | `bg-{role}` |
 | `fg/{role}` | `text-{role}` |
 | `line/{role}` | `border-{role}` |
-| `focus/{role}` | `ring-{role}` |
+| `focus/{role}` | `outline-{role}` |
 
 Do not repeat a family name when the utility namespace already communicates the CSS property.
 
@@ -58,12 +58,12 @@ Do not repeat a family name when the utility namespace already communicates the 
 surface/default → bg-default
 fg/primary      → text-primary
 line/accent     → border-accent
-focus/default   → ring-default
+focus/default   → outline-default
 ```
 
 Special semantic families keep enough identity to avoid ambiguity. For example Link roles may map to `text-link*` instead of colliding with general foreground roles.
 
-Primitive and Brand colors must not become normal Product-facing Tailwind utilities.
+The canonical Focus implementation uses `outline` with a `1px` `outline-offset`; do not map the standard Focus contract to Tailwind `ring-*` utilities, which are box-shadow based. Primitive and Brand colors must not become normal Product-facing Tailwind utilities.
 
 Normal Product theming should not require Tailwind `dark:` variants for Design System Color; Semantic variables resolve Appearance underneath the utility contract.
 
