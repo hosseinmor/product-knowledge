@@ -475,16 +475,20 @@ Canonical editable source:
 
 - Figma file: `-DS--Job-Vision-NEXT`
 - File key: `rROD8ctH9UfPGAMrRrOzHe`
-- Page: `Password input`
+- Page: `Password Input`
 - Page node: `3556:37675`
+- Documentation frame: `22890:124582`
+- Header: `22890:124583`
+- Variant matrix: `22890:124590`
+- Axes & properties: `22890:124591`
 - Canonical component set: `Password Input`
 - Component set node: `22823:128654`
-- Examples: `Password Input / Examples`
-- Examples node: `22824:129182`
+- Playground: `22890:125615`
+- Examples: `22824:129182`
 
-Shared internal Field helpers are owned by the same family as Text Input.
+Shared internal Field helpers are owned by the Text Input family. Password Input has no separate public sub-component; its visibility action is embedded in the control.
 
-Legacy `Password input / Outline` and `Password input / Fill` are not part of the new canonical contract.
+Legacy Password Input base, Outline, Fill, Warning, Skeleton, and old documentation assets were removed from the canonical Figma page.
 
 ## Code / Storybook Reference
 
