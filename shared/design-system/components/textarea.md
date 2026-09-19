@@ -593,8 +593,6 @@ Canonical editable source:
 - Component set node: `22800:128313`
 - Playground: `22880:132541`
 - Examples: `22810:865`
-- Archive: `Archive — legacy & scratch`
-- Archive node: `22880:132544`
 
 Internal canonical helpers:
 
@@ -602,7 +600,7 @@ Internal canonical helpers:
 - `_Textarea Error Row` → `22804:690`
 - `_Textarea Resize Handle` → `22810:748`
 
-Legacy `Text area`, duplicate Text area sets, and `Text area with toolbar` are not part of the canonical contract.
+Legacy `Text area`, duplicate Text area sets, `Text area with toolbar`, and scratch assets were removed from the canonical Figma page.
 
 ## Code / Storybook Reference
 
