@@ -213,9 +213,15 @@ For `Left` and `Right`:
 
 Title and Description are right-aligned.
 
+Coachmark keeps `Arrow=True` by default because pointing to the introduced target is part of its core guidance model.
+
 The caret uses the shared raised two-layer floating-caret geometry: an outer Floating boundary layer and an inner `surface/raised` layer. This continues the floating outline around the arrow without adding a separate stroke to the triangle.
 
 Runtime target collision/flip must preserve logical Start/End semantics.
+
+Coachmark uses a 2px anchor offset:
+- with the default `Arrow=True`, measure from the caret tip to the target edge;
+- when `Arrow=False`, measure from the Surface edge to the target edge.
 
 ## Behavior
 

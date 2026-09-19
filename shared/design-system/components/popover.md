@@ -59,11 +59,11 @@ Component key: `4e88b783a0b479a8bb90e8771604a04fd39785ba`
 | Property | Values / behavior |
 |---|---|
 | `Content` | Native Figma Slot for arbitrary composition |
-| `Arrow` | Boolean |
+| `Arrow` | Boolean; default `False` |
 | `Side` | `Top`, `Bottom`, `Left`, `Right` |
 | `Align` | `Start`, `Center`, `End` |
 
-Default variant: `Top / Center`.
+Default variant: `Top / Center` with `Arrow=False`.
 
 There is intentionally no `Visible`, `Open`, `Shadow`, or runtime collision property in the Figma API.
 
@@ -154,11 +154,17 @@ The Content Slot aligns children to the right by default.
 
 Runtime collision/flip must preserve logical Start/End semantics.
 
+Popover uses a 2px anchor offset:
+- when `Arrow=False`, measure from the Surface edge to the trigger edge;
+- when `Arrow=True`, measure from the caret tip to the trigger edge.
+
 ## Arrow
 
-`Arrow=True` is the default.
+`Arrow=False` is the default.
 
-Set `Arrow=False` when the contextual relationship is already unambiguous or the product pattern intentionally uses an adjacent floating surface without a caret.
+Use `Arrow=True` only when the anchored relationship would otherwise be ambiguous or when the consuming pattern intentionally needs stronger visual pointing.
+
+For ordinary task-oriented Popovers, proximity and placement should normally establish the relationship without a caret.
 
 Do not create separate arrow/no-arrow component sets.
 

@@ -251,6 +251,37 @@ The components intentionally do not share one identical surface treatment.
 
 This distinction helps communicate ephemeral passive labeling vs persistent contextual surface behavior.
 
+## Arrow Policy
+
+Arrow usage is intentionally different across the family:
+
+| Pattern | Arrow policy |
+|---|---|
+| Tooltip | No arrow |
+| Toggletip | Required / always shown |
+| Popover | Optional; default `False` |
+| Coachmark | Optional property; default `True` |
+| Tour | Follows each Coachmark step |
+
+Use an arrow when visual pointing materially clarifies the anchor/target relationship. Do not add one merely to make all floating surfaces visually consistent.
+
+Tooltip is intentionally simplified and relies on proximity/placement rather than a caret. Popover is task-oriented and normally does the same. Toggletip and Coachmark retain stronger anchored pointing because their explanation/guidance is tied to a specific trigger or target.
+
+## Anchor Offset
+
+Anchored contextual surfaces use a default **2px gap** from their trigger or target.
+
+Measure the gap from the visually closest part of the floating surface:
+
+- **No arrow** — 2px from the Surface edge to the trigger/target edge.
+- **With arrow** — 2px from the arrow tip to the trigger/target edge.
+
+This applies to Tooltip, Toggletip, Popover, and Coachmark. Tour inherits the rule from each Coachmark step.
+
+The 2px value is the preferred design/runtime offset before collision handling. Runtime may reposition or flip the surface to keep it inside the viewport, but should preserve the 2px anchor gap whenever geometry allows.
+
+Do not add extra arbitrary spacing merely because a component has `Shadow/Floating`; the shadow may visually extend into the gap, but placement geometry is based on the Surface/arrow bounds, not the shadow blur.
+
 ## Floating Shadow Rule
 
 `Shadow/Floating` is the shared separation recipe for raised floating surfaces.
