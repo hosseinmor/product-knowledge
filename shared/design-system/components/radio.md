@@ -140,6 +140,7 @@ Current canonical values:
 - item label: Vazirmatn **14/20**;
 - Vertical group item gap: **8px**;
 - Horizontal group item gap: **16px**;
+- Horizontal Radio items: **Hug contents**; the group width hugs the combined items.
 - group-label-to-items gap: **8px**.
 
 No size variant is defined. Add one only after a repeated product need is validated.
@@ -159,6 +160,7 @@ No size variant is defined. Add one only after a repeated product need is valida
 - Selecting one option deselects the previously selected option.
 - Vertical is the default direction.
 - Horizontal layout is valid for concise options when available width and readability are sufficient.
+- In a Horizontal Radio Group, each Radio item hugs its own content; do not force equal or fixed item widths unless a product layout explicitly requires it.
 - Group label belongs to the group, not the first Radio item.
 - A group may contain a variable number of options; the Figma examples are not a product maximum.
 
