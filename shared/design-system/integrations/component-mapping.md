@@ -335,6 +335,54 @@ The Toast design identity, Status × Contrast matrix, native Action Slot, timeou
 The Toggle design identity, Size × State × Toggled matrix, label contract, neutral/accent visual treatment, fixed-white Thumb, focus behavior, RTL geometry, motion guidance, and accessibility contract are verified in `../components/switch.md`. Runtime API, exact DOM/event semantics, Storybook identity, exact motion constants, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
 
+
+### Radio Button
+
+| Field | Current value |
+|---|---|
+| DS component | Radio Button |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component set | `Radio Button / Default` |
+| Figma component key | `00c8bbdee0d9d7513833cf1f0864c65d5ad651ef` |
+| Figma node ID | `22971:244` |
+| Figma variant properties | `Selected / State` |
+| Variant count | `6 = 2 Selected × 3 State` |
+| Figma states | `Default / Focus / Disabled` |
+| Figma content properties | `Item label / Show item label` |
+| Geometry | `24px` control slot / `18px` mark / `6px` dot / `8px` label gap |
+| Hover / Active / Loading | No canonical Radio Button variants |
+| RTL | Logical inline placement; no Position or RTL/LTR variant axis |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-19 |
+
+### Radio Group
+
+| Field | Current value |
+|---|---|
+| DS component | Radio Group |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component set | `Radio Group / Default` |
+| Figma component key | `197d21203e078fca69206e6a9cdbb339248cb5e2` |
+| Figma node ID | `22973:345` |
+| Figma variant properties | `Direction` |
+| Figma directions | `Vertical / Horizontal` |
+| Figma content properties | `Group label / Show group label / Options` |
+| Options | Native Figma SLOT; option count is flexible |
+| Validation boundary | Helper/required/error content belongs to Radio Group/form composition; Radio item has no Error/Warning variant |
+| Keyboard contract | One sequential group stop with Radio-pattern Arrow navigation; preserve native behavior where applicable |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-19 |
+
+The Radio Button/Radio Group design identities, compact state model, semantic selection/focus treatment, flexible Slot composition, validation boundary, multiline-label behavior, RTL geometry, and accessibility contract are verified in `../components/radio.md`. Runtime API, exact DOM/event semantics, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
+
 ## Rules
 
 - Figma property labels do not automatically become code prop names.
