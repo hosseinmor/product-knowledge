@@ -11,7 +11,7 @@ related:
 - design-system.accessibility.keyboard-navigation
 - design-system.accessibility.dynamic-content-and-feedback
 - design-system.accessibility.forms
-last_reviewed: '2026-09-02'
+last_reviewed: '2026-09-19'
 ---
 
 # Focus Management
@@ -64,14 +64,45 @@ focus/inverse
 → supported inverse surfaces
 ```
 
-Focus is independent from:
-- Brand;
-- Accent;
-- Danger;
-- Error;
-- Selected/current state.
+Focus is a dedicated Semantic role. The current `focus/default` mapping intentionally shares the approved Accent primitives:
 
-Error + Focus and Selected + Focus must preserve both meanings.
+```text
+Light → palette/blue/600
+Dark  → palette/blue/500
+```
+
+Components must still consume `focus/default`, not an Accent token directly. Sharing a Primitive does not merge the semantic meanings or allow Accent styling to replace Focus.
+
+Focus remains a distinct interaction state from Brand, Danger, Error, and Selected/current state. Error + Focus and Selected + Focus must preserve both meanings.
+
+## JV visual treatment and web implementation
+
+**MUST**
+
+The standard focus treatment is:
+
+```text
+component edge
+→ 1px gap
+→ 2px focus ring
+```
+
+The focus ring is external to the component boundary. It must not replace, recolor, thicken, or resize the component's own border. Focus + Error and similar combined states therefore retain the component border while adding the Focus ring outside it.
+
+For web implementations, use `:focus-visible` and CSS `outline` as the default mechanism:
+
+```css
+:focus-visible {
+  outline: 2px solid var(--focus-default);
+  outline-offset: 1px;
+}
+```
+
+`outline` is preferred because it does not participate in layout and supports the required offset directly. Do not implement the standard Focus treatment by increasing or recoloring `border`.
+
+Use a `box-shadow`-based ring only when a documented component/platform constraint prevents `outline` from producing the required visible geometry; it must preserve the same 2px ring, 1px gap, Semantic Focus token, and no-layout-shift behavior.
+
+In Figma, the shared outer Focus Effect Style represents this geometry. Its spacer must resolve to the adjacent supported surface; use the default-surface or inverse-surface treatment appropriate to the context. Figma's shadow construction is a design representation, not the required web implementation.
 
 ## Contrast
 
