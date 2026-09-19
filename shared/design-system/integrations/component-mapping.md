@@ -7,7 +7,7 @@ summary: Registry contract for mapping stable Figma component identities to runt
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: '2026-09-18'
+last_reviewed: '2026-09-19'
 related:
   - design-system.reference.figma
   - design-system.reference.code
@@ -132,7 +132,6 @@ The Icon Button design identity and current Figma property model are verified. I
 | Figma states | `Enabled / Hover / Focus / Disabled`; Active is runtime-only |
 | Indicator position | `Start / End`; in RTL Start=right and End=left |
 | Composition | Same Item may be used alone as Disclosure or inside Accordion Items Slot |
-| Legacy assets | Old `Accordion` / `_Accordion item` / skeleton sets remain for migration only |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified** |
 | Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
