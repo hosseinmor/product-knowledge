@@ -982,11 +982,15 @@
       "id": "design-system.component.notification",
       "kind": "design-system-component",
       "title": "Notification",
-      "summary": "> Status: structure only; v4 Color mapping stress-tested",
+      "summary": "Defines the canonical design contracts for Inline Notification and Toast, including severity, anatomy, composition, and current runtime gaps.",
       "status": "draft",
       "owner": null,
       "last_reviewed": "2026-09-19",
-      "related": [],
+      "related": [
+        "design-system.pattern.notifications",
+        "design-system.component.icon-button",
+        "design-system.component.link"
+      ],
       "topics": [
         "components",
         "design-system-component",
@@ -1968,9 +1972,10 @@
       "summary": "Defines shared feedback severity and when feedback appears inline or as a transient Toast.",
       "status": "draft",
       "owner": null,
-      "last_reviewed": null,
+      "last_reviewed": "2026-09-19",
       "related": [
-        "design-system.accessibility.dynamic-content-and-feedback"
+        "design-system.accessibility.dynamic-content-and-feedback",
+        "design-system.component.notification"
       ],
       "topics": [
         "design-system-pattern",
