@@ -132,14 +132,13 @@ Breadcrumb stays on one line.
 
 Long labels truncate rather than wrap.
 
-Figma authoring currently demonstrates:
+Current uses a reviewed Figma authoring cap of approximately `240px` with end truncation.
 
-- ancestor Link label cap: approximately `220px`;
-- Current label cap: approximately `240px`.
+Ancestor items directly compose the canonical Link component. Canonical Link is currently hug-content and does not expose a truncation/max-width property, so the Breadcrumb Figma component does **not** fake ancestor ellipsis by detaching or duplicating Link.
 
-These values are Figma authoring constraints, not a verified runtime API or breakpoint contract.
+At runtime, available inline space should drive ancestor truncation and hierarchy collapse. The exact width constraint and measurement algorithm remain unverified until the owning runtime source is registered. Do not infer a fixed viewport breakpoint from the Figma examples.
 
-At runtime, available inline space should drive truncation/collapse. Do not infer a fixed viewport breakpoint from the Figma examples.
+This is an intentional Figma/runtime authoring boundary: preserving canonical Link composition takes precedence over simulating ancestor ellipsis inside the Figma component.
 
 For increasingly narrow layouts, collapse hierarchy before allowing the Breadcrumb to become a multiline block.
 
