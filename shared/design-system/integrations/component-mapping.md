@@ -339,6 +339,44 @@ The Inline Notification design identity, severity matrix, content anatomy, nativ
 The Toast design identity, Status × Contrast matrix, native Action Slot, timeout-indicator capability, RTL dismiss geometry, typography, elevation, and semantic token mapping are verified in `../components/notification.md`. Exact runtime timing, queue/stack behavior, placement, announcement behavior, and High-Toast Button treatment remain unverified.
 
 
+### Checkbox
+
+| Field | Current value |
+|---|---|
+| DS component | Checkbox |
+| Knowledge document | `../components/checkbox.md` |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component set | `Checkbox / Default` |
+| Figma component key | `af1fdbe97bf103d8ae5e4540d36f4ffb284cc35b` |
+| Figma node ID | `3193:29303` |
+| Figma variant properties | `Selection / State` |
+| Variant count | `9 = 3 Selection × 3 State` |
+| Figma content properties | `Label / Show label` |
+| Figma selections | `Unchecked / Checked / Indeterminate` |
+| Figma states | `Default / Focus / Disabled` |
+| Visual size | `20px` Checkbox icon instance; source icon artwork scales proportionally inside the nested instance |
+| Label gap | `8px` |
+| Selection semantics | Exact local Icons-page components: unchecked node `15087:365340` key `b4b5e8aad25d7be4009568638bc86a3b85a6a185`; checked node `15087:365337` key `a9b3101d611597626af94d5f3a63a08058bbceab`; indeterminate node `15087:365343` key `ae823e542df2e4ac6c644e4ce8b97fe13aaa5b89`; Unchecked = `fg/secondary`, Checked/Indeterminate = `fg/accent` |
+| Focus | shared `focus/default` 2px outside ring with 1px gap; independent from selection |
+| RTL | logical inline-start control / inline-end label; no Position variant |
+| Checkbox Group set | `Checkbox Group / Default` |
+| Checkbox Group key | `9c6f915d8bc3399d2f02fd0aad20218757b0749f` |
+| Checkbox Group node ID | `23020:127117` |
+| Checkbox Group properties | `Direction / Group label / Show group label` |
+| Checkbox Group directions | `Vertical / Horizontal` |
+| Horizontal group sizing | item instances Hug contents; `16px` inter-item gap |
+| Validation | owned by surrounding form-field composition; no Error/Warning Checkbox variants |
+| Loading | outside base Checkbox state matrix; use Skeleton composition rather than Skeleton variants |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-19 |
+
+The Checkbox design identity, exact local icon-library sources, Selection × State matrix, 20px icon sizing, first-line/top-aligned multiline behavior, semantic color mapping, focus treatment, flexible-width/multiline behavior, Checkbox Group direction contract, validation/loading boundaries, RTL geometry, Indeterminate semantics, and accessibility contract are verified in `../components/checkbox.md`. Runtime API, exact DOM/event semantics, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
+
+
 ### Radio
 
 | Field | Current value |
