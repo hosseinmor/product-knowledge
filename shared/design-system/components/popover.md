@@ -63,7 +63,7 @@ Component key: `4e88b783a0b479a8bb90e8771604a04fd39785ba`
 | `Side` | `Top`, `Bottom`, `Left`, `Right` |
 | `Align` | `Start`, `Center`, `End` |
 
-Default variant: `Top / Center` with `Arrow=False`.
+Default variant: `Top / Start` with `Arrow=False`.
 
 There is intentionally no `Visible`, `Open`, `Shadow`, or runtime collision property in the Figma API.
 
@@ -91,7 +91,7 @@ Properties:
 | `Body text` | Text |
 | `Actions` | `None`, `One`, `Two` |
 
-Default: Title + Body + `Actions=Two`.
+Default: Title + Body + `Actions=None`.
 
 The action buttons are real instances of the canonical Button component and are exposed nested instances for further configuration.
 
@@ -189,7 +189,9 @@ Popover is non-modal by default and must not trap focus merely because it is flo
 
 ### Default content
 
-Use Title + Body + Actions when the interaction fits that model.
+The recommended default begins with Title + Body and no actions.
+
+Add one or two actions only when the Popover's task requires an explicit action row.
 
 Keep action groups to two Buttons whenever possible.
 
@@ -283,6 +285,8 @@ Verify:
 - Surface remains within 240–360px;
 - Slot remains within 208–328px;
 - default `Popover content` is present and editable;
+- default shell is `Side=Top`, `Align=Start`, `Arrow=False`;
+- default content is Title + Body with `Actions=None`;
 - Title, Body, and Actions properties work;
 - one- and two-action layouts do not overflow;
 - custom Slot compositions resize the shell correctly;
