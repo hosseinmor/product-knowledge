@@ -96,6 +96,64 @@ The Icon Button design identity and current Figma property model are verified. I
 
 
 
+### Menu Button
+
+| Field | Current value |
+|---|---|
+| DS component | Menu Button |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component set | `Menu Button / Default` |
+| Figma component key | `166f62776a8c17f3ccdc9f4891892fcd380be68c` |
+| Figma node ID | `22930:811` |
+| Figma variant properties | `Size / Open` |
+| Variant count | `8 = 4 Size × 2 Open` |
+| Figma content properties | `Menu content` native SLOT; exposed nested `Trigger / Button` |
+| Figma sizes | `Extra Small 28 / Small 32 / Medium 40 / Large 48` |
+| Default trigger | Canonical Button / Tertiary; approved Menu Button styles: Primary / Tertiary / Ghost |
+| Open representation | `Open=True` maps Trigger to Active + chevron-up; Menu remains outside trigger layout |
+| Anchor gap | `2px` per shared contextual-surface rule |
+| Loading | No top-level Loading state; loading content belongs inside Menu |
+| Known Menu size gap | Current legacy Menu XS is 24px; Menu Button XS temporarily uses Small Menu |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-19 |
+
+The Menu Button design identity, Button composition, native Menu Slot, Size × Open matrix, 2px anchoring rule, RTL geometry, and Menu Button accessibility contract are verified in `../components/menu-button.md`. Runtime popup API, exact prop names, collision/portal implementation, and Storybook identity remain unverified.
+
+
+### Combo Button
+
+| Field | Current value |
+|---|---|
+| DS component | Combo Button |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component set | `Combo Button / Default` |
+| Figma component key | `c6f34b8a4294241844d10349881d8264b1c072eb` |
+| Figma node ID | `22932:134187` |
+| Figma variant properties | `Style / Size / Open` |
+| Variant count | `24 = 3 Style × 4 Size × 2 Open` |
+| Figma styles | `Primary / Secondary / Tertiary` |
+| Figma sizes | `Extra Small 28 / Small 32 / Medium 40 / Large 48` |
+| Composition | Exposed canonical `Primary Action / Button` + exposed canonical `Menu Trigger / Icon Button` + 1×18 Divider + native `Menu content` SLOT |
+| Divider mapping | Primary → `line/inverse`; Secondary/Tertiary → `line/default` |
+| Open representation | Only Menu Trigger maps to Active + chevron-up; Primary Action state remains independent |
+| Anchor gap | `2px` |
+| Loading | Owned by nested Primary Action; no outer Loading axis |
+| RTL | Primary Action logical Start/right; Menu Trigger logical End/left |
+| Known Menu size gap | Current legacy Menu XS is 24px; Combo XS temporarily uses Small Menu |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-19 |
+
+The Combo Button design identity, connected-segment geometry, native Menu Slot, Style × Size × Open matrix, independent segment behavior, Divider mapping, 2px anchoring rule, RTL geometry, loading boundary, and accessibility contract are verified in `../components/combo-button.md`. Runtime component/API, Storybook identity, and exact Figma-to-code property mapping remain unverified.
+
+
 ### Tooltip
 
 | Field | Current value |
