@@ -174,17 +174,19 @@ Accordion and Accordion Item design identities, native Slot composition, visual 
 | DS component | Link |
 | Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
 | Figma component set | `Link / Default` |
-| Figma component key | `93372073ea1f24b1726354518570da662e021ae5` |
-| Figma node ID | `22901:125760` |
-| Figma variant properties | `Style / Size / State / Underline` |
-| Figma content properties | `Link text / Start icon / Swap start icon / End icon / Swap end icon` |
+| Figma component key | `185633dee3397a6e143c8c4acf2471cac65911d7` |
+| Figma node ID | `22915:125435` |
+| Figma variant properties | `Style / State` |
+| Variant count | `12 = 3 Style × 4 State` |
+| Figma content properties | `Link text / End icon / Swap end icon` |
 | Figma styles | `Default / Subtle / Inverse` |
-| Figma sizes | `Small 12/16 / Medium 14/20 / Large 16/24` |
 | Figma states | `Enabled / Hover / Active / Focus` |
-| Underline | `False / True`; False adds underline on Hover, Active, and Focus |
-| Icon geometry | Fixed `18px`, `8px` label gap, logical Start/End positions |
-| Deliberate exclusions | No Disabled, Visited, Bold, or legacy Inline axis |
-| Inline / multiline Figma authoring | Native Text range using the Link semantic token + persistent underline |
+| Standalone typography | Fixed `14/20 Regular` |
+| Underline behavior | Enabled none; Hover / Active / Focus underlined |
+| Figma underline implementation | Responsive 1px label-width helper; opacity 0/1 by State; runtime uses real text-decoration |
+| Icon geometry | Optional End icon only; fixed `18px`, `8px` label gap |
+| Deliberate exclusions | No Size, Underline, Start icon, Disabled, Visited, Bold, or legacy Inline axis |
+| Inline / multiline Figma authoring | Native Text range using Link semantic token + persistent underline; inherits surrounding typography |
 | Legacy Figma component | `Link / Legacy`, node `3245:28722`; migration only |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified** |
@@ -193,7 +195,7 @@ Accordion and Accordion Item design identities, native Slot composition, visual 
 | Code Connect | **No registered mapping** |
 | Last Figma verification | 2026-09-19 |
 
-The Link design identity, current Figma property model, semantic token mapping, underline behavior, icon geometry, RTL logical positions, and inline/multiline Figma authoring boundary are verified in `../components/link.md`. Runtime API, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
+The Link design identity, minimal standalone API, semantic token mapping, state-driven underline behavior, End-icon geometry, and native-Text inline/multiline authoring boundary are verified in `../components/link.md`. Runtime API, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
 
 ### Inline Notification
