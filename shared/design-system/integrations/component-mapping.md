@@ -306,6 +306,41 @@ The Inline Notification design identity, severity matrix, content anatomy, nativ
 The Toast design identity, Status × Contrast matrix, native Action Slot, timeout-indicator capability, RTL dismiss geometry, typography, elevation, and semantic token mapping are verified in `../components/notification.md`. Exact runtime timing, queue/stack behavior, placement, announcement behavior, and High-Toast Button treatment remain unverified.
 
 
+### Radio
+
+| Field | Current value |
+|---|---|
+| DS component | Radio |
+| Knowledge document | `../components/radio.md` |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component set | `Radio / Default` |
+| Figma component key | `a1e6b8ca998c57f78abd75b97b190aacbd662f44` |
+| Figma node ID | `2930:23442` |
+| Figma variant properties | `Selected / State` |
+| Variant count | `6 = 2 Selected × 3 State` |
+| Figma content properties | `Label / Show label` |
+| Figma states | `Default / Focus / Disabled` |
+| Visual size | `24px` control slot / `18px` visual circle / `8px` selected indicator |
+| Label gap | `8px` |
+| Selection semantics | Unselected uses `line/default`; Selected uses `line/accent` + `surface/accent-emphasis` indicator |
+| Focus | shared `focus/default` 2px outside ring with 1px gap; independent from selection |
+| RTL | logical inline-start control / inline-end label; no Position variant |
+| Radio Group set | `Radio Group / Default` |
+| Radio Group key | `8a24b1caa72671235a5c9d26706efcc845f45eee` |
+| Radio Group node ID | `2927:28166` |
+| Radio Group properties | `Direction / Group label / Show group label` |
+| Radio Group directions | `Vertical / Horizontal` |
+| Validation | owned by surrounding form-field composition; no Error/Warning Radio variants |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-19 |
+
+The Radio design identity, Selected × State matrix, label behavior, semantic color mapping, focus treatment, flexible-width/multiline behavior, Radio Group direction contract, validation boundary, RTL geometry, and accessibility contract are verified in `../components/radio.md`. Runtime API, exact DOM/event semantics, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
+
+
 ### Toggle
 
 | Field | Current value |
