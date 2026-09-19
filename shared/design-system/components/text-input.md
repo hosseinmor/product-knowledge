@@ -49,7 +49,7 @@ Password Input may share this field/control architecture, but its reveal/hide ac
 
 Component set: `Text Input`
 
-Figma node: `22780:548` in `[DS] Job Vision NEXT`.
+Figma node: `22780:548` in `-DS--Job-Vision-NEXT`.
 
 ### Top-level properties
 
