@@ -432,19 +432,21 @@ Canonical source:
 
 - Figma file: `-DS--Job-Vision-NEXT`
 - File key: `rROD8ctH9UfPGAMrRrOzHe`
-- Page: `Text area`
-- Page node: `5564:279849`
-- Section: `Canonical Rich Text Editor`
-- Section node: `22846:128110`
+- Page: `Rich Text Editor`
+- Page node: `22875:6289`
+- Documentation frame: `22877:133693`
+- Header: `22877:133694`
+- Variant matrix: `22877:133701`
+- Axes & properties: `22877:133702`
 - Rich Text Editor set: `22866:134455`
 - Internal Toolbar set: `22865:3861`
 - Internal Toolbar Toggle set: `22864:3503`
+- Playground: `22878:10007`
 - Examples: `22868:133907`
-- Documentation frame: `22868:133904`
 
 Archived first draft:
 
-- Archive section: `_Archive / Rich Text Editor drafts`
+- Archive section: `Archive — legacy & scratch`
 - Archive section node: `22869:134535`
 - archived Rich Text Editor set: `22852:131093`
 - archived Toolbar set: `22848:1282`
