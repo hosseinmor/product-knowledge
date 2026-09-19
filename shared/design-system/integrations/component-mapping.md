@@ -305,6 +305,36 @@ The Inline Notification design identity, severity matrix, content anatomy, nativ
 
 The Toast design identity, Status × Contrast matrix, native Action Slot, timeout-indicator capability, RTL dismiss geometry, typography, elevation, and semantic token mapping are verified in `../components/notification.md`. Exact runtime timing, queue/stack behavior, placement, announcement behavior, and High-Toast Button treatment remain unverified.
 
+
+### Toggle
+
+| Field | Current value |
+|---|---|
+| DS component | Toggle |
+| Knowledge document | `../components/switch.md` (legacy path/id retained for compatibility) |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component set | `Toggle` |
+| Figma component key | `0c632b79747ffac5f05a4f2c762f81ddcb8293d7` |
+| Figma node ID | `22928:125569` |
+| Figma variant properties | `Size / State / Toggled` |
+| Variant count | `24 = 2 Size × 6 State × 2 Toggled` |
+| Figma content properties | `Label / Show label` |
+| Figma sizes | `Medium 48×24, thumb 18` / `Small 32×16, thumb 10` |
+| Figma states | `Default / Hover / Active / Focus / Disabled / Read-only` |
+| Off visual | `surface/neutral-muted*` track; fixed white `palette/bw/white` thumb; no persistent border |
+| On visual | `surface/accent-emphasis*` track; fixed white `palette/bw/white` thumb |
+| Focus | `focus/default` 2px outside ring, independent from On/Off |
+| RTL | Authored Off thumb right / On thumb left; runtime mirrors in LTR rather than adding an RTL variant |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-19 |
+
+The Toggle design identity, Size × State × Toggled matrix, label contract, neutral/accent visual treatment, fixed-white Thumb, focus behavior, RTL geometry, motion guidance, and accessibility contract are verified in `../components/switch.md`. Runtime API, exact DOM/event semantics, Storybook identity, exact motion constants, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
+
+
 ## Rules
 
 - Figma property labels do not automatically become code prop names.
