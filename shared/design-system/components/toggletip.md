@@ -68,6 +68,8 @@ Component key: `54bf6a92136594a94c18def1a16c5378786884cf`
 | `Side` | `Top`, `Bottom`, `Left`, `Right` |
 | `Align` | `Start`, `Center`, `End` |
 
+Default variant: `Top / Start` with `Title=False` and `Action=False`.
+
 There is intentionally no `Visible`, `Open`, `State`, `Shadow`, `Type`, or `Arrow` property in the canonical Figma API.
 
 The caret is part of canonical Toggletip anatomy and is always shown.
@@ -244,6 +246,7 @@ Verify:
 - all 12 Side × Align combinations;
 - caret direction and attachment;
 - Start/End semantics in RTL;
+- anchored examples preserve the 2px caret-tip-to-trigger offset;
 - Title true/false;
 - Action true/false;
 - Title/Body/Action remain right-aligned;
