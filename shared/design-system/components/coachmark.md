@@ -219,6 +219,10 @@ The caret uses the shared raised two-layer floating-caret geometry: an outer Flo
 
 Runtime target collision/flip must preserve logical Start/End semantics.
 
+Coachmark uses a 2px anchor offset:
+- with the default `Arrow=True`, measure from the caret tip to the target edge;
+- when `Arrow=False`, measure from the Surface edge to the target edge.
+
 ## Behavior
 
 Coachmark is normally initiated by product lifecycle or context rather than ordinary hover/click help behavior.
