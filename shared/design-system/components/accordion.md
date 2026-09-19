@@ -60,7 +60,7 @@ Accordion is intentionally only a grouping layer:
 
 Accordion adds no card surface, radius, border, or elevation around the group.
 
-The default Figma instance contains three Accordion Items for convenience, but the count is not fixed. Designers may add or remove items through the native `Items` Slot.
+The default Figma instance contains three **collapsed** Accordion Items for convenience, but the count is not fixed. Designers may add or remove items through the native `Items` Slot.
 
 ### Items Slot contract
 
@@ -83,7 +83,7 @@ Each Accordion Item contains:
 3. **Indicator** — decorative expand/collapse Chevron.
 4. **Panel** — disclosed content region.
 5. **Content Slot** — native Figma Slot that owns all Panel content.
-6. **Divider** — structural separator between adjacent items.
+6. **Bottom divider stroke** — a 1 px structural separator applied to the Accordion Item root; it is not a separate child layer.
 
 The Trigger owns expand/collapse interaction. The Chevron is not a separate control.
 
@@ -190,7 +190,7 @@ Accordion remains low-decoration:
 - no outer border;
 - no radius;
 - no elevation;
-- a 1 px `line/muted` divider separates items;
+- a 1 px bottom stroke on each Accordion Item root, bound to `line/muted`, separates items;
 - expanded is disclosure state, not selection state, so it does not receive Brand, Accent, or Selected treatment.
 
 ## States
@@ -371,6 +371,8 @@ Verify:
 - Focus appears on Trigger only;
 - Accordion group exposes one native `Items` Slot;
 - Items Slot accepts one or more Accordion Item instances with zero gap;
+- the default Accordion authoring instance contains three collapsed Items;
+- the Item separator is a 1 px bottom stroke on the Item root bound to `line/muted`;
 - grouped Items can show multiple expanded Panels.
 
 ## Open implementation items
