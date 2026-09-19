@@ -51,8 +51,6 @@ Primary Design System file:
 - Node ID: `22794:548`
 - Component key: `2728144865f9616dd66228719b4fb71936e3062a`
 
-Older `Accordion`, `_Accordion item`, and Accordion skeleton constructions on the page are legacy assets retained for migration compatibility. Do not use them for new work.
-
 ## Accordion anatomy
 
 Accordion is intentionally only a grouping layer:
@@ -377,7 +375,6 @@ Verify:
 
 ## Open implementation items
 
-- Publish/migrate away from legacy Accordion assets after migration risk is reviewed.
 - Register runtime Design System repository/package and Storybook.
 - Verify Figma ↔ runtime property mapping from the real implementation source.
 - Adopt shared Motion timing/easing when the Motion foundation is finalized.
