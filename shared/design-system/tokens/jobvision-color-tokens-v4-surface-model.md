@@ -616,7 +616,7 @@ focus/default
 focus/inverse
 ```
 
-Focus remains independent from Brand and Accent. Cando yellow must not be the sole focus indicator.
+Focus remains a dedicated Semantic role rather than an Accent usage. The current `focus/default` value intentionally shares the approved Accent primitives (`blue/600` in Light and `blue/500` in Dark); components must consume `focus/default`, not Accent directly. `focus/inverse` remains a distinct inverse-context role.
 
 Typical composition:
 
