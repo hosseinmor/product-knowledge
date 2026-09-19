@@ -108,7 +108,7 @@ There is **no standalone Divider node** and **no layout gap** between Combo Butt
 
 - **Primary:** the canonical Menu Trigger / Icon Button instance owns a 1px inside stroke on its touching edge using `palette/bw/white`; the Primary Action / Button instance has no touching-edge stroke.
 - **Secondary:** the same instance-owned join treatment is used: 1px inside `palette/bw/white` on the Menu Trigger touching edge; the Primary Action has no touching-edge stroke.
-- **Tertiary:** the Combo component owns a full 1px `line/default` outer border. The Menu Trigger owns the single 1px `line/default` internal joining edge, while the Primary Action has no touching-edge border, so the seam is not doubled.
+- **Tertiary:** the outer border is composed from the two canonical nested instances, not from the Combo parent. The Menu Trigger keeps `line/default` on top/bottom/outer-left and removes only its touching right edge. The Primary Action keeps its normal `line/default` border, including the touching left edge, which becomes the single clearly visible 1px separator.
 - The boundary contributes **0px** to total Combo width because strokes are inside and excluded from layout.
 - Canonical Focus/Disabled state visuals remain authoritative. When the Menu Trigger itself is Focused or Disabled, its canonical state treatment may replace the normal-state join stroke rather than layering a custom separator over the state.
 
@@ -338,7 +338,7 @@ Verify:
 - no standalone Divider node exists;
 - the two segments use 0px layout gap;
 - in normal Enabled/Active filled states, Primary and Secondary render a 1px inside `palette/bw/white` join stroke on the canonical Menu Trigger instance; no custom separator node exists;
-- Tertiary renders a full 1px `line/default` outer border around the connected control plus one shared 1px internal joining edge with no doubled touching border;
+- Tertiary composes its full `line/default` outer border from the two canonical child instances; the Primary Action left edge is the single visible 1px separator and the Menu Trigger removes its touching right edge;
 - Open changes only Menu Trigger active treatment/chevron;
 - Primary Action remains independently interactive;
 - Loading on Primary Action does not move/resize the control;
