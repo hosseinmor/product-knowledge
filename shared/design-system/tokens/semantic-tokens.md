@@ -301,7 +301,7 @@ focus/default
 focus/inverse
 ```
 
-Figma uses the same canonical names: `focus/default` and `focus/inverse`. Focus remains independent from Brand and Accent.
+Figma uses the same canonical names: `focus/default` and `focus/inverse`. Focus remains a dedicated Semantic role. `focus/default` currently shares the approved Accent primitives (`palette/blue/600` in Light and `palette/blue/500` in Dark), but components consume the Focus role rather than Accent directly. Sharing a Primitive does not merge the semantic meanings.
 
 ## Link
 
