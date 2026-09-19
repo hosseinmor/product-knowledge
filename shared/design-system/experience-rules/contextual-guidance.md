@@ -253,11 +253,16 @@ This distinction helps communicate ephemeral passive labeling vs persistent cont
 
 ## Floating Shadow Rule
 
-`Shadow/Floating` represents elevation only.
+`Shadow/Floating` is the shared separation recipe for raised floating surfaces.
 
-It must not include a 1px outline-like layer.
+It contains:
 
-Use a Line token when a boundary is intentionally required; do not encode a hidden border inside elevation.
+- a subtle `0 0 0 1px` outline-like first layer;
+- two soft elevation layers.
+
+This first layer is intentional so white floating surfaces remain distinguishable on white page backgrounds. It is part of the Floating effect, not a separate component border.
+
+Toggletip, Popover, and Coachmark therefore use `Shadow/Floating` with **no additional explicit border by default**.
 
 ## Accessibility Boundary
 
