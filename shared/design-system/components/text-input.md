@@ -200,7 +200,7 @@ Focus composes two independent visual layers:
 
 ```text
 Control border → line/emphasis, 1px
-Focus indicator → focus/default, 2px outside
+Focus indicator → focus/default, 2px ring + 1px offset
 ```
 
 The focus indicator must not change input height, content padding, or layout.
@@ -225,7 +225,7 @@ Error and Focus remain independently visible:
 
 ```text
 Error border → line/error, 2px
-Focus indicator → focus/default, 2px outside
+Focus indicator → focus/default, 2px ring + 1px offset
 Error message → fg/error
 ```
 
@@ -262,7 +262,7 @@ A native readonly input remains focusable, so Figma also provides `Read only foc
 
 ### Read only focus
 
-Read only focus preserves the Read only treatment and adds the shared `focus/default` 2 px outer indicator.
+Read only focus preserves the Read only treatment and adds the shared `focus/default` 2px ring with a 1px offset.
 
 ## Label, Required, and Info
 
@@ -501,7 +501,7 @@ Read only focus → composition of readonly + focus
 - adornment/content gap → 8 px
 - default/hover/focus/read-only line → 1 px
 - error line → 2 px overlay with no layout shift
-- focus indicator → 2 px outside with no layout shift
+- focus indicator → 2px ring + 1px offset with no layout shift
 
 The exact CSS/Tailwind class architecture remains a Frontend implementation decision.
 
