@@ -287,7 +287,7 @@ Verify:
 - current shared Menu Extra Small is still 24px and must be migrated to the 28px control baseline;
 - runtime component/API and Storybook are unregistered;
 - exact overlay/collision implementation is unverified;
-- stricter Figma authoring constraints for the approved trigger-style subset are not available in the current component model.
+- the exposed nested Button technically allows Style/Size/State overrides that can conflict with the outer Menu Button contract; review must keep nested Size aligned with the outer Size and use only the approved trigger-style subset until the Figma authoring model is tightened.
 
 ## Related
 
