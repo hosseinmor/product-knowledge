@@ -50,16 +50,15 @@ Do not use visual styling alone to change the underlying selection semantics.
 
 A Radio item contains:
 
-1. a shared 24px Radio icon instance;
-2. a 20px visual vector inside that icon box;
-3. an item label;
-4. 8px spacing between label and control.
+1. a 20px Radio control;
+2. an item label;
+3. 8px spacing between label and control.
 
-The visual control must reuse the shared JobVision icon assets:
-- `Icon/radio_button_unchecked`;
-- `Icon/radio_button_checked`.
+The canonical control geometry is the existing JobVision Radio geometry from the previous component:
+- `Radio-button` for unselected;
+- `Radio-button--checked` for selected.
 
-Do not redraw the Radio ring/dot geometry locally inside the component.
+The geometry is reused directly rather than redrawn. Local internal control assets only exist so the existing geometry can be bound to the current semantic token system.
 
 The whole visible item row is one interaction target. The label is not a separate interaction.
 
@@ -94,18 +93,16 @@ Validation is not represented as a Radio or Radio Group interaction-state varian
 
 ### Default, unselected
 
-- shared icon: `Icon/radio_button_unchecked`;
-- icon box: 24px;
-- visual vector: 20px;
-- vector fill: `fg/secondary`;
+- control geometry: previous `Radio-button`;
+- control size: 20px;
+- control color: `fg/secondary`;
 - label: `fg/primary`.
 
 ### Default, selected
 
-- shared icon: `Icon/radio_button_checked`;
-- icon box: 24px;
-- visual vector: 20px;
-- vector fill: `fg/accent`;
+- control geometry: previous `Radio-button--checked`;
+- control size: 20px;
+- control color: `fg/accent`;
 - label remains `fg/primary`.
 
 Selection is an Accent semantic state, not a Brand state.
@@ -134,8 +131,7 @@ Both selected and unselected Radio options retain their selection geometry while
 
 Current canonical values:
 
-- shared Radio icon box: **24px**;
-- icon visual vector: **20px**;
+- Radio control: **20px**;
 - label gap: **8px** using the shared Spacing 8px variable;
 - item label: Vazirmatn **14/20**;
 - Vertical group item gap: **8px**;
@@ -251,7 +247,7 @@ Do not infer exact DOM structure, event names, prop names, or implementation API
 
 The legacy Figma model was reconciled in place to preserve component identity.
 
-The canonical visual control now reuses the shared checked/unchecked JobVision Radio icon components rather than locally drawn ellipse/dot geometry.
+The canonical visual control reuses the previous JobVision `Radio-button` and `Radio-button--checked` geometry rather than introducing a new Radio drawing. The geometry is tokenized locally for current semantic color and focus behavior.
 
 Removed legacy axes/states:
 
