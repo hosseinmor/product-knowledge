@@ -155,7 +155,7 @@ Rules:
 
 ```text
 Control line → line/emphasis, 1 px
-Focus indicator → focus/default, 2 px outside
+Focus indicator → focus/default, 2px ring + 1px offset
 ```
 
 The focus indicator does not alter layout.
@@ -336,7 +336,7 @@ Verify:
 - Clear appears only when Filled=true;
 - Filled preserves Placeholder and Query independently;
 - Small/Large property bindings work after cloning;
-- Focus uses line/emphasis + 2 px outer focus indicator;
+- Focus uses line/emphasis + the shared 2px `focus/default` ring with a 1px offset;
 - Disabled uses disabled semantic roles;
 - Placeholder and Query fill Content and use single-line ending ellipsis in Figma;
 - horizontal resize preserves padding, order, border, and clipping;
