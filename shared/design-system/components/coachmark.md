@@ -189,7 +189,9 @@ Example:
 
 A standalone Coachmark normally uses `Progress=False`.
 
-Progress copy must reflect actual Tour state and must not be manually hard-coded inconsistently across steps.
+Production Progress copy must reflect actual Tour state and must not be manually hard-coded inconsistently across steps.
+
+Static Figma examples and isolated Storybook demonstration stories may hard-code representative progress text to demonstrate the visual state. Those examples are not evidence of a production Tour state model.
 
 ## Placement and RTL
 
@@ -264,6 +266,14 @@ Prefer product language over implementation language.
 - Focus must not be lost when the Coachmark/Tour ends.
 - Target relationship must not be communicated only through visual caret placement.
 
+### Target relationship — runtime gap
+
+The caret alone is not a sufficient programmatic relationship between a Coachmark and its target.
+
+The production runtime must provide an assistive-technology relationship or announcement strategy appropriate to the target and interaction context. There is intentionally **no universal ARIA mapping locked yet**; do not blindly apply `aria-describedby`, `aria-controls`, or dialog semantics to every Coachmark without validating the resulting experience.
+
+Until the runtime relationship is verified, Storybook examples may demonstrate visual targeting but must not be described as accessibility-complete for target association.
+
 ### Focus
 
 Exact initial focus behavior depends on how intrusive the guidance is and remains a runtime/pattern decision.
@@ -332,7 +342,8 @@ Verify:
 - Description can use the full 288px content width;
 - Surface uses `surface/raised`, radius 12, and `Shadow/Floating`;
 - no border is present;
-- keyboard access and dismissal work in runtime.
+- keyboard access and dismissal work in runtime;
+- the production implementation defines and tests a non-visual target-association / announcement strategy; a visual caret alone does not pass accessibility QA.
 
 ## Live References
 
