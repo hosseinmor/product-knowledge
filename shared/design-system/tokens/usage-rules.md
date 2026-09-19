@@ -104,12 +104,12 @@ A Text Input is a canonical stress-test example:
 ```text
 Rest border  → line/default
 Hover border → line/emphasis
-Focus border → line/emphasis + focus/default
+Focus        → line/emphasis + focus/default ring
 Error border → line/error
 Disabled     → line/disabled
 ```
 
-Focus remains a separate semantic layer; `line/emphasis` does not replace `focus/default`.
+Focus remains a separate semantic layer; `line/emphasis` does not replace `focus/default`. The standard Focus geometry is a 2px ring with a 1px gap outside the component boundary, implemented on the web with `outline` + `outline-offset` rather than by changing the border.
 
 ## Brand versus Accent
 
