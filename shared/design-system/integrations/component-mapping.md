@@ -106,7 +106,7 @@ The Icon Button design identity and current Figma property model are verified. I
 | Figma node ID | `22821:129502` |
 | Figma content properties | `Items` native SLOT |
 | Items Slot | 1+ children, zero gap, preferred/allowed content = `Accordion Item` |
-| Default authoring content | 3 Accordion Item instances; count is not fixed |
+| Default authoring content | 3 collapsed Accordion Item instances; count is not fixed |
 | Group behavior | Multiple-open default; Single-open explicit runtime option; both allow all-collapsed |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified** |
