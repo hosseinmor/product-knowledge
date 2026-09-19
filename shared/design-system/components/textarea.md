@@ -614,7 +614,6 @@ Do not infer implemented Angular API, class names, native-resize CSS, or Storybo
 - align the exact Angular/Tailwind public API with Frontend;
 - confirm runtime resize policy and native-browser handle behavior;
 - validate whether any product requires auto-grow behavior;
-- validate the shared Field architecture again with Password Input.
 
 These open items do not block the current Textarea visual and authoring contract.
 
