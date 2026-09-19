@@ -90,28 +90,28 @@ Logical anatomy:
 
 1. **Primary Action** — labeled Button at logical Start.
 2. **Menu Trigger** — chevron Icon Button at logical End.
-3. **Inter-segment gap** — a fixed 1px layout gap between the two independent targets; not a Divider node.
+3. **Internal boundary** — a 1px visual boundary at the join; it is not a separate layout node and adds no width.
 4. **Menu content** — native Slot anchored outside normal control flow.
 
 ### Shared geometry
 
 - overall height follows Size: `28 / 32 / 40 / 48px`;
-- **1px gap** between the two interactive segments;
+- **0px layout gap** between the two interactive segments; separation is rendered by a 1px internal boundary;
 - outer radius: `6px`;
 - touching inner corners: `0px`;
 - menu-to-control gap: **2px**;
 - open Menu never changes Combo Button width or height.
 
-### Inter-segment spacing
+### Internal boundary treatment
 
-There is **no standalone Divider node** in Combo Button.
+There is **no standalone Divider node** and **no layout gap** between Combo Button segments.
 
-- The two interactive segments use a fixed **1px layout gap**.
-- **Primary / Secondary:** both segments keep their canonical filled treatment; the 1px gap provides separation without introducing a third visual element.
-- **Tertiary:** both segments keep their canonical full border because the 1px gap prevents touching/doubled borders.
-- The gap intentionally contributes **1px** to total Combo width.
+- **Primary:** the Menu Trigger owns a 1px internal separator using `line/inverse`; the Primary Action adds no touching-edge stroke.
+- **Secondary:** the Menu Trigger owns a 1px internal separator using `line/default`; the Primary Action adds no touching-edge stroke.
+- **Tertiary:** both segments keep their canonical outer borders, but only the Menu Trigger owns the shared joining edge; the Primary Action removes its touching left edge so the join renders as a single 1px border rather than a doubled border.
+- The boundary contributes **0px** to total Combo width.
 
-Do not replace the gap with a decorative separator. A separator can become visually detached from Button states and turns a two-control compound action into a three-element construction.
+Do not implement this as positive spacing or as a third Divider element. The two hit targets remain visually connected while retaining a clear internal boundary.
 
 ## Style contract
 
@@ -255,7 +255,7 @@ In RTL:
 
 - Primary Action is on the right — logical Start.
 - Menu Trigger is on the left — logical End.
-- the fixed 1px gap remains between them without becoming a separate Divider element.
+- the 1px internal boundary remains at the join without becoming a separate Divider element.
 - chevron up/down does not horizontally mirror.
 - menu positioning uses logical alignment and viewport collision rules.
 
@@ -322,7 +322,7 @@ Combo Button
 
 Exact Angular structure, prop names, class architecture, popup implementation, and Storybook identifiers remain unverified.
 
-The implementation may compose shared Button, Icon Button, and Menu primitives internally if it can preserve the connected-group radius/1px-gap/focus behavior.
+The implementation may compose shared Button, Icon Button, and Menu primitives internally if it can preserve the connected-group radius/internal-boundary/focus behavior.
 
 ## QA checklist
 
@@ -335,9 +335,9 @@ Verify:
 - Open/Closed width is identical for every Style/Size;
 - outer corners are 6px and touching corners are 0;
 - no standalone Divider node exists;
-- the two segments use a fixed 1px layout gap;
-- Primary/Secondary add no decorative separator;
-- Tertiary keeps the full canonical border on both segments because the 1px gap prevents doubled touching borders;
+- the two segments use 0px layout gap;
+- Primary/Secondary render one 1px internal separator edge on Menu Trigger;
+- Tertiary renders one shared 1px joining border edge with no doubled touching border;
 - Open changes only Menu Trigger active treatment/chevron;
 - Primary Action remains independently interactive;
 - Loading on Primary Action does not move/resize the control;
