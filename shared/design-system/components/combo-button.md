@@ -74,7 +74,7 @@ Combo Button is not a generic Button Group. The two controls have fixed roles: o
 | `Primary Action / Button` | Exposed nested instance | Button content/state/loading authoring |
 | `Menu Trigger / Icon Button` | Exposed nested instance | Trigger state authoring |
 
-Default Style is Primary.
+Default Figma state is `Primary / Medium / Open=False`.
 
 Interaction states are intentionally not multiplied into the outer variant matrix; the two segments are separate interactive targets and own their own states.
 
