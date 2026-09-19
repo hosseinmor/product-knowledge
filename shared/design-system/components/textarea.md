@@ -217,7 +217,7 @@ The outer instance owns the resize interaction:
 - the Field and Control absorb added vertical height;
 - Label height stays stable;
 - Supporting row height stays stable;
-- Border, Value overlay, and Focus ring stretch with the Control;
+- Border and Value overlay stretch with the Control; the shared `Focus/Default` Effect Style follows the Control bounds;
 - the resize handle remains anchored to the bottom-left in RTL;
 - minimum Control height remains `120px`.
 
@@ -274,7 +274,7 @@ Hover is a CSS/platform interaction state, not normally a runtime component prop
 
 ```text
 Control border → line/emphasis, 1px
-Focus indicator → focus/default, 2px outside
+Focus indicator → focus/default, 2px ring + 1px offset
 ```
 
 Focus does not change Control dimensions or padding.
@@ -295,7 +295,7 @@ The 2px border is an overlay and does not shift content.
 
 ```text
 Error border → line/error, 2px
-Focus indicator → focus/default, 2px outside
+Focus indicator → focus/default, 2px ring + 1px offset
 Error message → fg/error
 ```
 
@@ -327,7 +327,7 @@ Read only remains visually and semantically distinct from Disabled.
 
 A native readonly textarea remains focusable.
 
-Read only focus preserves the Read only treatment and adds the shared `focus/default` 2px outer indicator.
+Read only focus preserves the Read only treatment and adds the shared `focus/default` 2px ring with a 1px offset.
 
 ## Placeholder and Value
 
@@ -541,7 +541,7 @@ Supporting      → composition of helper/error/count presence
 - optional supporting row → `20px`
 - default/hover/focus/read-only line → `1px`
 - error line → `2px` overlay
-- focus indicator → `2px` outside
+- focus indicator → `2px` ring + `1px` offset
 - resize affordance → bottom-left in RTL in Figma, `8px` inset
 
 The exact CSS/Tailwind implementation and whether the runtime uses native browser resize rendering or an approved custom affordance remain Frontend decisions until the code source is registered.
@@ -567,7 +567,7 @@ Verify representative combinations, not only master variants:
 - default Control height is 120px;
 - outer instance can resize to larger widths/heights;
 - on resize, Field/Control grow while Label and Supporting row remain stable;
-- Border, Value overlay, Focus ring, and resize handle follow resized Control bounds;
+- Border, Value overlay, shared Focus effect, and resize handle follow resized Control bounds;
 - long multiline content remains contained;
 - legacy toolbar behavior does not leak into canonical Textarea.
 
