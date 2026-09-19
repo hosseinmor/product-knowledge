@@ -162,6 +162,7 @@ Shared geometry:
 - Error border is a 2px overlay and must not alter padding or height.
 - Focus indicator is a separate 2px outside ring.
 - Width is flexible and resizing must preserve padding, action position, and RTL order.
+- In Figma, Placeholder, masked content, and revealed Value fill the available Content width, remain single-line, and use ending ellipsis for overflow. Runtime password editing may use native horizontal scrolling instead of reproducing ellipsis while the value is actively edited.
 
 ## RTL and Directionality
 
@@ -466,7 +467,7 @@ Verify:
 - Disabled uses disabled surface/line/content/action;
 - horizontal resize preserves padding, action position, overlays, and clipping;
 - Small/Large component-property bindings remain functional;
-- long secret values remain contained;
+- long secret values remain single-line and contained; in Figma, Placeholder, masked content, and revealed Value use Fill + ending ellipsis;
 - Figma mask is not treated as real password length.
 
 ## Figma Reference
