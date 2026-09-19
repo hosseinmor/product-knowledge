@@ -201,7 +201,7 @@ Do not assume “blue looks clickable” is sufficient.
 
 ## 6. Focus color
 
-Focus is independent from Brand, Accent, Danger, and Selected state.
+Focus is a dedicated Semantic role and interaction state. Its current default value intentionally shares the approved Accent Primitive for each Appearance, but Accent styling does not substitute for Focus and components must consume `focus/default`. Focus remains distinct from Brand, Danger, and Selected state.
 
 **MUST**
 
