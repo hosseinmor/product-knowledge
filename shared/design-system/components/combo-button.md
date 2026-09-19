@@ -90,27 +90,28 @@ Logical anatomy:
 
 1. **Primary Action** — labeled Button at logical Start.
 2. **Menu Trigger** — chevron Icon Button at logical End.
-3. **Shared inner edge** — the touching boundary between the two segments; not a separate layout node.
+3. **Inter-segment gap** — a fixed 1px layout gap between the two independent targets; not a Divider node.
 4. **Menu content** — native Slot anchored outside normal control flow.
 
 ### Shared geometry
 
 - overall height follows Size: `28 / 32 / 40 / 48px`;
-- no gap between interactive segments;
+- **1px gap** between the two interactive segments;
 - outer radius: `6px`;
 - touching inner corners: `0px`;
 - menu-to-control gap: **2px**;
 - open Menu never changes Combo Button width or height.
 
-### Inner-edge treatment
+### Inter-segment spacing
 
 There is **no standalone Divider node** in Combo Button.
 
-- **Primary / Secondary:** the two filled segments are directly adjacent with no dedicated separator. Their visual split comes from the separate hit targets and their independent interaction states.
-- **Tertiary:** the Menu Trigger keeps its own inner border edge; the touching border edge on Primary Action is removed so only one state-aware border is rendered at the join.
-- The inner boundary contributes **0px** to layout width.
+- The two interactive segments use a fixed **1px layout gap**.
+- **Primary / Secondary:** both segments keep their canonical filled treatment; the 1px gap provides separation without introducing a third visual element.
+- **Tertiary:** both segments keep their canonical full border because the 1px gap prevents touching/doubled borders.
+- The gap intentionally contributes **1px** to total Combo width.
 
-Do not insert a decorative separator between the segments. It adds width, can become visually detached from segment states, and creates a third visual element inside a two-control compound action.
+Do not replace the gap with a decorative separator. A separator can become visually detached from Button states and turns a two-control compound action into a three-element construction.
 
 ## Style contract
 
@@ -254,7 +255,7 @@ In RTL:
 
 - Primary Action is on the right — logical Start.
 - Menu Trigger is on the left — logical End.
-- the shared inner edge remains between them without becoming a separate layout element.
+- the fixed 1px gap remains between them without becoming a separate Divider element.
 - chevron up/down does not horizontally mirror.
 - menu positioning uses logical alignment and viewport collision rules.
 
@@ -321,7 +322,7 @@ Combo Button
 
 Exact Angular structure, prop names, class architecture, popup implementation, and Storybook identifiers remain unverified.
 
-The implementation may compose shared Button, Icon Button, and Menu primitives internally if it can preserve the connected radius/inner-edge/focus behavior.
+The implementation may compose shared Button, Icon Button, and Menu primitives internally if it can preserve the connected-group radius/1px-gap/focus behavior.
 
 ## QA checklist
 
@@ -334,9 +335,9 @@ Verify:
 - Open/Closed width is identical for every Style/Size;
 - outer corners are 6px and touching corners are 0;
 - no standalone Divider node exists;
-- the two segments are directly adjacent with zero layout gap;
+- the two segments use a fixed 1px layout gap;
 - Primary/Secondary add no decorative separator;
-- Tertiary renders one shared inner border edge, not doubled touching borders;
+- Tertiary keeps the full canonical border on both segments because the 1px gap prevents doubled touching borders;
 - Open changes only Menu Trigger active treatment/chevron;
 - Primary Action remains independently interactive;
 - Loading on Primary Action does not move/resize the control;
