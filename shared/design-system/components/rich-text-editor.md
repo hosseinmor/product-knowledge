@@ -8,6 +8,8 @@ knowledge_state: verified
 document_maturity: draft
 related:
 - design-system.component.textarea
+- design-system.component.icon-button
+- design-system.component.toggle-button
 - design-system.accessibility.forms
 - design-system.accessibility.component-authoring-contract
 design_status: ready-for-dev
@@ -20,28 +22,15 @@ design_maturity: handoff-ready
 
 Rich Text Editor captures multiline content that requires inline or paragraph-level formatting.
 
-It is a separate public component from Textarea.
+It is a separate public component from Textarea. Use Textarea when plain multiline text is sufficient. Rich Text Editor owns a formatting toolbar and richer editing semantics that require a dedicated editor implementation.
 
-Textarea is for plain multiline text and should preserve native `<textarea>` behavior. Rich Text Editor owns a formatting toolbar, selection-aware formatting actions, and richer editing semantics that require a dedicated editor implementation.
+Both components share the same Field contract for Label, Required, Info, supporting content, validation, RTL treatment, semantic colors, resizing, and focus/error composition.
 
-Both components reuse the shared Field contract for Label, Required, Info, supporting content, validation, RTL treatment, semantic colors, and focus/error composition.
-
-## When to Use
-
-Use Rich Text Editor when users need to format authored content, for example:
-
-- longer descriptions with emphasis;
-- formatted internal notes;
-- template or message content;
-- content that needs lists, alignment, or explicit text direction.
-
-Use Textarea when plain multiline text is sufficient.
-
-## Canonical Figma API
+## Canonical Figma Contract
 
 Component set: `Rich Text Editor`
 
-Figma node: `22852:131093` in `-DS--Job-Vision-NEXT`.
+Figma node: `22866:134455` in `-DS--Job-Vision-NEXT`.
 
 ### Variant axes
 
@@ -53,20 +42,21 @@ Figma node: `22852:131093` in `-DS--Job-Vision-NEXT`.
 
 Default: `State=Default, Toolbar=Compact, Supporting=Hidden`.
 
-The current matrix contains 24 variants.
+The public matrix contains 24 variants.
 
 ### Top-level authoring properties
 
 | Property | Behavior |
 |---|---|
 | `Show label` | Shows/hides the shared Field label row |
-| `Filled` | Figma-only content condition; False shows Placeholder, True shows Content |
+| `Filled` | Figma-only content condition; False shows Placeholder, True shows Value |
 | `Placeholder` | Placeholder copy |
-| `Content` | Plain sample content used for Figma authoring |
+| `Value` | Plain sample value used for Figma authoring |
+| `Resizable` | Shows/hides the shared resize handle |
 
-`Filled` is a Figma authoring convenience, not a runtime state or required code prop.
+`Filled` is an authoring convenience in Figma, not a runtime interaction state or required code prop.
 
-The `Content` text property is only a representation of editor content in Figma. It does not encode rich-text spans, marks, links, list structure, document JSON, or HTML.
+`Value` is only a visual representation of editor content in Figma. It does not define the runtime rich-text data model, HTML, JSON, Markdown, marks, links, or document schema.
 
 ### Contextual nested properties
 
@@ -76,66 +66,73 @@ The `Content` text property is only a representation of editor content in Figma.
 - `Required`
 - `Show info`
 
-Supporting content is contextual:
+Supporting content follows the Textarea pattern:
 
-- non-error + `Supporting=Visible` → shared Helper/Count row
-- Error / Error focus → required Error row; Count may also be shown
+- non-error + `Supporting=Hidden` → the shared Supporting instance remains in the anatomy but is hidden;
+- non-error + `Supporting=Visible` → Helper/Count row is visible;
+- `Error` and `Error focus` → Error content is always retained; Count may also be shown.
 
-Error content remains required even when the `Supporting` axis is `Hidden`.
+Keeping the same nested Supporting instance across variants is required so helper/count overrides survive variant switching.
 
 ## Anatomy
 
 ```text
 Rich Text Editor
-├── Field label
-├── Editor
-│   ├── Rich Text Toolbar
-│   ├── Divider
-│   └── Editable area
-│       ├── Placeholder
-│       └── Content representation
+├── Field
+│   ├── Field label
+│   └── Editor
+│       ├── Rich Text Toolbar
+│       ├── Divider
+│       ├── Editable area
+│       │   ├── Placeholder
+│       │   ├── Value overlay
+│       │   └── Resize handle
+│       ├── Border
+│       └── Focus ring
 └── Supporting content
     ├── Helper / Count
     └── Error / Count
 ```
 
-Focus and validation styling belong to the complete Editor shell, not only the editable body.
+Focus and validation styling belong to the complete Editor shell, not only the editable area.
 
 ## Geometry
 
-Default width: `520px`.
+Default width: `288px`.
+
+This intentionally matches the canonical Textarea baseline instead of introducing a wider Rich Text-only default.
 
 Shared editor geometry:
 
 - radius → `6px`
-- body padding → `16px`
-- body typography → shared Textarea body style, currently Vazirmatn Regular `14/20`
+- editable-area padding → `16px`
+- editable-area typography → shared Textarea body style, currently Vazirmatn Regular `14/20`
 - toolbar/body divider → `1px`
-- editable-body baseline height → `160px`
+- editable-area minimum height → `120px`
 
 ### Compact toolbar
 
 ```text
 40 toolbar
 + 1 divider
-+ 160 body
-= 201px Editor shell
++ 120 editable area
+= 161px Editor shell
 ```
 
-With visible Label and no supporting row, the default outer height is `225px`.
+With visible Label and no visible supporting row, the outer field height is `185px`.
 
 ### Expanded toolbar
 
 ```text
 81 toolbar
 + 1 divider
-+ 160 body
-= 242px Editor shell
++ 120 editable area
+= 202px Editor shell
 ```
 
-With visible Label and no supporting row, the default outer height is `266px`.
+With visible Label and no visible supporting row, the outer field height is `226px`.
 
-A visible supporting row adds `24px` to the outer field geometry.
+A visible supporting row adds `20px` to the outer geometry.
 
 ### Resizing
 
@@ -148,21 +145,28 @@ On vertical growth:
 - Supporting height remains fixed;
 - Editable area absorbs the additional height.
 
-On horizontal growth, Toolbar, Editable area, supporting content, border, and focus indicator all stretch with the Editor.
+On horizontal growth:
+
+- Toolbar stretches;
+- Editable area stretches;
+- Value overlay stays inset by the 16px body padding;
+- Supporting content stretches;
+- Border and focus indicator stretch.
+
+Real-instance QA has been run at `480px` width and increased vertical height.
 
 ## State Model
 
 ### Default
 
 - Editor surface → `surface/default`
-- shell line → `line/default`
-- Content → `fg/primary`
+- line → `line/default`, 1px
+- Value → `fg/primary`
 - Placeholder → `fg/placeholder`
 
 ### Hover
 
-- shell line → `line/emphasis`
-- geometry remains unchanged.
+- line → `line/emphasis`, 1px
 
 ### Focus
 
@@ -170,8 +174,6 @@ On horizontal growth, Toolbar, Editable area, supporting content, border, and fo
 Editor line → line/emphasis, 1px
 Focus indicator → focus/default, 2px outside
 ```
-
-The focus indicator wraps the complete Editor shell.
 
 ### Error
 
@@ -181,11 +183,11 @@ Error message → fg/error
 Programmatic invalid state → required in implementation
 ```
 
-The 2px error line is visual overlay geometry and must not shift content.
+The 2px Error line is overlay geometry and must not shift content.
 
 ### Error focus
 
-Error and focus remain independently visible:
+Error meaning and keyboard focus remain independently visible:
 
 ```text
 Editor line → line/error, 2px
@@ -195,21 +197,22 @@ Error message → fg/error
 
 ### Disabled
 
-Disabled applies to the complete editor:
+Disabled applies to the complete field:
 
 - Editor surface → `surface/disabled`
 - line → `line/disabled`
-- content → `fg/disabled`
-- Toolbar controls → Disabled Icon Button state
+- Value / Placeholder → `fg/disabled`
+- Label / Supporting / resize handle → disabled foreground treatment
+- Toolbar controls → disabled
 - Toolbar dividers → `line/disabled`
 
 ## Internal Rich Text Toolbar
 
-Internal component set: `_Rich Text Toolbar`
+Canonical internal component set: `_Rich Text Toolbar`
 
-Figma node: `22848:1282`.
+Figma node: `22865:3861`.
 
-The toolbar is intentionally internal in v1. It is part of the Rich Text Editor contract, not a separately published general-purpose toolbar.
+The toolbar is intentionally internal. It is part of the Rich Text Editor contract, not a general-purpose standalone Toolbar component.
 
 ### Toolbar axes
 
@@ -220,11 +223,20 @@ The toolbar is intentionally internal in v1. It is part of the Rich Text Editor 
 
 The toolbar has four variants.
 
-Formatting-active state is owned by each nested Icon Button and is not multiplied into Toolbar variants.
-
 ### Compact
 
-One `40px` row containing:
+Compact is one `40px` row and is designed to fit the canonical `288px` editor width.
+
+RTL visual order from the starting edge:
+
+```text
+Character formatting
+→ Lists
+→ Link
+→ Overflow
+```
+
+Controls:
 
 - Bold
 - Italic
@@ -232,11 +244,8 @@ One `40px` row containing:
 - Strikethrough
 - Bulleted list
 - Numbered list
-- Undo
-- Redo
+- Link
 - Overflow
-
-The toolbar uses canonical `Icon Button / Default` → `Ghost / Small`.
 
 ### Expanded
 
@@ -250,132 +259,147 @@ The second row contains:
 - Align justify
 - RTL text direction
 - LTR text direction
+- Undo
+- Redo
 
 Expanded toolbar height: `81px`.
 
-For the RTL-first default presentation, Align right and RTL direction are shown as active examples.
+The RTL-first default presentation shows Align right and RTL direction as selected.
 
-### Intentionally excluded from the general v1 toolbar
+## Formatting Selection vs Interaction
 
-The previous CanDo toolbar included product/editor-specific controls that are not carried into the shared v1 contract:
+Persistent formatting selection must not use Icon Button `Active`.
+
+Icon Button `Active` is a transient interaction state. Rich-text formatting such as Bold, list type, alignment, and text direction is persistent selection/current-value state.
+
+The internal component `_Rich Text Toolbar Toggle` owns this distinction.
+
+Figma node: `22864:3503`.
+
+### Toggle axes
+
+| Property | Values |
+|---|---|
+| `Selected` | `False`, `True` |
+| `State` | `Enabled`, `Hover`, `Active`, `Focus`, `Disabled` |
+
+Selected treatment uses the existing selection surface tokens. Interaction states remain independent.
+
+Examples:
+
+- Bold selected when the caret/selection is in bold text;
+- Bulleted list selected when the current block uses that list type;
+- Align right selected for the current paragraph;
+- RTL selected for the current paragraph/selection.
+
+Do not create toolbar-level variants for combinations of formatting values.
+
+Undo, Redo, and Overflow remain normal action Icon Buttons rather than selected toggles.
+
+## Icons
+
+Rich-text formatting icons are canonical general-DS icons on the `Icons` page, not private 16px assets owned by Rich Text Editor.
+
+They follow the existing `24×24` icon component convention and are consumed through Icon Button / Toolbar Toggle icon slots.
+
+The archived first draft contains old local 16px icon assets only to avoid breaking archived instances. Do not reuse those assets.
+
+## Intentionally Excluded from Shared v1
+
+The old CanDo toolbar included controls that are not part of the shared v1 contract:
 
 - Add Token / Parameter;
 - Font family;
 - raw pixel Font size.
 
-Add Token is CanDo-specific product behavior.
+Add Token is product-specific behavior.
 
 Font family should not bypass the product typography/theme contract.
 
-Raw font-size selection should not be introduced until the design system defines a semantic rich-text style model such as paragraph/heading styles.
+Raw Font size should not be exposed until a shared semantic rich-text typography model exists, for example Paragraph / Heading styles.
 
-Indentation and additional editor actions may be added only when validated by shared product needs.
+Indentation may be added later if a real shared product requirement is validated.
 
 ## RTL
 
-The component is RTL-first for current JobVision/Cando products.
+The component is RTL-first for current JobVision / CanDo products.
 
-Toolbar groups are ordered from the RTL starting edge.
+Toolbar group order is anchored to the RTL starting edge. Text direction is a content-formatting action; it does not flip the Design System component layout itself.
 
-Current primary-row visual order from right to left:
-
-```text
-Character formatting
-→ Lists
-→ History
-→ Overflow
-```
-
-Expanded secondary row begins with alignment controls at the RTL start edge, followed by text-direction controls.
-
-Mixed-direction editor content must not change the structural meaning of toolbar position.
-
-Text direction is a content-formatting action, not a layout-direction switch for the Design System component itself.
-
-## Formatting State
-
-Active formatting belongs to individual toolbar controls.
-
-Examples:
-
-- Bold active when selection/caret is inside bold content;
-- List active when the current block is in that list type;
-- alignment action active for the current paragraph;
-- text direction active for the current paragraph/selection.
-
-Do not introduce toolbar-level variants for every possible formatting combination.
-
-Figma examples may override nested Icon Button `State=Active` to represent selection formatting.
+Mixed-direction content must not change the structural meaning or placement of toolbar groups.
 
 ## Behavior Boundary
 
 The Design System owns:
 
 - Editor shell anatomy;
-- toolbar grouping and visual hierarchy;
-- toolbar control visual states;
 - shared Field integration;
+- toolbar grouping and visual hierarchy;
+- persistent selected vs transient interaction semantics;
 - focus/error/disabled visuals;
-- sizing and responsive geometry;
+- default/minimum geometry and resizing;
+- semantic token usage;
 - formatting-action affordances.
 
 The consuming editor implementation owns or must define:
 
-- actual rich-text document model;
+- editor framework;
+- runtime rich-text document model;
 - selection and caret behavior;
 - command execution;
 - keyboard shortcuts;
 - paste/sanitization behavior;
-- output format such as HTML, JSON, or Markdown;
+- output/serialization format;
 - undo/redo history semantics;
-- link editing, if added;
-- paragraph/block-style model, if added.
+- link editing UI/behavior;
+- semantic paragraph/heading model if introduced.
 
-Do not infer a specific editor framework from Figma.
+Do not infer a specific runtime editor framework from Figma.
 
 ## Accessibility
 
-Rich Text Editor is not a native Textarea and requires an explicit accessibility contract in implementation.
+Rich Text Editor is not a native Textarea and requires an explicit implementation contract.
 
 ### Editable region
 
-Implementation should use an editor framework or editable primitive that preserves:
+Implementation must preserve:
 
-- meaningful accessible labeling;
+- accessible labeling;
 - keyboard text editing;
 - selection/caret access;
-- screen-reader-compatible content semantics;
+- screen-reader-compatible editing semantics;
 - invalid/disabled relationships as applicable.
 
 ### Toolbar
 
-Every toolbar action requires:
+Every toolbar control requires:
 
-- an accessible name independent of the icon;
+- an accessible name independent of its icon;
 - keyboard operability;
-- exposed pressed/active state when the formatting command is active;
+- exposed pressed/selected state for persistent formatting toggles;
+- visible focus;
 - predictable focus movement;
-- a strategy that does not accidentally destroy the editor selection when toolbar actions are used.
+- selection preservation when a toolbar action is executed.
 
-Undo/Redo and unavailable actions must expose disabled state when applicable.
+Undo/Redo and other unavailable actions must expose disabled state when applicable.
 
 ### Focus
 
 Visible focus must remain clear for both:
 
-- the Editor/editable area;
-- individual toolbar controls during keyboard navigation.
+- the Editor/editable region;
+- an individual toolbar control during keyboard navigation.
 
-The Editor shell focus treatment must not be used as a substitute for focused-button indication inside the Toolbar.
+Editor-shell focus does not replace button-level focus.
 
 ### Error
 
-Error must include:
+Error requires:
 
-- textual error content;
+- textual Error content;
 - programmatic invalid state or equivalent editor semantics;
 - visible Error styling;
-- independent visible focus.
+- independent visible Focus when focused.
 
 ## QA Checklist
 
@@ -383,22 +407,24 @@ Verify:
 
 - exactly 24 public variants exist;
 - default is Default / Compact / Hidden;
-- Compact toolbar is 40px;
-- Expanded toolbar is 81px;
-- editable-body baseline is 160px;
+- public authoring properties are Show label / Filled / Placeholder / Value / Resizable;
+- default width is 288px;
+- editable-area minimum height is 120px;
 - body padding is 16px;
-- Filled preserves Placeholder and Content independently;
-- Compact/Expanded switches preserve editor content;
-- Supporting Visible adds helper/count geometry without shrinking body;
-- Error always retains Error content;
-- Error focus preserves both Error and Focus;
-- Disabled disables editor and all toolbar controls;
-- active toolbar formatting can be represented through nested Icon Button state;
-- horizontal resizing stretches toolbar, body, border, focus, and supporting rows;
-- vertical resizing grows only the editable body;
-- hiding the visual label leaves the Editor usable only when another accessible-name mechanism exists;
-- toolbar group order remains correct in RTL;
-- formatting actions do not require combinatorial toolbar variants.
+- Compact toolbar is 40px and fits 288px;
+- Expanded toolbar is 81px;
+- Filled preserves Placeholder and Value independently;
+- Compact ↔ Expanded preserves Value and supporting overrides;
+- Supporting Hidden ↔ Visible preserves Helper / Count overrides;
+- Error always retains textual Error content;
+- Error focus preserves Error + Focus simultaneously;
+- Disabled applies to editor, toolbar, label, supporting content, and resize handle;
+- persistent formatting uses Selected semantics, not Icon Button Active;
+- horizontal resizing stretches toolbar/body/support/border/focus;
+- vertical resizing grows only the editable area;
+- Resizable controls only resize-handle visibility;
+- hiding the visual label requires another accessible-name mechanism in implementation;
+- RTL toolbar order remains correct.
 
 ## Figma Reference
 
@@ -408,20 +434,28 @@ Canonical source:
 - File key: `rROD8ctH9UfPGAMrRrOzHe`
 - Page: `Text area`
 - Page node: `5564:279849`
-- Section: `HOS-16 / Canonical Rich Text Editor`
+- Section: `Canonical Rich Text Editor`
 - Section node: `22846:128110`
-- Rich Text Editor set: `22852:131093`
-- Internal Toolbar set: `22848:1282`
-- Examples: `22854:2962`
-- Documentation frame: `22854:2959`
+- Rich Text Editor set: `22866:134455`
+- Internal Toolbar set: `22865:3861`
+- Internal Toolbar Toggle set: `22864:3503`
+- Examples: `22868:133907`
+- Documentation frame: `22868:133904`
+
+Archived first draft:
+
+- Archive section: `_Archive / Rich Text Editor drafts`
+- Archive section node: `22869:134535`
+- archived Rich Text Editor set: `22852:131093`
+- archived Toolbar set: `22848:1282`
 
 Migration references:
 
-- old CanDo Text toolbar reference: file `8CZOoFsYpENfaNx2WoDqIp`, node `16057:535700`
+- old CanDo Text toolbar: file `8CZOoFsYpENfaNx2WoDqIp`, node `16057:535700`
 - legacy NEXT `_Text area toolbar`: `13562:307390`
 - legacy NEXT `Text area with toolbar`: `13562:307473`
 
-Legacy components are migration references only and are not the canonical contract.
+Archived and legacy components are reference-only and are not the canonical contract.
 
 ## Runtime / Storybook Status
 
@@ -429,33 +463,37 @@ No runtime editor package or Storybook implementation is currently registered as
 
 Do not infer:
 
-- editor framework;
 - Angular API;
 - DOM/contenteditable structure;
+- editor framework;
 - serialization format;
 - command API;
-- keyboard shortcut implementation.
+- keyboard-shortcut implementation.
 
 ## Open Items
 
-Before runtime contract is finalized:
+Before the runtime contract is finalized:
 
-- select or register the canonical editor implementation/framework;
+- select/register the canonical editor implementation;
 - define the rich-text value/output model;
-- define toolbar keyboard-navigation and selection-preservation behavior;
-- decide whether Link is required in the shared toolbar or belongs in Overflow/product configuration;
-- define semantic paragraph/heading styles before adding typography controls;
-- decide whether indentation is a shared toolbar action;
+- define toolbar keyboard navigation and selection-preservation behavior;
+- define Link editing behavior;
+- define semantic Paragraph/Heading styles before adding typography controls;
+- decide whether indentation is shared;
 - define paste/sanitization rules;
-- confirm loading/read-only behavior if real product use cases require first-class states;
+- define a first-class Read only contract if a real product use case requires it;
 - register Storybook and browser accessibility tests.
 
-These open items do not block the current visual and Figma-authoring contract.
+Read only is intentionally not a Figma state yet because Rich Text Editor needs an explicit behavior decision for the toolbar and editable region rather than inheriting Textarea semantics blindly.
+
+These open items do not block the current visual/Figma-authoring contract.
 
 ## Related Documents
 
 - `./textarea.md`
 - `./text-input.md`
+- `./icon-button.md`
+- `./toggle-button.md`
 - `../accessibility/forms.md`
 - `../accessibility/component-accessibility-authoring-contract.md`
 - `../tokens/semantic-tokens.md`
