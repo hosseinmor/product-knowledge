@@ -46,11 +46,25 @@ outline: none;
 
 is not acceptable by itself.
 
-**MAY**
+**MUST — web implementations**
 
-Use `:focus-visible` or equivalent behavior so the explicit focus treatment is primarily shown when users need keyboard-style focus indication.
+Treat DOM focus and the visible Focus ring as related but distinct concepts:
 
-Pointer users do not need an identical focus treatment merely because a click also caused DOM focus.
+```text
+:focus
+→ the control currently owns DOM focus
+→ may result from pointer, touch, keyboard, or programmatic focus
+
+:focus-visible
+→ the user agent determines that a visible focus indicator is appropriate
+→ show the JV Focus ring
+```
+
+Use `:focus-visible` for the standard explicit Focus ring. Do not use `:focus` alone to force the ring on every focused control.
+
+Pointer users do not need an identical Focus ring merely because a click also caused DOM focus. At the same time, `:focus-visible` is **not defined as “keyboard-only”**. Browsers apply their own input-modality and control-type heuristics; for example, a text-editing control may still match `:focus-visible` after pointer interaction. JV accepts the user-agent heuristic rather than implementing custom keyboard-vs-pointer modality tracking.
+
+Do not add global JavaScript or `data-input-modality` logic solely to suppress a standards-based `:focus-visible` match. A component may define a documented exception only when native `:focus-visible` behavior cannot meet its interaction/accessibility contract.
 
 ## JV focus tokens
 
