@@ -91,7 +91,9 @@ Properties:
 | `Body text` | Text |
 | `Actions` | `None`, `One`, `Two` |
 
-Default: Title + Body + `Actions=None`.
+Component default: Title + Body + `Actions=None`.
+
+Inside `Popover / Default`, the recommended embedded `Popover content` preset is intentionally configured with `Actions=Two`. This shell preset does not change the standalone `Popover content` component default.
 
 The action buttons are real instances of the canonical Button component and are exposed nested instances for further configuration.
 
@@ -189,11 +191,11 @@ Popover is non-modal by default and must not trap focus merely because it is flo
 
 ### Default content
 
-The recommended default begins with Title + Body and no actions.
+The standalone `Popover content` component defaults to Title + Body with `Actions=None`.
 
-Add one or two actions only when the Popover's task requires an explicit action row.
+The canonical `Popover / Default` shell is prepopulated with that component configured as `Actions=Two` so the common two-action anatomy is immediately available in the shell preset.
 
-Keep action groups to two Buttons whenever possible.
+Consumers may choose `None`, `One`, or `Two` according to the task. Keep action groups to two Buttons whenever possible.
 
 In RTL:
 
@@ -286,7 +288,8 @@ Verify:
 - Slot remains within 208–328px;
 - default `Popover content` is present and editable;
 - default shell is `Side=Top`, `Align=Start`, `Arrow=False`;
-- default content is Title + Body with `Actions=None`;
+- standalone `Popover content` defaults to Title + Body with `Actions=None`;
+- the embedded `Popover / Default` shell preset uses `Actions=Two`;
 - Title, Body, and Actions properties work;
 - one- and two-action layouts do not overflow;
 - custom Slot compositions resize the shell correctly;
