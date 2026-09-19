@@ -138,7 +138,7 @@ The Menu Button design identity, Button composition, native Menu Slot, Size × O
 | Figma styles | `Primary / Secondary / Tertiary` |
 | Figma sizes | `Extra Small 28 / Small 32 / Medium 40 / Large 48` |
 | Composition | Exposed canonical `Primary Action / Button` + exposed canonical `Menu Trigger / Icon Button` + `0px` layout gap + 1px internal boundary + native `Menu content` SLOT |
-| Inter-segment treatment | No standalone Divider and no layout gap; Primary uses `line/inverse` separator edge, Secondary uses `line/default`, Tertiary uses one shared `line/default` joining border edge |
+| Inter-segment treatment | No standalone Divider and no layout gap; Primary and Secondary use `line/inverse` separator edge, Tertiary uses one shared `line/default` joining border edge |
 | Open representation | Only Menu Trigger maps to Active + chevron-up; Primary Action state remains independent |
 | Anchor gap | `2px` |
 | Loading | Owned by nested Primary Action; no outer Loading axis |
