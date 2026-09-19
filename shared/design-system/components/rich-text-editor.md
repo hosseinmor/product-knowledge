@@ -12,8 +12,8 @@ related:
 - design-system.component.toggle-button
 - design-system.accessibility.forms
 - design-system.accessibility.component-authoring-contract
-design_status: ready-for-dev
-design_maturity: handoff-ready
+design_status: draft
+design_maturity: usable-for-product-testing
 ---
 
 # Rich Text Editor
@@ -444,13 +444,7 @@ Canonical source:
 - Playground: `22878:10007`
 - Examples: `22868:133907`
 
-Migration references:
-
-- old CanDo Text toolbar: file `8CZOoFsYpENfaNx2WoDqIp`, node `16057:535700`
-- legacy NEXT `_Text area toolbar`: `13562:307390`
-- legacy NEXT `Text area with toolbar`: `13562:307473`
-
-Legacy component references below are historical migration references only; obsolete draft assets were removed from the canonical Figma page.
+Obsolete Rich Text / Textarea toolbar drafts were removed from the canonical target file after migration. The canonical nodes listed above are the only Figma source of truth for this component family.
 
 ## Runtime / Storybook Status
 
@@ -481,7 +475,7 @@ Before the runtime contract is finalized:
 
 Read only is intentionally not a Figma state yet because Rich Text Editor needs an explicit behavior decision for the toolbar and editable region rather than inheriting Textarea semantics blindly.
 
-These open items do not block the current visual/Figma-authoring contract.
+The current visual/Figma-authoring contract is usable for product testing, but these unresolved runtime/editor behaviors keep the component at `draft` rather than `handoff-ready`.
 
 ## Related Documents
 
