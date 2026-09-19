@@ -320,9 +320,9 @@ The Toast design identity, Status × Contrast matrix, native Action Slot, timeou
 | Variant count | `6 = 2 Selected × 3 State` |
 | Figma content properties | `Label / Show label` |
 | Figma states | `Default / Focus / Disabled` |
-| Visual size | shared `24px` Radio icon / `20px` visual vector |
+| Visual size | `20px` Radio control using previous JobVision Radio geometry |
 | Label gap | `8px` |
-| Selection semantics | Unselected uses shared unchecked icon + `fg/secondary`; Selected uses shared checked icon + `fg/accent` |
+| Selection semantics | Previous unchecked/checked Radio geometry; Unselected = `fg/secondary`, Selected = `fg/accent` |
 | Focus | shared `focus/default` 2px outside ring with 1px gap; independent from selection |
 | RTL | logical inline-start control / inline-end label; no Position variant |
 | Radio Group set | `Radio Group / Default` |
@@ -338,7 +338,7 @@ The Toast design identity, Status × Contrast matrix, native Action Slot, timeou
 | Code Connect | **No registered mapping** |
 | Last Figma verification | 2026-09-19 |
 
-The Radio design identity, shared checked/unchecked icon assets, Selected × State matrix, center-aligned label behavior, semantic color mapping, focus treatment, flexible-width/multiline behavior, Radio Group direction contract, validation boundary, RTL geometry, and accessibility contract are verified in `../components/radio.md`. Runtime API, exact DOM/event semantics, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
+The Radio design identity, reused previous checked/unchecked geometry, Selected × State matrix, center-aligned label behavior, semantic color mapping, focus treatment, flexible-width/multiline behavior, Radio Group direction contract, validation boundary, RTL geometry, and accessibility contract are verified in `../components/radio.md`. Runtime API, exact DOM/event semantics, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
 
 ### Toggle
