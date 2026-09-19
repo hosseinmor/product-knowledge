@@ -203,7 +203,7 @@ Accordion remains low-decoration:
 | Focus | shared Focus treatment on Trigger only | normal semantic foreground | `line/muted` |
 | Disabled | transparent | `fg/disabled` | `line/muted` |
 
-Focus uses the shared `focus - Outer/Border all` Effect Style bound to `focus/default`. It must not resize the Trigger or wrap the Panel.
+Focus uses the shared `Focus/Default` Effect Style bound to `focus/default`. It represents a 2px ring with a 1px gap and must not resize the Trigger or wrap the Panel.
 
 Active is a transient runtime pseudo-state and is intentionally not a Figma variant.
 
