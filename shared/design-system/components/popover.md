@@ -280,6 +280,7 @@ Verify:
 - all 12 Side × Align combinations;
 - caret direction for all four sides;
 - Start/End mapping in RTL;
+- anchored examples preserve the 2px offset from Surface when `Arrow=False` and caret tip when `Arrow=True`;
 - Arrow true/false;
 - `surface/raised`, radius 12, and the canonical three-layer `Shadow/Floating`;
 - no additional explicit component border;
