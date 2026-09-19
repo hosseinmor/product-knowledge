@@ -7,7 +7,7 @@ summary: Validated current Figma Color mappings for the Theme package architectu
 knowledge_state: canonical
 document_maturity: reviewed
 related: []
-last_reviewed: '2026-09-14'
+last_reviewed: '2026-09-19'
 ---
 
 # Color Token Alias Mappings
@@ -112,9 +112,9 @@ Dark uses a dimmed-dark hierarchy rather than numerical inversion.
 
 | Role | Light | Dark |
 |---|---|---|
-| `surface/neutral-muted` | `neutral/200` | `neutral/800` |
-| `surface/neutral-muted-hover` | `neutral/300` | `neutral/700` |
-| `surface/neutral-muted-active` | `neutral/400` | `neutral/600` |
+| `surface/neutral-muted` | `neutral/200` | `neutral/700` |
+| `surface/neutral-muted-hover` | `neutral/300` | `neutral/600` |
+| `surface/neutral-muted-active` | `neutral/400` | `neutral/500` |
 | `surface/neutral-emphasis` | `neutral/900` | `neutral/200` |
 | `surface/neutral-emphasis-hover` | `neutral/800` | `neutral/300` |
 | `surface/neutral-emphasis-active` | `neutral/700` | `neutral/400` |
