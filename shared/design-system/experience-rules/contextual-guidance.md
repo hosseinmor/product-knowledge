@@ -251,6 +251,22 @@ The components intentionally do not share one identical surface treatment.
 
 This distinction helps communicate ephemeral passive labeling vs persistent contextual surface behavior.
 
+## Arrow Policy
+
+Arrow usage is intentionally different across the family:
+
+| Pattern | Arrow policy |
+|---|---|
+| Tooltip | No arrow |
+| Toggletip | Required / always shown |
+| Popover | Optional; default `False` |
+| Coachmark | Optional property; default `True` |
+| Tour | Follows each Coachmark step |
+
+Use an arrow when visual pointing materially clarifies the anchor/target relationship. Do not add one merely to make all floating surfaces visually consistent.
+
+Tooltip is intentionally simplified and relies on proximity/placement rather than a caret. Popover is task-oriented and normally does the same. Toggletip and Coachmark retain stronger anchored pointing because their explanation/guidance is tied to a specific trigger or target.
+
 ## Floating Shadow Rule
 
 `Shadow/Floating` is the shared separation recipe for raised floating surfaces.
