@@ -90,7 +90,7 @@ Logical anatomy:
 
 1. **Primary Action** — labeled Button at logical Start.
 2. **Menu Trigger** — chevron Icon Button at logical End.
-3. **Internal boundary** — a 1px visual boundary at the join; it is not a separate layout node and adds no width.
+3. **Internal boundary** — a 1px visual boundary at the join, rendered from the canonical nested instances; it is not a separate node and adds no width.
 4. **Menu content** — native Slot anchored outside normal control flow.
 
 ### Shared geometry
@@ -106,12 +106,13 @@ Logical anatomy:
 
 There is **no standalone Divider node** and **no layout gap** between Combo Button segments.
 
-- **Primary:** Combo Button owns a locked 1px absolute `Internal Separator` layer using `line/inverse`; the nested Menu Trigger carries no separator stroke override.
-- **Secondary:** Combo Button owns a locked 1px absolute `Internal Separator` layer using `line/emphasis`; the nested Menu Trigger carries no separator stroke override.
-- **Tertiary:** both segments keep their canonical outer borders, but only the Menu Trigger owns the shared joining edge; the Primary Action removes its touching left edge so the join renders as a single 1px border rather than a doubled border.
-- The boundary contributes **0px** to total Combo width.
+- **Primary:** the canonical Menu Trigger / Icon Button instance owns a 1px inside stroke on its touching edge using `palette/bw/white`; the Primary Action / Button instance has no touching-edge stroke.
+- **Secondary:** the same instance-owned join treatment is used: 1px inside `palette/bw/white` on the Menu Trigger touching edge; the Primary Action has no touching-edge stroke.
+- **Tertiary:** both canonical instances keep `line/default`; the Menu Trigger owns the shared joining edge and the Primary Action removes its touching edge so the join renders as one 1px border rather than a doubled border.
+- The boundary contributes **0px** to total Combo width because strokes are inside and excluded from layout.
+- Canonical Focus/Disabled state visuals remain authoritative. When the Menu Trigger itself is Focused or Disabled, its canonical state treatment may replace the normal-state join stroke rather than layering a custom separator over the state.
 
-Do not implement this as positive spacing or as a standalone/shared Divider component. In Figma, filled styles use the Combo-owned absolute `Internal Separator` visual layer; it is outside layout flow and adds no width. The two hit targets remain visually connected while retaining a clear internal boundary.
+Do not implement this as positive spacing, a wrapper, a custom separator shape, or a standalone/shared Divider component. Combo Button composes the canonical Button and Icon Button instances directly.
 
 ## Style contract
 
@@ -336,7 +337,7 @@ Verify:
 - outer corners are 6px and touching corners are 0;
 - no standalone Divider node exists;
 - the two segments use 0px layout gap;
-- Primary renders a Combo-owned locked 1px `line/inverse` absolute separator layer; Secondary renders the same structure with `line/emphasis`;
+- in normal Enabled/Active filled states, Primary and Secondary render a 1px inside `palette/bw/white` join stroke on the canonical Menu Trigger instance; no custom separator node exists;
 - Tertiary renders one shared 1px joining border edge with no doubled touching border;
 - Open changes only Menu Trigger active treatment/chevron;
 - Primary Action remains independently interactive;
@@ -356,7 +357,7 @@ Verify:
 - exact overlay/collision implementation is unverified;
 - exact partial-disabled runtime API is intentionally not specified;
 - executable keyboard/screen-reader behavior must be verified when the runtime component exists;
-- the exposed nested Primary Action Button still technically allows Style/Size overrides that can diverge from the outer Combo axes; the Menu Trigger is now internal/not exposed, so this authoring risk is limited to the Primary Action until its content/loading properties are promoted individually.
+- the exposed nested Primary Action Button still technically allows Style/Size overrides that can diverge from the outer Combo axes; the Menu Trigger is internal/not exposed, so this authoring risk is limited to the Primary Action until its content/loading properties can be promoted individually without exposing the whole nested instance.
 
 ## Related
 
