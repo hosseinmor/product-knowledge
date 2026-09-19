@@ -354,7 +354,8 @@ Verify:
 - runtime component/API, code repository/package, and Storybook are unregistered;
 - exact overlay/collision implementation is unverified;
 - exact partial-disabled runtime API is intentionally not specified;
-- executable keyboard/screen-reader behavior must be verified when the runtime component exists.
+- executable keyboard/screen-reader behavior must be verified when the runtime component exists;
+- exposed nested Button/Icon Button instances technically allow Style/Size overrides that can diverge from the outer Combo axes; until the Figma authoring model is tightened, nested Style/Size must remain aligned with the outer `Style` and `Size` contract.
 
 ## Related
 
