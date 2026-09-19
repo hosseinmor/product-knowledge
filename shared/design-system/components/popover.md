@@ -154,6 +154,10 @@ The Content Slot aligns children to the right by default.
 
 Runtime collision/flip must preserve logical Start/End semantics.
 
+Popover uses a 2px anchor offset:
+- when `Arrow=False`, measure from the Surface edge to the trigger edge;
+- when `Arrow=True`, measure from the caret tip to the trigger edge.
+
 ## Arrow
 
 `Arrow=False` is the default.
