@@ -139,7 +139,7 @@ Shared geometry:
 - Gap between icon and content: `8px`.
 - Gap between Field label, Control, and Supporting content: `4px`.
 - Border is implemented visually without changing content padding.
-- The content area is single-line and clips overflow rather than expanding the control height.
+- The content area is single-line. In Figma, Placeholder and Value fill the available Content width and use ending ellipsis for overflow; the control must not grow vertically. Runtime native inputs may use their platform-native horizontal scrolling/editing behavior rather than reproducing ellipsis while editing.
 - Width is flexible; resizing the component must preserve inline padding, icon gap, border geometry, and RTL order.
 
 ### Size scope
@@ -525,7 +525,7 @@ Verify representative combinations rather than only isolated master variants:
 - Error focus preserves both Error and Focus.
 - Read only focus is available and visibly focused.
 - Helper expands field height without changing Control height.
-- Long single-line values remain clipped within Content.
+- In Figma, long Placeholder and Value content remain single-line, fill the available Content width, and truncate with ending ellipsis. Runtime editing may preserve native horizontal scrolling behavior.
 - Horizontal resize preserves border stretch, inline padding, RTL order, and content clipping.
 - Existing instance overrides survive component migration.
 
@@ -557,8 +557,6 @@ Do not infer implemented Angular API, CSS class names, or Storybook behavior fro
 
 These items remain intentionally open while the form-field family is stress-tested:
 
-- validate the shared Field shell against Textarea and Password Input;
-- decide whether Search needs a separate public component or remains a Text Input configuration/pattern;
 - register the canonical runtime/Storybook source when available;
 - align exact Angular/Tailwind public API with Frontend;
 - confirm whether any real product use case requires Extra Small input density;
