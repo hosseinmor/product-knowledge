@@ -167,6 +167,34 @@ Tooltip design identity, arrowless anatomy, placement matrix, RTL mapping, 2px a
 
 Accordion and Accordion Item design identities, native Slot composition, visual state model, RTL geometry, and current Figma property models are verified. Runtime API, exact DOM/animation implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
+### Link
+
+| Field | Current value |
+|---|---|
+| DS component | Link |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component set | `Link / Default` |
+| Figma component key | `93372073ea1f24b1726354518570da662e021ae5` |
+| Figma node ID | `22901:125760` |
+| Figma variant properties | `Style / Size / State / Underline` |
+| Figma content properties | `Link text / Start icon / Swap start icon / End icon / Swap end icon` |
+| Figma styles | `Default / Subtle / Inverse` |
+| Figma sizes | `Small 12/16 / Medium 14/20 / Large 16/24` |
+| Figma states | `Enabled / Hover / Active / Focus` |
+| Underline | `False / True`; False adds underline on Hover, Active, and Focus |
+| Icon geometry | Fixed `18px`, `8px` label gap, logical Start/End positions |
+| Deliberate exclusions | No Disabled, Visited, Bold, or legacy Inline axis |
+| Inline / multiline Figma authoring | Native Text range using the Link semantic token + persistent underline |
+| Legacy Figma component | `Link / Legacy`, node `3245:28722`; migration only |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer code prop names from Figma property names |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-19 |
+
+The Link design identity, current Figma property model, semantic token mapping, underline behavior, icon geometry, RTL logical positions, and inline/multiline Figma authoring boundary are verified in `../components/link.md`. Runtime API, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
+
 ## Rules
 
 - Figma property labels do not automatically become code prop names.
