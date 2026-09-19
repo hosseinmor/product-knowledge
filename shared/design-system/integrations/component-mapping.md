@@ -99,28 +99,48 @@ The Icon Button design identity and current Figma property model are verified. I
 
 | Field | Current value |
 |---|---|
-| DS component | Accordion / Disclosure |
+| DS component | Accordion |
 | Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
-| Figma component set | `Accordion / Item` |
+| Figma component | `Accordion` |
+| Figma component key | `649891c2bfc1413f60f04011bc71a05576d12738` |
+| Figma node ID | `22821:129502` |
+| Figma content properties | `Items` native SLOT |
+| Items Slot | 1+ children, zero gap, preferred/allowed content = `Accordion Item` |
+| Default authoring content | 3 Accordion Item instances; count is not fixed |
+| Group behavior | Multiple-open default; Single-open explicit runtime option; both allow all-collapsed |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-19 |
+
+### Accordion Item
+
+| Field | Current value |
+|---|---|
+| DS component | Accordion Item / standalone Disclosure |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component set | `Accordion Item` |
 | Figma component key | `2728144865f9616dd66228719b4fb71936e3062a` |
 | Figma node ID | `22794:548` |
-| Figma variant properties | `Size / State / Expanded` |
-| Figma content properties | `Title / Body / Body text / Custom content / Content swap` |
+| Figma variant properties | `Size / State / Expanded / Indicator position` |
+| Variant count | 48 |
+| Figma content properties | `Title / Content` |
+| Content | Native Figma SLOT with editable default Body text; accepts arbitrary frames/text/component instances |
 | Figma sizes | `Large 48 / Medium 40 / Small 32` minimum Trigger heights |
 | Figma states | `Enabled / Hover / Focus / Disabled`; Active is runtime-only |
-| Composition | Same Item used standalone as Disclosure or stacked as Accordion |
-| Group behavior | Multiple-open default; Single-open explicit option; both allow all-collapsed |
-| Direction | RTL-first; Indicator at logical Start; no physical Alignment axis |
+| Indicator position | `Start / End`; in RTL Start=right and End=left |
+| Composition | Same Item may be used alone as Disclosure or inside Accordion Items Slot |
 | Legacy assets | Old `Accordion` / `_Accordion item` / skeleton sets remain for migration only |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified** |
 | Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-09-18 |
+| Last Figma verification | 2026-09-19 |
 
-The Accordion design identity, visual state model, composition boundary, RTL construction, and Figma content-property model are verified. Runtime API, exact DOM/animation implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
-
+Accordion and Accordion Item design identities, native Slot composition, visual state model, RTL geometry, and current Figma property models are verified. Runtime API, exact DOM/animation implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
 ## Rules
 
