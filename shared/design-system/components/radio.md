@@ -50,10 +50,11 @@ Do not use visual styling alone to change the underlying selection semantics.
 
 A Radio item contains:
 
-1. a 24px Radio icon instance;
-2. a 20px visual vector inside the icon box;
-3. an item label;
-4. 8px spacing between label and control.
+1. a 20px Radio icon instance;
+2. an item label;
+3. 8px spacing between label and control.
+
+The source icon components remain unchanged at their library size; the nested instance is resized proportionally to 20×20 inside Radio.
 
 The canonical control must use the exact local JobVision icon-library components:
 - `Icon/radio_button_unchecked` — node `15087:365350`, key `c8005abc2598ad492de5ac17df5cfb9dc1a4509b`;
@@ -63,7 +64,7 @@ Use those components directly as nested instances. Do not redraw, clone, or subs
 
 The whole visible item row is one interaction target. The label is not a separate interaction.
 
-The default Figma authoring width is 240px so multiline behavior can be tested. The label fills the available row width and grows vertically. The icon and label block are center-aligned on the cross axis.
+The default Figma authoring width is 240px so multiline behavior can be tested. The label fills the available row width and grows vertically. The icon and label block are top-aligned so the 20px control aligns with the first 20px text line when the label wraps.
 
 ## Figma Property Model
 
@@ -95,16 +96,14 @@ Validation is not represented as a Radio or Radio Group interaction-state varian
 ### Default, unselected
 
 - icon: exact local `Icon/radio_button_unchecked`;
-- icon box: 24px;
-- visual vector: 20px;
+- icon instance: 20px;
 - icon color: `fg/secondary`;
 - label: `fg/primary`.
 
 ### Default, selected
 
 - icon: exact local `Icon/radio_button_checked`;
-- icon box: 24px;
-- visual vector: 20px;
+- icon instance: 20px;
 - icon color: `fg/accent`;
 - label remains `fg/primary`.
 
@@ -134,8 +133,7 @@ Both selected and unselected Radio options retain their selection geometry while
 
 Current canonical values:
 
-- Radio icon box: **24px**;
-- icon visual vector: **20px**;
+- Radio icon instance: **20px**;
 - label gap: **8px** using the shared Spacing 8px variable;
 - item label: Vazirmatn **14/20 Regular**, using the shared component label text style;
 - group label: Vazirmatn **14/20 Medium** using `fg/secondary`, aligned with Checkbox Group;
@@ -149,7 +147,7 @@ No size variant is defined. Add one only after a repeated product need is valida
 ## Label Behavior
 
 - The label may wrap to multiple lines.
-- The Radio icon and label block are vertically center-aligned.
+- The Radio icon and label block are top-aligned so multiline labels align the control with the first text line.
 - Do not truncate required option meaning only to preserve a one-line row.
 - The entire item row, including the label, activates the Radio.
 - Hiding the visible label requires another accessible name.
