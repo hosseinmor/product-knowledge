@@ -257,6 +257,39 @@ Accordion and Accordion Item design identities, native Slot composition, visual 
 The Link design identity, Style × Size × State Figma model, transparent anatomy, semantic token mapping, state-driven underline behavior, End-icon geometry, and native-Text inline/multiline authoring boundary are verified in `../components/link.md`. Runtime API, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
 
+### Breadcrumb
+
+| Field | Current value |
+|---|---|
+| DS component | Breadcrumb |
+| Knowledge document | `../components/breadcrumb.md` |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component | `Breadcrumb` |
+| Figma component key | `b0fb38288d8b84e0ff6e1d5ded6eeb31574581fa` |
+| Figma node ID | `22973:282463` |
+| Figma content properties | `Items` native SLOT |
+| Default authoring content | 3 visible Breadcrumb Item instances |
+| Items Slot | min 2 children; preferred/allowed content = `Breadcrumb Item / Default`; default content visible on insertion |
+| Breadcrumb Item set | `Breadcrumb Item / Default` |
+| Breadcrumb Item key | `e0fcea8c52b6deb183c6d2c4624243875ae21425` |
+| Breadcrumb Item node ID | `22986:407` |
+| Breadcrumb Item variants | `Type = Link / Current / Overflow` |
+| Breadcrumb Item content property | `Current label` |
+| Link composition | canonical `Link / Subtle / Medium`; interaction states delegated to Link |
+| Overflow composition | canonical `Icon Button / Ghost / Extra Small`; popup/menu behavior delegated to owning runtime pattern |
+| Current page | always present, non-interactive, semantic current-page item |
+| Layout | single-line; 8px Items Slot gap; deep paths use Root / Overflow / Parent / Current |
+| Legacy Figma | `Breadcrumb / Legacy` and `Breadcrumb Item / Legacy`; migration/reference only |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names or overflow algorithm from Figma |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-19 |
+
+The Breadcrumb design identity, Item composition, Link/Icon Button reuse, current-page treatment, single-line truncation/collapse model, RTL behavior, native Slot authoring, and accessibility contract are verified in `../components/breadcrumb.md`. Runtime API, exact DOM/popup implementation, collapse measurement algorithm, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime Design System source is registered.
+
+
 ### Inline Notification
 
 | Field | Current value |
