@@ -50,15 +50,20 @@ Do not use visual styling alone to change the underlying selection semantics.
 
 A Radio item contains:
 
-1. a 24px control slot;
-2. an 18px circular visual control;
-3. an optional 8px selected indicator;
-4. an item label;
-5. 8px spacing between label and control.
+1. a shared 24px Radio icon instance;
+2. a 20px visual vector inside that icon box;
+3. an item label;
+4. 8px spacing between label and control.
+
+The visual control must reuse the shared JobVision icon assets:
+- `Icon/radio_button_unchecked`;
+- `Icon/radio_button_checked`.
+
+Do not redraw the Radio ring/dot geometry locally inside the component.
 
 The whole visible item row is one interaction target. The label is not a separate interaction.
 
-The default Figma authoring width is 240px so multiline behavior can be tested. The label fills the available row width and grows vertically.
+The default Figma authoring width is 240px so multiline behavior can be tested. The label fills the available row width and grows vertically. The icon and label block are center-aligned on the cross axis.
 
 ## Figma Property Model
 
@@ -89,15 +94,18 @@ Validation is not represented as a Radio or Radio Group interaction-state varian
 
 ### Default, unselected
 
-- visual circle: 18px;
-- border: 2px using `line/default`;
-- no fill;
+- shared icon: `Icon/radio_button_unchecked`;
+- icon box: 24px;
+- visual vector: 20px;
+- vector fill: `fg/secondary`;
 - label: `fg/primary`.
 
 ### Default, selected
 
-- outer circle border: `line/accent`;
-- selected indicator: 8px using `surface/accent-emphasis`;
+- shared icon: `Icon/radio_button_checked`;
+- icon box: 24px;
+- visual vector: 20px;
+- vector fill: `fg/accent`;
 - label remains `fg/primary`.
 
 Selection is an Accent semantic state, not a Brand state.
@@ -116,8 +124,8 @@ Both selected and unselected Radio options retain their selection geometry while
 
 ### Disabled
 
-- outer circle uses `line/disabled`;
-- selected indicator, when present, uses `fg/disabled`;
+- preserve the checked or unchecked icon geometry;
+- icon vector uses `fg/disabled`;
 - label uses `fg/disabled`;
 - selection geometry remains visible;
 - no Hover/Active treatment is introduced.
@@ -126,9 +134,8 @@ Both selected and unselected Radio options retain their selection geometry while
 
 Current canonical values:
 
-- interaction/control slot: **24px**;
-- visual circle: **18px**;
-- selected indicator: **8px**;
+- shared Radio icon box: **24px**;
+- icon visual vector: **20px**;
 - label gap: **8px** using the shared Spacing 8px variable;
 - item label: Vazirmatn **14/20**;
 - Vertical group item gap: **8px**;
@@ -140,7 +147,7 @@ No size variant is defined. Add one only after a repeated product need is valida
 ## Label Behavior
 
 - The label may wrap to multiple lines.
-- The Radio control aligns with the first line of a multiline label rather than vertically centering against the entire text block.
+- The Radio icon and label block are vertically center-aligned.
 - Do not truncate required option meaning only to preserve a one-line row.
 - The entire item row, including the label, activates the Radio.
 - Hiding the visible label requires another accessible name.
@@ -243,6 +250,8 @@ Do not infer exact DOM structure, event names, prop names, or implementation API
 ## Migration Notes
 
 The legacy Figma model was reconciled in place to preserve component identity.
+
+The canonical visual control now reuses the shared checked/unchecked JobVision Radio icon components rather than locally drawn ellipse/dot geometry.
 
 Removed legacy axes/states:
 
