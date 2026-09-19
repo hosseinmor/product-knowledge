@@ -302,7 +302,7 @@ Rich-text formatting icons are canonical general-DS icons on the `Icons` page, n
 
 They follow the existing `24×24` icon component convention and are consumed through Icon Button / Toolbar Toggle icon slots.
 
-The archived first draft contains old local 16px icon assets only to avoid breaking archived instances. Do not reuse those assets.
+Old local 16px draft icon assets were removed from the canonical Figma page. Use the general Design System icon components instead.
 
 ## Intentionally Excluded from Shared v1
 
@@ -444,20 +444,13 @@ Canonical source:
 - Playground: `22878:10007`
 - Examples: `22868:133907`
 
-Archived first draft:
-
-- Archive section: `Archive — legacy & scratch`
-- Archive section node: `22869:134535`
-- archived Rich Text Editor set: `22852:131093`
-- archived Toolbar set: `22848:1282`
-
 Migration references:
 
 - old CanDo Text toolbar: file `8CZOoFsYpENfaNx2WoDqIp`, node `16057:535700`
 - legacy NEXT `_Text area toolbar`: `13562:307390`
 - legacy NEXT `Text area with toolbar`: `13562:307473`
 
-Archived and legacy components are reference-only and are not the canonical contract.
+Legacy component references below are historical migration references only; obsolete draft assets were removed from the canonical Figma page.
 
 ## Runtime / Storybook Status
 
