@@ -137,7 +137,8 @@ Current canonical values:
 - Radio icon box: **24px**;
 - icon visual vector: **20px**;
 - label gap: **8px** using the shared Spacing 8px variable;
-- item label: Vazirmatn **14/20**;
+- item label: Vazirmatn **14/20 Regular**, using the shared component label text style;
+- group label: Vazirmatn **14/20 Medium** using `fg/secondary`, aligned with Checkbox Group;
 - Vertical group item gap: **8px**;
 - Horizontal group item gap: **16px**;
 - Horizontal Radio items: **Hug contents**; the group width hugs the combined items.
