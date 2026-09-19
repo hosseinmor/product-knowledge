@@ -7,7 +7,7 @@ summary: Operational reference for the current JV Design System Figma file, its 
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: '2026-09-16'
+last_reviewed: '2026-09-19'
 related:
   - design-system.reference.source-of-truth
   - design-system.reference.component-mapping
@@ -76,6 +76,124 @@ The current Figma model preserves independent selectors:
 Switching Product changes the Product branch used by the public Semantic contract and the Product-aware font family. Switching Appearance resolves Light/Dark values independently.
 
 `04 Component Tokens` is Product-independent in the current contract and varies only by Appearance.
+
+## Component page authoring standard
+
+Every canonical component page in the Design System Figma file should use the same documentation structure. The goal is to make the editable source understandable without requiring designers to inspect hidden layers or infer variant axes from the properties sidebar.
+
+### Required canonical structure
+
+Use this top-level order inside the canonical documentation frame:
+
+```text
+Header
+01 · Component set
+02 · Playground
+```
+
+Recommended deterministic node names:
+
+```text
+<Component> / Documentation
+Header
+01 · Component set
+Variant matrix
+Axes & properties
+02 · Playground
+Playground / <Component>
+Archive — legacy & scratch
+```
+
+The default canonical documentation frame is **2528 px wide** with a white `surface/default` background. Use shared Spacing/Typography/Color foundations for documentation construction. A component may exceed this width only when a readable variant matrix genuinely cannot fit after re-layout.
+
+### Header
+
+Header contains:
+
+- component name;
+- one short sentence describing what the page contains and what is canonical.
+
+Do not duplicate the full Knowledge guideline in Figma. Figma documents the editable construction and provides direct authoring context.
+
+### Component set section
+
+The canonical Component Set must be visually prominent and readable as a matrix.
+
+Rules:
+
+- Re-layout variants so the matrix communicates the axes rather than preserving creation order.
+- Use **columns for one or two compact axes** and **rows for the remaining major axes**.
+- Add human-readable column and row labels around the Component Set.
+- Use larger spacing between major row groups when it improves scanning.
+- Do not rely on variant names inside the properties sidebar as the only explanation of the matrix.
+- Keep the actual editable Component Set in this section, not a detached screenshot or duplicate.
+- Prefer a `surface/muted` documentation canvas around the set; this is documentation treatment, not a component visual token.
+
+For example, the Accordion Item page uses:
+
+```text
+Columns → Indicator position × Expanded
+Rows    → Size × State
+```
+
+### Axes & properties panel
+
+Every component page must have an **`Axes & properties`** panel directly beside the Component Set.
+
+Record:
+
+- every Variant axis and its allowed values;
+- public Text/Boolean/Instance-swap/Slot properties;
+- native Figma Slot roles;
+- related wrapper/group component when it is part of the same component family.
+
+This panel is an authoring aid. Runtime prop names must still come from the registered Code source and must not be inferred from Figma labels.
+
+### Playground
+
+Every canonical component page must include a **Playground built from real component instances**.
+
+The Playground should cover the component's meaningful authoring surface rather than repeating every visual variant. Include representative cases such as:
+
+- default instance;
+- long or multiline content;
+- RTL/directional behavior where applicable;
+- editable Text/Boolean/Instance properties;
+- native Slot composition with real arbitrary content;
+- grouped/composed usage for component families;
+- disabled or other behaviorally important states when useful;
+- width/content stress cases where layout is a material part of the contract.
+
+Playground content must remain editable. Do not use screenshots as substitutes for real instances.
+
+### Legacy and scratch content
+
+Do not leave legacy variants, migration references, or exploration frames mixed with the canonical source.
+
+Move preserved material into a clearly separated top-level area named:
+
+`Archive — legacy & scratch`
+
+Use separate `Legacy assets` and `Scratch / exploration` groups where useful.
+
+Archive rules:
+
+- preserve legacy material when migration/reference value still exists;
+- do not treat archived assets as canonical;
+- do not delete user-owned exploration material merely to make the page cleaner;
+- canonical documentation must start at the page origin and remain visually separate from the Archive.
+
+### Completion rule for component pilots
+
+A Figma component pilot is not visually complete until:
+
+- the Component Set is arranged as a readable labeled matrix;
+- `Axes & properties` is present beside it;
+- the Playground covers the meaningful authoring API with real instances;
+- legacy/scratch content is separated from canonical work;
+- structural and visual QA have been run on the final documentation frame.
+
+This page-authoring standard applies to new component pilots and should be used when cleaning older component pages.
 
 ## Stable component identity example: Button
 
