@@ -206,6 +206,21 @@ Loading is not part of the base Radio state matrix.
 
 If a screen needs loading placeholders, render a Skeleton pattern for the option list rather than multiplying Radio selection variants by `Skeleton`.
 
+## Benchmark Review
+
+The final Radio contract was reconciled against current external references:
+
+- **WAI-ARIA APG Radio Group**: confirms group semantics, one sequential Tab stop, Space selection, and Arrow-key navigation within the group.
+- **Carbon Radio Button**: uses a 20px visual radio control, 14px Regular option label, and 8px control-to-label spacing.
+- **Material Web Radio**: uses a 20px default radio icon size.
+- **Primer RadioGroup accessibility**: requires a clear persistent option label, visible focus, and at least a 24×24 CSS-pixel operable target/spacing contract.
+
+JV therefore keeps the **visual Radio instance at 20px** while treating the full labeled option as the interaction target. Runtime implementation must preserve a minimum 24×24 operable target or equivalent compliant spacing without enlarging the visible mark.
+
+Primer currently documents vertical RadioGroup orientation only; JV's Horizontal direction remains an intentional product-system extension for short, concise option sets and is not inferred from Primer.
+
+External systems are references, not owning runtime sources for JV.
+
 ## Product Variations
 
 Radio is a shared JobVision/Cando component.
