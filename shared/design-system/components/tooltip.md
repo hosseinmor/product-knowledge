@@ -73,8 +73,9 @@ Runtime visibility, delay, collision, flip, portal behavior, and dismissal imple
 Tooltip contains:
 
 1. one inverse surface;
-2. one text label;
-3. one directional caret.
+2. one text label.
+
+Canonical Tooltip has **no caret / arrow**.
 
 Tooltip has no interactive content and must not contain nested controls.
 
@@ -88,7 +89,7 @@ Tooltip has no interactive content and must not contain nested controls.
 - Radius: 6px
 - Border: none
 - Shadow: none
-- Caret: 12×6px
+- Arrow / caret: none
 - Maximum surface width: 288px
 - Maximum text width at the current padding: 264px
 
@@ -98,7 +99,9 @@ Do not add `Shadow/Floating` or a border to the canonical Tooltip.
 
 ## Placement and RTL
 
-Tooltip supports four sides and three alignments.
+Tooltip runtime placement supports four sides and three alignments.
+
+The current Figma component still preserves the `Side` and `Align` matrix for placement authoring/runtime mapping, but those variants no longer change Tooltip anatomy because the caret has been removed.
 
 RTL is canonical.
 
@@ -243,7 +246,7 @@ Runtime must handle:
 Verify:
 
 - text is readable and right-aligned in RTL;
-- all 12 Side × Align combinations position the caret correctly;
+- Tooltip renders without a caret in every Side × Align combination;
 - Top/Bottom Start maps to the right in RTL;
 - Top/Bottom End maps to the left in RTL;
 - Left/Right Start maps to top;
