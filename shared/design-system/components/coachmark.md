@@ -337,6 +337,7 @@ Verify:
 - default variant is `Top / Start / One`;
 - caret direction for four sides;
 - Start/End semantics in RTL;
+- anchored examples preserve the 2px target offset from caret tip, or Surface edge when `Arrow=False`;
 - Dismiss true/false;
 - Progress true/false;
 - Arrow true/false;
