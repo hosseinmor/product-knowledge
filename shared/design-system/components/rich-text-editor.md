@@ -109,6 +109,8 @@ Shared editor geometry:
 - editable-area typography → shared Textarea body style, currently Vazirmatn Regular `14/20`
 - toolbar/body divider → `1px`
 - editable-area minimum height → `120px`
+- Toolbar owns the top `6px` corner radii and clips its own content; Editable area owns the bottom `6px` corner radii and clips body content. The outer Field/Editor must not clip the outside Focus ring.
+- In Figma, the Filled Value layer starts at the same `16px` inset as Placeholder. A fixed `20px` surface overlay covers the one-line Placeholder while the Value text itself may grow to multiple lines; this keeps the top inset stable during horizontal and vertical resizing.
 
 ### Compact toolbar
 
@@ -272,7 +274,7 @@ Persistent formatting selection must not use Icon Button `Active`.
 
 Icon Button `Active` is a transient interaction state. Rich-text formatting such as Bold, list type, alignment, and text direction is persistent selection/current-value state.
 
-The internal component `_Rich Text Toolbar Toggle` owns this distinction.
+The internal component `_Rich Text Toolbar Toggle` owns this distinction **temporarily**. It is a Rich Text-specific stopgap until the shared Toggle Button / Icon Toggle Button component is designed.
 
 Figma node: `22864:3503`.
 
@@ -421,6 +423,10 @@ Verify:
 - Disabled applies to editor, toolbar, label, supporting content, and resize handle;
 - persistent formatting uses Selected semantics, not Icon Button Active;
 - horizontal resizing stretches toolbar/body/support/border/focus;
+- Toolbar/background content never bleeds outside the 6px editor corners;
+- Error border always covers the complete Editor shell height;
+- Focus ring remains visible outside the Editor shell and is not clipped by Field/Editor containers;
+- Filled Value and Placeholder remain anchored at the 16px top inset during multiline content growth and resizing;
 - vertical resizing grows only the editable area;
 - Resizable controls only resize-handle visibility;
 - hiding the visual label requires another accessible-name mechanism in implementation;
@@ -471,6 +477,7 @@ Before the runtime contract is finalized:
 - decide whether indentation is shared;
 - define paste/sanitization rules;
 - define a first-class Read only contract if a real product use case requires it;
+- replace the temporary `_Rich Text Toolbar Toggle` with the shared Icon Toggle Button after the Toggle Button component is designed (TBD);
 - register Storybook and browser accessibility tests.
 
 Read only is intentionally not a Figma state yet because Rich Text Editor needs an explicit behavior decision for the toolbar and editable region rather than inheriting Textarea semantics blindly.
