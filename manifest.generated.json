@@ -985,7 +985,7 @@
       "summary": "> Status: structure only; v4 Color mapping stress-tested",
       "status": "draft",
       "owner": null,
-      "last_reviewed": null,
+      "last_reviewed": "2026-09-19",
       "related": [],
       "topics": [
         "components",
@@ -1009,6 +1009,26 @@
         "pagination"
       ],
       "path": "shared/design-system/components/pagination.md"
+    },
+    {
+      "id": "design-system.component.password-input",
+      "kind": "design-system-component",
+      "title": "Password Input",
+      "summary": "Password Input captures a secret single-line value through the shared RTL-first Field contract, with native-password-oriented masking and a dedicated reveal/hide action.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "design-system.component.text-input",
+        "design-system.accessibility.forms",
+        "design-system.accessibility.component-authoring-contract"
+      ],
+      "topics": [
+        "components",
+        "design-system-component",
+        "password-input"
+      ],
+      "path": "shared/design-system/components/password-input.md"
     },
     {
       "id": "design-system.component.popover",
@@ -1045,6 +1065,48 @@
         "radio"
       ],
       "path": "shared/design-system/components/radio.md"
+    },
+    {
+      "id": "design-system.component.rich-text-editor",
+      "kind": "design-system-component",
+      "title": "Rich Text Editor",
+      "summary": "Rich Text Editor captures formatted multiline content through the shared Field contract and an internal formatting toolbar.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "design-system.component.textarea",
+        "design-system.component.icon-button",
+        "design-system.component.toggle-button",
+        "design-system.accessibility.forms",
+        "design-system.accessibility.component-authoring-contract"
+      ],
+      "topics": [
+        "components",
+        "design-system-component",
+        "rich-text-editor"
+      ],
+      "path": "shared/design-system/components/rich-text-editor.md"
+    },
+    {
+      "id": "design-system.component.search",
+      "kind": "design-system-component",
+      "title": "Search",
+      "summary": "Search captures a single-line query through an RTL-first search-specific control with a fixed search affordance and a contextual clear action.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "design-system.component.text-input",
+        "design-system.accessibility.forms",
+        "design-system.accessibility.component-authoring-contract"
+      ],
+      "topics": [
+        "components",
+        "design-system-component",
+        "search"
+      ],
+      "path": "shared/design-system/components/search.md"
     },
     {
       "id": "design-system.component.select",
@@ -1149,11 +1211,16 @@
       "id": "design-system.component.textarea",
       "kind": "design-system-component",
       "title": "Textarea",
-      "summary": "> Status: structure only",
+      "summary": "Textarea captures multiline free text through the shared RTL-first Field contract, with optional helper/count content, validation, and vertical resizing.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.component.text-input",
+        "design-system.component.rich-text-editor",
+        "design-system.accessibility.forms",
+        "design-system.accessibility.component-authoring-contract"
+      ],
       "topics": [
         "components",
         "design-system-component",
@@ -1613,7 +1680,7 @@
       "summary": "Defines the shared Label, Body, and Heading recipes, Product-aware font identity, compact and fluid variants, and the boundary with local Tailwind typography.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-12",
+      "last_reviewed": "2026-09-19",
       "related": [
         "design-system.reference.tailwind"
       ],
@@ -2063,7 +2130,7 @@
       "summary": "Registry contract for mapping stable Figma component identities to runtime components and Storybook; records current verified mappings and gaps.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-18",
+      "last_reviewed": "2026-09-19",
       "related": [
         "design-system.reference.figma",
         "design-system.reference.code",
@@ -2083,7 +2150,7 @@
       "summary": "Operational reference for the current JV Design System Figma file, its variable architecture, stable component identities, and live-source boundaries.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-16",
+      "last_reviewed": "2026-09-19",
       "related": [
         "design-system.reference.source-of-truth",
         "design-system.reference.component-mapping"
@@ -2924,11 +2991,11 @@
     }
   ],
   "summary": {
-    "documents": 148,
+    "documents": 151,
     "by_kind": {
       "content-guideline": 3,
       "design-system-accessibility": 18,
-      "design-system-component": 26,
+      "design-system-component": 29,
       "design-system-design-language": 1,
       "design-system-experience-rule": 11,
       "design-system-foundation": 11,

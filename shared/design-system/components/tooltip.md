@@ -64,6 +64,8 @@ Component key: `e29f8f48a0b3ec52f9490d4a9c101df5fba9d769`
 | `Side` | `Top`, `Bottom`, `Left`, `Right` |
 | `Align` | `Start`, `Center`, `End` |
 
+Default variant: `Top / Start`.
+
 There is intentionally no `Visible`, `Open`, `State`, `Shadow`, or runtime collision property in the Figma API.
 
 Runtime visibility, delay, collision, flip, portal behavior, and dismissal implementation remain code-owned.
@@ -256,6 +258,7 @@ Verify:
 - Left/Right Start maps to top;
 - Left/Right End maps to bottom;
 - max width and wrapping do not exceed the contract;
+- anchored examples preserve the 2px Surface-to-trigger offset;
 - Tooltip has no border or shadow;
 - hover and keyboard focus both reveal Tooltip;
 - moving the pointer from the trigger onto the Tooltip does not cause premature dismissal;
