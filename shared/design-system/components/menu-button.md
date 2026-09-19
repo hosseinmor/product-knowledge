@@ -63,7 +63,7 @@ Do not duplicate Menu item behavior inside Menu Button.
 | `Menu content` | Native Slot | Replaceable Menu content |
 | `Trigger / Button` | Exposed nested instance | Canonical Button content/style/state authoring |
 
-Default Figma state is `Extra Small / Open=False`.
+Default Figma state is `Medium / Open=False`.
 
 The nested Button is exposed to keep the outer component matrix small. Do not add Button interaction states to the Menu Button variant matrix.
 
