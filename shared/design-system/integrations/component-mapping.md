@@ -63,7 +63,7 @@ Known mismatch/gap
 | Property mapping | **Unverified** — do not infer code prop names from Figma property names |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-09-17 |
+| Last Figma verification | 2026-09-19 |
 
 The Button design identity and current Figma property model are verified. Runtime API, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified because the owning runtime Design System repository/package and Storybook source are not yet registered. Track that source gap through the integration contract rather than guessing from Figma.
 
@@ -90,9 +90,35 @@ The Button design identity and current Figma property model are verified. Runtim
 | Property mapping | **Unverified** — do not infer code prop names from Figma property names |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-09-18 |
+| Last Figma verification | 2026-09-19 |
 
-The Icon Button design identity and current Figma property model are verified. Its accessible-name, Tooltip, sizing, destructive-action, migration, and state boundaries are defined in `../components/icon-button.md`. Runtime API, Storybook identity, Tooltip composition strategy, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
+The Icon Button design identity and current Figma property model are verified. Its accessible-name, Tooltip, sizing, destructive-action, and state boundaries are defined in `../components/icon-button.md`. Runtime API, Storybook identity, Tooltip composition strategy, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
+
+
+
+### Tooltip
+
+| Field | Current value |
+|---|---|
+| DS component | Tooltip |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component set | `Tooltip / Default` |
+| Figma component key | `e29f8f48a0b3ec52f9490d4a9c101df5fba9d769` |
+| Figma node ID | `22773:127299` |
+| Figma variant properties | `Side / Align` |
+| Figma content properties | `Text` |
+| Figma matrix | `4 Sides × 3 Alignments = 12 variants` |
+| Anatomy | Inverse Surface + text; no caret / arrow |
+| Anchor offset | Fixed `2px` Surface-to-trigger gap |
+| Visual roles | `surface/inverse + fg/on-inverse`; no border; no shadow |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer code prop names from Figma property names |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-19 |
+
+Tooltip design identity, arrowless anatomy, placement matrix, RTL mapping, 2px anchor offset, and Icon Button consumer contract are verified. Runtime delay, collision/flip, portal/layering, package/API identity, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime source is registered.
 
 
 ### Accordion
