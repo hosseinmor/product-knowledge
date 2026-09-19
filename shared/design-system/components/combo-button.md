@@ -71,7 +71,7 @@ Combo Button is not a generic Button Group. The two controls have fixed roles: o
 | `Open` | Variant | `False / True` |
 | `Menu content` | Native Slot | Replaceable shared Menu content |
 | `Primary Action / Button` | Exposed nested instance | Button content/state/loading authoring |
-| `Menu Trigger / Icon Button` | Exposed nested instance | Trigger state authoring |
+| `Menu Trigger / Icon Button` | Internal nested instance | Fixed Menu Trigger; not exposed for direct authoring |
 
 Default Figma state is `Primary / Medium / Open=False`.
 
@@ -106,12 +106,12 @@ Logical anatomy:
 
 There is **no standalone Divider node** and **no layout gap** between Combo Button segments.
 
-- **Primary:** the Menu Trigger owns a 1px internal separator using `line/inverse`; the Primary Action adds no touching-edge stroke.
-- **Secondary:** the Menu Trigger owns a 1px internal separator using `line/emphasis`; the Primary Action adds no touching-edge stroke.
+- **Primary:** Combo Button owns a locked 1px absolute `Internal Separator` layer using `line/inverse`; the nested Menu Trigger carries no separator stroke override.
+- **Secondary:** Combo Button owns a locked 1px absolute `Internal Separator` layer using `line/emphasis`; the nested Menu Trigger carries no separator stroke override.
 - **Tertiary:** both segments keep their canonical outer borders, but only the Menu Trigger owns the shared joining edge; the Primary Action removes its touching left edge so the join renders as a single 1px border rather than a doubled border.
 - The boundary contributes **0px** to total Combo width.
 
-Do not implement this as positive spacing or as a third Divider element. The two hit targets remain visually connected while retaining a clear internal boundary.
+Do not implement this as positive spacing or as a standalone/shared Divider component. In Figma, filled styles use the Combo-owned absolute `Internal Separator` visual layer; it is outside layout flow and adds no width. The two hit targets remain visually connected while retaining a clear internal boundary.
 
 ## Style contract
 
@@ -329,14 +329,14 @@ The implementation may compose shared Button, Icon Button, and Menu primitives i
 Verify:
 
 - exactly 24 variants: `3 Style × 4 Size × 2 Open`;
-- each variant contains exposed canonical Button and Icon Button segments;
+- each variant contains an exposed canonical Primary Action Button and an internal canonical Menu Trigger Icon Button;
 - each variant contains one native Menu Slot;
 - heights are 28 / 32 / 40 / 48;
 - Open/Closed width is identical for every Style/Size;
 - outer corners are 6px and touching corners are 0;
 - no standalone Divider node exists;
 - the two segments use 0px layout gap;
-- Primary renders a 1px `line/inverse` internal separator edge; Secondary renders a 1px `line/emphasis` internal separator edge;
+- Primary renders a Combo-owned locked 1px `line/inverse` absolute separator layer; Secondary renders the same structure with `line/emphasis`;
 - Tertiary renders one shared 1px joining border edge with no doubled touching border;
 - Open changes only Menu Trigger active treatment/chevron;
 - Primary Action remains independently interactive;
@@ -356,7 +356,7 @@ Verify:
 - exact overlay/collision implementation is unverified;
 - exact partial-disabled runtime API is intentionally not specified;
 - executable keyboard/screen-reader behavior must be verified when the runtime component exists;
-- exposed nested Button/Icon Button instances technically allow Style/Size overrides that can diverge from the outer Combo axes; until the Figma authoring model is tightened, nested Style/Size must remain aligned with the outer `Style` and `Size` contract.
+- the exposed nested Primary Action Button still technically allows Style/Size overrides that can diverge from the outer Combo axes; the Menu Trigger is now internal/not exposed, so this authoring risk is limited to the Primary Action until its content/loading properties are promoted individually.
 
 ## Related
 
