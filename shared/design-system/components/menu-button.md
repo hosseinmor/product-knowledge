@@ -8,7 +8,7 @@ knowledge_state: verified
 document_maturity: draft
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: 2026-09-19
+last_reviewed: 2026-09-20
 source_figma: https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=22930-811
 source_node: 22930:811
 related:
@@ -116,14 +116,12 @@ The nested Figma Button exposes the full Button API technically; the approved Me
 
 | Menu Button Size | Trigger height | Current default Menu size |
 |---|---:|---|
-| Extra Small | 28px | Small — temporary |
+| Extra Small | 28px | Extra Small |
 | Small | 32px | Small |
 | Medium | 40px | Medium |
 | Large | 48px | Large |
 
-The current legacy Menu component still uses a 24px Extra Small item size. The new control baseline is 28px. Until Menu is migrated, Extra Small Menu Button temporarily uses the Small Menu size rather than reintroducing a 24px trigger.
-
-This is a dependency gap, not a reason to change the canonical Button size model.
+Menu now follows the same 28 / 32 / 40 / 48px size baseline as its trigger. Every Menu Button size composes the matching Menu size, including Extra Small.
 
 ## Open and interaction states
 
@@ -280,11 +278,10 @@ Verify:
 - RTL logical geometry is correct;
 - Focus remains visible;
 - keyboard behavior follows Menu Button + Menu patterns;
-- Extra Small uses temporary Small Menu content until Menu sizing is migrated.
+- Extra Small uses the canonical Extra Small Menu.
 
 ## Known gaps
 
-- current shared Menu Extra Small is still 24px and must be migrated to the 28px control baseline;
 - runtime component/API and Storybook are unregistered;
 - exact overlay/collision implementation is unverified;
 - the exposed nested Button technically allows Style/Size/State overrides that can conflict with the outer Menu Button contract; review must keep nested Size aligned with the outer Size and use only the approved trigger-style subset until the Figma authoring model is tightened.
