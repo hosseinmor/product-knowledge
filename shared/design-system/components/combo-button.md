@@ -8,7 +8,7 @@ knowledge_state: verified
 document_maturity: draft
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: 2026-09-19
+last_reviewed: 2026-09-20
 source_figma: https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=22932-134187
 source_node: 22932:134187
 related:
@@ -155,14 +155,14 @@ References:
 
 | Size | Height | Menu Trigger | Current default Menu size |
 |---|---:|---:|---|
-| Extra Small | 28px | 28×28 | Small — temporary |
+| Extra Small | 28px | 28×28 | Extra Small |
 | Small | 32px | 32×32 | Small |
 | Medium | 40px | 40×40 | Medium |
 | Large | 48px | 48×48 | Large |
 
 Primary Action uses the same Button Size.
 
-The current legacy Menu Extra Small remains 24px, so the 28px Combo Button temporarily uses Small Menu content until Menu is migrated.
+Menu now follows the same 28 / 32 / 40 / 48px size baseline as Combo Button. Every Combo Button size composes the matching Menu size, including Extra Small.
 
 ## Open and interaction states
 
@@ -348,11 +348,10 @@ Verify:
 - both focus targets show visible focus;
 - Menu Trigger has accessible name and Tooltip;
 - RTL/LTR segment ordering follows logical Start/End;
-- Extra Small uses temporary Small Menu until Menu is migrated.
+- Extra Small uses the canonical Extra Small Menu.
 
 ## Known gaps
 
-- current shared Menu Extra Small is still 24px;
 - runtime component/API, code repository/package, and Storybook are unregistered;
 - exact overlay/collision implementation is unverified;
 - exact partial-disabled runtime API is intentionally not specified;
