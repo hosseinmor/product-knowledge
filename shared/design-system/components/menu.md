@@ -1,190 +1,390 @@
 ---
-id: menu
+id: design-system.component.menu
 collection: design-system
 type: component
 title: Menu
-summary: Menu presents a temporary list of actions or destinations in a layer positioned above the current interface. Overflow Menu is the compact trigger pattern that opens this list.
-knowledge_state: unverified
-document_maturity: draft
-related: []
-design_status: draft
-design_maturity: usable-for-product-testing
-source_figma: https://www.figma.com/design/VA5qSyutH4QkLTfimzdUbe/-DS--Job-Vision?node-id=306-857
-source_node: 306:857
+summary: Menu is a temporary action/command surface composed from Menu Items, optional grouping, separators, shortcuts, checked state, destructive tone, and submenus.
+knowledge_state: verified
+document_maturity: reviewed
+design_status: ready-for-dev
+design_maturity: handoff-ready
+last_reviewed: 2026-09-20
+source_figma: https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=17332-167748
+source_node: 17332:167748
+related:
+  - design-system.component.menu-button
+  - design-system.component.combo-button
+  - design-system.accessibility.core
+  - design-system.accessibility.component-authoring-contract
 ---
 
 # Menu
 
 ## Purpose
 
-Menu presents a temporary list of actions or destinations in a layer positioned above the current interface. Overflow Menu is the compact trigger pattern that opens this list.
+Menu is the canonical temporary **action/command surface**.
 
-Use Menu when the user needs a small set of contextual choices without leaving the current screen.
+Use it for contextual commands that appear on demand from a Menu Button, overflow trigger, Combo Button menu trigger, context action, or another approved disclosure pattern.
+
+Menu is intentionally separate from its trigger. The trigger owns disclosure and anchoring; Menu owns the floating surface, item composition, grouping, menu-specific states, and composite keyboard behavior.
+
+## Component boundary
+
+### Menu vs Select
+
+Use **Select** when choosing an option sets the current value of a field or form control.
+
+Use **Menu** when activating an item executes a command, toggles a command state, opens a submenu, or performs contextual navigation within an application-menu interaction model.
+
+Checkable Menu Items are command state, not a replacement for normal form selection.
+
+### Menu vs Dropdown
+
+`Dropdown` is not the canonical semantic name for this action surface. Classify existing Dropdown patterns by behavior:
+
+- value selection → migrate toward Select/listbox behavior;
+- contextual actions → migrate toward Menu;
+- generic floating content → use the appropriate Popover/contextual-surface pattern.
+
+Do not create a second action-menu implementation under a Dropdown name.
+
+### Menu vs Overflow Menu
+
+Overflow is a **trigger pattern**, not another menu surface.
+
+New overflow actions should use an approved compact trigger, normally Icon Button/Menu Button behavior, and open the same canonical Menu.
+
+The legacy published Overflow Menu component is retained in Figma only for migration compatibility.
+
+### Menu vs Menu Button / Combo Button
+
+Menu Button and Combo Button own the trigger and open/closed state.
+
+Menu owns action-item anatomy, interaction states, grouping, separators, checked state, shortcut presentation, submenu indicators, destructive tone, and menu composite keyboard semantics.
+
+Do not duplicate Menu Item behavior inside trigger components.
+
+### Menu vs navigation
+
+The v1 canonical Menu is action/command-oriented. Do not use it as the default pattern for persistent site/product navigation, large information architecture, or side navigation.
+
+## Canonical Figma source
+
+### Menu
+
+- Figma file: `rROD8ctH9UfPGAMrRrOzHe`
+- Component set: `Menu / Default`
+- Node ID: `17332:167748`
+- Component key: `5b8278235b0cefb99927a2507739afb15ace8f3b`
+- Matrix: `4 Size = 4 variants`
+- Native content property: `Content` SLOT
+
+| Property | Type | Values / behavior |
+|---|---|---|
+| `Size` | Variant | `Extra Small / Small / Medium / Large` |
+| `Content` | Native Slot | Compose Menu Item, Menu Group Label, Menu Divider, and approved Menu content |
+
+### Menu Item
+
+- Component set: `Menu Item / Default`
+- Node ID: `17332:167436`
+- Component key: `77d84f9c0d0377652a87f13ef915c65412655073`
+- Matrix: `4 Size × 5 State = 20 variants`
+
+| Property | Type | Values / behavior |
+|---|---|---|
+| `Size` | Variant | `Extra Small / Small / Medium / Large` |
+| `State` | Variant | `Default / Hover / Active / Focus / Disabled` |
+| `Content` | Exposed nested instance | Compositional item content; see below |
+
+### Internal Menu Item content
+
+- Component set: `_Menu Item Content`
+- Node ID: `23038:127151`
+- Component key: `3c4735684b5eb1146dab273119bcc59dbceee8aa`
+
+The leading underscore marks an internal authoring dependency, not a standalone product component.
+
+| Property | Type | Values / behavior |
+|---|---|---|
+| `Tone` | Variant | `Default / Danger / Disabled` |
+| `Label` | Text | Single-line item label |
+| `Checked` | Boolean | Shows the checked indicator |
+| `Show start icon` | Boolean | Shows an optional leading/action icon |
+| `Start icon` | Instance swap | Shared icon-library source |
+| `Show shortcut` | Boolean | Shows shortcut metadata |
+| `Shortcut` | Text | Shortcut text |
+| `Submenu` | Boolean | Shows submenu indicator |
+
+### Composition helpers
+
+| Component | Node ID | Component key | Role |
+|---|---|---|---|
+| `Menu Group Label / Default` | `23038:129820` | `ae3dbe7236e339083cccd60ad047306201c0f6c6` | Optional non-interactive group heading |
+| `Menu Divider / Default` | `23038:129822` | `8cb217e111f87fa16785890815d769083ac7e5ec` | Optional non-interactive group separator |
+
+Grouping is Menu composition. Divider/group properties do not belong on every Menu Item.
 
 ## Anatomy
 
-A Menu consists of:
+Logical item anatomy:
 
-1. **Trigger** — opens and closes the Menu.
-2. **Menu container** — the floating layer that groups the items.
-3. **Menu item** — one action or destination.
-4. **Optional start or end icon** — supports recognition or communicates a secondary property.
-5. **Optional divider** — separates meaningful groups.
-6. **Optional danger item** — communicates a destructive action.
+1. **Start** — optional checked indicator or optional start/action icon.
+2. **Label** — one clear primary label.
+3. **End** — optional shortcut metadata or submenu indicator.
 
-The container and items are separate surface roles. The container owns the raised surface and elevation. Items remain transparent at rest and add interaction overlays within that container.
+Authoring constraints:
 
-## Container Surface
+- Checked indicator and ordinary Start icon are normally mutually exclusive.
+- Shortcut metadata and Submenu indicator are normally mutually exclusive.
+- Do not use trailing metadata to repeat a submenu's selected value.
+- Group labels and dividers are non-interactive.
 
-Use `surface/raised` for the standard Menu container.
+## Size and density
 
-```text
-Menu container background → surface/raised
-Menu depth                → approved menu elevation or shadow
-```
+Menu Size aligns 1:1 with the trigger/control baseline.
 
-`surface/raised` is a Color role, not a shadow token. Both are required when the Menu needs visible depth:
+| Size | Menu Item height |
+|---|---:|
+| Extra Small | 28px |
+| Small | 32px |
+| Medium | 40px |
+| Large | 48px |
 
-- In Light mode, `surface/raised` may match `surface/default`; elevation creates most of the visual separation.
-- In Dark mode, `surface/raised` may resolve differently from `surface/default`, so a floating layer remains distinguishable even when a dark shadow is weak.
+Shared item geometry:
 
-v4 has no root `canvas` role. Page/workspace structure uses `surface/default`, `surface/inset`, or another approved structural Surface according to hierarchy.
+- horizontal padding: `12px`;
+- item radius: Control radius `6px`;
+- label: `Body/Compact/SM` = 14/20 Regular;
+- item icons: `16px`.
 
-Do not use `surface/default` for standard floating menus, popovers, dropdowns, or similar elevated layers. Reserve `surface/default` for ordinary in-flow containers and structural surfaces.
+Menu shell geometry:
 
-## Code Mapping Status
+- default width: `200px`;
+- minimum width: `160px`;
+- maximum width: `320px`;
+- shell padding: `4px`;
+- shell radius: Surface radius `12px`;
+- shell fill: `surface/raised`;
+- elevation: `Shadow/Floating`.
 
-The implementation mapping for slash-grouped Color variables is still open. Flattened identifiers shown below are **proposed/illustrative names**, not an approved production code-token API.
+The 320px maximum is the JV v1 authoring ceiling so Persian labels and trailing metadata have more usable space than the legacy menu.
 
-## Menu Item Color Mapping
+## Width, wrapping, and long labels
 
-### Standard item
+Menu Items are single-line.
 
-| Element or state | Figma variable | Proposed flattened code name |
-|---|---|---|
-| Rest background | Transparent | Transparent |
-| Hover background | `surface/transparent-hover` | `surface-transparent-hover` |
-| Active background | `surface/transparent-active` | `surface-transparent-active` |
-| Label and actionable icon | `fg/primary` | `fg-primary` |
-| Disabled label and icon | `fg/disabled` | `fg-disabled` |
-| Focus indicator | `focus/default` | `focus-default` |
-| Divider | `line/muted` | `line-muted` |
+- Do not wrap the primary label.
+- Long labels use ending ellipsis.
+- Increase Menu width only within `160–320px` before relying on truncation.
+- Shortcut/submenu metadata keeps its own End space and must not overlap the label.
+- Essential meaning must not exist only in the truncated suffix; rewrite the label or provide equivalent accessible context.
+- Menu may be wider than its trigger, but must never resize the trigger.
 
-The item must not receive `surface/raised` or `surface/default` at rest. The Menu container already provides the surface; the item is an interaction layer inside it.
+## Supported item types
 
-### Selected/current item
+### Standard action
 
-When a Menu represents a persistent current choice, use the v4 selected-container role rather than Brand:
+Default treatment for ordinary commands.
 
-```text
-Selected/current item background → surface/selected
-Selected/current item hover      → surface/selected-hover only when the selected item remains interactive
-Content                           → fg/primary
-Optional chromatic cue            → fg/accent or line/accent when component anatomy requires it
-```
+### Danger action
 
-Selection is a component state; do not recreate the removed v3 selected Color matrix.
+Use `Tone=Danger` for destructive or difficult-to-reverse commands.
 
-### Danger item
+Danger is a **content tone**, not an interaction state. Hover and Active continue to use the shared neutral interaction overlays. Prefer destructive items at the end of a group/list where practical.
 
-| Element or state | Figma variable | Proposed flattened code name |
-|---|---|---|
-| Rest background | Transparent | Transparent |
-| Rest label and icon | `fg/danger` | `fg-danger` |
-| Hover background | `surface/transparent-hover` | `surface-transparent-hover` |
-| Active background | `surface/transparent-active` | `surface-transparent-active` |
-| Hover and Active label/icon | `fg/danger` | `fg-danger` |
+### Disabled action
 
-A destructive item should not become a solid danger-filled row on Hover. Filled Danger treatment is reserved for a high-emphasis destructive action, not ordinary Menu feedback.
+Use `State=Disabled`. Disabled visually wins over Default/Danger tone and cannot activate.
+
+### Checked action
+
+Use `Checked=True` for persistent command/toggle state inside a Menu.
+
+The check indicator is the persistent state cue. v1 does not add a separate selected-background state axis. Runtime uses `menuitemcheckbox` or `menuitemradio` semantics only when the interaction truly represents checkable/radio command state.
+
+### Submenu trigger
+
+Use `Submenu=True`. The submenu indicator occupies logical End. In the RTL-authored JV source it points left, toward the submenu opening direction.
+
+Submenu placement, collision, hover-open timing, and portal behavior are runtime-owned.
+
+## Grouping and separators
+
+Use `Menu Group Label / Default` when a visible group name improves comprehension. Use `Menu Divider / Default` between meaningful groups, not between every item.
+
+Runtime grouping must preserve semantic grouping. Visible group labels provide the group accessible name; separators are non-focusable and non-interactive.
+
+## Visual states and tokens
+
+### Container
+
+| Role | Token / style |
+|---|---|
+| Background | `surface/raised` |
+| Elevation | `Shadow/Floating` |
+| Radius | Surface `12px` |
+
+### Standard Menu Item
+
+| State / element | Treatment |
+|---|---|
+| Default background | Transparent |
+| Hover background | `surface/transparent-hover` |
+| Active background | `surface/transparent-active` |
+| Label / actionable icon | `fg/primary` |
+| Secondary shortcut metadata | `fg/secondary` |
+| Disabled content | `fg/disabled` |
+| Focus | shared `Focus/Default` non-layout-affecting ring |
+| Divider | `line/muted` |
+
+### Danger Menu Item
+
+| State / element | Treatment |
+|---|---|
+| Default content | `fg/danger` |
+| Hover background | `surface/transparent-hover` |
+| Active background | `surface/transparent-active` |
+| Hover / Active content | remains `fg/danger` |
+
+Do not use a solid danger-filled row for normal Menu Hover/Active feedback.
 
 ## Focus
 
-Focus uses a non-layout-affecting ring on the full Menu item:
+Focus uses the shared `Focus/Default` effect and must not change item dimensions. Do not use a layout-affecting border.
 
-- Standard Menu on its approved raised surface → `focus/default`
-- If an inverse Menu variant is later explicitly supported → `focus/inverse`
-
-`focus/inverse` does **not** itself establish an inverse Menu variant. The container/item Color recipe for an inverse Menu is not currently approved and must not be inferred from the existence of inverse Semantic tokens.
-
-Do not use a layout-affecting border for keyboard Focus.
-
-## Elevation
-
-Apply the shared Menu elevation independently from the background color. The exact shadow value remains owned by the elevation-token specification.
-
-Rules:
-
-- Do not encode the shadow inside `surface/raised`.
-- Do not use a darker or lighter Primitive directly to simulate elevation.
-- Do not remove the raised color role merely because the Light mapping may equal `surface/default`.
-- Validate the Menu against both its page background and any parent container in Light and Dark modes.
-
-## Figma Token Migration
-
-Update legacy/current bindings using this mapping:
-
-| Current binding or treatment | v4 binding or treatment |
-|---|---|
-| Menu container `canvas` | `surface/raised` |
-| Item Rest white/background layer | Transparent |
-| `background-or-layer-hover` | `surface/transparent-hover` |
-| `background-or-layer-active` | `surface/transparent-active` |
-| Item label legacy secondary | `fg/primary` |
-| Disabled label legacy binding | `fg/disabled` |
-| Divider legacy binding | `line/muted` |
-| Focus border | Non-layout-affecting ring using `focus/default` |
-| Solid filled Danger Hover | Transparent interaction background + `fg/danger` |
-
-Keep the existing Menu shadow until the shared elevation-token document replaces it. Changing the color binding does not remove the need for elevation.
+Runtime should show the focus treatment for keyboard navigation under the shared `:focus-visible` contract.
 
 ## Interaction
 
-- Opening the trigger displays the Menu above surrounding content.
-- Clicking or tapping an enabled item performs its action and normally closes the Menu.
-- `Escape` closes the Menu and returns focus to its trigger.
+- Opening a trigger reveals Menu without changing trigger dimensions.
+- Activating an enabled terminal command normally executes it and closes the Menu.
+- `Escape` closes and returns focus to the invoking trigger/context.
 - Clicking outside closes the Menu.
-- Disabled items do not perform an action and do not receive Hover or Active treatment.
-- Avoid keeping a Menu open after navigation or after an action that changes the relevant context.
+- `Tab` / `Shift+Tab` close the Menu and move focus out rather than walking through Menu Items.
+- A submenu item opens its nested Menu rather than executing a terminal command.
 
-## Accessibility
+A checkable command may remain open while toggling several related options when the product flow requires it. That choice is runtime/product-owned and must not be inferred from Figma.
 
-- Use a native button for an action item and a native link for navigation.
-- Give the trigger an accessible name and expose its expanded state.
-- Move focus into the Menu when it opens when using an application-menu interaction model.
-- Support arrow-key movement between enabled items when implementing `role="menu"` and `role="menuitem"`.
-- Skip disabled items during arrow-key navigation.
-- Keep visible focus on every keyboard-reachable item.
-- Ensure the Menu is not clipped by parent overflow and remains perceivable at supported zoom levels.
+## Keyboard and accessibility contract
 
-Do not apply ARIA menu roles to a simple list of links unless the full application-menu keyboard model is implemented. Native link and button semantics are preferable for ordinary website navigation lists.
+JV Menu follows the WAI-ARIA application-menu interaction model.
 
-## Usage
+### Roles
 
-Use Menu for:
+- container: `role="menu"`;
+- ordinary item: `role="menuitem"`;
+- checkable item: `role="menuitemcheckbox"` or `role="menuitemradio"`;
+- checked state: `aria-checked`;
+- disabled item: `aria-disabled="true"`;
+- submenu trigger: expose submenu relationship and expanded state;
+- divider: separator semantics and not focusable;
+- groups: appropriate group semantics and accessible group naming.
 
-- Contextual actions on a row, card, record, or object
-- Overflow actions that do not fit in the primary layout
-- Compact selection among a small set of destinations or commands
+### Opening and focus
 
-Do not use Menu for:
+When opened from a Menu Button, overflow trigger, or Combo Button, move focus into Menu and normally focus the first Menu Item.
 
-- Primary actions that should remain visible
-- Long forms or complex multi-step tasks
-- Large navigation structures that need persistent orientation
-- Content that requires comparison while the layer is closed
+### Inside Menu
 
-## Open Decisions
+- `ArrowDown` / `ArrowUp` move among Menu Items.
+- `Home` / `End` move to first / last Menu Item.
+- Printable-character typeahead moves to the next matching item.
+- `Enter` activates a terminal item; on a submenu trigger it opens the submenu.
+- `Space` activates/toggles according to item role.
+- `Escape` closes the current Menu/submenu and returns focus to its invoker.
+- `Tab` / `Shift+Tab` close the Menu and move focus out.
+- Disabled Menu Items remain discoverable in arrow-key navigation but cannot activate, following WAI-ARIA APG Menu convention.
+- Group labels and separators are skipped because they are not Menu Items.
 
-1. Finalize the shared Menu elevation token and map the current Figma shadow to it.
-2. Confirm whether Danger items keep `fg/danger` during Hover and Active across every product theme after contrast testing.
-3. Confirm the default keyboard model for action menus versus ordinary navigation lists.
-4. Update the Figma component bindings after v4 aliases are finalized.
-5. Define the full container/item recipe before declaring an inverse Menu variant supported.
+Submenu Left/Right keyboard behavior follows the standard Menu pattern and active document direction. Runtime must mirror directional behavior under RTL rather than hard-code LTR assumptions.
 
-## Related Documents
+The exact focus implementation—roving `tabindex` versus `aria-activedescendant`—is runtime-owned. The resulting behavior above is the contract.
 
-- `../tokens/jobvision-color-tokens-v4-surface-model.md`
-- `../tokens/color-token-aliases.md`
-- `../tokens/semantic-tokens.md`
-- `../tokens/usage-rules.md`
-- `../experience-rules/selection.md`
+## RTL
+
+Figma is authored for RTL.
+
+- Start = right;
+- End = left;
+- checked/start icon = logical Start;
+- shortcut/submenu indicator = logical End;
+- label is right-aligned;
+- submenu chevron points toward submenu opening direction.
+
+Runtime uses logical positioning/document direction. In LTR, Start/End and submenu direction mirror naturally.
+
+## Placement and collision boundary
+
+Menu owns visual surface, content, width limits, and menu semantics.
+
+The trigger/overlay runtime owns anchor reference, preferred placement, collision detection, flip/shift behavior, viewport padding, portal/layer strategy, and dismissal wiring.
+
+When attached to Menu Button or Combo Button, preserve the shared **2px** trigger-to-surface gap. Do not create placement variants in Menu.
+
+## Benchmarks used
+
+The v1 contract was reviewed against WAI-ARIA APG Menu/Menu Button, Primer ActionMenu/ActionList, Carbon Menu, and Radix Dropdown Menu.
+
+JV deliberately differs from Carbon Extra Small sizing: JV uses the shared 28px control baseline rather than Carbon's 24px menu option.
+
+References:
+
+- https://www.w3.org/WAI/ARIA/apg/patterns/menubar/
+- https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/
+- https://primer.style/product/components/action-menu/
+- https://primer.style/product/components/action-list/
+- https://carbondesignsystem.com/components/menu/style/
+- https://www.radix-ui.com/primitives/docs/components/dropdown-menu
+
+## Runtime boundary
+
+Runtime component source, package/API, Storybook identity, and Code Connect mapping are currently unregistered.
+
+Therefore this document does **not** assert exact Angular component/tag name, prop/event names, DOM nesting, focus-management technique, portal library, collision engine, submenu timing, animation timing, or Storybook story ID.
+
+Implementation must satisfy this design/accessibility contract, but exact runtime API details remain unverified until an owning source is registered.
+
+## Legacy / migration
+
+Figma retains two published legacy assets only so old instances remain resolvable:
+
+- `Legacy / Keyboard shortcut` — key `e2113c87df4d0d02d41477f4c706fb6b30a6437a`;
+- `Legacy / Overflow menu` — key `89d20a2413e0b877ce2d9c358ce75bb903155bfb`.
+
+Do not use them in new designs.
+
+The old Menu `Function=Simple/Complex` axis, item Divider/Spacer/Indented booleans, 24px Extra Small size, and Danger-as-state model are retired.
+
+## QA checklist
+
+Verify:
+
+- Menu has exactly 4 Size variants and one native `Content` Slot;
+- Menu Item has exactly `4 Size × 5 State = 20` variants;
+- heights are `28 / 32 / 40 / 48`; 
+- Menu width is within `160–320px`; 
+- shell uses `surface/raised + Shadow/Floating + 12px radius`; 
+- item radius is 6px and horizontal padding 12px;
+- long labels are single-line with ending ellipsis;
+- Hover / Active / Focus / Disabled use semantic treatments;
+- Danger is Tone, not State;
+- Checked / Start icon and Shortcut / Submenu authoring constraints are respected;
+- groups/dividers are composed at Menu level;
+- RTL Start/End anatomy and submenu direction are correct;
+- real instances can replace Menu Slot content without detaching;
+- Menu Button and Combo Button sizes map 1:1 to Menu size, including Extra Small;
+- disabled items cannot activate;
+- keyboard behavior follows the Menu composite contract;
+- runtime API facts remain unverified where no owning source exists.
+
+## Related documents
+
+- `menu-button.md`
+- `combo-button.md`
+- `select.md`
+- `../experience-rules/contextual-guidance.md`
+- `../accessibility/core.md`
+- `../accessibility/component-accessibility-authoring-contract.md`
+- `../accessibility/focus-management.md`
+- `../integrations/component-mapping.md`
