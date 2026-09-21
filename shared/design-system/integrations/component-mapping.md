@@ -7,7 +7,7 @@ summary: Registry contract for mapping stable Figma component identities to runt
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: '2026-09-20'
+last_reviewed: '2026-09-21'
 related:
   - design-system.reference.figma
   - design-system.reference.code
@@ -109,7 +109,7 @@ The Icon Button design identity and current Figma property model are verified. I
 | Figma variant properties | `Size` |
 | Figma content properties | `Content` native SLOT |
 | Variant count | `4 = 4 Size` |
-| Figma sizes | `Extra Small 28 / Small 32 / Medium 40 / Large 48` item baseline |
+| Figma sizes | `Extra Small 28 / Small 32 / Medium 40 / Large 48` item baseline; default `Medium` |
 | Menu width | `160px min / 200px default / 320px max` |
 | Menu surface | `surface/raised + Shadow/Floating + 12px Surface radius` |
 | Menu Item set | `Menu Item / Default` |
@@ -127,7 +127,7 @@ The Icon Button design identity and current Figma property model are verified. I
 | Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-09-20 |
+| Last Figma verification | 2026-09-21 |
 
 The Menu design identity, action/command boundary, Menu/Menu Item composition, Size/State model, grouping helpers, RTL geometry, semantic visual treatments, width/truncation rules, and accessibility contract are verified in `../components/menu.md`. Runtime API, exact DOM/focus implementation, overlay/positioning engine, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime source is registered.
 
