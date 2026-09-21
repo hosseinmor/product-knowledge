@@ -138,7 +138,7 @@ Logical item anatomy:
 Authoring constraints:
 
 - `Layout=Simple` is for menus where no item uses a leading icon/check indicator; the leading column collapses completely.
-- `Layout=Complex` reserves a 16px logical Start column across every item. Use it when any item in the menu uses a Start icon, checked/selection indicator, or another approved leading visual.
+- `Layout=Complex` reserves a 16px logical Start column across every item. Use it when any item in the menu uses a Start icon, checked/selection indicator, or another approved leading visual. Default Figma authoring content shows the shared Start icon; individual items may hide or swap it.
 - In a Complex Menu, an item with no visible leading visual keeps the 16px slot empty so labels remain aligned with neighboring items.
 - Checked indicator and ordinary Start icon are normally mutually exclusive.
 - Shortcut metadata and Submenu indicator are normally mutually exclusive.
@@ -159,6 +159,7 @@ Menu Size aligns 1:1 with the trigger/control baseline. The canonical default is
 Shared item geometry:
 
 - Complex leading column: fixed `16px`; Simple leading column: collapsed;
+- Leading and Trailing containers are transparent and must not add their own background fill;
 - horizontal padding: `12px`;
 - item radius: Control radius `6px`;
 - label: `Body/Compact/SM` = 14/20 Regular;
@@ -377,8 +378,9 @@ Verify:
 - long labels are single-line with ending ellipsis;
 - Hover / Active / Focus / Disabled use semantic treatments;
 - Danger is Tone, not State;
-- Simple collapses the leading column completely; Complex reserves exactly 16px across items;
+- Simple collapses the leading column completely; Complex reserves exactly 16px across items and default Figma content shows a Start icon;
 - any menu containing a Start icon or checked/selection indicator uses Complex layout, including blank reserved slots on neighboring items;
+- Leading and Trailing containers remain transparent in every Tone;
 - Checked / Start icon and Shortcut / Submenu authoring constraints are respected;
 - groups/dividers are composed at Menu level;
 - RTL Start/End anatomy and submenu direction are correct;
