@@ -8,7 +8,7 @@ knowledge_state: verified
 document_maturity: reviewed
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: 2026-09-20
+last_reviewed: 2026-09-21
 source_figma: https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=17332-167748
 source_node: 17332:167748
 related:
@@ -81,7 +81,7 @@ The v1 canonical Menu is action/command-oriented. Do not use it as the default p
 
 | Property | Type | Values / behavior |
 |---|---|---|
-| `Size` | Variant | `Extra Small / Small / Medium / Large` |
+| `Size` | Variant | `Extra Small / Small / Medium / Large`; default `Medium` |
 | `Content` | Native Slot | Compose Menu Item, Menu Group Label, Menu Divider, and approved Menu content |
 
 ### Menu Item
@@ -142,7 +142,7 @@ Authoring constraints:
 
 ## Size and density
 
-Menu Size aligns 1:1 with the trigger/control baseline.
+Menu Size aligns 1:1 with the trigger/control baseline. The canonical default is `Medium` (40px) for both Menu and Menu Item.
 
 | Size | Menu Item height |
 |---|---:|
@@ -360,8 +360,8 @@ The old Menu `Function=Simple/Complex` axis, item Divider/Spacer/Indented boolea
 
 Verify:
 
-- Menu has exactly 4 Size variants and one native `Content` Slot;
-- Menu Item has exactly `4 Size × 5 State = 20` variants;
+- Menu has exactly 4 Size variants and one native `Content` Slot, with `Medium` as the default Size;
+- Menu Item has exactly `4 Size × 5 State = 20` variants, with `Medium + Default` as the default variant;
 - heights are `28 / 32 / 40 / 48`; 
 - Menu width is within `160–320px`; 
 - shell uses `surface/raised + Shadow/Floating + 12px radius`; 
