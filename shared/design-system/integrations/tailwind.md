@@ -7,7 +7,7 @@ summary: Defines the Design System boundary for Tailwind consumption across Colo
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-09-12
+last_reviewed: 2026-09-21
 related:
   - design-system.token.architecture
   - design-system.token.semantic-tokens
@@ -105,17 +105,19 @@ See the Spacing Foundation for the canonical values and shared keys.
 
 ## Radius
 
-Product Tailwind may expose the small role-based Radius set directly:
+Product Tailwind may expose the canonical Radius scale directly:
 
 ```text
 rounded-none
-rounded-control
-rounded-surface
+rounded-small
+rounded-medium
 rounded-large
 rounded-full
 ```
 
-Tailwind's default radius scale is not canonical for Design System-governed surfaces and controls.
+The Design System values are `0 / 3 / 6 / 12 / Full`; Tailwind's default radius scale is not canonical for Design System-governed components.
+
+Legacy `rounded-control` and `rounded-surface` mappings are deprecated migration aliases. The former 20px large-surface value is not canonical; any temporary legacy adapter must use a distinct legacy name rather than `rounded-large`.
 
 ## Typography
 
