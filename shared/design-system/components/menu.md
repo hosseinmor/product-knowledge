@@ -113,7 +113,7 @@ The leading underscore marks an internal authoring dependency, not a standalone 
 | `Leading` | Boolean | Internal 16px logical Start slot; Menu `Layout` controls this automatically in default composition |
 | `Checked` | Boolean | Shows the checked indicator |
 | `Show start icon` | Boolean | Shows an optional leading/action icon |
-| `Start icon` | Instance swap | Shared icon-library source |
+| `Start icon` | Instance swap | Shared icon-library source; consumer must explicitly override icon color |
 | `Show shortcut` | Boolean | Shows shortcut metadata |
 | `Shortcut` | Text | Shortcut text |
 | `Submenu` | Boolean | Shows submenu indicator |
@@ -160,6 +160,7 @@ Shared item geometry:
 
 - Complex leading column: fixed `16px`; Simple leading column: collapsed;
 - Leading and Trailing containers are transparent and must not add their own background fill;
+- icon-library components intentionally keep a fixed base color; Menu Item consumers must explicitly override icon color rather than inherit the library default;
 - horizontal padding: `12px`;
 - item radius: Control radius `6px`;
 - label: `Body/Compact/SM` = 14/20 Regular;
@@ -239,7 +240,7 @@ Runtime grouping must preserve semantic grouping. Visible group labels provide t
 | Default background | Transparent |
 | Hover background | `surface/transparent-hover` |
 | Active background | `surface/transparent-active` |
-| Label / actionable icon | `fg/primary` |
+| Label / actionable icon | `fg/primary` — explicit override on icon instances |
 | Secondary shortcut metadata | `fg/secondary` |
 | Disabled content | `fg/disabled` |
 | Focus | shared `Focus/Default` non-layout-affecting ring |
@@ -249,7 +250,7 @@ Runtime grouping must preserve semantic grouping. Visible group labels provide t
 
 | State / element | Treatment |
 |---|---|
-| Default content | `fg/danger` |
+| Default content | `fg/danger` — explicit override on icon instances |
 | Hover background | `surface/transparent-hover` |
 | Active background | `surface/transparent-active` |
 | Hover / Active content | remains `fg/danger` |
@@ -381,6 +382,7 @@ Verify:
 - Simple collapses the leading column completely; Complex reserves exactly 16px across items and default Figma content shows a Start icon;
 - any menu containing a Start icon or checked/selection indicator uses Complex layout, including blank reserved slots on neighboring items;
 - Leading and Trailing containers remain transparent in every Tone;
+- every Menu Item icon has an explicit semantic color override: Default → `fg/primary`, Danger → `fg/danger`, Disabled → `fg/disabled`; after any icon swap, verify the override is still present;
 - Checked / Start icon and Shortcut / Submenu authoring constraints are respected;
 - groups/dividers are composed at Menu level;
 - RTL Start/End anatomy and submenu direction are correct;
