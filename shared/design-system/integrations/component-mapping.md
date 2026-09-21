@@ -122,10 +122,11 @@ The Icon Button design identity and current Figma property model are verified. I
 | Menu Item content properties | `Label / Leading / Checked / Show start icon / Start icon / Show shortcut / Shortcut / Submenu` |
 | Menu Item anatomy | Flat direct children: `Trailing + Label + Leading`; no active nested Menu Item Content component |
 | Leading rule | `Leading=false` collapses the Start column; `Leading=true` reserves `16px`; Leading/Trailing containers are transparent; Menu Layout controls the default composition |
+| Width ownership | Menu owns `160–320px` shell width; Menu Item has no independent min/max width and fills the Menu content slot |
 | Icon color override | Shared icon components keep a fixed base color; Menu Item explicitly overrides icons by Tone/State: Default → `fg/primary`, Danger → `fg/danger`, Disabled → `fg/disabled`; re-check after icon swap |
 | Group Label | `Menu Group Label / Default`, node `23038:129820`, key `ae3dbe7236e339083cccd60ad047306201c0f6c6` |
 | Divider | `Menu Divider / Default`, node `23038:129822`, key `8cb217e111f87fa16785890815d769083ac7e5ec` |
-| Legacy migration assets | `Legacy / Menu Item Content` key `3c4735684b5eb1146dab273119bcc59dbceee8aa`; `Legacy / Keyboard shortcut` key `e2113c87df4d0d02d41477f4c706fb6b30a6437a`; `Legacy / Overflow menu` key `89d20a2413e0b877ce2d9c358ce75bb903155bfb` |
+| Legacy migration assets | `Legacy / Menu Item Content` key `3c4735684b5eb1146dab273119bcc59dbceee8aa`; `Legacy / Keyboard shortcut` key `e2113c87df4d0d02d41477f4c706fb6b30a6437a`; `Legacy / Overflow menu` key `89d20a2413e0b877ce2d9c358ce75bb903155bfb`; retained Overflow Open uses an absolute Menu overlay, `clip content = false`, 2px trigger gap, and unchanged trigger bounds |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified** |
 | Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
