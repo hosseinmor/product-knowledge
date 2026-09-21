@@ -153,6 +153,7 @@ Shared item geometry:
 - Leading and Trailing containers are transparent and must not add their own background fill;
 - icon-library components intentionally keep a fixed base color; Menu Item consumers must explicitly override icon color rather than inherit the library default;
 - horizontal padding: `12px`;
+- Menu owns the `160–320px` width constraint; Menu Item has no independent min/max width and fills the available Menu content slot;
 - item radius: Medium radius `6px`;
 - label: `Body/Compact/SM` = 14/20 Regular;
 - item icons: `16px`.
@@ -319,7 +320,7 @@ Menu owns visual surface, content, width limits, and menu semantics.
 
 The trigger/overlay runtime owns anchor reference, preferred placement, collision detection, flip/shift behavior, viewport padding, portal/layer strategy, and dismissal wiring.
 
-When attached to Menu Button or Combo Button, preserve the shared **2px** trigger-to-surface gap. Do not create placement variants in Menu.
+When attached to Menu Button, Combo Button, or an approved overflow trigger, preserve the shared **2px** trigger-to-surface gap. The open surface must stay outside the trigger's normal layout flow so opening it never changes trigger dimensions. Do not create placement variants in Menu.
 
 ## Benchmarks used
 
@@ -352,7 +353,7 @@ Figma retains three published legacy assets only so old instances remain resolva
 
 - `Legacy / Menu Item Content` — key `3c4735684b5eb1146dab273119bcc59dbceee8aa`; deprecated after flattening Menu Item;
 - `Legacy / Keyboard shortcut` — key `e2113c87df4d0d02d41477f4c706fb6b30a6437a`;
-- `Legacy / Overflow menu` — key `89d20a2413e0b877ce2d9c358ce75bb903155bfb`.
+- `Legacy / Overflow menu` — key `89d20a2413e0b877ce2d9c358ce75bb903155bfb`. Its retained Figma open variants place Menu as an absolute overlay with `clip content = false` and a 2px trigger gap, so Open does not change the trigger/component bounds.
 
 Do not use them in new designs.
 
@@ -366,7 +367,7 @@ Verify:
 - Menu Item has exactly `4 Size × 5 State × 2 Tone = 40` variants, with `Medium + Default + Default Tone` as the default variant;
 - Menu Item anatomy is flat (`Trailing + Label + Leading`) with no active nested Menu Item Content component;
 - heights are `28 / 32 / 40 / 48`; 
-- Menu width is within `160–320px`; 
+- Menu width is within `160–320px`; Menu Item has no independent min/max width and fills the inner content width (for a 160px Menu with 4px shell padding, items fill 152px);
 - shell uses `surface/raised + Shadow/Floating + 12px radius`; 
 - item radius is 6px and horizontal padding 12px;
 - long labels are single-line with ending ellipsis;
@@ -381,6 +382,7 @@ Verify:
 - RTL Start/End anatomy and submenu direction are correct;
 - real instances can replace Menu Slot content without detaching;
 - Menu Button and Combo Button sizes map 1:1 to Menu size, including Extra Small;
+- Menu Button, Combo Button, and retained legacy Overflow open states keep Menu outside normal layout flow with a 2px gap and do not grow the trigger/control bounds;
 - disabled items cannot activate;
 - keyboard behavior follows the Menu composite contract;
 - runtime API facts remain unverified where no owning source exists.
