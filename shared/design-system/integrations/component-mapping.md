@@ -116,15 +116,16 @@ The Icon Button design identity and current Figma property model are verified. I
 | Menu Item set | `Menu Item / Default` |
 | Menu Item key | `77d84f9c0d0377652a87f13ef915c65412655073` |
 | Menu Item node ID | `17332:167436` |
-| Menu Item variants | `20 = 4 Size × 5 State` |
+| Menu Item variants | `40 = 4 Size × 5 State × 2 Tone` |
 | Menu Item states | `Default / Hover / Active / Focus / Disabled` |
-| Item content helper | `_Menu Item Content`, node `23038:127151`, key `3c4735684b5eb1146dab273119bcc59dbceee8aa` |
-| Item content model | `Tone = Default / Danger / Disabled`; Label / Leading / Checked / Start icon / Shortcut / Submenu exposed composition |
+| Menu Item tones | `Default / Danger`; Disabled is State and visually overrides Tone |
+| Menu Item content properties | `Label / Leading / Checked / Show start icon / Start icon / Show shortcut / Shortcut / Submenu` |
+| Menu Item anatomy | Flat direct children: `Trailing + Label + Leading`; no active nested Menu Item Content component |
 | Leading rule | `Leading=false` collapses the Start column; `Leading=true` reserves `16px`; Leading/Trailing containers are transparent; Menu Layout controls the default composition |
-| Icon color override | Shared icon components keep a fixed base color; Menu Item explicitly overrides icons by Tone: Default → `fg/primary`, Danger → `fg/danger`, Disabled → `fg/disabled`; re-check after icon swap |
+| Icon color override | Shared icon components keep a fixed base color; Menu Item explicitly overrides icons by Tone/State: Default → `fg/primary`, Danger → `fg/danger`, Disabled → `fg/disabled`; re-check after icon swap |
 | Group Label | `Menu Group Label / Default`, node `23038:129820`, key `ae3dbe7236e339083cccd60ad047306201c0f6c6` |
 | Divider | `Menu Divider / Default`, node `23038:129822`, key `8cb217e111f87fa16785890815d769083ac7e5ec` |
-| Legacy migration assets | `Legacy / Keyboard shortcut` key `e2113c87df4d0d02d41477f4c706fb6b30a6437a`; `Legacy / Overflow menu` key `89d20a2413e0b877ce2d9c358ce75bb903155bfb` |
+| Legacy migration assets | `Legacy / Menu Item Content` key `3c4735684b5eb1146dab273119bcc59dbceee8aa`; `Legacy / Keyboard shortcut` key `e2113c87df4d0d02d41477f4c706fb6b30a6437a`; `Legacy / Overflow menu` key `89d20a2413e0b877ce2d9c358ce75bb903155bfb` |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified** |
 | Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
@@ -132,7 +133,7 @@ The Icon Button design identity and current Figma property model are verified. I
 | Code Connect | **No registered mapping** |
 | Last Figma verification | 2026-09-21 |
 
-The Menu design identity, action/command boundary, Size × Layout model, Simple/Complex leading-column behavior, Menu/Menu Item composition, grouping helpers, RTL geometry, semantic visual treatments, width/truncation rules, and accessibility contract are verified in `../components/menu.md`. Runtime API, exact DOM/focus implementation, overlay/positioning engine, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime source is registered.
+The Menu design identity, action/command boundary, Size × Layout model, flat Menu Item anatomy, Size × State × Tone Menu Item model, grouping helpers, RTL geometry, semantic visual treatments, width/truncation rules, and accessibility contract are verified in `../components/menu.md`. Runtime API, exact DOM/focus implementation, overlay/positioning engine, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime source is registered.
 
 ### Menu Button
 
