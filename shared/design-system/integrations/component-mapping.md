@@ -7,7 +7,7 @@ summary: Registry contract for mapping stable Figma component identities to runt
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: '2026-09-21'
+last_reviewed: 2026-09-21
 related:
   - design-system.reference.figma
   - design-system.reference.code
@@ -112,7 +112,7 @@ The Icon Button design identity and current Figma property model are verified. I
 | Figma sizes | `Extra Small 28 / Small 32 / Medium 40 / Large 48` item baseline; default `Medium` |
 | Menu layouts | `Simple / Complex`; default `Simple`; Simple collapses leading, Complex reserves a `16px` leading column across items; default Complex authoring content shows the shared Start icon |
 | Menu width | `160px min / 200px default / 320px max` |
-| Menu surface | `surface/raised + Shadow/Floating + 12px Surface radius` |
+| Menu surface | `surface/raised + Shadow/Floating + 12px Large radius` |
 | Menu Item set | `Menu Item / Default` |
 | Menu Item key | `77d84f9c0d0377652a87f13ef915c65412655073` |
 | Menu Item node ID | `17332:167436` |
