@@ -481,6 +481,42 @@ The Radio design identity, exact local icon-library sources, Selected × State m
 The Toggle design identity, Size × State × Toggled matrix, label contract, neutral/accent visual treatment, fixed-white Thumb, focus behavior, RTL geometry, motion guidance, and accessibility contract are verified in `../components/switch.md`. Runtime API, exact DOM/event semantics, Storybook identity, exact motion constants, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
 
+### Content Switcher
+
+| Field | Current value |
+|---|---|
+| DS component | Content Switcher |
+| Knowledge document | `../components/content-switcher.md` |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component set | `Content Switcher` |
+| Figma component key | `2d44a4df734823788a122e9a9c73fec3bd6e4ff2` |
+| Figma node ID | `23083:1746` |
+| Figma variant properties | `Size / Content` |
+| Figma content property | `Items` native SLOT |
+| Variant count | `6 = 3 Size × 2 Content` |
+| Figma sizes | `Small 32 / Medium 40 / Large 48` total control height; no XS |
+| Content modes | `Text / Icon`; Icon + Text intentionally unsupported |
+| Default authoring content | 3 equal-width Items; exactly one Selected |
+| Composition | 2–5 Items; count is Slot composition rather than a variant axis; single-line, no wrap |
+| Internal Item set | `_Content Switcher Item`, node `23038:127212`, key `17b39a5fe6a7b1fbd1679202f90e2ca2a45aba35` |
+| Item properties | `State / Label / Icon` |
+| Item states | `Default / Hover / Active / Focus / Disabled / Selected`; Selected is terminal |
+| Size inheritance | Parent Size controls hidden Item height/padding modes; customized Slots continue to inherit Size |
+| Geometry | Track radius 8; Item radius 6; 2px inset; 2px Item gap; no divider |
+| Track | `surface/muted` |
+| Selected | `surface/default + fg/primary` |
+| Icon color override | Shared Icons retain purple guard source color; Item overrides Default → `fg/secondary`, Hover/Active/Focus/Selected → `fg/primary`, Disabled → `fg/disabled`; verified to survive Icon swap |
+| Responsive | Never wrap; Icon-only only when unambiguous, otherwise use Menu/Select |
+| RTL | No RTL/Position variant; compose in logical reading order |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names or DOM/ARIA roles from Figma |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-21 |
+
+The Content Switcher design identity, Size × Content parent model, native Items Slot, State-only internal Item model, inherited sizing, Text/Icon boundary, selected treatment, semantic foreground mapping, equal-width composition, responsive rule, RTL behavior, and accessibility contract are verified in `../components/content-switcher.md`. Runtime API, exact DOM/ARIA and keyboard implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime source is registered.
+
 ## Rules
 
 - Figma property labels do not automatically become code prop names.
