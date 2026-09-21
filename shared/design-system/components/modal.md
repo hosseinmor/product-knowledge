@@ -6,6 +6,7 @@ title: Modal
 summary: Modal creates a temporary blocking interaction context for a focused decision or task.
 knowledge_state: unverified
 document_maturity: draft
+last_reviewed: 2026-09-21
 related:
 - design-system.accessibility.focus-management
 - design-system.accessibility.keyboard-navigation
@@ -38,7 +39,7 @@ Do not choose Modal only because content needs visual emphasis.
 
 ## Choices
 
-The final shared size/variant model is not yet canonical. Until it is defined:
+The final shared size/variant model is not yet canonical. **Corner radius is canonical: Modal uses `Large = 12px`, and increasing Modal size does not increase its radius.** Until the remaining size/variant model is defined:
 - do not invent reusable size names from one product screen;
 - choose the smallest layout that supports the content without forcing unnecessary scrolling;
 - move complex or long-running work to a page/flow rather than growing Modal indefinitely.
