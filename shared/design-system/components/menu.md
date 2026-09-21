@@ -153,7 +153,7 @@ Shared item geometry:
 - Leading and Trailing containers are transparent and must not add their own background fill;
 - icon-library components intentionally keep a fixed base color; Menu Item consumers must explicitly override icon color rather than inherit the library default;
 - horizontal padding: `12px`;
-- item radius: Control radius `6px`;
+- item radius: Medium radius `6px`;
 - label: `Body/Compact/SM` = 14/20 Regular;
 - item icons: `16px`.
 
@@ -163,7 +163,7 @@ Menu shell geometry:
 - minimum width: `160px`;
 - maximum width: `320px`;
 - shell padding: `4px`;
-- shell radius: Surface radius `12px`;
+- shell radius: Large radius `12px`;
 - shell fill: `surface/raised`;
 - elevation: `Shadow/Floating`.
 
@@ -222,7 +222,7 @@ Runtime grouping must preserve semantic grouping. Visible group labels provide t
 |---|---|
 | Background | `surface/raised` |
 | Elevation | `Shadow/Floating` |
-| Radius | Surface `12px` |
+| Radius | Large `12px` |
 
 ### Standard Menu Item
 
