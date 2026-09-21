@@ -3,11 +3,11 @@ id: design-system.foundation.radius
 collection: design-system
 type: foundation
 title: Radius
-summary: Defines the small role-based radius system shared by controls, surfaces, large surfaces, and fully rounded shapes.
+summary: Defines the canonical Small/Medium/Large radius scale shared by controls, surfaces, and fully rounded shapes.
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-09-12
+last_reviewed: 2026-09-21
 related:
   - design-system.reference.tailwind
 ---
@@ -16,36 +16,50 @@ related:
 
 ## Model
 
-Radius is role-based rather than a dense visual-size scale. Choose the role from the UI anatomy instead of selecting a radius only because it looks larger or smaller.
+Radius uses a deliberately small **size scale**. Component specs decide which approved size applies; the Foundation does not encode component anatomy into token names.
 
-## Canonical roles
+The canonical numeric scale is **3 → 6 → 12**. `None` and `Full` are boundary behaviors, not additional steps in that progression.
 
-| Role | Value | Typical use | Tailwind-facing name |
-|---|---:|---|---|
-| None | 0px | Square edges and explicit no-radius cases | `rounded-none` |
-| Control | 6px | Button, Input, Select, Search, dropdown trigger | `rounded-control` |
-| Surface | 12px | Card, Tile, Panel, independent content surface | `rounded-surface` |
-| Large surface | 20px | Dialog, Modal, Drawer, Sheet and other prominent large surfaces | `rounded-large` |
-| Full | 9999px / fully rounded behavior | Tag, Chip, Avatar, Toggle track, circular/pill controls | `rounded-full` |
+## Canonical scale
 
-`Full` is a shape behavior, not the next step in a numeric progression.
+| Token | Figma variable | Value | Typical use | Tailwind-facing name |
+|---|---|---:|---|---|
+| None | `0px · None` | 0px | Square edges and explicit no-radius cases | `rounded-none` |
+| Small | `3px · Small` | 3px | Compact detail geometry when a component spec explicitly needs less rounding than Medium | `rounded-small` |
+| Medium | `6px · Medium` | 6px | Standard controls and compact surfaces such as Button, Input, Select, Search, Tooltip and Menu Item | `rounded-medium` |
+| Large | `12px · Large` | 12px | Card, Menu shell, Popover, Toggletip, Coachmark, Modal and other independent/floating surfaces | `rounded-large` |
+| Full | `Full` | 9999px / fully rounded behavior | Tag, Chip, Avatar, Toggle track, circular/pill controls | `rounded-full` |
+
+`Full` is a shape behavior, not the next step in the numeric scale.
 
 ## Usage rules
 
-- Use `Control` for standard interactive controls.
-- Use `Surface` for ordinary independent content containers.
-- Use `Large surface` only for prominent large surfaces; do not use it merely to make a Card feel more expressive.
+- Use only `Small`, `Medium`, or `Large` for ordinary rounded geometry unless a component has an explicitly approved exception.
+- `Medium` is the default radius for standard interactive controls.
+- `Large` is the default for independent and floating surfaces, including Modal. A larger Modal does **not** receive a larger radius.
+- `Small` is intentionally uncommon. Do not choose it merely to create another visual tier.
+- Parent/child containment may use a larger approved radius on the parent than on nested controls. Example: a `Large` container may contain `Medium` items.
+- Do not introduce a dedicated intermediate Group radius. Existing 8px Group usage migrates to `Large = 12px`.
+- Do not use 20px as a shared Design System radius. Existing 20px large-surface usage migrates to `Large = 12px`.
 - Use `Full` only when the component is intentionally pill-shaped or circular.
-- Parent/child containment should preserve hierarchy. A containing surface may use a larger radius than nested controls when that relationship is visually useful.
-- Component-internal geometry may use a local radius without promoting that value into the Foundation.
-- Avoid raw/arbitrary radius values when an approved role already expresses the intended anatomy.
+- Avoid raw/arbitrary radius values when an approved scale value expresses the intended geometry.
 
 ## Tailwind boundary
 
-Product Tailwind may expose the approved role names directly as `rounded-*` utilities. Tailwind's default radius scale is not the Design System source of truth.
+Product Tailwind may expose the approved scale names directly as `rounded-*` utilities. Tailwind's default radius values are not the Design System source of truth.
 
 The Design System package itself does not depend on Tailwind; Product tooling consumes a generated, framework-agnostic radius artifact. Exact preset/config mechanics remain Frontend-owned.
 
 ## Migration
 
-Legacy Figma radius variables may remain hidden temporarily when required to preserve existing bindings. New work should use the canonical role set above.
+The previous role-based and intermediate Figma variables remain deprecated only to preserve legacy bindings during migration:
+
+| Deprecated variable | Canonical replacement |
+|---|---|
+| `Deprecated · 6px Control` | `6px · Medium` |
+| `Deprecated · 12px Surface` | `12px · Large` |
+| `Deprecated · 8px Group` | `12px · Large` |
+| `Deprecated · 20px Large surface` | `12px · Large` |
+| `Deprecated · Legacy 12px` | `12px · Large` |
+
+New or actively maintained components must bind to the canonical variables rather than the deprecated set.
