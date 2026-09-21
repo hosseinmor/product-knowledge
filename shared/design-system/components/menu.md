@@ -90,27 +90,16 @@ The v1 canonical Menu is action/command-oriented. Do not use it as the default p
 - Component set: `Menu Item / Default`
 - Node ID: `17332:167436`
 - Component key: `77d84f9c0d0377652a87f13ef915c65412655073`
-- Matrix: `4 Size × 5 State = 20 variants`
+- Matrix: `4 Size × 5 State × 2 Tone = 40 variants`
+- Active anatomy is flat: `Trailing + Label + Leading` are direct children of Menu Item. There is no active nested Menu Item Content component.
 
 | Property | Type | Values / behavior |
 |---|---|---|
 | `Size` | Variant | `Extra Small / Small / Medium / Large` |
 | `State` | Variant | `Default / Hover / Active / Focus / Disabled` |
-| `Content` | Exposed nested instance | Compositional item content; see below |
-
-### Internal Menu Item content
-
-- Component set: `_Menu Item Content`
-- Node ID: `23038:127151`
-- Component key: `3c4735684b5eb1146dab273119bcc59dbceee8aa`
-
-The leading underscore marks an internal authoring dependency, not a standalone product component.
-
-| Property | Type | Values / behavior |
-|---|---|---|
-| `Tone` | Variant | `Default / Danger / Disabled` |
+| `Tone` | Variant | `Default / Danger`; Disabled remains a State and visually overrides Tone |
 | `Label` | Text | Single-line item label |
-| `Leading` | Boolean | Internal 16px logical Start slot; Menu `Layout` controls this automatically in default composition |
+| `Leading` | Boolean | 16px logical Start slot; Menu `Layout` controls this automatically in default composition |
 | `Checked` | Boolean | Shows the checked indicator |
 | `Show start icon` | Boolean | Shows an optional leading/action icon |
 | `Start icon` | Instance swap | Shared icon-library source; consumer must explicitly override icon color |
@@ -129,11 +118,13 @@ Grouping is Menu composition. Divider/group properties do not belong on every Me
 
 ## Anatomy
 
-Logical item anatomy:
+Logical item anatomy is implemented directly in Menu Item:
 
-1. **Start** — optional checked indicator or optional start/action icon.
+1. **Start / Leading** — optional checked indicator or optional start/action icon.
 2. **Label** — one clear primary label.
-3. **End** — optional shortcut metadata or submenu indicator.
+3. **End / Trailing** — optional shortcut metadata or submenu indicator.
+
+Do not introduce a nested content component for this anatomy.
 
 Authoring constraints:
 
@@ -357,8 +348,9 @@ Implementation must satisfy this design/accessibility contract, but exact runtim
 
 ## Legacy / migration
 
-Figma retains two published legacy assets only so old instances remain resolvable:
+Figma retains three published legacy assets only so old instances remain resolvable:
 
+- `Legacy / Menu Item Content` — key `3c4735684b5eb1146dab273119bcc59dbceee8aa`; deprecated after flattening Menu Item;
 - `Legacy / Keyboard shortcut` — key `e2113c87df4d0d02d41477f4c706fb6b30a6437a`;
 - `Legacy / Overflow menu` — key `89d20a2413e0b877ce2d9c358ce75bb903155bfb`.
 
@@ -371,7 +363,8 @@ The old Menu `Function=Simple/Complex` semantics are retired. The current `Layou
 Verify:
 
 - Menu has exactly `4 Size × 2 Layout = 8` variants and one native `Content` Slot, with `Medium + Simple` as the default variant;
-- Menu Item has exactly `4 Size × 5 State = 20` variants, with `Medium + Default` as the default variant;
+- Menu Item has exactly `4 Size × 5 State × 2 Tone = 40` variants, with `Medium + Default + Default Tone` as the default variant;
+- Menu Item anatomy is flat (`Trailing + Label + Leading`) with no active nested Menu Item Content component;
 - heights are `28 / 32 / 40 / 48`; 
 - Menu width is within `160–320px`; 
 - shell uses `surface/raised + Shadow/Floating + 12px radius`; 
