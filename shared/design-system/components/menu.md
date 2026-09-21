@@ -76,12 +76,13 @@ The v1 canonical Menu is action/command-oriented. Do not use it as the default p
 - Component set: `Menu / Default`
 - Node ID: `17332:167748`
 - Component key: `5b8278235b0cefb99927a2507739afb15ace8f3b`
-- Matrix: `4 Size = 4 variants`
+- Matrix: `4 Size × 2 Layout = 8 variants`
 - Native content property: `Content` SLOT
 
 | Property | Type | Values / behavior |
 |---|---|---|
 | `Size` | Variant | `Extra Small / Small / Medium / Large`; default `Medium` |
+| `Layout` | Variant | `Simple / Complex`; default `Simple` |
 | `Content` | Native Slot | Compose Menu Item, Menu Group Label, Menu Divider, and approved Menu content |
 
 ### Menu Item
@@ -109,6 +110,7 @@ The leading underscore marks an internal authoring dependency, not a standalone 
 |---|---|---|
 | `Tone` | Variant | `Default / Danger / Disabled` |
 | `Label` | Text | Single-line item label |
+| `Leading` | Boolean | Internal 16px logical Start slot; Menu `Layout` controls this automatically in default composition |
 | `Checked` | Boolean | Shows the checked indicator |
 | `Show start icon` | Boolean | Shows an optional leading/action icon |
 | `Start icon` | Instance swap | Shared icon-library source |
@@ -135,6 +137,9 @@ Logical item anatomy:
 
 Authoring constraints:
 
+- `Layout=Simple` is for menus where no item uses a leading icon/check indicator; the leading column collapses completely.
+- `Layout=Complex` reserves a 16px logical Start column across every item. Use it when any item in the menu uses a Start icon, checked/selection indicator, or another approved leading visual.
+- In a Complex Menu, an item with no visible leading visual keeps the 16px slot empty so labels remain aligned with neighboring items.
 - Checked indicator and ordinary Start icon are normally mutually exclusive.
 - Shortcut metadata and Submenu indicator are normally mutually exclusive.
 - Do not use trailing metadata to repeat a submenu's selected value.
@@ -153,6 +158,7 @@ Menu Size aligns 1:1 with the trigger/control baseline. The canonical default is
 
 Shared item geometry:
 
+- Complex leading column: fixed `16px`; Simple leading column: collapsed;
 - horizontal padding: `12px`;
 - item radius: Control radius `6px`;
 - label: `Body/Compact/SM` = 14/20 Regular;
@@ -199,7 +205,7 @@ Use `State=Disabled`. Disabled visually wins over Default/Danger tone and cannot
 
 ### Checked action
 
-Use `Checked=True` for persistent command/toggle state inside a Menu.
+Use `Checked=True` for persistent command/toggle state inside a Menu. A menu containing checked/selectable items uses `Layout=Complex` so selected and unselected labels stay aligned.
 
 The check indicator is the persistent state cue. v1 does not add a separate selected-background state axis. Runtime uses `menuitemcheckbox` or `menuitemradio` semantics only when the interaction truly represents checkable/radio command state.
 
@@ -326,6 +332,8 @@ When attached to Menu Button or Combo Button, preserve the shared **2px** trigge
 
 The v1 contract was reviewed against WAI-ARIA APG Menu/Menu Button, Primer ActionMenu/ActionList, Carbon Menu, and Radix Dropdown Menu.
 
+Primer treats leading visuals as optional and recommends them only when they improve scanability. Carbon similarly distinguishes ordinary options from selectable options and reserves leading space where selection alignment requires it. JV captures that authoring distinction at the Menu level with `Layout=Simple / Complex`.
+
 JV deliberately differs from Carbon Extra Small sizing: JV uses the shared 28px control baseline rather than Carbon's 24px menu option.
 
 References:
@@ -354,13 +362,13 @@ Figma retains two published legacy assets only so old instances remain resolvabl
 
 Do not use them in new designs.
 
-The old Menu `Function=Simple/Complex` axis, item Divider/Spacer/Indented booleans, 24px Extra Small size, and Danger-as-state model are retired.
+The old Menu `Function=Simple/Complex` semantics are retired. The current `Layout=Simple/Complex` axis is intentionally narrower: it controls only whether the 16px leading column is collapsed or reserved. Legacy item Divider/Spacer/Indented booleans, 24px Extra Small size, and Danger-as-state are also retired.
 
 ## QA checklist
 
 Verify:
 
-- Menu has exactly 4 Size variants and one native `Content` Slot, with `Medium` as the default Size;
+- Menu has exactly `4 Size × 2 Layout = 8` variants and one native `Content` Slot, with `Medium + Simple` as the default variant;
 - Menu Item has exactly `4 Size × 5 State = 20` variants, with `Medium + Default` as the default variant;
 - heights are `28 / 32 / 40 / 48`; 
 - Menu width is within `160–320px`; 
@@ -369,6 +377,8 @@ Verify:
 - long labels are single-line with ending ellipsis;
 - Hover / Active / Focus / Disabled use semantic treatments;
 - Danger is Tone, not State;
+- Simple collapses the leading column completely; Complex reserves exactly 16px across items;
+- any menu containing a Start icon or checked/selection indicator uses Complex layout, including blank reserved slots on neighboring items;
 - Checked / Start icon and Shortcut / Submenu authoring constraints are respected;
 - groups/dividers are composed at Menu level;
 - RTL Start/End anatomy and submenu direction are correct;
