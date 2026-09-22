@@ -517,6 +517,45 @@ The Toggle design identity, Size × State × Toggled matrix, label contract, neu
 
 The Content Switcher design identity, Size × Content parent model, native Items Slot, State-only internal Item model, inherited sizing, Text/Icon boundary, selected treatment, semantic foreground mapping, equal-width composition, responsive rule, RTL behavior, and accessibility contract are verified in `../components/content-switcher.md`. Runtime API, exact DOM/ARIA and keyboard implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime source is registered.
 
+
+### Filter Chip
+
+| Field | Current value |
+|---|---|
+| DS component | Filter Chip |
+| Knowledge document | `../components/chip.md` |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Trigger component set | `Filter Chip / Trigger` |
+| Trigger component key | `3ba6c8dc36a76632d1569108e024ae47c841a50c` |
+| Trigger node ID | `20783:534` |
+| Trigger variants | `Size / Applied / State` |
+| Trigger variant count | `24 = 2 Size × 2 Applied × 6 State` |
+| Trigger content properties | `Label / Summary / Show leading icon` |
+| Trigger states | `Default / Hover / Active / Focus / Disabled / Open` |
+| Toggle component set | `Filter Chip / Toggle` |
+| Toggle component key | `5571e8e324b47155d7e9fd384aaea289c2e54d89` |
+| Toggle node ID | `20783:128158` |
+| Toggle variants | `Size / Selected / State` |
+| Toggle variant count | `20 = 2 Size × 2 Selected × 5 State` |
+| Toggle content properties | `Label / Show leading icon` |
+| Toggle states | `Default / Hover / Active / Focus / Disabled` |
+| Figma sizes | `Small 32 / Medium 40`; Small default |
+| Radius | `Radius / 6px · Medium`; Full/pill radius is not canonical |
+| Icon geometry | `18px`; shared icon library with component-level foreground override |
+| Focus | shared `Focus/Default` outside focus-visible effect |
+| Content behavior | single-line; parent owns width constraint; constrained runtime labels truncate; group may wrap whole chips |
+| Behavioral boundary | Trigger opens a secondary filter surface; Toggle changes a filter directly; removable/informational values belong to Tag/Token |
+| Deliberate exclusions | no public Color axis; no Assist/Suggestion/Input Chip families in v1 |
+| Legacy Figma | older `Control chip`, close-button/removable-chip, and Carbon-derived artifacts are migration/reference only |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names, DOM/ARIA role, or popup implementation from Figma |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-09-22 |
+
+The Filter Chip design identity, Trigger/Toggle behavioral split, Size × persistent-state × interaction-state matrices, 6px control radius, 18px icon geometry, state/token treatment, single-line/truncation boundary, container-level wrapping, RTL behavior, and accessibility requirements are verified in `../components/chip.md`. Runtime API, exact DOM/ARIA semantics, owning popup implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
+
 ## Rules
 
 - Figma property labels do not automatically become code prop names.
