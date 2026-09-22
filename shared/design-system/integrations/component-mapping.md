@@ -7,7 +7,7 @@ summary: Registry contract for mapping stable Figma component identities to runt
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-09-21
+last_reviewed: 2026-09-22
 related:
   - design-system.reference.figma
   - design-system.reference.code
