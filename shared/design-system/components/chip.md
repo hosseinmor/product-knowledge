@@ -2,13 +2,13 @@
 id: design-system.component.chip
 collection: design-system
 type: component
-title: Filter Chip
-summary: Filter Chip is the canonical compact control for applying filters, either by opening a secondary filter surface or by toggling a filter directly.
+title: Chip
+summary: Chip is the interactive compact-control family for direct selection, committed removable values, disclosure controls, and value-level add/start actions.
 knowledge_state: verified
 document_maturity: reviewed
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: '2026-09-22'
+last_reviewed: '2026-09-23'
 related:
   - design-system.component.tag
   - design-system.component.badge
@@ -18,68 +18,77 @@ related:
   - design-system.reference.component-mapping
 ---
 
-# Filter Chip
+# Chip
 
 ## Purpose
 
-Filter Chip is a compact interactive control used in filter bars and other dense filtering contexts.
+Chip is the compact interactive-control family for value/data interaction.
 
-The canonical family has two behavior-specific components:
+The public family is split by **interaction capability**, not by product use case:
 
-- **Filter Chip / Trigger** — opens a secondary surface where the user chooses or edits filter values.
-- **Filter Chip / Toggle** — applies or removes a filter directly from the chip.
+- **Chip / Selectable** — the value itself is selected or deselected.
+- **Chip / Removable** — a committed value/object can be removed; its body may also be independently actionable.
+- **Chip / Disclosure** — a compact control opens a secondary surface to choose or edit its state.
+- **Chip / Action** — a compact, stateless action starts/adds/configures a value.
 
-Both share the same visual language, sizing, radius, state model, focus treatment, and RTL rules. They are separate component sets because their interaction contracts are meaningfully different.
+A large Chip family is acceptable; a single mega Chip component is not.
 
-## When to Use
+Names such as Choice Chip, Filter Chip, Input Chip, and Suggestion Chip are usage patterns, not public component-set names.
 
-Use Filter Chip when:
+## Boundary with Tag
 
-- users need to scan and operate several filters in a compact horizontal or wrapping group;
-- the control represents filtering, not a general application setting;
-- a filter either opens a secondary selection surface or can be changed directly with one action;
-- applied/selected state should remain visible after interaction.
+**Tag describes. Chip interacts.**
 
-Typical examples include industry, location, salary, remote-work-only, and similar result-list filters.
+Tag remains a separate component:
 
-## When Not to Use
+- passive;
+- descriptive;
+- categorical;
+- non-actionable;
+- non-selectable;
+- may use `tag/{color}/*` because hue carries categorization/grouping meaning.
 
-Do not use Filter Chip for:
+Chip:
 
-- informational metadata or status — use Tag;
-- counts or status indicators — use Badge;
-- entered/removable values or tokenized input values — use the Tag/Token pattern;
-- persisted application settings that take effect immediately — use Toggle;
-- arbitrary actions that do not represent filtering — use Button;
-- Assist, Suggestion, or Input-chip families solely to mirror another design system taxonomy.
+- is interactive;
+- uses shared Semantic color tokens;
+- does not use Tag color tokens;
+- does not introduce Chip-specific color tokens in the current contract.
 
-The first canonical version intentionally does **not** introduce separate Assist, Suggestion, or Input Chip families.
+Example:
 
-## Canonical Figma Model
+- `[Senior]` beside a job title as metadata → Tag.
+- `[Senior]` as a selectable/filter value → Chip / Selectable.
+
+## Shared Geometry and Visual Language
+
+All public Chip sets share the same control recipe:
+
+| Property | Contract |
+|---|---|
+| Small height | `32px` |
+| Medium height | `40px` |
+| Radius | `Radius / 6px · Medium` |
+| Pill / Full radius | Not canonical |
+| Default width | Hug content |
+| Label | Single-line |
+| Direction | RTL-first; use logical start/end |
+| Focus | Shared `Focus/Default` outside ring |
+| Focus geometry | 2px ring + 1px gap/offset |
+| Color | Semantic roles only |
+| Interaction State | `Default / Hover / Active / Focus / Disabled` |
+
+Persistent meaning such as `Selected` or `Applied` is always modeled independently from transient interaction `State`.
+
+The current family intentionally has no public `Type=Filter/Input/Suggestion` axis and no public `Color` axis.
+
+## Public Figma Model
 
 Canonical file: `[DS] Job Vision NEXT`
 
-### Filter Chip / Trigger
+### Chip / Selectable
 
-- Component set: `Filter Chip / Trigger`
-- Figma node ID: `20783:534`
-- Figma component key: `3ba6c8dc36a76632d1569108e024ae47c841a50c`
-- Variant properties:
-  - `Size = Small / Medium`
-  - `Applied = false / true`
-  - `State = Default / Hover / Active / Focus / Disabled / Open`
-- Content properties:
-  - `Label`
-  - `Summary`
-  - `Show leading icon`
-
-`Applied=true` means that the filter currently has an active value. The optional Summary is shown only when Applied is true.
-
-`Open` is a transient interaction state indicating that the owning secondary surface is open. Open and Applied are independent concepts.
-
-### Filter Chip / Toggle
-
-- Component set: `Filter Chip / Toggle`
+- Component set: `Chip / Selectable`
 - Figma node ID: `20783:128158`
 - Figma component key: `5571e8e324b47155d7e9fd384aaea289c2e54d89`
 - Variant properties:
@@ -88,273 +97,494 @@ Canonical file: `[DS] Job Vision NEXT`
   - `State = Default / Hover / Active / Focus / Disabled`
 - Content properties:
   - `Label`
+- Variant count: `20 = 2 Size × 2 Selected × 5 State`
+
+Purpose: use when the value itself is directly selected or deselected.
+
+Canonical usages:
+
+- **Choice/data selection** — e.g. employment type: حضوری / دورکاری / ترکیبی.
+- **Direct filter** — e.g. `[ دورکاری ] → [ ✓ دورکاری ]`.
+
+The component itself does not know whether it is Choice or Filter; the owning group/pattern gives the selection its product meaning.
+
+#### Selected treatment
+
+`Selected=true` uses a check indicator and a persistent selected surface/border/text treatment.
+
+Rules:
+
+- selected state must remain legible outside Hover/Focus;
+- do not communicate selection by color alone;
+- `×` is never a selection indicator;
+- do not add a leading-icon property until a valid recurring use case requires it.
+
+### Chip / Removable
+
+- Component set: `Chip / Removable`
+- Figma node ID: `23124:358`
+- Figma component key: `193062043a2194024cc06c6d45f11b96b4a238b3`
+- Variant properties:
+  - `Size = Small / Medium`
+  - `State = Default / Hover / Active / Focus / Disabled`
+- Content properties:
+  - `Label`
+  - `Detail`
+  - `Show detail`
+  - `Show leading visual`
+  - `Leading visual` instance swap
+- Variant count: `10 = 2 Size × 5 State`
+- Trailing remove affordance: mandatory
+
+Purpose: represent a **committed value/object** that can be removed.
+
+Examples:
+
+- `[ ali@email.com × ]`
+- `[ Figma × ]`
+- `[ Microsoft Word · متوسط × ]`
+- `[ English · B2 × ]`
+
+#### Leading visual
+
+The optional leading visual may be an icon or avatar when the value benefits from recognition. Keep this as content composition; do not add an Icon/Avatar variant axis unless geometry later requires it.
+
+#### Detail
+
+`Detail` is compact secondary value information such as skill level or proficiency. It is content, not a semantic state.
+
+#### Body action
+
+The body may be independently actionable.
+
+Example:
+
+`[ Microsoft Word · متوسط × ]`
+
+- body activation → edit/inspect/open detail such as Level editing;
+- `×` → remove the committed software.
+
+`Body action` is a behavioral capability, **not a Figma variant**, because the current visual/geometry contract does not change.
+
+Runtime requirements:
+
+- body and Remove are independent hit targets;
+- when body is actionable, body and Remove are independent focus targets;
+- do not nest one button inside another;
+- use an appropriate compound-control DOM structure;
+- body action may be edit, inspect, disclosure, or another value-level interaction; do not rename the capability to Disclosure.
+
+### Chip / Disclosure
+
+- Component set: `Chip / Disclosure`
+- Figma node ID: `20783:534`
+- Figma component key: `3ba6c8dc36a76632d1569108e024ae47c841a50c`
+- Variant properties:
+  - `Size = Small / Medium`
+  - `Applied = false / true`
+  - `State = Default / Hover / Active / Focus / Disabled`
+- Content properties:
+  - `Label`
+  - `Summary`
+  - `Show summary`
+- Variant count: `20 = 2 Size × 2 Applied × 5 State`
+- Trailing chevron: mandatory
+
+Purpose: use for compact facets/controls that open a secondary surface such as Popover or Menu to choose or edit state.
+
+Examples:
+
+- `[ صنعت ▾ ] → [ صنعت · ۳ ▾ ]`
+- `[ مدیر ▾ ] → [ مدیر: هلن ▾ ]`
+
+#### Applied versus Open
+
+`Applied` and `Open` are independent concepts:
+
+- `Applied` = the control currently has a committed/applied value;
+- `Open` = the owning secondary surface is currently visible.
+
+The current reviewed Figma treatment has **no distinct visual state for Open**, so Open is runtime-only and is deliberately not a Figma variant.
+
+Do not add `Open` back unless a meaningful, persistent visual difference is designed.
+
+#### Summary
+
+Summary is optional compact applied-state information.
+
+Examples:
+
+- selected count: `· ۳`;
+- selected value: `هلن`.
+
+Rules:
+
+- `Summary` is supplemental content, not another state axis;
+- `Show summary` is available on applied instances;
+- keep Summary compact;
+- Single/Multiple selection is not a Chip property; the owning Popover/Menu/selection surface owns that behavior.
+
+The trailing chevron remains the disclosure affordance after a value is applied. Do not replace it with `×`; clearing belongs to the owning surface unless a separate product pattern is approved.
+
+### Chip / Action
+
+- Component set: `Chip / Action`
+- Figma node ID: `23123:125056`
+- Figma component key: `876535cdb18030fe2d38c6c6221036d770838586`
+- Variant properties:
+  - `Size = Small / Medium`
+  - `State = Default / Hover / Active / Focus / Disabled`
+- Content properties:
+  - `Label`
   - `Show leading icon`
+  - `Leading icon` instance swap
+- Variant count: `10 = 2 Size × 5 State`
 
-`Selected=true` is the persistent direct-filter state. The selected treatment includes the current selection indicator from the canonical Figma component.
+Purpose: a compact, stateless value-level action.
 
-## Anatomy
+Canonical example:
 
-### Trigger
+`[ + Microsoft Word ]`
 
-The Trigger may contain, in logical reading order:
+Activation may open a Level surface. Only after the required value is committed does the representation become:
 
-1. optional leading icon;
-2. Label;
-3. optional Summary when Applied;
-4. required trailing chevron/indicator.
+`[ Microsoft Word · متوسط × ]`
 
-The trailing indicator communicates that activating the chip opens another surface. Do not replace it with a remove icon.
+That lifecycle is:
 
-### Toggle
+`Chip / Action → configure/commit → Chip / Removable`
 
-The Toggle may contain:
+Action has no `Selected`, `Applied`, or `Removable` state.
 
-1. optional leading icon;
-2. Label;
-3. selection indicator when Selected.
+Generic task actions such as “Summarize”, “Generate questions”, or “Edit” remain Button / Tertiary rather than becoming Chip merely because they are compact.
 
-Toggle does not expose an Open state because it does not own a secondary surface.
+## Usage Mapping
 
-### Icon geometry
+| Product/use-case concept | Canonical primitive |
+|---|---|
+| Choice / short compact data selection | Chip / Selectable |
+| Direct filter | Chip / Selectable |
+| Faceted filter / opens Popover or Menu | Chip / Disclosure |
+| Committed input/value/object | Chip / Removable |
+| Available value / add-start action | Chip / Action |
+| Contextual suggestion | Chip / Action only when it is genuinely a value-level compact action |
+| Generic task/utility action | Button / Tertiary |
+| Passive category/metadata | Tag |
 
-Canonical internal icon geometry is `18px`.
+## Visual Grammar
 
-Icons use the shared icon library and their foreground color is overridden by the Filter Chip state treatment where required.
+Use the affordances consistently:
 
-## Sizes and Geometry
+- `✓` = selected;
+- `▾` = disclose/edit through a secondary surface;
+- `×` = remove committed value;
+- `+` = add/start/configure a value.
 
-| Size | Height | Typical use |
-|---|---:|---|
-| Small | 32px | Dense filter bars; canonical default |
-| Medium | 40px | Roomier layouts or when aligned with 40px controls |
+Do not swap these affordances based on superficial visual similarity.
 
-Shared geometry:
+## Group and Pattern Architecture
 
-- Radius: `Radius / 6px · Medium`
-- Internal gap: `6px`
-- Single-line content
-- Width: hug content in Figma; available parent width owns layout constraints
+Do not build one mega `Chip Group` with SelectionMode, RemoveMode, ActionMode, FilterMode, DisclosureMode, and other orthogonal behavior switches.
 
-Reviewed Small defaults:
+Collection behavior belongs to composition/pattern-level contracts.
 
-- Trigger inline padding: logical start `12px`, logical end `10px`
-- Toggle inline padding: `12px` on both sides
+### Choice Group
 
-Do not use Full/pill radius for Filter Chip. The canonical JobVision control radius is Medium = 6px.
+Uses `Chip / Selectable` for short, compact choices.
 
-## States
+Potential group behavior:
 
-### Trigger states
+- `Selection = Single / Multiple`;
+- empty/required policy is separate from Selection mode;
+- horizontal/wrap as the common layout;
+- vertical only when a real product need exists;
+- individual Chips hug content by default.
 
-- **Default** — idle.
-- **Hover** — pointer hover.
-- **Active** — press/activation feedback.
-- **Focus** — keyboard focus-visible treatment.
-- **Disabled** — unavailable and non-operable.
-- **Open** — owning secondary filter surface is currently open.
+`Single` does not imply `Required`.
 
-### Toggle states
+### Filter Pattern
 
-- **Default**
-- **Hover**
-- **Active**
-- **Focus**
-- **Disabled**
+May combine:
 
-Selection is modeled independently through `Selected`, not as another interaction State.
+- `Chip / Selectable` for direct filters;
+- `Chip / Disclosure` for faceted filters.
 
-### Persistent versus transient state
+Example:
 
-Keep these concepts separate:
+`[ ✓ دورکاری ] [ صنعت · ۲ ▾ ] [ مدیر ▾ ]`
 
-- Trigger `Applied` = persistent filter value exists.
-- Trigger `Open` = transient secondary surface visibility.
-- Toggle `Selected` = persistent direct-filter state.
-- Hover / Active / Focus = transient interaction feedback.
+They share one visual language but retain distinct interaction contracts.
 
-Do not encode Applied or Selected only through transient hover/focus styling.
+### Tokenized Input / Selected Values
 
-## Color and Token Contract
+Uses `Chip / Removable`.
 
-Color is semantic state mapping, **not a public variant axis**.
+Examples:
 
-Canonical mappings currently include:
+`[ Ali × ] [ Sara × ] [ input… ]`
 
-- default unselected: `surface/default + line/default + fg/primary`
-- unselected hover: `surface/neutral-muted-hover`
-- unselected active: `surface/neutral-muted-active`
-- selected/applied default: `surface/selected`
-- selected/applied hover: `surface/selected-hover`
-- selected/applied active: currently reuses `surface/selected-hover`
-- disabled: disabled foreground/line treatment; selected-disabled uses the existing selected-disabled surface token
-- focus: preserves the underlying state treatment and adds the shared focus effect
+or
 
-There is currently no dedicated selected-active surface semantic token. Do not create a component-specific chip token solely to manufacture that distinction; revisit the semantic token model if the broader system needs one.
+`[ Word · متوسط × ] [ Excel · پیشرفته × ]`
+
+The owning input/picker controls creation, validation, keyboard navigation, ordering, and collection behavior.
+
+## Software Lifecycle
+
+The software use case intentionally crosses two Chip capabilities.
+
+Before commit:
+
+`[ + Microsoft Word ]` → Chip / Action
+
+Activation opens the Level configuration surface.
+
+Only after the required Level is chosen and committed:
+
+`[ Microsoft Word · متوسط × ]` → Chip / Removable
+
+Then:
+
+- body may reopen Level editing;
+- `×` removes the committed software.
+
+Whether the committed item stays in the same location or moves from Available to Selected is a **product-level collection decision**, not part of the Chip component contract.
+
+The Figma Chip documentation includes a real `Chip / Disclosure` + existing Popover composition example for the Industry filter to make the component/surface boundary explicit.
+
+## State and Token Contract
+
+Color is a semantic state mapping, not a public Chip axis.
+
+Current mappings:
+
+- default: `surface/default + line/default + fg/primary`;
+- unselected/unapplied hover: `surface/neutral-muted-hover`;
+- unselected/unapplied active: `surface/neutral-muted-active`;
+- selected/applied default: `surface/selected`;
+- selected/applied hover: `surface/selected-hover`;
+- selected/applied active: currently reuses `surface/selected-hover`;
+- disabled: shared disabled foreground/line/surface treatment;
+- focus: preserve the underlying persistent state and add the shared focus effect.
+
+There is currently no dedicated `surface/selected-active` semantic token. This is a semantic-token gap, not justification for a Chip-specific color token. Revisit the shared semantic model only if broader controls require that distinction.
+
+Do not:
+
+- create `chip/*` color tokens;
+- borrow `tag/{color}/*`;
+- use Brand color without a semantic role;
+- use Magic except for explicitly AI-specific cases.
 
 ## Focus
 
-Filter Chip uses the shared `Focus/Default` focus treatment.
+All public Chip sets use the shared `Focus/Default` treatment.
 
 Rules:
 
-- visible focus is for keyboard focus-visible behavior;
-- focus must be rendered as the shared outside ring/effect, not by increasing the component's persistent border thickness;
-- parent containers must not clip the focus ring;
-- Focus is independent from Applied/Selected state.
+- visible focus follows keyboard `:focus-visible` behavior;
+- use the outside ring/effect, not border thickening;
+- preserve the underlying Selected/Applied treatment;
+- parent containers must not clip the ring;
+- pointer activation alone need not force keyboard-style focus when the platform's focus-visible algorithm does not require it.
 
-Pointer click alone should not force a keyboard-style focus ring when the runtime platform's `:focus-visible` behavior does not require it.
+For compound Removable Chips, runtime focus must make it clear whether the body or Remove action is focused.
 
-## Content and Long Labels
+## Content, Long Labels, and Layout
 
-Keep labels short and scannable.
-
-The canonical chip is single-line. Do not allow label text to wrap inside one chip.
-
-Figma instances hug their content and intentionally do not fake a runtime maximum width. In constrained layouts:
-
-1. the parent/filter-bar layout owns available width;
-2. long chip labels remain one line;
-3. constrained labels truncate with end ellipsis;
-4. the exact runtime maximum width/measurement strategy remains unverified until the runtime source is registered.
-
-Do not encode a second multiline Filter Chip variant.
-
-### Summary
-
-Trigger Summary is supplemental compact state information, for example a selected-count summary.
+Chips are single-line compact controls.
 
 Rules:
 
-- Summary is visible only when `Applied=true`.
-- Do not show placeholder Summary content in an unapplied Trigger.
-- Keep Summary short enough that the control remains scannable.
-- Detailed selected values belong in the opened filter surface or another appropriate presentation, not as an unbounded chip label.
+- keep labels short and scannable;
+- do not introduce a multiline Chip variant;
+- Figma instances hug content;
+- constrained runtime labels truncate rather than wrap;
+- the parent owns available width and wrapping;
+- wrap whole Chips at the collection level;
+- do not equalize Chip widths by default.
 
-## Groups, Wrapping, and Responsive Behavior
+Exact runtime maximum width and truncation measurement remain unverified until the runtime source is registered.
 
-Filter Chips may be placed next to Button and Search/Input controls in filter bars.
-
-At the group/container level:
-
-- preserve each chip as one intact control;
-- allow the **group** to wrap when horizontal space is insufficient;
-- use the shared spacing system for inter-control gaps;
-- do not stretch individual chips to equal widths by default;
-- do not wrap text inside a chip to solve container pressure.
-
-When a filter bar becomes too dense, prefer container-level wrapping, progressive disclosure, or a consolidated filter entry point rather than creating smaller unsupported chip sizes.
-
-## RTL and Direction
+## RTL
 
 Do not create separate RTL variants.
 
-Use logical start/end behavior:
+Use logical anatomy:
 
-- leading icon stays at logical start;
-- Trigger chevron remains at logical trailing end;
-- selection indicator follows the reviewed Toggle composition;
-- chip groups follow the product's RTL reading/order rules;
-- directional icon assets must follow their own mirroring contract.
+- content ordering follows RTL reading direction;
+- leading visual/icon is logical start;
+- trailing Disclosure chevron is logical end;
+- trailing Remove is logical end;
+- Chip groups follow product RTL ordering;
+- directional icons follow their own shared icon mirroring contract.
 
-The canonical Figma Playground includes RTL examples and wrapping coverage.
+The canonical Playground includes RTL examples.
+
+## Choice vs Other Selection Controls
+
+Selectable Chip does not replace Radio, Checkbox, SelectBox, Segmented Control, or Toggle Button.
+
+### Radio / Radio Group
+
+Use for explicit classic single-selection form controls.
+
+### Checkbox / Checkbox Group
+
+Use for explicit classic multiple-selection form controls.
+
+### Chip / Selectable + Choice Group
+
+Use for compact selection with short labels that benefits from horizontal/wrapped standalone choices.
+
+### SelectBox / SelectBox Group
+
+Use for richer/full-width choices, long labels, descriptions, or survey/onboarding options that need more room.
+
+### Segmented Control
+
+Use for exactly-one connected view/mode switching such as Day / Week / Month or List / Grid.
+
+### Toggle Button
+
+Use for persistent tool state such as Bold / Italic / Pin.
+
+Selectable Chip is for value/data/filter selection and does not need to be connected.
 
 ## Accessibility Contract
 
-Filter Chip must remain a normal keyboard-operable interactive control.
+All public Chip sets must be keyboard operable and expose meaningful accessible names.
 
 Shared requirements:
 
-- expose an accessible name that includes the meaningful Label;
-- support keyboard activation through the runtime's appropriate native/control semantics;
-- show the shared focus-visible treatment for keyboard focus;
-- Disabled controls must not perform their action;
-- do not communicate Applied/Selected state by color alone.
+- Disabled controls do not perform actions;
+- state is not communicated only by color;
+- Focus uses the shared focus-visible treatment;
+- RTL visual order must not break logical keyboard/reading order.
 
-### Trigger
+### Selectable
 
-The runtime must expose that the Trigger controls/opens another surface and must expose its open/closed state to assistive technology using appropriate platform semantics.
+Runtime must expose selected state semantically. Do not infer a specific DOM role or `aria-pressed` solely from the Figma `Selected` property.
 
-When the secondary surface opens, focus management follows the owning surface/popup pattern. Filter Chip itself does not redefine Menu, Popover, Dialog, or Combobox keyboard behavior.
+### Removable
 
-### Toggle
+Remove has its own accessible name, e.g. “Remove Microsoft Word”.
 
-The runtime must expose the direct filter's selected/on state semantically, not only visually.
+If the body is actionable, body and Remove are separate operable/focusable targets with a valid compound-control DOM structure.
 
-The exact runtime element/ARIA implementation is deliberately unverified. Do not infer `aria-pressed`, checkbox semantics, or another concrete API solely from the Figma `Selected` property.
+### Disclosure
+
+Runtime must expose that the control owns/opens a secondary surface and expose open/closed state using appropriate platform semantics.
+
+Focus transfer, dismissal, keyboard navigation, and selection behavior belong to the owning Popover/Menu/selection pattern.
+
+### Action
+
+Expose the value-level action in the accessible name, e.g. “Add Microsoft Word”, rather than relying on the `+` icon alone.
+
+Exact DOM/ARIA choices remain unverified until the runtime implementation is registered.
 
 ## Figma Authoring Rules
 
-- Use `Filter Chip / Trigger` when activation opens a secondary selection/editing surface.
-- Use `Filter Chip / Toggle` when activation directly changes a binary filter.
-- Prefer Small (32px) in dense filter bars; use Medium (40px) when the surrounding control row uses the roomier control height.
-- Keep `Applied` and `Selected` accurate in examples; do not fake persistent state with Hover or Active.
-- Show Trigger Summary only when Applied.
-- Use the optional leading icon only when it improves recognition; do not add decorative icons mechanically.
-- Do not introduce a Color variant.
-- Do not use legacy `Control chip`, `_Chip close button`, or other older page artifacts for new work.
-- Do not detach the canonical component to reintroduce pill radius or an internal thick focus border.
+- Choose the Component Set by interaction capability, not product wording.
+- Keep `Selected` / `Applied` separate from `State`.
+- Do not add product-use-case variants.
+- Do not add `Open` unless it receives a meaningful visual treatment.
+- Do not add Single/Multiple to Disclosure; it belongs to the secondary surface.
+- Use the existing icon library; do not draw ad hoc Chip icons.
+- Override shared icon foreground where the consuming Chip state requires it.
+- Use the canonical 6px radius variable; do not use literal radius or Pill/Full.
+- Do not create `_Chip Base` until repeated maintenance evidence proves a shared private primitive is useful.
+- Do not create new work from legacy Carbon-derived Chip or old Chip Group artifacts.
+
+## Canonical Figma Page
+
+- Figma file key: `rROD8ctH9UfPGAMrRrOzHe`
+- Page: `Chip`, node `13500:300199`
+- Documentation frame: `Chip / Documentation`, node `23111:553`
+- Sections:
+  1. Component Set
+  2. Playground
+  3. Usage & composition
+  4. Migration note
+
+Playground coverage includes:
+
+- employment-type Choice and direct Remote filter;
+- Industry and Manager Disclosure filters;
+- Email recipient;
+- Software + Level;
+- Add Software with `+`;
+- Focus/Disabled states;
+- long-label behavior;
+- real Disclosure + existing Popover composition for Industry.
+
+## Legacy and Migration
+
+Published identities were preserved where safe.
+
+Identity-preserving migration:
+
+- old Toggle identity/key → `Chip / Selectable`;
+- old Trigger identity/key → `Chip / Disclosure`;
+- previous Disclosure `Open` variants were removed after audit because they duplicated Hover visually; Open is runtime-only;
+- `Chip / Removable` and `Chip / Action` are new canonical capability sets.
+
+Older Carbon-derived Chip artifacts and old Chip Group components remain reference-only where deleting them could break existing consumers.
+
+Do not use them for new design.
+
+There is no public `_Chip Base`.
 
 ## Runtime Boundary
 
-The owning JV Design System runtime repository/package is not registered in Design System Knowledge.
+The owning JV Design System runtime repository/package and verified Storybook source are not registered in Design System Knowledge.
 
-The verified Storybook source is also not registered.
-
-Therefore the following remain explicitly unverified:
+Therefore these remain explicitly unverified:
 
 - exact runtime component/API names;
 - exact props/inputs/outputs;
-- exact DOM elements and ARIA attribute implementation;
-- Trigger popup/surface implementation and focus-transfer details;
-- exact selected-state semantic implementation for Toggle;
-- exact long-label max-width/truncation algorithm;
-- exact framework/Tailwind class implementation;
+- exact DOM roles/elements and ARIA attributes;
+- compound Removable DOM implementation;
+- Disclosure popup ownership and focus-transfer implementation;
+- exact selected-state runtime semantics;
+- exact truncation/max-width algorithm;
+- exact framework/Tailwind classes;
 - Storybook story/docs identifiers;
-- Figma-property to code-prop mapping;
+- Figma-property → code-prop mapping;
 - Code Connect mapping.
 
-Do not infer these from Figma property names.
+Do not infer them from Figma property names.
 
 ## QA Checklist
 
 Verify:
 
-- both Trigger and Toggle use the 6px Medium radius;
-- Small is 32px and Medium is 40px high;
-- Trigger unapplied does not show Summary;
-- Trigger applied can show Summary;
-- Trigger Open is visually distinguishable as the owning surface's open state;
-- Toggle Selected remains visible outside hover/focus;
-- Default, Hover, Active, Focus, and Disabled treatments are present;
-- focus uses the shared outside focus effect and is not clipped;
-- Disabled content uses disabled foreground/line treatment;
-- labels stay on one line;
-- long constrained labels truncate rather than wrap inside the chip;
-- a chip group can wrap whole controls at container level;
-- RTL leading/trailing anatomy remains correct;
-- optional leading icon is correctly recolored/overridden;
-- runtime accessible selected/open state is verified when the owning implementation source is registered.
-
-## Legacy
-
-Older Chip-page artifacts remain only for migration/reference.
-
-Do not create new instances from:
-
-- legacy `Control chip` sets;
-- legacy close-button/removable-chip constructions;
-- other Carbon-derived Chip/Tag artifacts on the page.
-
-Removable values are outside the canonical Filter Chip contract and should migrate to the Tag/Token pattern when that contract is finalized.
+- four public sets exist: Selectable / Removable / Disclosure / Action;
+- no `Type=Filter/Input/Suggestion` mega set exists;
+- Small = 32px; Medium = 40px;
+- radius is the canonical 6px Medium variable;
+- State is Default / Hover / Active / Focus / Disabled;
+- Selectable has persistent Selected and uses ✓, never ×;
+- Removable always has × and supports optional Detail / leading visual;
+- Removable body-action capability does not create invalid nested-button semantics;
+- Disclosure has persistent Applied, optional Summary, and mandatory chevron;
+- Disclosure Open is runtime-only until a distinct visual treatment exists;
+- Action is stateless and can express `+` add/start;
+- focus uses the shared outside ring;
+- semantic colors are used; Tag/Chip-specific colors are not;
+- labels remain one line;
+- RTL anatomy is correct;
+- parent collections can wrap whole Chips;
+- Playground covers Choice, direct filter, faceted filter, committed values, software lifecycle, long label, focus/disabled, and Disclosure + Popover;
+- legacy components are clearly reference-only;
+- runtime semantics are re-verified when the owning implementation source is registered.
 
 ## Live References
 
-- Figma file key: `rROD8ctH9UfPGAMrRrOzHe`
-- Figma page: `Chip`, node `13500:300199`
-- Documentation frame: `Chip / Documentation`, node `23111:553`
-- Trigger set node: `20783:534`
-- Trigger component key: `3ba6c8dc36a76632d1569108e024ae47c841a50c`
-- Toggle set node: `20783:128158`
-- Toggle component key: `5571e8e324b47155d7e9fd384aaea289c2e54d89`
+- Selectable node/key: `20783:128158` / `5571e8e324b47155d7e9fd384aaea289c2e54d89`
+- Removable node/key: `23124:358` / `193062043a2194024cc06c6d45f11b96b4a238b3`
+- Disclosure node/key: `20783:534` / `3ba6c8dc36a76632d1569108e024ae47c841a50c`
+- Action node/key: `23123:125056` / `876535cdb18030fe2d38c6c6221036d770838586`
 - Runtime code: unregistered
 - Storybook: unregistered
