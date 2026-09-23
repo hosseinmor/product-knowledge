@@ -359,9 +359,9 @@ Color is a semantic state mapping, not a public Chip axis.
 
 Current mappings:
 
-- default: `surface/default + line/default + fg/primary`;
-- unselected/unapplied hover: `surface/neutral-muted-hover`;
-- unselected/unapplied active: `surface/neutral-muted-active`;
+- default structured base: `surface/default + line/default + fg/primary`;
+- default-base hover: `surface/default` base + `surface/transparent-hover` overlay;
+- default-base active: `surface/default` base + `surface/transparent-active` overlay;
 - Selectable selected default/focus: `surface/accent-muted + line/accent + fg/accent`;
 - Selectable selected hover: `surface/accent-muted` base + `surface/transparent-hover` overlay + `line/accent + fg/accent`;
 - Selectable selected active: `surface/accent-muted` base + `surface/transparent-active` overlay + `line/accent + fg/accent`;
@@ -371,7 +371,7 @@ Current mappings:
 - disabled: shared disabled foreground/line/surface treatment;
 - focus: preserve the underlying persistent state and add the shared focus effect.
 
-For persistent structured Chip surfaces, interaction does not replace the semantic base. Selectable preserves `surface/accent-muted`, and Disclosure Applied preserves `surface/selected`; both layer the shared `surface/transparent-hover` / `surface/transparent-active` tokens for interaction. This avoids introducing Chip-specific or state-specific semantic surface families solely for Hover/Active.
+For every structured Chip surface, interaction does not replace the semantic base. Default/unselected/unapplied, Removable, and Action preserve `surface/default`; Selectable Selected preserves `surface/accent-muted`; Disclosure Applied preserves `surface/selected`. Hover and Active always layer the shared `surface/transparent-hover` / `surface/transparent-active` tokens over that base.
 
 Do not:
 
@@ -418,7 +418,7 @@ Use logical anatomy:
 
 - content ordering follows RTL reading direction;
 - Selectable check is logical Start, before the label;
-- Action trailing icon follows the label;
+- Action add/action icon sits at logical End (visually left in RTL);
 - Removable leading visual/icon is logical start;
 - trailing Disclosure chevron is logical end;
 - trailing Remove is logical end;
@@ -499,7 +499,7 @@ Exact DOM/ARIA choices remain unverified until the runtime implementation is reg
 - Do not add Single/Multiple to Disclosure; it belongs to the secondary surface.
 - Use the existing icon library; do not draw ad hoc Chip icons.
 - Override shared icon foreground where the consuming Chip state requires it.
-- For selected structured surfaces, keep the persistent semantic base and layer shared transparent Hover/Active overlays rather than swapping to accent-specific interaction surfaces.
+- For structured surfaces, keep the semantic base and layer shared transparent Hover/Active overlays rather than swapping to state-specific surface tokens.
 - Use the shared `Radius / Full` variable for the current Chip direction; do not use a literal radius. This is a current family decision rather than a global control-radius change.
 - Do not create `_Chip Base` until repeated maintenance evidence proves a shared private primitive is useful.
 - Do not create new work from legacy Carbon-derived Chip or old Chip Group artifacts.
