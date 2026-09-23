@@ -8,7 +8,7 @@ knowledge_state: verified
 document_maturity: reviewed
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: 2026-09-21
+last_reviewed: 2026-09-23
 source_figma: https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=17332-167748
 source_node: 17332:167748
 related:
@@ -105,7 +105,7 @@ The v1 canonical Menu is action/command-oriented. Do not use it as the default p
 | `Start icon` | Instance swap | Shared icon-library source; consumer must explicitly override icon color |
 | `Show shortcut` | Boolean | Shows shortcut metadata |
 | `Shortcut` | Text | Shortcut text |
-| `Submenu` | Boolean | Shows submenu indicator |
+| `Submenu` | Boolean | Marks a Root Menu Item as a submenu trigger and shows the logical-End indicator; child submenus do not expose another submenu trigger in JV v1 |
 
 ### Composition helpers
 
@@ -205,9 +205,44 @@ The check indicator is the persistent state cue. v1 does not add a separate sele
 
 ### Submenu trigger
 
-Use `Submenu=True`. The submenu indicator occupies logical End. In the RTL-authored JV source it points left, toward the submenu opening direction.
+Use `Submenu=True` on an item in the **Root Menu**. The item becomes a parent trigger rather than a terminal command.
 
-Submenu placement, collision, hover-open timing, and portal behavior are runtime-owned.
+JV v1 supports **one child submenu level only**:
+
+```text
+Root Menu
+└── Child Submenu
+```
+
+Do not place another submenu trigger inside the child submenu. Two visible Menu surfaces is the maximum authored depth in v1.
+
+This is a deliberate product/design constraint rather than a WAI-ARIA platform limitation. APG, Primer, and Radix can represent deeper nesting, while Carbon explicitly advises avoiding multiple levels because navigation becomes harder. JV keeps one child level to reduce pointer, keyboard, and scanning complexity.
+
+If a command hierarchy needs another level, prefer one of these restructures instead:
+
+- flatten related commands with a group label or divider;
+- move the deeper choice into the resulting flow, dialog, or page;
+- reconsider whether the interaction is actually a Menu rather than a selection/navigation surface.
+
+#### Child surface composition
+
+The child surface is another instance of the same canonical `Menu / Default`; do not create a separate Submenu component.
+
+- child `Size` matches its parent Menu Size;
+- child `Layout` may be Simple or Complex according to its own items;
+- child width remains independently authorable within the same `160–320px` Menu limits;
+- keep a **2px** surface-to-surface gap;
+- when space allows, align the first child item with the parent trigger row;
+- open toward logical End: left in RTL, right in LTR;
+- collision handling may flip the child to the opposite side at runtime.
+
+The submenu indicator occupies logical End. In the RTL-authored JV source it points left, toward the preferred opening direction. Shortcut metadata and the submenu indicator remain mutually exclusive.
+
+#### Pointer and focus behavior
+
+Hovering or focusing a parent item may reveal its submenu, but exact hover-intent delay, safe-polygon behavior, pointer corridor, portal strategy, and collision engine are runtime-owned and remain unverified.
+
+Opening a child submenu must not resize either Menu surface.
 
 ## Grouping and separators
 
@@ -262,7 +297,9 @@ Runtime should show the focus treatment for keyboard navigation under the shared
 - `Escape` closes and returns focus to the invoking trigger/context.
 - Clicking outside closes the Menu.
 - `Tab` / `Shift+Tab` close the Menu and move focus out rather than walking through Menu Items.
-- A submenu item opens its nested Menu rather than executing a terminal command.
+- A submenu trigger opens its child Menu rather than executing a terminal command.
+- Opening a child submenu does not close or resize the Root Menu; both surfaces remain visible until the child or full menu stack is dismissed.
+- Closing the child submenu returns interaction context to its parent item while keeping the Root Menu open.
 
 A checkable command may remain open while toggling several related options when the product flow requires it. That choice is runtime/product-owned and must not be inferred from Figma.
 
@@ -277,7 +314,7 @@ JV Menu follows the WAI-ARIA application-menu interaction model.
 - checkable item: `role="menuitemcheckbox"` or `role="menuitemradio"`;
 - checked state: `aria-checked`;
 - disabled item: `aria-disabled="true"`;
-- submenu trigger: expose submenu relationship and expanded state;
+- submenu trigger: `role="menuitem"` with `aria-haspopup="menu"` and `aria-expanded` reflecting its child surface; `aria-controls` may be used when the runtime owns a stable relationship;
 - divider: separator semantics and not focusable;
 - groups: appropriate group semantics and accessible group naming.
 
@@ -290,14 +327,15 @@ When opened from a Menu Button, overflow trigger, or Combo Button, move focus in
 - `ArrowDown` / `ArrowUp` move among Menu Items.
 - `Home` / `End` move to first / last Menu Item.
 - Printable-character typeahead moves to the next matching item.
-- `Enter` activates a terminal item; on a submenu trigger it opens the submenu.
-- `Space` activates/toggles according to item role.
-- `Escape` closes the current Menu/submenu and returns focus to its invoker.
+- `Enter` activates a terminal item; on a submenu trigger it opens the child submenu and moves focus into it.
+- `Space` activates/toggles according to item role; on a submenu trigger it opens the child submenu rather than executing a terminal command.
+- The directional arrow toward logical End opens a submenu and places focus on its first item. The opposite directional arrow closes the child and returns focus to the parent item. Runtime mirrors these physical keys under RTL/LTR.
+- `Escape` closes only the current child submenu first and returns focus to its parent item; a subsequent `Escape` from the Root Menu closes the root and returns focus to the original invoker.
 - `Tab` / `Shift+Tab` close the Menu and move focus out.
 - Disabled Menu Items remain discoverable in arrow-key navigation but cannot activate, following WAI-ARIA APG Menu convention.
 - Group labels and separators are skipped because they are not Menu Items.
 
-Submenu Left/Right keyboard behavior follows the standard Menu pattern and active document direction. Runtime must mirror directional behavior under RTL rather than hard-code LTR assumptions.
+Submenu directional keyboard behavior follows the standard Menu pattern and active document direction. In LTR, Right normally opens and Left closes; in RTL this mirrors. Runtime must derive this from document direction rather than hard-code physical keys.
 
 The exact focus implementation—roving `tabindex` versus `aria-activedescendant`—is runtime-owned. The resulting behavior above is the contract.
 
@@ -310,7 +348,8 @@ Figma is authored for RTL.
 - checked/start icon = logical Start;
 - shortcut/submenu indicator = logical End;
 - label is right-aligned;
-- submenu chevron points toward submenu opening direction.
+- submenu chevron points toward the preferred submenu opening direction;
+- child submenu opens toward logical End (left in RTL) and may flip on collision.
 
 Runtime uses logical positioning/document direction. In LTR, Start/End and submenu direction mirror naturally.
 
@@ -327,6 +366,8 @@ When attached to Menu Button, Combo Button, or an approved overflow trigger, pre
 The v1 contract was reviewed against WAI-ARIA APG Menu/Menu Button, Primer ActionMenu/ActionList, Carbon Menu, and Radix Dropdown Menu.
 
 Primer treats leading visuals as optional and recommends them only when they improve scanability. Carbon similarly distinguishes ordinary options from selectable options and reserves leading space where selection alignment requires it. JV captures that authoring distinction at the Menu level with `Layout=Simple / Complex`.
+
+For submenus, APG defines nested menu keyboard and accessibility semantics, Primer and Radix demonstrate multi-level submenu composition, and Carbon cautions against multiple nesting levels. JV therefore supports the standard submenu semantics but intentionally caps authored depth at one child submenu level.
 
 JV deliberately differs from Carbon Extra Small sizing: JV uses the shared 28px control baseline rather than Carbon's 24px menu option.
 
@@ -378,6 +419,9 @@ Verify:
 - Leading and Trailing containers remain transparent in every Tone;
 - every Menu Item icon has an explicit semantic color override: Default → `fg/primary`, Danger → `fg/danger`, Disabled → `fg/disabled`; after any icon swap, verify the override is still present;
 - Checked / Start icon and Shortcut / Submenu authoring constraints are respected;
+- Submenu depth is Root Menu + one child submenu only; child submenu items do not expose another submenu trigger;
+- child submenu reuses canonical Menu, matches parent Size, keeps an independent `160–320px` width, uses a 2px surface gap, opens toward logical End, and may flip on collision;
+- submenu keyboard behavior opens toward logical End, closes toward the parent, and `Escape` unwinds one menu level at a time;
 - groups/dividers are composed at Menu level;
 - RTL Start/End anatomy and submenu direction are correct;
 - real instances can replace Menu Slot content without detaching;
