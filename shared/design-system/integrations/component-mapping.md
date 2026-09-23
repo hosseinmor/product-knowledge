@@ -551,9 +551,9 @@ The Content Switcher design identity, Size × Content parent model, native Items
 | Label text style | `Body/Compact/SM` across all four Chip sets |
 | Radius | shared `Radius / Full` — current Chip visual direction |
 | Focus | shared `Focus/Default` outside focus-visible ring |
-| Color | Semantic tokens only; Selectable selected uses `surface/accent-muted* + line/accent + fg/accent`; no public Color axis or Chip-specific color tokens |
+| Color | Semantic tokens only; Selectable selected keeps `surface/accent-muted + line/accent + fg/accent` as the persistent base and layers `surface/transparent-hover/active` for interaction; no public Color axis or Chip-specific color tokens |
 | Usage mapping | Choice + Direct Filter → Selectable; Faceted/Popover Filter → Disclosure; committed/input value → Removable; add/start available value → Action |
-| Visual grammar | `✓ selected / ▾ disclose / × remove / + add-start` |
+| Visual grammar | `✓ selected at logical Start before label / ▾ disclose / × remove / + add-start` |
 | Product-pattern boundary | Selection mode, required/allow-empty, filter composition, tokenized-input behavior, and software Available→Selected layout live at Group/Pattern level |
 | Tag boundary | Tag remains passive/descriptive/categorical and owns `tag/{color}/*`; Chip is interactive and must not consume Tag color tokens |
 | Legacy Figma | old Carbon-derived Chip sets, Control-chip artifacts, and old Chip Group components are reference-only; published identities preserved where safe |
@@ -565,7 +565,7 @@ The Content Switcher design identity, Size × Content parent model, native Items
 | Code Connect | **No registered mapping** |
 | Last Figma verification | 2026-09-23 |
 
-The Chip design identity is verified as four capability-specific public component sets that share one visual recipe without a mega Type matrix. Selectable, Removable, Disclosure, and Action contracts, current Full radius, Accent selected treatment, focus-visible behavior, RTL anatomy, software lifecycle, Tag/Button/selection-control boundaries, real Disclosure + Popover composition, and legacy migration are documented in `../components/chip.md`. Runtime API, exact DOM/ARIA implementation, compound Removable structure, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
+The Chip design identity is verified as four capability-specific public component sets that share one visual recipe without a mega Type matrix. Selectable, Removable, Disclosure, and Action contracts, current Full radius, Accent selected base with shared transparent Hover/Active overlays, leading selected check anatomy, focus-visible behavior, RTL anatomy, software lifecycle, Tag/Button/selection-control boundaries, real Disclosure + Popover composition, and legacy migration are documented in `../components/chip.md`. Runtime API, exact DOM/ARIA implementation, compound Removable structure, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
 
 ## Rules
