@@ -170,6 +170,53 @@ def validate(data: dict[str, Any]) -> list[str]:
     if duplicate_decisions:
         errors.append(f"duplicate decision ids: {', '.join(duplicate_decisions)}")
 
+    decision_log = data.get("decision_log")
+    if not isinstance(decision_log, list):
+        errors.append("top-level `decision_log` must be a list")
+        decision_log = []
+
+    resolved_ids: list[str] = []
+    for index, decision in enumerate(decision_log):
+        location = f"decision_log[{index}]"
+        if not isinstance(decision, dict):
+            errors.append(f"{location} must be a mapping")
+            continue
+
+        decision_id = decision.get("id")
+        if not nonempty_string(decision_id) or not DECISION_ID_RE.fullmatch(decision_id):
+            errors.append(f"{location}.id must match DEC-000")
+        else:
+            resolved_ids.append(decision_id)
+            location = decision_id
+
+        referenced_terms = decision.get("term_ids")
+        if not isinstance(referenced_terms, list) or not referenced_terms:
+            errors.append(f"{location}: term_ids must be a non-empty list")
+        else:
+            unknown = sorted(set(referenced_terms) - known_terms)
+            if unknown:
+                errors.append(f"{location}: unknown term ids: {', '.join(unknown)}")
+
+        if not nonempty_string(str(decision.get("decided_on", ""))):
+            errors.append(f"{location}: missing `decided_on`")
+        for field in ("outcome", "rationale"):
+            if not nonempty_string(decision.get(field)):
+                errors.append(f"{location}: missing non-empty `{field}`")
+
+    duplicate_resolved = sorted(
+        decision_id
+        for decision_id, count in Counter(resolved_ids).items()
+        if count > 1
+    )
+    if duplicate_resolved:
+        errors.append(f"duplicate resolved decision ids: {', '.join(duplicate_resolved)}")
+
+    overlap = sorted(set(decision_ids) & set(resolved_ids))
+    if overlap:
+        errors.append(
+            "decision ids cannot be both open and resolved: " + ", ".join(overlap)
+        )
+
     return errors
 
 
@@ -185,7 +232,8 @@ def main() -> int:
     statuses = Counter(term["status"] for term in terms)
     print(
         "Content terminology is valid: "
-        f"{len(terms)} terms, {len(data['decision_queue'])} decisions, "
+        f"{len(terms)} terms, {len(data['decision_queue'])} open decisions, "
+        f"{len(data['decision_log'])} resolved decisions, "
         + ", ".join(f"{key}={value}" for key, value in sorted(statuses.items()))
     )
     return 0

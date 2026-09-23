@@ -1,4 +1,4 @@
-schema_version: "0.1"
+schema_version: "0.2"
 id: content.foundation.terminology
 title: واژه‌نامهٔ محتوای محصول جاب‌ویژن
 status: draft
@@ -232,7 +232,7 @@ terms:
     preferred:
       default: کارجو
     avoid: [متقاضی, داوطلب]
-    forbidden_as_synonym: [کاندید, جویای کار]
+    forbidden_as_synonym: [کاندید, کاندیدا, جویای کار]
     domains: [jobseeker, employer]
     visibility: [public, internal]
     relations:
@@ -243,20 +243,20 @@ terms:
 
   - id: ats_candidate
     concept_kind: role
-    canonical_internal: null
+    canonical_internal: کاندیدا
     definition:
       product_content: >
-        فردی در فرایند جذب که ممکن است توسط recruiter اضافه شده باشد و
-        الزاماً کاربر ثبت‌نام‌شده یا جویای فعال کار نباشد.
+        فردی که در ATS برای یک یا چند موقعیت شغلی در حال بررسی است؛
+        چه خودش درخواست شغلی فرستاده باشد و چه recruiter او را اضافه کرده باشد.
     preferred:
-      ats: null
+      ats: کاندیدا
+    allowed: [کاندیدای جذب]
+    avoid: [متقاضی, کارجو, داوطلب]
     domains: [ats]
-    visibility: [internal]
+    visibility: [public, internal]
     relations:
       distinct_from: [jobseeker]
-    status: needs_decision
-    open_questions:
-      - برچسب فارسی مناسب برای candidate در ATS چیست؟
+    status: stable
     evidence: [product_content_decisions]
 
   - id: industry
@@ -339,9 +339,7 @@ terms:
       distinct_from: [company_authentication, company_profile]
       reconciles_source_entries: [company_formal_info, formal_info]
     code_bindings: [CompanyFormalInfo]
-    status: draft
-    open_questions:
-      - آیا دو مدخل «اطلاعات رسمی سازمان» و «اطلاعات رسمی» یک concept واحدند؟
+    status: stable
     evidence: [source_glossary]
 
   - id: account_manager
@@ -1260,26 +1258,40 @@ terms:
     status: draft
     evidence: [source_glossary]
 
-decision_queue:
+decision_log:
   - id: DEC-001
     term_ids: [job_post]
-    question: آیا label پیش‌فرض «آگهی شغلی» بماند یا «آگهی»؟
-    recommendation: >
-      مفهوم و تمایز فعلی ثابت بماند؛ «آگهی شغلی» در تجربهٔ کارجو و
-      «آگهی» در پنل کارفرما و ادمین استفاده شود.
-    impact: medium
+    decided_on: 2026-09-23
+    outcome: >
+      «آگهی شغلی» برچسب پیش‌فرض و برچسب تجربهٔ کارجو است؛ «آگهی» فقط
+      در پنل کارفرما و ادمین، جایی که context روشن است، ترجیح دارد.
+    rationale: >
+      صورت کامل در سطح عمومی از ابهام با آگهی‌های غیرشغلی جلوگیری می‌کند؛
+      صورت کوتاه در سطوح تخصصی تکرار غیرضروری «شغلی» را کم می‌کند.
 
   - id: DEC-002
     term_ids: [ats_candidate, jobseeker]
-    question: نام فارسی candidate در ATS چیست؟
-    recommendation: تا تعیین مدل ATS، «کارجو» به کاربر ثبت‌نام‌شده محدود بماند.
-    impact: high
+    decided_on: 2026-09-23
+    outcome: >
+      برچسب فارسی candidate در ATS «کاندیدا» است. «کارجو» فقط برای فردی
+      به کار می‌رود که در جاب‌ویژن به دنبال شغل است.
+    rationale: >
+      کاندیدای ATS ممکن است بدون ارسال درخواست و مستقیماً توسط recruiter
+      اضافه شده باشد؛ بنابراین «متقاضی» و «کارجو» همهٔ اعضای این مجموعه را
+      پوشش نمی‌دهند.
 
   - id: DEC-003
     term_ids: [company_formal_info]
-    question: دو مدخل «اطلاعات رسمی سازمان» و «اطلاعات رسمی» یک concept هستند؟
-    recommendation: یک concept با label کوتاه‌تر در context مالی نگهداری شود.
-    impact: medium
+    decided_on: 2026-09-23
+    outcome: >
+      «اطلاعات رسمی سازمان» و «اطلاعات رسمی» یک concept هستند. نام مرجع
+      «اطلاعات رسمی سازمان» است و برچسب کوتاه فقط در context پرداخت و فاکتور
+      استفاده می‌شود.
+    rationale: >
+      هر دو عبارت به یک مجموعه‌داده شامل شناسهٔ ملی، عنوان حقوقی، نشانی و
+      کد پستی اشاره می‌کنند و تفاوت آن‌ها صرفاً در میزان وضوح label است.
+
+decision_queue:
 
   - id: DEC-004
     term_ids: [premium_subscription]
