@@ -365,12 +365,13 @@ Current mappings:
 - Selectable selected default/focus: `surface/accent-muted + line/accent + fg/accent`;
 - Selectable selected hover: `surface/accent-muted` base + `surface/transparent-hover` overlay + `line/accent + fg/accent`;
 - Selectable selected active: `surface/accent-muted` base + `surface/transparent-active` overlay + `line/accent + fg/accent`;
-- Disclosure applied default: `surface/selected + line/emphasis`;
-- Disclosure applied hover/active: `surface/selected-hover + line/emphasis`;
+- Disclosure applied default/focus: `surface/selected + line/emphasis`;
+- Disclosure applied hover: `surface/selected` base + `surface/transparent-hover` overlay + `line/emphasis`;
+- Disclosure applied active: `surface/selected` base + `surface/transparent-active` overlay + `line/emphasis`;
 - disabled: shared disabled foreground/line/surface treatment;
 - focus: preserve the underlying persistent state and add the shared focus effect.
 
-There is currently no dedicated `surface/selected-active` semantic token for Disclosure Applied. That gap does not justify a Chip-specific color token. Selectable does not require accent-specific Hover/Active surface tokens: its persistent `surface/accent-muted` base is preserved and interaction is layered with the shared transparent overlays.
+For persistent structured Chip surfaces, interaction does not replace the semantic base. Selectable preserves `surface/accent-muted`, and Disclosure Applied preserves `surface/selected`; both layer the shared `surface/transparent-hover` / `surface/transparent-active` tokens for interaction. This avoids introducing Chip-specific or state-specific semantic surface families solely for Hover/Active.
 
 Do not:
 
