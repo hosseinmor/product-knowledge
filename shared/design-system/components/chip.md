@@ -68,10 +68,11 @@ All public Chip sets share the same control recipe:
 |---|---|
 | Small height | `32px` |
 | Medium height | `40px` |
-| Radius | `Radius / 6px · Medium` |
-| Pill / Full radius | Not canonical |
+| Radius | `Radius / Full` — current Chip visual direction |
+| Radius status | Temporary/current direction; revisit if the family moves back to the shared control radius |
 | Default width | Hug content |
 | Label | Single-line |
+| Label text style | `Body/Compact/SM` |
 | Direction | RTL-first; use logical start/end |
 | Focus | Shared `Focus/Default` outside ring |
 | Focus geometry | 2px ring + 1px gap/offset |
@@ -110,7 +111,7 @@ The component itself does not know whether it is Choice or Filter; the owning gr
 
 #### Selected treatment
 
-`Selected=true` uses a check indicator and a persistent selected surface/border/text treatment.
+`Selected=true` uses a check indicator plus the Accent semantic family: `surface/accent-muted*`, `line/accent`, and `fg/accent`. Disabled continues to use the shared disabled treatment.
 
 Rules:
 
@@ -236,15 +237,15 @@ The trailing chevron remains the disclosure affordance after a value is applied.
   - `State = Default / Hover / Active / Focus / Disabled`
 - Content properties:
   - `Label`
-  - `Show leading icon`
-  - `Leading icon` instance swap
+  - `Show trailing icon`
+  - `Trailing icon` instance swap
 - Variant count: `10 = 2 Size × 5 State`
 
 Purpose: a compact, stateless value-level action.
 
 Canonical example:
 
-`[ + Microsoft Word ]`
+`[ Microsoft Word + ]`
 
 Activation may open a Level surface. Only after the required value is committed does the representation become:
 
@@ -335,7 +336,7 @@ The software use case intentionally crosses two Chip capabilities.
 
 Before commit:
 
-`[ + Microsoft Word ]` → Chip / Action
+`[ Microsoft Word + ]` → Chip / Action
 
 Activation opens the Level configuration surface.
 
@@ -361,13 +362,15 @@ Current mappings:
 - default: `surface/default + line/default + fg/primary`;
 - unselected/unapplied hover: `surface/neutral-muted-hover`;
 - unselected/unapplied active: `surface/neutral-muted-active`;
-- selected/applied default: `surface/selected`;
-- selected/applied hover: `surface/selected-hover`;
-- selected/applied active: currently reuses `surface/selected-hover`;
+- Selectable selected default/focus: `surface/accent-muted + line/accent + fg/accent`;
+- Selectable selected hover: `surface/accent-muted-hover + line/accent + fg/accent`;
+- Selectable selected active: `surface/accent-muted-active + line/accent + fg/accent`;
+- Disclosure applied default: `surface/selected + line/emphasis`;
+- Disclosure applied hover/active: `surface/selected-hover + line/emphasis`;
 - disabled: shared disabled foreground/line/surface treatment;
 - focus: preserve the underlying persistent state and add the shared focus effect.
 
-There is currently no dedicated `surface/selected-active` semantic token. This is a semantic-token gap, not justification for a Chip-specific color token. Revisit the shared semantic model only if broader controls require that distinction.
+There is currently no dedicated `surface/selected-active` semantic token for Disclosure Applied. That gap does not justify a Chip-specific color token. Selectable no longer depends on that gap because its selected treatment uses the existing Accent semantic state family.
 
 Do not:
 
@@ -413,7 +416,8 @@ Do not create separate RTL variants.
 Use logical anatomy:
 
 - content ordering follows RTL reading direction;
-- leading visual/icon is logical start;
+- Action trailing icon follows the label;
+- Removable leading visual/icon is logical start;
 - trailing Disclosure chevron is logical end;
 - trailing Remove is logical end;
 - Chip groups follow product RTL ordering;
@@ -493,7 +497,7 @@ Exact DOM/ARIA choices remain unverified until the runtime implementation is reg
 - Do not add Single/Multiple to Disclosure; it belongs to the secondary surface.
 - Use the existing icon library; do not draw ad hoc Chip icons.
 - Override shared icon foreground where the consuming Chip state requires it.
-- Use the canonical 6px radius variable; do not use literal radius or Pill/Full.
+- Use the shared `Radius / Full` variable for the current Chip direction; do not use a literal radius. This is a current family decision rather than a global control-radius change.
 - Do not create `_Chip Base` until repeated maintenance evidence proves a shared private primitive is useful.
 - Do not create new work from legacy Carbon-derived Chip or old Chip Group artifacts.
 
@@ -501,7 +505,7 @@ Exact DOM/ARIA choices remain unverified until the runtime implementation is reg
 
 - Figma file key: `rROD8ctH9UfPGAMrRrOzHe`
 - Page: `Chip`, node `13500:300199`
-- Documentation frame: `Chip / Documentation`, node `23111:553`
+- Documentation frame: `Chip / Documentation`, node `23143:531`
 - Sections:
   1. Component Set
   2. Playground
@@ -563,14 +567,14 @@ Verify:
 - four public sets exist: Selectable / Removable / Disclosure / Action;
 - no `Type=Filter/Input/Suggestion` mega set exists;
 - Small = 32px; Medium = 40px;
-- radius is the canonical 6px Medium variable;
+- radius is the shared Full variable for the current Chip direction;
 - State is Default / Hover / Active / Focus / Disabled;
 - Selectable has persistent Selected and uses ✓, never ×;
 - Removable always has × and supports optional Detail / leading visual;
 - Removable body-action capability does not create invalid nested-button semantics;
 - Disclosure has persistent Applied, optional Summary, and mandatory chevron;
 - Disclosure Open is runtime-only until a distinct visual treatment exists;
-- Action is stateless and can express `+` add/start;
+- Action is stateless and can express `+` add/start with the optional trailing icon after the label;
 - focus uses the shared outside ring;
 - semantic colors are used; Tag/Chip-specific colors are not;
 - labels remain one line;
