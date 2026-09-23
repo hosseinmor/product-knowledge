@@ -2,18 +2,168 @@
 id: content.terminology
 collection: content
 type: content-guideline
-title: Shared Terminology
-summary: Use this document for terms whose meaning is consistent across products.
+title: JobVision Product Terminology
+summary: Defines the semantic terminology model, audience-aware label rules, source boundaries, and machine-readable lexicon for JobVision product content.
 knowledge_state: unverified
 document_maturity: draft
-related: []
+related:
+  - content.content-guidelines
+  - content.localization
+  - shared.job-post
+  - shared.company
+  - shared.resume
+  - shared.application
+  - cando.ats.recruitment-request
+topics:
+  - terminology
+  - ux-writing
+  - persian
+  - job-post
+  - application
+  - resume
+  - organization
+  - ai-content
 ---
 
-# Shared Terminology
+# واژه‌نامهٔ محتوای محصول جاب‌ویژن
 
-Use this document for terms whose meaning is consistent across products.
+این سند قواعد استفاده از واژه‌نامه را برای انسان توضیح می‌دهد. منبع
+machine-readable واژگان در [`terminology/terms.yml`](terminology/terms.yml) است.
 
-| Term | Definition | Usage Notes |
+## مدل
+
+واژه‌نامه یک فهرست synonym نیست. هر مدخل یک مفهوم مستقل است و چهار لایه را
+از هم جدا می‌کند:
+
+```text
+Concept
+→ Meaning and product truth
+→ Preferred label by audience or surface
+→ Allowed, avoid, and forbidden language
+```
+
+`canonical_internal` نام مرجع مفهوم در دانش محصول است. `preferred` برچسبی است
+که باید در یک تجربه یا برای یک مخاطب استفاده شود. این دو لازم نیست همیشه یکسان
+باشند.
+
+مثال:
+
+```text
+employer_organization
+├── canonical_internal: سازمان
+├── jobseeker: شرکت
+├── employer: سازمان
+└── ATS: سازمان
+```
+
+## مرجع‌ها و اختیار تصمیم
+
+- واژه‌نامهٔ داخلی استخراج‌شده از محصول، منبع product truth، تمایز entityها و
+  نگاشت به کد است.
+- تصمیم‌های Product Content System، label مناسب مخاطب و سطح را تعیین می‌کنند.
+- نام کلاس، دیتابیس، enum یا سرویس به‌تنهایی مجوز ورود یک اصطلاح به UI نیست.
+- تعارض حل‌نشده باید با `status: needs_decision` و یک مورد در `decision_queue`
+  باقی بماند؛ AI نباید خودش آن را قطعی کند.
+
+## شدت واژه‌ها
+
+| سطح | معنی | نتیجه در ارزیابی |
 |---|---|---|
-| User | A person with access to one or more products | Add product-specific role names in product documentation |
-| Organization | A customer account or organizational tenant | Product-specific exceptions should be documented locally |
+| `preferred` | انتخاب اول در scope مشخص | بدون خطا |
+| `allowed` | قابل استفاده ولی نه انتخاب اول | بدون خطا یا پیشنهاد بهبود |
+| `avoid` | فقط با دلیل معتبر استفاده شود | non-blocking |
+| `forbidden` | در scope مشخص استفاده نشود | blocking |
+
+`forbidden_as_synonym` ممنوعیت مطلق یک عبارت نیست. فقط می‌گوید آن عبارت نباید
+به‌جای concept دیگری استفاده شود. برای مثال «موقعیت شغلی» واژه‌ای معتبر است،
+اما نام جایگزین `job_post` نیست.
+
+## تصمیم‌های تثبیت‌شدهٔ اصلی
+
+### آگهی، موقعیت و فرصت
+
+- **آگهی شغلی / آگهی**: موجودیت منتشرشده و دارای وضعیت و metadata.
+- **موقعیت شغلی**: نقش یا جایگاه واقعی‌ای که سازمان برای آن نیرو می‌خواهد.
+- **فرصت شغلی**: عبارت عمومی discovery و recommendation؛ نه entity دقیق.
+
+در تجربهٔ کارجو «آگهی شغلی» و در پنل کارفرما یا ادمین «آگهی» ترجیح دارد تا
+تصمیم نهایی `DEC-001` بازبینی شود.
+
+### جذب و استخدام
+
+- **جذب**: فرایند پیدا کردن، بررسی و پیش‌بردن افراد.
+- **استخدام**: تصمیم یا نتیجهٔ ورود فرد به رابطهٔ استخدامی.
+
+این دو synonym نیستند. «فرایند استخدام» در زبان عمومی ممکن است درست باشد، اما
+نام canonical چرخهٔ recruitment در سیستم «جذب» است.
+
+### شرکت، سازمان و کارفرما
+
+- **سازمان**: نام entity در محصولات کارفرمایی، ATS، دانش محصول و کد.
+- **شرکت**: label ترجیحی همان entity در تجربهٔ روزمرهٔ کارجو.
+- **کارفرما**: actor یا نقش انسانی؛ نه نام entity سازمان.
+
+### کارجو و candidate در ATS
+
+«کارجو» برای کاربر ثبت‌نام‌شده یا فردی که در جاب‌ویژن به دنبال شغل است تثبیت
+شده است. فردی که recruiter مستقیماً وارد ATS می‌کند ممکن است concept دیگری
+باشد؛ label آن تا تصمیم `DEC-002` قطعی نیست.
+
+### درخواست شغلی و درخواست جذب
+
+- **درخواست شغلی**: ارتباط کارجو با یک آگهی مشخص.
+- **ارسال رزومه**: نام action؛ نه نام entity.
+- **درخواست جذب**: درخواست داخلی سازمان برای آغاز یا پیش‌برد جذب.
+- «درخواست» به‌تنهایی فقط در سطحی مجاز است که context آن را کاملاً روشن کند.
+
+### هوش مصنوعی و دستیارها
+
+- **هوش مصنوعی**: فناوری.
+- **قابلیت‌های هوشمند**: خانوادهٔ قابلیت‌های تقویت‌شده با AI.
+- **دستیار هوشمند**: persona یا تجربه‌ای با تعامل مستقل و رفتار دستیارگونه.
+- **دستیار کارفرما**: automation مشخص یادآوری و رد خودکار درخواست‌ها؛ الزاماً
+  همان دستیار هوشمند نیست.
+
+## اصطلاحات داخلی
+
+مدخل‌هایی با visibility برابر `code_only` یا `internal` نباید مستقیماً وارد UI
+عمومی شوند. نمونه‌ها:
+
+- `gateway`
+- پایپ‌لاین
+- راند فعال‌سازی
+- سطح قیمت‌گذاری
+- رابط سیستمی
+- صف رد غیرفعال
+- نام adapterها، enumها، دیتابیس‌ها و فیلدها
+
+اگر توضیح این مفهوم برای کاربر لازم است، از `user_facing_explanation` یا یک
+عبارت outcome-based استفاده شود.
+
+## وضعیت‌ها
+
+- `stable`: تصمیم Product Content تثبیت شده است.
+- `draft`: مدخل منبع‌دار است اما هنوز مرور محتوایی کامل نشده است.
+- `needs_decision`: یک تصمیم انسانی یا product truth لازم است.
+
+فهرست تصمیم‌های باز در `decision_queue` فایل machine-readable نگهداری می‌شود.
+
+## استفاده توسط AI
+
+برای تولید یا بررسی محتوا:
+
+1. concept موردنظر را پیدا کن؛ از تطبیق صرف رشته استفاده نکن.
+2. `visibility` و دامنهٔ surface را بررسی کن.
+3. label همان مخاطب را از `preferred` انتخاب کن.
+4. `relations.distinct_from` و ممنوعیت‌های synonym را بررسی کن.
+5. در وضعیت `needs_decision` ادعای قطعی نساز.
+6. بعد از terminology، قواعد pattern و component مرتبط را اعمال کن.
+
+## اعتبارسنجی
+
+```bash
+python scripts/check_content_terminology.py
+```
+
+این بررسی ساختار فایل، یکتایی شناسه‌ها، statusها، ارجاع‌های evidence و
+`decision_queue` را کنترل می‌کند.

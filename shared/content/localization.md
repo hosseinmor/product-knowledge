@@ -6,7 +6,9 @@ title: Localization
 summary: Defines shared content guidance across products.
 knowledge_state: unverified
 document_maturity: scaffold
-related: []
+related:
+  - content.content-guidelines
+  - content.terminology
 ---
 
 # Localization
