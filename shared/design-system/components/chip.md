@@ -154,7 +154,7 @@ The optional leading visual may be an icon or avatar when the value benefits fro
 
 #### Detail
 
-`Detail` is compact secondary value information such as skill level or proficiency. The `Detail` property stores the value only, for example `متوسط` or `B2`; it must not include the separator. Visually, Detail is composed inside a `Secondary content` container as `Divider (·) + Detail`, with a 4px internal gap. `Show detail` controls the whole container. It is content, not a semantic state.
+`Detail` is compact secondary value information such as skill level or proficiency. The `Detail` property stores the value only, for example `متوسط` or `B2`; it must not include the separator. Visually, Detail is composed inside a `Detail content` container as `Divider (·) + Detail`, with a 4px internal gap. `Show detail` controls the whole container. It is content, not a semantic state.
 
 #### Body action
 
@@ -220,12 +220,12 @@ Examples:
 - selected count value: `۳`;
 - selected value: `هلن`.
 
-The separator is structural rather than part of the `Summary` string. Visually, Summary is composed inside a `Secondary content` container as `Divider (·) + Summary`, with a 4px internal gap.
+The separator is structural rather than part of the `Summary` string. Visually, Summary is composed inside a `Summary content` container as `Divider (·) + Summary`, with a 4px internal gap.
 
 Rules:
 
 - `Summary` is supplemental content, not another state axis;
-- `Show summary` is available on applied instances and controls the whole `Secondary content` container;
+- `Show summary` is available on applied instances and controls the whole `Summary content` container;
 - keep Summary compact and store only the value, without a leading `·` or `|`;
 - Single/Multiple selection is not a Chip property; the owning Popover/Menu/selection surface owns that behavior.
 
@@ -369,13 +369,13 @@ Current mappings:
 - Selectable selected default/focus: `surface/accent-muted + line/accent + fg/accent`;
 - Selectable selected hover: `surface/accent-muted` base + `surface/transparent-hover` overlay + `line/accent + fg/accent`;
 - Selectable selected active: `surface/accent-muted` base + `surface/transparent-active` overlay + `line/accent + fg/accent`;
-- Disclosure applied default/focus: `surface/selected + line/emphasis`;
-- Disclosure applied hover: `surface/selected` base + `surface/transparent-hover` overlay + `line/emphasis`;
-- Disclosure applied active: `surface/selected` base + `surface/transparent-active` overlay + `line/emphasis`;
+- Disclosure applied default/focus: `surface/accent-muted + line/accent + fg/accent`;
+- Disclosure applied hover: `surface/accent-muted` base + `surface/transparent-hover` overlay + `line/accent + fg/accent`;
+- Disclosure applied active: `surface/accent-muted` base + `surface/transparent-active` overlay + `line/accent + fg/accent`;
 - disabled: shared disabled foreground/line/surface treatment;
 - focus: preserve the underlying persistent state and add the shared focus effect.
 
-For every structured Chip surface, interaction does not replace the semantic base. Default/unselected/unapplied, Removable, and Action preserve `surface/default`; Selectable Selected preserves `surface/accent-muted`; Disclosure Applied preserves `surface/selected`. Hover and Active always layer the shared `surface/transparent-hover` / `surface/transparent-active` tokens over that base.
+For every structured Chip surface, interaction does not replace the semantic base. Default/unselected/unapplied, Removable, and Action preserve `surface/default`; Selectable Selected and Disclosure Applied preserve `surface/accent-muted`. Hover and Active always layer the shared `surface/transparent-hover` / `surface/transparent-active` tokens over that base.
 
 Do not:
 
@@ -504,7 +504,7 @@ Exact DOM/ARIA choices remain unverified until the runtime implementation is reg
 - Use the existing icon library; do not draw ad hoc Chip icons.
 - Override shared icon foreground where the consuming Chip state requires it.
 - Keep Divider structural: Summary/Detail properties store value only; do not prefix their values with `·` or `|`.
-- Use the shared 8px spacing variable for the main Chip content gap and 4px inside `Secondary content` between Divider and Summary/Detail.
+- Use the shared 8px spacing variable for the main Chip content gap and 4px inside `Summary content` / `Detail content` between Divider and the value.
 - For structured surfaces, keep the semantic base and layer shared transparent Hover/Active overlays rather than swapping to state-specific surface tokens.
 - Use the shared `Radius / Full` variable for the current Chip direction; do not use a literal radius. This is a current family decision rather than a global control-radius change.
 - Do not create `_Chip Base` until repeated maintenance evidence proves a shared private primitive is useful.
