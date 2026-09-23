@@ -139,7 +139,7 @@ Rules:
 - Variant count: `10 = 2 Size × 5 State`
 - Trailing remove affordance: mandatory
 
-Purpose: represent a **committed value/object** that can be removed.
+Purpose: represent a **committed value/object** that can be removed. Because the value is already committed, Removable uses the same Accent value treatment as other committed/selected Chip states.
 
 Examples:
 
@@ -372,10 +372,13 @@ Current mappings:
 - Disclosure applied default/focus: `surface/accent-muted + line/accent + fg/accent`;
 - Disclosure applied hover: `surface/accent-muted` base + `surface/transparent-hover` overlay + `line/accent + fg/accent`;
 - Disclosure applied active: `surface/accent-muted` base + `surface/transparent-active` overlay + `line/accent + fg/accent`;
+- Removable default/focus: `surface/accent-muted + line/accent + fg/accent`;
+- Removable hover: `surface/accent-muted` base + `surface/transparent-hover` overlay + `line/accent + fg/accent`;
+- Removable active: `surface/accent-muted` base + `surface/transparent-active` overlay + `line/accent + fg/accent`;
 - disabled: shared disabled foreground/line/surface treatment;
 - focus: preserve the underlying persistent state and add the shared focus effect.
 
-For every structured Chip surface, interaction does not replace the semantic base. Default/unselected/unapplied, Removable, and Action preserve `surface/default`; Selectable Selected and Disclosure Applied preserve `surface/accent-muted`. Hover and Active always layer the shared `surface/transparent-hover` / `surface/transparent-active` tokens over that base.
+For every structured Chip surface, interaction does not replace the semantic base. Default/unselected/unapplied and Action preserve `surface/default`; Selectable Selected, Disclosure Applied, and Removable preserve `surface/accent-muted`. Hover and Active always layer the shared `surface/transparent-hover` / `surface/transparent-active` tokens over that base.
 
 Do not:
 
