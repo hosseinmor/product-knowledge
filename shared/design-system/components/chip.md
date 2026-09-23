@@ -111,7 +111,7 @@ The component itself does not know whether it is Choice or Filter; the owning gr
 
 #### Selected treatment
 
-`Selected=true` uses a check indicator plus the Accent semantic family: `surface/accent-muted*`, `line/accent`, and `fg/accent`. Disabled continues to use the shared disabled treatment.
+`Selected=true` uses a leading check at logical Start plus `surface/accent-muted`, `line/accent`, and `fg/accent`. Hover and Active preserve that selected base and add the shared structured-surface interaction overlays: `surface/transparent-hover` and `surface/transparent-active`. Focus preserves the base selected surface and adds `Focus/Default`. Disabled continues to use the shared disabled treatment.
 
 Rules:
 
@@ -276,7 +276,7 @@ Generic task actions such as “Summarize”, “Generate questions”, or “Ed
 
 Use the affordances consistently:
 
-- `✓` = selected;
+- `✓` = selected; place it at logical Start before the label;
 - `▾` = disclose/edit through a secondary surface;
 - `×` = remove committed value;
 - `+` = add/start/configure a value.
@@ -363,14 +363,14 @@ Current mappings:
 - unselected/unapplied hover: `surface/neutral-muted-hover`;
 - unselected/unapplied active: `surface/neutral-muted-active`;
 - Selectable selected default/focus: `surface/accent-muted + line/accent + fg/accent`;
-- Selectable selected hover: `surface/accent-muted-hover + line/accent + fg/accent`;
-- Selectable selected active: `surface/accent-muted-active + line/accent + fg/accent`;
+- Selectable selected hover: `surface/accent-muted` base + `surface/transparent-hover` overlay + `line/accent + fg/accent`;
+- Selectable selected active: `surface/accent-muted` base + `surface/transparent-active` overlay + `line/accent + fg/accent`;
 - Disclosure applied default: `surface/selected + line/emphasis`;
 - Disclosure applied hover/active: `surface/selected-hover + line/emphasis`;
 - disabled: shared disabled foreground/line/surface treatment;
 - focus: preserve the underlying persistent state and add the shared focus effect.
 
-There is currently no dedicated `surface/selected-active` semantic token for Disclosure Applied. That gap does not justify a Chip-specific color token. Selectable no longer depends on that gap because its selected treatment uses the existing Accent semantic state family.
+There is currently no dedicated `surface/selected-active` semantic token for Disclosure Applied. That gap does not justify a Chip-specific color token. Selectable does not require accent-specific Hover/Active surface tokens: its persistent `surface/accent-muted` base is preserved and interaction is layered with the shared transparent overlays.
 
 Do not:
 
@@ -416,6 +416,7 @@ Do not create separate RTL variants.
 Use logical anatomy:
 
 - content ordering follows RTL reading direction;
+- Selectable check is logical Start, before the label;
 - Action trailing icon follows the label;
 - Removable leading visual/icon is logical start;
 - trailing Disclosure chevron is logical end;
@@ -497,6 +498,7 @@ Exact DOM/ARIA choices remain unverified until the runtime implementation is reg
 - Do not add Single/Multiple to Disclosure; it belongs to the secondary surface.
 - Use the existing icon library; do not draw ad hoc Chip icons.
 - Override shared icon foreground where the consuming Chip state requires it.
+- For selected structured surfaces, keep the persistent semantic base and layer shared transparent Hover/Active overlays rather than swapping to accent-specific interaction surfaces.
 - Use the shared `Radius / Full` variable for the current Chip direction; do not use a literal radius. This is a current family decision rather than a global control-radius change.
 - Do not create `_Chip Base` until repeated maintenance evidence proves a shared private primitive is useful.
 - Do not create new work from legacy Carbon-derived Chip or old Chip Group artifacts.
@@ -569,7 +571,7 @@ Verify:
 - Small = 32px; Medium = 40px;
 - radius is the shared Full variable for the current Chip direction;
 - State is Default / Hover / Active / Focus / Disabled;
-- Selectable has persistent Selected and uses ✓, never ×;
+- Selectable has persistent Selected and uses a leading ✓ at logical Start, never ×;
 - Removable always has × and supports optional Detail / leading visual;
 - Removable body-action capability does not create invalid nested-button semantics;
 - Disclosure has persistent Applied, optional Summary, and mandatory chevron;
