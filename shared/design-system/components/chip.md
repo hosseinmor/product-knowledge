@@ -73,6 +73,8 @@ All public Chip sets share the same control recipe:
 | Default width | Hug content |
 | Label | Single-line |
 | Label text style | `Body/Compact/SM` |
+| Main content gap | `8px` |
+| Secondary content internal gap | `4px` |
 | Direction | RTL-first; use logical start/end |
 | Focus | Shared `Focus/Default` outside ring |
 | Focus geometry | 2px ring + 1px gap/offset |
@@ -152,7 +154,7 @@ The optional leading visual may be an icon or avatar when the value benefits fro
 
 #### Detail
 
-`Detail` is compact secondary value information such as skill level or proficiency. It is content, not a semantic state.
+`Detail` is compact secondary value information such as skill level or proficiency. The `Detail` property stores the value only, for example `متوسط` or `B2`; it must not include the separator. Visually, Detail is composed inside a `Secondary content` container as `Divider (·) + Detail`, with a 4px internal gap. `Show detail` controls the whole container. It is content, not a semantic state.
 
 #### Body action
 
@@ -215,14 +217,16 @@ Summary is optional compact applied-state information.
 
 Examples:
 
-- selected count: `· ۳`;
+- selected count value: `۳`;
 - selected value: `هلن`.
+
+The separator is structural rather than part of the `Summary` string. Visually, Summary is composed inside a `Secondary content` container as `Divider (·) + Summary`, with a 4px internal gap.
 
 Rules:
 
 - `Summary` is supplemental content, not another state axis;
-- `Show summary` is available on applied instances;
-- keep Summary compact;
+- `Show summary` is available on applied instances and controls the whole `Secondary content` container;
+- keep Summary compact and store only the value, without a leading `·` or `|`;
 - Single/Multiple selection is not a Chip property; the owning Popover/Menu/selection surface owns that behavior.
 
 The trailing chevron remains the disclosure affordance after a value is applied. Do not replace it with `×`; clearing belongs to the owning surface unless a separate product pattern is approved.
@@ -499,6 +503,8 @@ Exact DOM/ARIA choices remain unverified until the runtime implementation is reg
 - Do not add Single/Multiple to Disclosure; it belongs to the secondary surface.
 - Use the existing icon library; do not draw ad hoc Chip icons.
 - Override shared icon foreground where the consuming Chip state requires it.
+- Keep Divider structural: Summary/Detail properties store value only; do not prefix their values with `·` or `|`.
+- Use the shared 8px spacing variable for the main Chip content gap and 4px inside `Secondary content` between Divider and Summary/Detail.
 - For structured surfaces, keep the semantic base and layer shared transparent Hover/Active overlays rather than swapping to state-specific surface tokens.
 - Use the shared `Radius / Full` variable for the current Chip direction; do not use a literal radius. This is a current family decision rather than a global control-radius change.
 - Do not create `_Chip Base` until repeated maintenance evidence proves a shared private primitive is useful.
