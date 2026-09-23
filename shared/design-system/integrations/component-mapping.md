@@ -120,6 +120,8 @@ The Icon Button design identity and current Figma property model are verified. I
 | Menu Item states | `Default / Hover / Active / Focus / Disabled` |
 | Menu Item tones | `Default / Danger`; Disabled is State and visually overrides Tone |
 | Menu Item content properties | `Label / Leading / Checked / Show start icon / Start icon / Show shortcut / Shortcut / Submenu` |
+| Submenu depth | JV v1 authoring supports `Root Menu → one child Submenu` only; no submenu trigger inside the child submenu |
+| Submenu composition | Child surface reuses `Menu / Default`, matches parent Size, keeps independent `160–320px` width, uses 2px surface gap, opens toward logical End and may flip on collision |
 | Menu Item anatomy | Flat direct children: `Trailing + Label + Leading`; no active nested Menu Item Content component |
 | Leading rule | `Leading=false` collapses the Start column; `Leading=true` reserves `16px`; Leading/Trailing containers are transparent; Menu Layout controls the default composition |
 | Width ownership | Menu owns `160–320px` shell width; Menu Item has no independent min/max width and fills the Menu content slot |
@@ -132,9 +134,9 @@ The Icon Button design identity and current Figma property model are verified. I
 | Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-09-21 |
+| Last Figma verification | 2026-09-23 |
 
-The Menu design identity, action/command boundary, Size × Layout model, flat Menu Item anatomy, Size × State × Tone Menu Item model, grouping helpers, RTL geometry, semantic visual treatments, width/truncation rules, and accessibility contract are verified in `../components/menu.md`. Runtime API, exact DOM/focus implementation, overlay/positioning engine, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime source is registered.
+The Menu design identity, action/command boundary, Size × Layout model, flat Menu Item anatomy, Size × State × Tone Menu Item model, one-level submenu composition/depth, grouping helpers, RTL geometry, semantic visual treatments, width/truncation rules, and accessibility contract are verified in `../components/menu.md`. Runtime API, exact DOM/focus implementation, overlay/positioning engine, Storybook identity, and Figma-to-code prop mapping remain deliberately unverified until the owning runtime source is registered.
 
 ### Menu Button
 
