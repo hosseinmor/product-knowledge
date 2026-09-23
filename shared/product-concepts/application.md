@@ -1,8 +1,8 @@
 ---
 id: shared.application
 kind: shared-product-concept
-title: درخواست
-summary: مفهوم shared Application را تعریف می‌کند که submission و tracking سمت کارجو را به مدیریت recruiting سمت کارفرما وصل می‌کند.
+title: درخواست شغلی
+summary: مفهوم shared درخواست شغلی را تعریف می‌کند که submission و tracking سمت کارجو را به مدیریت recruiting سمت کارفرما وصل می‌کند.
 status: draft
 owner: تیم‌های محصول Jobvision
 last_reviewed:
@@ -23,11 +23,15 @@ topics:
   - recruiting
 ---
 
-# درخواست
+# درخواست شغلی
 
 ## تعریف
 
-Application نمایش shared این است که یک کارجو برای یک Job Post مشخص apply کرده است. این مفهوم submission و progress tracking سمت کارجو را به دریافت و مدیریت recruiting سمت کارفرما وصل می‌کند.
+درخواست شغلی نمایش shared این است که یک کارجو برای یک Job Post مشخص درخواست فرستاده است. این مفهوم submission و progress tracking سمت کارجو را به دریافت و مدیریت recruiting سمت کارفرما وصل می‌کند.
+
+در این سند و دیگر متن‌های مستقل، نام کامل concept «درخواست شغلی» است. صورت کوتاه
+«درخواست» فقط در سطحی مجاز است که context آن را بدون ابهام مشخص کند. «ارسال
+رزومه» نام action است، نه نام این entity.
 
 این مفهوم از flow خود Apply جداست. shared concept مالک معنای cross-product و relationshipهای Application است؛ submission، tracking، review، permission و presentation در Product Areaهای مربوط به خودشان می‌مانند.
 

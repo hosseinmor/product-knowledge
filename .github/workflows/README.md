@@ -13,6 +13,11 @@ When indexed knowledge changes in an internal pull request, the workflow:
 
 Pull requests from forks remain read-only and are validated without an automated push.
 
+The same workflow validates `shared/content/terminology/terms.yml` with
+`scripts/check_content_terminology.py`. This check covers YAML structure, unique
+term and decision IDs, allowed statuses and visibility values, evidence-source
+references, and decision-queue references.
+
 ## Accessibility knowledge quality
 
 The `accessibility-quality.yml` workflow validates deterministic structural invariants for the canonical accessibility corpus and its production retrieval integration.

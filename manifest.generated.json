@@ -409,30 +409,17 @@
       "product": "salary"
     },
     {
-      "id": "checkbox",
-      "kind": "design-system-component",
-      "title": "Checkbox",
-      "summary": "Checkbox lets users select zero or more independent options or control a single boolean choice.",
-      "status": "draft",
-      "owner": null,
-      "last_reviewed": null,
-      "related": [],
-      "topics": [
-        "checkbox",
-        "components",
-        "design-system-component"
-      ],
-      "path": "shared/design-system/components/checkbox.md"
-    },
-    {
       "id": "content.content-guidelines",
       "kind": "content-guideline",
       "title": "Content Guidelines",
-      "summary": "Defines shared content guidance across products.",
+      "summary": "Routes shared product-content decisions across voice, terminology, localization, patterns, component contracts, contexts, and executable evaluations.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "content.terminology",
+        "content.localization"
+      ],
       "topics": [
         "content",
         "content-guideline",
@@ -448,7 +435,10 @@
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "content.content-guidelines",
+        "content.terminology"
+      ],
       "topics": [
         "content",
         "content-guideline",
@@ -459,16 +449,31 @@
     {
       "id": "content.terminology",
       "kind": "content-guideline",
-      "title": "Shared Terminology",
-      "summary": "Use this document for terms whose meaning is consistent across products.",
+      "title": "JobVision Product Terminology",
+      "summary": "Defines the semantic terminology model, audience-aware label rules, source boundaries, and machine-readable lexicon for JobVision product content.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "content.content-guidelines",
+        "content.localization",
+        "shared.job-post",
+        "shared.company",
+        "shared.resume",
+        "shared.application",
+        "cando.ats.recruitment-request"
+      ],
       "topics": [
+        "ai-content",
+        "application",
         "content",
         "content-guideline",
-        "terminology"
+        "job-post",
+        "organization",
+        "persian",
+        "resume",
+        "terminology",
+        "ux-writing"
       ],
       "path": "shared/content/terminology.md"
     },
@@ -596,7 +601,7 @@
       "summary": "Defines practical rules for visible focus, logical focus order, programmatic focus, overlays, dynamic changes, validation, removal, and focus restoration.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-02",
+      "last_reviewed": "2026-09-19",
       "related": [
         "design-system.accessibility.core",
         "design-system.accessibility.keyboard-navigation",
@@ -854,6 +859,68 @@
       "path": "shared/design-system/components/badge.md"
     },
     {
+      "id": "design-system.component.breadcrumb",
+      "kind": "design-system-component",
+      "title": "Breadcrumb",
+      "summary": "Breadcrumbs show the current page in a hierarchy and provide navigation to ancestor destinations.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": "2026-09-19",
+      "related": [
+        "design-system.component.link",
+        "design-system.reference.component-mapping"
+      ],
+      "topics": [
+        "breadcrumb",
+        "components",
+        "design-system-component"
+      ],
+      "path": "shared/design-system/components/breadcrumb.md"
+    },
+    {
+      "id": "design-system.component.checkbox",
+      "kind": "design-system-component",
+      "title": "Checkbox",
+      "summary": "Checkbox lets users select zero, one, or many independent options and can represent a single optional boolean choice.",
+      "status": "reviewed",
+      "owner": null,
+      "last_reviewed": "2026-09-19",
+      "related": [
+        "design-system.component.radio",
+        "design-system.reference.component-mapping",
+        "design-system.accessibility.keyboard-navigation"
+      ],
+      "topics": [
+        "checkbox",
+        "components",
+        "design-system-component"
+      ],
+      "path": "shared/design-system/components/checkbox.md"
+    },
+    {
+      "id": "design-system.component.chip",
+      "kind": "design-system-component",
+      "title": "Chip",
+      "summary": "Chip is the interactive compact-control family for direct selection, committed removable values, disclosure controls, and value-level add/start actions.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": "2026-09-23",
+      "related": [
+        "design-system.component.tag",
+        "design-system.component.badge",
+        "design-system.component.switch",
+        "design-system.foundation.radius",
+        "design-system.accessibility.focus-management",
+        "design-system.reference.component-mapping"
+      ],
+      "topics": [
+        "chip",
+        "components",
+        "design-system-component"
+      ],
+      "path": "shared/design-system/components/chip.md"
+    },
+    {
       "id": "design-system.component.coachmark",
       "kind": "design-system-component",
       "title": "Coachmark",
@@ -872,6 +939,47 @@
         "design-system-component"
       ],
       "path": "shared/design-system/components/coachmark.md"
+    },
+    {
+      "id": "design-system.component.combo-button",
+      "kind": "design-system-component",
+      "title": "Combo Button",
+      "summary": "Combo Button keeps one dominant action directly available and exposes closely related alternative actions from a separate menu trigger.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": "2026-09-20",
+      "related": [
+        "button",
+        "design-system.component.icon-button",
+        "design-system.component.menu-button",
+        "design-system.accessibility.core"
+      ],
+      "topics": [
+        "combo-button",
+        "components",
+        "design-system-component"
+      ],
+      "path": "shared/design-system/components/combo-button.md"
+    },
+    {
+      "id": "design-system.component.content-switcher",
+      "kind": "design-system-component",
+      "title": "Content Switcher",
+      "summary": "Content Switcher switches immediately between closely related views of the same content using one current choice.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": "2026-09-21",
+      "related": [
+        "design-system.component.tabs",
+        "design-system.component.toggle-button",
+        "design-system.reference.component-mapping"
+      ],
+      "topics": [
+        "components",
+        "content-switcher",
+        "design-system-component"
+      ],
+      "path": "shared/design-system/components/content-switcher.md"
     },
     {
       "id": "design-system.component.drawer",
@@ -946,10 +1054,10 @@
       "id": "design-system.component.link",
       "kind": "design-system-component",
       "title": "Link",
-      "summary": "Links navigate users to another destination.",
+      "summary": "Links navigate users to another destination through a standalone component with three sizes and an inline native-text recipe.",
       "status": "draft",
       "owner": null,
-      "last_reviewed": null,
+      "last_reviewed": "2026-09-19",
       "related": [],
       "topics": [
         "components",
@@ -959,13 +1067,55 @@
       "path": "shared/design-system/components/link.md"
     },
     {
+      "id": "design-system.component.menu",
+      "kind": "design-system-component",
+      "title": "Menu",
+      "summary": "Menu is a temporary action/command surface composed from Menu Items, optional grouping, separators, shortcuts, checked state, destructive tone, and submenus.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": "2026-09-23",
+      "related": [
+        "design-system.component.menu-button",
+        "design-system.component.combo-button",
+        "design-system.accessibility.core",
+        "design-system.accessibility.component-authoring-contract"
+      ],
+      "topics": [
+        "components",
+        "design-system-component",
+        "menu"
+      ],
+      "path": "shared/design-system/components/menu.md"
+    },
+    {
+      "id": "design-system.component.menu-button",
+      "kind": "design-system-component",
+      "title": "Menu Button",
+      "summary": "Menu Button opens a replaceable menu of peer actions from one labeled Button trigger without surfacing a separate primary action.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": "2026-09-20",
+      "related": [
+        "button",
+        "design-system.component.menu",
+        "design-system.accessibility.core",
+        "design-system.accessibility.component-authoring-contract"
+      ],
+      "topics": [
+        "components",
+        "design-system-component",
+        "menu-button"
+      ],
+      "path": "shared/design-system/components/menu-button.md"
+    },
+    {
       "id": "design-system.component.modal",
       "kind": "design-system-component",
       "title": "Modal",
       "summary": "Modal creates a temporary blocking interaction context for a focused decision or task.",
       "status": "draft",
       "owner": null,
-      "last_reviewed": null,
+      "last_reviewed": "2026-09-21",
       "related": [
         "design-system.accessibility.focus-management",
         "design-system.accessibility.keyboard-navigation",
@@ -1058,11 +1208,15 @@
       "id": "design-system.component.radio",
       "kind": "design-system-component",
       "title": "Radio",
-      "summary": "> Status: structure only",
-      "status": "draft",
+      "summary": "Radio lets users choose exactly one mutually exclusive option from a group.",
+      "status": "reviewed",
       "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "last_reviewed": "2026-09-19",
+      "related": [
+        "design-system.component.checkbox",
+        "design-system.reference.component-mapping",
+        "design-system.accessibility.keyboard-navigation"
+      ],
       "topics": [
         "components",
         "design-system-component",
@@ -1131,12 +1285,15 @@
     {
       "id": "design-system.component.switch",
       "kind": "design-system-component",
-      "title": "Switch",
-      "summary": "> Status: structure only",
-      "status": "draft",
+      "title": "Toggle",
+      "summary": "Toggle is the canonical binary on/off control for settings that take effect immediately.",
+      "status": "reviewed",
       "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "last_reviewed": "2026-09-19",
+      "related": [
+        "design-system.component.checkbox",
+        "design-system.reference.component-mapping"
+      ],
       "topics": [
         "components",
         "design-system-component",
@@ -1240,7 +1397,9 @@
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.component.rich-text-editor"
+      ],
       "topics": [
         "components",
         "design-system-component",
@@ -1586,10 +1745,10 @@
       "id": "design-system.foundation.radius",
       "kind": "design-system-foundation",
       "title": "Radius",
-      "summary": "Defines the small role-based radius system shared by controls, surfaces, large surfaces, and fully rounded shapes.",
+      "summary": "Defines the canonical Small/Medium/Large radius scale shared by controls, surfaces, and fully rounded shapes.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-12",
+      "last_reviewed": "2026-09-21",
       "related": [
         "design-system.reference.tailwind"
       ],
@@ -2135,7 +2294,7 @@
       "summary": "Registry contract for mapping stable Figma component identities to runtime components and Storybook; records current verified mappings and gaps.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-19",
+      "last_reviewed": "2026-09-23",
       "related": [
         "design-system.reference.figma",
         "design-system.reference.code",
@@ -2217,7 +2376,7 @@
       "summary": "Defines the Design System boundary for Tailwind consumption across Color, Spacing, Radius, Typography, Elevation, responsive breakpoints, component tokens, and arbitrary values.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-12",
+      "last_reviewed": "2026-09-21",
       "related": [
         "design-system.token.architecture",
         "design-system.token.semantic-tokens",
@@ -2298,7 +2457,7 @@
       "summary": "Validated current Figma Color mappings for the Theme package architecture.",
       "status": "reviewed",
       "owner": null,
-      "last_reviewed": "2026-09-14",
+      "last_reviewed": "2026-09-19",
       "related": [],
       "topics": [
         "color-token-aliases",
@@ -2773,22 +2932,6 @@
       "group": "jobvision"
     },
     {
-      "id": "menu",
-      "kind": "design-system-component",
-      "title": "Menu",
-      "summary": "Menu presents a temporary list of actions or destinations in a layer positioned above the current interface. Overflow Menu is the compact trigger pattern that opens this list.",
-      "status": "draft",
-      "owner": null,
-      "last_reviewed": null,
-      "related": [],
-      "topics": [
-        "components",
-        "design-system-component",
-        "menu"
-      ],
-      "path": "shared/design-system/components/menu.md"
-    },
-    {
       "id": "shared.ai-services.overview",
       "kind": "shared-product-service-overview",
       "title": "AI Product Services",
@@ -2813,8 +2956,8 @@
     {
       "id": "shared.application",
       "kind": "shared-product-concept",
-      "title": "درخواست",
-      "summary": "مفهوم shared Application را تعریف می‌کند که submission و tracking سمت کارجو را به مدیریت recruiting سمت کارفرما وصل می‌کند.",
+      "title": "درخواست شغلی",
+      "summary": "مفهوم shared درخواست شغلی را تعریف می‌کند که submission و tracking سمت کارجو را به مدیریت recruiting سمت کارفرما وصل می‌کند.",
       "status": "draft",
       "owner": "تیم‌های محصول Jobvision",
       "last_reviewed": null,
@@ -2841,8 +2984,8 @@
     {
       "id": "shared.company",
       "kind": "shared-product-concept",
-      "title": "شرکت",
-      "summary": "مفهوم shared Company را تعریف می‌کند که در تجربه‌های Employer و Candidate جاب‌ویژن نمایش داده می‌شود.",
+      "title": "سازمان",
+      "summary": "مفهوم shared سازمان استخدام‌کننده را تعریف می‌کند که با label «سازمان» در Employer و «شرکت» در Candidate نمایش داده می‌شود.",
       "status": "draft",
       "owner": "تیم‌های محصول Jobvision",
       "last_reviewed": null,
@@ -2996,11 +3139,11 @@
     }
   ],
   "summary": {
-    "documents": 151,
+    "documents": 156,
     "by_kind": {
       "content-guideline": 3,
       "design-system-accessibility": 18,
-      "design-system-component": 29,
+      "design-system-component": 34,
       "design-system-design-language": 1,
       "design-system-experience-rule": 11,
       "design-system-foundation": 11,

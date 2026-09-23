@@ -50,6 +50,9 @@ jobs:
       - name: Validate lightweight manifest
         run: python scripts/generate_manifest.py check
 
+      - name: Validate content terminology
+        run: python scripts/check_content_terminology.py
+
       - name: Commit generated manifest to pull request branch
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         run: |
