@@ -378,6 +378,9 @@ terms:
     canonical_internal: رزومه
     definition:
       source: سند مهارت‌ها و سوابق کارجو.
+      product_content: >
+        مفهوم واحد اطلاعات حرفه‌ای کارجو که می‌تواند نسخه‌های زبانی فارسی
+        و انگلیسی داشته باشد.
     preferred:
       default: رزومه
     avoid: [CV, سی‌وی]
@@ -385,12 +388,33 @@ terms:
     domains: [jobseeker, employer, ats]
     visibility: [public, internal]
     relations:
+      has_variant: resume_language_variant
       distinct_from: [candidate_profile, personal_resume_file, resume_snapshot]
     code_bindings: [Cv]
     status: stable
-    open_questions:
-      - هر کارجو چند رزومه دارد و نسبت نسخه‌های فارسی و انگلیسی چیست؟
     evidence: [source_glossary, product_content_decisions]
+
+  - id: resume_language_variant
+    concept_kind: localized_representation
+    canonical_internal: نسخهٔ زبانی رزومه
+    definition:
+      product_content: >
+        بازنمایی فارسی یا انگلیسی همان رزومه که محتوای زبانی و شاخص تکمیل
+        مخصوص خود را دارد، اما در مدل محتوایی رزومهٔ مستقل دیگری نیست.
+    preferred:
+      default: نسخهٔ زبانی رزومه
+      persian: رزومهٔ فارسی
+      english: رزومهٔ انگلیسی
+    avoid: [رزومهٔ دوم, رزومهٔ جداگانه]
+    domains: [jobseeker, employer, application]
+    visibility: [public, internal]
+    relations:
+      variant_of: resume
+      distinct_from: [personal_resume_file, resume_snapshot]
+    status: stable
+    notes:
+      - این مدل محتوایی دربارهٔ تعداد رکوردها یا ساختار ذخیره‌سازی ادعا نمی‌کند.
+    evidence: [product_content_decisions]
 
   - id: resume_completion_percentage
     concept_kind: metric
@@ -402,6 +426,8 @@ terms:
     source_forbidden: [درصد رزومه, کامل بودن رزومه]
     domains: [jobseeker]
     visibility: [public, internal]
+    relations:
+      computed_for: resume_language_variant
     code_bindings: [CompletionPercentageFa, CompletionPercentageEn]
     status: draft
     notes:
@@ -1291,6 +1317,18 @@ decision_log:
       هر دو عبارت به یک مجموعه‌داده شامل شناسهٔ ملی، عنوان حقوقی، نشانی و
       کد پستی اشاره می‌کنند و تفاوت آن‌ها صرفاً در میزان وضوح label است.
 
+  - id: DEC-006
+    term_ids: [resume, resume_language_variant, resume_completion_percentage]
+    decided_on: 2026-09-23
+    outcome: >
+      در مدل محتوایی، رزومهٔ فارسی و رزومهٔ انگلیسی دو نسخهٔ زبانی از concept
+      رزومه‌اند و به‌عنوان دو نوع entity مستقل شمرده نمی‌شوند.
+    rationale: >
+      واژه‌نامه یک concept کدی `Cv` را ثبت می‌کند، در حالی که شاخص‌های
+      `CompletionPercentageFa` و `CompletionPercentageEn` و فیلدهای دوزبانه
+      تفاوت بازنمایی‌های زبانی را نشان می‌دهند. این تصمیم دربارهٔ زبان محصول
+      است و ساختار ذخیره‌سازی را تعیین نمی‌کند.
+
 decision_queue:
 
   - id: DEC-004
@@ -1305,12 +1343,6 @@ decision_queue:
     recommendation: این سه concept تا زمان اثبات هم‌هویتی جدا بمانند.
     impact: high
 
-  - id: DEC-006
-    term_ids: [resume]
-    question: مدل رزومهٔ فارسی و انگلیسی یک entity با دو نسخه است یا دو رزومه؟
-    recommendation: در UI از ادعای تعداد رزومه‌ها خودداری شود.
-    impact: medium
-
 evals:
   blocking:
     - id: TERM_WRONG_ENTITY_SYNONYM
@@ -1319,6 +1351,8 @@ evals:
       rule: اصطلاح code_only یا internal-only در UI عمومی دیده می‌شود.
     - id: RECRUITMENT_HIRING_COLLAPSED
       rule: جذب و استخدام به‌عنوان مترادف استفاده شده‌اند.
+    - id: RESUME_LANGUAGE_VARIANT_AS_SEPARATE_ENTITY
+      rule: نسخهٔ فارسی یا انگلیسی به‌عنوان رزومه‌ای مستقل از مفهوم رزومه شمرده شده است.
   non_blocking:
     - id: TERM_NOT_PREFERRED_FOR_SURFACE
       rule: واژه مجاز است اما preferred همان سطح نیست.
