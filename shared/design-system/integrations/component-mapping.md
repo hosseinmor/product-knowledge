@@ -534,14 +534,14 @@ The Content Switcher design identity, Size × Content parent model, native Items
 | Removable set | `Chip / Removable` |
 | Removable key / node | `193062043a2194024cc06c6d45f11b96b4a238b3` / `23124:358` |
 | Removable variants | `10 = 2 Size × 5 State` |
-| Removable properties | Variant: `Size / State`; content: `Label / Detail / Show detail / Show leading visual / Leading visual`; `Show detail` controls the whole Secondary content container |
+| Removable properties | Variant: `Size / State`; content: `Label / Detail / Show detail / Show leading visual / Leading visual`; `Show detail` controls the whole `Detail content` container |
 | Removable behavioral capability | Body may be independently actionable; body and trailing Remove are separate runtime interaction/focus targets; Body action is not a Figma variant |
 | Disclosure set | `Chip / Disclosure` |
 | Disclosure key / node | `3ba6c8dc36a76632d1569108e024ae47c841a50c` / `20783:534` |
 | Disclosure variants | `20 = 2 Size × 2 Applied × 5 State` |
-| Disclosure properties | Variant: `Size / Applied / State`; content: `Label / Summary / Show summary`; `Show summary` controls the whole Secondary content container |
+| Disclosure properties | Variant: `Size / Applied / State`; content: `Label / Summary / Show summary`; `Show summary` controls the whole `Summary content` container |
 | Disclosure Open | Runtime-only; removed from Figma variants because reviewed Open treatment duplicated Hover visually |
-| Disclosure Applied surface | `surface/selected` base; Hover/Active layer `surface/transparent-hover/active`; Focus preserves base + `Focus/Default` |
+| Disclosure Applied surface | `surface/accent-muted + line/accent + fg/accent`; Hover/Active preserve the Accent base and layer `surface/transparent-hover/active`; Focus preserves base + `Focus/Default` |
 | Action set | `Chip / Action` |
 | Action key / node | `876535cdb18030fe2d38c6c6221036d770838586` / `23123:125056` |
 | Action variants | `10 = 2 Size × 5 State` |
@@ -551,11 +551,11 @@ The Content Switcher design identity, Size × Content parent model, native Items
 | Figma sizes | `Small 32 / Medium 40` |
 | Label text style | `Body/Compact/SM` across all four Chip sets |
 | Main content gap | `8px` shared spacing variable |
-| Secondary content | Disclosure Summary and Removable Detail use `Secondary content` = `Divider (·) + value`, with `4px` internal gap |
+| Secondary content | Disclosure uses `Summary content`; Removable uses `Detail content`; each contains `Divider (·) + value` with `4px` internal gap |
 | Summary / Detail property value | Value only; separator is structural and must not be embedded in the property string |
 | Radius | shared `Radius / Full` — current Chip visual direction |
 | Focus | shared `Focus/Default` outside focus-visible ring |
-| Color | Semantic tokens only; every Chip Hover/Active preserves its semantic base and layers `surface/transparent-hover/active`: default-base families use `surface/default`, Selectable Selected uses `surface/accent-muted`, Disclosure Applied uses `surface/selected`; no public Color axis or Chip-specific color tokens |
+| Color | Semantic tokens only; every Chip Hover/Active preserves its semantic base and layers `surface/transparent-hover/active`: default-base families use `surface/default`; Selectable Selected and Disclosure Applied use `surface/accent-muted + line/accent + fg/accent`; no public Color axis or Chip-specific color tokens |
 | Usage mapping | Choice + Direct Filter → Selectable; Faceted/Popover Filter → Disclosure; committed/input value → Removable; add/start available value → Action |
 | Visual grammar | `✓ selected at logical Start before label / ▾ disclose / × remove / + add-start` |
 | Product-pattern boundary | Selection mode, required/allow-empty, filter composition, tokenized-input behavior, and software Available→Selected layout live at Group/Pattern level |
