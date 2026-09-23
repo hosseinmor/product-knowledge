@@ -541,6 +541,7 @@ The Content Switcher design identity, Size × Content parent model, native Items
 | Disclosure variants | `20 = 2 Size × 2 Applied × 5 State` |
 | Disclosure properties | Variant: `Size / Applied / State`; content: `Label / Summary / Show summary` |
 | Disclosure Open | Runtime-only; removed from Figma variants because reviewed Open treatment duplicated Hover visually |
+| Disclosure Applied surface | `surface/selected` base; Hover/Active layer `surface/transparent-hover/active`; Focus preserves base + `Focus/Default` |
 | Action set | `Chip / Action` |
 | Action key / node | `876535cdb18030fe2d38c6c6221036d770838586` / `23123:125056` |
 | Action variants | `10 = 2 Size × 5 State` |
@@ -551,7 +552,7 @@ The Content Switcher design identity, Size × Content parent model, native Items
 | Label text style | `Body/Compact/SM` across all four Chip sets |
 | Radius | shared `Radius / Full` — current Chip visual direction |
 | Focus | shared `Focus/Default` outside focus-visible ring |
-| Color | Semantic tokens only; Selectable selected keeps `surface/accent-muted + line/accent + fg/accent` as the persistent base and layers `surface/transparent-hover/active` for interaction; no public Color axis or Chip-specific color tokens |
+| Color | Semantic tokens only; persistent structured surfaces keep their semantic base and layer `surface/transparent-hover/active`: Selectable uses `surface/accent-muted + line/accent + fg/accent`, Disclosure Applied uses `surface/selected + line/emphasis`; no public Color axis or Chip-specific color tokens |
 | Usage mapping | Choice + Direct Filter → Selectable; Faceted/Popover Filter → Disclosure; committed/input value → Removable; add/start available value → Action |
 | Visual grammar | `✓ selected at logical Start before label / ▾ disclose / × remove / + add-start` |
 | Product-pattern boundary | Selection mode, required/allow-empty, filter composition, tokenized-input behavior, and software Available→Selected layout live at Group/Pattern level |
