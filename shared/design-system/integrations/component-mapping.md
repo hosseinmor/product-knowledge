@@ -7,7 +7,7 @@ summary: Registry contract for mapping stable Figma component identities to runt
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-09-22
+last_reviewed: 2026-09-23
 related:
   - design-system.reference.figma
   - design-system.reference.code
@@ -518,43 +518,51 @@ The Toggle design identity, Size × State × Toggled matrix, label contract, neu
 The Content Switcher design identity, Size × Content parent model, native Items Slot, State-only internal Item model, inherited sizing, Text/Icon boundary, selected treatment, semantic foreground mapping, equal-width composition, responsive rule, RTL behavior, and accessibility contract are verified in `../components/content-switcher.md`. Runtime API, exact DOM/ARIA and keyboard implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime source is registered.
 
 
-### Filter Chip
+### Chip
 
 | Field | Current value |
 |---|---|
-| DS component | Filter Chip |
+| DS component | Chip |
 | Knowledge document | `../components/chip.md` |
 | Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
-| Trigger component set | `Filter Chip / Trigger` |
-| Trigger component key | `3ba6c8dc36a76632d1569108e024ae47c841a50c` |
-| Trigger node ID | `20783:534` |
-| Trigger variants | `Size / Applied / State` |
-| Trigger variant count | `24 = 2 Size × 2 Applied × 6 State` |
-| Trigger content properties | `Label / Summary / Show leading icon` |
-| Trigger states | `Default / Hover / Active / Focus / Disabled / Open` |
-| Toggle component set | `Filter Chip / Toggle` |
-| Toggle component key | `5571e8e324b47155d7e9fd384aaea289c2e54d89` |
-| Toggle node ID | `20783:128158` |
-| Toggle variants | `Size / Selected / State` |
-| Toggle variant count | `20 = 2 Size × 2 Selected × 5 State` |
-| Toggle content properties | `Label / Show leading icon` |
-| Toggle states | `Default / Hover / Active / Focus / Disabled` |
-| Figma sizes | `Small 32 / Medium 40`; Small default |
-| Radius | `Radius / 6px · Medium`; Full/pill radius is not canonical |
-| Icon geometry | `18px`; shared icon library with component-level foreground override |
-| Focus | shared `Focus/Default` outside focus-visible effect |
-| Content behavior | single-line; parent owns width constraint; constrained runtime labels truncate; group may wrap whole chips |
-| Behavioral boundary | Trigger opens a secondary filter surface; Toggle changes a filter directly; removable/informational values belong to Tag/Token |
-| Deliberate exclusions | no public Color axis; no Assist/Suggestion/Input Chip families in v1 |
-| Legacy Figma | older `Control chip`, close-button/removable-chip, and Carbon-derived artifacts are migration/reference only |
+| Selectable set | `Chip / Selectable` |
+| Selectable key / node | `5571e8e324b47155d7e9fd384aaea289c2e54d89` / `20783:128158` |
+| Selectable variants | `20 = 2 Size × 2 Selected × 5 State` |
+| Selectable properties | Variant: `Size / Selected / State`; content: `Label` |
+| Removable set | `Chip / Removable` |
+| Removable key / node | `193062043a2194024cc06c6d45f11b96b4a238b3` / `23124:358` |
+| Removable variants | `10 = 2 Size × 5 State` |
+| Removable properties | Variant: `Size / State`; content: `Label / Detail / Show detail / Show leading visual / Leading visual` |
+| Removable behavioral capability | Body may be independently actionable; body and trailing Remove are separate runtime interaction/focus targets; Body action is not a Figma variant |
+| Disclosure set | `Chip / Disclosure` |
+| Disclosure key / node | `3ba6c8dc36a76632d1569108e024ae47c841a50c` / `20783:534` |
+| Disclosure variants | `20 = 2 Size × 2 Applied × 5 State` |
+| Disclosure properties | Variant: `Size / Applied / State`; content: `Label / Summary / Show summary` |
+| Disclosure Open | Runtime-only; removed from Figma variants because reviewed Open treatment duplicated Hover visually |
+| Action set | `Chip / Action` |
+| Action key / node | `876535cdb18030fe2d38c6c6221036d770838586` / `23123:125056` |
+| Action variants | `10 = 2 Size × 5 State` |
+| Action properties | Variant: `Size / State`; content: `Label / Show leading icon / Leading icon` |
+| Shared states | `Default / Hover / Active / Focus / Disabled` |
+| Figma sizes | `Small 32 / Medium 40` |
+| Radius | canonical `Radius / 6px · Medium`; Full/pill not canonical |
+| Focus | shared `Focus/Default` outside focus-visible ring |
+| Color | Semantic tokens only; no public Color axis and no Chip-specific color tokens |
+| Usage mapping | Choice + Direct Filter → Selectable; Faceted/Popover Filter → Disclosure; committed/input value → Removable; add/start available value → Action |
+| Visual grammar | `✓ selected / ▾ disclose / × remove / + add-start` |
+| Product-pattern boundary | Selection mode, required/allow-empty, filter composition, tokenized-input behavior, and software Available→Selected layout live at Group/Pattern level |
+| Tag boundary | Tag remains passive/descriptive/categorical and owns `tag/{color}/*`; Chip is interactive and must not consume Tag color tokens |
+| Legacy Figma | old Carbon-derived Chip sets, Control-chip artifacts, and old Chip Group components are reference-only; published identities preserved where safe |
+| Documentation frame | `Chip / Documentation`, node `23111:553`; includes Component Set, Playground, real Disclosure+Popover composition, and migration note |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified** |
-| Property mapping | **Unverified** — do not infer runtime prop names, DOM/ARIA role, or popup implementation from Figma |
+| Property mapping | **Unverified** — do not infer runtime props, DOM/ARIA roles, compound-control structure, or popup implementation from Figma |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-09-22 |
+| Last Figma verification | 2026-09-23 |
 
-The Filter Chip design identity, Trigger/Toggle behavioral split, Size × persistent-state × interaction-state matrices, 6px control radius, 18px icon geometry, state/token treatment, single-line/truncation boundary, container-level wrapping, RTL behavior, and accessibility requirements are verified in `../components/chip.md`. Runtime API, exact DOM/ARIA semantics, owning popup implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
+The Chip design identity is verified as four capability-specific public component sets that share one visual recipe without a mega Type matrix. Selectable, Removable, Disclosure, and Action contracts, 6px radius, semantic-token treatment, focus-visible behavior, RTL anatomy, software lifecycle, Tag/Button/selection-control boundaries, real Disclosure + Popover composition, and legacy migration are documented in `../components/chip.md`. Runtime API, exact DOM/ARIA implementation, compound Removable structure, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
+
 
 ## Rules
 
