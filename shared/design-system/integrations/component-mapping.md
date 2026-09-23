@@ -534,12 +534,12 @@ The Content Switcher design identity, Size × Content parent model, native Items
 | Removable set | `Chip / Removable` |
 | Removable key / node | `193062043a2194024cc06c6d45f11b96b4a238b3` / `23124:358` |
 | Removable variants | `10 = 2 Size × 5 State` |
-| Removable properties | Variant: `Size / State`; content: `Label / Detail / Show detail / Show leading visual / Leading visual` |
+| Removable properties | Variant: `Size / State`; content: `Label / Detail / Show detail / Show leading visual / Leading visual`; `Show detail` controls the whole Secondary content container |
 | Removable behavioral capability | Body may be independently actionable; body and trailing Remove are separate runtime interaction/focus targets; Body action is not a Figma variant |
 | Disclosure set | `Chip / Disclosure` |
 | Disclosure key / node | `3ba6c8dc36a76632d1569108e024ae47c841a50c` / `20783:534` |
 | Disclosure variants | `20 = 2 Size × 2 Applied × 5 State` |
-| Disclosure properties | Variant: `Size / Applied / State`; content: `Label / Summary / Show summary` |
+| Disclosure properties | Variant: `Size / Applied / State`; content: `Label / Summary / Show summary`; `Show summary` controls the whole Secondary content container |
 | Disclosure Open | Runtime-only; removed from Figma variants because reviewed Open treatment duplicated Hover visually |
 | Disclosure Applied surface | `surface/selected` base; Hover/Active layer `surface/transparent-hover/active`; Focus preserves base + `Focus/Default` |
 | Action set | `Chip / Action` |
@@ -550,6 +550,9 @@ The Content Switcher design identity, Size × Content parent model, native Items
 | Shared states | `Default / Hover / Active / Focus / Disabled` |
 | Figma sizes | `Small 32 / Medium 40` |
 | Label text style | `Body/Compact/SM` across all four Chip sets |
+| Main content gap | `8px` shared spacing variable |
+| Secondary content | Disclosure Summary and Removable Detail use `Secondary content` = `Divider (·) + value`, with `4px` internal gap |
+| Summary / Detail property value | Value only; separator is structural and must not be embedded in the property string |
 | Radius | shared `Radius / Full` — current Chip visual direction |
 | Focus | shared `Focus/Default` outside focus-visible ring |
 | Color | Semantic tokens only; every Chip Hover/Active preserves its semantic base and layers `surface/transparent-hover/active`: default-base families use `surface/default`, Selectable Selected uses `surface/accent-muted`, Disclosure Applied uses `surface/selected`; no public Color axis or Chip-specific color tokens |
@@ -566,7 +569,7 @@ The Content Switcher design identity, Size × Content parent model, native Items
 | Code Connect | **No registered mapping** |
 | Last Figma verification | 2026-09-23 |
 
-The Chip design identity is verified as four capability-specific public component sets that share one visual recipe without a mega Type matrix. Selectable, Removable, Disclosure, and Action contracts, current Full radius, shared structured-surface Hover/Active overlays across all Chip families, leading selected check anatomy, Action icon at logical End, focus-visible behavior, RTL anatomy, software lifecycle, Tag/Button/selection-control boundaries, real Disclosure + Popover composition, and legacy migration are documented in `../components/chip.md`. Runtime API, exact DOM/ARIA implementation, compound Removable structure, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
+The Chip design identity is verified as four capability-specific public component sets that share one visual recipe without a mega Type matrix. Selectable, Removable, Disclosure, and Action contracts, current Full radius, 8px main content gap, separate Divider + Summary/Detail secondary-content anatomy, shared structured-surface Hover/Active overlays across all Chip families, leading selected check anatomy, Action icon at logical End, focus-visible behavior, RTL anatomy, software lifecycle, Tag/Button/selection-control boundaries, real Disclosure + Popover composition, and legacy migration are documented in `../components/chip.md`. Runtime API, exact DOM/ARIA implementation, compound Removable structure, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
 
 ## Rules
