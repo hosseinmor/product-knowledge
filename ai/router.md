@@ -120,6 +120,14 @@ shared/content/patterns/empty-states.yml
 shared/content/evals/empty-state-cases.yml
 ```
 
+For notifications, Toasts, or outcome feedback, load:
+
+```text
+shared/content/patterns/notifications.md
+shared/content/patterns/notifications.yml
+shared/content/evals/notification-cases.yml
+```
+
 Product Knowledge owns what the product does. Shared Content owns how that
 truth is named and communicated. The Design System owns component and
 interaction mechanics. Do not invent missing product behavior while improving

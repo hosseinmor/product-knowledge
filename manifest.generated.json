@@ -422,7 +422,8 @@
         "content.localization",
         "content.pattern.error",
         "content.pattern.confirmation",
-        "content.pattern.empty-states"
+        "content.pattern.empty-states",
+        "content.pattern.notifications"
       ],
       "topics": [
         "content",
@@ -545,6 +546,38 @@
       "path": "shared/content/patterns/errors.md"
     },
     {
+      "id": "content.pattern.notifications",
+      "kind": "content-guideline",
+      "title": "Notifications and Outcome Feedback",
+      "summary": "Defines severity, presentation, content, actions, and accessibility for inline notifications, Toasts, and in-place outcome feedback.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "content.product-voice",
+        "content.terminology",
+        "content.pattern.error",
+        "content.pattern.confirmation",
+        "content.pattern.empty-states",
+        "design-system.component.notification",
+        "design-system.pattern.notifications",
+        "design-system.accessibility.dynamic-content-and-feedback"
+      ],
+      "topics": [
+        "accessibility",
+        "content",
+        "content-guideline",
+        "inline-notification",
+        "notifications",
+        "patterns",
+        "persian",
+        "success-feedback",
+        "toast",
+        "ux-writing"
+      ],
+      "path": "shared/content/patterns/notifications.md"
+    },
+    {
       "id": "content.product-voice",
       "kind": "content-guideline",
       "title": "JobVision Product Voice",
@@ -559,6 +592,7 @@
         "content.pattern.error",
         "content.pattern.confirmation",
         "content.pattern.empty-states",
+        "content.pattern.notifications",
         "design-system.accessibility.content"
       ],
       "topics": [
@@ -3266,9 +3300,9 @@
     }
   ],
   "summary": {
-    "documents": 160,
+    "documents": 161,
     "by_kind": {
-      "content-guideline": 7,
+      "content-guideline": 8,
       "design-system-accessibility": 18,
       "design-system-component": 34,
       "design-system-design-language": 1,

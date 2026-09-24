@@ -13,6 +13,7 @@ related:
   - content.pattern.error
   - content.pattern.confirmation
   - content.pattern.empty-states
+  - content.pattern.notifications
 ---
 
 # Content Guidelines
@@ -108,6 +109,18 @@ Loading, failure, missing permission, and missing eligibility are not empty
 states. Do not hide them behind generic no-data language.
 
 ## Notifications
+
+Use [`patterns/notifications.md`](patterns/notifications.md) to classify Info,
+Success, Warning, and Error feedback and to choose between in-place feedback,
+Inline Notification, Toast, and a response-requiring pattern. Its
+machine-readable contract and evals are in
+[`patterns/notifications.yml`](patterns/notifications.yml) and
+[`evals/notification-cases.yml`](evals/notification-cases.yml).
+
+Severity describes meaning; it does not determine presentation or assistive-
+technology urgency. Announce success only after the product confirms completion,
+and do not invent timeout, stacking, placement, or dismissal behavior that the
+Design System and runtime have not defined.
 
 ## AI-Generated Content
 
