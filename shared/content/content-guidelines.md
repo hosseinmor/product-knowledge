@@ -12,6 +12,7 @@ related:
   - content.localization
   - content.pattern.error
   - content.pattern.confirmation
+  - content.pattern.empty-states
 ---
 
 # Content Guidelines
@@ -96,6 +97,15 @@ Do not infer destructive intent from a negative verb. Use Danger only when the
 actual consequence is destructive or difficult to reverse.
 
 ## Empty States
+
+Use [`patterns/empty-states.md`](patterns/empty-states.md) to distinguish
+first-use, empty collections, no-results, cold start, and post-removal states.
+Its machine-readable contract and evals are in
+[`patterns/empty-states.yml`](patterns/empty-states.yml) and
+[`evals/empty-state-cases.yml`](evals/empty-state-cases.yml).
+
+Loading, failure, missing permission, and missing eligibility are not empty
+states. Do not hide them behind generic no-data language.
 
 ## Notifications
 

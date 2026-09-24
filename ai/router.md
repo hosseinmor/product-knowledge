@@ -112,6 +112,14 @@ shared/content/patterns/confirmations.yml
 shared/content/evals/confirmation-cases.yml
 ```
 
+For empty states or zero-result experiences, load:
+
+```text
+shared/content/patterns/empty-states.md
+shared/content/patterns/empty-states.yml
+shared/content/evals/empty-state-cases.yml
+```
+
 Product Knowledge owns what the product does. Shared Content owns how that
 truth is named and communicated. The Design System owns component and
 interaction mechanics. Do not invent missing product behavior while improving

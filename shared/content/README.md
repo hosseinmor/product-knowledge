@@ -29,10 +29,13 @@ shared/content/
 ├── patterns/
 │   ├── confirmations.md
 │   ├── confirmations.yml
+│   ├── empty-states.md
+│   ├── empty-states.yml
 │   ├── errors.md
 │   └── errors.yml
 └── evals/
     ├── confirmation-cases.yml
+    ├── empty-state-cases.yml
     └── error-cases.yml
 ```
 
