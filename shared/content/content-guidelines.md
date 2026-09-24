@@ -5,16 +5,19 @@ type: content-guideline
 title: Content Guidelines
 summary: Routes shared product-content decisions across voice, terminology, localization, patterns, component contracts, contexts, and executable evaluations.
 knowledge_state: unverified
-document_maturity: scaffold
+document_maturity: draft
 related:
+  - content.product-voice
   - content.terminology
   - content.localization
+  - content.pattern.error
 ---
 
 # Content Guidelines
 
-This document is the shared human entry point. Detailed terminology is owned by
-[`terminology.md`](terminology.md), and machine-readable terms are owned by
+This document is the shared human entry point. Detailed voice is owned by
+[`product-voice.md`](product-voice.md), terminology by
+[`terminology.md`](terminology.md), and machine-readable terms by
 [`terminology/terms.yml`](terminology/terms.yml).
 
 Use the smallest relevant layer:
@@ -42,8 +45,14 @@ communication rules.
 
 ## Voice and Tone
 
-Status: not yet authored. Use confirmed brand guidance as intent, not as a
-replacement for surface-specific content rules.
+Use [`product-voice.md`](product-voice.md) for the evidence-backed voice,
+precedence order, operational tone dimensions, and surface matrix. Use
+[`product-voice.yml`](product-voice.yml) when an AI or validator needs the
+structured contract.
+
+Voice remains consistent; tone changes with task, risk, and user state. Do not
+apply warmth or brand expression at the expense of product truth, recovery, or
+accessibility.
 
 ## UI Copy Principles
 
@@ -60,6 +69,19 @@ Do not use implementation names as labels merely because they exist in code.
 ## Instructions
 
 ## Error Messages
+
+Use [`patterns/errors.md`](patterns/errors.md) for error structure, placement,
+tone, recovery, and accessibility. Its machine-readable rules and eval cases
+are in [`patterns/errors.yml`](patterns/errors.yml) and
+[`evals/error-cases.yml`](evals/error-cases.yml).
+
+Minimum contract:
+
+- identify the problem;
+- identify recovery when it is known and safe;
+- reuse the visible field or object terminology;
+- do not blame the user, expose internal code as the explanation, or add brand
+  personality.
 
 ## Confirmation Messages
 
