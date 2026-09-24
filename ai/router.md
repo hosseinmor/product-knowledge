@@ -78,6 +78,37 @@ ai/research.md
 
 When the research will directly produce a PRD, use the PRD Skill as the primary route and use the research workflow only as supporting work.
 
+### Write or review product content
+
+Examples:
+
+- Write or review labels, helper text, errors, notifications, or AI disclosures
+- Check whether product copy uses the correct JobVision concept and audience label
+- Adapt content tone for a product surface without changing product behavior
+- Evaluate generated UI copy against deterministic content rules
+
+Route first to:
+
+```text
+shared/content/content-guidelines.md
+shared/content/product-voice.md
+shared/content/terminology.md
+```
+
+Then load only the relevant pattern, component contract, Product Area, and
+machine-readable source. For error content, load:
+
+```text
+shared/content/patterns/errors.md
+shared/content/patterns/errors.yml
+shared/content/evals/error-cases.yml
+```
+
+Product Knowledge owns what the product does. Shared Content owns how that
+truth is named and communicated. The Design System owns component and
+interaction mechanics. Do not invent missing product behavior while improving
+copy.
+
 ### Start product design from an approved PRD
 
 Examples:
