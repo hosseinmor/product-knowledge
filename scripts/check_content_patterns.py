@@ -20,7 +20,11 @@ CONFIRMATION_PATH = ROOT / "shared" / "content" / "patterns" / "confirmations.ym
 CONFIRMATION_EVAL_PATH = (
     ROOT / "shared" / "content" / "evals" / "confirmation-cases.yml"
 )
-RULE_ID_RE = re.compile(r"^(VOICE|ERR|CNF)-[0-9]{3}$")
+EMPTY_STATE_PATH = ROOT / "shared" / "content" / "patterns" / "empty-states.yml"
+EMPTY_STATE_EVAL_PATH = (
+    ROOT / "shared" / "content" / "evals" / "empty-state-cases.yml"
+)
+RULE_ID_RE = re.compile(r"^(VOICE|ERR|CNF|EST)-[0-9]{3}$")
 CASE_ID_RE = re.compile(r"^[a-z][a-z0-9_]*$")
 VALID_OBLIGATIONS = {"must", "must_not", "should"}
 TONE_DIMENSIONS = {"clarity", "warmth", "encouragement", "brand_expression"}
@@ -61,7 +65,9 @@ def validate_rules(
             continue
         rule_id = rule.get("id")
         if not nonempty_string(rule_id) or not RULE_ID_RE.fullmatch(rule_id):
-            errors.append(f"{location}.id must match VOICE-000, ERR-000, or CNF-000")
+            errors.append(
+                f"{location}.id must match VOICE-000, ERR-000, CNF-000, or EST-000"
+            )
         else:
             rule_ids.append(rule_id)
             location = rule_id
@@ -226,6 +232,53 @@ def validate_confirmation_pattern(
     return errors, obligations
 
 
+def validate_empty_state_pattern(
+    data: dict[str, Any], tone_profiles: set[str]
+) -> tuple[list[str], dict[str, str]]:
+    errors: list[str] = []
+    for field in ("schema_version", "id", "title", "language", "goal"):
+        if not nonempty_string(data.get(field)):
+            errors.append(
+                f"empty-state pattern: top-level `{field}` must be a non-empty string"
+            )
+    if data.get("tone_profile") not in tone_profiles:
+        errors.append(
+            "empty-state pattern: `tone_profile` must reference a known voice profile"
+        )
+
+    rule_errors, rule_ids = validate_rules(
+        data.get("rules"), "empty-state pattern"
+    )
+    errors.extend(rule_errors)
+    obligations = {
+        rule["id"]: rule["obligation"]
+        for rule in data.get("rules", [])
+        if isinstance(rule, dict)
+        and rule.get("id") in rule_ids
+        and rule.get("obligation") in VALID_OBLIGATIONS
+    }
+
+    anatomy = data.get("anatomy")
+    if not isinstance(anatomy, dict) or not nonempty_string(
+        anatomy.get("message_pattern")
+    ):
+        errors.append(
+            "empty-state pattern: anatomy requires a non-empty `message_pattern`"
+        )
+    if not isinstance(data.get("taxonomy"), dict) or not data["taxonomy"]:
+        errors.append("empty-state pattern: `taxonomy` must be a non-empty mapping")
+    if (
+        not isinstance(data.get("action_selection"), dict)
+        or not data["action_selection"]
+    ):
+        errors.append(
+            "empty-state pattern: `action_selection` must be a non-empty mapping"
+        )
+    if not isinstance(data.get("templates"), dict) or not data["templates"]:
+        errors.append("empty-state pattern: `templates` must be a non-empty mapping")
+    return errors, obligations
+
+
 def validate_evals(
     data: dict[str, Any],
     pattern_id: str,
@@ -318,6 +371,8 @@ def main() -> int:
     error_evals = load_yaml(EVAL_PATH)
     confirmation_pattern = load_yaml(CONFIRMATION_PATH)
     confirmation_evals = load_yaml(CONFIRMATION_EVAL_PATH)
+    empty_state_pattern = load_yaml(EMPTY_STATE_PATH)
+    empty_state_evals = load_yaml(EMPTY_STATE_EVAL_PATH)
 
     errors, tone_profiles, voice_rules = validate_voice(voice)
     pattern_errors, obligations = validate_error_pattern(error_pattern, tone_profiles)
@@ -325,6 +380,18 @@ def main() -> int:
     errors.extend(
         validate_evals(
             error_evals, error_pattern.get("id", ""), obligations, "error evals"
+        )
+    )
+    empty_state_errors, empty_state_obligations = validate_empty_state_pattern(
+        empty_state_pattern, tone_profiles
+    )
+    errors.extend(empty_state_errors)
+    errors.extend(
+        validate_evals(
+            empty_state_evals,
+            empty_state_pattern.get("id", ""),
+            empty_state_obligations,
+            "empty-state evals",
         )
     )
     confirmation_errors, confirmation_obligations = validate_confirmation_pattern(
@@ -350,7 +417,9 @@ def main() -> int:
         f"{len(tone_profiles)} tone profiles, {len(voice_rules)} voice rules, "
         f"{len(obligations)} error rules, {len(error_evals['cases'])} error cases, "
         f"{len(confirmation_obligations)} confirmation rules, "
-        f"{len(confirmation_evals['cases'])} confirmation cases"
+        f"{len(confirmation_evals['cases'])} confirmation cases, "
+        f"{len(empty_state_obligations)} empty-state rules, "
+        f"{len(empty_state_evals['cases'])} empty-state cases"
     )
     return 0
 
