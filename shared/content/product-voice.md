@@ -13,6 +13,7 @@ related:
   - content.pattern.error
   - content.pattern.confirmation
   - content.pattern.empty-states
+  - content.pattern.notifications
   - design-system.accessibility.content
 topics:
   - product-voice
@@ -78,6 +79,9 @@ Product truth and safety
 | دکمه یا منو | حداکثری | کم | صفر | صفر |
 | راهنمای فرم | حداکثری | کم | کم | صفر |
 | خطای اعتبارسنجی | حداکثری | کم | صفر | صفر |
+| بازخورد اطلاعاتی | زیاد | کم | صفر | کم |
+| هشدار | حداکثری | کم | صفر | صفر |
+| بازخورد خطا | حداکثری | کم | صفر | صفر |
 | تأیید پیامددار | حداکثری | کم | صفر | صفر |
 | تأیید اقدام مخرب | حداکثری | کم | صفر | صفر |
 | بازخورد موفقیت | زیاد | متوسط | کم | کم |
@@ -128,6 +132,8 @@ Product truth and safety
   مخرب را مالک است.
 - [`patterns/empty-states.md`](patterns/empty-states.md) طبقه‌بندی و محتوای
   وضعیت‌های خالی را مالک است.
+- [`patterns/notifications.md`](patterns/notifications.md) شدت، شکل ارائه و
+  محتوای اعلان‌ها و بازخورد نتیجه را مالک است.
 - [`terminology.md`](terminology.md) نام conceptها را مالک است.
 - [`localization.md`](localization.md) نگارش فارسی، عدد، تاریخ و متغیرها را
   مالک خواهد بود؛ بخش‌های خالی آن هنوز تصمیم قطعی نیستند.

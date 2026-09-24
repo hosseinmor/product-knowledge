@@ -109,6 +109,21 @@ operational_model:
       warmth: low
       encouragement: none
       brand_expression: none
+    informational_feedback:
+      clarity: high
+      warmth: low
+      encouragement: none
+      brand_expression: low
+    warning_feedback:
+      clarity: maximum
+      warmth: low
+      encouragement: none
+      brand_expression: none
+    error_feedback:
+      clarity: maximum
+      warmth: low
+      encouragement: none
+      brand_expression: none
     consequential_confirmation:
       clarity: maximum
       warmth: low
