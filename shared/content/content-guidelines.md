@@ -11,6 +11,7 @@ related:
   - content.terminology
   - content.localization
   - content.pattern.error
+  - content.pattern.confirmation
 ---
 
 # Content Guidelines
@@ -84,6 +85,15 @@ Minimum contract:
   personality.
 
 ## Confirmation Messages
+
+Use [`patterns/confirmations.md`](patterns/confirmations.md) to decide whether a
+confirmation is needed and to define its action, object, consequence,
+recoverability, scope, and safe exit. The machine-readable contract and evals
+are in [`patterns/confirmations.yml`](patterns/confirmations.yml) and
+[`evals/confirmation-cases.yml`](evals/confirmation-cases.yml).
+
+Do not infer destructive intent from a negative verb. Use Danger only when the
+actual consequence is destructive or difficult to reverse.
 
 ## Empty States
 

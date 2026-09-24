@@ -27,9 +27,12 @@ shared/content/
 ├── terminology/
 │   └── terms.yml
 ├── patterns/
+│   ├── confirmations.md
+│   ├── confirmations.yml
 │   ├── errors.md
 │   └── errors.yml
 └── evals/
+    ├── confirmation-cases.yml
     └── error-cases.yml
 ```
 
@@ -42,8 +45,8 @@ shared/content/
 - `terminology.md` explains terminology governance and selection rules.
 - `terminology/terms.yml` is the machine-readable semantic lexicon used by AI,
   validation, and future generated views.
-- `patterns/errors.md` and `patterns/errors.yml` define the first complete
-  content pattern; `evals/error-cases.yml` holds its regression cases.
+- `patterns/` contains complete human and machine-readable content patterns;
+  `evals/` holds their regression cases.
 
 ## Growth rule
 
@@ -102,5 +105,5 @@ python scripts/generate_manifest.py check
 ```
 
 The first command validates the machine-readable lexicon. The second validates
-product voice, the error pattern, and error eval coverage. The third validates
+product voice, content patterns, and eval coverage. The third validates
 the indexed Markdown knowledge documents and manifest freshness.

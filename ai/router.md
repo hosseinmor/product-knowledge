@@ -104,6 +104,14 @@ shared/content/patterns/errors.yml
 shared/content/evals/error-cases.yml
 ```
 
+For confirmations or destructive actions, load:
+
+```text
+shared/content/patterns/confirmations.md
+shared/content/patterns/confirmations.yml
+shared/content/evals/confirmation-cases.yml
+```
+
 Product Knowledge owns what the product does. Shared Content owns how that
 truth is named and communicated. The Design System owns component and
 interaction mechanics. Do not invent missing product behavior while improving

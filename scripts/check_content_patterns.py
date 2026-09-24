@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate machine-readable product voice, error pattern, and error evals."""
+"""Validate machine-readable product voice, content patterns, and evals."""
 
 from __future__ import annotations
 
@@ -16,7 +16,11 @@ ROOT = Path(__file__).resolve().parents[1]
 VOICE_PATH = ROOT / "shared" / "content" / "product-voice.yml"
 ERROR_PATH = ROOT / "shared" / "content" / "patterns" / "errors.yml"
 EVAL_PATH = ROOT / "shared" / "content" / "evals" / "error-cases.yml"
-RULE_ID_RE = re.compile(r"^(VOICE|ERR)-[0-9]{3}$")
+CONFIRMATION_PATH = ROOT / "shared" / "content" / "patterns" / "confirmations.yml"
+CONFIRMATION_EVAL_PATH = (
+    ROOT / "shared" / "content" / "evals" / "confirmation-cases.yml"
+)
+RULE_ID_RE = re.compile(r"^(VOICE|ERR|CNF)-[0-9]{3}$")
 CASE_ID_RE = re.compile(r"^[a-z][a-z0-9_]*$")
 VALID_OBLIGATIONS = {"must", "must_not", "should"}
 TONE_DIMENSIONS = {"clarity", "warmth", "encouragement", "brand_expression"}
@@ -57,7 +61,7 @@ def validate_rules(
             continue
         rule_id = rule.get("id")
         if not nonempty_string(rule_id) or not RULE_ID_RE.fullmatch(rule_id):
-            errors.append(f"{location}.id must match VOICE-000 or ERR-000")
+            errors.append(f"{location}.id must match VOICE-000, ERR-000, or CNF-000")
         else:
             rule_ids.append(rule_id)
             location = rule_id
@@ -179,15 +183,61 @@ def validate_error_pattern(
     return errors, obligations
 
 
+def validate_confirmation_pattern(
+    data: dict[str, Any], tone_profiles: set[str]
+) -> tuple[list[str], dict[str, str]]:
+    errors: list[str] = []
+    for field in ("schema_version", "id", "title", "language", "goal"):
+        if not nonempty_string(data.get(field)):
+            errors.append(
+                f"confirmation pattern: top-level `{field}` must be a non-empty string"
+            )
+    for field in ("tone_profile", "destructive_tone_profile"):
+        if data.get(field) not in tone_profiles:
+            errors.append(
+                f"confirmation pattern: `{field}` must reference a known voice profile"
+            )
+
+    rule_errors, rule_ids = validate_rules(
+        data.get("rules"), "confirmation pattern"
+    )
+    errors.extend(rule_errors)
+    obligations = {
+        rule["id"]: rule["obligation"]
+        for rule in data.get("rules", [])
+        if isinstance(rule, dict)
+        and rule.get("id") in rule_ids
+        and rule.get("obligation") in VALID_OBLIGATIONS
+    }
+
+    anatomy = data.get("anatomy")
+    if not isinstance(anatomy, dict) or not nonempty_string(
+        anatomy.get("title_pattern")
+    ):
+        errors.append(
+            "confirmation pattern: anatomy requires a non-empty `title_pattern`"
+        )
+    if not isinstance(data.get("decision_model"), dict) or not data["decision_model"]:
+        errors.append("confirmation pattern: `decision_model` must be a non-empty mapping")
+    if not isinstance(data.get("placement"), dict) or not data["placement"]:
+        errors.append("confirmation pattern: `placement` must be a non-empty mapping")
+    if not isinstance(data.get("templates"), dict) or not data["templates"]:
+        errors.append("confirmation pattern: `templates` must be a non-empty mapping")
+    return errors, obligations
+
+
 def validate_evals(
-    data: dict[str, Any], pattern_id: str, obligations: dict[str, str]
+    data: dict[str, Any],
+    pattern_id: str,
+    obligations: dict[str, str],
+    eval_label: str,
 ) -> list[str]:
     errors: list[str] = []
     if data.get("pattern_id") != pattern_id:
-        errors.append("error evals: `pattern_id` must match the error pattern id")
+        errors.append(f"{eval_label}: `pattern_id` must match the pattern id")
     cases = data.get("cases")
     if not isinstance(cases, list) or not cases:
-        return errors + ["error evals: `cases` must be a non-empty list"]
+        return errors + [f"{eval_label}: `cases` must be a non-empty list"]
 
     case_ids: list[str] = []
     covered: set[str] = set()
@@ -196,7 +246,7 @@ def validate_evals(
     known_rules = set(obligations)
 
     for index, case in enumerate(cases):
-        location = f"error evals.cases[{index}]"
+        location = f"{eval_label}.cases[{index}]"
         if not isinstance(case, dict):
             errors.append(f"{location} must be a mapping")
             continue
@@ -206,8 +256,14 @@ def validate_evals(
         else:
             case_ids.append(case_id)
             location = case_id
-        if not isinstance(case.get("message"), str):
-            errors.append(f"{location}: message must be a string")
+        if "message" in case:
+            if not isinstance(case.get("message"), str):
+                errors.append(f"{location}: message must be a string")
+        elif "content" in case:
+            if not isinstance(case.get("content"), dict) or not case["content"]:
+                errors.append(f"{location}: content must be a non-empty mapping")
+        else:
+            errors.append(f"{location}: requires `message` or `content`")
 
         expected = case.get("expected")
         if not isinstance(expected, dict) or not isinstance(expected.get("valid"), bool):
@@ -238,9 +294,9 @@ def validate_evals(
 
     duplicates = duplicate_values(case_ids)
     if duplicates:
-        errors.append(f"error evals: duplicate case ids: {', '.join(duplicates)}")
+        errors.append(f"{eval_label}: duplicate case ids: {', '.join(duplicates)}")
     if not has_valid or not has_invalid:
-        errors.append("error evals: include at least one valid and one invalid case")
+        errors.append(f"{eval_label}: include at least one valid and one invalid case")
 
     blocking_rules = {
         rule_id
@@ -250,7 +306,7 @@ def validate_evals(
     missing_coverage = sorted(blocking_rules - covered)
     if missing_coverage:
         errors.append(
-            "error evals: blocking rules without coverage: "
+            f"{eval_label}: blocking rules without coverage: "
             + ", ".join(missing_coverage)
         )
     return errors
@@ -260,11 +316,29 @@ def main() -> int:
     voice = load_yaml(VOICE_PATH)
     error_pattern = load_yaml(ERROR_PATH)
     error_evals = load_yaml(EVAL_PATH)
+    confirmation_pattern = load_yaml(CONFIRMATION_PATH)
+    confirmation_evals = load_yaml(CONFIRMATION_EVAL_PATH)
 
     errors, tone_profiles, voice_rules = validate_voice(voice)
     pattern_errors, obligations = validate_error_pattern(error_pattern, tone_profiles)
     errors.extend(pattern_errors)
-    errors.extend(validate_evals(error_evals, error_pattern.get("id", ""), obligations))
+    errors.extend(
+        validate_evals(
+            error_evals, error_pattern.get("id", ""), obligations, "error evals"
+        )
+    )
+    confirmation_errors, confirmation_obligations = validate_confirmation_pattern(
+        confirmation_pattern, tone_profiles
+    )
+    errors.extend(confirmation_errors)
+    errors.extend(
+        validate_evals(
+            confirmation_evals,
+            confirmation_pattern.get("id", ""),
+            confirmation_obligations,
+            "confirmation evals",
+        )
+    )
 
     if errors:
         for error in errors:
@@ -274,7 +348,9 @@ def main() -> int:
     print(
         "Content patterns are valid: "
         f"{len(tone_profiles)} tone profiles, {len(voice_rules)} voice rules, "
-        f"{len(obligations)} error rules, {len(error_evals['cases'])} error cases"
+        f"{len(obligations)} error rules, {len(error_evals['cases'])} error cases, "
+        f"{len(confirmation_obligations)} confirmation rules, "
+        f"{len(confirmation_evals['cases'])} confirmation cases"
     )
     return 0
 

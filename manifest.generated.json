@@ -420,7 +420,8 @@
         "content.product-voice",
         "content.terminology",
         "content.localization",
-        "content.pattern.error"
+        "content.pattern.error",
+        "content.pattern.confirmation"
       ],
       "topics": [
         "content",
@@ -447,6 +448,38 @@
         "localization"
       ],
       "path": "shared/content/localization.md"
+    },
+    {
+      "id": "content.pattern.confirmation",
+      "kind": "content-guideline",
+      "title": "Confirmations and Destructive Actions",
+      "summary": "Defines when confirmation is necessary and how to name actions, consequences, recoverability, scope, and safe exits.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "content.product-voice",
+        "content.terminology",
+        "content.pattern.error",
+        "design-system.pattern.confirmation",
+        "design-system.pattern.destructive-actions",
+        "design-system.experience-rule.action-hierarchy",
+        "design-system.component.modal",
+        "button"
+      ],
+      "topics": [
+        "action-labels",
+        "confirmation",
+        "confirmations",
+        "content",
+        "content-guideline",
+        "destructive-actions",
+        "modal-content",
+        "patterns",
+        "persian",
+        "ux-writing"
+      ],
+      "path": "shared/content/patterns/confirmations.md"
     },
     {
       "id": "content.pattern.error",
@@ -492,6 +525,7 @@
         "content.terminology",
         "content.localization",
         "content.pattern.error",
+        "content.pattern.confirmation",
         "design-system.accessibility.content"
       ],
       "topics": [
@@ -3199,9 +3233,9 @@
     }
   ],
   "summary": {
-    "documents": 158,
+    "documents": 159,
     "by_kind": {
-      "content-guideline": 5,
+      "content-guideline": 6,
       "design-system-accessibility": 18,
       "design-system-component": 34,
       "design-system-design-language": 1,
