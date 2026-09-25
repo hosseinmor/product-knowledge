@@ -33,12 +33,15 @@ shared/content/
 │   ├── empty-states.yml
 │   ├── errors.md
 │   ├── errors.yml
+│   ├── loading-and-progress.md
+│   ├── loading-and-progress.yml
 │   ├── notifications.md
 │   └── notifications.yml
 └── evals/
     ├── confirmation-cases.yml
     ├── empty-state-cases.yml
     ├── error-cases.yml
+    ├── loading-progress-cases.yml
     └── notification-cases.yml
 ```
 

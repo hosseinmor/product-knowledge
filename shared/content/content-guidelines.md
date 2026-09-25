@@ -14,6 +14,7 @@ related:
   - content.pattern.confirmation
   - content.pattern.empty-states
   - content.pattern.notifications
+  - content.pattern.loading-and-progress
 ---
 
 # Content Guidelines
@@ -121,6 +122,19 @@ Severity describes meaning; it does not determine presentation or assistive-
 technology urgency. Announce success only after the product confirms completion,
 and do not invent timeout, stacking, placement, or dismissal behavior that the
 Design System and runtime have not defined.
+
+## Loading and Progress
+
+Use [`patterns/loading-and-progress.md`](patterns/loading-and-progress.md) to
+distinguish local loading, region busy states, determinate progress, and
+indeterminate progress. Its machine-readable contract and evals are in
+[`patterns/loading-and-progress.yml`](patterns/loading-and-progress.yml) and
+[`evals/loading-progress-cases.yml`](evals/loading-progress-cases.yml).
+
+Do not fabricate percentages or time estimates for indeterminate work. Loading
+means the result is not known yet; it is not an empty, disabled, success, or
+error state. Exact display thresholds and Skeleton behavior remain Design
+System and runtime decisions.
 
 ## AI-Generated Content
 

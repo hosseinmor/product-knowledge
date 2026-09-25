@@ -423,7 +423,8 @@
         "content.pattern.error",
         "content.pattern.confirmation",
         "content.pattern.empty-states",
-        "content.pattern.notifications"
+        "content.pattern.notifications",
+        "content.pattern.loading-and-progress"
       ],
       "topics": [
         "content",
@@ -546,6 +547,39 @@
       "path": "shared/content/patterns/errors.md"
     },
     {
+      "id": "content.pattern.loading-and-progress",
+      "kind": "content-guideline",
+      "title": "Loading and Progress Content",
+      "summary": "Defines classification, status language, progress truth, transitions, and accessibility for asynchronous product operations.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "content.product-voice",
+        "content.terminology",
+        "content.pattern.error",
+        "content.pattern.notifications",
+        "design-system.accessibility.dynamic-content-and-feedback",
+        "design-system.accessibility.focus-management",
+        "button",
+        "design-system.pattern.loading-and-progress"
+      ],
+      "topics": [
+        "accessibility",
+        "async-status",
+        "content",
+        "content-guideline",
+        "loading",
+        "loading-and-progress",
+        "patterns",
+        "persian",
+        "progress",
+        "skeleton",
+        "ux-writing"
+      ],
+      "path": "shared/content/patterns/loading-and-progress.md"
+    },
+    {
       "id": "content.pattern.notifications",
       "kind": "content-guideline",
       "title": "Notifications and Outcome Feedback",
@@ -593,6 +627,7 @@
         "content.pattern.confirmation",
         "content.pattern.empty-states",
         "content.pattern.notifications",
+        "content.pattern.loading-and-progress",
         "design-system.accessibility.content"
       ],
       "topics": [
@@ -3300,9 +3335,9 @@
     }
   ],
   "summary": {
-    "documents": 161,
+    "documents": 162,
     "by_kind": {
-      "content-guideline": 8,
+      "content-guideline": 9,
       "design-system-accessibility": 18,
       "design-system-component": 34,
       "design-system-design-language": 1,
