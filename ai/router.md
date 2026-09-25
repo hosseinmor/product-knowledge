@@ -128,6 +128,14 @@ shared/content/patterns/notifications.yml
 shared/content/evals/notification-cases.yml
 ```
 
+For loading, async status, or determinate/indeterminate progress, load:
+
+```text
+shared/content/patterns/loading-and-progress.md
+shared/content/patterns/loading-and-progress.yml
+shared/content/evals/loading-progress-cases.yml
+```
+
 Product Knowledge owns what the product does. Shared Content owns how that
 truth is named and communicated. The Design System owns component and
 interaction mechanics. Do not invent missing product behavior while improving
