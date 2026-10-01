@@ -46,10 +46,56 @@ INSTRUCTION_PATH = (
 INSTRUCTION_EVAL_PATH = (
     ROOT / "shared" / "content" / "evals" / "instruction-helper-cases.yml"
 )
+PATTERN_PATHS = (
+    ERROR_PATH,
+    CONFIRMATION_PATH,
+    EMPTY_STATE_PATH,
+    NOTIFICATION_PATH,
+    LOADING_PATH,
+    AI_CONTENT_PATH,
+    INSTRUCTION_PATH,
+)
+EVAL_PATHS = (
+    EVAL_PATH,
+    CONFIRMATION_EVAL_PATH,
+    EMPTY_STATE_EVAL_PATH,
+    NOTIFICATION_EVAL_PATH,
+    LOADING_EVAL_PATH,
+    AI_CONTENT_EVAL_PATH,
+    INSTRUCTION_EVAL_PATH,
+)
 RULE_ID_RE = re.compile(r"^(VOICE|ERR|CNF|EST|NTF|LDP|AIC|INS)-[0-9]{3}$")
 CASE_ID_RE = re.compile(r"^[a-z][a-z0-9_]*$")
 VALID_OBLIGATIONS = {"must", "must_not", "should"}
 TONE_DIMENSIONS = {"clarity", "warmth", "encouragement", "brand_expression"}
+
+
+class UniqueKeyLoader(yaml.SafeLoader):
+    """Safe YAML loader that rejects duplicate mapping keys."""
+
+
+def construct_unique_mapping(
+    loader: UniqueKeyLoader, node: yaml.MappingNode, deep: bool = False
+) -> dict[Any, Any]:
+    loader.flatten_mapping(node)
+    mapping: dict[Any, Any] = {}
+    for key_node, value_node in node.value:
+        key = loader.construct_object(key_node, deep=deep)
+        if key in mapping:
+            raise yaml.constructor.ConstructorError(
+                "while constructing a mapping",
+                node.start_mark,
+                f"found duplicate key {key!r}",
+                key_node.start_mark,
+            )
+        mapping[key] = loader.construct_object(value_node, deep=deep)
+    return mapping
+
+
+UniqueKeyLoader.add_constructor(
+    yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
+    construct_unique_mapping,
+)
 
 
 def nonempty_string(value: Any) -> bool:
@@ -58,7 +104,9 @@ def nonempty_string(value: Any) -> bool:
 
 def load_yaml(path: Path) -> dict[str, Any]:
     try:
-        loaded = yaml.safe_load(path.read_text(encoding="utf-8"))
+        loaded = yaml.load(
+            path.read_text(encoding="utf-8"), Loader=UniqueKeyLoader
+        )
     except FileNotFoundError:
         raise SystemExit(f"ERROR missing content source: {path}")
     except yaml.YAMLError as exc:
@@ -68,20 +116,72 @@ def load_yaml(path: Path) -> dict[str, Any]:
     return loaded
 
 
+def validate_registered_inventory() -> list[str]:
+    errors: list[str] = []
+    expected_patterns = {path.name for path in PATTERN_PATHS}
+    actual_patterns = {
+        path.name for path in ERROR_PATH.parent.glob("*.yml") if path.is_file()
+    }
+    expected_human_docs = {path.with_suffix(".md").name for path in PATTERN_PATHS}
+    actual_human_docs = {
+        path.name for path in ERROR_PATH.parent.glob("*.md") if path.is_file()
+    }
+    expected_evals = {path.name for path in EVAL_PATHS}
+    actual_evals = {
+        path.name for path in EVAL_PATH.parent.glob("*.yml") if path.is_file()
+    }
+
+    for label, expected, actual in (
+        ("pattern", expected_patterns, actual_patterns),
+        ("human-readable pattern", expected_human_docs, actual_human_docs),
+        ("eval", expected_evals, actual_evals),
+    ):
+        missing = sorted(expected - actual)
+        unregistered = sorted(actual - expected)
+        if missing:
+            errors.append(f"missing registered {label} files: {', '.join(missing)}")
+        if unregistered:
+            errors.append(
+                f"unregistered {label} files: {', '.join(unregistered)}"
+            )
+
+    return errors
+
+
 def duplicate_values(values: list[str]) -> list[str]:
     return sorted(value for value, count in Counter(values).items() if count > 1)
 
 
+def validate_identity(
+    data: dict[str, Any],
+    label: str,
+    expected_id: str,
+    required_fields: tuple[str, ...],
+) -> list[str]:
+    errors: list[str] = []
+    for field in required_fields:
+        if not nonempty_string(data.get(field)):
+            errors.append(f"{label}: top-level `{field}` must be a non-empty string")
+    if data.get("id") != expected_id:
+        errors.append(f"{label}: `id` must be `{expected_id}`")
+    return errors
+
+
 def validate_rules(
-    rules: Any, prefix: str, source_ids: set[str] | None = None
+    rules: Any,
+    label: str,
+    expected_prefix: str,
+    source_ids: set[str] | None = None,
+    require_key: bool = False,
 ) -> tuple[list[str], set[str]]:
     errors: list[str] = []
     if not isinstance(rules, list) or not rules:
-        return [f"{prefix}: `rules` must be a non-empty list"], set()
+        return [f"{label}: `rules` must be a non-empty list"], set()
 
     rule_ids: list[str] = []
+    rule_keys: list[str] = []
     for index, rule in enumerate(rules):
-        location = f"{prefix}.rules[{index}]"
+        location = f"{label}.rules[{index}]"
         if not isinstance(rule, dict):
             errors.append(f"{location} must be a mapping")
             continue
@@ -93,6 +193,16 @@ def validate_rules(
         else:
             rule_ids.append(rule_id)
             location = rule_id
+            if not rule_id.startswith(f"{expected_prefix}-"):
+                errors.append(
+                    f"{location}: rule id must use the `{expected_prefix}-000` family"
+                )
+        if require_key:
+            rule_key = rule.get("key")
+            if not nonempty_string(rule_key):
+                errors.append(f"{location}: missing non-empty `key`")
+            else:
+                rule_keys.append(rule_key)
         if rule.get("obligation") not in VALID_OBLIGATIONS:
             errors.append(
                 f"{location}: obligation must be one of {sorted(VALID_OBLIGATIONS)}"
@@ -112,15 +222,20 @@ def validate_rules(
 
     duplicates = duplicate_values(rule_ids)
     if duplicates:
-        errors.append(f"{prefix}: duplicate rule ids: {', '.join(duplicates)}")
+        errors.append(f"{label}: duplicate rule ids: {', '.join(duplicates)}")
+    duplicate_keys = duplicate_values(rule_keys)
+    if duplicate_keys:
+        errors.append(f"{label}: duplicate rule keys: {', '.join(duplicate_keys)}")
     return errors, set(rule_ids)
 
 
 def validate_voice(data: dict[str, Any]) -> tuple[list[str], set[str], set[str]]:
-    errors: list[str] = []
-    for field in ("schema_version", "id", "title", "language"):
-        if not nonempty_string(data.get(field)):
-            errors.append(f"voice: top-level `{field}` must be a non-empty string")
+    errors = validate_identity(
+        data,
+        "voice",
+        "content.foundation.product_voice",
+        ("schema_version", "id", "title", "language"),
+    )
 
     sources = data.get("sources")
     if not isinstance(sources, list) or not sources:
@@ -175,7 +290,7 @@ def validate_voice(data: dict[str, Any]) -> tuple[list[str], set[str], set[str]]
                 )
 
     rule_errors, rule_ids = validate_rules(
-        data.get("rules"), "voice", source_ids=source_ids
+        data.get("rules"), "voice", "VOICE", source_ids=source_ids
     )
     errors.extend(rule_errors)
     return errors, set(profiles), rule_ids
@@ -184,14 +299,18 @@ def validate_voice(data: dict[str, Any]) -> tuple[list[str], set[str], set[str]]
 def validate_error_pattern(
     data: dict[str, Any], tone_profiles: set[str]
 ) -> tuple[list[str], dict[str, str]]:
-    errors: list[str] = []
-    for field in ("schema_version", "id", "title", "language", "goal"):
-        if not nonempty_string(data.get(field)):
-            errors.append(f"error pattern: top-level `{field}` must be a non-empty string")
+    errors = validate_identity(
+        data,
+        "error pattern",
+        "content.pattern.error",
+        ("schema_version", "id", "title", "language", "goal"),
+    )
     if data.get("tone_profile") not in tone_profiles:
         errors.append("error pattern: `tone_profile` must reference a known voice profile")
 
-    rule_errors, rule_ids = validate_rules(data.get("rules"), "error pattern")
+    rule_errors, rule_ids = validate_rules(
+        data.get("rules"), "error pattern", "ERR", require_key=True
+    )
     errors.extend(rule_errors)
     obligations = {
         rule["id"]: rule["obligation"]
@@ -214,12 +333,12 @@ def validate_error_pattern(
 def validate_confirmation_pattern(
     data: dict[str, Any], tone_profiles: set[str]
 ) -> tuple[list[str], dict[str, str]]:
-    errors: list[str] = []
-    for field in ("schema_version", "id", "title", "language", "goal"):
-        if not nonempty_string(data.get(field)):
-            errors.append(
-                f"confirmation pattern: top-level `{field}` must be a non-empty string"
-            )
+    errors = validate_identity(
+        data,
+        "confirmation pattern",
+        "content.pattern.confirmation",
+        ("schema_version", "id", "title", "language", "goal"),
+    )
     for field in ("tone_profile", "destructive_tone_profile"):
         if data.get(field) not in tone_profiles:
             errors.append(
@@ -227,7 +346,7 @@ def validate_confirmation_pattern(
             )
 
     rule_errors, rule_ids = validate_rules(
-        data.get("rules"), "confirmation pattern"
+        data.get("rules"), "confirmation pattern", "CNF", require_key=True
     )
     errors.extend(rule_errors)
     obligations = {
@@ -257,19 +376,19 @@ def validate_confirmation_pattern(
 def validate_empty_state_pattern(
     data: dict[str, Any], tone_profiles: set[str]
 ) -> tuple[list[str], dict[str, str]]:
-    errors: list[str] = []
-    for field in ("schema_version", "id", "title", "language", "goal"):
-        if not nonempty_string(data.get(field)):
-            errors.append(
-                f"empty-state pattern: top-level `{field}` must be a non-empty string"
-            )
+    errors = validate_identity(
+        data,
+        "empty-state pattern",
+        "content.pattern.empty-states",
+        ("schema_version", "id", "title", "language", "goal"),
+    )
     if data.get("tone_profile") not in tone_profiles:
         errors.append(
             "empty-state pattern: `tone_profile` must reference a known voice profile"
         )
 
     rule_errors, rule_ids = validate_rules(
-        data.get("rules"), "empty-state pattern"
+        data.get("rules"), "empty-state pattern", "EST", require_key=True
     )
     errors.extend(rule_errors)
     obligations = {
@@ -304,12 +423,12 @@ def validate_empty_state_pattern(
 def validate_notification_pattern(
     data: dict[str, Any], tone_profiles: set[str]
 ) -> tuple[list[str], dict[str, str]]:
-    errors: list[str] = []
-    for field in ("schema_version", "id", "title", "language", "goal"):
-        if not nonempty_string(data.get(field)):
-            errors.append(
-                f"notification pattern: top-level `{field}` must be a non-empty string"
-            )
+    errors = validate_identity(
+        data,
+        "notification pattern",
+        "content.pattern.notifications",
+        ("schema_version", "id", "title", "language", "goal"),
+    )
 
     pattern_profiles = data.get("tone_profiles")
     if not isinstance(pattern_profiles, dict) or not pattern_profiles:
@@ -328,7 +447,7 @@ def validate_notification_pattern(
             )
 
     rule_errors, rule_ids = validate_rules(
-        data.get("rules"), "notification pattern"
+        data.get("rules"), "notification pattern", "NTF", require_key=True
     )
     errors.extend(rule_errors)
     obligations = {
@@ -359,18 +478,20 @@ def validate_notification_pattern(
 def validate_loading_pattern(
     data: dict[str, Any], tone_profiles: set[str]
 ) -> tuple[list[str], dict[str, str]]:
-    errors: list[str] = []
-    for field in ("schema_version", "id", "title", "language", "goal"):
-        if not nonempty_string(data.get(field)):
-            errors.append(
-                f"loading pattern: top-level `{field}` must be a non-empty string"
-            )
+    errors = validate_identity(
+        data,
+        "loading pattern",
+        "content.pattern.loading-and-progress",
+        ("schema_version", "id", "title", "language", "goal"),
+    )
     if data.get("tone_profile") not in tone_profiles:
         errors.append(
             "loading pattern: `tone_profile` must reference a known voice profile"
         )
 
-    rule_errors, rule_ids = validate_rules(data.get("rules"), "loading pattern")
+    rule_errors, rule_ids = validate_rules(
+        data.get("rules"), "loading pattern", "LDP", require_key=True
+    )
     errors.extend(rule_errors)
     obligations = {
         rule["id"]: rule["obligation"]
@@ -398,12 +519,12 @@ def validate_loading_pattern(
 def validate_ai_content_pattern(
     data: dict[str, Any], tone_profiles: set[str]
 ) -> tuple[list[str], dict[str, str]]:
-    errors: list[str] = []
-    for field in ("schema_version", "id", "title", "language", "goal"):
-        if not nonempty_string(data.get(field)):
-            errors.append(
-                f"AI content pattern: top-level `{field}` must be a non-empty string"
-            )
+    errors = validate_identity(
+        data,
+        "AI content pattern",
+        "content.pattern.ai-content-and-disclosure",
+        ("schema_version", "id", "title", "language", "goal"),
+    )
 
     pattern_profiles = data.get("tone_profiles")
     if not isinstance(pattern_profiles, dict) or not pattern_profiles:
@@ -421,7 +542,9 @@ def validate_ai_content_pattern(
                 + ", ".join(unknown_profiles)
             )
 
-    rule_errors, rule_ids = validate_rules(data.get("rules"), "AI content pattern")
+    rule_errors, rule_ids = validate_rules(
+        data.get("rules"), "AI content pattern", "AIC", require_key=True
+    )
     errors.extend(rule_errors)
     obligations = {
         rule["id"]: rule["obligation"]
@@ -459,19 +582,19 @@ def validate_ai_content_pattern(
 def validate_instruction_pattern(
     data: dict[str, Any], tone_profiles: set[str]
 ) -> tuple[list[str], dict[str, str]]:
-    errors: list[str] = []
-    for field in ("schema_version", "id", "title", "language", "goal"):
-        if not nonempty_string(data.get(field)):
-            errors.append(
-                f"instruction pattern: top-level `{field}` must be a non-empty string"
-            )
+    errors = validate_identity(
+        data,
+        "instruction pattern",
+        "content.pattern.instructions-and-helper-text",
+        ("schema_version", "id", "title", "language", "goal"),
+    )
     if data.get("tone_profile") not in tone_profiles:
         errors.append(
             "instruction pattern: `tone_profile` must reference a known voice profile"
         )
 
     rule_errors, rule_ids = validate_rules(
-        data.get("rules"), "instruction pattern"
+        data.get("rules"), "instruction pattern", "INS", require_key=True
     )
     errors.extend(rule_errors)
     obligations = {
@@ -507,11 +630,17 @@ def validate_instruction_pattern(
 
 def validate_evals(
     data: dict[str, Any],
+    expected_eval_id: str,
     pattern_id: str,
     obligations: dict[str, str],
     eval_label: str,
 ) -> list[str]:
-    errors: list[str] = []
+    errors = validate_identity(
+        data,
+        eval_label,
+        expected_eval_id,
+        ("schema_version", "id", "language"),
+    )
     if data.get("pattern_id") != pattern_id:
         errors.append(f"{eval_label}: `pattern_id` must match the pattern id")
     cases = data.get("cases")
@@ -535,6 +664,8 @@ def validate_evals(
         else:
             case_ids.append(case_id)
             location = case_id
+        if not isinstance(case.get("context"), dict) or not case["context"]:
+            errors.append(f"{location}: context must be a non-empty mapping")
         if "message" in case:
             if not isinstance(case.get("message"), str):
                 errors.append(f"{location}: message must be a string")
@@ -553,9 +684,27 @@ def validate_evals(
         if not isinstance(checked, list) or not checked:
             errors.append(f"{location}: checked_rules must be a non-empty list")
             checked = []
+        elif not all(nonempty_string(rule_id) for rule_id in checked):
+            errors.append(f"{location}: checked_rules must contain only rule ids")
+            checked = [rule_id for rule_id in checked if nonempty_string(rule_id)]
         if not isinstance(violations, list):
             errors.append(f"{location}: violations must be a list")
             violations = []
+        elif not all(nonempty_string(rule_id) for rule_id in violations):
+            errors.append(f"{location}: violations must contain only rule ids")
+            violations = [
+                rule_id for rule_id in violations if nonempty_string(rule_id)
+            ]
+        duplicate_checked = duplicate_values(checked)
+        if duplicate_checked:
+            errors.append(
+                f"{location}: duplicate checked rule ids: {', '.join(duplicate_checked)}"
+            )
+        duplicate_violations = duplicate_values(violations)
+        if duplicate_violations:
+            errors.append(
+                f"{location}: duplicate violation ids: {', '.join(duplicate_violations)}"
+            )
         unknown = sorted((set(checked) | set(violations)) - known_rules)
         if unknown:
             errors.append(f"{location}: unknown rule ids: {', '.join(unknown)}")
@@ -591,7 +740,18 @@ def validate_evals(
     return errors
 
 
+def validate_evaluation_source(
+    pattern: dict[str, Any], expected_source: str, label: str
+) -> list[str]:
+    if pattern.get("evaluation_source") != expected_source:
+        return [
+            f"{label}: `evaluation_source` must be `{expected_source}`"
+        ]
+    return []
+
+
 def main() -> int:
+    inventory_errors = validate_registered_inventory()
     voice = load_yaml(VOICE_PATH)
     error_pattern = load_yaml(ERROR_PATH)
     error_evals = load_yaml(EVAL_PATH)
@@ -609,11 +769,21 @@ def main() -> int:
     instruction_evals = load_yaml(INSTRUCTION_EVAL_PATH)
 
     errors, tone_profiles, voice_rules = validate_voice(voice)
+    errors = inventory_errors + errors
     pattern_errors, obligations = validate_error_pattern(error_pattern, tone_profiles)
     errors.extend(pattern_errors)
     errors.extend(
+        validate_evaluation_source(
+            error_pattern, "../evals/error-cases.yml", "error pattern"
+        )
+    )
+    errors.extend(
         validate_evals(
-            error_evals, error_pattern.get("id", ""), obligations, "error evals"
+            error_evals,
+            "content.eval.error_cases",
+            error_pattern.get("id", ""),
+            obligations,
+            "error evals",
         )
     )
     notification_errors, notification_obligations = validate_notification_pattern(
@@ -621,8 +791,16 @@ def main() -> int:
     )
     errors.extend(notification_errors)
     errors.extend(
+        validate_evaluation_source(
+            notification_pattern,
+            "../evals/notification-cases.yml",
+            "notification pattern",
+        )
+    )
+    errors.extend(
         validate_evals(
             notification_evals,
+            "content.eval.notification_cases",
             notification_pattern.get("id", ""),
             notification_obligations,
             "notification evals",
@@ -633,8 +811,16 @@ def main() -> int:
     )
     errors.extend(loading_errors)
     errors.extend(
+        validate_evaluation_source(
+            loading_pattern,
+            "../evals/loading-progress-cases.yml",
+            "loading pattern",
+        )
+    )
+    errors.extend(
         validate_evals(
             loading_evals,
+            "content.eval.loading_progress_cases",
             loading_pattern.get("id", ""),
             loading_obligations,
             "loading evals",
@@ -645,8 +831,16 @@ def main() -> int:
     )
     errors.extend(ai_content_errors)
     errors.extend(
+        validate_evaluation_source(
+            ai_content_pattern,
+            "../evals/ai-content-cases.yml",
+            "AI content pattern",
+        )
+    )
+    errors.extend(
         validate_evals(
             ai_content_evals,
+            "content.eval.ai_content_cases",
             ai_content_pattern.get("id", ""),
             ai_content_obligations,
             "AI content evals",
@@ -657,8 +851,16 @@ def main() -> int:
     )
     errors.extend(instruction_errors)
     errors.extend(
+        validate_evaluation_source(
+            instruction_pattern,
+            "../evals/instruction-helper-cases.yml",
+            "instruction pattern",
+        )
+    )
+    errors.extend(
         validate_evals(
             instruction_evals,
+            "content.eval.instruction_helper_cases",
             instruction_pattern.get("id", ""),
             instruction_obligations,
             "instruction evals",
@@ -669,8 +871,16 @@ def main() -> int:
     )
     errors.extend(empty_state_errors)
     errors.extend(
+        validate_evaluation_source(
+            empty_state_pattern,
+            "../evals/empty-state-cases.yml",
+            "empty-state pattern",
+        )
+    )
+    errors.extend(
         validate_evals(
             empty_state_evals,
+            "content.eval.empty_state_cases",
             empty_state_pattern.get("id", ""),
             empty_state_obligations,
             "empty-state evals",
@@ -681,8 +891,16 @@ def main() -> int:
     )
     errors.extend(confirmation_errors)
     errors.extend(
+        validate_evaluation_source(
+            confirmation_pattern,
+            "../evals/confirmation-cases.yml",
+            "confirmation pattern",
+        )
+    )
+    errors.extend(
         validate_evals(
             confirmation_evals,
+            "content.eval.confirmation_cases",
             confirmation_pattern.get("id", ""),
             confirmation_obligations,
             "confirmation evals",

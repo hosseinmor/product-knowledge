@@ -27,13 +27,43 @@ VALID_VISIBILITY = {
 }
 
 
+class UniqueKeyLoader(yaml.SafeLoader):
+    """Safe YAML loader that rejects duplicate mapping keys."""
+
+
+def construct_unique_mapping(
+    loader: UniqueKeyLoader, node: yaml.MappingNode, deep: bool = False
+) -> dict[Any, Any]:
+    loader.flatten_mapping(node)
+    mapping: dict[Any, Any] = {}
+    for key_node, value_node in node.value:
+        key = loader.construct_object(key_node, deep=deep)
+        if key in mapping:
+            raise yaml.constructor.ConstructorError(
+                "while constructing a mapping",
+                node.start_mark,
+                f"found duplicate key {key!r}",
+                key_node.start_mark,
+            )
+        mapping[key] = loader.construct_object(value_node, deep=deep)
+    return mapping
+
+
+UniqueKeyLoader.add_constructor(
+    yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
+    construct_unique_mapping,
+)
+
+
 def nonempty_string(value: Any) -> bool:
     return isinstance(value, str) and bool(value.strip())
 
 
 def load_terms() -> dict[str, Any]:
     try:
-        loaded = yaml.safe_load(TERMS_PATH.read_text(encoding="utf-8"))
+        loaded = yaml.load(
+            TERMS_PATH.read_text(encoding="utf-8"), Loader=UniqueKeyLoader
+        )
     except FileNotFoundError:
         raise SystemExit(f"ERROR missing terminology source: {TERMS_PATH}")
     except yaml.YAMLError as exc:
@@ -50,12 +80,24 @@ def validate(data: dict[str, Any]) -> list[str]:
     for field in ("schema_version", "id", "language"):
         if not nonempty_string(data.get(field)):
             errors.append(f"top-level `{field}` must be a non-empty string")
+    if data.get("id") != "content.foundation.terminology":
+        errors.append("top-level `id` must be `content.foundation.terminology`")
 
     sources = data.get("sources")
     if not isinstance(sources, list) or not sources:
         errors.append("top-level `sources` must be a non-empty list")
         sources = []
-    source_ids = [item.get("id") for item in sources if isinstance(item, dict)]
+    source_ids: list[str] = []
+    for index, source in enumerate(sources):
+        location = f"sources[{index}]"
+        if not isinstance(source, dict):
+            errors.append(f"{location} must be a mapping")
+            continue
+        source_id = source.get("id")
+        if not nonempty_string(source_id) or not ID_RE.fullmatch(source_id):
+            errors.append(f"{location}.id must use snake_case")
+        else:
+            source_ids.append(source_id)
     duplicate_sources = sorted(
         source_id
         for source_id, count in Counter(source_ids).items()
@@ -63,7 +105,7 @@ def validate(data: dict[str, Any]) -> list[str]:
     )
     if duplicate_sources:
         errors.append(f"duplicate source ids: {', '.join(duplicate_sources)}")
-    known_sources = {item for item in source_ids if nonempty_string(item)}
+    known_sources = set(source_ids)
 
     terms = data.get("terms")
     if not isinstance(terms, list) or not terms:
@@ -102,12 +144,16 @@ def validate(data: dict[str, Any]) -> list[str]:
         visibility = term.get("visibility")
         if not isinstance(visibility, list) or not visibility:
             errors.append(f"{location}: visibility must be a non-empty list")
+        elif not all(nonempty_string(value) for value in visibility):
+            errors.append(f"{location}: visibility must contain only strings")
         elif invalid := sorted(set(visibility) - VALID_VISIBILITY):
             errors.append(f"{location}: invalid visibility values: {', '.join(invalid)}")
 
         evidence = term.get("evidence", [])
         if not isinstance(evidence, list):
             errors.append(f"{location}: evidence must be a list")
+        elif not all(nonempty_string(source_id) for source_id in evidence):
+            errors.append(f"{location}: evidence must contain only source ids")
         else:
             unknown = sorted(set(evidence) - known_sources)
             if unknown:
@@ -153,6 +199,8 @@ def validate(data: dict[str, Any]) -> list[str]:
         referenced_terms = decision.get("term_ids")
         if not isinstance(referenced_terms, list) or not referenced_terms:
             errors.append(f"{location}: term_ids must be a non-empty list")
+        elif not all(nonempty_string(term_id) for term_id in referenced_terms):
+            errors.append(f"{location}: term_ids must contain only term ids")
         else:
             unknown = sorted(set(referenced_terms) - known_terms)
             if unknown:
@@ -192,6 +240,8 @@ def validate(data: dict[str, Any]) -> list[str]:
         referenced_terms = decision.get("term_ids")
         if not isinstance(referenced_terms, list) or not referenced_terms:
             errors.append(f"{location}: term_ids must be a non-empty list")
+        elif not all(nonempty_string(term_id) for term_id in referenced_terms):
+            errors.append(f"{location}: term_ids must contain only term ids")
         else:
             unknown = sorted(set(referenced_terms) - known_terms)
             if unknown:

@@ -205,7 +205,8 @@ python scripts/check_content_patterns.py
 
 Any change to indexed documents must include the regenerated manifest. CI checks metadata, unique IDs, related IDs, and manifest freshness.
 The content checks additionally validate the semantic lexicon, product voice,
-content-pattern rules, and regression-case coverage.
+registered content-pattern inventory and identities, rule families, eval links,
+regression-case coverage, and duplicate YAML keys.
 
 See [`docs/manifest.md`](docs/manifest.md).
 
