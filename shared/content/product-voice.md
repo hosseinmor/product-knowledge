@@ -11,6 +11,7 @@ related:
   - content.terminology
   - content.localization
   - content.pattern.error
+  - content.pattern.confirmation
   - design-system.accessibility.content
 topics:
   - product-voice
@@ -76,6 +77,7 @@ Product truth and safety
 | دکمه یا منو | حداکثری | کم | صفر | صفر |
 | راهنمای فرم | حداکثری | کم | کم | صفر |
 | خطای اعتبارسنجی | حداکثری | کم | صفر | صفر |
+| تأیید پیامددار | حداکثری | کم | صفر | صفر |
 | تأیید اقدام مخرب | حداکثری | کم | صفر | صفر |
 | بازخورد موفقیت | زیاد | متوسط | کم | کم |
 | وضعیت خالی | زیاد | متوسط | متوسط | متوسط |
@@ -121,6 +123,8 @@ Product truth and safety
 
 - این سند صدای پایه و تغییر لحن را تعریف می‌کند.
 - [`patterns/errors.md`](patterns/errors.md) ساختار و قواعد خطا را مالک است.
+- [`patterns/confirmations.md`](patterns/confirmations.md) ساختار تأیید و اقدام
+  مخرب را مالک است.
 - [`terminology.md`](terminology.md) نام conceptها را مالک است.
 - [`localization.md`](localization.md) نگارش فارسی، عدد، تاریخ و متغیرها را
   مالک خواهد بود؛ بخش‌های خالی آن هنوز تصمیم قطعی نیستند.

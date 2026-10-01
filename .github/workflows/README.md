@@ -18,10 +18,10 @@ The same workflow validates `shared/content/terminology/terms.yml` with
 term and decision IDs, allowed statuses and visibility values, evidence-source
 references, and decision-queue references.
 
-It also validates `shared/content/product-voice.yml`, the error pattern, and its
-regression cases with `scripts/check_content_patterns.py`. This check covers
+It also validates `shared/content/product-voice.yml`, content patterns, and
+their regression cases with `scripts/check_content_patterns.py`. This check covers
 voice source references, tone profiles, rule IDs, eval references, and coverage
-of every blocking error rule.
+of every blocking pattern rule.
 
 ## Accessibility knowledge quality
 

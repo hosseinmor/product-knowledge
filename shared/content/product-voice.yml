@@ -109,6 +109,11 @@ operational_model:
       warmth: low
       encouragement: none
       brand_expression: none
+    consequential_confirmation:
+      clarity: maximum
+      warmth: low
+      encouragement: none
+      brand_expression: none
     destructive_confirmation:
       clarity: maximum
       warmth: low
