@@ -35,6 +35,8 @@ shared/content/
 │   ├── empty-states.yml
 │   ├── errors.md
 │   ├── errors.yml
+│   ├── instructions-and-helper-text.md
+│   ├── instructions-and-helper-text.yml
 │   ├── loading-and-progress.md
 │   ├── loading-and-progress.yml
 │   ├── notifications.md
@@ -44,6 +46,7 @@ shared/content/
     ├── confirmation-cases.yml
     ├── empty-state-cases.yml
     ├── error-cases.yml
+    ├── instruction-helper-cases.yml
     ├── loading-progress-cases.yml
     └── notification-cases.yml
 ```

@@ -104,6 +104,15 @@ shared/content/patterns/errors.yml
 shared/content/evals/error-cases.yml
 ```
 
+For labels, instructions, helper text, placeholders, examples, requirement
+indicators, or field guidance, load:
+
+```text
+shared/content/patterns/instructions-and-helper-text.md
+shared/content/patterns/instructions-and-helper-text.yml
+shared/content/evals/instruction-helper-cases.yml
+```
+
 For confirmations or destructive actions, load:
 
 ```text
