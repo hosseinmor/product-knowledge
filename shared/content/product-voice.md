@@ -12,6 +12,7 @@ related:
   - content.localization
   - content.pattern.error
   - content.pattern.confirmation
+  - content.pattern.empty-states
   - design-system.accessibility.content
 topics:
   - product-voice
@@ -125,6 +126,8 @@ Product truth and safety
 - [`patterns/errors.md`](patterns/errors.md) ساختار و قواعد خطا را مالک است.
 - [`patterns/confirmations.md`](patterns/confirmations.md) ساختار تأیید و اقدام
   مخرب را مالک است.
+- [`patterns/empty-states.md`](patterns/empty-states.md) طبقه‌بندی و محتوای
+  وضعیت‌های خالی را مالک است.
 - [`terminology.md`](terminology.md) نام conceptها را مالک است.
 - [`localization.md`](localization.md) نگارش فارسی، عدد، تاریخ و متغیرها را
   مالک خواهد بود؛ بخش‌های خالی آن هنوز تصمیم قطعی نیستند.

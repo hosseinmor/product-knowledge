@@ -421,7 +421,8 @@
         "content.terminology",
         "content.localization",
         "content.pattern.error",
-        "content.pattern.confirmation"
+        "content.pattern.confirmation",
+        "content.pattern.empty-states"
       ],
       "topics": [
         "content",
@@ -482,6 +483,37 @@
       "path": "shared/content/patterns/confirmations.md"
     },
     {
+      "id": "content.pattern.empty-states",
+      "kind": "content-guideline",
+      "title": "Empty States",
+      "summary": "Defines empty-state classification, message anatomy, actions, terminology, product-truth boundaries, and recovery guidance.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "content.product-voice",
+        "content.terminology",
+        "content.pattern.error",
+        "design-system.component.empty-state",
+        "design-system.pattern.empty-states",
+        "design-system.pattern.search-and-filtering",
+        "design-system.accessibility.focus-management"
+      ],
+      "topics": [
+        "accessibility",
+        "cold-start",
+        "content",
+        "content-guideline",
+        "empty-states",
+        "first-use",
+        "no-results",
+        "patterns",
+        "persian",
+        "ux-writing"
+      ],
+      "path": "shared/content/patterns/empty-states.md"
+    },
+    {
       "id": "content.pattern.error",
       "kind": "content-guideline",
       "title": "Error Messages",
@@ -526,6 +558,7 @@
         "content.localization",
         "content.pattern.error",
         "content.pattern.confirmation",
+        "content.pattern.empty-states",
         "design-system.accessibility.content"
       ],
       "topics": [
@@ -3233,9 +3266,9 @@
     }
   ],
   "summary": {
-    "documents": 159,
+    "documents": 160,
     "by_kind": {
-      "content-guideline": 6,
+      "content-guideline": 7,
       "design-system-accessibility": 18,
       "design-system-component": 34,
       "design-system-design-language": 1,
