@@ -21,6 +21,7 @@ shared/content/
 ├── README.md
 ├── content-guidelines.md
 ├── localization.md
+├── localization.yml
 ├── product-voice.md
 ├── product-voice.yml
 ├── terminology.md
@@ -47,6 +48,7 @@ shared/content/
     ├── empty-state-cases.yml
     ├── error-cases.yml
     ├── instruction-helper-cases.yml
+    ├── localization-cases.yml
     ├── loading-progress-cases.yml
     └── notification-cases.yml
 ```
@@ -55,8 +57,9 @@ shared/content/
   rules.
 - `product-voice.md` explains the evidence-backed voice and tone model;
   `product-voice.yml` is its machine-readable contract.
-- `localization.md` owns language, directionality, number, date, translation,
-  and variable-formatting rules.
+- `localization.md` owns the human language, directionality, number, date,
+  translation, and variable-formatting contract; `localization.yml` is its
+  machine-readable source and `evals/localization-cases.yml` its regression set.
 - `terminology.md` explains terminology governance and selection rules.
 - `terminology/terms.yml` is the machine-readable semantic lexicon used by AI,
   validation, and future generated views.
@@ -115,12 +118,14 @@ Run:
 
 ```bash
 python scripts/check_content_terminology.py
+python scripts/check_content_localization.py
 python scripts/check_content_patterns.py
 python scripts/generate_manifest.py check
 ```
 
 The first command validates the machine-readable lexicon. The second validates
-the registered human/machine pattern inventory, product voice, pattern and eval
+the Persian localization foundation and eval coverage. The third validates the
+registered human/machine pattern inventory, product voice, pattern and eval
 identities, rule families and keys, pattern-to-eval links, and blocking-rule
-coverage. Both content validators reject duplicate YAML keys. The third command
+coverage. All content validators reject duplicate YAML keys. The fourth command
 validates the indexed Markdown knowledge documents and manifest freshness.

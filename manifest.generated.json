@@ -438,19 +438,31 @@
     {
       "id": "content.localization",
       "kind": "content-guideline",
-      "title": "Localization",
-      "summary": "Defines shared content guidance across products.",
+      "title": "Persian Localization",
+      "summary": "Defines the source-backed Persian language, RTL, mixed-direction text, locale formatting, translation, product-name, and dynamic-variable contract for product content.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
       "related": [
         "content.content-guidelines",
-        "content.terminology"
+        "content.product-voice",
+        "content.terminology",
+        "content.pattern.instructions-and-helper-text",
+        "design-system.accessibility.content",
+        "design-system.accessibility.forms",
+        "design-system.experience-rule.contextual-guidance"
       ],
       "topics": [
+        "bidi",
         "content",
         "content-guideline",
-        "localization"
+        "dates",
+        "localization",
+        "numbers",
+        "persian",
+        "rtl",
+        "translation",
+        "variables"
       ],
       "path": "shared/content/localization.md"
     },

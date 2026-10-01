@@ -64,6 +64,10 @@ EVAL_PATHS = (
     AI_CONTENT_EVAL_PATH,
     INSTRUCTION_EVAL_PATH,
 )
+# Keep the shared eval directory closed while specialized validators own these files.
+NON_PATTERN_EVAL_PATHS = (
+    ROOT / "shared" / "content" / "evals" / "localization-cases.yml",
+)
 RULE_ID_RE = re.compile(r"^(VOICE|ERR|CNF|EST|NTF|LDP|AIC|INS)-[0-9]{3}$")
 CASE_ID_RE = re.compile(r"^[a-z][a-z0-9_]*$")
 VALID_OBLIGATIONS = {"must", "must_not", "should"}
@@ -126,7 +130,7 @@ def validate_registered_inventory() -> list[str]:
     actual_human_docs = {
         path.name for path in ERROR_PATH.parent.glob("*.md") if path.is_file()
     }
-    expected_evals = {path.name for path in EVAL_PATHS}
+    expected_evals = {path.name for path in EVAL_PATHS + NON_PATTERN_EVAL_PATHS}
     actual_evals = {
         path.name for path in EVAL_PATH.parent.glob("*.yml") if path.is_file()
     }

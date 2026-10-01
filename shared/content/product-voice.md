@@ -146,6 +146,6 @@ Product truth and safety
 - [`patterns/instructions-and-helper-text.md`](patterns/instructions-and-helper-text.md)
   نقش Label، Instruction، Helper، Placeholder و Example را مالک است.
 - [`terminology.md`](terminology.md) نام conceptها را مالک است.
-- [`localization.md`](localization.md) نگارش فارسی، عدد، تاریخ و متغیرها را
-  مالک خواهد بود؛ بخش‌های خالی آن هنوز تصمیم قطعی نیستند.
+- [`localization.md`](localization.md) نگارش فارسی، RTL، عدد، تاریخ، ترجمه و
+  متغیرهای پویا را مالک است و انتخاب‌های حل‌نشدهٔ محصولی را صریح نگه می‌دارد.
 - Product Area رفتار، شرط و نتیجهٔ واقعی هر flow را مالک است.

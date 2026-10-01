@@ -18,12 +18,16 @@ The same workflow validates `shared/content/terminology/terms.yml` with
 term and decision IDs, allowed statuses and visibility values, evidence-source
 references, and decision-queue references.
 
+`scripts/check_content_localization.py` validates the Persian localization
+foundation, exact document and eval identities, source-backed rule evidence,
+unique rule IDs and keys, and coverage of every blocking localization rule.
+
 It also validates `shared/content/product-voice.yml`, the registered content
 patterns, and their regression cases with `scripts/check_content_patterns.py`.
 This check covers the human/machine file inventory, exact document identities,
 voice source references, tone profiles, pattern-specific rule IDs, unique rule
 keys, pattern-to-eval links, eval structure, and coverage of every blocking
-pattern rule. Both content validators reject duplicate YAML keys.
+pattern rule. All content validators reject duplicate YAML keys.
 
 ## Accessibility knowledge quality
 
