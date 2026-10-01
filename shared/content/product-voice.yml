@@ -154,6 +154,11 @@ operational_model:
       warmth: high
       encouragement: high
       brand_expression: medium
+    ai_feature:
+      clarity: high
+      warmth: medium
+      encouragement: low
+      brand_expression: low
     ai_assistant:
       clarity: high
       warmth: medium

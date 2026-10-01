@@ -136,6 +136,15 @@ shared/content/patterns/loading-and-progress.yml
 shared/content/evals/loading-progress-cases.yml
 ```
 
+For AI entry points, generated or suggested content, assistants, automation, or
+AI disclosure, load:
+
+```text
+shared/content/patterns/ai-content-and-disclosure.md
+shared/content/patterns/ai-content-and-disclosure.yml
+shared/content/evals/ai-content-cases.yml
+```
+
 Product Knowledge owns what the product does. Shared Content owns how that
 truth is named and communicated. The Design System owns component and
 interaction mechanics. Do not invent missing product behavior while improving

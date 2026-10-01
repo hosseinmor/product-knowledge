@@ -15,6 +15,7 @@ related:
   - content.pattern.empty-states
   - content.pattern.notifications
   - content.pattern.loading-and-progress
+  - content.pattern.ai-content-and-disclosure
 ---
 
 # Content Guidelines
@@ -138,5 +139,15 @@ System and runtime decisions.
 
 ## AI-Generated Content
 
+Use
+[`patterns/ai-content-and-disclosure.md`](patterns/ai-content-and-disclosure.md)
+to classify an AI technology, feature, feature family, assistant, or output and
+to define disclosure, review, action, uncertainty, and data-policy boundaries.
+Its machine-readable contract and evals are in
+[`patterns/ai-content-and-disclosure.yml`](patterns/ai-content-and-disclosure.yml)
+and [`evals/ai-content-cases.yml`](evals/ai-content-cases.yml).
+
 AI-generated product content follows the same terminology, localization,
 pattern, component, and product-truth constraints as human-authored content.
+Do not call every AI action an assistant, present a suggestion as a human
+decision, guarantee quality or outcomes, or invent privacy and data-use claims.
