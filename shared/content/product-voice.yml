@@ -124,6 +124,11 @@ operational_model:
       warmth: low
       encouragement: none
       brand_expression: none
+    loading_feedback:
+      clarity: high
+      warmth: low
+      encouragement: none
+      brand_expression: none
     consequential_confirmation:
       clarity: maximum
       warmth: low
