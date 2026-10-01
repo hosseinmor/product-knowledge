@@ -21,18 +21,29 @@ shared/content/
 ├── README.md
 ├── content-guidelines.md
 ├── localization.md
+├── product-voice.md
+├── product-voice.yml
 ├── terminology.md
-└── terminology/
-    └── terms.yml
+├── terminology/
+│   └── terms.yml
+├── patterns/
+│   ├── errors.md
+│   └── errors.yml
+└── evals/
+    └── error-cases.yml
 ```
 
 - `content-guidelines.md` is the human entry point for shared voice and UI-copy
   rules.
+- `product-voice.md` explains the evidence-backed voice and tone model;
+  `product-voice.yml` is its machine-readable contract.
 - `localization.md` owns language, directionality, number, date, translation,
   and variable-formatting rules.
 - `terminology.md` explains terminology governance and selection rules.
 - `terminology/terms.yml` is the machine-readable semantic lexicon used by AI,
   validation, and future generated views.
+- `patterns/errors.md` and `patterns/errors.yml` define the first complete
+  content pattern; `evals/error-cases.yml` holds its regression cases.
 
 ## Growth rule
 
@@ -86,8 +97,10 @@ Run:
 
 ```bash
 python scripts/check_content_terminology.py
+python scripts/check_content_patterns.py
 python scripts/generate_manifest.py check
 ```
 
 The first command validates the machine-readable lexicon. The second validates
+product voice, the error pattern, and error eval coverage. The third validates
 the indexed Markdown knowledge documents and manifest freshness.

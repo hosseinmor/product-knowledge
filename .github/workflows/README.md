@@ -18,6 +18,11 @@ The same workflow validates `shared/content/terminology/terms.yml` with
 term and decision IDs, allowed statuses and visibility values, evidence-source
 references, and decision-queue references.
 
+It also validates `shared/content/product-voice.yml`, the error pattern, and its
+regression cases with `scripts/check_content_patterns.py`. This check covers
+voice source references, tone profiles, rule IDs, eval references, and coverage
+of every blocking error rule.
+
 ## Accessibility knowledge quality
 
 The `accessibility-quality.yml` workflow validates deterministic structural invariants for the canonical accessibility corpus and its production retrieval integration.

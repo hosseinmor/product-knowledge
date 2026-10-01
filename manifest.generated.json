@@ -417,8 +417,10 @@
       "owner": null,
       "last_reviewed": null,
       "related": [
+        "content.product-voice",
         "content.terminology",
-        "content.localization"
+        "content.localization",
+        "content.pattern.error"
       ],
       "topics": [
         "content",
@@ -445,6 +447,63 @@
         "localization"
       ],
       "path": "shared/content/localization.md"
+    },
+    {
+      "id": "content.pattern.error",
+      "kind": "content-guideline",
+      "title": "Error Messages",
+      "summary": "Defines the content, tone, recovery, placement, accessibility, and evaluation contract for product error messages.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "content.product-voice",
+        "content.terminology",
+        "design-system.component.text-input",
+        "design-system.component.notification",
+        "design-system.component.modal",
+        "design-system.pattern.notifications",
+        "design-system.accessibility.forms",
+        "design-system.accessibility.dynamic-content-and-feedback"
+      ],
+      "topics": [
+        "accessibility",
+        "content",
+        "content-guideline",
+        "errors",
+        "patterns",
+        "persian",
+        "recovery",
+        "ux-writing",
+        "validation"
+      ],
+      "path": "shared/content/patterns/errors.md"
+    },
+    {
+      "id": "content.product-voice",
+      "kind": "content-guideline",
+      "title": "JobVision Product Voice",
+      "summary": "Defines the evidence-backed product voice, operational tone dimensions, precedence, and surface profiles for JobVision UI content.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "content.content-guidelines",
+        "content.terminology",
+        "content.localization",
+        "content.pattern.error",
+        "design-system.accessibility.content"
+      ],
+      "topics": [
+        "ai-generated-product-content",
+        "content",
+        "content-guideline",
+        "persian",
+        "product-voice",
+        "tone",
+        "ux-writing"
+      ],
+      "path": "shared/content/product-voice.md"
     },
     {
       "id": "content.terminology",
@@ -3140,9 +3199,9 @@
     }
   ],
   "summary": {
-    "documents": 156,
+    "documents": 158,
     "by_kind": {
-      "content-guideline": 3,
+      "content-guideline": 5,
       "design-system-accessibility": 18,
       "design-system-component": 34,
       "design-system-design-language": 1,

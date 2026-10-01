@@ -12,6 +12,7 @@ on:
       - "templates/**"
       - "ai/**"
       - "scripts/generate_manifest.py"
+      - "scripts/check_content_patterns.py"
       - "requirements-dev.txt"
       - "manifest.generated.json"
       - ".github/workflows/manifest-quality.yml"
@@ -52,6 +53,9 @@ jobs:
 
       - name: Validate content terminology
         run: python scripts/check_content_terminology.py
+
+      - name: Validate content patterns
+        run: python scripts/check_content_patterns.py
 
       - name: Commit generated manifest to pull request branch
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
