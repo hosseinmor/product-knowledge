@@ -27,6 +27,11 @@ topics:
 
 Resume نمایش shared پیشینه حرفه‌ای کارجو است که در تجربه‌های recruiting Jobvision استفاده می‌شود. Candidate مالک ساخت و نگهداری تجربه رزومه است، در حالی که recruiting سمت Employer ممکن است نمایی از آن را مصرف کند.
 
+در مدل محتوایی، رزومه یک concept واحد است که می‌تواند بازنمایی فارسی و
+انگلیسی داشته باشد. «رزومهٔ فارسی» و «رزومهٔ انگلیسی» نسخه‌های زبانی همان
+رزومه‌اند، نه دو رزومه مستقل. این قرارداد دربارهٔ معنا و زبان محصول است و
+تعداد رکوردها یا معماری ذخیره‌سازی را تعیین نمی‌کند.
+
 این concept فقط مالک معنا، relationshipها و lifecycleهایی است که واقعاً بین محصولات shared هستند. ساخت، ویرایش، راهنمای completion، visibility، access و presentation رزومه در Product Areaهای مربوط می‌ماند.
 
 ## چرا مهم است
@@ -59,6 +64,8 @@ repo هنوز مشخص نمی‌کند stateهای رزومه شامل incomplet
 در سطح فعلی تأیید شده است:
 
 - Candidate اطلاعات Resume را در محصول Candidate مدیریت می‌کند.
+- نسخهٔ فارسی و انگلیسی باید به‌عنوان variant زبانی همان Resume معرفی شوند.
+- completion می‌تواند برای هر نسخهٔ زبانی جدا محاسبه شود.
 - اطلاعات Resume ممکن است در application و تجربه‌های recruiting سمت Employer استفاده شود.
 - ویرایش، validation، permission، visibility و presentationهای product-specific باید در Product Areaها بمانند.
 - رابطه بین Resume فعلی و representation رزومه attach شده به Application باید صریح باشد.
@@ -95,7 +102,9 @@ Product Areaهای Employer مالک access و استفاده از اطلاعا�
 - رزومه فعلی در برابر snapshot رزومه Application
 - versioning و رفتار historical
 - قواعد visibility و privacy
-- چند رزومه یا variantهای زبانی
+- تعداد رزومه‌های قابل ساخت برای هر کارجو در پیاده‌سازی فنی
+- قواعد fallback، همگام‌سازی و کپی محتوا میان نسخه‌های زبانی
+- نسخهٔ زبانی مورد استفاده یا منجمدشده در هر Application
 - رابطه generated file با structured data
 - قواعد export و download
 - access کارفرما قبل و بعد از application
