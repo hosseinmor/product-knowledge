@@ -12,6 +12,7 @@ related:
   - content.localization
   - content.component.button
   - content.component.text-input
+  - content.component.modal
   - content.pattern.error
   - content.pattern.confirmation
   - content.pattern.empty-states
@@ -151,6 +152,19 @@ are in [`patterns/confirmations.yml`](patterns/confirmations.yml) and
 
 Do not infer destructive intent from a negative verb. Use Danger only when the
 actual consequence is destructive or difficult to reverse.
+
+### Modal composition
+
+Use [`components/modal.md`](components/modal.md) when a confirmation, short
+form, or response-required message appears in a blocking Modal. Its
+machine-readable contract and evals are in
+[`components/modal.yml`](components/modal.yml) and
+[`evals/modal-content-cases.yml`](evals/modal-content-cases.yml).
+
+Give the Modal a task- or decision-specific Title, keep it understandable
+without the obscured background, and preserve context through Loading and
+recoverable Error states. Do not invent Escape, backdrop, auto-close, initial
+focus, or non-dismissible behavior while writing its content.
 
 ## Empty States
 

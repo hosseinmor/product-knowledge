@@ -31,6 +31,8 @@ shared/content/
 │   ├── README.md
 │   ├── button.md
 │   ├── button.yml
+│   ├── modal.md
+│   ├── modal.yml
 │   ├── text-input.md
 │   └── text-input.yml
 ├── patterns/
@@ -57,6 +59,7 @@ shared/content/
     ├── instruction-helper-cases.yml
     ├── localization-cases.yml
     ├── loading-progress-cases.yml
+    ├── modal-content-cases.yml
     ├── notification-cases.yml
     └── text-input-content-cases.yml
 ```
@@ -73,7 +76,7 @@ shared/content/
   validation, and future generated views.
 - `patterns/` contains complete human and machine-readable content patterns.
 - `components/` contains copy contracts specific to reusable Design System
-  components; Button and Text Input are currently registered.
+  components; Button, Text Input, and Modal are currently registered.
 - `evals/` holds foundation, pattern, and component regression cases.
 
 ## Growth rule
