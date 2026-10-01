@@ -32,11 +32,14 @@ shared/content/
 │   ├── empty-states.md
 │   ├── empty-states.yml
 │   ├── errors.md
-│   └── errors.yml
+│   ├── errors.yml
+│   ├── notifications.md
+│   └── notifications.yml
 └── evals/
     ├── confirmation-cases.yml
     ├── empty-state-cases.yml
-    └── error-cases.yml
+    ├── error-cases.yml
+    └── notification-cases.yml
 ```
 
 - `content-guidelines.md` is the human entry point for shared voice and UI-copy
