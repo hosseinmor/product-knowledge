@@ -31,6 +31,12 @@ sources:
     title: تصمیم‌های Product Content System
     state: working_decisions
     role: user_facing_language
+  - id: candidate_runtime_review
+    title: تجربهٔ فعلی پنل کارجو جاب‌ویژن
+    url: https://jobvision.ir/my-cv
+    state: observed
+    role: runtime_product_evidence
+    reviewed_on: 2026-09-23
 
 policy:
   concept_and_label:
@@ -820,15 +826,21 @@ terms:
     canonical_internal: اشتراک ویژه
     definition:
       source: اصطلاحی ثبت‌شده در کد که تعریف محصول و امکاناتش هنوز مشخص نشده است.
-    preferred:
-      default: اشتراک ویژه
     domains: [unknown]
-    visibility: [unknown]
+    visibility: [code_only, internal]
+    relations:
+      distinct_from: [package, plan, paid_service]
     code_bindings: [PremiumSubscription]
     status: needs_decision
+    avoid_when:
+      - در هر محتوای کاربر-facing تا زمان مشخص شدن مالک، مزایا و lifecycle محصول.
     open_questions:
       - برای کارجوست یا سازمان؟
       - چه امکاناتی ارائه می‌کند؟
+      - آیا با Premium Insights سمت کارجو ارتباط دارد یا concept مستقلی است؟
+      - lifecycle، قیمت‌گذاری و وضعیت‌های فعال، منقضی و لغوشده چیست؟
+    notes:
+      - وجود نام کدی برای اثبات محصول فعال یا label عمومی کافی نیست.
     evidence: [source_glossary]
 
   - id: activation_round
@@ -1205,7 +1217,7 @@ terms:
     relations:
       uses: ai_technology
       distinct_from: [ai_assistant]
-    status: draft
+    status: stable
     evidence: [product_content_decisions]
 
   - id: ai_assistant
@@ -1224,24 +1236,48 @@ terms:
     visibility: [public, internal]
     relations:
       uses: ai_technology
+      has_instance: resume_ai_assistant
       distinct_from: [ai_feature_family, employer_assistant, external_ai_screener]
-    status: draft
+    status: stable
     evidence: [product_content_decisions]
+
+  - id: resume_ai_assistant
+    concept_kind: ai_product_experience
+    canonical_internal: دستیار هوشمند رزومه
+    definition:
+      source: >
+        تجربه‌ای در صفحهٔ رزومهٔ کارجو برای ارزیابی و بهبود رزومه با
+        هوش مصنوعی، دریافت بازخورد و شروع ارزیابی جدید.
+      product_content: >
+        نمونهٔ محصولی دستیار هوشمند برای تحلیل و بهبود رزومهٔ کارجو.
+    preferred:
+      full: دستیار هوشمند ارزیابی و بهبود رزومه
+      contextual: دستیار هوشمند رزومه
+    domains: [ai, jobseeker, resume]
+    visibility: [public, internal]
+    relations:
+      instance_of: ai_assistant
+      uses: ai_technology
+      distinct_from: [employer_assistant, external_ai_screener]
+    status: stable
+    evidence: [candidate_runtime_review, product_content_decisions]
 
   - id: external_ai_screener
     concept_kind: external_automation
-    canonical_internal: null
+    canonical_internal: ابزار غربالگری بیرونی
     definition:
       source: ابزار بیرونی‌ای که در تعریف صف رد، درخواست‌های ضعیف را تشخیص می‌دهد.
     preferred:
-      internal: null
+      internal: ابزار غربالگری بیرونی
     domains: [ai, application]
-    visibility: [internal]
+    visibility: [code_only, internal]
     relations:
       distinct_from: [ai_assistant, employer_assistant]
     status: needs_decision
     open_questions:
       - نام رسمی ابزار چیست و آیا هنوز در محصول فعال است؟
+    notes:
+      - تا تأیید نام و وضعیت، این عبارت فقط توصیف داخلی است و نام محصول نیست.
     evidence: [source_glossary]
 
   # Surface names
@@ -1329,6 +1365,26 @@ decision_log:
       تفاوت بازنمایی‌های زبانی را نشان می‌دهند. این تصمیم دربارهٔ زبان محصول
       است و ساختار ذخیره‌سازی را تعیین نمی‌کند.
 
+  - id: DEC-005
+    term_ids:
+      - ai_technology
+      - ai_feature_family
+      - ai_assistant
+      - resume_ai_assistant
+      - employer_assistant
+      - external_ai_screener
+    decided_on: 2026-09-23
+    outcome: >
+      فناوری، خانواده قابلیت‌ها، الگوی دستیار و نمونه‌های محصولی از هم جدا
+      می‌مانند. دستیار هوشمند رزومه نمونهٔ تأییدشدهٔ ai_assistant است؛ دستیار
+      کارفرما automation مستقلی است و ابزار غربالگری بیرونی integration داخلی
+      نامطمئنی است.
+    rationale: >
+      تجربهٔ فعلی کارجو نام و رفتار دستیار هوشمند رزومه را نشان می‌دهد، اما
+      واژه‌نامه برای دستیار کارفرما فقط رفتار automation و برای ابزار بیرونی
+      وضعیت نامشخص یا غیرفعال ثبت کرده است. یکسان گرفتن آن‌ها مرز قابلیت، persona
+      و integration را از بین می‌برد.
+
 decision_queue:
 
   - id: DEC-004
@@ -1336,12 +1392,11 @@ decision_queue:
     question: مخاطب، امکانات و مدل محصول اشتراک ویژه چیست؟
     recommendation: تا دریافت product truth در محتوای جدید استفاده نشود.
     impact: high
-
-  - id: DEC-005
-    term_ids: [ai_assistant, employer_assistant, external_ai_screener]
-    question: نقشهٔ رسمی قابلیت‌ها و personaهای هوشمند محصول چیست؟
-    recommendation: این سه concept تا زمان اثبات هم‌هویتی جدا بمانند.
-    impact: high
+    evidence_needed:
+      - مالک و مخاطب اشتراک
+      - فهرست مزایا و entitlementها
+      - lifecycle و مدل قیمت‌گذاری
+      - نسبت با Premium Insights سمت کارجو
 
 evals:
   blocking:
@@ -1353,6 +1408,8 @@ evals:
       rule: جذب و استخدام به‌عنوان مترادف استفاده شده‌اند.
     - id: RESUME_LANGUAGE_VARIANT_AS_SEPARATE_ENTITY
       rule: نسخهٔ فارسی یا انگلیسی به‌عنوان رزومه‌ای مستقل از مفهوم رزومه شمرده شده است.
+    - id: AI_CAPABILITY_MISLABELED_AS_ASSISTANT
+      rule: یک محاسبه، پیشنهاد یا automation بدون تجربهٔ دستیارگونه «دستیار هوشمند» نامیده شده است.
   non_blocking:
     - id: TERM_NOT_PREFERRED_FOR_SURFACE
       rule: واژه مجاز است اما preferred همان سطح نیست.
