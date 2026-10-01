@@ -12,6 +12,7 @@ on:
       - "templates/**"
       - "ai/**"
       - "scripts/generate_manifest.py"
+      - "scripts/check_content_terminology.py"
       - "scripts/check_content_patterns.py"
       - "requirements-dev.txt"
       - "manifest.generated.json"

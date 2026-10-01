@@ -33,7 +33,8 @@ Foundation
 → Voice, Persian language, terminology, localization
 
 Pattern
-→ Errors, confirmations, empty states, loading, AI content
+→ Instructions, errors, confirmations, empty states, notifications, loading,
+  and AI content
 
 Component contract
 → Button, input, modal, notification, and other component-specific copy

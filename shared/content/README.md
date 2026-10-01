@@ -69,8 +69,8 @@ Keep this structure small. Create a subdirectory only after it has real content:
 
 ```text
 patterns/
-→ Reusable message and interaction language such as errors, confirmations,
-  empty states, loading, and AI disclosures
+→ Reusable message and interaction language such as instructions, errors,
+  confirmations, empty states, notifications, loading, and AI disclosures
 
 components/
 → Content contracts specific to reusable Design System components
@@ -120,5 +120,7 @@ python scripts/generate_manifest.py check
 ```
 
 The first command validates the machine-readable lexicon. The second validates
-product voice, content patterns, and eval coverage. The third validates
-the indexed Markdown knowledge documents and manifest freshness.
+the registered human/machine pattern inventory, product voice, pattern and eval
+identities, rule families and keys, pattern-to-eval links, and blocking-rule
+coverage. Both content validators reject duplicate YAML keys. The third command
+validates the indexed Markdown knowledge documents and manifest freshness.
