@@ -424,7 +424,8 @@
         "content.pattern.confirmation",
         "content.pattern.empty-states",
         "content.pattern.notifications",
-        "content.pattern.loading-and-progress"
+        "content.pattern.loading-and-progress",
+        "content.pattern.ai-content-and-disclosure"
       ],
       "topics": [
         "content",
@@ -451,6 +452,41 @@
         "localization"
       ],
       "path": "shared/content/localization.md"
+    },
+    {
+      "id": "content.pattern.ai-content-and-disclosure",
+      "kind": "content-guideline",
+      "title": "AI-Assisted Content and Disclosure",
+      "summary": "Defines naming, disclosure, output status, review, uncertainty, action, and trust boundaries for AI-assisted product experiences.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "content.product-voice",
+        "content.terminology",
+        "content.pattern.error",
+        "content.pattern.notifications",
+        "content.pattern.loading-and-progress",
+        "shared.ai-services.overview",
+        "design-system.pattern.ai-entry-points",
+        "design-system.token.semantic-tokens",
+        "design-system.accessibility.content"
+      ],
+      "topics": [
+        "ai-assistant",
+        "ai-content",
+        "ai-content-and-disclosure",
+        "ai-disclosure",
+        "content",
+        "content-guideline",
+        "generated-content",
+        "human-review",
+        "patterns",
+        "persian",
+        "suggested-content",
+        "ux-writing"
+      ],
+      "path": "shared/content/patterns/ai-content-and-disclosure.md"
     },
     {
       "id": "content.pattern.confirmation",
@@ -628,6 +664,7 @@
         "content.pattern.empty-states",
         "content.pattern.notifications",
         "content.pattern.loading-and-progress",
+        "content.pattern.ai-content-and-disclosure",
         "design-system.accessibility.content"
       ],
       "topics": [
@@ -3335,9 +3372,9 @@
     }
   ],
   "summary": {
-    "documents": 162,
+    "documents": 163,
     "by_kind": {
-      "content-guideline": 9,
+      "content-guideline": 10,
       "design-system-accessibility": 18,
       "design-system-component": 34,
       "design-system-design-language": 1,

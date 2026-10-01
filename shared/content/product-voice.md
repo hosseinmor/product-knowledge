@@ -15,6 +15,7 @@ related:
   - content.pattern.empty-states
   - content.pattern.notifications
   - content.pattern.loading-and-progress
+  - content.pattern.ai-content-and-disclosure
   - design-system.accessibility.content
 topics:
   - product-voice
@@ -89,6 +90,7 @@ Product truth and safety
 | بازخورد موفقیت | زیاد | متوسط | کم | کم |
 | وضعیت خالی | زیاد | متوسط | متوسط | متوسط |
 | آغاز به کار | زیاد | زیاد | زیاد | متوسط |
+| قابلیت هوشمند | زیاد | متوسط | کم | کم |
 | دستیار هوشمند | زیاد | متوسط | وابسته به زمینه | کنترل‌شده |
 
 «صفر» به‌معنی بی‌احترامی یا لحن رباتی نیست؛ یعنی آن بُعد نباید هدف اصلی متن
@@ -138,6 +140,8 @@ Product truth and safety
   محتوای اعلان‌ها و بازخورد نتیجه را مالک است.
 - [`patterns/loading-and-progress.md`](patterns/loading-and-progress.md) زبان
   عملیات در جریان، پیشرفت معین و نامعین و transition نتیجه را مالک است.
+- [`patterns/ai-content-and-disclosure.md`](patterns/ai-content-and-disclosure.md)
+  نام‌گذاری، disclosure، وضعیت خروجی و مرزهای اعتماد قابلیت‌های AI را مالک است.
 - [`terminology.md`](terminology.md) نام conceptها را مالک است.
 - [`localization.md`](localization.md) نگارش فارسی، عدد، تاریخ و متغیرها را
   مالک خواهد بود؛ بخش‌های خالی آن هنوز تصمیم قطعی نیستند.

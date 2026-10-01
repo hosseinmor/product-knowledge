@@ -27,6 +27,8 @@ shared/content/
 ├── terminology/
 │   └── terms.yml
 ├── patterns/
+│   ├── ai-content-and-disclosure.md
+│   ├── ai-content-and-disclosure.yml
 │   ├── confirmations.md
 │   ├── confirmations.yml
 │   ├── empty-states.md
@@ -38,6 +40,7 @@ shared/content/
 │   ├── notifications.md
 │   └── notifications.yml
 └── evals/
+    ├── ai-content-cases.yml
     ├── confirmation-cases.yml
     ├── empty-state-cases.yml
     ├── error-cases.yml
