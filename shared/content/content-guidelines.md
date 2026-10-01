@@ -11,6 +11,7 @@ related:
   - content.terminology
   - content.localization
   - content.component.button
+  - content.component.text-input
   - content.pattern.error
   - content.pattern.confirmation
   - content.pattern.empty-states
@@ -112,6 +113,18 @@ and [`evals/instruction-helper-cases.yml`](evals/instruction-helper-cases.yml).
 Required instructions must be available before users need them. Placeholder is
 not a label or a reliable place for essential requirements, and Tooltip or Info
 must not be the only source of information needed to complete the task.
+
+### Text Input composition
+
+Use [`components/text-input.md`](components/text-input.md) when composing Label,
+Placeholder, Helper, Value, Requiredness, Error, Info, or an adornment action
+inside a single-line Text Input. Its machine-readable contract and evals are in
+[`components/text-input.yml`](components/text-input.yml) and
+[`evals/text-input-content-cases.yml`](evals/text-input-content-cases.yml).
+
+Keep each content role distinct, preserve essential requirements when Helper is
+replaced by Error, and do not infer validation rules, input-purpose metadata,
+normalization, or Disabled/Read only state from copy alone.
 
 ## Error Messages
 

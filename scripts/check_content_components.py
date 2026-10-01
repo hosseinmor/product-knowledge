@@ -15,15 +15,49 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 COMPONENT_DIR = ROOT / "shared" / "content" / "components"
 EVAL_DIR = ROOT / "shared" / "content" / "evals"
-BUTTON_PATH = COMPONENT_DIR / "button.yml"
-BUTTON_DOC_PATH = COMPONENT_DIR / "button.md"
-BUTTON_EVAL_PATH = EVAL_DIR / "button-content-cases.yml"
-COMPONENT_PATHS = (BUTTON_PATH,)
-COMPONENT_DOC_PATHS = (BUTTON_DOC_PATH,)
-EVAL_PATHS = (BUTTON_EVAL_PATH,)
-RULE_ID_RE = re.compile(r"^BTN-[0-9]{3}$")
 CASE_ID_RE = re.compile(r"^[a-z][a-z0-9_]*$")
 VALID_OBLIGATIONS = {"must", "must_not", "should"}
+
+COMPONENT_SPECS = (
+    {
+        "name": "button",
+        "label": "button component",
+        "source_path": COMPONENT_DIR / "button.yml",
+        "document_path": COMPONENT_DIR / "button.md",
+        "eval_path": EVAL_DIR / "button-content-cases.yml",
+        "component_id": "content.component.button",
+        "eval_id": "content.eval.button_content_cases",
+        "rule_prefix": "BTN",
+        "tone_profile": "button_or_menu_label",
+        "evaluation_source": "../evals/button-content-cases.yml",
+        "required_models": (
+            "depends_on",
+            "source_boundaries",
+            "label_model",
+            "component_selection",
+            "state_model",
+        ),
+    },
+    {
+        "name": "text-input",
+        "label": "text-input component",
+        "source_path": COMPONENT_DIR / "text-input.yml",
+        "document_path": COMPONENT_DIR / "text-input.md",
+        "eval_path": EVAL_DIR / "text-input-content-cases.yml",
+        "component_id": "content.component.text-input",
+        "eval_id": "content.eval.text_input_content_cases",
+        "rule_prefix": "TXT",
+        "tone_profile": "form_helper",
+        "evaluation_source": "../evals/text-input-content-cases.yml",
+        "required_models": (
+            "depends_on",
+            "source_boundaries",
+            "role_model",
+            "state_model",
+            "component_selection",
+        ),
+    },
+)
 
 
 class UniqueKeyLoader(yaml.SafeLoader):
@@ -76,11 +110,13 @@ def load_yaml(path: Path) -> dict[str, Any]:
 
 def validate_registered_inventory() -> list[str]:
     errors: list[str] = []
-    expected_sources = {path.name for path in COMPONENT_PATHS}
+    expected_sources = {spec["source_path"].name for spec in COMPONENT_SPECS}
     actual_sources = {
         path.name for path in COMPONENT_DIR.glob("*.yml") if path.is_file()
     }
-    expected_docs = {path.name for path in COMPONENT_DOC_PATHS} | {"README.md"}
+    expected_docs = {
+        spec["document_path"].name for spec in COMPONENT_SPECS
+    } | {"README.md"}
     actual_docs = {
         path.name for path in COMPONENT_DIR.glob("*.md") if path.is_file()
     }
@@ -97,7 +133,10 @@ def validate_registered_inventory() -> list[str]:
     return errors
 
 
-def validate_component(data: dict[str, Any]) -> tuple[list[str], dict[str, str]]:
+def validate_component(
+    data: dict[str, Any], spec: dict[str, Any]
+) -> tuple[list[str], dict[str, str]]:
+    label = spec["label"]
     errors: list[str] = []
     for field in (
         "schema_version",
@@ -110,26 +149,26 @@ def validate_component(data: dict[str, Any]) -> tuple[list[str], dict[str, str]]
         "evaluation_source",
     ):
         if not nonempty_string(data.get(field)):
-            errors.append(f"button component: `{field}` must be a non-empty string")
-    if data.get("id") != "content.component.button":
-        errors.append("button component: `id` must be `content.component.button`")
-    if data.get("tone_profile") != "button_or_menu_label":
+            errors.append(f"{label}: `{field}` must be a non-empty string")
+    if data.get("id") != spec["component_id"]:
+        errors.append(f"{label}: `id` must be `{spec['component_id']}`")
+    if data.get("tone_profile") != spec["tone_profile"]:
         errors.append(
-            "button component: `tone_profile` must be `button_or_menu_label`"
+            f"{label}: `tone_profile` must be `{spec['tone_profile']}`"
         )
-    if data.get("evaluation_source") != "../evals/button-content-cases.yml":
+    if data.get("evaluation_source") != spec["evaluation_source"]:
         errors.append(
-            "button component: `evaluation_source` must be "
-            "`../evals/button-content-cases.yml`"
+            f"{label}: `evaluation_source` must be "
+            f"`{spec['evaluation_source']}`"
         )
 
     sources = data.get("sources")
     if not isinstance(sources, list) or not sources:
-        errors.append("button component: `sources` must be a non-empty list")
+        errors.append(f"{label}: `sources` must be a non-empty list")
         sources = []
     source_ids: list[str] = []
     for index, source in enumerate(sources):
-        location = f"button component.sources[{index}]"
+        location = f"{label}.sources[{index}]"
         if not isinstance(source, dict):
             errors.append(f"{location} must be a mapping")
             continue
@@ -140,27 +179,27 @@ def validate_component(data: dict[str, Any]) -> tuple[list[str], dict[str, str]]
             source_ids.append(source_id)
     duplicate_sources = duplicate_values(source_ids)
     if duplicate_sources:
-        errors.append(
-            "button component: duplicate source ids: "
-            + ", ".join(duplicate_sources)
-        )
+        errors.append(f"{label}: duplicate source ids: {', '.join(duplicate_sources)}")
     known_sources = set(source_ids)
 
     rules = data.get("rules")
     if not isinstance(rules, list) or not rules:
-        errors.append("button component: `rules` must be a non-empty list")
+        errors.append(f"{label}: `rules` must be a non-empty list")
         rules = []
+    rule_pattern = re.compile(rf"^{re.escape(spec['rule_prefix'])}-[0-9]{{3}}$")
     rule_ids: list[str] = []
     rule_keys: list[str] = []
     obligations: dict[str, str] = {}
     for index, rule in enumerate(rules):
-        location = f"button component.rules[{index}]"
+        location = f"{label}.rules[{index}]"
         if not isinstance(rule, dict):
             errors.append(f"{location} must be a mapping")
             continue
         rule_id = rule.get("id")
-        if not nonempty_string(rule_id) or not RULE_ID_RE.fullmatch(rule_id):
-            errors.append(f"{location}.id must match BTN-000")
+        if not nonempty_string(rule_id) or not rule_pattern.fullmatch(rule_id):
+            errors.append(
+                f"{location}.id must match {spec['rule_prefix']}-000"
+            )
         else:
             rule_ids.append(rule_id)
             location = rule_id
@@ -175,7 +214,7 @@ def validate_component(data: dict[str, Any]) -> tuple[list[str], dict[str, str]]
                 f"{location}: obligation must be one of "
                 f"{sorted(VALID_OBLIGATIONS)}"
             )
-        elif nonempty_string(rule_id) and RULE_ID_RE.fullmatch(rule_id):
+        elif nonempty_string(rule_id) and rule_pattern.fullmatch(rule_id):
             obligations[rule_id] = obligation
         if not nonempty_string(rule.get("statement")):
             errors.append(f"{location}: missing non-empty `statement`")
@@ -193,46 +232,35 @@ def validate_component(data: dict[str, Any]) -> tuple[list[str], dict[str, str]]
 
     duplicate_rules = duplicate_values(rule_ids)
     if duplicate_rules:
-        errors.append(
-            "button component: duplicate rule ids: " + ", ".join(duplicate_rules)
-        )
+        errors.append(f"{label}: duplicate rule ids: {', '.join(duplicate_rules)}")
     duplicate_keys = duplicate_values(rule_keys)
     if duplicate_keys:
-        errors.append(
-            "button component: duplicate rule keys: " + ", ".join(duplicate_keys)
-        )
+        errors.append(f"{label}: duplicate rule keys: {', '.join(duplicate_keys)}")
 
-    for field in (
-        "depends_on",
-        "source_boundaries",
-        "label_model",
-        "component_selection",
-        "state_model",
-    ):
+    for field in spec["required_models"]:
         if not isinstance(data.get(field), dict) or not data[field]:
-            errors.append(f"button component: `{field}` must be a non-empty mapping")
+            errors.append(f"{label}: `{field}` must be a non-empty mapping")
     if not isinstance(data.get("unknowns"), list) or not data["unknowns"]:
-        errors.append("button component: `unknowns` must be a non-empty list")
+        errors.append(f"{label}: `unknowns` must be a non-empty list")
     return errors, obligations
 
 
 def validate_evals(
-    data: dict[str, Any], obligations: dict[str, str]
+    data: dict[str, Any], obligations: dict[str, str], spec: dict[str, Any]
 ) -> list[str]:
+    label = f"{spec['name']} evals"
     errors: list[str] = []
     for field in ("schema_version", "id", "component_id", "language"):
         if not nonempty_string(data.get(field)):
-            errors.append(f"button evals: `{field}` must be a non-empty string")
-    if data.get("id") != "content.eval.button_content_cases":
-        errors.append(
-            "button evals: `id` must be `content.eval.button_content_cases`"
-        )
-    if data.get("component_id") != "content.component.button":
-        errors.append("button evals: `component_id` must match the component id")
+            errors.append(f"{label}: `{field}` must be a non-empty string")
+    if data.get("id") != spec["eval_id"]:
+        errors.append(f"{label}: `id` must be `{spec['eval_id']}`")
+    if data.get("component_id") != spec["component_id"]:
+        errors.append(f"{label}: `component_id` must match the component id")
 
     cases = data.get("cases")
     if not isinstance(cases, list) or not cases:
-        return errors + ["button evals: `cases` must be a non-empty list"]
+        return errors + [f"{label}: `cases` must be a non-empty list"]
 
     case_ids: list[str] = []
     covered: set[str] = set()
@@ -241,7 +269,7 @@ def validate_evals(
     has_invalid = False
 
     for index, case in enumerate(cases):
-        location = f"button evals.cases[{index}]"
+        location = f"{label}.cases[{index}]"
         if not isinstance(case, dict):
             errors.append(f"{location} must be a mapping")
             continue
@@ -309,11 +337,9 @@ def validate_evals(
 
     duplicate_cases = duplicate_values(case_ids)
     if duplicate_cases:
-        errors.append(
-            "button evals: duplicate case ids: " + ", ".join(duplicate_cases)
-        )
+        errors.append(f"{label}: duplicate case ids: {', '.join(duplicate_cases)}")
     if not has_valid or not has_invalid:
-        errors.append("button evals: include at least one valid and one invalid case")
+        errors.append(f"{label}: include at least one valid and one invalid case")
     blocking_rules = {
         rule_id
         for rule_id, obligation in obligations.items()
@@ -322,7 +348,7 @@ def validate_evals(
     missing_coverage = sorted(blocking_rules - covered)
     if missing_coverage:
         errors.append(
-            "button evals: blocking rules without coverage: "
+            f"{label}: blocking rules without coverage: "
             + ", ".join(missing_coverage)
         )
     return errors
@@ -330,19 +356,23 @@ def validate_evals(
 
 def main() -> int:
     errors = validate_registered_inventory()
-    button = load_yaml(BUTTON_PATH)
-    evals = load_yaml(BUTTON_EVAL_PATH)
-    component_errors, obligations = validate_component(button)
-    errors.extend(component_errors)
-    errors.extend(validate_evals(evals, obligations))
+    summaries: list[str] = []
+    for spec in COMPONENT_SPECS:
+        component = load_yaml(spec["source_path"])
+        evals = load_yaml(spec["eval_path"])
+        component_errors, obligations = validate_component(component, spec)
+        errors.extend(component_errors)
+        errors.extend(validate_evals(evals, obligations, spec))
+        summaries.append(
+            f"{spec['name']}={len(obligations)} rules/{len(evals.get('cases', []))} cases"
+        )
     if errors:
         for error in errors:
             print(f"ERROR {error}")
         return 1
     print(
         "Content component contracts are valid: "
-        f"1 component, {len(button['sources'])} sources, "
-        f"{len(obligations)} rules, {len(evals['cases'])} eval cases"
+        f"{len(COMPONENT_SPECS)} components; " + ", ".join(summaries)
     )
     return 0
 
