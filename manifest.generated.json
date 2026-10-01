@@ -409,6 +409,37 @@
       "product": "salary"
     },
     {
+      "id": "content.component.button",
+      "kind": "content-guideline",
+      "title": "Button Content",
+      "summary": "Defines how Persian Button labels name actions, outcomes, objects, exits, destructive consequences, and loading states without duplicating the Design System Button contract.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "content.product-voice",
+        "content.terminology",
+        "content.localization",
+        "content.pattern.confirmation",
+        "content.pattern.loading-and-progress",
+        "design-system.experience-rule.action-hierarchy",
+        "button"
+      ],
+      "topics": [
+        "accessibility",
+        "action-label",
+        "button",
+        "call-to-action",
+        "components",
+        "content",
+        "content-guideline",
+        "destructive-action",
+        "loading",
+        "persian"
+      ],
+      "path": "shared/content/components/button.md"
+    },
+    {
       "id": "content.content-guidelines",
       "kind": "content-guideline",
       "title": "Content Guidelines",
@@ -420,6 +451,7 @@
         "content.product-voice",
         "content.terminology",
         "content.localization",
+        "content.component.button",
         "content.pattern.error",
         "content.pattern.confirmation",
         "content.pattern.empty-states",
@@ -3422,9 +3454,9 @@
     }
   ],
   "summary": {
-    "documents": 164,
+    "documents": 165,
     "by_kind": {
-      "content-guideline": 11,
+      "content-guideline": 12,
       "design-system-accessibility": 18,
       "design-system-component": 34,
       "design-system-design-language": 1,

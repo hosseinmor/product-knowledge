@@ -22,6 +22,10 @@ references, and decision-queue references.
 foundation, exact document and eval identities, source-backed rule evidence,
 unique rule IDs and keys, and coverage of every blocking localization rule.
 
+`scripts/check_content_components.py` validates the registered component-copy
+contracts, their exact identities and source evidence, unique rule IDs and
+keys, component-to-eval links, and coverage of every blocking component rule.
+
 It also validates `shared/content/product-voice.yml`, the registered content
 patterns, and their regression cases with `scripts/check_content_patterns.py`.
 This check covers the human/machine file inventory, exact document identities,
