@@ -425,7 +425,8 @@
         "content.pattern.empty-states",
         "content.pattern.notifications",
         "content.pattern.loading-and-progress",
-        "content.pattern.ai-content-and-disclosure"
+        "content.pattern.ai-content-and-disclosure",
+        "content.pattern.instructions-and-helper-text"
       ],
       "topics": [
         "content",
@@ -583,6 +584,42 @@
       "path": "shared/content/patterns/errors.md"
     },
     {
+      "id": "content.pattern.instructions-and-helper-text",
+      "kind": "content-guideline",
+      "title": "Instructions and Helper Text",
+      "summary": "Defines the roles, timing, placement, wording, validation boundary, and accessibility contract for labels, instructions, helper text, placeholders, examples, and requirement indicators.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "content.product-voice",
+        "content.terminology",
+        "content.pattern.error",
+        "design-system.accessibility.forms",
+        "design-system.accessibility.content",
+        "design-system.experience-rule.contextual-guidance",
+        "design-system.component.text-input",
+        "design-system.component.textarea"
+      ],
+      "topics": [
+        "accessibility",
+        "content",
+        "content-guideline",
+        "examples",
+        "forms",
+        "helper-text",
+        "instructions",
+        "instructions-and-helper-text",
+        "labels",
+        "patterns",
+        "persian",
+        "placeholders",
+        "required-optional",
+        "ux-writing"
+      ],
+      "path": "shared/content/patterns/instructions-and-helper-text.md"
+    },
+    {
       "id": "content.pattern.loading-and-progress",
       "kind": "content-guideline",
       "title": "Loading and Progress Content",
@@ -665,6 +702,7 @@
         "content.pattern.notifications",
         "content.pattern.loading-and-progress",
         "content.pattern.ai-content-and-disclosure",
+        "content.pattern.instructions-and-helper-text",
         "design-system.accessibility.content"
       ],
       "topics": [
@@ -3372,9 +3410,9 @@
     }
   ],
   "summary": {
-    "documents": 163,
+    "documents": 164,
     "by_kind": {
-      "content-guideline": 10,
+      "content-guideline": 11,
       "design-system-accessibility": 18,
       "design-system-component": 34,
       "design-system-design-language": 1,

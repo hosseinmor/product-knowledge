@@ -40,7 +40,13 @@ AI_CONTENT_PATH = (
 AI_CONTENT_EVAL_PATH = (
     ROOT / "shared" / "content" / "evals" / "ai-content-cases.yml"
 )
-RULE_ID_RE = re.compile(r"^(VOICE|ERR|CNF|EST|NTF|LDP|AIC)-[0-9]{3}$")
+INSTRUCTION_PATH = (
+    ROOT / "shared" / "content" / "patterns" / "instructions-and-helper-text.yml"
+)
+INSTRUCTION_EVAL_PATH = (
+    ROOT / "shared" / "content" / "evals" / "instruction-helper-cases.yml"
+)
+RULE_ID_RE = re.compile(r"^(VOICE|ERR|CNF|EST|NTF|LDP|AIC|INS)-[0-9]{3}$")
 CASE_ID_RE = re.compile(r"^[a-z][a-z0-9_]*$")
 VALID_OBLIGATIONS = {"must", "must_not", "should"}
 TONE_DIMENSIONS = {"clarity", "warmth", "encouragement", "brand_expression"}
@@ -82,7 +88,7 @@ def validate_rules(
         rule_id = rule.get("id")
         if not nonempty_string(rule_id) or not RULE_ID_RE.fullmatch(rule_id):
             errors.append(
-                f"{location}.id must match VOICE-000, ERR-000, CNF-000, EST-000, NTF-000, LDP-000, or AIC-000"
+                f"{location}.id must match VOICE-000, ERR-000, CNF-000, EST-000, NTF-000, LDP-000, AIC-000, or INS-000"
             )
         else:
             rule_ids.append(rule_id)
@@ -450,6 +456,55 @@ def validate_ai_content_pattern(
     return errors, obligations
 
 
+def validate_instruction_pattern(
+    data: dict[str, Any], tone_profiles: set[str]
+) -> tuple[list[str], dict[str, str]]:
+    errors: list[str] = []
+    for field in ("schema_version", "id", "title", "language", "goal"):
+        if not nonempty_string(data.get(field)):
+            errors.append(
+                f"instruction pattern: top-level `{field}` must be a non-empty string"
+            )
+    if data.get("tone_profile") not in tone_profiles:
+        errors.append(
+            "instruction pattern: `tone_profile` must reference a known voice profile"
+        )
+
+    rule_errors, rule_ids = validate_rules(
+        data.get("rules"), "instruction pattern"
+    )
+    errors.extend(rule_errors)
+    obligations = {
+        rule["id"]: rule["obligation"]
+        for rule in data.get("rules", [])
+        if isinstance(rule, dict)
+        and rule.get("id") in rule_ids
+        and rule.get("obligation") in VALID_OBLIGATIONS
+    }
+
+    for field in (
+        "content_roles",
+        "placement_model",
+        "requiredness_model",
+        "validation_transition",
+        "specialized_guidance",
+    ):
+        if not isinstance(data.get(field), dict) or not data[field]:
+            errors.append(
+                f"instruction pattern: `{field}` must be a non-empty mapping"
+            )
+    anatomy = data.get("anatomy")
+    if not isinstance(anatomy, dict) or not isinstance(
+        anatomy.get("field"), dict
+    ) or not isinstance(anatomy.get("group"), dict):
+        errors.append(
+            "instruction pattern: anatomy requires field and group mappings"
+        )
+    if not isinstance(data.get("templates"), dict) or not data["templates"]:
+        errors.append("instruction pattern: `templates` must be a non-empty mapping")
+    return errors, obligations
+
+
 def validate_evals(
     data: dict[str, Any],
     pattern_id: str,
@@ -550,6 +605,8 @@ def main() -> int:
     loading_evals = load_yaml(LOADING_EVAL_PATH)
     ai_content_pattern = load_yaml(AI_CONTENT_PATH)
     ai_content_evals = load_yaml(AI_CONTENT_EVAL_PATH)
+    instruction_pattern = load_yaml(INSTRUCTION_PATH)
+    instruction_evals = load_yaml(INSTRUCTION_EVAL_PATH)
 
     errors, tone_profiles, voice_rules = validate_voice(voice)
     pattern_errors, obligations = validate_error_pattern(error_pattern, tone_profiles)
@@ -595,6 +652,18 @@ def main() -> int:
             "AI content evals",
         )
     )
+    instruction_errors, instruction_obligations = validate_instruction_pattern(
+        instruction_pattern, tone_profiles
+    )
+    errors.extend(instruction_errors)
+    errors.extend(
+        validate_evals(
+            instruction_evals,
+            instruction_pattern.get("id", ""),
+            instruction_obligations,
+            "instruction evals",
+        )
+    )
     empty_state_errors, empty_state_obligations = validate_empty_state_pattern(
         empty_state_pattern, tone_profiles
     )
@@ -638,7 +707,9 @@ def main() -> int:
         f"{len(loading_obligations)} loading rules, "
         f"{len(loading_evals['cases'])} loading cases, "
         f"{len(ai_content_obligations)} AI content rules, "
-        f"{len(ai_content_evals['cases'])} AI content cases"
+        f"{len(ai_content_evals['cases'])} AI content cases, "
+        f"{len(instruction_obligations)} instruction rules, "
+        f"{len(instruction_evals['cases'])} instruction cases"
     )
     return 0
 

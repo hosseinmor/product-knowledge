@@ -16,6 +16,7 @@ related:
   - content.pattern.notifications
   - content.pattern.loading-and-progress
   - content.pattern.ai-content-and-disclosure
+  - content.pattern.instructions-and-helper-text
   - design-system.accessibility.content
 topics:
   - product-voice
@@ -142,6 +143,8 @@ Product truth and safety
   عملیات در جریان، پیشرفت معین و نامعین و transition نتیجه را مالک است.
 - [`patterns/ai-content-and-disclosure.md`](patterns/ai-content-and-disclosure.md)
   نام‌گذاری، disclosure، وضعیت خروجی و مرزهای اعتماد قابلیت‌های AI را مالک است.
+- [`patterns/instructions-and-helper-text.md`](patterns/instructions-and-helper-text.md)
+  نقش Label، Instruction، Helper، Placeholder و Example را مالک است.
 - [`terminology.md`](terminology.md) نام conceptها را مالک است.
 - [`localization.md`](localization.md) نگارش فارسی، عدد، تاریخ و متغیرها را
   مالک خواهد بود؛ بخش‌های خالی آن هنوز تصمیم قطعی نیستند.

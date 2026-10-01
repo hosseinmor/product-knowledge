@@ -16,6 +16,7 @@ related:
   - content.pattern.notifications
   - content.pattern.loading-and-progress
   - content.pattern.ai-content-and-disclosure
+  - content.pattern.instructions-and-helper-text
 ---
 
 # Content Guidelines
@@ -72,6 +73,18 @@ Use the preferred label for the concept and surface from the terminology source.
 Do not use implementation names as labels merely because they exist in code.
 
 ## Instructions
+
+Use
+[`patterns/instructions-and-helper-text.md`](patterns/instructions-and-helper-text.md)
+to distinguish labels, mandatory instructions, helper text, placeholders,
+examples, requirement indicators, and errors. Its machine-readable contract and
+evals are in
+[`patterns/instructions-and-helper-text.yml`](patterns/instructions-and-helper-text.yml)
+and [`evals/instruction-helper-cases.yml`](evals/instruction-helper-cases.yml).
+
+Required instructions must be available before users need them. Placeholder is
+not a label or a reliable place for essential requirements, and Tooltip or Info
+must not be the only source of information needed to complete the task.
 
 ## Error Messages
 
