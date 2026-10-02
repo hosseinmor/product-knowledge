@@ -43,12 +43,13 @@ Design System component
 | Button | [`button.md`](button.md) | [`button.yml`](button.yml) | [`../evals/button-content-cases.yml`](../evals/button-content-cases.yml) |
 | Text Input | [`text-input.md`](text-input.md) | [`text-input.yml`](text-input.yml) | [`../evals/text-input-content-cases.yml`](../evals/text-input-content-cases.yml) |
 | Modal | [`modal.md`](modal.md) | [`modal.yml`](modal.yml) | [`../evals/modal-content-cases.yml`](../evals/modal-content-cases.yml) |
+| Notification | [`notification.md`](notification.md) | [`notification.yml`](notification.yml) | [`../evals/notification-content-cases.yml`](../evals/notification-content-cases.yml) |
 
 ## قاعدهٔ رشد
 
 فقط وقتی contract تازه بسازید که یک تصمیم محتوایی واقعاً component-specific
-باشد و در foundation یا pattern عمومی حل نشود. Notification نامزد بعدی است،
-اما پیش از داشتن قرارداد واقعی نباید برای آن scaffold خالی ساخت.
+باشد و در foundation یا pattern عمومی حل نشود. برای نامزدهای بعدی پیش از داشتن
+نیاز واقعی و قرارداد مبتنی بر منبع، scaffold خالی نسازید.
 
 ## اعتبارسنجی
 

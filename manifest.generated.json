@@ -475,6 +475,39 @@
       "path": "shared/content/components/modal.md"
     },
     {
+      "id": "content.component.notification",
+      "kind": "content-guideline",
+      "title": "Notification Content",
+      "summary": "Defines how outcome and status content maps into the distinct Inline Notification and Toast anatomies, including severity, message roles, actions, dismissal, timeout indicators, and accessible announcements.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "content.product-voice",
+        "content.terminology",
+        "content.localization",
+        "content.component.button",
+        "content.pattern.notifications",
+        "content.pattern.error",
+        "content.pattern.confirmation",
+        "design-system.component.notification",
+        "design-system.accessibility.dynamic-content-and-feedback"
+      ],
+      "topics": [
+        "accessibility",
+        "components",
+        "content",
+        "content-guideline",
+        "feedback",
+        "inline-notification",
+        "notification",
+        "persian",
+        "severity",
+        "toast"
+      ],
+      "path": "shared/content/components/notification.md"
+    },
+    {
       "id": "content.component.text-input",
       "kind": "content-guideline",
       "title": "Text Input Content",
@@ -521,6 +554,7 @@
         "content.component.button",
         "content.component.text-input",
         "content.component.modal",
+        "content.component.notification",
         "content.pattern.error",
         "content.pattern.confirmation",
         "content.pattern.empty-states",
@@ -3523,9 +3557,9 @@
     }
   ],
   "summary": {
-    "documents": 167,
+    "documents": 168,
     "by_kind": {
-      "content-guideline": 14,
+      "content-guideline": 15,
       "design-system-accessibility": 18,
       "design-system-component": 34,
       "design-system-design-language": 1,

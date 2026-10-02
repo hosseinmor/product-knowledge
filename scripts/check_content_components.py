@@ -83,6 +83,32 @@ COMPONENT_SPECS = (
             "component_selection",
         ),
     },
+    {
+        "name": "notification",
+        "label": "notification component",
+        "source_path": COMPONENT_DIR / "notification.yml",
+        "document_path": COMPONENT_DIR / "notification.md",
+        "eval_path": EVAL_DIR / "notification-content-cases.yml",
+        "component_id": "content.component.notification",
+        "eval_id": "content.eval.notification_content_cases",
+        "rule_prefix": "NTC",
+        "tone_profiles": {
+            "info": "informational_feedback",
+            "success": "success_feedback",
+            "warning": "warning_feedback",
+            "error": "error_feedback",
+        },
+        "evaluation_source": "../evals/notification-content-cases.yml",
+        "required_models": (
+            "depends_on",
+            "source_boundaries",
+            "component_model",
+            "severity_model",
+            "role_model",
+            "action_model",
+            "accessibility_model",
+        ),
+    },
 )
 
 

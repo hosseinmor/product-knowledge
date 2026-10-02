@@ -13,6 +13,7 @@ related:
   - content.component.button
   - content.component.text-input
   - content.component.modal
+  - content.component.notification
   - content.pattern.error
   - content.pattern.confirmation
   - content.pattern.empty-states
@@ -190,6 +191,22 @@ Severity describes meaning; it does not determine presentation or assistive-
 technology urgency. Announce success only after the product confirms completion,
 and do not invent timeout, stacking, placement, or dismissal behavior that the
 Design System and runtime have not defined.
+
+### Notification composition
+
+When feedback is rendered as an Inline Notification or Toast, use
+[`components/notification.md`](components/notification.md) to map it into the
+component anatomy. Its machine-readable contract and component evals are in
+[`components/notification.yml`](components/notification.yml) and
+[`evals/notification-content-cases.yml`](evals/notification-content-cases.yml).
+
+Keep Message independently understandable. Use Inline Description or Toast
+Title only when it adds context rather than repeating Message. Allow at most one
+meaningful action, use Link for navigation and Button for an operation, and name
+an available dismiss control «بستن». Inline Notification and Toast are separate
+component identities, not values of one Type axis. Exact timing, stacking,
+placement, default dismissibility, and live-region implementation remain runtime
+or Design System decisions until their sources define them.
 
 ## Loading and Progress
 
