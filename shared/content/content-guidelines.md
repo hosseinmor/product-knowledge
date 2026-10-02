@@ -26,6 +26,12 @@ This document is the shared human entry point. Detailed voice is owned by
 [`terminology.md`](terminology.md), and machine-readable terms by
 [`terminology/terms.yml`](terminology/terms.yml).
 
+Persian language, RTL, mixed-direction text, number/date formatting,
+translation, and dynamic variables are owned by
+[`localization.md`](localization.md). Its machine-readable contract and evals
+are in [`localization.yml`](localization.yml) and
+[`evals/localization-cases.yml`](evals/localization-cases.yml).
+
 Use the smallest relevant layer:
 
 ```text
@@ -67,6 +73,13 @@ accessibility.
 - Preserve product truth; do not improve tone by changing meaning.
 - Apply terminology for the current audience and surface.
 - Keep unknown product behavior explicit.
+
+## Localization
+
+Use the localization foundation whenever copy contains numbers, dates, times,
+units, amounts, user-entered text, English passages, URLs, identifiers, or
+runtime variables. Do not infer calendar, digit, timezone, or currency policy
+from the Persian UI language.
 
 ## Labels
 

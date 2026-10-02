@@ -93,10 +93,21 @@ Route first to:
 shared/content/content-guidelines.md
 shared/content/product-voice.md
 shared/content/terminology.md
+shared/content/localization.md
 ```
 
 Then load only the relevant pattern, component contract, Product Area, and
-machine-readable source. For error content, load:
+machine-readable source.
+
+For Persian/English language changes, RTL or mixed-direction content, numbers,
+dates, times, units, amounts, translation, or runtime variables, also load:
+
+```text
+shared/content/localization.yml
+shared/content/evals/localization-cases.yml
+```
+
+For error content, load:
 
 ```text
 shared/content/patterns/errors.md

@@ -200,13 +200,14 @@ python -m pip install -r requirements-dev.txt
 python scripts/generate_manifest.py generate
 python scripts/generate_manifest.py check
 python scripts/check_content_terminology.py
+python scripts/check_content_localization.py
 python scripts/check_content_patterns.py
 ```
 
 Any change to indexed documents must include the regenerated manifest. CI checks metadata, unique IDs, related IDs, and manifest freshness.
-The content checks additionally validate the semantic lexicon, product voice,
-registered content-pattern inventory and identities, rule families, eval links,
-regression-case coverage, and duplicate YAML keys.
+The content checks additionally validate the semantic lexicon, Persian
+localization, product voice, registered content-pattern inventory and identities,
+rule families, eval links, regression-case coverage, and duplicate YAML keys.
 
 See [`docs/manifest.md`](docs/manifest.md).
 
