@@ -107,6 +107,17 @@ shared/content/localization.yml
 shared/content/evals/localization-cases.yml
 ```
 
+For Button labels, CTA wording, action-versus-navigation decisions, Button
+Loading labels, confirmation actions, or Button accessible names, also load:
+
+```text
+shared/content/components/button.md
+shared/content/components/button.yml
+shared/content/evals/button-content-cases.yml
+shared/design-system/components/button.md
+shared/design-system/experience-rules/action-hierarchy.md
+```
+
 For error content, load:
 
 ```text

@@ -27,6 +27,10 @@ shared/content/
 ├── terminology.md
 ├── terminology/
 │   └── terms.yml
+├── components/
+│   ├── README.md
+│   ├── button.md
+│   └── button.yml
 ├── patterns/
 │   ├── ai-content-and-disclosure.md
 │   ├── ai-content-and-disclosure.yml
@@ -44,6 +48,7 @@ shared/content/
 │   └── notifications.yml
 └── evals/
     ├── ai-content-cases.yml
+    ├── button-content-cases.yml
     ├── confirmation-cases.yml
     ├── empty-state-cases.yml
     ├── error-cases.yml
@@ -63,8 +68,10 @@ shared/content/
 - `terminology.md` explains terminology governance and selection rules.
 - `terminology/terms.yml` is the machine-readable semantic lexicon used by AI,
   validation, and future generated views.
-- `patterns/` contains complete human and machine-readable content patterns;
-  `evals/` holds their regression cases.
+- `patterns/` contains complete human and machine-readable content patterns.
+- `components/` contains copy contracts specific to reusable Design System
+  components; Button is the first registered contract.
+- `evals/` holds foundation, pattern, and component regression cases.
 
 ## Growth rule
 
@@ -119,13 +126,15 @@ Run:
 ```bash
 python scripts/check_content_terminology.py
 python scripts/check_content_localization.py
+python scripts/check_content_components.py
 python scripts/check_content_patterns.py
 python scripts/generate_manifest.py check
 ```
 
 The first command validates the machine-readable lexicon. The second validates
-the Persian localization foundation and eval coverage. The third validates the
-registered human/machine pattern inventory, product voice, pattern and eval
+the Persian localization foundation and eval coverage. The third validates
+registered component contracts and their eval coverage. The fourth validates
+the registered human/machine pattern inventory, product voice, pattern and eval
 identities, rule families and keys, pattern-to-eval links, and blocking-rule
-coverage. All content validators reject duplicate YAML keys. The fourth command
+coverage. All content validators reject duplicate YAML keys. The final command
 validates the indexed Markdown knowledge documents and manifest freshness.

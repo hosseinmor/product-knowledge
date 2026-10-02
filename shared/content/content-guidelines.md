@@ -10,6 +10,7 @@ related:
   - content.product-voice
   - content.terminology
   - content.localization
+  - content.component.button
   - content.pattern.error
   - content.pattern.confirmation
   - content.pattern.empty-states
@@ -85,6 +86,18 @@ from the Persian UI language.
 
 Use the preferred label for the concept and surface from the terminology source.
 Do not use implementation names as labels merely because they exist in code.
+
+## Button Labels
+
+Use [`components/button.md`](components/button.md) when content appears on a
+Button or when choosing between Button, Link, and Icon Button semantics. Its
+machine-readable contract and evals are in
+[`components/button.yml`](components/button.yml) and
+[`evals/button-content-cases.yml`](evals/button-content-cases.yml).
+
+Name the real action or result with the shortest unambiguous label. Preserve the
+action identity while Loading, make confirmation exits explicit, and do not use
+generic labels, promotional pressure, internal terms, or early success language.
 
 ## Instructions
 
