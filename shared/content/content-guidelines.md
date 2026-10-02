@@ -15,6 +15,7 @@ related:
   - content.component.modal
   - content.component.notification
   - content.context.jobvision-candidate
+  - content.context.jobvision-employer
   - content.pattern.error
   - content.pattern.confirmation
   - content.pattern.empty-states
@@ -104,6 +105,20 @@ Use «کارجو» for the audience, «شرکت» for the employer organization 
 «موقعیت شغلی» and «فرصت شغلی», and between the «درخواست شغلی» entity and the
 «ارسال رزومه» action. Load the owning Candidate Product Area before making any
 claim about behavior or state.
+
+For JobVision Employer, load
+[`contexts/jobvision-employer.md`](contexts/jobvision-employer.md). Its
+machine-readable contract and evals are in
+[`contexts/jobvision-employer.yml`](contexts/jobvision-employer.yml) and
+[`evals/jobvision-employer-context-cases.yml`](evals/jobvision-employer-context-cases.yml).
+
+Use «سازمان» for the customer entity and «کارفرما» for the human actor. In a
+self-contained Employer management surface, use «آگهی» for a Job Post; use
+«آگهی شغلی» in an independent notification, email, or cross-product message.
+Keep «جذب» separate from «استخدام» and «درخواست جذب» separate from «درخواست
+شغلی». Do not invent role permissions, lifecycle states, quotas, plans,
+moderation, or Candidate-side effects while the owning Employer Areas remain
+undocumented or draft.
 
 ## Labels
 

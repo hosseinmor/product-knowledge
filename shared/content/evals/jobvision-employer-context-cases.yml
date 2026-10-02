@@ -1,0 +1,476 @@
+schema_version: "0.1"
+id: content.eval.jobvision_employer_context_cases
+context_id: content.context.jobvision-employer
+language: fa-IR
+
+cases:
+  - id: direct_address_without_assumed_role
+    context:
+      surface: job_post_editor
+      user_role_confirmed: false
+    content:
+      helper: می‌توانید آگهی را پیش از انتشار بازبینی کنید.
+    expected:
+      valid: true
+      checked_rules: [JVE-001, JVE-017]
+      violations: []
+
+  - id: organization_information_label
+    context:
+      surface: organization_settings
+      concept: employer_organization
+    content:
+      heading: اطلاعات سازمان
+    expected:
+      valid: true
+      checked_rules: [JVE-002, JVE-003]
+      violations: []
+
+  - id: employer_actor_activity
+    context:
+      surface: application_activity
+      concept: employer_actor
+    content:
+      message: فعالیت کارفرما ثبت شد.
+    expected:
+      valid: true
+      checked_rules: [JVE-002]
+      violations: []
+
+  - id: specialized_job_post_short_label
+    context:
+      surface: employer_job_post_list
+      object_context_clear: true
+    content:
+      action: ایجاد آگهی
+      heading: آگهی‌های سازمان
+    expected:
+      valid: true
+      checked_rules: [JVE-005, JVE-006]
+      violations: []
+
+  - id: independent_job_post_notification
+    context:
+      surface: notification
+      outcome_confirmed: true
+      concept: job_post
+    content:
+      message: آگهی شغلی منتشر شد.
+    expected:
+      valid: true
+      checked_rules: [JVE-005, JVE-021]
+      violations: []
+
+  - id: job_position_in_recruitment_request
+    context:
+      surface: hiring_request
+      concept: job_position
+    content:
+      label: موقعیت شغلی
+    expected:
+      valid: true
+      checked_rules: [JVE-006, JVE-008]
+      violations: []
+
+  - id: recruitment_process_and_hiring_outcome
+    context:
+      surface: reporting
+    content:
+      process_label: فرایند جذب
+      outcome_label: استخدام
+    expected:
+      valid: true
+      checked_rules: [JVE-007]
+      violations: []
+
+  - id: hiring_request_distinct_from_application
+    context:
+      surface: employer_operations
+      concepts: [hiring_request, job_application]
+    content:
+      internal_need: درخواست جذب
+      candidate_response: درخواست شغلی
+    expected:
+      valid: true
+      checked_rules: [JVE-008, JVE-009]
+      violations: []
+
+  - id: contextual_application_short_form
+    context:
+      surface: application_list
+      page_title: درخواست‌های شغلی
+    content:
+      action: مشاهدهٔ درخواست
+    expected:
+      valid: true
+      checked_rules: [JVE-009]
+      violations: []
+
+  - id: jobvision_jobseeker_label
+    context:
+      surface: jobvision_application
+      identity_concept: jobseeker
+      ats_mapping_confirmed: false
+    content:
+      label: کارجو
+    expected:
+      valid: true
+      checked_rules: [JVE-010]
+      violations: []
+
+  - id: ats_candidate_label_in_confirmed_ats_context
+    context:
+      surface: cando_ats_link
+      identity_concept: ats_candidate
+      ats_mapping_confirmed: true
+    content:
+      label: کاندیدا
+    expected:
+      valid: true
+      checked_rules: [JVE-010]
+      violations: []
+
+  - id: resume_snapshot_explained_for_user
+    context:
+      surface: application_details
+      artifact: resume_snapshot
+      audience: employer
+    content:
+      label: نسخهٔ رزومه در زمان ارسال درخواست شغلی
+    expected:
+      valid: true
+      checked_rules: [JVE-011]
+      violations: []
+
+  - id: package_and_plan_distinct
+    context:
+      surface: employer_products
+      product_truth_confirmed: true
+    content:
+      package_label: بسته
+      plan_label: پلن
+    expected:
+      valid: true
+      checked_rules: [JVE-012, JVE-016]
+      violations: []
+
+  - id: confirmed_employer_assistant_name
+    context:
+      surface: application_automation
+      feature: employer_assistant
+      behavior_confirmed: true
+      ai_assistant_like: false
+    content:
+      title: دستیار کارفرما
+      description: این قابلیت طبق تنظیمات تأییدشدهٔ شما عمل می‌کند.
+    expected:
+      valid: true
+      checked_rules: [JVE-014, JVE-016]
+      violations: []
+
+  - id: product_area_supplies_publication_truth
+    context:
+      surface: job_post_editor
+      owning_area: jobvision.employer.job-post-management
+      publication_confirmed: true
+    content:
+      message: آگهی شغلی منتشر شد.
+    expected:
+      valid: true
+      checked_rules: [JVE-005, JVE-016]
+      violations: []
+
+  - id: confirmation_inherits_shared_contract
+    context:
+      surface: job_post_management
+      pattern: confirmation
+      component: Modal
+      consequence_confirmed: true
+    content:
+      title: انتشار آگهی
+      body: پس از انتشار، آگهی شغلی در دسترس مخاطبان تعیین‌شده قرار می‌گیرد.
+      primary_action: انتشار آگهی
+      secondary_action: بازگشت
+    expected:
+      valid: true
+      checked_rules: [JVE-005, JVE-021]
+      violations: []
+
+  - id: localized_package_balance
+    context:
+      surface: employer_products
+      value_type: count
+      locale_formatted: true
+    content:
+      message: ۳ آگهی از بستهٔ شما باقی مانده است.
+    expected:
+      valid: true
+      checked_rules: [JVE-012, JVE-022]
+      violations: []
+
+  - id: assumed_hr_manager_role
+    context:
+      surface: job_post_editor
+      user_role_confirmed: false
+    content:
+      greeting: مدیر محترم منابع انسانی
+    expected:
+      valid: false
+      checked_rules: [JVE-001, JVE-017]
+      violations: [JVE-001, JVE-017]
+
+  - id: organization_called_employer_entity
+    context:
+      surface: organization_settings
+      concept: employer_organization
+    content:
+      heading: اطلاعات کارفرما
+    expected:
+      valid: false
+      checked_rules: [JVE-002, JVE-003]
+      violations: [JVE-002, JVE-003]
+
+  - id: internal_operator_as_public_role
+    context:
+      surface: member_management
+      public_role_mapping_confirmed: false
+    content:
+      label: رابط سازمان
+    expected:
+      valid: false
+      checked_rules: [JVE-004, JVE-017]
+      violations: [JVE-004, JVE-017]
+
+  - id: system_operator_exposed
+    context:
+      surface: member_management
+      concept: system_operator
+      product_truth_confirmed: false
+    content:
+      label: رابط سیستمی
+    expected:
+      valid: false
+      checked_rules: [JVE-004]
+      violations: [JVE-004]
+
+  - id: short_job_post_label_in_email
+    context:
+      surface: email
+      concept: job_post
+      object_context_clear: false
+    content:
+      subject: آگهی شما منتشر شد
+    expected:
+      valid: false
+      checked_rules: [JVE-005]
+      violations: [JVE-005]
+
+  - id: job_post_called_position
+    context:
+      surface: job_post_list
+      concept: job_post
+    content:
+      heading: موقعیت‌های شغلی سازمان
+    expected:
+      valid: false
+      checked_rules: [JVE-005, JVE-006]
+      violations: [JVE-005, JVE-006]
+
+  - id: recruitment_called_hiring
+    context:
+      surface: process_settings
+      concept: recruitment
+    content:
+      heading: تنظیمات فرایند استخدام
+    expected:
+      valid: false
+      checked_rules: [JVE-007]
+      violations: [JVE-007]
+
+  - id: hiring_request_called_application
+    context:
+      surface: internal_need
+      concept: hiring_request
+    content:
+      heading: درخواست شغلی جدید سازمان
+    expected:
+      valid: false
+      checked_rules: [JVE-008]
+      violations: [JVE-008]
+
+  - id: ambiguous_application_notification
+    context:
+      surface: notification
+      concept: job_application
+      page_context_available: false
+    content:
+      message: درخواست جدید دریافت شد.
+    expected:
+      valid: false
+      checked_rules: [JVE-009]
+      violations: [JVE-009]
+
+  - id: jobvision_jobseeker_called_candidate
+    context:
+      surface: jobvision_application
+      identity_concept: jobseeker
+      ats_mapping_confirmed: false
+    content:
+      label: کاندیدا
+    expected:
+      valid: false
+      checked_rules: [JVE-010]
+      violations: [JVE-010]
+
+  - id: live_resume_claim_without_evidence
+    context:
+      surface: application_details
+      representation_type_confirmed: false
+    content:
+      helper: این رزومه همیشه آخرین تغییرات کارجو را نمایش می‌دهد.
+    expected:
+      valid: false
+      checked_rules: [JVE-011, JVE-016]
+      violations: [JVE-011, JVE-016]
+
+  - id: package_and_plan_collapsed
+    context:
+      surface: employer_products
+      concepts: [package, plan]
+    content:
+      message: پلن خریداری‌شدهٔ شما ۲ آگهی باقی‌مانده دارد.
+    expected:
+      valid: false
+      checked_rules: [JVE-012]
+      violations: [JVE-012]
+
+  - id: premium_subscription_promoted
+    context:
+      surface: employer_products
+      concept: premium_subscription
+      product_truth_confirmed: false
+    content:
+      action: خرید اشتراک ویژه
+    expected:
+      valid: false
+      checked_rules: [JVE-013, JVE-016]
+      violations: [JVE-013, JVE-016]
+
+  - id: employer_assistant_called_ai_assistant
+    context:
+      surface: application_automation
+      feature: employer_assistant
+      ai_assistant_like: false
+    content:
+      title: دستیار هوشمند کارفرما
+    expected:
+      valid: false
+      checked_rules: [JVE-014]
+      violations: [JVE-014]
+
+  - id: unconfirmed_auto_rejection_claim
+    context:
+      surface: application_automation
+      feature: employer_assistant
+      runtime_behavior_confirmed: false
+    content:
+      description: همهٔ درخواست‌های بدون تصمیم پس از ۳۰ روز خودکار رد می‌شوند.
+    expected:
+      valid: false
+      checked_rules: [JVE-014, JVE-016]
+      violations: [JVE-014, JVE-016]
+
+  - id: rejection_queue_public_status
+    context:
+      surface: application_list
+      concept: rejection_queue
+      active_status_confirmed: false
+      public_mapping_confirmed: false
+    content:
+      status: صف رد
+    expected:
+      valid: false
+      checked_rules: [JVE-015]
+      violations: [JVE-015]
+
+  - id: invented_publish_permission
+    context:
+      surface: job_post_editor
+      role: recruiter
+      permission_matrix_confirmed: false
+    content:
+      helper: همهٔ کارشناسان جذب می‌توانند آگهی را منتشر کنند.
+    expected:
+      valid: false
+      checked_rules: [JVE-016, JVE-017]
+      violations: [JVE-016, JVE-017]
+
+  - id: placeholder_lifecycle_as_product_truth
+    context:
+      surface: job_post_details
+      canonical_lifecycle_confirmed: false
+    content:
+      helper: هر آگهی بعد از انتشار ابتدا متوقف و سپس خودکار بایگانی می‌شود.
+    expected:
+      valid: false
+      checked_rules: [JVE-018]
+      violations: [JVE-018]
+
+  - id: publication_guarantees_universal_visibility
+    context:
+      surface: job_post_publish
+      publication_confirmed: true
+      candidate_visibility_scope_confirmed: false
+    content:
+      message: آگهی برای همهٔ کارجوها نمایش داده شد.
+    expected:
+      valid: false
+      checked_rules: [JVE-019]
+      violations: [JVE-019]
+
+  - id: close_claims_applications_unchanged
+    context:
+      surface: job_post_close
+      connected_application_behavior_confirmed: false
+    content:
+      message: با بستن آگهی، همهٔ درخواست‌های قبلی بدون تغییر باقی می‌مانند.
+    expected:
+      valid: false
+      checked_rules: [JVE-018, JVE-019]
+      violations: [JVE-018, JVE-019]
+
+  - id: invented_plan_quota
+    context:
+      surface: job_post_publish
+      plan_and_quota_confirmed: false
+    content:
+      helper: پلن شما همیشه امکان انتشار ۱۰ آگهی در ماه را دارد.
+    expected:
+      valid: false
+      checked_rules: [JVE-020]
+      violations: [JVE-020]
+
+  - id: context_overrides_modal_contract
+    context:
+      surface: job_post_publish
+      component: Modal
+      confirmation_required: true
+    content:
+      title: تأیید
+      actions: [بله, انتشار, ادامه]
+    expected:
+      valid: false
+      checked_rules: [JVE-021]
+      violations: [JVE-021]
+
+  - id: raw_balance_and_mixed_identifier
+    context:
+      surface: employer_products
+      locale_formatted: false
+      bidi_isolated: false
+    content:
+      message: 3 آگهی در بسته ORG-۱۲3 باقی مانده است.
+    expected:
+      valid: false
+      checked_rules: [JVE-022]
+      violations: [JVE-022]

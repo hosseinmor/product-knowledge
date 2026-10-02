@@ -72,6 +72,7 @@ NON_PATTERN_EVAL_PATHS = (
     ROOT / "shared" / "content" / "evals" / "modal-content-cases.yml",
     ROOT / "shared" / "content" / "evals" / "notification-content-cases.yml",
     ROOT / "shared" / "content" / "evals" / "jobvision-candidate-context-cases.yml",
+    ROOT / "shared" / "content" / "evals" / "jobvision-employer-context-cases.yml",
 )
 RULE_ID_RE = re.compile(r"^(VOICE|ERR|CNF|EST|NTF|LDP|AIC|INS)-[0-9]{3}$")
 CASE_ID_RE = re.compile(r"^[a-z][a-z0-9_]*$")

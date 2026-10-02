@@ -1,0 +1,381 @@
+schema_version: "0.1"
+id: content.context.jobvision-employer
+document_id: content.context.jobvision-employer
+title: قرارداد Context محتوایی JobVision Employer
+status: draft
+language: fa-IR
+product: jobvision.employer
+audience: employer
+scope:
+  - employer-product-ui
+  - employer-transactional-content
+  - employer-facing-automation-content
+
+depends_on:
+  voice: content.foundation.product_voice
+  terminology: content.foundation.terminology
+  localization: content.foundation.localization
+  patterns:
+    - content.pattern.error
+    - content.pattern.confirmation
+    - content.pattern.notifications
+    - content.pattern.ai-content-and-disclosure
+  product_overview: jobvision.employer.overview
+
+sources:
+  - id: product_voice
+    type: content_foundation
+    reference: content.foundation.product_voice
+    state: draft
+  - id: terminology
+    type: content_foundation
+    reference: content.foundation.terminology
+    state: draft
+  - id: localization
+    type: content_foundation
+    reference: content.foundation.localization
+    state: draft
+  - id: ai_content_pattern
+    type: content_pattern
+    reference: content.pattern.ai-content-and-disclosure
+    state: draft
+  - id: employer_overview
+    type: product_overview
+    reference: jobvision.employer.overview
+    state: draft
+  - id: job_post_management_area
+    type: product_area
+    reference: jobvision.employer.job-post-management
+    state: draft
+  - id: job_post_concept
+    type: product_concept
+    reference: shared.job-post
+    state: draft
+  - id: application_concept
+    type: product_concept
+    reference: shared.application
+    state: draft
+  - id: resume_concept
+    type: product_concept
+    reference: shared.resume
+    state: draft
+  - id: company_concept
+    type: product_concept
+    reference: shared.company
+    state: draft
+  - id: candidate_context
+    type: content_context
+    reference: content.context.jobvision-candidate
+    state: draft
+  - id: context_decisions
+    type: operational_decision
+    state: working_decisions
+
+source_boundaries:
+  source_derived:
+    - employer organization با «سازمان» و actor انسانی با «کارفرما» نامیده می‌شود.
+    - در context روشن Employer، Job Post با «آگهی» نامیده می‌شود.
+    - جذب process و استخدام outcome است.
+    - درخواست جذب با درخواست شغلی concept متفاوتی دارد.
+    - فرد JobVision کارجو و فرد ATS کاندیدا است.
+    - بسته، پلن و سرویس conceptهای متمایزند.
+  context_decisions:
+    - پیام مستقل و cross-channel از صورت کامل «آگهی شغلی» استفاده کند.
+    - اصطلاح داخلی یا needs_decision بدون public mapping نمایش داده نشود.
+    - publication، activity و automation فقط در حد outcome تأییدشده توصیف شوند.
+  excluded:
+    - role و permission matrix کاربران Employer.
+    - lifecycle، state، publication eligibility و moderation آگهی.
+    - quota، plan access، purchase و entitlement behavior.
+    - Candidate/Application Management behavior.
+    - اثر cross-product روی Candidate یا ATS.
+
+audience_model:
+  product_audience: employer_users
+  direct_address: شما
+  possible_roles: [recruiter, hr_team_member, hiring_manager, account_administrator]
+  role_labels_status: unverified
+  role_rule: use_specific_role_only_from_confirmed_access_model
+  surface:
+    concept: employer_panel
+    label: پنل کارفرما
+
+voice_model:
+  register: persian_standard_written
+  base: content.foundation.product_voice
+  operational_surface:
+    clarity: maximum
+    warmth: low
+    encouragement: low_or_none
+  constraints:
+    - urgency یا promotional pressure برای خرید و انتشار ساخته نشود.
+    - failure مبهم به کاربر یا سازمان نسبت داده نشود.
+    - success فقط پس از outcome تأییدشده اعلام شود.
+
+terminology_model:
+  selection_order:
+    - identify_concept
+    - apply_employer_preferred_label
+    - determine_specialized_or_independent_surface
+    - preserve_visibility_and_status
+    - preserve_distinct_concepts
+  specialized_surface_shortening:
+    job_post: آگهی
+  independent_surfaces:
+    - notification
+    - email
+    - campaign
+    - cross-product-summary
+  independent_job_post_label: آگهی شغلی
+
+product_area_routing:
+  job_post_creation_and_management: jobvision.employer.job-post-management
+  account_access_and_permissions: undocumented_employer_area
+  candidate_and_application_management: undocumented_employer_area
+  products_plans_and_entitlements: undocumented_employer_area
+  rule: behavior_state_permission_entitlement_validation_and_consequence_require_the_owning_area
+
+claim_model:
+  evidence_threshold: minimum_sufficient_claim
+  placeholder_state_is_not_approved_state: true
+  publication_is_not_universal_candidate_visibility: true
+  prototype_or_expected_behavior_is_not_policy: true
+  cross_product_effect_requires_evidence: true
+  unknown_behavior: preserve_unknown
+
+term_decisions:
+  - concept_id: employer_organization
+    preferred:
+      default: سازمان
+    distinct_from: [employer_actor, operator]
+  - concept_id: employer_actor
+    preferred:
+      default: کارفرما
+    distinct_from: [employer_organization, operator]
+  - concept_id: operator
+    preferred:
+      internal: رابط
+    user_facing: internal_only
+  - concept_id: system_operator
+    user_facing: forbidden
+    reason: needs_decision
+  - concept_id: employer_panel
+    preferred:
+      default: پنل کارفرما
+  - concept_id: job_post
+    preferred:
+      specialized: آگهی
+      independent: آگهی شغلی
+    distinct_from: [job_position, job_opportunity]
+  - concept_id: job_position
+    preferred:
+      default: موقعیت شغلی
+    distinct_from: [job_post, job_opportunity]
+  - concept_id: job_opportunity
+    preferred:
+      general: فرصت شغلی
+    avoid_when: [specific_product_entity, status_or_metadata]
+  - concept_id: recruitment
+    preferred:
+      default: جذب
+    distinct_from: [hiring]
+  - concept_id: hiring
+    preferred:
+      default: استخدام
+    distinct_from: [recruitment]
+  - concept_id: hiring_request
+    preferred:
+      default: درخواست جذب
+    distinct_from: [job_application]
+  - concept_id: job_application
+    preferred:
+      full: درخواست شغلی
+      contextual: درخواست
+    distinct_from: [hiring_request]
+  - concept_id: jobseeker
+    preferred:
+      default: کارجو
+    distinct_from: [ats_candidate]
+  - concept_id: ats_candidate
+    preferred:
+      ats_only: کاندیدا
+    distinct_from: [jobseeker]
+  - concept_id: resume
+    preferred:
+      default: رزومه
+    distinct_from: [resume_snapshot]
+  - concept_id: resume_snapshot
+    preferred:
+      internal: اسنپشات رزومه
+      user_facing_explanation: نسخهٔ رزومه در زمان ارسال درخواست شغلی
+  - concept_id: employer_assistant
+    preferred:
+      conditional: دستیار کارفرما
+    distinct_from: [ai_assistant]
+  - concept_id: rejection_queue
+    user_facing: forbidden
+    reason: needs_decision_and_reported_inactive
+  - concept_id: package
+    preferred:
+      default: بسته
+    distinct_from: [plan, paid_service]
+  - concept_id: plan
+    preferred:
+      default: پلن
+    distinct_from: [package, paid_service]
+  - concept_id: paid_service
+    preferred:
+      internal: سرویس
+    user_facing: internal_only
+  - concept_id: premium_subscription
+    user_facing: forbidden
+    reason: needs_product_truth
+
+rules:
+  - id: JVE-001
+    obligation: must
+    dimension: audience
+    key: address_user_without_assumed_role
+    statement: کاربر با «شما» خطاب شود و role خاص فقط از access model تأییدشده بیاید.
+    evidence: [product_voice, employer_overview]
+  - id: JVE-002
+    obligation: must
+    dimension: terminology
+    key: distinguish_organization_employer_operator
+    statement: entity مشتری «سازمان»، actor عمومی «کارفرما» و role داخلی تأییدشده «رابط» نامیده شود.
+    evidence: [terminology, company_concept]
+  - id: JVE-003
+    obligation: must_not
+    dimension: terminology
+    key: label_organization_as_employer
+    statement: «کارفرما» به‌عنوان نام entity سازمان یا حساب سازمان استفاده نشود.
+    evidence: [terminology, company_concept]
+  - id: JVE-004
+    obligation: must_not
+    dimension: visibility
+    key: expose_operator_or_system_operator
+    statement: رابط یا رابط سیستمی بدون public role و behavior تأییدشده به label عمومی تبدیل نشود.
+    evidence: [terminology, employer_overview]
+  - id: JVE-005
+    obligation: must
+    dimension: terminology
+    key: select_job_post_label_by_surface
+    statement: Job Post در surface تخصصی «آگهی» و در پیام مستقل یا cross-channel «آگهی شغلی» نامیده شود.
+    evidence: [terminology, job_post_concept, job_post_management_area]
+  - id: JVE-006
+    obligation: must
+    dimension: terminology
+    key: distinguish_ad_position_opportunity
+    statement: آگهی، موقعیت شغلی و فرصت شغلی مطابق concept خود استفاده و synonym فرض نشوند.
+    evidence: [terminology, job_post_concept]
+  - id: JVE-007
+    obligation: must
+    dimension: terminology
+    key: distinguish_recruitment_and_hiring
+    statement: جذب برای process و استخدام برای decision یا outcome استفاده شود.
+    evidence: [terminology]
+  - id: JVE-008
+    obligation: must
+    dimension: terminology
+    key: distinguish_hiring_request_and_application
+    statement: درخواست جذب نیاز داخلی سازمان و درخواست شغلی پاسخ کارجو به آگهی در نظر گرفته شود.
+    evidence: [terminology, application_concept]
+  - id: JVE-009
+    obligation: must
+    dimension: terminology
+    key: use_application_full_and_contextual_forms
+    statement: entity در متن مستقل «درخواست شغلی» و فقط در context روشن «درخواست» نامیده شود.
+    evidence: [terminology, application_concept]
+  - id: JVE-010
+    obligation: must
+    dimension: identity
+    key: distinguish_jobseeker_and_ats_candidate
+    statement: فرد JobVision «کارجو» و فرد ATS فقط در context و mapping تأییدشده «کاندیدا» نامیده شود.
+    evidence: [terminology, candidate_context, application_concept]
+  - id: JVE-011
+    obligation: must
+    dimension: resume
+    key: distinguish_resume_and_snapshot
+    statement: رزومه user-facing از snapshot داخلی جدا بماند و نوع representation بدون evidence ادعا نشود.
+    evidence: [terminology, resume_concept, application_concept]
+  - id: JVE-012
+    obligation: must
+    dimension: entitlement
+    key: distinguish_package_plan_service
+    statement: بسته، پلن و سرویس مطابق concept و visibility خود استفاده و synonym فرض نشوند.
+    evidence: [terminology]
+  - id: JVE-013
+    obligation: must_not
+    dimension: terminology
+    key: expose_premium_subscription
+    statement: «اشتراک ویژه» تا مشخص‌شدن product truth و مالک آن در محتوای user-facing استفاده نشود.
+    evidence: [terminology]
+  - id: JVE-014
+    obligation: must
+    dimension: automation
+    key: classify_employer_assistant_correctly
+    statement: دستیار کارفرما automation مستقلی از دستیار هوشمند است و فقط با behavior تأییدشده نامیده و توضیح داده شود.
+    evidence: [terminology, ai_content_pattern]
+  - id: JVE-015
+    obligation: must_not
+    dimension: visibility
+    key: expose_rejection_queue
+    statement: صف رد یا state داخلی مشابه بدون وضعیت فعال و public mapping تأییدشده نمایش داده نشود.
+    evidence: [terminology]
+  - id: JVE-016
+    obligation: must
+    dimension: routing
+    key: load_owning_product_area
+    statement: behavior، state، permission، entitlement، validation و consequence از Employer Product Area مالک گرفته شود.
+    evidence: [employer_overview, job_post_management_area]
+  - id: JVE-017
+    obligation: must_not
+    dimension: permission
+    key: invent_role_or_permission
+    statement: role، permission یا authorization کاربران Employer از عنوان شغلی یا UI استنتاج نشود.
+    evidence: [employer_overview, job_post_management_area]
+  - id: JVE-018
+    obligation: must_not
+    dimension: lifecycle
+    key: invent_job_post_state_or_transition
+    statement: state، transition، auto-save، pause، close، archive، expire یا delete تأییدنشده برای آگهی قطعی نوشته نشود.
+    evidence: [job_post_management_area, job_post_concept]
+  - id: JVE-019
+    obligation: must_not
+    dimension: cross_product
+    key: invent_candidate_visibility_or_application_effect
+    statement: visibility سمت Candidate یا اثر تغییر آگهی بر درخواست‌های موجود بدون evidence ساخته نشود.
+    evidence: [job_post_management_area, job_post_concept, application_concept]
+  - id: JVE-020
+    obligation: must_not
+    dimension: entitlement
+    key: invent_quota_plan_or_moderation
+    statement: quota، plan access، moderation، approval یا publication eligibility تأییدنشده ساخته نشود.
+    evidence: [job_post_management_area, employer_overview]
+  - id: JVE-021
+    obligation: must
+    dimension: composition
+    key: inherit_shared_pattern_and_component
+    statement: Context همراه pattern و component contract مرتبط استفاده شود و anatomy یا behavior آن‌ها را بازتعریف نکند.
+    evidence: [product_voice, context_decisions]
+  - id: JVE-022
+    obligation: must
+    dimension: localization
+    key: preserve_localization_contract
+    statement: count، balance، amount، date، identifier، نام و متن runtime مطابق Localization format و isolate شوند.
+    evidence: [localization]
+
+unknowns:
+  - role nameها و permission matrix کاربران Employer
+  - Account and Access Product Area
+  - Candidate and Application Management Product Area
+  - Employer Products and Plans Product Area
+  - lifecycle و state vocabulary آگهی
+  - publication eligibility، quota، moderation و approval
+  - mapping کارجو، درخواست و رزومه با Cando ATS
+  - behavior و نام نهایی دستیار کارفرما
+  - تعریف و مالک Premium Subscription
+  - visibility و retention رزومه و درخواست شغلی
+  - variationهای email، notification و campaign
+
+evaluation_source: ../evals/jobvision-employer-context-cases.yml
