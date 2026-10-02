@@ -440,6 +440,41 @@
       "path": "shared/content/components/button.md"
     },
     {
+      "id": "content.component.modal",
+      "kind": "content-guideline",
+      "title": "Modal Content",
+      "summary": "Defines the Persian content contract for focused blocking dialogs across titles, body copy, actions, dismissal wording, confirmations, forms, loading, errors, and accessible naming.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "content.product-voice",
+        "content.terminology",
+        "content.localization",
+        "content.component.button",
+        "content.component.text-input",
+        "content.pattern.confirmation",
+        "content.pattern.error",
+        "content.pattern.loading-and-progress",
+        "design-system.component.modal",
+        "design-system.accessibility.focus-management"
+      ],
+      "topics": [
+        "accessibility",
+        "actions",
+        "components",
+        "confirmation",
+        "content",
+        "content-guideline",
+        "dialog",
+        "errors",
+        "forms",
+        "modal",
+        "persian"
+      ],
+      "path": "shared/content/components/modal.md"
+    },
+    {
       "id": "content.component.text-input",
       "kind": "content-guideline",
       "title": "Text Input Content",
@@ -485,6 +520,7 @@
         "content.localization",
         "content.component.button",
         "content.component.text-input",
+        "content.component.modal",
         "content.pattern.error",
         "content.pattern.confirmation",
         "content.pattern.empty-states",
@@ -3487,9 +3523,9 @@
     }
   ],
   "summary": {
-    "documents": 166,
+    "documents": 167,
     "by_kind": {
-      "content-guideline": 13,
+      "content-guideline": 14,
       "design-system-accessibility": 18,
       "design-system-component": 34,
       "design-system-design-language": 1,

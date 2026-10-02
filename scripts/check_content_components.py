@@ -57,6 +57,32 @@ COMPONENT_SPECS = (
             "component_selection",
         ),
     },
+    {
+        "name": "modal",
+        "label": "modal component",
+        "source_path": COMPONENT_DIR / "modal.yml",
+        "document_path": COMPONENT_DIR / "modal.md",
+        "eval_path": EVAL_DIR / "modal-content-cases.yml",
+        "component_id": "content.component.modal",
+        "eval_id": "content.eval.modal_content_cases",
+        "rule_prefix": "MOD",
+        "tone_profiles": {
+            "focused_task": "form_helper",
+            "neutral_confirmation": "consequential_confirmation",
+            "destructive_confirmation": "destructive_confirmation",
+            "response_required_information": "informational_feedback",
+        },
+        "evaluation_source": "../evals/modal-content-cases.yml",
+        "required_models": (
+            "depends_on",
+            "source_boundaries",
+            "modal_types",
+            "anatomy",
+            "state_model",
+            "dismissal_model",
+            "component_selection",
+        ),
+    },
 )
 
 
@@ -145,17 +171,19 @@ def validate_component(
         "status",
         "language",
         "goal",
-        "tone_profile",
         "evaluation_source",
     ):
         if not nonempty_string(data.get(field)):
             errors.append(f"{label}: `{field}` must be a non-empty string")
     if data.get("id") != spec["component_id"]:
         errors.append(f"{label}: `id` must be `{spec['component_id']}`")
-    if data.get("tone_profile") != spec["tone_profile"]:
-        errors.append(
-            f"{label}: `tone_profile` must be `{spec['tone_profile']}`"
-        )
+    if "tone_profile" in spec:
+        if data.get("tone_profile") != spec["tone_profile"]:
+            errors.append(
+                f"{label}: `tone_profile` must be `{spec['tone_profile']}`"
+            )
+    elif data.get("tone_profiles") != spec["tone_profiles"]:
+        errors.append(f"{label}: `tone_profiles` must match the component model")
     if data.get("evaluation_source") != spec["evaluation_source"]:
         errors.append(
             f"{label}: `evaluation_source` must be "

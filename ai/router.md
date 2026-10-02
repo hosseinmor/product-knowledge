@@ -153,6 +153,17 @@ shared/content/patterns/confirmations.yml
 shared/content/evals/confirmation-cases.yml
 ```
 
+When the confirmation, focused task/form, or response-required information is
+inside a blocking Modal, also load:
+
+```text
+shared/content/components/modal.md
+shared/content/components/modal.yml
+shared/content/evals/modal-content-cases.yml
+shared/design-system/components/modal.md
+shared/design-system/accessibility/focus-management.md
+```
+
 For empty states or zero-result experiences, load:
 
 ```text
