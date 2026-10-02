@@ -555,6 +555,7 @@
         "content.component.text-input",
         "content.component.modal",
         "content.component.notification",
+        "content.context.jobvision-candidate",
         "content.pattern.error",
         "content.pattern.confirmation",
         "content.pattern.empty-states",
@@ -569,6 +570,41 @@
         "content-guidelines"
       ],
       "path": "shared/content/content-guidelines.md"
+    },
+    {
+      "id": "content.context.jobvision-candidate",
+      "kind": "content-guideline",
+      "title": "JobVision Candidate Content Context",
+      "summary": "Defines audience-specific terminology, tone, claim boundaries, and Product Area routing for JobVision experiences addressed to jobseekers.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "content.product-voice",
+        "content.terminology",
+        "content.localization",
+        "content.pattern.notifications",
+        "content.pattern.ai-content-and-disclosure",
+        "jobvision.candidate.overview",
+        "jobvision.candidate.job-search",
+        "jobvision.candidate.job-post-experience",
+        "jobvision.candidate.application-management",
+        "jobvision.candidate.resume-management",
+        "jobvision.candidate.recommended-jobs"
+      ],
+      "topics": [
+        "candidate",
+        "content",
+        "content-guideline",
+        "contexts",
+        "jobseeker",
+        "jobvision",
+        "jobvision-candidate",
+        "product-content",
+        "terminology",
+        "tone"
+      ],
+      "path": "shared/content/contexts/jobvision-candidate.md"
     },
     {
       "id": "content.localization",
@@ -3557,9 +3593,9 @@
     }
   ],
   "summary": {
-    "documents": 168,
+    "documents": 169,
     "by_kind": {
-      "content-guideline": 15,
+      "content-guideline": 16,
       "design-system-accessibility": 18,
       "design-system-component": 34,
       "design-system-design-language": 1,

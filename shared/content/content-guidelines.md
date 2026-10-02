@@ -14,6 +14,7 @@ related:
   - content.component.text-input
   - content.component.modal
   - content.component.notification
+  - content.context.jobvision-candidate
   - content.pattern.error
   - content.pattern.confirmation
   - content.pattern.empty-states
@@ -84,6 +85,25 @@ Use the localization foundation whenever copy contains numbers, dates, times,
 units, amounts, user-entered text, English passages, URLs, identifiers, or
 runtime variables. Do not infer calendar, digit, timezone, or currency policy
 from the Persian UI language.
+
+## Audience and Product Context
+
+Use a Context contract after the shared foundation and before writing the final
+surface copy. Context selects audience-specific labels, tone constraints, claim
+boundaries, and the Product Area that owns behavior; it does not define state,
+permission, eligibility, validation, or flow.
+
+For JobVision Candidate, load
+[`contexts/jobvision-candidate.md`](contexts/jobvision-candidate.md). Its
+machine-readable contract and evals are in
+[`contexts/jobvision-candidate.yml`](contexts/jobvision-candidate.yml) and
+[`evals/jobvision-candidate-context-cases.yml`](evals/jobvision-candidate-context-cases.yml).
+
+Use «کارجو» for the audience, «شرکت» for the employer organization and
+«کارفرما» for its human actor. Preserve the distinctions among «آگهی شغلی»،
+«موقعیت شغلی» and «فرصت شغلی», and between the «درخواست شغلی» entity and the
+«ارسال رزومه» action. Load the owning Candidate Product Area before making any
+claim about behavior or state.
 
 ## Labels
 

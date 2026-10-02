@@ -15,6 +15,7 @@ on:
       - "scripts/check_content_terminology.py"
       - "scripts/check_content_localization.py"
       - "scripts/check_content_components.py"
+      - "scripts/check_content_contexts.py"
       - "scripts/check_content_patterns.py"
       - "requirements-dev.txt"
       - "manifest.generated.json"
@@ -62,6 +63,9 @@ jobs:
 
       - name: Validate content component contracts
         run: python scripts/check_content_components.py
+
+      - name: Validate content context contracts
+        run: python scripts/check_content_contexts.py
 
       - name: Validate content patterns
         run: python scripts/check_content_patterns.py

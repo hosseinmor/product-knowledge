@@ -1,0 +1,370 @@
+schema_version: "0.1"
+id: content.context.jobvision-candidate
+document_id: content.context.jobvision-candidate
+title: قرارداد Context محتوایی JobVision Candidate
+status: draft
+language: fa-IR
+product: jobvision.candidate
+audience: jobseeker
+scope:
+  - candidate-product-ui
+  - transactional-content
+  - candidate-facing-ai-content
+
+depends_on:
+  voice: content.foundation.product_voice
+  terminology: content.foundation.terminology
+  localization: content.foundation.localization
+  patterns:
+    - content.pattern.error
+    - content.pattern.notifications
+    - content.pattern.ai-content-and-disclosure
+  product_overview: jobvision.candidate.overview
+
+sources:
+  - id: product_voice
+    type: content_foundation
+    reference: content.foundation.product_voice
+    state: draft
+  - id: terminology
+    type: content_foundation
+    reference: content.foundation.terminology
+    state: draft
+  - id: localization
+    type: content_foundation
+    reference: content.foundation.localization
+    state: draft
+  - id: ai_content_pattern
+    type: content_pattern
+    reference: content.pattern.ai-content-and-disclosure
+    state: draft
+  - id: candidate_overview
+    type: product_overview
+    reference: jobvision.candidate.overview
+    state: draft
+  - id: job_search_area
+    type: product_area
+    reference: jobvision.candidate.job-search
+    state: draft
+  - id: job_post_experience_area
+    type: product_area
+    reference: jobvision.candidate.job-post-experience
+    state: draft
+  - id: application_management_area
+    type: product_area
+    reference: jobvision.candidate.application-management
+    state: draft
+  - id: resume_management_area
+    type: product_area
+    reference: jobvision.candidate.resume-management
+    state: draft
+  - id: recommended_jobs_area
+    type: product_area
+    reference: jobvision.candidate.recommended-jobs
+    state: draft
+  - id: job_post_concept
+    type: product_concept
+    reference: shared.job-post
+    state: draft
+  - id: application_concept
+    type: product_concept
+    reference: shared.application
+    state: draft
+  - id: resume_concept
+    type: product_concept
+    reference: shared.resume
+    state: draft
+  - id: company_concept
+    type: product_concept
+    reference: shared.company
+    state: draft
+  - id: context_decisions
+    type: operational_decision
+    state: working_decisions
+
+source_boundaries:
+  source_derived:
+    - مخاطب محصول Candidate کارجو است و با «شما» خطاب می‌شود.
+    - در Candidate، employer organization با «شرکت» و actor با «کارفرما» نامیده می‌شود.
+    - آگهی شغلی، موقعیت شغلی و فرصت شغلی conceptهای متمایزند.
+    - درخواست شغلی entity و «ارسال رزومه» action است.
+    - رزومه یک concept با variantهای زبانی است.
+    - دستیار هوشمند رزومه instance تأییدشدهٔ دستیار هوشمند است.
+  context_decisions:
+    - صورت کامل اصطلاح در پیام مستقل، notification و سطح چنددامنه‌ای استفاده شود.
+    - recommendation، activity کارفرما و progress بدون تضمین outcome نوشته شوند.
+    - observation prototype به policy عمومی تبدیل نشود.
+  excluded:
+    - lifecycle، state، eligibility، permission و validation محصول.
+    - منطق ranking، recommendation reason و confidence.
+    - visibility واقعی Employer و اثر cross-product actionها.
+    - policy رقم، تقویم، timezone، formatter و channel delivery.
+
+audience_model:
+  role_concept: jobseeker
+  role_label: کارجو
+  direct_address: شما
+  excluded_role_labels: [کاندید, کاندیدا, متقاضی, داوطلب, جویای کار]
+  internal_surface_name:
+    concept: candidate_panel
+    label: پنل کارجو
+    public_default: false
+
+voice_model:
+  register: persian_standard_written
+  base: content.foundation.product_voice
+  discovery:
+    warmth: allowed
+    encouragement: conditional
+  transaction_and_status:
+    clarity: maximum
+    encouragement: low_or_none
+  constraints:
+    - احتمال fit، زمان یا نتیجهٔ استخدام تضمین نشود.
+    - کمبود اطلاعات کارجو به سرزنش یا قضاوت تبدیل نشود.
+    - brand expression بر recovery، accessibility یا product truth مقدم نشود.
+
+terminology_model:
+  selection_order:
+    - identify_concept
+    - apply_jobseeker_preferred_label
+    - use_full_form_when_context_is_not_self_contained
+    - preserve_distinct_concepts
+  independent_surfaces:
+    - notification
+    - email
+    - campaign
+    - cross-domain-summary
+  contextual_shortening:
+    allowed_only_when: page_title_or_structure_disambiguates_the_concept
+
+product_area_routing:
+  job_search: jobvision.candidate.job-search
+  job_post_details_and_actions: jobvision.candidate.job-post-experience
+  recommendations_and_preferences: jobvision.candidate.recommended-jobs
+  application_submission_and_tracking: jobvision.candidate.application-management
+  resume_and_ai_assessment: jobvision.candidate.resume-management
+  rule: behavior_state_eligibility_permission_and_consequence_require_the_owning_area
+
+claim_model:
+  evidence_threshold: minimum_sufficient_claim
+  observed_signal_is_not_outcome: true
+  prototype_observation_is_not_global_policy: true
+  cross_product_effect_requires_evidence: true
+  unknown_behavior: preserve_unknown
+
+term_decisions:
+  - concept_id: jobseeker
+    preferred:
+      role: کارجو
+      address: شما
+    forbidden: [کاندید, کاندیدا, متقاضی, داوطلب, جویای کار]
+  - concept_id: job_post
+    preferred:
+      default: آگهی شغلی
+    distinct_from: [job_position, job_opportunity]
+  - concept_id: job_position
+    preferred:
+      default: موقعیت شغلی
+    distinct_from: [job_post, job_opportunity]
+  - concept_id: job_opportunity
+    preferred:
+      default: فرصت شغلی
+    use_when: [discovery, recommendation, general_product_copy]
+  - concept_id: employer_organization
+    preferred:
+      default: شرکت
+    distinct_from: [employer_actor]
+  - concept_id: employer_actor
+    preferred:
+      default: کارفرما
+    distinct_from: [employer_organization]
+  - concept_id: job_application
+    preferred:
+      full: درخواست شغلی
+      contextual: درخواست
+      action: ارسال رزومه
+    distinct_from: [hiring_request]
+  - concept_id: resume
+    preferred:
+      default: رزومه
+    forbidden: [CV, سی‌وی, پروفایل کاری, پروفایل کارجو]
+  - concept_id: resume_language_variant
+    preferred:
+      persian: رزومهٔ فارسی
+      english: رزومهٔ انگلیسی
+    relationship: variant_of_resume
+  - concept_id: personal_resume_file
+    preferred:
+      default: رزومهٔ شخصی
+    distinct_from: [resume]
+  - concept_id: recruitment
+    preferred:
+      default: جذب
+    distinct_from: [hiring]
+  - concept_id: hiring
+    preferred:
+      default: استخدام
+    distinct_from: [recruitment]
+  - concept_id: ai_technology
+    preferred:
+      default: هوش مصنوعی
+    distinct_from: [ai_assistant]
+  - concept_id: ai_assistant
+    preferred:
+      default: دستیار هوشمند
+    use_when: [independent_assistant_like_experience]
+  - concept_id: resume_ai_assistant
+    preferred:
+      full: دستیار هوشمند ارزیابی و بهبود رزومه
+      contextual: دستیار هوشمند رزومه
+  - concept_id: application_withdrawal
+    preferred:
+      default: انصراف
+    forbidden: [کنسل, لغو درخواست شغلی]
+
+rules:
+  - id: JVC-001
+    obligation: must
+    dimension: audience
+    key: address_jobseeker_as_you
+    statement: مخاطب با «شما» خطاب و در صورت نیاز به نام نقش با «کارجو» معرفی شود.
+    evidence: [product_voice, terminology, candidate_overview]
+  - id: JVC-002
+    obligation: must_not
+    dimension: audience
+    key: use_ats_or_generic_role_label
+    statement: کاندید، کاندیدا، متقاضی، داوطلب یا جویای کار جای label «کارجو» در Candidate استفاده نشود.
+    evidence: [terminology]
+  - id: JVC-003
+    obligation: must
+    dimension: terminology
+    key: name_job_post_as_job_ad
+    statement: entity منتشرشده و metadata آن در Candidate «آگهی شغلی» نامیده شود.
+    evidence: [terminology, job_post_concept, job_search_area]
+  - id: JVC-004
+    obligation: must
+    dimension: terminology
+    key: distinguish_ad_position_opportunity
+    statement: آگهی شغلی، موقعیت شغلی و فرصت شغلی مطابق concept خود استفاده و synonym فرض نشوند.
+    evidence: [terminology, job_post_concept]
+  - id: JVC-005
+    obligation: must
+    dimension: terminology
+    key: distinguish_company_and_employer
+    statement: employer organization در Candidate «شرکت» و actor انسانی «کارفرما» نامیده شود.
+    evidence: [terminology, company_concept]
+  - id: JVC-006
+    obligation: must_not
+    dimension: terminology
+    key: label_company_as_employer
+    statement: «کارفرما» به‌عنوان نام entity شرکت، حساب سازمان یا صفحهٔ شرکت استفاده نشود.
+    evidence: [terminology, company_concept]
+  - id: JVC-007
+    obligation: must
+    dimension: terminology
+    key: distinguish_application_entity_and_action
+    statement: entity در متن مستقل «درخواست شغلی»، صورت کوتاه در context روشن «درخواست» و action «ارسال رزومه» باشد.
+    evidence: [terminology, application_concept, application_management_area]
+  - id: JVC-008
+    obligation: must_not
+    dimension: terminology
+    key: label_application_as_apply_or_resume_send
+    statement: اپلای، تقاضا یا «ارسال رزومه» به‌عنوان نام entity درخواست شغلی استفاده نشود.
+    evidence: [terminology, application_concept]
+  - id: JVC-009
+    obligation: must
+    dimension: terminology
+    key: keep_resume_language_variants_one_concept
+    statement: رزومهٔ فارسی و انگلیسی variantهای زبانی یک رزومه معرفی شوند، نه دو entity مستقل.
+    evidence: [terminology, resume_concept, resume_management_area]
+  - id: JVC-010
+    obligation: must
+    dimension: terminology
+    key: distinguish_structured_and_personal_resume
+    statement: رزومهٔ ساختاریافته و فایل «رزومهٔ شخصی» فقط مطابق نوع artifact و behavior تأییدشده نامیده شوند.
+    evidence: [terminology, resume_concept, resume_management_area]
+  - id: JVC-011
+    obligation: must
+    dimension: terminology
+    key: distinguish_recruitment_and_hiring
+    statement: جذب برای process و استخدام برای decision یا outcome استفاده شود.
+    evidence: [terminology]
+  - id: JVC-012
+    obligation: must
+    dimension: ai
+    key: distinguish_ai_technology_and_assistant
+    statement: فقط تجربهٔ مستقل assistant-like «دستیار هوشمند» و capability عمومی «هوش مصنوعی» نامیده شود.
+    evidence: [terminology, ai_content_pattern]
+  - id: JVC-013
+    obligation: must
+    dimension: ai
+    key: use_resume_assistant_name
+    statement: تجربهٔ تأییدشدهٔ رزومه با عنوان کامل یا صورت contextual «دستیار هوشمند رزومه» نامیده شود.
+    evidence: [terminology, resume_management_area, ai_content_pattern]
+  - id: JVC-014
+    obligation: must_not
+    dimension: visibility
+    key: expose_internal_or_ats_terms
+    statement: اصطلاح code-only، internal-only، Employer یا ATS بدون label و mapping تأییدشده در Candidate نمایش داده نشود.
+    evidence: [terminology, candidate_overview, context_decisions]
+  - id: JVC-015
+    obligation: must
+    dimension: state
+    key: separate_signal_from_outcome
+    statement: activity یا signal مشاهده‌شدهٔ کارفرما از پذیرش، پیشرفت و نتیجهٔ استخدام جدا نوشته شود.
+    evidence: [application_management_area, application_concept, context_decisions]
+  - id: JVC-016
+    obligation: must_not
+    dimension: recommendation
+    key: guarantee_fit_or_hiring
+    statement: recommendation، similarity یا profile data نباید fit، پاسخ کارفرما یا استخدام را تضمین کند.
+    evidence: [recommended_jobs_area, product_voice, context_decisions]
+  - id: JVC-017
+    obligation: must_not
+    dimension: product_truth
+    key: generalize_prototype_threshold_or_quota
+    statement: threshold، quota، availability یا eligibility مشاهده‌شده در prototype به policy عمومی تبدیل نشود.
+    evidence: [application_management_area, resume_management_area, context_decisions]
+  - id: JVC-018
+    obligation: must
+    dimension: routing
+    key: load_owning_product_area
+    statement: behavior، state، eligibility، permission و consequence از Candidate Product Area مالک گرفته شود.
+    evidence: [candidate_overview, job_search_area, job_post_experience_area, application_management_area, resume_management_area, recommended_jobs_area]
+  - id: JVC-019
+    obligation: must_not
+    dimension: product_truth
+    key: invent_cross_product_effect
+    statement: اثر action کارجو، employer preview یا Candidate state بر Employer یا ATS بدون evidence ساخته نشود.
+    evidence: [candidate_overview, application_concept, resume_concept, context_decisions]
+  - id: JVC-020
+    obligation: must
+    dimension: composition
+    key: inherit_shared_pattern_and_component
+    statement: Context همراه pattern و component contract مرتبط استفاده شود و anatomy یا behavior آن‌ها را بازتعریف نکند.
+    evidence: [product_voice, context_decisions]
+  - id: JVC-021
+    obligation: must
+    dimension: localization
+    key: preserve_localization_contract
+    statement: عدد، درصد، تاریخ، identifier و متن runtime مطابق Localization format و isolate شوند.
+    evidence: [localization]
+  - id: JVC-022
+    obligation: must
+    dimension: context
+    key: use_full_term_on_independent_surface
+    statement: notification، email، campaign و summary چنددامنه‌ای از صورت کامل و مستقل اصطلاح استفاده کنند.
+    evidence: [terminology, context_decisions]
+
+unknowns:
+  - behavior و copy کاربر واردنشده
+  - state vocabulary canonical درخواست شغلی
+  - نام و توضیح نهایی My Priority
+  - terminology نهایی Premium Insights
+  - recommendation reason و confidence policy
+  - رابطهٔ رزومه ساختاریافته، رزومه شخصی و snapshot درخواست
+  - visibility و privacy labelهای رزومه
+  - variationهای mobile، email، campaign و transactional channel
+
+evaluation_source: ../evals/jobvision-candidate-context-cases.yml

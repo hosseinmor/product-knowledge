@@ -1,0 +1,437 @@
+schema_version: "0.1"
+id: content.eval.jobvision_candidate_context_cases
+context_id: content.context.jobvision-candidate
+language: fa-IR
+
+cases:
+  - id: direct_address_without_decorative_role
+    context:
+      surface: resume
+      intent: saved_feedback
+    content:
+      message: رزومهٔ شما ذخیره شد.
+    expected:
+      valid: true
+      checked_rules: [JVC-001, JVC-020]
+      violations: []
+
+  - id: job_post_metadata_uses_job_ad
+    context:
+      surface: job_details
+      concept: job_post
+    content:
+      message: این آگهی شغلی ۳ روز پیش منتشر شده است.
+    expected:
+      valid: true
+      checked_rules: [JVC-003, JVC-004]
+      violations: []
+
+  - id: role_uses_job_position
+    context:
+      surface: application
+      concept: job_position
+    content:
+      message: برای این موقعیت شغلی رزومه ارسال کنید.
+    expected:
+      valid: true
+      checked_rules: [JVC-004, JVC-007]
+      violations: []
+
+  - id: discovery_uses_job_opportunity
+    context:
+      surface: recommendation_landing
+      concept: job_opportunity
+    content:
+      heading: فرصت‌های شغلی پیشنهادی شما
+    expected:
+      valid: true
+      checked_rules: [JVC-004, JVC-016]
+      violations: []
+
+  - id: company_and_employer_actor_distinct
+    context:
+      surface: application_activity
+      organization_visible: true
+      actor_signal_visible: true
+    content:
+      company_label: شرکت
+      message: کارفرما رزومهٔ شما را مشاهده کرده است.
+    expected:
+      valid: true
+      checked_rules: [JVC-005, JVC-015]
+      violations: []
+
+  - id: independent_application_notification
+    context:
+      surface: notification
+      concept: job_application
+      outcome_confirmed: true
+    content:
+      message: درخواست شغلی شما ارسال شد.
+    expected:
+      valid: true
+      checked_rules: [JVC-007, JVC-022]
+      violations: []
+
+  - id: contextual_application_short_form
+    context:
+      surface: application_details
+      page_title: درخواست شغلی
+    content:
+      action: مشاهدهٔ درخواست
+    expected:
+      valid: true
+      checked_rules: [JVC-007]
+      violations: []
+
+  - id: resume_language_variant
+    context:
+      surface: resume_language_switcher
+      concept: resume_language_variant
+    content:
+      options: [رزومهٔ فارسی, رزومهٔ انگلیسی]
+      helper: زبان نمایش رزومه را انتخاب کنید.
+    expected:
+      valid: true
+      checked_rules: [JVC-009]
+      violations: []
+
+  - id: personal_resume_file_distinct
+    context:
+      surface: resume_upload
+      artifact: personal_resume_file
+      behavior_confirmed: true
+    content:
+      action: بارگذاری رزومهٔ شخصی
+    expected:
+      valid: true
+      checked_rules: [JVC-010, JVC-018]
+      violations: []
+
+  - id: recruitment_and_hiring_distinct
+    context:
+      surface: educational_content
+    content:
+      message: مشاهدهٔ رزومه یکی از فعالیت‌های فرایند جذب است و استخدام را تضمین نمی‌کند.
+    expected:
+      valid: true
+      checked_rules: [JVC-011, JVC-015]
+      violations: []
+
+  - id: resume_assistant_contextual_name
+    context:
+      surface: resume
+      experience: resume_ai_assistant
+      assistant_like: true
+    content:
+      title: دستیار هوشمند رزومه
+      message: پیشنهادها را پیش از اعمال بررسی کنید.
+    expected:
+      valid: true
+      checked_rules: [JVC-012, JVC-013]
+      violations: []
+
+  - id: employer_view_signal_only
+    context:
+      surface: application_activity
+      observed_event: employer_viewed_resume
+    content:
+      message: کارفرما رزومهٔ شما را مشاهده کرده است.
+    expected:
+      valid: true
+      checked_rules: [JVC-015]
+      violations: []
+
+  - id: cautious_recommendation
+    context:
+      surface: recommended_jobs
+      ranking_reason_confirmed: false
+    content:
+      heading: آگهی‌های شغلی پیشنهادی
+      message: این پیشنهادها براساس ترجیحات فعلی شما نمایش داده می‌شوند.
+    expected:
+      valid: true
+      checked_rules: [JVC-003, JVC-016, JVC-018]
+      violations: []
+
+  - id: product_area_supplies_action_truth
+    context:
+      surface: saved_jobs
+      owning_area: jobvision.candidate.job-post-experience
+      save_available: true
+    content:
+      message: آگهی شغلی ذخیره شد.
+      action: مشاهدهٔ آگهی‌های ذخیره‌شده
+    expected:
+      valid: true
+      checked_rules: [JVC-003, JVC-018]
+      violations: []
+
+  - id: localized_resume_percentage
+    context:
+      surface: resume
+      value_type: percentage
+      formatted_by_locale: true
+    content:
+      message: رزومهٔ شما ۶۵٪ تکمیل شده است.
+    expected:
+      valid: true
+      checked_rules: [JVC-021]
+      violations: []
+
+  - id: error_inherits_pattern
+    context:
+      surface: application
+      pattern: error
+      component: Inline Notification
+      retry_confirmed: true
+    content:
+      message: درخواست شغلی ارسال نشد.
+      description: اتصال اینترنت را بررسی و دوباره تلاش کنید.
+      action: تلاش دوباره
+    expected:
+      valid: true
+      checked_rules: [JVC-007, JVC-020]
+      violations: []
+
+  - id: ats_candidate_label_on_candidate_surface
+    context:
+      surface: account
+      role: jobseeker
+    content:
+      heading: اطلاعات کاندیدا
+    expected:
+      valid: false
+      checked_rules: [JVC-001, JVC-002]
+      violations: [JVC-002]
+
+  - id: applicant_label_for_jobseeker
+    context:
+      surface: application_history
+      role: jobseeker
+    content:
+      message: متقاضی می‌تواند درخواست‌های خود را ببیند.
+    expected:
+      valid: false
+      checked_rules: [JVC-002]
+      violations: [JVC-002]
+
+  - id: listing_called_opportunity_entity
+    context:
+      surface: saved_jobs
+      concept: job_post
+    content:
+      message: این فرصت شغلی را ۳ روز پیش ذخیره کردید.
+    expected:
+      valid: false
+      checked_rules: [JVC-003, JVC-004]
+      violations: [JVC-003, JVC-004]
+
+  - id: position_called_job_ad
+    context:
+      surface: application
+      concept: job_position
+    content:
+      message: برای این آگهی استخدام می‌شوید.
+    expected:
+      valid: false
+      checked_rules: [JVC-004, JVC-016]
+      violations: [JVC-004, JVC-016]
+
+  - id: company_entity_called_employer
+    context:
+      surface: company_profile
+      concept: employer_organization
+    content:
+      heading: دربارهٔ کارفرما
+    expected:
+      valid: false
+      checked_rules: [JVC-005, JVC-006]
+      violations: [JVC-005, JVC-006]
+
+  - id: resume_send_used_as_application_entity
+    context:
+      surface: notification
+      concept: job_application
+    content:
+      message: ارسال رزومه شما ثبت شد.
+    expected:
+      valid: false
+      checked_rules: [JVC-007, JVC-008, JVC-022]
+      violations: [JVC-007, JVC-008, JVC-022]
+
+  - id: apply_used_as_application_entity
+    context:
+      surface: application_history
+      concept: job_application
+    content:
+      heading: اپلای‌های من
+    expected:
+      valid: false
+      checked_rules: [JVC-008]
+      violations: [JVC-008]
+
+  - id: language_variants_as_two_resumes
+    context:
+      surface: resume
+      concept: resume_language_variant
+    content:
+      message: شما دو رزومهٔ جداگانه، فارسی و انگلیسی، دارید.
+    expected:
+      valid: false
+      checked_rules: [JVC-009]
+      violations: [JVC-009]
+
+  - id: personal_file_collapsed_with_structured_resume
+    context:
+      surface: resume_upload
+      artifact: personal_resume_file
+    content:
+      message: رزومهٔ جاب‌ویژن شما با این فایل جایگزین می‌شود.
+    expected:
+      valid: false
+      checked_rules: [JVC-010, JVC-019]
+      violations: [JVC-010, JVC-019]
+
+  - id: recruitment_called_hiring
+    context:
+      surface: company_info
+      concept: recruitment
+    content:
+      message: شرکت در حال استخدام و بررسی اولیهٔ رزومه‌هاست.
+    expected:
+      valid: false
+      checked_rules: [JVC-011]
+      violations: [JVC-011]
+
+  - id: ai_score_called_assistant
+    context:
+      surface: recommendation_card
+      capability: ai_score
+      assistant_like: false
+    content:
+      label: دستیار هوشمند پیشنهاد شغل
+    expected:
+      valid: false
+      checked_rules: [JVC-012]
+      violations: [JVC-012]
+
+  - id: resume_assistant_renamed_generically
+    context:
+      surface: resume
+      experience: resume_ai_assistant
+      assistant_like: true
+    content:
+      title: هوش مصنوعی من
+    expected:
+      valid: false
+      checked_rules: [JVC-012, JVC-013]
+      violations: [JVC-013]
+
+  - id: internal_rejection_queue_exposed
+    context:
+      surface: application_status
+      internal_state: rejection_queue
+      public_mapping_confirmed: false
+    content:
+      status: صف رد
+    expected:
+      valid: false
+      checked_rules: [JVC-014, JVC-018]
+      violations: [JVC-014, JVC-018]
+
+  - id: resume_view_claims_acceptance
+    context:
+      surface: application_activity
+      observed_event: employer_viewed_resume
+    content:
+      message: تبریک! درخواست شما پذیرفته شد.
+    expected:
+      valid: false
+      checked_rules: [JVC-015]
+      violations: [JVC-015]
+
+  - id: recommendation_guarantees_hiring
+    context:
+      surface: recommended_jobs
+      outcome_known: false
+    content:
+      message: با ارسال رزومه برای این فرصت، حتماً استخدام می‌شوید.
+    expected:
+      valid: false
+      checked_rules: [JVC-016]
+      violations: [JVC-016]
+
+  - id: observed_resume_threshold_as_global_rule
+    context:
+      surface: application
+      observation: one_test_account_blocked_at_65_percent
+      canonical_policy_confirmed: false
+    content:
+      message: همهٔ کارجوها برای ارسال رزومه باید حداقل ۷۰٪ رزومه داشته باشند.
+    expected:
+      valid: false
+      checked_rules: [JVC-017, JVC-018]
+      violations: [JVC-017, JVC-018]
+
+  - id: observed_priority_quota_as_global_rule
+    context:
+      surface: application_management
+      observation: five_uses_in_thirty_days_on_test_account
+      canonical_policy_confirmed: false
+    content:
+      helper: هر کارجو همیشه ۵ اولویت در هر ۳۰ روز دارد.
+    expected:
+      valid: false
+      checked_rules: [JVC-017]
+      violations: [JVC-017]
+
+  - id: invented_employer_effect
+    context:
+      surface: resume_preview
+      actual_employer_visibility_confirmed: false
+    content:
+      message: کارفرما دقیقاً همین نسخه را می‌بیند و همهٔ اطلاعات شما برای او قابل دسترسی است.
+    expected:
+      valid: false
+      checked_rules: [JVC-019]
+      violations: [JVC-019]
+
+  - id: context_overrides_notification_anatomy
+    context:
+      surface: notification
+      component: Toast
+    content:
+      messages:
+        - درخواست شغلی ارسال شد.
+        - کارفرما به‌زودی پاسخ می‌دهد.
+      actions: [مشاهدهٔ درخواست, بازگشت به جست‌وجو]
+    expected:
+      valid: false
+      checked_rules: [JVC-020]
+      violations: [JVC-020]
+
+  - id: mixed_digits_and_raw_identifier
+    context:
+      surface: application_receipt
+      value_type: identifier
+      localized: false
+      bidi_isolated: false
+    content:
+      message: کد پیگیری شما JV-۱۲3۴ است.
+    expected:
+      valid: false
+      checked_rules: [JVC-021]
+      violations: [JVC-021]
+
+  - id: ambiguous_application_email_subject
+    context:
+      surface: email
+      concept: job_application
+      page_context_available: false
+    content:
+      subject: درخواست شما به‌روزرسانی شد
+    expected:
+      valid: false
+      checked_rules: [JVC-007, JVC-022]
+      violations: [JVC-007, JVC-022]
