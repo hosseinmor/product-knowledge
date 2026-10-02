@@ -37,6 +37,10 @@ shared/content/
 │   ├── notification.yml
 │   ├── text-input.md
 │   └── text-input.yml
+├── contexts/
+│   ├── README.md
+│   ├── jobvision-candidate.md
+│   └── jobvision-candidate.yml
 ├── patterns/
 │   ├── ai-content-and-disclosure.md
 │   ├── ai-content-and-disclosure.yml
@@ -59,6 +63,7 @@ shared/content/
     ├── empty-state-cases.yml
     ├── error-cases.yml
     ├── instruction-helper-cases.yml
+    ├── jobvision-candidate-context-cases.yml
     ├── localization-cases.yml
     ├── loading-progress-cases.yml
     ├── modal-content-cases.yml
@@ -81,7 +86,9 @@ shared/content/
 - `components/` contains copy contracts specific to reusable Design System
   components; Button, Text Input, Modal, and Notification are currently
   registered.
-- `evals/` holds foundation, pattern, and component regression cases.
+- `contexts/` contains approved product- and audience-specific variations;
+  JobVision Candidate is currently registered.
+- `evals/` holds foundation, pattern, component, and context regression cases.
 
 ## Growth rule
 

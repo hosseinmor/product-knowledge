@@ -99,6 +99,26 @@ shared/content/localization.md
 Then load only the relevant pattern, component contract, Product Area, and
 machine-readable source.
 
+When the copy is for the JobVision Candidate product or addresses a jobseeker,
+also load:
+
+```text
+shared/content/contexts/jobvision-candidate.md
+shared/content/contexts/jobvision-candidate.yml
+shared/content/evals/jobvision-candidate-context-cases.yml
+products/jobvision/candidate/overview.md
+```
+
+Then load only the owning Candidate Product Area for the behavior in question:
+
+```text
+job search                         → products/jobvision/candidate/areas/job-search.md
+job details and actions            → products/jobvision/candidate/areas/job-post-experience.md
+recommendations and preferences    → products/jobvision/candidate/areas/recommended-jobs.md
+application submission/tracking    → products/jobvision/candidate/areas/application-management.md
+resume and AI assessment           → products/jobvision/candidate/areas/resume-management.md
+```
+
 For Persian/English language changes, RTL or mixed-direction content, numbers,
 dates, times, units, amounts, translation, or runtime variables, also load:
 
