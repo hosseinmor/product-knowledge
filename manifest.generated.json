@@ -440,6 +440,38 @@
       "path": "shared/content/components/button.md"
     },
     {
+      "id": "content.component.text-input",
+      "kind": "content-guideline",
+      "title": "Text Input Content",
+      "summary": "Defines the Persian content contract for a single-line Text Input across label, placeholder, helper, error, requiredness, values, states, adornment actions, and accessible relationships.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "content.product-voice",
+        "content.terminology",
+        "content.localization",
+        "content.pattern.instructions-and-helper-text",
+        "content.pattern.error",
+        "design-system.component.text-input",
+        "design-system.accessibility.forms"
+      ],
+      "topics": [
+        "accessibility",
+        "components",
+        "content",
+        "content-guideline",
+        "forms",
+        "helper-text",
+        "labels",
+        "persian",
+        "placeholder",
+        "text-input",
+        "validation"
+      ],
+      "path": "shared/content/components/text-input.md"
+    },
+    {
       "id": "content.content-guidelines",
       "kind": "content-guideline",
       "title": "Content Guidelines",
@@ -452,6 +484,7 @@
         "content.terminology",
         "content.localization",
         "content.component.button",
+        "content.component.text-input",
         "content.pattern.error",
         "content.pattern.confirmation",
         "content.pattern.empty-states",
@@ -3454,9 +3487,9 @@
     }
   ],
   "summary": {
-    "documents": 165,
+    "documents": 166,
     "by_kind": {
-      "content-guideline": 12,
+      "content-guideline": 13,
       "design-system-accessibility": 18,
       "design-system-component": 34,
       "design-system-design-language": 1,

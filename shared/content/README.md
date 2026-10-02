@@ -30,7 +30,9 @@ shared/content/
 ├── components/
 │   ├── README.md
 │   ├── button.md
-│   └── button.yml
+│   ├── button.yml
+│   ├── text-input.md
+│   └── text-input.yml
 ├── patterns/
 │   ├── ai-content-and-disclosure.md
 │   ├── ai-content-and-disclosure.yml
@@ -55,7 +57,8 @@ shared/content/
     ├── instruction-helper-cases.yml
     ├── localization-cases.yml
     ├── loading-progress-cases.yml
-    └── notification-cases.yml
+    ├── notification-cases.yml
+    └── text-input-content-cases.yml
 ```
 
 - `content-guidelines.md` is the human entry point for shared voice and UI-copy
@@ -70,7 +73,7 @@ shared/content/
   validation, and future generated views.
 - `patterns/` contains complete human and machine-readable content patterns.
 - `components/` contains copy contracts specific to reusable Design System
-  components; Button is the first registered contract.
+  components; Button and Text Input are currently registered.
 - `evals/` holds foundation, pattern, and component regression cases.
 
 ## Growth rule

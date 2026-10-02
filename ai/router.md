@@ -135,6 +135,16 @@ shared/content/patterns/instructions-and-helper-text.yml
 shared/content/evals/instruction-helper-cases.yml
 ```
 
+When that content is composed inside a single-line Text Input, also load:
+
+```text
+shared/content/components/text-input.md
+shared/content/components/text-input.yml
+shared/content/evals/text-input-content-cases.yml
+shared/design-system/components/text-input.md
+shared/design-system/accessibility/forms.md
+```
+
 For confirmations or destructive actions, load:
 
 ```text
