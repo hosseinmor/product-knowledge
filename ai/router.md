@@ -180,6 +180,17 @@ shared/content/patterns/notifications.yml
 shared/content/evals/notification-cases.yml
 ```
 
+When that feedback is composed inside an Inline Notification or Toast, also
+load:
+
+```text
+shared/content/components/notification.md
+shared/content/components/notification.yml
+shared/content/evals/notification-content-cases.yml
+shared/design-system/components/notification.md
+shared/design-system/accessibility/dynamic-content-and-feedback.md
+```
+
 For loading, async status, or determinate/indeterminate progress, load:
 
 ```text
