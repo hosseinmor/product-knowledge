@@ -1,105 +1,35 @@
 # AI Workflows and Skills
 
-This directory contains lightweight instructions for recurring AI-assisted product work that depends on canonical Product Knowledge.
-
-## Entry and routing
-
-Use the repository-level entry point and router:
+AI workflows in this repository consume Product Knowledge from the authority
+defined in [`../product-knowledge-sources.yml`](../product-knowledge-sources.yml).
+They do not retrieve product behavior from this repository.
 
 ```text
 AGENTS.md
-→ Tool-agnostic bootstrap and repository rules
+→ Product Knowledge source gate
 
 ai/router.md
-→ Detects the requested outcome and selects the appropriate Skill or workflow
-```
+→ Intent routing
 
-After one-time tool setup, a user should only need to describe the problem or provide files and state the desired outcome. The AI environment should read `AGENTS.md` and route the request without requiring the user to paste a long prompt.
-
-See [`../docs/ai-tool-setup.md`](../docs/ai-tool-setup.md) for repository-connected, file-upload, and plain-chat capability modes.
-
-## Workflows
-
-The active workflows are:
-
-```text
-product-knowledge-authoring.md
-→ Turn compact or free-form owner knowledge into a structured Product Area or Product Concept review draft
-
-research.md
-→ Use internal Product Knowledge before external research or benchmarking
-
-prd-writing.md
-→ Turn minimum Jira input, Product Knowledge, and owner decisions into a complete PRD draft
-
-design-start.md
-→ Use the approved Jira PRD, Product Knowledge, shared services, and Design System to prepare an initial design draft
-
-knowledge-update.md
-→ Apply reviewed and approved Product Knowledge changes through the normal repository update process
-```
-
-Workflow files define the correct process. They are not Product Knowledge documents and are not mandatory sequential stages.
-
-Product walkthrough capture and evidence review are maintained separately in `hosseinmor/product-walkthrough`. Product Knowledge authoring does not require complete walkthrough coverage when the responsible owner can provide current product knowledge, but sparse evidence must never be treated as permission to invent missing behavior.
-
-## Skills
-
-The active lightweight Skills are:
-
-```text
-skills/product-knowledge-authoring/SKILL.md
-→ Turns short owner input into a reviewable Product Area or Product Concept and routes facts to the correct canonical owner
-
-skills/prd-writing/SKILL.md
-→ Activates and orchestrates PRD creation, revision, or review
-```
-
-The Product Knowledge Authoring Skill uses:
-
-```text
-ai/product-knowledge-authoring.md
-→ Authoring and classification process contract
-
-templates/product-area.md
-→ Product Area output contract
-
-templates/shared-product-concept.md
-→ Product Concept output contract
+product-knowledge-sources.yml
+→ JobVision external authority and Cando missing-source state
 
 manifest.generated.json
-→ Product Knowledge retrieval
+→ Repository-owned Content, Design System, and standards only
 ```
 
-The PRD Skill uses:
+## Active workflows
 
-```text
-ai/prd-writing.md
-→ Process contract
+- [`prd-writing.md`](prd-writing.md)
+- [`research.md`](research.md)
+- [`design-start.md`](design-start.md)
 
-templates/jira-prd.md
-→ Output contract
+The PRD execution Skill is in [`skills/prd-writing/SKILL.md`](skills/prd-writing/SKILL.md).
 
-manifest.generated.json
-→ Product Knowledge retrieval
-```
+Product Knowledge authoring and update workflows were removed because
+canonical Product Knowledge is no longer stored here. JobVision updates belong
+in the source behind <https://docs-jv.jvoffice.ir/>. Cando requires a separate
+approved repository and internal site before canonical authoring can resume.
 
-Automatic Skill activation requires a one-time connection between the AI environment and `AGENTS.md`. The repository itself cannot force an unrelated tool to discover its instructions.
-
-See [`skills/README.md`](skills/README.md) for the distinction between Skills, workflows, and templates.
-
-## Retrieval
-
-Use `manifest.generated.json` as the retrieval entry point. Read only the smallest relevant set of Product Group, Product, Product Area, Shared Product Concept, Shared Product Service, Design System, content, and product-standard documents.
-
-## Archived model
-
-The previous complex skill-based workflow model is preserved only in:
-
-```text
-archive/product-knowledge-v1-2026-07-27
-```
-
-The active Skills do not restore the old Initiative workspace, release handoff, or complex document taxonomy.
-
-Add a new workflow or Skill only when a repeated need cannot be handled clearly by the existing set.
+Every workflow must separate canonical truth, approved decisions, evidence,
+observations, hypotheses, recommendations, and unknowns.

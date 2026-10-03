@@ -3,20 +3,14 @@ id: content.context.jobvision-employer
 collection: content
 type: content-context
 title: JobVision Employer Content Context
-summary: Defines audience-specific terminology, tone, claim boundaries, and Product Area routing for JobVision employer-side experiences.
-knowledge_state: verified
+summary: Defines audience-specific terminology, tone, and claim boundaries for JobVision employer-side experiences; product behavior remains external.
+knowledge_state: unverified
 document_maturity: draft
 related:
   - content.product-voice
   - content.terminology
   - content.localization
   - content.context.jobvision-candidate
-  - jobvision.employer.overview
-  - jobvision.employer.job-post-management
-  - shared.job-post
-  - shared.application
-  - shared.resume
-  - shared.company
 topics:
   - jobvision
   - employer
@@ -34,6 +28,11 @@ machine-readable در [`jobvision-employer.yml`](jobvision-employer.yml) و
 regression caseها در
 [`../evals/jobvision-employer-context-cases.yml`](../evals/jobvision-employer-context-cases.yml)
 قرار دارند.
+
+> **Source boundary:** این Context منبع Product Knowledge نیست. هر ادعای رفتار
+> محصول باید همان زمان از <https://docs-jv.jvoffice.ir/> و دامنهٔ مرتبط بررسی
+> شود. بخش‌های رفتاری قدیمی این سند تا revalidation نباید به‌عنوان حقیقت محصول
+> استفاده شوند.
 
 ## مرز Context
 
@@ -230,10 +229,10 @@ Job Post Management هنوز draft است. بنابراین:
 
 | موضوع | منبع رفتار |
 |---|---|
-| ایجاد، ویرایش، انتشار و مدیریت آگهی | `jobvision.employer.job-post-management` |
-| حساب، اعضا، role و permission | Area مستندنشدهٔ Employer Account and Access |
-| درخواست‌های شغلی و رزومه‌ها | Area مستندنشدهٔ Candidate and Application Management |
-| بسته، پلن، quota و خرید | Area مستندنشدهٔ Employer Products and Plans |
+| ایجاد، ویرایش، انتشار و مدیریت آگهی | دامنهٔ «آگهی» در سایت داخلی |
+| حساب، اعضا، role و permission | دامنه‌های «سازمان» و «رابط» در سایت داخلی |
+| درخواست‌های شغلی و رزومه‌ها | دامنه‌های «درخواست شغلی» و «رزومه» در سایت داخلی |
+| بسته، پلن، quota و خرید | دامنه‌های «بسته» و «مالی» در سایت داخلی |
 
 اگر Area مستند نشده یا پاسخ قطعی ندارد، copy نباید behavior را بسازد. unknown
 را ثبت کنید و برای owner review نگه دارید.

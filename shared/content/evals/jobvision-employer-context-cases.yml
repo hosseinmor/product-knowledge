@@ -171,7 +171,7 @@ cases:
   - id: product_area_supplies_publication_truth
     context:
       surface: job_post_editor
-      owning_area: jobvision.employer.job-post-management
+      owning_source: https://docs-jv.jvoffice.ir/contents/jobpost/0_overview/
       publication_confirmed: true
     content:
       message: آگهی شغلی منتشر شد.

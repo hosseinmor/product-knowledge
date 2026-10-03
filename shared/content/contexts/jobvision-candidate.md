@@ -3,8 +3,8 @@ id: content.context.jobvision-candidate
 collection: content
 type: content-context
 title: JobVision Candidate Content Context
-summary: Defines audience-specific terminology, tone, claim boundaries, and Product Area routing for JobVision experiences addressed to jobseekers.
-knowledge_state: verified
+summary: Defines audience-specific terminology, tone, and claim boundaries for JobVision experiences addressed to jobseekers; product behavior remains external.
+knowledge_state: unverified
 document_maturity: draft
 related:
   - content.product-voice
@@ -12,12 +12,6 @@ related:
   - content.localization
   - content.pattern.notifications
   - content.pattern.ai-content-and-disclosure
-  - jobvision.candidate.overview
-  - jobvision.candidate.job-search
-  - jobvision.candidate.job-post-experience
-  - jobvision.candidate.application-management
-  - jobvision.candidate.resume-management
-  - jobvision.candidate.recommended-jobs
 topics:
   - jobvision
   - candidate
@@ -34,6 +28,11 @@ machine-readable در [`jobvision-candidate.yml`](jobvision-candidate.yml) و
 regression caseها در
 [`../evals/jobvision-candidate-context-cases.yml`](../evals/jobvision-candidate-context-cases.yml)
 قرار دارند.
+
+> **Source boundary:** این Context منبع Product Knowledge نیست. هر ادعای رفتار
+> محصول باید همان زمان از <https://docs-jv.jvoffice.ir/> و دامنهٔ مرتبط بررسی
+> شود. بخش‌های رفتاری قدیمی این سند تا revalidation نباید به‌عنوان حقیقت محصول
+> استفاده شوند.
 
 ## این Context چه چیزی را مالک است؟
 
@@ -233,11 +232,11 @@ Candidate Product Areaها هنوز draft هستند. بنابراین:
 
 | موضوع copy | منبع رفتار |
 |---|---|
-| جست‌وجو، فیلتر، جست‌وجوی ذخیره‌شده | `jobvision.candidate.job-search` |
-| جزئیات، ذخیره، share یا شروع apply | `jobvision.candidate.job-post-experience` |
-| پیشنهادها و ترجیحات | `jobvision.candidate.recommended-jobs` |
-| submission، وضعیت، activity و انصراف | `jobvision.candidate.application-management` |
-| ساخت، تکمیل، preview و AI رزومه | `jobvision.candidate.resume-management` |
+| جست‌وجو، فیلتر، جست‌وجوی ذخیره‌شده | دامنهٔ «جست‌وجوی شغل» در سایت داخلی |
+| جزئیات، ذخیره، share یا شروع apply | دامنهٔ «آگهی» در سایت داخلی |
+| پیشنهادها و ترجیحات | دامنهٔ مرتبط در سایت داخلی؛ اگر مستند نیست unknown |
+| submission، وضعیت، activity و انصراف | دامنهٔ «درخواست شغلی» در سایت داخلی |
+| ساخت، تکمیل، preview و AI رزومه | دامنهٔ «رزومه» در سایت داخلی |
 
 برای action، eligibility، state، مقدار یا consequence همیشه Area مربوط را load
 کنید. اگر Area پاسخ قطعی ندارد، unknown را حفظ کنید.

@@ -4,8 +4,8 @@
 
 - Product Group:
 - Product:
-- Related Product Areas:
-- Shared Product Services:
+- Product Knowledge source and pages:
+- Service dependencies:
 
 ## Problem
 
@@ -48,5 +48,8 @@ Use this section only when the product depends on a cross-product service such a
 ## Success criteria
 
 ## Related Product Knowledge
+
+List the canonical source URLs and any explicit approved decisions used. For
+Cando, state that no canonical source exists and label each authorised input.
 
 ## Design references

@@ -2,7 +2,7 @@ schema_version: "0.1"
 id: content.context.jobvision-candidate
 document_id: content.context.jobvision-candidate
 title: قرارداد Context محتوایی JobVision Candidate
-status: draft
+status: revalidation_required
 language: fa-IR
 product: jobvision.candidate
 audience: jobseeker
@@ -19,7 +19,7 @@ depends_on:
     - content.pattern.error
     - content.pattern.notifications
     - content.pattern.ai-content-and-disclosure
-  product_overview: jobvision.candidate.overview
+  product_knowledge: https://docs-jv.jvoffice.ir/
 
 sources:
   - id: product_voice
@@ -39,45 +39,45 @@ sources:
     reference: content.pattern.ai-content-and-disclosure
     state: draft
   - id: candidate_overview
-    type: product_overview
-    reference: jobvision.candidate.overview
-    state: draft
+    type: canonical_internal_site
+    reference: https://docs-jv.jvoffice.ir/
+    state: requires_vpn_and_claim_level_verification
   - id: job_search_area
-    type: product_area
-    reference: jobvision.candidate.job-search
-    state: draft
+    type: canonical_internal_domain
+    reference: https://docs-jv.jvoffice.ir/contents/job-search/0_overview/
+    state: requires_vpn_and_claim_level_verification
   - id: job_post_experience_area
-    type: product_area
-    reference: jobvision.candidate.job-post-experience
-    state: draft
+    type: canonical_internal_domain
+    reference: https://docs-jv.jvoffice.ir/contents/jobpost/0_overview/
+    state: requires_vpn_and_claim_level_verification
   - id: application_management_area
-    type: product_area
-    reference: jobvision.candidate.application-management
-    state: draft
+    type: canonical_internal_domain
+    reference: https://docs-jv.jvoffice.ir/contents/application/0_overview/
+    state: requires_vpn_and_claim_level_verification
   - id: resume_management_area
-    type: product_area
-    reference: jobvision.candidate.resume-management
-    state: draft
+    type: canonical_internal_domain
+    reference: https://docs-jv.jvoffice.ir/contents/cv/0_overview/
+    state: requires_vpn_and_claim_level_verification
   - id: recommended_jobs_area
-    type: product_area
-    reference: jobvision.candidate.recommended-jobs
-    state: draft
+    type: canonical_internal_index
+    reference: https://docs-jv.jvoffice.ir/contents/00-map/
+    state: relevant_domain_requires_discovery
   - id: job_post_concept
-    type: product_concept
-    reference: shared.job-post
-    state: draft
+    type: canonical_internal_domain
+    reference: https://docs-jv.jvoffice.ir/contents/jobpost/0_overview/
+    state: requires_vpn_and_claim_level_verification
   - id: application_concept
-    type: product_concept
-    reference: shared.application
-    state: draft
+    type: canonical_internal_domain
+    reference: https://docs-jv.jvoffice.ir/contents/application/0_overview/
+    state: requires_vpn_and_claim_level_verification
   - id: resume_concept
-    type: product_concept
-    reference: shared.resume
-    state: draft
+    type: canonical_internal_domain
+    reference: https://docs-jv.jvoffice.ir/contents/cv/0_overview/
+    state: requires_vpn_and_claim_level_verification
   - id: company_concept
-    type: product_concept
-    reference: shared.company
-    state: draft
+    type: canonical_internal_domain
+    reference: https://docs-jv.jvoffice.ir/contents/company/0_overview/
+    state: requires_vpn_and_claim_level_verification
   - id: context_decisions
     type: operational_decision
     state: working_decisions
@@ -139,15 +139,17 @@ terminology_model:
     allowed_only_when: page_title_or_structure_disambiguates_the_concept
 
 product_area_routing:
-  job_search: jobvision.candidate.job-search
-  job_post_details_and_actions: jobvision.candidate.job-post-experience
-  recommendations_and_preferences: jobvision.candidate.recommended-jobs
-  application_submission_and_tracking: jobvision.candidate.application-management
-  resume_and_ai_assessment: jobvision.candidate.resume-management
-  rule: behavior_state_eligibility_permission_and_consequence_require_the_owning_area
+  job_search: https://docs-jv.jvoffice.ir/contents/job-search/0_overview/
+  job_post_details_and_actions: https://docs-jv.jvoffice.ir/contents/jobpost/0_overview/
+  recommendations_and_preferences: discover_in_internal_product_map
+  application_submission_and_tracking: https://docs-jv.jvoffice.ir/contents/application/0_overview/
+  resume_and_ai_assessment: https://docs-jv.jvoffice.ir/contents/cv/0_overview/
+  rule: load_and_verify_the_relevant_internal_domain_for_every_product_claim
 
 claim_model:
   evidence_threshold: minimum_sufficient_claim
+  internal_source_page_must_be_loaded: true
+  repository_product_knowledge_fallback: forbidden
   observed_signal_is_not_outcome: true
   prototype_observation_is_not_global_policy: true
   cross_product_effect_requires_evidence: true

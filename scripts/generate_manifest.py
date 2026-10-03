@@ -23,9 +23,6 @@ except ImportError as exc:  # pragma: no cover
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "manifest.generated.json"
 INDEX_ROOTS = (
-    ROOT / "products",
-    ROOT / "shared" / "product-concepts",
-    ROOT / "shared" / "product-services",
     ROOT / "shared" / "design-system",
     ROOT / "shared" / "content",
     ROOT / "shared" / "product-standards",
@@ -123,8 +120,6 @@ def infer_group(path: str, metadata: dict[str, Any]) -> str | None:
     if nonempty_string(metadata.get("group")):
         return str(metadata["group"]).strip()
     parts = Path(path).parts
-    if len(parts) >= 2 and parts[0] == "products":
-        return parts[1]
     return None
 
 
@@ -132,8 +127,6 @@ def infer_product(path: str, metadata: dict[str, Any]) -> str | None:
     if nonempty_string(metadata.get("product")):
         return str(metadata["product"]).strip()
     parts = Path(path).parts
-    if len(parts) >= 3 and parts[0] == "products" and parts[2] != "overview.md":
-        return parts[2]
     return None
 
 
@@ -154,22 +147,6 @@ def infer_kind(path: str, metadata: dict[str, Any]) -> str:
         return str(metadata["kind"]).strip()
 
     parts = Path(path).parts
-    if parts[0] == "products":
-        if parts[-1] == "overview.md" and len(parts) == 3:
-            return "product-group-overview"
-        if parts[-1] == "overview.md" and len(parts) == 4:
-            return "product-overview"
-        if "areas" in parts:
-            return "product-area-flow" if "flows" in parts else "product-area"
-
-    if parts[:2] == ("shared", "product-concepts"):
-        return "shared-product-concept"
-
-    if parts[:2] == ("shared", "product-services"):
-        if parts[-1] == "overview.md":
-            return "shared-product-service-overview"
-        return "shared-product-service"
-
     if parts[:2] == ("shared", "design-system"):
         doc_type = metadata.get("type")
         if nonempty_string(doc_type):
@@ -226,13 +203,10 @@ def derive_topics(path: str, metadata: dict[str, Any], kind: str) -> list[str]:
 
     parts = Path(path).parts
     ignored_parts = {
-        "products",
         "shared",
         "areas",
         "flows",
         "services",
-        "product-concepts",
-        "product-services",
         "design-system",
     }
     for part in parts[:-1]:

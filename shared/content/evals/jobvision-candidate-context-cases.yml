@@ -157,7 +157,7 @@ cases:
   - id: product_area_supplies_action_truth
     context:
       surface: saved_jobs
-      owning_area: jobvision.candidate.job-post-experience
+      owning_source: https://docs-jv.jvoffice.ir/contents/jobpost/0_overview/
       save_available: true
     content:
       message: آگهی شغلی ذخیره شد.

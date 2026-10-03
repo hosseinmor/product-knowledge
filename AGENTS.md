@@ -1,50 +1,77 @@
 # AI Entry Point
 
-Use this file as the tool-agnostic starting point for AI-assisted work in this repository.
+Use this file as the tool-agnostic starting point for AI-assisted work in this
+repository.
 
-## Canonical source
+## Source authority — read first
 
-- Treat the `main` branch as the current approved repository state.
-- Use Product Knowledge from this repository before relying on assumptions or external research.
-- Treat the archive branch as historical context only unless the user explicitly asks for it.
+Read [`product-knowledge-sources.yml`](product-knowledge-sources.yml) before
+every product task.
+
+This repository is **not** the canonical Product Knowledge source.
+
+- JobVision Product Knowledge is canonical only at
+  <https://docs-jv.jvoffice.ir/>. It requires the internal VPN and browser
+  access.
+- Cando currently has no canonical Product Knowledge source.
+- Repository files under `shared/content/`, `shared/design-system/`, and
+  `shared/product-standards/` cannot establish product behavior.
+- Figma, screenshots, runtime UI, and walkthroughs are evidence, not canonical
+  Product Knowledge.
+- Never substitute Git history, deleted repository documents, memory, or an
+  observed interface when the approved source is missing or inaccessible.
 
 ## Start every product task
 
-1. Read `ai/router.md`.
-2. Determine the user's intent from their request and supplied files or links.
-3. Load the matching Skill or workflow.
-4. Use `manifest.generated.json` to find the smallest relevant Product Knowledge set.
-5. Read only the documents that materially affect the task.
-6. Keep current product truth, requested change, assumptions, open questions, and AI recommendations separate.
+1. Read `product-knowledge-sources.yml`.
+2. Read `ai/router.md` and select the smallest relevant workflow.
+3. For JobVision product claims, open the internal documentation site in a
+   browser and load only the relevant domains.
+4. For Cando, state that canonical Product Knowledge is unavailable. Use only
+   explicit owner input, reviewed evidence, or approved decisions, with their
+   authority clearly labelled.
+5. Load only the relevant Content System, Design System, and product-standard
+   documents from this repository.
+6. Keep canonical truth, approved decisions, evidence, observations,
+   hypotheses, recommendations, and unknowns separate.
 7. Do not invent missing product behavior or human decisions.
 
 ## Capability fallback
 
-Tools have different capabilities. Follow this fallback model:
-
 ```text
+JobVision internal site accessible
+→ Read the relevant canonical domains through the authenticated browser
+
+JobVision internal site inaccessible
+→ Ask for the relevant source material or stop product-claim work
+→ Never fall back to this repository
+
+Cando request
+→ State that no canonical source exists
+→ Use explicitly authorised inputs only and preserve unresolved behavior
+
 Repository read access available
-→ Read the required files from current main
+→ Use shared Content, Design System, standards, workflows, and templates
 
 Repository read access unavailable
-→ Ask the user to provide AGENTS.md, the selected Skill or workflow, the relevant template, manifest entries, and selected Product Knowledge documents
-
-Jira or destination write access available
-→ Write only after the user requests the write and the required review or approval is complete
-
-Destination write access unavailable
-→ Return a destination-ready result without claiming it was saved
+→ Ask for the minimum relevant files; do not claim repository-backed guidance
 ```
 
 ## Human authority
 
-AI may retrieve context, identify gaps, ask blocking questions, recommend options, draft outputs, and propose Product Knowledge changes.
-
-Humans remain responsible for product decisions, scope approval, final artifact approval, and approval of canonical Product Knowledge updates.
+AI may retrieve context, identify gaps, ask blocking questions, recommend
+options, draft outputs, and structure evidence. Humans remain responsible for
+product decisions, scope approval, artifact approval, and approving any future
+canonical Cando knowledge source.
 
 ## Repository changes
 
 - Do not write directly to `main`.
 - Make approved changes on a dedicated branch and pull request.
 - Do not modify unrelated files.
-- Regenerate `manifest.generated.json` whenever indexed documents change.
+- Regenerate `manifest.generated.json` whenever indexed repository guidance
+  changes.
+- Never restore active Product Knowledge under `products/`,
+  `shared/product-concepts/`, or `shared/product-services/`.
+- Historical Product Knowledge belongs only in Git history or archive refs, not
+  in an indexed `legacy/` directory on `main`.

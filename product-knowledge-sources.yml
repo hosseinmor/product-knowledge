@@ -1,0 +1,40 @@
+schema_version: "0.1"
+id: governance.product-knowledge-sources
+repository_role: product_content_and_design_system
+legacy_storage: git_history_and_archive_refs_only
+
+products:
+  jobvision:
+    authority: canonical_external
+    url: https://docs-jv.jvoffice.ir/
+    access: internal_vpn_browser
+    repository_fallback: forbidden
+  cando:
+    authority: unavailable
+    url: null
+    repository_fallback: forbidden
+    allowed_inputs:
+      - explicit_product_owner_input
+      - reviewed_walkthrough_evidence
+      - approved_product_decision
+    rule: preserve_as_unknown_until_a_canonical_source_is_approved
+
+forbidden_active_roots:
+  - products
+  - shared/product-concepts
+  - shared/product-services
+
+source_precedence:
+  - canonical_product_knowledge_source
+  - explicit_approved_product_decision
+  - reviewed_evidence
+  - observed_ui_or_design
+  - hypothesis
+  - recommendation
+
+rules:
+  - JobVision product claims must be verified in the internal documentation site.
+  - Cando has no canonical Product Knowledge source yet.
+  - Repository content and Design System guidance cannot establish product behavior.
+  - Figma, screenshots, runtime UI, and walkthroughs are evidence, not canonical Product Knowledge.
+  - Missing or inaccessible Product Knowledge must remain unknown; no repository fallback is allowed.

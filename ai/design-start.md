@@ -2,39 +2,40 @@
 
 ## Inputs
 
-- Approved Jira PRD
-- Relevant Product Knowledge
-- Relevant Shared Product Services
-- Relevant Design System and content guidance
+- Approved Jira PRD or explicit approved product decisions
+- Product Knowledge from the approved source
+- Relevant Design System and Product Content guidance
 
-## Retrieval
+## Source gate
 
-1. Read `manifest.generated.json`.
-2. Select the relevant Product Group, Product Overview, and Product Areas by group, product, title, summary, topics, and related IDs.
-3. Add Shared Product Concepts only when their shared definition or rule affects the design.
-4. Add Shared Product Services when product behavior depends on a cross-product service such as an AI fit or matching model.
-5. Read `shared/design-system/DESIGN.md` for compact design-language defaults.
-6. Select only the relevant Design System Component or Pattern; add Foundations, Experience Rules, Product Variations, accessibility rules, and content guidance only when they materially affect the task.
-7. For web design, read `shared/design-system/accessibility/router.md` and use it to retrieve the smallest sufficient accessibility subset. Do not load the full accessibility library by default.
-8. When exact visual or runtime facts are needed, use the owning live source defined by `shared/design-system/integrations/source-of-truth.md` instead of expanding Markdown context.
-9. Do not read the entire Design System or repository by default.
+For JobVision, load the smallest relevant domains from
+<https://docs-jv.jvoffice.ir/> through the internal VPN and browser. For Cando,
+state that no canonical source exists and distinguish authorised inputs from
+unknowns. Never use this repository, Figma, or observed UI as product truth.
+
+## Repository retrieval
+
+Use `manifest.generated.json` to retrieve only the smallest relevant set from:
+
+```text
+shared/design-system/
+shared/content/
+shared/product-standards/
+```
+
+For web work, use `shared/design-system/accessibility/router.md` to load the
+smallest sufficient accessibility subset. Use the owning live source for exact
+Figma or runtime facts.
 
 ## Process
 
-1. Summarize the user goal, product context, current behavior, intended change, rules, permissions, states, edge cases, service dependencies, and open questions.
-2. For every shared service dependency, separate:
-   - Shared inputs, outputs, limitations, confidence, and fallback
-   - Product-specific presentation, thresholds, permissions, copy, and flow
-3. Identify the selected Design System components, patterns, foundations, and content rules.
-4. Flag PRD or Product Knowledge gaps before producing UI.
-5. Produce the requested initial design artifacts, such as:
-   - User flow
-   - Information architecture
-   - Screen inventory
-   - State matrix
-   - Wireframe or UI draft
-   - Component mapping
-   - Copy draft
-6. Clearly distinguish Product Knowledge, PRD requirements, shared-service behavior, and AI recommendations.
-7. Treat the result as a starting draft for Designer review, not a final design decision.
-8. Link the Product Knowledge, Shared Product Service, and Design System documents used.
+1. Summarize the user goal and source-backed product context.
+2. Separate current behavior, intended change, PRD requirements, evidence,
+   unknowns, and recommendations.
+3. Identify relevant components, patterns, accessibility rules, and content
+   contracts.
+4. Flag blocking Product Knowledge or PRD gaps before committing to UI behavior.
+5. Produce the requested flow, IA, screen inventory, state matrix, wireframe,
+   component mapping, or copy draft.
+6. Treat the result as a review draft, not an approved product decision.
+7. Link the Product Knowledge pages and repository guidance used.
