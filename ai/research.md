@@ -1,35 +1,24 @@
-# Research with Product Knowledge
+# Research and Benchmarking
 
-## Goal
+## Source gate
 
-Use Product Knowledge to provide internal context before external research or benchmarking.
-
-## Retrieval
-
-1. Read `manifest.generated.json`.
-2. Filter by group, product, kind, title, summary, and topics.
-3. Read the relevant Product Group and Product Overview.
-4. Read only the smallest relevant set of Product Areas, Shared Product Concepts, Shared Product Services, product standards, and content guidance.
-5. Follow related IDs only when they materially affect the research question.
-
-Do not scan the entire repository by default.
+- JobVision context comes from the relevant pages at
+  <https://docs-jv.jvoffice.ir/> through the internal VPN and browser.
+- Cando has no canonical source; disclose the gap and use only explicitly
+  authorised inputs.
+- `manifest.generated.json` supplies repository-owned Content, Design System,
+  and standards—not Product Knowledge.
 
 ## Process
 
-1. Separate current internal knowledge from unknowns.
-2. Distinguish shared service behavior from how a specific product uses that service.
-3. Conduct external research only after internal context is clear.
-4. Present findings in two sections:
-   - What we know about our product
-   - What research or benchmarking adds
-5. Mark recommendations as recommendations, not current product truth.
-6. Link the Product Knowledge documents used.
+1. State the research question.
+2. Separate canonical internal context, approved decisions, evidence,
+   observations, and unknowns.
+3. Conduct external research only after the internal context boundary is clear.
+4. Present what is known about the product separately from what benchmarking
+   adds.
+5. Mark opportunities and recommendations as proposals, not current truth.
+6. Link the internal source pages and external evidence used.
 
-## Output
-
-- Research question
-- Relevant current product and shared-service context
-- Known constraints and gaps
-- External findings
-- Opportunities
-- Risks and open questions
+Missing or inaccessible Product Knowledge must remain visible; external
+patterns cannot fill it silently.

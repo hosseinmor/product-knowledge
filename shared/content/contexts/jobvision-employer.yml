@@ -2,7 +2,7 @@ schema_version: "0.1"
 id: content.context.jobvision-employer
 document_id: content.context.jobvision-employer
 title: قرارداد Context محتوایی JobVision Employer
-status: draft
+status: revalidation_required
 language: fa-IR
 product: jobvision.employer
 audience: employer
@@ -20,7 +20,7 @@ depends_on:
     - content.pattern.confirmation
     - content.pattern.notifications
     - content.pattern.ai-content-and-disclosure
-  product_overview: jobvision.employer.overview
+  product_knowledge: https://docs-jv.jvoffice.ir/
 
 sources:
   - id: product_voice
@@ -40,29 +40,29 @@ sources:
     reference: content.pattern.ai-content-and-disclosure
     state: draft
   - id: employer_overview
-    type: product_overview
-    reference: jobvision.employer.overview
-    state: draft
+    type: canonical_internal_site
+    reference: https://docs-jv.jvoffice.ir/
+    state: requires_vpn_and_claim_level_verification
   - id: job_post_management_area
-    type: product_area
-    reference: jobvision.employer.job-post-management
-    state: draft
+    type: canonical_internal_domain
+    reference: https://docs-jv.jvoffice.ir/contents/jobpost/0_overview/
+    state: requires_vpn_and_claim_level_verification
   - id: job_post_concept
-    type: product_concept
-    reference: shared.job-post
-    state: draft
+    type: canonical_internal_domain
+    reference: https://docs-jv.jvoffice.ir/contents/jobpost/0_overview/
+    state: requires_vpn_and_claim_level_verification
   - id: application_concept
-    type: product_concept
-    reference: shared.application
-    state: draft
+    type: canonical_internal_domain
+    reference: https://docs-jv.jvoffice.ir/contents/application/0_overview/
+    state: requires_vpn_and_claim_level_verification
   - id: resume_concept
-    type: product_concept
-    reference: shared.resume
-    state: draft
+    type: canonical_internal_domain
+    reference: https://docs-jv.jvoffice.ir/contents/cv/0_overview/
+    state: requires_vpn_and_claim_level_verification
   - id: company_concept
-    type: product_concept
-    reference: shared.company
-    state: draft
+    type: canonical_internal_domain
+    reference: https://docs-jv.jvoffice.ir/contents/company/0_overview/
+    state: requires_vpn_and_claim_level_verification
   - id: candidate_context
     type: content_context
     reference: content.context.jobvision-candidate
@@ -129,14 +129,16 @@ terminology_model:
   independent_job_post_label: آگهی شغلی
 
 product_area_routing:
-  job_post_creation_and_management: jobvision.employer.job-post-management
-  account_access_and_permissions: undocumented_employer_area
-  candidate_and_application_management: undocumented_employer_area
-  products_plans_and_entitlements: undocumented_employer_area
-  rule: behavior_state_permission_entitlement_validation_and_consequence_require_the_owning_area
+  job_post_creation_and_management: https://docs-jv.jvoffice.ir/contents/jobpost/0_overview/
+  account_access_and_permissions: https://docs-jv.jvoffice.ir/contents/operator/0_overview/
+  candidate_and_application_management: https://docs-jv.jvoffice.ir/contents/application/0_overview/
+  products_plans_and_entitlements: https://docs-jv.jvoffice.ir/contents/package/0_overview/
+  rule: load_and_verify_the_relevant_internal_domain_for_every_product_claim
 
 claim_model:
   evidence_threshold: minimum_sufficient_claim
+  internal_source_page_must_be_loaded: true
+  repository_product_knowledge_fallback: forbidden
   placeholder_state_is_not_approved_state: true
   publication_is_not_universal_candidate_visibility: true
   prototype_or_expected_behavior_is_not_policy: true

@@ -3,7 +3,7 @@ id: content.contexts.overview
 collection: content
 type: content-overview
 title: Content Context Contracts
-summary: Routes approved product- and audience-specific language variations without moving product behavior out of Product Areas.
+summary: Routes approved product- and audience-specific language variations without copying behavior from the approved external Product Knowledge source.
 knowledge_state: verified
 document_maturity: draft
 related:

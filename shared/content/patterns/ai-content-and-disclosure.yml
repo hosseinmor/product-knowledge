@@ -18,7 +18,7 @@ depends_on:
   error_pattern: content.pattern.error
   notification_pattern: content.pattern.notifications
   loading_pattern: content.pattern.loading-and-progress
-  product_service: shared.ai-services.overview
+  product_behavior_source: external_product_knowledge_or_authorized_input
   design_system:
     - design-system.pattern.ai-entry-points
     - design-system.token.semantic-tokens
@@ -67,7 +67,7 @@ experience_model:
   assistant:
     meaning: تجربهٔ مستقل و تعاملی با رفتار دستیارگونه
     preferred_term: دستیار هوشمند
-    confirmed_instance: دستیار هوشمند رزومه
+    lexicon_instance: دستیار هوشمند رزومه
 
 output_model:
   generated:

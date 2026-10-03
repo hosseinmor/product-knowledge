@@ -12,7 +12,6 @@ related:
   - content.pattern.error
   - content.pattern.notifications
   - content.pattern.loading-and-progress
-  - shared.ai-services.overview
   - design-system.pattern.ai-entry-points
   - design-system.token.semantic-tokens
   - design-system.accessibility.content
@@ -34,6 +33,10 @@ topics:
 [`ai-content-and-disclosure.yml`](ai-content-and-disclosure.yml) و نمونه‌های
 regression در
 [`../evals/ai-content-cases.yml`](../evals/ai-content-cases.yml) قرار دارند.
+
+این pattern رفتار هیچ قابلیت AI را تعریف نمی‌کند. وجود، ورودی، خروجی، کیفیت،
+permission، data policy و fallback هر قابلیت باید از Product Knowledge خارجی
+یا تصمیم صریح و تأییدشدهٔ همان محصول بیاید.
 
 ## مرز شواهد و تصمیم‌ها
 

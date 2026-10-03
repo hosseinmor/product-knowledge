@@ -9,11 +9,6 @@ document_maturity: draft
 related:
   - content.content-guidelines
   - content.localization
-  - shared.job-post
-  - shared.company
-  - shared.resume
-  - shared.application
-  - cando.ats.recruitment-request
 topics:
   - terminology
   - ux-writing

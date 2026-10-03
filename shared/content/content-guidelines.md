@@ -58,9 +58,10 @@ Eval
 → Executable examples and regression cases
 ```
 
-Do not copy Product Knowledge into this directory. Product concepts and behavior
-remain canonical in Product Concepts and Product Areas; Content owns naming and
-communication rules.
+Do not copy Product Knowledge into this directory. JobVision concepts and
+behavior remain canonical at <https://docs-jv.jvoffice.ir/>; Cando currently
+has no canonical source. Content owns naming and communication rules, not
+product behavior.
 
 ## Voice and Tone
 

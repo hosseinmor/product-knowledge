@@ -24,7 +24,7 @@ Code is the owning live source for **implemented runtime API and behavior** when
 
 The currently connected GitHub sources do not provide an identified JV Design System implementation repository/package that can be verified as the owning runtime source.
 
-Do not substitute the Product Knowledge repository, Figma component/property names, historical Carbon references, Tailwind guidance prose, or product application code for the missing runtime source.
+Do not substitute the internal Product Knowledge site, Figma component/property names, historical Carbon references, Tailwind guidance prose, or product application code for the missing runtime source.
 
 ## Facts the code source must own
 

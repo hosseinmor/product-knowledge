@@ -7,6 +7,9 @@ on:
       - synchronize
       - reopened
     paths:
+      - "AGENTS.md"
+      - "README.md"
+      - "docs/**"
       - "products/**"
       - "shared/**"
       - "templates/**"
@@ -17,6 +20,8 @@ on:
       - "scripts/check_content_components.py"
       - "scripts/check_content_contexts.py"
       - "scripts/check_content_patterns.py"
+      - "scripts/check_product_knowledge_sources.py"
+      - "product-knowledge-sources.yml"
       - "requirements-dev.txt"
       - "manifest.generated.json"
       - ".github/workflows/manifest-quality.yml"
@@ -69,6 +74,9 @@ jobs:
 
       - name: Validate content patterns
         run: python scripts/check_content_patterns.py
+
+      - name: Validate Product Knowledge source authority
+        run: python scripts/check_product_knowledge_sources.py
 
       - name: Commit generated manifest to pull request branch
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
