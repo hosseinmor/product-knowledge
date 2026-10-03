@@ -119,6 +119,26 @@ application submission/tracking    → products/jobvision/candidate/areas/applic
 resume and AI assessment           → products/jobvision/candidate/areas/resume-management.md
 ```
 
+When the copy is for the JobVision Employer product or an employer-side
+operational surface, also load:
+
+```text
+shared/content/contexts/jobvision-employer.md
+shared/content/contexts/jobvision-employer.yml
+shared/content/evals/jobvision-employer-context-cases.yml
+products/jobvision/employer/overview.md
+```
+
+For job-post creation, editing, publication, or management behavior, also load:
+
+```text
+products/jobvision/employer/areas/job-post-management.md
+```
+
+Employer Account and Access, Candidate/Application Management, and
+Products/Plans do not yet have substantive Product Areas. Preserve unknowns
+instead of inferring permissions, states, quotas, or entitlement behavior.
+
 For Persian/English language changes, RTL or mixed-direction content, numbers,
 dates, times, units, amounts, translation, or runtime variables, also load:
 

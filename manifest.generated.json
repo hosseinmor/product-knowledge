@@ -556,6 +556,7 @@
         "content.component.modal",
         "content.component.notification",
         "content.context.jobvision-candidate",
+        "content.context.jobvision-employer",
         "content.pattern.error",
         "content.pattern.confirmation",
         "content.pattern.empty-states",
@@ -605,6 +606,41 @@
         "tone"
       ],
       "path": "shared/content/contexts/jobvision-candidate.md"
+    },
+    {
+      "id": "content.context.jobvision-employer",
+      "kind": "content-guideline",
+      "title": "JobVision Employer Content Context",
+      "summary": "Defines audience-specific terminology, tone, claim boundaries, and Product Area routing for JobVision employer-side experiences.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "content.product-voice",
+        "content.terminology",
+        "content.localization",
+        "content.context.jobvision-candidate",
+        "jobvision.employer.overview",
+        "jobvision.employer.job-post-management",
+        "shared.job-post",
+        "shared.application",
+        "shared.resume",
+        "shared.company"
+      ],
+      "topics": [
+        "content",
+        "content-guideline",
+        "contexts",
+        "employer",
+        "job-post",
+        "jobvision",
+        "jobvision-employer",
+        "organization",
+        "product-content",
+        "recruitment",
+        "terminology"
+      ],
+      "path": "shared/content/contexts/jobvision-employer.md"
     },
     {
       "id": "content.localization",
@@ -3593,9 +3629,9 @@
     }
   ],
   "summary": {
-    "documents": 169,
+    "documents": 170,
     "by_kind": {
-      "content-guideline": 16,
+      "content-guideline": 17,
       "design-system-accessibility": 18,
       "design-system-component": 34,
       "design-system-design-language": 1,

@@ -41,6 +41,7 @@ Context نباید lifecycle، eligibility، consequence یا action تازه‌
 | Context | سند انسانی | منبع machine-readable | ارزیابی |
 |---|---|---|---|
 | JobVision Candidate | [`jobvision-candidate.md`](jobvision-candidate.md) | [`jobvision-candidate.yml`](jobvision-candidate.yml) | [`../evals/jobvision-candidate-context-cases.yml`](../evals/jobvision-candidate-context-cases.yml) |
+| JobVision Employer | [`jobvision-employer.md`](jobvision-employer.md) | [`jobvision-employer.yml`](jobvision-employer.yml) | [`../evals/jobvision-employer-context-cases.yml`](../evals/jobvision-employer-context-cases.yml) |
 
 ## قاعدهٔ رشد
 

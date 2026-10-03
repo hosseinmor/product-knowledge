@@ -42,6 +42,28 @@ CONTEXT_SPECS = (
             "claim_model",
         ),
     },
+    {
+        "name": "jobvision-employer",
+        "label": "JobVision Employer context",
+        "source_path": CONTEXT_DIR / "jobvision-employer.yml",
+        "document_path": CONTEXT_DIR / "jobvision-employer.md",
+        "eval_path": EVAL_DIR / "jobvision-employer-context-cases.yml",
+        "context_id": "content.context.jobvision-employer",
+        "eval_id": "content.eval.jobvision_employer_context_cases",
+        "product": "jobvision.employer",
+        "audience": "employer",
+        "rule_prefix": "JVE",
+        "evaluation_source": "../evals/jobvision-employer-context-cases.yml",
+        "required_models": (
+            "depends_on",
+            "source_boundaries",
+            "audience_model",
+            "voice_model",
+            "terminology_model",
+            "product_area_routing",
+            "claim_model",
+        ),
+    },
 )
 
 
@@ -187,8 +209,14 @@ def validate_context(
             if concept_id not in known_term_ids:
                 errors.append(f"{location}: unknown terminology concept id")
         preferred = decision.get("preferred")
-        if not isinstance(preferred, dict) or not preferred:
-            errors.append(f"{location}: preferred must be a non-empty mapping")
+        user_facing = decision.get("user_facing")
+        if preferred is None and user_facing == "forbidden":
+            pass
+        elif not isinstance(preferred, dict) or not preferred:
+            errors.append(
+                f"{location}: preferred must be a non-empty mapping unless "
+                "user_facing is forbidden"
+            )
         elif not all(
             nonempty_string(key) and nonempty_string(value)
             for key, value in preferred.items()

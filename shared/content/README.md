@@ -40,7 +40,9 @@ shared/content/
 ├── contexts/
 │   ├── README.md
 │   ├── jobvision-candidate.md
-│   └── jobvision-candidate.yml
+│   ├── jobvision-candidate.yml
+│   ├── jobvision-employer.md
+│   └── jobvision-employer.yml
 ├── patterns/
 │   ├── ai-content-and-disclosure.md
 │   ├── ai-content-and-disclosure.yml
@@ -64,6 +66,7 @@ shared/content/
     ├── error-cases.yml
     ├── instruction-helper-cases.yml
     ├── jobvision-candidate-context-cases.yml
+    ├── jobvision-employer-context-cases.yml
     ├── localization-cases.yml
     ├── loading-progress-cases.yml
     ├── modal-content-cases.yml
@@ -87,7 +90,7 @@ shared/content/
   components; Button, Text Input, Modal, and Notification are currently
   registered.
 - `contexts/` contains approved product- and audience-specific variations;
-  JobVision Candidate is currently registered.
+  JobVision Candidate and Employer are currently registered.
 - `evals/` holds foundation, pattern, component, and context regression cases.
 
 ## Growth rule
