@@ -39,6 +39,8 @@ shared/content/
 │   └── text-input.yml
 ├── contexts/
 │   ├── README.md
+│   ├── cando-ats.md
+│   ├── cando-ats.yml
 │   ├── jobvision-candidate.md
 │   ├── jobvision-candidate.yml
 │   ├── jobvision-employer.md
@@ -61,6 +63,7 @@ shared/content/
 └── evals/
     ├── ai-content-cases.yml
     ├── button-content-cases.yml
+    ├── cando-ats-context-cases.yml
     ├── confirmation-cases.yml
     ├── empty-state-cases.yml
     ├── error-cases.yml
@@ -90,7 +93,8 @@ shared/content/
   components; Button, Text Input, Modal, and Notification are currently
   registered.
 - `contexts/` contains approved product- and audience-specific variations;
-  JobVision Candidate and Employer are currently registered.
+  JobVision Candidate, JobVision Employer, and Cando ATS are currently
+  registered.
 - `evals/` holds foundation, pattern, component, and context regression cases.
 
 ## Growth rule
@@ -147,14 +151,17 @@ Run:
 python scripts/check_content_terminology.py
 python scripts/check_content_localization.py
 python scripts/check_content_components.py
+python scripts/check_content_contexts.py
 python scripts/check_content_patterns.py
 python scripts/generate_manifest.py check
 ```
 
-The first command validates the machine-readable lexicon. The second validates
-the Persian localization foundation and eval coverage. The third validates
-registered component contracts and their eval coverage. The fourth validates
-the registered human/machine pattern inventory, product voice, pattern and eval
-identities, rule families and keys, pattern-to-eval links, and blocking-rule
-coverage. All content validators reject duplicate YAML keys. The final command
-validates the indexed Markdown knowledge documents and manifest freshness.
+The terminology command validates the machine-readable lexicon. The
+localization command validates the Persian localization foundation and eval
+coverage. The component and context commands validate their registered
+contracts, identities, links, and blocking-rule coverage. The pattern command
+validates the registered human/machine pattern inventory, product voice,
+pattern and eval identities, rule families and keys, pattern-to-eval links,
+and blocking-rule coverage. All content validators reject duplicate YAML keys.
+The final command validates the indexed Markdown knowledge documents and
+manifest freshness.

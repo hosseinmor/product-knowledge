@@ -557,6 +557,7 @@
         "content.component.notification",
         "content.context.jobvision-candidate",
         "content.context.jobvision-employer",
+        "content.context.cando-ats",
         "content.pattern.error",
         "content.pattern.confirmation",
         "content.pattern.empty-states",
@@ -571,6 +572,41 @@
         "content-guidelines"
       ],
       "path": "shared/content/content-guidelines.md"
+    },
+    {
+      "id": "content.context.cando-ats",
+      "kind": "content-guideline",
+      "title": "Cando ATS Content Context",
+      "summary": "Defines ATS-specific terminology, audience language, evidence boundaries, and Product Area routing for recruiting operations.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "content.product-voice",
+        "content.terminology",
+        "content.localization",
+        "cando.ats.overview",
+        "cando.ats.recruitment-request",
+        "cando.ats.approval-workflow",
+        "cando.ats.job-management",
+        "shared.application",
+        "shared.resume",
+        "shared.company",
+        "shared.job-post"
+      ],
+      "topics": [
+        "approval",
+        "ats",
+        "candidates",
+        "cando",
+        "cando-ats",
+        "content",
+        "content-guideline",
+        "contexts",
+        "product-content",
+        "recruitment"
+      ],
+      "path": "shared/content/contexts/cando-ats.md"
     },
     {
       "id": "content.context.jobvision-candidate",
@@ -3629,9 +3665,9 @@
     }
   ],
   "summary": {
-    "documents": 170,
+    "documents": 171,
     "by_kind": {
-      "content-guideline": 17,
+      "content-guideline": 18,
       "design-system-accessibility": 18,
       "design-system-component": 34,
       "design-system-design-language": 1,

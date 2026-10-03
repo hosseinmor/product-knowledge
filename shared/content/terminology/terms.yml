@@ -37,6 +37,15 @@ sources:
     state: observed
     role: runtime_product_evidence
     reviewed_on: 2026-09-23
+  - id: ats_product_knowledge
+    title: Product Knowledge محصول Cando ATS
+    state: mixed_review_state
+    role: ats_concept_and_observed_ui_evidence
+    references:
+      - cando.ats.overview
+      - cando.ats.recruitment-request
+      - cando.ats.approval-workflow
+      - cando.ats.job-management
 
 policy:
   concept_and_label:
@@ -509,6 +518,90 @@ terms:
       part_of: recruitment
     status: stable
     evidence: [product_content_decisions]
+
+  - id: ats_job
+    concept_kind: hiring_workspace
+    canonical_internal: شغل ATS
+    definition:
+      product_content: >
+        workspace استخدامی در Cando ATS که اطلاعات شغل، فرم درخواست، مراحل
+        جذب، دسترسی تیم، انتشار و درخواست‌های مرتبط را کنار هم نگه می‌دارد.
+    preferred:
+      ats: شغل
+      documentation: شغل ATS
+    domains: [ats]
+    visibility: [public, internal, documentation]
+    relations:
+      distinct_from: [job_post, job_position, hiring_request]
+    status: draft
+    notes:
+      - رابطهٔ دقیق شغل ATS با درخواست جذب و آگهی شغلی هنوز تأیید نشده است.
+    evidence: [ats_product_knowledge]
+
+  - id: approval_workflow
+    concept_kind: workflow
+    canonical_internal: گردش کار تأیید
+    definition:
+      product_content: >
+        مجموعهٔ مرتب مرحله‌های تأیید که تحت شرط‌های سازمانی مشخص برای یک
+        درخواست جذب اعمال می‌شود.
+    preferred:
+      default: گردش کار تأیید
+    domains: [ats, approval]
+    visibility: [public, internal]
+    relations:
+      contains: approval_step
+      applies_to: hiring_request
+    status: draft
+    evidence: [ats_product_knowledge]
+
+  - id: approval_step
+    concept_kind: workflow_step
+    canonical_internal: مرحلهٔ تأیید
+    definition:
+      product_content: یک مرحلهٔ مرتب از گردش کار تأیید با یک یا چند تأییدکننده.
+    preferred:
+      default: مرحلهٔ تأیید
+    domains: [ats, approval]
+    visibility: [public, internal]
+    relations:
+      part_of: approval_workflow
+      has_actor: approver
+    status: draft
+    evidence: [ats_product_knowledge]
+
+  - id: approver
+    concept_kind: role
+    canonical_internal: تأییدکننده
+    definition:
+      product_content: کاربر انتخاب‌شده‌ای که در مرحلهٔ فعال دربارهٔ درخواست جذب تصمیم می‌گیرد.
+    preferred:
+      default: تأییدکننده
+    avoid: [تأییدکنندهٔ سیستمی, اپروور]
+    domains: [ats, approval]
+    visibility: [public, internal]
+    relations:
+      acts_in: approval_step
+    status: draft
+    evidence: [ats_product_knowledge]
+
+  - id: hiring_stage
+    concept_kind: workflow_stage
+    canonical_internal: مرحلهٔ جذب
+    definition:
+      product_content: مرحله‌ای در فرایند جذب یک شغل ATS برای سازمان‌دهی درخواست‌ها و کاندیداها.
+    preferred:
+      default: مرحلهٔ جذب
+      plural: مراحل جذب
+    domains: [ats, recruitment]
+    visibility: [public, internal]
+    relations:
+      part_of: ats_job
+      distinct_from: [approval_step]
+    status: draft
+    notes:
+      - transition، terminal state و automation هر مرحله هنوز به Product Area وابسته است.
+    evidence: [ats_product_knowledge]
 
   - id: resume_snapshot
     concept_kind: internal_artifact

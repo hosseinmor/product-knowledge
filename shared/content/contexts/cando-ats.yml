@@ -1,0 +1,380 @@
+schema_version: "0.1"
+id: content.context.cando-ats
+document_id: content.context.cando-ats
+title: قرارداد Context محتوایی Cando ATS
+status: draft
+language: fa-IR
+product: cando.ats
+audience: recruiting
+scope:
+  - ats-product-ui
+  - ats-transactional-content
+  - ats-ai-assisted-content
+
+depends_on:
+  voice: content.foundation.product_voice
+  terminology: content.foundation.terminology
+  localization: content.foundation.localization
+  patterns:
+    - content.pattern.error
+    - content.pattern.confirmation
+    - content.pattern.notifications
+    - content.pattern.ai-content-and-disclosure
+  product_overview: cando.ats.overview
+
+sources:
+  - id: product_voice
+    type: content_foundation
+    reference: content.foundation.product_voice
+    state: draft
+  - id: terminology
+    type: content_foundation
+    reference: content.foundation.terminology
+    state: draft
+  - id: localization
+    type: content_foundation
+    reference: content.foundation.localization
+    state: draft
+  - id: ai_content_pattern
+    type: content_pattern
+    reference: content.pattern.ai-content-and-disclosure
+    state: draft
+  - id: ats_overview
+    type: product_overview
+    reference: cando.ats.overview
+    state: draft
+  - id: recruitment_request_area
+    type: product_area
+    reference: cando.ats.recruitment-request
+    state: draft
+  - id: approval_workflow_area
+    type: product_area
+    reference: cando.ats.approval-workflow
+    state: draft
+  - id: job_management_area
+    type: product_area
+    reference: cando.ats.job-management
+    state: reviewed_observed_scope
+  - id: application_concept
+    type: product_concept
+    reference: shared.application
+    state: draft
+  - id: resume_concept
+    type: product_concept
+    reference: shared.resume
+    state: draft
+  - id: company_concept
+    type: product_concept
+    reference: shared.company
+    state: draft
+  - id: job_post_concept
+    type: product_concept
+    reference: shared.job-post
+    state: draft
+  - id: context_decisions
+    type: operational_decision
+    state: working_decisions
+
+source_boundaries:
+  source_derived:
+    - ATS یک Recruitment Request را به‌عنوان نیاز داخلی سازمان نگه می‌دارد و آن را با Job یکسان نمی‌داند.
+    - ATS Job workspace استخدامی شامل اطلاعات شغل، فرم درخواست، مراحل جذب، دسترسی تیم، انتشار و درخواست‌ها است.
+    - Approval Workflow از مرحله‌های مرتب و تأییدکنندگان انتخاب‌شده تشکیل می‌شود.
+    - Candidate در ATS می‌تواند از JobVision آمده یا مستقیماً اضافه شده باشد.
+    - Job Management در پنج بخش اطلاعات شغل، فرم درخواست، مراحل جذب، اعضای تیم و انتشار مشاهده شده است.
+    - مرتب‌سازی مرتبط‌ترین رزومه‌ها براساس تطبیق با شرح شغل در UI مشاهده شده است.
+  context_decisions:
+    - ATS Job در UI «شغل» و در متن مستقل یا مستندات «شغل ATS» نامیده شود.
+    - واژهٔ فنی pipeline در UI نمایش داده نشود و برای concept مربوط «مراحل جذب» به‌کار رود.
+    - AI ranking یک قابلیت مبتنی بر هوش مصنوعی است، نه دستیار هوشمند و نه تضمین تناسب.
+    - گروه‌ها و actionهای مشاهده‌شده به lifecycle یا permission کامل تعمیم داده نشوند.
+  excluded:
+    - role و permission matrix رسمی کاربران ATS.
+    - lifecycle کامل شغل و کاندیدا و transitionهای آن‌ها.
+    - رابطه و cardinality دقیق شغل ATS، درخواست جذب و آگهی شغلی.
+    - منطق رد خودکار، threshold، audit و recovery.
+    - eligibility، هزینه، moderation، sync و recovery کانال‌های انتشار.
+    - ورودی‌ها، کیفیت، explainability، bias، configuration و fallback مرتب‌سازی هوشمند.
+
+audience_model:
+  product_audience: recruiting_users
+  direct_address: شما
+  possible_roles: [recruiting_user, hr_team_member, request_owner, department_representative, approver, workflow_administrator]
+  role_labels_status: unverified
+  role_rule: use_specific_role_only_from_confirmed_access_model
+  surface:
+    concept: ats_workspace
+    label: ATS
+
+voice_model:
+  register: persian_standard_written
+  base: content.foundation.product_voice
+  operational_surface:
+    clarity: maximum
+    warmth: low
+    encouragement: low_or_none
+  constraints:
+    - تصمیم یا failure به کاندیدا، کاربر یا هوش مصنوعی نسبت داده نشود مگر evidence داشته باشد.
+    - پیشرفت جذب، تأیید، انتشار یا رد فقط پس از outcome تأییدشده اعلام شود.
+    - ranking یا recommendation به‌صورت حکم قطعی دربارهٔ شایستگی فرد نوشته نشود.
+
+terminology_model:
+  selection_order:
+    - identify_concept
+    - apply_ats_preferred_label
+    - preserve_cross_product_identity
+    - preserve_visibility_and_status
+    - preserve_distinct_concepts
+  specialized_surface_shortening:
+    ats_job: شغل
+  independent_surfaces:
+    - notification
+    - email
+    - cross-product-summary
+    - documentation
+  independent_ats_job_label: شغل ATS
+  forbidden_public_terms: [pipeline]
+
+product_area_routing:
+  hiring_need_and_fulfillment: cando.ats.recruitment-request
+  approval_configuration_and_progression: cando.ats.approval-workflow
+  job_definition_publication_and_candidate_board: cando.ats.job-management
+  candidate_management_outside_job_observation: undocumented_candidate_management_area
+  account_access_and_permissions: undocumented_organization_and_access_area
+  rule: behavior_state_permission_validation_consequence_and_ai_claim_require_the_owning_area
+
+claim_model:
+  evidence_threshold: minimum_sufficient_claim
+  draft_rule_is_not_reviewed_runtime_truth: true
+  observed_group_is_not_complete_lifecycle: true
+  observed_action_is_not_confirmed_permission: true
+  ai_rank_is_not_hiring_truth: true
+  cross_product_mapping_requires_evidence: true
+  unknown_behavior: preserve_unknown
+
+term_decisions:
+  - concept_id: employer_organization
+    preferred:
+      default: سازمان
+  - concept_id: ats_candidate
+    preferred:
+      default: کاندیدا
+    distinct_from: [jobseeker]
+  - concept_id: jobseeker
+    preferred:
+      jobvision_origin: کارجو
+    distinct_from: [ats_candidate]
+  - concept_id: hiring_request
+    preferred:
+      default: درخواست جذب
+    distinct_from: [job_application, ats_job]
+  - concept_id: job_application
+    preferred:
+      full: درخواست شغلی
+      contextual: درخواست
+    distinct_from: [hiring_request]
+  - concept_id: ats_job
+    preferred:
+      specialized: شغل
+      independent: شغل ATS
+    distinct_from: [job_post, job_position, hiring_request]
+  - concept_id: job_post
+    preferred:
+      default: آگهی شغلی
+    distinct_from: [ats_job, job_position]
+  - concept_id: job_position
+    preferred:
+      default: موقعیت شغلی
+    distinct_from: [ats_job, job_post]
+  - concept_id: recruitment
+    preferred:
+      default: جذب
+    distinct_from: [hiring]
+  - concept_id: hiring
+    preferred:
+      default: استخدام
+    distinct_from: [recruitment]
+  - concept_id: approval_workflow
+    preferred:
+      default: گردش کار تأیید
+  - concept_id: approval_step
+    preferred:
+      default: مرحلهٔ تأیید
+    distinct_from: [hiring_stage]
+  - concept_id: approver
+    preferred:
+      default: تأییدکننده
+  - concept_id: hiring_stage
+    preferred:
+      singular: مرحلهٔ جذب
+      plural: مراحل جذب
+    distinct_from: [approval_step, pipeline]
+  - concept_id: pipeline
+    user_facing: forbidden
+    reason: code_only_technical_term
+  - concept_id: resume
+    preferred:
+      default: رزومه
+  - concept_id: assessment
+    preferred:
+      default: آزمون
+  - concept_id: matching_score
+    preferred:
+      default: امتیاز تطبیق
+  - concept_id: ai_technology
+    preferred:
+      default: هوش مصنوعی
+    distinct_from: [ai_assistant]
+  - concept_id: ai_assistant
+    preferred:
+      default: دستیار هوشمند
+    avoid_when: [ranking, matching, automation_without_assistant_behavior]
+
+rules:
+  - id: ATS-001
+    obligation: must
+    dimension: audience
+    key: address_user_without_assumed_role
+    statement: کاربر با «شما» خطاب شود و role خاص فقط از access model تأییدشده بیاید.
+    evidence: [product_voice, ats_overview]
+  - id: ATS-002
+    obligation: must
+    dimension: terminology
+    key: use_organization_for_customer_entity
+    statement: entity مشتری در ATS «سازمان» نامیده شود.
+    evidence: [terminology, company_concept]
+  - id: ATS-003
+    obligation: must
+    dimension: identity
+    key: distinguish_candidate_and_jobseeker
+    statement: فرد داخل ATS «کاندیدا» و هویت مبدأ JobVision «کارجو» نامیده شود و این دو بدون mapping تأییدشده یکی فرض نشوند.
+    evidence: [terminology, ats_overview, application_concept]
+  - id: ATS-004
+    obligation: must
+    dimension: terminology
+    key: distinguish_ats_job_post_and_position
+    statement: شغل ATS، آگهی شغلی و موقعیت شغلی سه concept متمایز باشند.
+    evidence: [terminology, job_management_area, job_post_concept]
+  - id: ATS-005
+    obligation: must
+    dimension: terminology
+    key: distinguish_hiring_request_and_application
+    statement: درخواست جذب نیاز داخلی سازمان و درخواست شغلی پاسخ فرد به فرصت استخدامی در نظر گرفته شود.
+    evidence: [terminology, recruitment_request_area, application_concept]
+  - id: ATS-006
+    obligation: must
+    dimension: terminology
+    key: distinguish_recruitment_and_hiring
+    statement: جذب برای process و استخدام برای decision یا outcome استفاده شود.
+    evidence: [terminology, ats_overview]
+  - id: ATS-007
+    obligation: must
+    dimension: approval
+    key: use_approval_concepts
+    statement: ساختار approval با «گردش کار تأیید»، «مرحلهٔ تأیید» و «تأییدکننده» نامیده شود.
+    evidence: [terminology, approval_workflow_area]
+  - id: ATS-008
+    obligation: must
+    dimension: terminology
+    key: distinguish_approval_and_hiring_stages
+    statement: مرحلهٔ تأیید با مرحلهٔ جذب یکی فرض نشود.
+    evidence: [terminology, approval_workflow_area, job_management_area]
+  - id: ATS-009
+    obligation: must_not
+    dimension: visibility
+    key: expose_pipeline_as_public_label
+    statement: واژهٔ فنی «پایپ‌لاین» به‌عنوان label عمومی نمایش داده نشود؛ برای concept مشاهده‌شده «مراحل جذب» استفاده شود.
+    evidence: [terminology, job_management_area]
+  - id: ATS-010
+    obligation: must
+    dimension: terminology
+    key: use_resume_assessment_and_matching_terms
+    statement: برای conceptهای مربوط به‌ترتیب «رزومه»، «آزمون» و «امتیاز تطبیق» استفاده شود.
+    evidence: [terminology, resume_concept, job_management_area]
+  - id: ATS-011
+    obligation: must_not
+    dimension: ai
+    key: present_ai_ranking_as_assistant_or_truth
+    statement: مرتب‌سازی مرتبط‌ترین رزومه‌ها «دستیار هوشمند» یا تضمین شایستگی و نتیجهٔ استخدام معرفی نشود.
+    evidence: [ai_content_pattern, job_management_area]
+  - id: ATS-012
+    obligation: must
+    dimension: routing
+    key: load_owning_product_area
+    statement: behavior، state، permission، validation، consequence و ادعای AI از ATS Product Area مالک گرفته شود.
+    evidence: [ats_overview, context_decisions]
+  - id: ATS-013
+    obligation: must_not
+    dimension: permission
+    key: invent_role_or_permission
+    statement: role، permission یا authorization کاربران ATS از عنوان شغلی یا action مشاهده‌شده استنتاج نشود.
+    evidence: [ats_overview, recruitment_request_area, approval_workflow_area, job_management_area]
+  - id: ATS-014
+    obligation: must
+    dimension: evidence
+    key: preserve_area_review_state
+    statement: قواعد draft درخواست جذب و گردش کار از evidence مشاهده‌شدهٔ Job Management جدا بمانند و وضعیت review آن‌ها حفظ شود.
+    evidence: [recruitment_request_area, approval_workflow_area, job_management_area]
+  - id: ATS-015
+    obligation: must_not
+    dimension: lifecycle
+    key: generalize_observed_groups_to_lifecycle
+    statement: گروه‌های Active، Internal، Archived، In progress و Rejected به lifecycle کامل یا transition قطعی تعمیم داده نشوند.
+    evidence: [job_management_area]
+  - id: ATS-016
+    obligation: must_not
+    dimension: candidate_management
+    key: invent_candidate_transition_or_recovery
+    statement: انتقال، رد، بازگردانی، action گروهی، history یا terminal state کاندیدا بدون evidence ساخته نشود.
+    evidence: [job_management_area]
+  - id: ATS-017
+    obligation: must_not
+    dimension: automation
+    key: invent_automatic_rejection_behavior
+    statement: rule، threshold، audit، notification یا recovery رد خودکار بدون evidence قطعی نوشته نشود.
+    evidence: [job_management_area]
+  - id: ATS-018
+    obligation: must_not
+    dimension: publication
+    key: invent_channel_behavior
+    statement: eligibility، هزینه، moderation، synchronization یا recovery کانال انتشار بدون evidence ساخته نشود.
+    evidence: [job_management_area]
+  - id: ATS-019
+    obligation: must_not
+    dimension: relationship
+    key: invent_job_request_cardinality
+    statement: رابطهٔ یک‌به‌یک، خودکار یا کامل بین شغل ATS و درخواست جذب تا زمان تأیید ادعا نشود.
+    evidence: [ats_overview, recruitment_request_area, job_management_area]
+  - id: ATS-020
+    obligation: must_not
+    dimension: cross_product
+    key: invent_jobvision_sync_or_identity
+    statement: synchronization، state sharing یا identity mapping با JobVision بدون evidence ساخته نشود.
+    evidence: [ats_overview, application_concept, job_post_concept]
+  - id: ATS-021
+    obligation: must
+    dimension: composition
+    key: inherit_shared_pattern_and_component
+    statement: Context همراه pattern و component contract مرتبط استفاده شود و anatomy یا behavior آن‌ها را بازتعریف نکند.
+    evidence: [product_voice, context_decisions]
+  - id: ATS-022
+    obligation: must
+    dimension: localization
+    key: preserve_localization_contract
+    statement: count، date، identifier، نام، عنوان شغل و متن runtime مطابق Localization format و isolate شوند.
+    evidence: [localization]
+
+unknowns:
+  - role nameها، permission matrix و inheritance کاربران ATS
+  - Candidate Management به‌عنوان Product Area مستقل
+  - lifecycle کامل شغل و کاندیدا
+  - relation و cardinality شغل ATS، درخواست جذب و آگهی شغلی
+  - workflow matching، fallback، activation و notification
+  - partial fulfillment و چند شغل برای یک درخواست جذب
+  - candidate transition، rejection، restoration، bulk action و history
+  - automatic-rejection rule، threshold، audit و recovery
+  - publication eligibility، cost، moderation، synchronization و recovery
+  - AI-ranking input، quality، explainability، bias، configuration و fallback
+  - cross-product mapping با JobVision Candidate و Employer
+
+evaluation_source: ../evals/cando-ats-context-cases.yml

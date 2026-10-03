@@ -26,6 +26,11 @@ unique rule IDs and keys, and coverage of every blocking localization rule.
 contracts, their exact identities and source evidence, unique rule IDs and
 keys, component-to-eval links, and coverage of every blocking component rule.
 
+`scripts/check_content_contexts.py` validates the closed inventory of product
+and audience Context contracts, their terminology references and source
+evidence, exact identities, unique rule IDs and keys, context-to-eval links,
+and coverage of every blocking Context rule.
+
 It also validates `shared/content/product-voice.yml`, the registered content
 patterns, and their regression cases with `scripts/check_content_patterns.py`.
 This check covers the human/machine file inventory, exact document identities,
