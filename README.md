@@ -202,6 +202,7 @@ python scripts/generate_manifest.py check
 python scripts/check_content_terminology.py
 python scripts/check_content_localization.py
 python scripts/check_content_components.py
+python scripts/check_content_contexts.py
 python scripts/check_content_patterns.py
 ```
 

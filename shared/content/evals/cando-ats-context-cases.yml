@@ -1,0 +1,325 @@
+schema_version: "0.1"
+id: content.eval.cando_ats_context_cases
+context_id: content.context.cando-ats
+language: fa-IR
+
+cases:
+  - id: direct_address_without_assumed_role
+    context: {surface: job_editor, user_role_confirmed: false}
+    content: {helper: می‌توانید اطلاعات شغل را پیش از انتشار بازبینی کنید.}
+    expected:
+      valid: true
+      checked_rules: [ATS-001, ATS-013]
+      violations: []
+
+  - id: organization_entity_label
+    context: {surface: organization_settings, concept: employer_organization}
+    content: {heading: اطلاعات سازمان}
+    expected:
+      valid: true
+      checked_rules: [ATS-002]
+      violations: []
+
+  - id: ats_candidate_and_jobvision_origin
+    context: {surface: candidate_details, origin: jobvision, mapping_confirmed: true}
+    content: {ats_label: کاندیدا, origin_label: کارجوی JobVision}
+    expected:
+      valid: true
+      checked_rules: [ATS-003, ATS-020]
+      violations: []
+
+  - id: distinct_job_entities
+    context: {surface: job_definition, concepts: [ats_job, job_post, job_position]}
+    content: {workspace: شغل, publication_entity: آگهی شغلی, role: موقعیت شغلی}
+    expected:
+      valid: true
+      checked_rules: [ATS-004]
+      violations: []
+
+  - id: distinct_request_entities
+    context: {surface: hiring_operations, concepts: [hiring_request, job_application]}
+    content: {internal_need: درخواست جذب, candidate_response: درخواست شغلی}
+    expected:
+      valid: true
+      checked_rules: [ATS-005]
+      violations: []
+
+  - id: recruitment_process_and_hiring_outcome
+    context: {surface: reporting}
+    content: {process: فرایند جذب, outcome: استخدام}
+    expected:
+      valid: true
+      checked_rules: [ATS-006]
+      violations: []
+
+  - id: approval_vocabulary
+    context: {surface: approval_configuration}
+    content: {workflow: گردش کار تأیید, step: مرحلهٔ تأیید, actor: تأییدکننده}
+    expected:
+      valid: true
+      checked_rules: [ATS-007]
+      violations: []
+
+  - id: approval_and_hiring_stages_distinct
+    context: {surface: ats_cross_area}
+    content: {request_step: مرحلهٔ تأیید, candidate_column: مرحلهٔ جذب}
+    expected:
+      valid: true
+      checked_rules: [ATS-008, ATS-009]
+      violations: []
+
+  - id: resume_assessment_and_matching_terms
+    context: {surface: candidate_evaluation}
+    content: {artifact: رزومه, capability: آزمون, metric: امتیاز تطبیق}
+    expected:
+      valid: true
+      checked_rules: [ATS-010]
+      violations: []
+
+  - id: cautious_ai_sorting_description
+    context: {surface: candidate_board, ai_ranking_observed: true, hiring_decision: false}
+    content: {helper: رزومه‌ها براساس میزان تطبیق با شرح شغل مرتب شده‌اند.}
+    expected:
+      valid: true
+      checked_rules: [ATS-011, ATS-012]
+      violations: []
+
+  - id: draft_approval_rule_with_source_state
+    context: {surface: approval_step, source: cando.ats.approval-workflow, source_state: draft}
+    content: {documentation: طبق قاعدهٔ جاری، تأیید حداقل یک تأییدکننده برای عبور از مرحله کافی است؛ این رفتار هنوز نیاز به بررسی production دارد.}
+    expected:
+      valid: true
+      checked_rules: [ATS-012, ATS-014]
+      violations: []
+
+  - id: observed_job_groups_scoped
+    context: {surface: jobs_list, evidence_scope: observed_account}
+    content: {documentation: در حساب بررسی‌شده، شغل‌ها در گروه‌های Active، Internal و Archived دیده شدند؛ lifecycle کامل بررسی نشده است.}
+    expected:
+      valid: true
+      checked_rules: [ATS-014, ATS-015]
+      violations: []
+
+  - id: candidate_behavior_preserves_unknown
+    context: {surface: candidate_board, transition_tested: false}
+    content: {documentation: انتقال، رد و بازگردانی کاندیدا هنوز بررسی نشده است.}
+    expected:
+      valid: true
+      checked_rules: [ATS-016]
+      violations: []
+
+  - id: automatic_rejection_preserves_unknown
+    context: {surface: application_form, automatic_rejection_rule_verified: false}
+    content: {helper: جزئیات قاعدهٔ رد خودکار هنوز تأیید نشده است.}
+    expected:
+      valid: true
+      checked_rules: [ATS-017]
+      violations: []
+
+  - id: publication_channels_scoped
+    context: {surface: publication, channel_behavior_verified: false}
+    content: {documentation: در UI امکان انتخاب کانال‌های انتشار دیده شد؛ شرایط و هزینهٔ هر کانال هنوز مستند نیست.}
+    expected:
+      valid: true
+      checked_rules: [ATS-018]
+      violations: []
+
+  - id: job_request_relationship_preserves_unknown
+    context: {surface: recruitment_request, cardinality_confirmed: false}
+    content: {documentation: یک یا چند شغل یا فعالیت استخدامی ممکن است در fulfillment درخواست نقش داشته باشند؛ cardinality هنوز تأیید نشده است.}
+    expected:
+      valid: true
+      checked_rules: [ATS-019]
+      violations: []
+
+  - id: shared_confirmation_contract
+    context: {surface: request_submission, pattern: confirmation, component: Modal}
+    content: {title: ارسال درخواست جذب, body: پس از ارسال، درخواست وارد فرایند بررسی می‌شود., primary_action: ارسال درخواست, secondary_action: بازگشت}
+    expected:
+      valid: true
+      checked_rules: [ATS-021]
+      violations: []
+
+  - id: localized_candidate_count
+    context: {surface: candidate_board, value_type: count, locale_formatted: true}
+    content: {message: ۱۲ کاندیدا در این مرحله قرار دارند.}
+    expected:
+      valid: true
+      checked_rules: [ATS-022]
+      violations: []
+
+  - id: assumed_hr_manager_role
+    context: {surface: job_editor, user_role_confirmed: false}
+    content: {greeting: مدیر محترم منابع انسانی}
+    expected:
+      valid: false
+      checked_rules: [ATS-001, ATS-013]
+      violations: [ATS-001, ATS-013]
+
+  - id: organization_called_employer
+    context: {surface: organization_settings, concept: employer_organization}
+    content: {heading: اطلاعات کارفرما}
+    expected:
+      valid: false
+      checked_rules: [ATS-002]
+      violations: [ATS-002]
+
+  - id: ats_candidate_called_jobseeker
+    context: {surface: candidate_board, identity_concept: ats_candidate, origin_known: false}
+    content: {label: کارجو}
+    expected:
+      valid: false
+      checked_rules: [ATS-003]
+      violations: [ATS-003]
+
+  - id: ats_job_called_job_post
+    context: {surface: job_definition, concept: ats_job}
+    content: {heading: ویرایش آگهی شغلی}
+    expected:
+      valid: false
+      checked_rules: [ATS-004]
+      violations: [ATS-004]
+
+  - id: hiring_request_called_application
+    context: {surface: recruitment_request, concept: hiring_request}
+    content: {heading: درخواست شغلی جدید}
+    expected:
+      valid: false
+      checked_rules: [ATS-005]
+      violations: [ATS-005]
+
+  - id: recruitment_called_hiring
+    context: {surface: hiring_stage_configuration, concept: recruitment}
+    content: {heading: مراحل استخدام}
+    expected:
+      valid: false
+      checked_rules: [ATS-006]
+      violations: [ATS-006]
+
+  - id: approval_terms_replaced_with_internal_jargon
+    context: {surface: approval_configuration}
+    content: {workflow: فلو اپروال, step: استپ, actor: اپروور}
+    expected:
+      valid: false
+      checked_rules: [ATS-007]
+      violations: [ATS-007]
+
+  - id: approval_step_called_hiring_stage
+    context: {surface: request_approval, concept: approval_step}
+    content: {label: مرحلهٔ جذب}
+    expected:
+      valid: false
+      checked_rules: [ATS-008]
+      violations: [ATS-008]
+
+  - id: pipeline_exposed_as_public_label
+    context: {surface: job_configuration, concept: hiring_stage}
+    content: {heading: پایپ‌لاین استخدام}
+    expected:
+      valid: false
+      checked_rules: [ATS-009]
+      violations: [ATS-009]
+
+  - id: assessment_called_test
+    context: {surface: candidate_evaluation, concept: assessment}
+    content: {action: افزودن تست}
+    expected:
+      valid: false
+      checked_rules: [ATS-010]
+      violations: [ATS-010]
+
+  - id: ai_ranking_presented_as_hiring_truth
+    context: {surface: candidate_board, ai_ranking_observed: true, hiring_decision: false}
+    content: {message: دستیار هوشمند بهترین کاندیدا را برای استخدام انتخاب کرد.}
+    expected:
+      valid: false
+      checked_rules: [ATS-011]
+      violations: [ATS-011]
+
+  - id: behavior_written_without_owning_area
+    context: {surface: candidate_board, owning_area_loaded: false, behavior_verified: false}
+    content: {helper: با انتقال کاندیدا، مدیر مربوط به‌صورت خودکار مطلع می‌شود.}
+    expected:
+      valid: false
+      checked_rules: [ATS-012, ATS-016]
+      violations: [ATS-012, ATS-016]
+
+  - id: action_used_as_permission_evidence
+    context: {surface: job_settings, action_observed: publish, permission_matrix_confirmed: false}
+    content: {documentation: همهٔ اعضای تیم جذب اجازهٔ انتشار شغل را دارند.}
+    expected:
+      valid: false
+      checked_rules: [ATS-013]
+      violations: [ATS-013]
+
+  - id: draft_workflow_rule_called_verified_policy
+    context: {surface: documentation, source_state: draft}
+    content: {statement: در همهٔ سازمان‌ها همیشه تأیید یک نفر برای هر مرحله کافی است.}
+    expected:
+      valid: false
+      checked_rules: [ATS-014]
+      violations: [ATS-014]
+
+  - id: observed_groups_declared_full_lifecycle
+    context: {surface: documentation, evidence_scope: observed_account}
+    content: {statement: lifecycle کامل شغل دقیقاً Active، Internal و Archived است.}
+    expected:
+      valid: false
+      checked_rules: [ATS-015]
+      violations: [ATS-015]
+
+  - id: invented_candidate_restore_behavior
+    context: {surface: rejected_candidates, restoration_tested: false}
+    content: {helper: کاندیدای ردشده را تا ۳۰ روز می‌توانید بدون تغییر سابقه بازگردانید.}
+    expected:
+      valid: false
+      checked_rules: [ATS-016]
+      violations: [ATS-016]
+
+  - id: invented_automatic_rejection_threshold
+    context: {surface: application_form, rule_verified: false}
+    content: {helper: پاسخ اشتباه به دو سؤال، درخواست را فوراً و برای همیشه رد می‌کند.}
+    expected:
+      valid: false
+      checked_rules: [ATS-017]
+      violations: [ATS-017]
+
+  - id: invented_publication_channel_guarantee
+    context: {surface: publication, channel_behavior_verified: false}
+    content: {helper: انتشار در JobVision رایگان است و بلافاصله همگام می‌شود.}
+    expected:
+      valid: false
+      checked_rules: [ATS-018]
+      violations: [ATS-018]
+
+  - id: invented_one_to_one_job_request_relation
+    context: {surface: recruitment_request, cardinality_confirmed: false}
+    content: {documentation: هر درخواست جذب پس از تأیید دقیقاً یک شغل ATS می‌سازد.}
+    expected:
+      valid: false
+      checked_rules: [ATS-019]
+      violations: [ATS-019]
+
+  - id: invented_jobvision_sync
+    context: {surface: ats_job, cross_product_sync_verified: false}
+    content: {helper: هر تغییر شغل ATS بلافاصله آگهی JobVision و همهٔ درخواست‌ها را همگام می‌کند.}
+    expected:
+      valid: false
+      checked_rules: [ATS-020]
+      violations: [ATS-020]
+
+  - id: context_overrides_confirmation_anatomy
+    context: {surface: request_submission, pattern: confirmation, component: Modal}
+    content: {instruction: در ATS دکمهٔ بازگشت را حذف کنید چون Context مهم‌تر از Modal contract است.}
+    expected:
+      valid: false
+      checked_rules: [ATS-021]
+      violations: [ATS-021]
+
+  - id: unlocalized_dynamic_candidate_count
+    context: {surface: candidate_board, value_type: count, locale_formatted: false}
+    content: {message: "{candidate_count} کاندیدا در این مرحله قرار دارند."}
+    expected:
+      valid: false
+      checked_rules: [ATS-022]
+      violations: [ATS-022]

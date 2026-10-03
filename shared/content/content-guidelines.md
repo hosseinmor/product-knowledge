@@ -16,6 +16,7 @@ related:
   - content.component.notification
   - content.context.jobvision-candidate
   - content.context.jobvision-employer
+  - content.context.cando-ats
   - content.pattern.error
   - content.pattern.confirmation
   - content.pattern.empty-states
@@ -119,6 +120,20 @@ Keep «جذب» separate from «استخدام» and «درخواست جذب» s
 شغلی». Do not invent role permissions, lifecycle states, quotas, plans,
 moderation, or Candidate-side effects while the owning Employer Areas remain
 undocumented or draft.
+
+For Cando ATS, load [`contexts/cando-ats.md`](contexts/cando-ats.md). Its
+machine-readable contract and evals are in
+[`contexts/cando-ats.yml`](contexts/cando-ats.yml) and
+[`evals/cando-ats-context-cases.yml`](evals/cando-ats-context-cases.yml).
+
+Use «سازمان» for the customer entity and «کاندیدا» for a person managed inside
+ATS; keep the JobVision-origin «کارجو» identity distinct. Keep «شغل ATS»، «آگهی
+شغلی» and «موقعیت شغلی» separate, as well as «درخواست جذب» and «درخواست شغلی».
+Use «مرحلهٔ جذب» for the public hiring-stage concept and do not expose the
+technical term `pipeline`. Treat AI-assisted resume ranking as a capability,
+not a «دستیار هوشمند» or a hiring decision. Load the owning ATS Product Area
+before claiming workflow, permission, lifecycle, publication, rejection, or AI
+behavior.
 
 ## Labels
 

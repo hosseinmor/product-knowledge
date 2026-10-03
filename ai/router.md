@@ -139,6 +139,29 @@ Employer Account and Access, Candidate/Application Management, and
 Products/Plans do not yet have substantive Product Areas. Preserve unknowns
 instead of inferring permissions, states, quotas, or entitlement behavior.
 
+When the copy is for Cando ATS or a recruiting-operations surface, also load:
+
+```text
+shared/content/contexts/cando-ats.md
+shared/content/contexts/cando-ats.yml
+shared/content/evals/cando-ats-context-cases.yml
+products/cando/ats/overview.md
+```
+
+Then load the owning ATS Product Area for the behavior in question:
+
+```text
+hiring needs, approval requests, fulfillment  → products/cando/ats/areas/recruitment-request.md
+workflow scope, steps, and approvers           → products/cando/ats/areas/approval-workflow.md
+job definition, publication, candidate board  → products/cando/ats/areas/job-management.md
+```
+
+Recruitment Request and Approval Workflow remain draft. Job Management is
+reviewed only for the scope observed in one authenticated account. Candidate
+Management and Organization/Access do not yet have substantive Product Areas;
+preserve unknowns instead of inferring lifecycle, permissions, publication,
+automatic rejection, cross-product synchronization, or AI-ranking behavior.
+
 For Persian/English language changes, RTL or mixed-direction content, numbers,
 dates, times, units, amounts, translation, or runtime variables, also load:
 

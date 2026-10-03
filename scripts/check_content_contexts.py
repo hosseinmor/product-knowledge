@@ -64,6 +64,28 @@ CONTEXT_SPECS = (
             "claim_model",
         ),
     },
+    {
+        "name": "cando-ats",
+        "label": "Cando ATS context",
+        "source_path": CONTEXT_DIR / "cando-ats.yml",
+        "document_path": CONTEXT_DIR / "cando-ats.md",
+        "eval_path": EVAL_DIR / "cando-ats-context-cases.yml",
+        "context_id": "content.context.cando-ats",
+        "eval_id": "content.eval.cando_ats_context_cases",
+        "product": "cando.ats",
+        "audience": "recruiting",
+        "rule_prefix": "ATS",
+        "evaluation_source": "../evals/cando-ats-context-cases.yml",
+        "required_models": (
+            "depends_on",
+            "source_boundaries",
+            "audience_model",
+            "voice_model",
+            "terminology_model",
+            "product_area_routing",
+            "claim_model",
+        ),
+    },
 )
 
 
