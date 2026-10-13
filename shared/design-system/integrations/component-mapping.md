@@ -533,11 +533,16 @@ The Content Switcher design identity, Size × Content parent model, native Items
 | Figma content property | `Items` native SLOT |
 | Canonical appearance | Line only |
 | Canonical size | 40px |
-| Default width | Items Hug contents; equal-width is a consuming-layout decision, not a variant |
+| Item spacing | `24px` owned by Tabs; Text/Text + Icon use `0px` inline padding |
+| Default width | Text items Hug contents; Icon-only items are `40×40px`; equal-width is a consuming-layout decision, not a variant |
 | Composition | Variable item count through Items Slot; exactly one Selected in normal usage; single-line, no wrap |
 | Internal Item set | `_Tab Item`, node `23486:299`, key `883007580c6e232e8ca2ba70a64c90ed80b73067` |
-| Item variants | `7 = Default / Hover / Active / Focus / Selected / Selected Focus / Disabled` |
-| Item content properties | `Label / Show icon / Icon`; visible Label required, Icon optional |
+| Item variants | `21 = 3 Content × 7 State` |
+| Item variant properties | `Content / State` |
+| Item content modes | `Text / Text + Icon / Icon only` |
+| Item states | `Default / Hover / Active / Focus / Selected / Selected Focus / Disabled` |
+| Item content properties | `Label / Icon`; Label remains the accessible-name authoring source for Icon-only |
+| Content consistency | One content mode per tablist; do not mix Text / Text + Icon / Icon-only items in one group |
 | Selection treatment | 2px `line/accent` bottom indicator + `fg/primary`; selected text remains Regular |
 | Shared tablist line | 1px `line/default` |
 | Focus | shared `focus/default` outer ring with 1px surface gap; Selected Focus authored explicitly |
@@ -554,8 +559,7 @@ The Content Switcher design identity, Size × Content parent model, native Items
 | Code Connect | **No registered mapping** |
 | Last Figma verification | 2026-10-13 |
 
-The Tabs design identity, line-only v1 appearance, native Items Slot composition, State-only internal Item model, 40px density, Hug-width rule, selected/focus treatment, overflow rule, Content Switcher/navigation/filter boundaries, RTL behavior, and accessibility contract are verified in `../components/tabs.md`. Runtime API, exact DOM/ARIA implementation, activation mode, routing integration, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime source is registered.
-
+The Tabs design identity, line-only v1 appearance, native Items Slot composition, Content × State internal Item model, 40px density, zero-inline-padding + 24px parent-gap layout, Text/Text+Icon/Icon-only content modes, selected/focus treatment, overflow rule, Content Switcher/navigation/filter boundaries, RTL behavior, and accessibility contract are verified in `../components/tabs.md`. Runtime API, exact DOM/ARIA implementation, activation mode, routing integration, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime source is registered.
 
 ### Chip
 
