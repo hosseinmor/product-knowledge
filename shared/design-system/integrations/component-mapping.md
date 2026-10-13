@@ -7,7 +7,7 @@ summary: Registry contract for mapping stable Figma component identities to runt
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-09-23
+last_reviewed: 2026-10-13
 related:
   - design-system.reference.figma
   - design-system.reference.code
@@ -518,6 +518,43 @@ The Toggle design identity, Size × State × Toggled matrix, label contract, neu
 | Last Figma verification | 2026-09-21 |
 
 The Content Switcher design identity, Size × Content parent model, native Items Slot, State-only internal Item model, inherited sizing, Text/Icon boundary, selected treatment, semantic foreground mapping, equal-width composition, responsive rule, RTL behavior, and accessibility contract are verified in `../components/content-switcher.md`. Runtime API, exact DOM/ARIA and keyboard implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime source is registered.
+
+
+### Tabs
+
+| Field | Current value |
+|---|---|
+| DS component | Tabs |
+| Knowledge document | `../components/tabs.md` |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component | `Tabs / Default` |
+| Figma component key | `d79023ff7c2575d09ea714814c8d7e75fbac1662` |
+| Figma node ID | `23486:300` |
+| Figma content property | `Items` native SLOT |
+| Canonical appearance | Line only |
+| Canonical size | 40px |
+| Default width | Items Hug contents; equal-width is a consuming-layout decision, not a variant |
+| Composition | Variable item count through Items Slot; exactly one Selected in normal usage; single-line, no wrap |
+| Internal Item set | `_Tab Item`, node `23486:299`, key `883007580c6e232e8ca2ba70a64c90ed80b73067` |
+| Item variants | `7 = Default / Hover / Active / Focus / Selected / Selected Focus / Disabled` |
+| Item content properties | `Label / Show icon / Icon`; visible Label required, Icon optional |
+| Selection treatment | 2px `line/accent` bottom indicator + `fg/primary`; selected text remains Regular |
+| Shared tablist line | 1px `line/default` |
+| Focus | shared `focus/default` outer ring with 1px surface gap; Selected Focus authored explicitly |
+| Overflow | no wrap; runtime horizontal scroll/equivalent mechanism; no canonical Previous/Next arrow API |
+| Counter | legacy Tag-based counter removed; wait for validated Badge/count primitive and repeated need |
+| RTL | no RTL variant; logical reading-order composition |
+| Content Switcher boundary | Tabs = peer content panels; Content Switcher / Segmented Control = alternate representations/modes of same content |
+| Legacy Figma | old Type/Size/Alignment/Skeleton/Selected-boolean/overflow-arrow models retained under Legacy names for migration only |
+| Documentation frame | `Tabs / Documentation`, node `23488:286` |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names, DOM/ARIA roles, route behavior, activation mode, or overflow algorithm from Figma |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-10-13 |
+
+The Tabs design identity, line-only v1 appearance, native Items Slot composition, State-only internal Item model, 40px density, Hug-width rule, selected/focus treatment, overflow rule, Content Switcher/navigation/filter boundaries, RTL behavior, and accessibility contract are verified in `../components/tabs.md`. Runtime API, exact DOM/ARIA implementation, activation mode, routing integration, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime source is registered.
 
 
 ### Chip
