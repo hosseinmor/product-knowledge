@@ -71,13 +71,17 @@ The item count is composition, not a variant axis.
 
 ### _Tab Item
 
-A Tab Item contains:
+A Tab Item supports three content modes:
 
-1. required Label;
-2. optional leading Icon;
-3. selected bottom indicator when current.
+1. `Text`;
+2. `Text + Icon`;
+3. `Icon only`.
 
-The label remains visible when an Icon is present. Icon-only Tabs are not part of canonical v1.
+All modes share the same selection indicator and interaction states.
+
+Text and Text + Icon use zero inline padding so the first and last labels can align flush with surrounding content. Icon-only stays a fixed `40×40px` hit target.
+
+The `Label` property remains required in every mode. In Icon-only mode it is not visually rendered, but it is the canonical authoring source for the runtime accessible name.
 
 ## Figma Property Model
 
@@ -95,14 +99,14 @@ The default authoring composition contains four Tab Items with exactly one Selec
 
 | Property | Values / type | Notes |
 |---|---|---|
+| `Content` | `Text / Text + Icon / Icon only` | presentation mode |
 | `State` | `Default / Hover / Active / Focus / Selected / Selected Focus / Disabled` | compact visual state model |
-| `Label` | Text | required visible label |
-| `Show icon` | Boolean | optional leading icon |
+| `Label` | Text | visible in Text modes; accessible-name source in Icon-only |
 | `Icon` | Instance swap | shared icon-library source |
 
-Variant count: **7**.
+Variant count: **21 = 3 Content × 7 State**.
 
-There is deliberately no Appearance, Size, Alignment, Selected Boolean, Skeleton, Icon-only, Direction, or item-count axis.
+There is deliberately no Appearance, Size, Alignment, Selected Boolean, Skeleton, Direction, or item-count axis.
 
 ## Selection Model
 
@@ -119,11 +123,12 @@ Selected does not need Hover or Active Cartesian variants in Figma.
 Canonical v1 uses one density:
 
 - Tab height: **40px**
-- horizontal item padding: **12px**
+- Text / Text + Icon inline padding: **0px**
 - Label: Vazirmatn **14/20 Regular**
-- optional Icon: **18px**
-- Icon-to-label gap: **8px**
-- inter-item gap: **0px**
+- Icon: **18px**
+- Text + Icon internal gap: **8px**
+- Icon-only item: **40×40px**
+- inter-item gap owned by Tabs: **24px**
 
 The selected label does not become Bold; selection must not create layout shift.
 
@@ -175,14 +180,29 @@ Preserve the Selected indicator and add the shared focus-visible ring.
 - Label / Icon: `fg/disabled`;
 - no Hover / Active treatment.
 
-## Icon
+## Content Modes
 
-Icon is optional and supplements the visible label.
+A single tablist should use one content mode consistently.
 
-- Do not use Icon-only Tabs in canonical v1.
+### Text
+
+Default mode. Use concise, parallel labels.
+
+### Text + Icon
+
+Use when the icon materially improves recognition of every peer Tab. Do not add icons decoratively to only some Tabs in the same tablist.
+
+### Icon only
+
+Supported for compact contexts where every icon is familiar and unambiguous.
+
+- Icon-only items remain `40×40px`.
+- Every Icon-only Tab requires a programmatic accessible name; use the Tab Item `Label` authoring property as the source.
 - Use the shared icon library; do not redraw icons inside Tabs.
 - The consuming Tab Item must override the shared icon source color to match its semantic foreground state.
-- If an Icon does not materially improve recognition, prefer Label only.
+- If the icons are not immediately understandable in context, use Text instead.
+
+Do not mix Text, Text + Icon, and Icon-only items within the same tablist.
 
 ## Counter / Badge
 
@@ -283,11 +303,12 @@ Canonical replacements:
 - Line only;
 - one 40px size;
 - Hug items by default;
-- State-only internal Tab Item;
+- compact `Content × State` internal Tab Item;
 - native Items Slot for variable count;
 - no Skeleton interaction state;
 - no overflow-arrow API;
-- optional Icon + required Label;
+- `Text / Text + Icon / Icon only` content modes;
+- zero inline padding for text modes with 24px parent-owned inter-item gap;
 - no Tag-based counter.
 
 ## Figma Reference
@@ -309,10 +330,11 @@ File key: `rROD8ctH9UfPGAMrRrOzHe`
 - Internal Component Set: `_Tab Item`
 - Figma node ID: `23486:299`
 - Component key: `883007580c6e232e8ca2ba70a64c90ed80b73067`
-- Variant property: `State`
+- Variant properties: `Content / State`
+- Content: `Text / Text + Icon / Icon only`
 - States: `Default / Hover / Active / Focus / Selected / Selected Focus / Disabled`
-- Content properties: `Label / Show icon / Icon`
-- Variant count: `7`
+- Content properties: `Label / Icon`
+- Variant count: `21`
 
 ### Documentation
 
@@ -345,16 +367,19 @@ Do not infer exact DOM structure, event names, route behavior, activation mode, 
 Verify:
 
 - public Tabs exposes only the Items Slot;
-- internal Tab Item exposes only State / Label / Show icon / Icon;
+- internal Tab Item exposes only Content / State / Label / Icon;
 - exactly one item is Selected in normal usage;
 - Selected Focus preserves both current indicator and focus-visible treatment;
 - every state remains 40px high;
 - changing Label content changes width without changing height;
 - selected text remains Regular and does not shift layout;
-- default Tabs items hug content;
+- Text and Text + Icon items use 0px inline padding and hug content;
+- Tabs owns a 24px inter-item gap;
+- Icon-only items stay 40×40px;
+- each tablist uses one Content mode consistently;
 - no tablist wraps;
 - long-label and narrow-overflow examples remain single-line;
-- Icon is optional but Label remains visible;
+- Icon-only Tabs retain a Label value for the accessible-name source;
 - Disabled content uses `fg/disabled`;
 - RTL authoring remains visually correct;
 - legacy Contained / Chip / Size / Grid-aware / Skeleton / overflow-arrow APIs do not appear in canonical components.
