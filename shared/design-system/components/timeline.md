@@ -42,6 +42,7 @@ The Timeline must not acquire Stepper's completed/current/upcoming state model.
 - Page: `Timeline`, node `23509:9`
 - Component set: `Timeline Item`, node `23509:48`
 - Parent component: `Timeline`, node `23509:49`
+- Unified documentation frame: `23530:140`, containing Header, Component Set, Playground, Anatomy & usage, and Responsive QA.
 - Playground with both product use cases: `23511:13370`
 - Narrow/long-title QA: `23519:121`, verified at 360px width
 
@@ -64,7 +65,7 @@ Timeline Item
 ├── Content (vertical, RTL right-aligned)
 │   ├── Title (TEXT property)
 │   ├── Timestamp (TEXT property, optional via BOOLEAN)
-│   └── Content slot (native Figma SLOT)
+│   └── Content slot (native Figma SLOT, optional and hidden by default)
 └── Axis (24px, right-hand side in RTL)
     ├── Marker (Dot or icon)
     └── Connector (BOOLEAN visibility)
@@ -78,6 +79,7 @@ Timeline Item
 | `Timestamp` | Editable display string |
 | `Show timestamp` | Boolean |
 | `Show connector` | Boolean. Normally false on last visible item |
+| `Show content` | Boolean; default false. Enable only when the Content slot is needed. Empty history events do not reserve slot space |
 | `Icon` | Instance-swap property, available for Icon marker |
 | `Content slot` | Native Figma SLOT for optional descriptions, task lists, metadata, links, or actions |
 
@@ -88,10 +90,10 @@ Four main visual variants: `Density=Default/Compact × Marker=Dot/Icon`. Icon id
 - Axis: fixed 24px wide, on the **right** of content in RTL.
 - Dot: neutral 8px circle.
 - Icon: 20px visual inside the 24px axis; use the approved DS Icon component and override its fixed source color to the appropriate semantic foreground.
-- Connector: 1px, `line/default`; stretches with item content, hidden on the final item.
+- Connector: 1px, `line/default`; stretches with item content, hidden on the final item. Its start is separated from the 24px marker container by 8px, and the axis reserves 8px beneath the connector. Never attach the line directly to an icon.
 - Text: title uses `Label/SM`; timestamp uses `Body/XS`; both use Vazirmatn text styles.
 - Foreground: `fg/primary` for title, `fg/tertiary` for timestamp, `fg/secondary` for the default marker/icon.
-- Spacing: axis–content gap 12px Default / 8px Compact; content vertical gap 8px Default / 4px Compact; derive from the existing Spacing variables.
+- Spacing: axis–content gap 12px Default / 8px Compact; content vertical gap 8px Default / 4px Compact; marker–connector gap 8px and axis bottom padding 8px. Base content bottom spacing is 16px Default / 12px Compact. Derive these from existing Spacing variables.
 - The 560px Figma component canvas width is an example, **not** a required runtime width; content, title, timestamp and slots support fill and wrap.
 - Use the DS radius variables for any surrounding cards. Timeline itself has no card surface or border.
 
@@ -101,13 +103,13 @@ Avoid a color scale tied to relative timing ("before / starting day / after") as
 
 ### Onboarding — Schedule Timeline
 
-Each time bucket such as `۷ روز قبل از شروع کار` is one item. Date goes in Timestamp; related scheduled tasks are a list inside Content slot. A time bucket with three tasks still has **one** marker. Task rows do not get Timeline connectors or individual Timeline markers.
+Each time bucket such as `۷ روز قبل از شروع کار` is one item. Date goes in Timestamp; related scheduled tasks are a list inside Content slot with `Show content=true`. A time bucket with three tasks still has **one** marker. Task rows do not get Timeline connectors or individual Timeline markers.
 
 The task list, status of individual tasks, task type icons, navigation targets and whether a task is completed are the responsibility of the composed task content, not the Timeline Item.
 
 ### My Applications — Event History
 
-Each actual event is one item. Keep the event title primary and date/time secondary; type-appropriate icons may replace the neutral dot. The icon must not be the sole carrier of meaning. The title should describe the event in words. These event records are not fixed process steps.
+Each actual event is one item. Keep `Show content=false` unless a real explanation, action, or additional metadata is needed; no empty placeholder space should appear. Keep the event title primary and date/time secondary; type-appropriate icons may replace the neutral dot. The icon must not be the sole carrier of meaning. The title should describe the event in words. These event records are not fixed process steps.
 
 ## Ordering and grouping
 
