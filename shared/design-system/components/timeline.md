@@ -44,7 +44,7 @@ The Timeline must not acquire Stepper's completed/current/upcoming state model.
 - Component set: `Timeline Item`, node `23509:48`, Figma key `3d90d9035ecdfe4f210b8602b8d8d93e8f59e7da`
 - Parent component set: `Timeline`, node `23609:126914`, Figma key `70716c3cb413b2669f06596426cea18ff7f7c92a` (`Count=1..6`). The original parent master `23509:49` is retained as the `Count=4` variant.
 - Canonical presentation frame: `23618:417` (2528px reference-aligned format, matching the Textarea presentation at `22880:132462`), containing Header, variant matrix with both live component sets, side Axes & Properties panel, Internal anatomy cards, and a unified Playground for Onboarding, My Applications and narrow RTL QA. The earlier frame `23576:15065` was archived in a hidden legacy frame.
-- Playground with both product use cases: `23511:13370`
+- Canonical Playground board: `23618:127314`, containing the live product preview cards `23511:13375` (Onboarding) and `23511:13482` (My Applications). The old standalone Playground wrapper `23511:13370` is no longer the canonical review surface.
 - Narrow/long-title QA: `23519:121`, verified at 360px width
 - Neutral DS marker icon: `Icon/dot`, node `23609:9`, Figma key `e9def3d417c05352d5f86ed6d7553755399fd22d` (24px icon containing a centered filled dot; override semantic color in context).
 
