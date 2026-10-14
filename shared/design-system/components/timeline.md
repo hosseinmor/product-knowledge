@@ -6,8 +6,9 @@ title: Timeline
 summary: A compositional vertical RTL sequence of chronological events or scheduled time groups, shared by Job Vision My Applications and employee Onboarding.
 knowledge_state: verified
 document_maturity: draft
-design_status: in-progress
-design_maturity: visual-pilot
+design_status: ready-for-dev
+design_maturity: handoff-ready
+last_reviewed: '2026-10-14'
 related:
   - design-system.component.progress-indicator
   - design-system.accessibility.core
@@ -40,16 +41,16 @@ The Timeline must not acquire Stepper's completed/current/upcoming state model.
 - Figma file: `[DS] Job Vision NEXT`
 - File key: `rROD8ctH9UfPGAMrRrOzHe`
 - Page: `Timeline`, node `23509:9`
-- Component set: `Timeline Item`, node `23509:48`
-- Parent component set: `Timeline`, node `23609:126914` (`Count=1..6`). The original parent master `23509:49` is retained as the `Count=4` variant.
+- Component set: `Timeline Item`, node `23509:48`, Figma key `3d90d9035ecdfe4f210b8602b8d8d93e8f59e7da`
+- Parent component set: `Timeline`, node `23609:126914`, Figma key `70716c3cb413b2669f06596426cea18ff7f7c92a` (`Count=1..6`). The original parent master `23509:49` is retained as the `Count=4` variant.
 - Canonical presentation frame: `23618:417` (2528px reference-aligned format, matching the Textarea presentation at `22880:132462`), containing Header, variant matrix with both live component sets, side Axes & Properties panel, Internal anatomy cards, and a unified Playground for Onboarding, My Applications and narrow RTL QA. The earlier frame `23576:15065` was archived in a hidden legacy frame.
 - Playground with both product use cases: `23511:13370`
 - Narrow/long-title QA: `23519:121`, verified at 360px width
-- Neutral DS marker icon: `Icon/dot`, node `23609:9` (24px icon containing a centered filled dot; override semantic color in context).
+- Neutral DS marker icon: `Icon/dot`, node `23609:9`, Figma key `e9def3d417c05352d5f86ed6d7553755399fd22d` (24px icon containing a centered filled dot; override semantic color in context).
 
 Figma review link: https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23618-417
 
-Exact published component keys are **not yet verified**; do not invent them.
+Figma component identity keys above were read directly from the owning Figma source on 2026-10-14. Whether these components have been **published to a shared Figma Library** is not verified; do not mistake an identity key for publication. Runtime component identifiers and Figma-to-code mappings remain unregistered.
 
 ## Component contract (Figma)
 
@@ -92,7 +93,7 @@ Exactly two Timeline Item variants: `Density=Default` and `Density=Compact`. Mar
 
 - Axis: fixed 24px wide, on the **right** of content in RTL.
 - Neutral markers use `Icon/dot` in the DS Icons library (24px icon canvas with centered solid dot), never `Icon/radio_button_checked`. Dot-like and semantic icon markers share the same instance-swap API.
-- Icon: 20px visual inside the 24px axis; use the approved DS Icon component and override its fixed source color to the appropriate semantic foreground.
+- Icon: **24×24px DS Icon instance within the 24px Axis**. Individual icon artwork occupies its intrinsic inner bounds; `Icon/dot` contains a centered 10px solid circle. Use the approved DS Icon component and override its fixed source color to `fg/secondary` unless a validated event meaning calls for another semantic role. Do not assume a 20px instance.
 - Connector: 1px, `line/default`; **Axis must stretch to exactly the Timeline Item height**, including wrapped titles and multi-task Content slots. Connector itself flexes within that axis, hidden on the final visible item. Its start is separated from the 24px marker container by 8px, and the axis reserves 8px beneath the connector. Never attach the line directly to an icon.
 - Text: title uses `Label/SM`; timestamp uses `Body/XS`; both use Vazirmatn text styles.
 - Foreground: `fg/primary` for title, `fg/tertiary` for timestamp, `fg/secondary` for the default marker/icon.
@@ -148,6 +149,57 @@ Each actual event is one item. Keep `Show content=false` unless a real explanati
 - In RTL, axis is on the right, content is right-aligned, vertical order is unchanged.
 - Long event titles wrap rather than truncate; markers align to the beginning/first line of each item. Text and Content slot fill available width.
 
+## Development implementation contract (framework-agnostic)
+
+This section specifies **required behavior**, not a claim that an existing API has been implemented. Choose component names/props to fit the owning frontend repository. Do not copy Figma-only `Count` into a hard runtime limit.
+
+### Runtime content model
+
+Each entry in the input sequence must have a stable identity, a meaningful visible title, and may include a machine-readable timestamp, an icon semantic identifier, or extra content. These are conceptual fields, **not verified TypeScript property names**.
+
+- The product owns the array of events or scheduled groups, their chronological order, and relative/absolute date formatting.
+- The renderer handles **zero or any number of entries**; zero follows the product empty-state contract. The Figma `Count=1..6` selector exists **only for authoring**.
+- One array entry maps to one Timeline Item. A scheduled date containing multiple tasks is **one Item with a nested task list**, not multiple events.
+- Title is required for a visible event. Timestamp is optional; if present and representable as a date/time, pair the readable Persian text with machine-readable metadata.
+- Event-type icon is optional and defaults to a decorative neutral dot. Never encode an event's meaning solely with an icon or color.
+- Optional details, tasks, metadata, and interactive actions render in the Item's secondary content area. Do not expose an empty content area when there is no secondary content.
+- The component never sorts or reverses its data automatically. Consumers select newest-first or oldest-first per scenario.
+
+### Layout and visual rules
+
+- RTL is the default: the **24px Axis is on logical inline-start (right)**, content occupies remaining inline width, and Title / Timestamp align to the right.
+- Marker is a 24px DS Icon instance. `Icon/dot` shows a centered 10px dot within that icon. Default marker color: `fg/secondary`. Icons swapped from the common icon library must have their fixed source color overridden to the contextually appropriate semantic foreground.
+- Connector is **1px `line/default`**, starting after an 8px Marker-to-Connector gap; allow 8px bottom spacing. It stretches as the Item grows with wrapped text or secondary content.
+- Exactly **one connector between consecutive visible Items**. There is **no connector after the last Item**. Derive this from each Item's array index/last-item status; do not introduce separate connector states that a product consumer must coordinate.
+- Title style: `Label/SM`, `fg/primary`; timestamp: `Body/XS`, `fg/tertiary`. Both are Vazirmatn. Gap between them: 4px.
+- The optional secondary content sits **16px after the Header in Default** and **12px in Compact**. Axis-to-Content gap: 12px Default / 8px Compact. Use existing spacing tokens, not newly hardcoded ad-hoc color tokens.
+- The component has no independent border, card surface, hover state, or item-wide click target by default. Surrounding cards are the consumer's responsibility.
+- Text wraps; no imposed single-line ellipsis for event titles. Axis height tracks Item height. Do not assume the 480px / 420px Figma master widths at runtime.
+
+### Accessibility and interactions
+
+- Use an ordered sequence in the DOM (e.g. `<ol>` with each event in an `<li>`) so event chronology is exposed independently of decorative positioning. This is a **target implementation contract**, not a verified existing DOM.
+- Render valid dates in `<time datetime="...">` where applicable. When a relative display label is used (e.g. «۲ روز پیش»), preserve the associated absolute time in an accessible/machine-readable form.
+- Hide decorative Axis, Connector and neutral Marker from assistive technology. If icons convey event category, supply that category in readable text as well.
+- Do not put focus or button semantics on a whole passive Item. Links/actions inside content are independently keyboard reachable, with visible focus and proper accessible names.
+- Preserve correct reading order in RTL and with mixed Persian/English text. Visual mirroring must not reverse chronology.
+- Do not invent step statuses (`completed/current/upcoming`); those belong to Stepper HOS-31.
+
+### Acceptance tests — Storybook bypass
+
+| Test | Required result | Status |
+|---|---|---|
+| Figma `Count=1..6` visual instances | Correct visible Item number; only adjacent visible Items have a connector | **Verified in Figma** |
+| Figma Onboarding (1/2/3 tasks per date) | Each date stays one Item; task slots and matching Axis heights preserved across Count changes | **Verified in Figma** |
+| Figma My Applications | 4 event records, icon swaps, neutral semantic colors and last connector hidden | **Verified in Figma** |
+| Figma responsive RTL at 360px | Long title wraps, timestamp remains below title, Axis stretches with content | **Verified in Figma** |
+| Runtime list length 0, 1, 2, 4, 6, 7+ | Correct dynamic rendering, including >6 events, without authoring `Count` limit | **Required in development** |
+| Runtime last connector / variable text | No trailing connector; connector stretches with variable-height content | **Required in development** |
+| Runtime semantic dates / RTL / keyboard | Accessible ordered list, meaningful time, decorative marker hidden, nested links operable | **Required in development** |
+| Runtime theme and semantics | Semantic tokens resolve in supported themes, no hardcoded icon guard color leaks | **Required in development** |
+
+The implementation must be validated via the owning team's code tests/manual QA. **Do not require Storybook** for this phase.
+
 ## Figma QA performed
 
 - [x] Two Timeline Item variants (`Density=Default/Compact`), without a Marker variant axis.
@@ -164,10 +216,13 @@ Each actual event is one item. Keep `Show content=false` unless a real explanati
 - [x] Title–Timestamp gap 4px; Header–Content gap 16px Default / 12px Compact.
 - [x] Orphan experiments moved to a hidden archive frame on the Figma page (not deleted).
 - [x] RTL alignment and variable-height item composition visually reviewed.
-- [ ] Final product-owner approval of visual design.
-- [ ] Runtime/Storybook registration, DOM semantics, API and dynamic data verification.
-- [ ] Published component keys / full component mapping registration.
+- [x] Design-source audit and final review across both product examples, Count variants, optional content, tokens, and 360px RTL layout (2026-10-14).
+- [x] Figma component identity keys verified and registered in `../integrations/component-mapping.md`.
+- [x] Development acceptance criteria documented without Storybook dependency.
+- [ ] Product-owner final visual sign-off, if required by the team's handoff process.
+- [ ] Runtime implementation tests and accessibility review **after** development.
+- [ ] Shared-library publication status and Code Connect, if required later (not release blockers for design handoff).
 
 ## Status of runtime and sources
 
-This is a **Figma-verified visual/design contract**. No owning runtime or Storybook Timeline source has been verified in this task. Do not infer production TypeScript prop names, exact DOM hierarchy, sorting behavior or event payloads from the Figma implementation. Implement/runtime QA as a distinct follow-up once an owning source is registered.
+This document is a **Figma-verified design contract, ready for development handoff**. No owning runtime Timeline component has been registered or inspected in this task, so exact production TypeScript prop names, current DOM hierarchy and event payloads are **unverified**, not pre-existing facts. Developers should implement against the behavior and acceptance criteria below, choose framework-appropriate APIs, and validate against the real code. **Storybook is explicitly bypassed for this handoff by product decision; a Storybook entry is neither required nor evidence of correctness.** Runtime tests and accessibility QA remain implementation responsibilities, not design blockers.
