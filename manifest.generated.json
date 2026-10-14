@@ -1400,18 +1400,41 @@
     {
       "id": "design-system.component.table",
       "kind": "design-system-component",
-      "title": "Table",
-      "summary": "> Status: structure only",
+      "title": "Data Table",
+      "summary": "Composable RTL table for comparing and managing structured data in Job Vision products; HOS-35 working Figma pilot.",
       "status": "draft",
       "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "last_reviewed": "2026-10-14",
+      "related": [
+        "design-system.accessibility.tables-and-data-visualization",
+        "design-system.pattern.data-views"
+      ],
       "topics": [
         "components",
         "design-system-component",
         "table"
       ],
       "path": "shared/design-system/components/table.md"
+    },
+    {
+      "id": "design-system.component.table-runtime-contract",
+      "kind": "design-system-component",
+      "title": "Data Table — Runtime and Accessibility Contract",
+      "summary": "Proposed implementation contract and acceptance tests for the HOS-35 RTL Data Table pilot.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": "2026-10-14",
+      "related": [
+        "design-system.component.table",
+        "design-system.pattern.data-views",
+        "design-system.accessibility.tables-and-data-visualization"
+      ],
+      "topics": [
+        "components",
+        "design-system-component",
+        "table-runtime-contract"
+      ],
+      "path": "shared/design-system/components/table-runtime-contract.md"
     },
     {
       "id": "design-system.component.tabs",
@@ -2128,11 +2151,14 @@
       "id": "design-system.pattern.data-views",
       "kind": "design-system-pattern",
       "title": "Data Views",
-      "summary": "> Status: structure only",
+      "summary": "Choosing between tables, lists, and interactive grids, and composing common data-view controls.",
       "status": "draft",
       "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "last_reviewed": "2026-10-14",
+      "related": [
+        "design-system.component.table",
+        "design-system.accessibility.tables-and-data-visualization"
+      ],
       "topics": [
         "data-views",
         "design-system-pattern",
@@ -2390,7 +2416,7 @@
       "summary": "Registry contract for mapping stable Figma component identities to runtime components and Storybook; records current verified mappings and gaps.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-23",
+      "last_reviewed": "2026-10-14",
       "related": [
         "design-system.reference.figma",
         "design-system.reference.code",
@@ -2810,11 +2836,11 @@
     }
   ],
   "summary": {
-    "documents": 141,
+    "documents": 142,
     "by_kind": {
+      "design-system-component": 35,
       "content-guideline": 17,
       "design-system-accessibility": 18,
-      "design-system-component": 34,
       "design-system-design-language": 1,
       "design-system-experience-rule": 11,
       "design-system-foundation": 11,
