@@ -124,13 +124,13 @@ Canonical v1 uses one density:
 
 - Tab height: **40px**
 - Text / Text + Icon inline padding: **0px**
-- Label: Vazirmatn **14/20 Regular**
+- Label: **Label/SM** — Vazirmatn **14/20 Medium (500)**
 - Icon: **18px**
 - Text + Icon internal gap: **8px**
 - Icon-only item: **40×40px**
 - inter-item gap owned by Tabs: **24px**
 
-The selected label does not become Bold; selection must not create layout shift.
+The selected label keeps the same Label/SM weight as every other state; selection must not create layout shift.
 
 Tab Items hug their content by default.
 
@@ -145,12 +145,12 @@ Tabs owns a 1px bottom line using `line/default`.
 ### Default
 
 - transparent surface;
-- Label / Icon: `fg/secondary`.
+- Label / Icon: `fg/secondary`; both must use the same semantic foreground token.
 
 ### Hover
 
 - `surface/transparent-hover`;
-- Label / Icon: `fg/primary`.
+- Label / Icon: `fg/primary`; both must use the same semantic foreground token.
 
 ### Active
 
@@ -177,7 +177,7 @@ Preserve the Selected indicator and add the shared focus-visible ring.
 
 ### Disabled
 
-- Label / Icon: `fg/disabled`;
+- Label / Icon: `fg/disabled`; both must use the same semantic foreground token;
 - no Hover / Active treatment.
 
 ## Content Modes
@@ -199,7 +199,7 @@ Supported for compact contexts where every icon is familiar and unambiguous.
 - Icon-only items remain `40×40px`.
 - Every Icon-only Tab requires a programmatic accessible name; use the Tab Item `Label` authoring property as the source.
 - Use the shared icon library; do not redraw icons inside Tabs.
-- The consuming Tab Item must override the shared icon source color to match its semantic foreground state.
+- The consuming Tab Item must override the shared icon source color so the Icon exactly matches the Label semantic foreground in every state.
 - If the icons are not immediately understandable in context, use Text instead.
 
 Do not mix Text, Text + Icon, and Icon-only items within the same tablist.
