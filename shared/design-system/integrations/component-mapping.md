@@ -617,6 +617,39 @@ The Tabs design identity, line-only v1 appearance, native Items Slot composition
 The Chip design identity is verified as four capability-specific public component sets that share one visual recipe without a mega Type matrix. Selectable, Removable, Disclosure, and Action contracts, current Full radius, 8px main content gap, separate Divider + Summary/Detail secondary-content anatomy, Accent treatment for Selectable Selected / Disclosure Applied / Removable, shared structured-surface Hover/Active overlays across all Chip families, leading selected check anatomy, Action icon at logical End, focus-visible behavior, RTL anatomy, software lifecycle, Tag/Button/selection-control boundaries, real Disclosure + Popover composition, and legacy migration are documented in `../components/chip.md`. Runtime API, exact DOM/ARIA implementation, compound Removable structure, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
 
+### Progress Indicator (HOS-31)
+
+| Field | Current value |
+|---|---|
+| DS component | Progress Indicator |
+| Knowledge document | `../components/progress-indicator.md` |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma page | `Progress indicator`, node `521:16785` |
+| Parent component set | `Progress indicator` |
+| Parent key / node ID | `335d54d47ea28e6329f88a8bb34dc3b2d02e5c77` / `23704:699` |
+| Parent variants | `Direction=Horizontal/Vertical × Count=3/4/5/6` = **8 variants** |
+| Parent authoring rule | Count is Figma-only; runtime derives sequence length from step data. Terminal connector is preconfigured per Count variant |
+| Item component set | `_Progress indicator item` |
+| Item key / node ID | `ebd4a7beb03d58ea243faaed501712880ffa2669` / `23704:348` |
+| Item variants | `Direction=Horizontal/Vertical × State=Incomplete/Current/Completed/Error/Disabled` = **10 variants** |
+| Item content properties | `Label / Helper / Show helper / Show connector` |
+| Typography | Label = `Label/SM`; Helper = `Label/XS`; Helper default hidden |
+| Text limits | Horizontal Label 1 line / Helper 2; Vertical Label 2 / Helper 3; ending truncation |
+| Marker size | 20px |
+| Marker assets | Incomplete/Disabled: `Icon / dot mark outline`; Current: `Icon / dot mark`; Completed: `Icon/check_circle_outline`; Error: `Icon/error_outline` |
+| Connector | 3px; Current/Completed = `line/accent`; Incomplete/Error/Disabled = `line/default`; none after final Item |
+| Error contract | Error replaces Current for the affected step; helper communicates validation/problem detail |
+| Responsive contract | No Compact/mobile variant in v1; do not compress Horizontal below usable width; prefer Vertical or a product-level responsive composition |
+| Documentation frame | `Progress indicator / Documentation`, node `23730:499` |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified**; do not copy Figma Count into a hard runtime cap or required `count` prop |
+| Property mapping | **Unverified** — do not infer runtime prop names from Figma property labels |
+| Storybook | **Bypassed for current handoff** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-10-14 |
+
+Progress Indicator and Item design identities, final Carbon-derived visual contract, state model, RTL authoring behavior, connector termination, helper placement, and text constraints are verified in Figma. Runtime sequence rendering, exact DOM/API, responsive product composition, and accessibility implementation remain development responsibilities. See `../components/progress-indicator.md`.
+
 ### Timeline
 
 | Field | Current value |
