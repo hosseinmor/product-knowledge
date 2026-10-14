@@ -646,6 +646,37 @@ The Chip design identity is verified as four capability-specific public componen
 
 Timeline and Timeline Item's **Figma identities** and visual/component contracts are verified. Runtime implementation must consume a dynamic ordered sequence of events of **unbounded length**, render consecutive connectors (but none after the last event), preserve accessible date/event semantics, and keep the Timeline/Stepper boundary. See `../components/timeline.md` for the Storybook-independent acceptance plan. Figma component keys above are identity values verified in the owning file; they do not on their own prove library publication.
 
+### Data Table (HOS-35)
+
+| Field | Verified Figma source / status |
+|---|---|
+| DS component | Data Table |
+| Figma documentation page | [Data Table / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23522-13721) |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Table component set | `Data Table / Default` |
+| Table key / node ID | `30108b6ffc4e291d624fa9d9814d9277989157b8` / `23524:15759` |
+| Table axes | `Size=Small/Medium/Large` × `Selection=None/Multiple` = **6 variants** |
+| Header Row | `Data Table Header Row / Default`; key `86541d615f5152be8c6a2abbb16a2bd747202814`; node `23523:14084`; **3 variants** |
+| Header Cell | `Data Table Header Cell / Default`; key `bea24d39aab0899bfd349a74fa89d798c60341ff`; node `23514:13393`; `Sort=None/Unsorted/Ascending/Descending` (**4**) |
+| Row | `Data Table Row / Default`; key `4867a2edce9368611ef103a751be40b0d7ebe637`; node `23522:14296`; **12 = 3 Size × 4 State** |
+| Row Item | `Data Table Row Item / Default`; key `18011b70289e5c947472d85885fb764fd4951c26`; node `23600:127401`; **6 = 3 Size × 2 Expanded** |
+| Cell | `Data Table Cell / Default`; key `b60904ae0db53964e8b51d9230f07100522f279e`; node `23514:13381`; **3 Size variants** |
+| Text Content | `Data Table Text Content / Default`; key `1c1c38a5b01dc81c2b721c08575b14c6cb1eb550`; node `23618:15999`; `Overflow=Truncate/Wrap` (**2**) |
+| Text + Description | key `d7e6efee4d300fe04ff6aac62afe132c1b4a0bdb`; node `23577:15033` |
+| Disclosure | key `0c7ed32cc1ac80725172dd16c0c79467ecf005cb`; node `23522:13764` |
+| Expanded Content | key `eb42940cfaf7543a6393d0fb72737e02cf9a2748`; node `23526:15123` |
+| Component doc | [Data Table](../components/table.md) |
+| Runtime / acceptance proposal | [Table runtime contract](../components/table-runtime-contract.md) |
+| Old components | Moved to separate Figma page `Archive / Data Table Legacy`; existing identities retained, V1 not canonical |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified**; do not infer Angular inputs/outputs from Figma property names |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last live Figma verification | **2026-10-14** |
+
+Figma IDs, keys and composition were verified against live Figma in HOS-35. Runtime source mapping and browser/assistive-technology tests remain explicitly unverified. The Figma pilot is **ready for sandbox implementation**, not a production/canonical runtime certification. The documentation changes remain in Draft PR #86 pending review.
+
 ## Rules
 
 - Figma property labels do not automatically become code prop names.
