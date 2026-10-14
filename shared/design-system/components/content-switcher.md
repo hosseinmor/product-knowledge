@@ -131,15 +131,15 @@ Geometry:
 - No divider between items
 - No persistent Item border
 
-This keeps the control aligned with adjacent Buttons/Inputs of the same Size.
+Typography uses `Label/SM` (`14/20`, Medium), matching the shared Button control typography for Small/Medium/Large. This keeps the control aligned with adjacent Buttons/Inputs of the same Size.
 
 ## Visual Treatment
 
 ### Track
 
-Track uses `surface/muted`.
+Track uses `surface/inset`.
 
-It must remain distinguishable on both `surface/default` and `surface/neutral-muted` contexts.
+`surface/inset` is the recessed structural surface behind the local `surface/default` Selected Item.
 
 ### Unselected states
 
