@@ -615,6 +615,37 @@ The Tabs design identity, line-only v1 appearance, native Items Slot composition
 The Chip design identity is verified as four capability-specific public component sets that share one visual recipe without a mega Type matrix. Selectable, Removable, Disclosure, and Action contracts, current Full radius, 8px main content gap, separate Divider + Summary/Detail secondary-content anatomy, Accent treatment for Selectable Selected / Disclosure Applied / Removable, shared structured-surface Hover/Active overlays across all Chip families, leading selected check anatomy, Action icon at logical End, focus-visible behavior, RTL anatomy, software lifecycle, Tag/Button/selection-control boundaries, real Disclosure + Popover composition, and legacy migration are documented in `../components/chip.md`. Runtime API, exact DOM/ARIA implementation, compound Removable structure, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
 
+### Timeline
+
+| Field | Current value |
+|---|---|
+| DS component | Timeline |
+| Knowledge document | `../components/timeline.md` |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma component set | `Timeline` |
+| Figma component key | `70716c3cb413b2669f06596426cea18ff7f7c92a` |
+| Figma node ID | `23609:126914` |
+| Figma variant axis | `Count=1 / 2 / 3 / 4 / 5 / 6`; default = `4`, **design-time only** |
+| Figma authoring | 6 nested Timeline Item instances; Count shows a contiguous prefix and automatically terminates Connector on its last Item; no parent Items Slot |
+| Timeline Item component set | `Timeline Item` |
+| Timeline Item key / node ID | `3d90d9035ecdfe4f210b8602b8d8d93e8f59e7da` / `23509:48` |
+| Timeline Item variants | `Density=Default / Compact` |
+| Timeline Item text properties | `Title / Timestamp` |
+| Timeline Item other properties | `Icon` instance swap; `Show timestamp / Show connector / Show content` Booleans; optional `Content slot` native SLOT |
+| Neutral DS marker | `Icon/dot` key `e9def3d417c05352d5f86ed6d7553755399fd22d`, node `23609:9`; 24px icon with a centered 10px dot |
+| Default geometry | 24px RTL start Axis; 1px Connector, 8px Marker-to-Connector gap; 4px Title/Timestamp; 16px Default / 12px Compact Header-to-Content |
+| Tokens | `fg/primary` title, `fg/tertiary` time, `fg/secondary` default icon, `line/default` Connector; use existing spacing variable aliases |
+| Use cases | Onboarding scheduled task groups (one time bucket → one Item with task list); My Applications event history (one event → one Item) |
+| Documentation frame | `Timeline / Documentation · Reference` node `23618:417` |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified**; do not treat Figma Count as a runtime list limit or a required `count` prop |
+| Property mapping | **Unverified** — design-to-code mapping is not established from Figma property labels alone |
+| Storybook | **Bypassed for current handoff**; not required as a design acceptance condition |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-10-14 |
+
+Timeline and Timeline Item's **Figma identities** and visual/component contracts are verified. Runtime implementation must consume a dynamic ordered sequence of events of **unbounded length**, render consecutive connectors (but none after the last event), preserve accessible date/event semantics, and keep the Timeline/Stepper boundary. See `../components/timeline.md` for the Storybook-independent acceptance plan. Figma component keys above are identity values verified in the owning file; they do not on their own prove library publication.
+
 ## Rules
 
 - Figma property labels do not automatically become code prop names.
