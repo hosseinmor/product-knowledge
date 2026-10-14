@@ -42,11 +42,11 @@ The Timeline must not acquire Stepper's completed/current/upcoming state model.
 - Page: `Timeline`, node `23509:9`
 - Component set: `Timeline Item`, node `23509:48`
 - Parent component: `Timeline`, node `23509:49`
-- Unified documentation frame: `23530:140`, containing Header, Component Set, Playground, Anatomy & usage, and Responsive QA.
+- Unified documentation frame: `23576:15065` (1280px Tabs-style review presentation), containing Intro, Component Set with labeled Density × Marker axes, Axes & Properties, Playground, Usage & Boundaries, and Responsive RTL QA.
 - Playground with both product use cases: `23511:13370`
 - Narrow/long-title QA: `23519:121`, verified at 360px width
 
-Figma link: https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23509-9
+Figma review link: https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23576-15065
 
 Exact published component keys are **not yet verified**; do not invent them.
 
