@@ -573,49 +573,81 @@ The Tabs design identity, line-only v1 appearance, native Items Slot composition
 | Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
 | Selectable set | `Chip / Selectable` |
 | Selectable key / node | `5571e8e324b47155d7e9fd384aaea289c2e54d89` / `20783:128158` |
-| Selectable variants | `20 = 2 Size × 2 Selected × 5 State` |
+| Selectable variants | `30 = 3 Size × 2 Selected × 5 State` |
 | Selectable properties | Variant: `Size / Selected / State`; content: `Label` |
+| Selectable interaction | Default→Hover on hover; activation toggles Selected; Disabled inert |
 | Removable set | `Chip / Removable` |
 | Removable key / node | `193062043a2194024cc06c6d45f11b96b4a238b3` / `23124:358` |
-| Removable variants | `10 = 2 Size × 5 State` |
+| Removable variants | `15 = 3 Size × 5 State` |
 | Removable properties | Variant: `Size / State`; content: `Label / Detail / Show detail / Show leading visual / Leading visual`; `Show detail` controls the whole `Detail content` container |
 | Removable behavioral capability | Body may be independently actionable; body and trailing Remove are separate runtime interaction/focus targets; Body action is not a Figma variant |
-| Removable surface | `surface/accent-muted + line/accent + fg/accent`; Hover/Active preserve the Accent base and layer `surface/transparent-hover/active`; Disabled uses shared selected-disabled treatment |
+| Removable Remove action | Private `Size × State` component; `28 / 32 / 40px` matches Chip height; `Radius / Full`; logical-End padding on Removable is `0px` so Remove is flush with the edge |
+| Removable surface | Default/Focus `surface/accent-muted`; Hover `surface/accent-muted-hover`; Active `surface/accent-muted-active`; keep `line/accent + fg/accent`; no transparent overlay |
 | Disclosure set | `Chip / Disclosure` |
 | Disclosure key / node | `3ba6c8dc36a76632d1569108e024ae47c841a50c` / `20783:534` |
-| Disclosure variants | `20 = 2 Size × 2 Applied × 5 State` |
+| Disclosure variants | `30 = 3 Size × 2 Applied × 5 State` |
 | Disclosure properties | Variant: `Size / Applied / State`; content: `Label / Summary / Show summary`; `Show summary` controls the whole `Summary content` container |
 | Disclosure Open | Runtime-only; removed from Figma variants because reviewed Open treatment duplicated Hover visually |
-| Disclosure Applied surface | `surface/accent-muted + line/accent + fg/accent`; Hover/Active preserve the Accent base and layer `surface/transparent-hover/active`; Focus preserves base + `Focus/Default` |
+| Disclosure Applied surface | Default/Focus `surface/accent-muted`; Hover `surface/accent-muted-hover`; Active `surface/accent-muted-active`; keep `line/accent + fg/accent`; no transparent overlay |
+| Disclosure surface boundary | Surface-agnostic trigger. No canonical surface composition until Selection Panel is finalized; default Selection Panel composition will be documented then |
 | Action set | `Chip / Action` |
 | Action key / node | `876535cdb18030fe2d38c6c6221036d770838586` / `23123:125056` |
-| Action variants | `10 = 2 Size × 5 State` |
+| Action variants | `15 = 3 Size × 5 State` |
 | Action anatomy | Optional add/action icon at logical End — visually left of the label in RTL |
 | Action properties | Variant: `Size / State`; content: `Label / Show trailing icon / Trailing icon` |
 | Shared states | `Default / Hover / Active / Focus / Disabled` |
-| Figma sizes | `Small 32 / Medium 40` |
+| Figma sizes | `Extra Small 28 / Small 32 / Medium 40` |
+| Standard inline padding | `8 / 12 / 16px` for Extra Small / Small / Medium; Removable logical-End side is `0px` |
 | Label text style | `Body/Compact/SM` across all four Chip sets |
 | Main content gap | `8px` shared spacing variable |
 | Secondary content | Disclosure uses `Summary content`; Removable uses `Detail content`; each contains `Divider (·) + value` with `4px` internal gap |
 | Summary / Detail property value | Value only; separator is structural and must not be embedded in the property string |
 | Radius | shared `Radius / Full` — current Chip visual direction |
 | Focus | shared `Focus/Default` outside focus-visible ring |
-| Color | Semantic tokens only; every Chip Hover/Active preserves its semantic base and layers `surface/transparent-hover/active`: default-base states use `surface/default`; Selectable Selected, Disclosure Applied, and Removable use `surface/accent-muted + line/accent + fg/accent`; no public Color axis or Chip-specific color tokens |
-| Usage mapping | Choice + Direct Filter → Selectable; Faceted/Popover Filter → Disclosure; committed/input value → Removable; add/start available value → Action |
+| Color | Default-base states preserve `surface/default` and use shared transparent Hover/Active overlays. Accent-persistent states — Selectable Selected, Disclosure Applied, Removable — directly use `surface/accent-muted / surface/accent-muted-hover / surface/accent-muted-active + line/accent + fg/accent`; no public Color axis or Chip-specific color tokens |
+| Usage mapping | Choice + Direct Filter → Selectable; faceted/secondary-surface filter → Disclosure; committed/input value → Removable; add/start available value → Action |
 | Visual grammar | `✓ selected at logical Start before label / ▾ disclose / × remove / + add-start` |
 | Product-pattern boundary | Selection mode, required/allow-empty, filter composition, tokenized-input behavior, and software Available→Selected layout live at Group/Pattern level |
 | Tag boundary | Tag remains passive/descriptive/categorical and owns `tag/{color}/*`; Chip is interactive and must not consume Tag color tokens |
-| Legacy Figma | old Carbon-derived Chip sets, Control-chip artifacts, and old Chip Group components are reference-only; published identities preserved where safe |
-| Documentation frame | `Chip / Documentation`, node `23143:531`; includes Component Set, Playground, real Disclosure+Popover composition, and migration note |
+| Legacy Figma | Old Carbon-derived Chip sets, Control-chip artifacts, and old Chip Group components are removed from the active Chip page and must not be used for new design |
+| Documentation frame | `Chip / Documentation`, node `23190:1423`; Component Set, Playground, and Migration note |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified** |
-| Property mapping | **Unverified** — do not infer runtime props, DOM/ARIA roles, compound-control structure, or popup implementation from Figma |
+| Property mapping | **Unverified** — do not infer runtime props, DOM/ARIA roles, compound-control structure, or secondary-surface implementation from Figma |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-09-23 |
+| Last Figma verification | 2026-10-14 |
 
-The Chip design identity is verified as four capability-specific public component sets that share one visual recipe without a mega Type matrix. Selectable, Removable, Disclosure, and Action contracts, current Full radius, 8px main content gap, separate Divider + Summary/Detail secondary-content anatomy, Accent treatment for Selectable Selected / Disclosure Applied / Removable, shared structured-surface Hover/Active overlays across all Chip families, leading selected check anatomy, Action icon at logical End, focus-visible behavior, RTL anatomy, software lifecycle, Tag/Button/selection-control boundaries, real Disclosure + Popover composition, and legacy migration are documented in `../components/chip.md`. Runtime API, exact DOM/ARIA implementation, compound Removable structure, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
+The Chip design identity is verified as four capability-specific public component sets that share one visual recipe without a mega Type matrix. The current contract includes Extra Small / Small / Medium sizing, dedicated Accent-muted state tokens for persistent Accent states, compound Removable body/remove behavior with a size-matched flush round Remove action, surface-agnostic Disclosure, shared Full radius, RTL anatomy, software lifecycle, and Tag/Button/selection-control boundaries. Runtime API, exact DOM/ARIA implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
+### Choice Group
+
+| Field | Current value |
+|---|---|
+| DS component | Choice Group |
+| Knowledge document | `../components/choice-group.md` |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma page / docs | `Choice Group` node `23226:9` / `Choice Group / Documentation` node `23226:10` |
+| Component set | `Choice Group` |
+| Component key / node | `a96c066c443021689ce6add1a47be745c8aa160b` / `23229:133` |
+| Variants | `6 = 2 Selection × 3 Layout` |
+| Variant properties | `Selection = Single / Multiple`; `Layout = Horizontal / Horizontal wrap / Vertical` |
+| Content properties | `Group label`; `Show group label`; native `Items` SLOT |
+| Items Slot | Minimum 2 children; preferred/allowed content is `Chip / Selectable`; variable count, reorderable/configurable |
+| Width | Resize the instance; no Width variant |
+| Runtime-only policy | `Required / allow empty` |
+| Ownership | Choice Group owns shared label, layout, item relationship, and selection mode; each Chip owns Label, Size, Selected, and State |
+| Single semantics | At most one selected; optional group may have no selection; Required is enforced/validated at runtime |
+| Multiple semantics | Zero, one, or many selected; changing one item does not auto-clear another |
+| State visuals | Delegated entirely to `Chip / Selectable`; Choice Group adds no duplicate Hover/Active/Focus/Selected layer |
+| RTL | Logical reading order; no RTL variant |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names or exact DOM/ARIA implementation from Figma |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-10-14 |
+
+The Choice Group design identity, Single/Multiple selection contract, three layout modes, native Selectable-Chip Slot composition, resize-owned width, runtime-only Required/allow-empty policy, RTL behavior, and boundaries with Radio/Checkbox/Select are verified in `../components/choice-group.md`. Exact runtime API, DOM/ARIA structure, keyboard implementation details, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime source is registered.
 
 ### Timeline
 
