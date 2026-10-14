@@ -7,7 +7,7 @@ summary: Registry contract for mapping stable Figma component identities to runt
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-10-13
+last_reviewed: 2026-10-14
 related:
   - design-system.reference.figma
   - design-system.reference.code
@@ -552,12 +552,13 @@ The Content Switcher design identity, Size × Content parent model, native Items
 | Content Switcher boundary | Tabs = peer content panels; Content Switcher / Segmented Control = alternate representations/modes of same content |
 | Legacy Figma | old Type/Size/Alignment/Skeleton/Selected-boolean/overflow-arrow models retained under Legacy names for migration only |
 | Documentation frame | `Tabs / Documentation`, node `23488:286` |
+| Future TBD | Vertical Tabs and Pill-style Tabs are explicitly out of v1; evaluate only after validated product use cases |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified** |
 | Property mapping | **Unverified** — do not infer runtime prop names, DOM/ARIA roles, route behavior, activation mode, or overflow algorithm from Figma |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-10-13 |
+| Last Figma verification | 2026-10-14 |
 
 The Tabs design identity, line-only v1 appearance, native Items Slot composition, Content × State internal Item model, 40px density, zero-inline-padding + 24px parent-gap layout, Text/Text+Icon/Icon-only content modes, selected/focus treatment, overflow rule, Content Switcher/navigation/filter boundaries, RTL behavior, and accessibility contract are verified in `../components/tabs.md`. Runtime API, exact DOM/ARIA implementation, activation mode, routing integration, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime source is registered.
 
