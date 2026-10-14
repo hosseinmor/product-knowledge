@@ -42,12 +42,12 @@ The Timeline must not acquire Stepper's completed/current/upcoming state model.
 - Page: `Timeline`, node `23509:9`
 - Component set: `Timeline Item`, node `23509:48`
 - Parent component set: `Timeline`, node `23609:126914` (`Count=1..6`). The original parent master `23509:49` is retained as the `Count=4` variant.
-- Unified documentation frame: `23576:15065` (1280px Tabs-style review presentation), containing Intro, Density-only Timeline Item variants, a populated Timeline parent specimen, Axes & Properties, product Playground, Usage & Boundaries, and Responsive RTL QA.
+- Canonical presentation frame: `23618:417` (2528px reference-aligned format, matching the Textarea presentation at `22880:132462`), containing Header, variant matrix with both live component sets, side Axes & Properties panel, Internal anatomy cards, and a unified Playground for Onboarding, My Applications and narrow RTL QA. The earlier frame `23576:15065` was archived in a hidden legacy frame.
 - Playground with both product use cases: `23511:13370`
 - Narrow/long-title QA: `23519:121`, verified at 360px width
 - Neutral DS marker icon: `Icon/dot`, node `23609:9` (24px icon containing a centered filled dot; override semantic color in context).
 
-Figma review link: https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23576-15065
+Figma review link: https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23618-417
 
 Exact published component keys are **not yet verified**; do not invent them.
 
