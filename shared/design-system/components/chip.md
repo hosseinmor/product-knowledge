@@ -8,8 +8,9 @@ knowledge_state: verified
 document_maturity: reviewed
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: '2026-09-23'
+last_reviewed: '2026-10-14'
 related:
+  - design-system.component.choice-group
   - design-system.component.tag
   - design-system.component.badge
   - design-system.component.switch
@@ -66,8 +67,11 @@ All public Chip sets share the same control recipe:
 
 | Property | Contract |
 |---|---|
+| Extra Small height | `28px` |
 | Small height | `32px` |
 | Medium height | `40px` |
+| Standard inline padding | Extra Small `8px`; Small `12px`; Medium `16px` |
+| Removable end-side exception | `0px` at logical End so the Remove action is flush with the Chip edge |
 | Radius | `Radius / Full` — current Chip visual direction |
 | Radius status | Temporary/current direction; revisit if the family moves back to the shared control radius |
 | Default width | Hug content |
@@ -95,12 +99,13 @@ Canonical file: `[DS] Job Vision NEXT`
 - Figma node ID: `20783:128158`
 - Figma component key: `5571e8e324b47155d7e9fd384aaea289c2e54d89`
 - Variant properties:
-  - `Size = Small / Medium`
+  - `Size = Extra Small / Small / Medium`
   - `Selected = false / true`
   - `State = Default / Hover / Active / Focus / Disabled`
 - Content properties:
   - `Label`
-- Variant count: `20 = 2 Size × 2 Selected × 5 State`
+- Variant count: `30 = 3 Size × 2 Selected × 5 State`
+- Figma prototype behavior: Default → Hover on hover; activation toggles `Selected=false/true`; Disabled is inert.
 
 Purpose: use when the value itself is directly selected or deselected.
 
@@ -113,7 +118,7 @@ The component itself does not know whether it is Choice or Filter; the owning gr
 
 #### Selected treatment
 
-`Selected=true` uses a leading check at logical Start plus `surface/accent-muted`, `line/accent`, and `fg/accent`. Hover and Active preserve that selected base and add the shared structured-surface interaction overlays: `surface/transparent-hover` and `surface/transparent-active`. Focus preserves the base selected surface and adds `Focus/Default`. Disabled continues to use the shared disabled treatment.
+`Selected=true` uses a leading check at logical Start plus `line/accent` and `fg/accent`. Surface state consumes the dedicated Accent semantic tokens directly: Default/Focus → `surface/accent-muted`, Hover → `surface/accent-muted-hover`, Active → `surface/accent-muted-active`. Do not layer transparent Hover/Active overlays on Accent-muted Chip states. Focus preserves the persistent selected surface and adds `Focus/Default`. Disabled continues to use the shared disabled treatment.
 
 Rules:
 
@@ -128,7 +133,7 @@ Rules:
 - Figma node ID: `23124:358`
 - Figma component key: `193062043a2194024cc06c6d45f11b96b4a238b3`
 - Variant properties:
-  - `Size = Small / Medium`
+  - `Size = Extra Small / Small / Medium`
   - `State = Default / Hover / Active / Focus / Disabled`
 - Content properties:
   - `Label`
@@ -136,8 +141,11 @@ Rules:
   - `Show detail`
   - `Show leading visual`
   - `Leading visual` instance swap
-- Variant count: `10 = 2 Size × 5 State`
+- Variant count: `15 = 3 Size × 5 State`
 - Trailing remove affordance: mandatory
+- Private Remove action: `Size = Extra Small / Small / Medium` × `State = Default / Hover / Active / Focus / Disabled`
+- Remove action geometry: `28 / 32 / 40px` to match Chip height; `Radius / Full`
+- Removable logical-End padding: `0px` so the Remove action is flush with the Chip edge
 
 Purpose: represent a **committed value/object** that can be removed. Because the value is already committed, Removable uses the same Accent value treatment as other committed/selected Chip states.
 
@@ -173,6 +181,9 @@ Runtime requirements:
 
 - body and Remove are independent hit targets;
 - when body is actionable, body and Remove are independent focus targets;
+- body uses whole-Chip Hover/Active feedback;
+- Remove owns independent local Hover/Active/Focus feedback;
+- Remove target size matches Chip height (`28 / 32 / 40px`) and remains fully round;
 - do not nest one button inside another;
 - use an appropriate compound-control DOM structure;
 - body action may be edit, inspect, disclosure, or another value-level interaction; do not rename the capability to Disclosure.
@@ -183,17 +194,17 @@ Runtime requirements:
 - Figma node ID: `20783:534`
 - Figma component key: `3ba6c8dc36a76632d1569108e024ae47c841a50c`
 - Variant properties:
-  - `Size = Small / Medium`
+  - `Size = Extra Small / Small / Medium`
   - `Applied = false / true`
   - `State = Default / Hover / Active / Focus / Disabled`
 - Content properties:
   - `Label`
   - `Summary`
   - `Show summary`
-- Variant count: `20 = 2 Size × 2 Applied × 5 State`
+- Variant count: `30 = 3 Size × 2 Applied × 5 State`
 - Trailing chevron: mandatory
 
-Purpose: use for compact facets/controls that open a secondary surface such as Popover or Menu to choose or edit state.
+Purpose: use for compact facets/controls that open a secondary surface to choose or edit state. Disclosure is surface-agnostic; the owning pattern chooses the appropriate secondary surface.
 
 Examples:
 
@@ -227,7 +238,7 @@ Rules:
 - `Summary` is supplemental content, not another state axis;
 - `Show summary` is available on applied instances and controls the whole `Summary content` container;
 - keep Summary compact and store only the value, without a leading `·` or `|`;
-- Single/Multiple selection is not a Chip property; the owning Popover/Menu/selection surface owns that behavior.
+- Single/Multiple selection is not a Chip property; the owning secondary surface or selection pattern owns that behavior.
 
 The trailing chevron remains the disclosure affordance after a value is applied. Do not replace it with `×`; clearing belongs to the owning surface unless a separate product pattern is approved.
 
@@ -237,13 +248,13 @@ The trailing chevron remains the disclosure affordance after a value is applied.
 - Figma node ID: `23123:125056`
 - Figma component key: `876535cdb18030fe2d38c6c6221036d770838586`
 - Variant properties:
-  - `Size = Small / Medium`
+  - `Size = Extra Small / Small / Medium`
   - `State = Default / Hover / Active / Focus / Disabled`
 - Content properties:
   - `Label`
   - `Show trailing icon`
   - `Trailing icon` instance swap
-- Variant count: `10 = 2 Size × 5 State`
+- Variant count: `15 = 3 Size × 5 State`
 
 Purpose: a compact, stateless value-level action.
 
@@ -269,7 +280,7 @@ Generic task actions such as “Summarize”, “Generate questions”, or “Ed
 |---|---|
 | Choice / short compact data selection | Chip / Selectable |
 | Direct filter | Chip / Selectable |
-| Faceted filter / opens Popover or Menu | Chip / Disclosure |
+| Faceted filter / opens a secondary surface | Chip / Disclosure |
 | Committed input/value/object | Chip / Removable |
 | Available value / add-start action | Chip / Action |
 | Contextual suggestion | Chip / Action only when it is genuinely a value-level compact action |
@@ -355,7 +366,7 @@ Then:
 
 Whether the committed item stays in the same location or moves from Available to Selected is a **product-level collection decision**, not part of the Chip component contract.
 
-The Figma Chip documentation includes a real `Chip / Disclosure` + existing Popover composition example for the Industry filter to make the component/surface boundary explicit.
+No canonical Disclosure surface composition is documented yet. The default Selection Panel composition will be documented after the Selection Panel component is finalized; `Chip / Disclosure` itself remains surface-agnostic.
 
 ## State and Token Contract
 
@@ -367,18 +378,18 @@ Current mappings:
 - default-base hover: `surface/default` base + `surface/transparent-hover` overlay;
 - default-base active: `surface/default` base + `surface/transparent-active` overlay;
 - Selectable selected default/focus: `surface/accent-muted + line/accent + fg/accent`;
-- Selectable selected hover: `surface/accent-muted` base + `surface/transparent-hover` overlay + `line/accent + fg/accent`;
-- Selectable selected active: `surface/accent-muted` base + `surface/transparent-active` overlay + `line/accent + fg/accent`;
+- Selectable selected hover: `surface/accent-muted-hover + line/accent + fg/accent`;
+- Selectable selected active: `surface/accent-muted-active + line/accent + fg/accent`;
 - Disclosure applied default/focus: `surface/accent-muted + line/accent + fg/accent`;
-- Disclosure applied hover: `surface/accent-muted` base + `surface/transparent-hover` overlay + `line/accent + fg/accent`;
-- Disclosure applied active: `surface/accent-muted` base + `surface/transparent-active` overlay + `line/accent + fg/accent`;
+- Disclosure applied hover: `surface/accent-muted-hover + line/accent + fg/accent`;
+- Disclosure applied active: `surface/accent-muted-active + line/accent + fg/accent`;
 - Removable default/focus: `surface/accent-muted + line/accent + fg/accent`;
-- Removable hover: `surface/accent-muted` base + `surface/transparent-hover` overlay + `line/accent + fg/accent`;
-- Removable active: `surface/accent-muted` base + `surface/transparent-active` overlay + `line/accent + fg/accent`;
+- Removable hover: `surface/accent-muted-hover + line/accent + fg/accent`;
+- Removable active: `surface/accent-muted-active + line/accent + fg/accent`;
 - disabled: shared disabled foreground/line/surface treatment;
 - focus: preserve the underlying persistent state and add the shared focus effect.
 
-For every structured Chip surface, interaction does not replace the semantic base. Default/unselected/unapplied and Action preserve `surface/default`; Selectable Selected, Disclosure Applied, and Removable preserve `surface/accent-muted`. Hover and Active always layer the shared `surface/transparent-hover` / `surface/transparent-active` tokens over that base.
+Default/unselected/unapplied and Action use the default-base structured-surface treatment: preserve `surface/default` and layer the shared `surface/transparent-hover` / `surface/transparent-active` interaction tokens. Accent-persistent states are different: Selectable Selected, Disclosure Applied, and Removable consume the dedicated state tokens `surface/accent-muted`, `surface/accent-muted-hover`, and `surface/accent-muted-active` directly, with no transparent interaction overlay.
 
 Do not:
 
@@ -489,7 +500,7 @@ If the body is actionable, body and Remove are separate operable/focusable targe
 
 Runtime must expose that the control owns/opens a secondary surface and expose open/closed state using appropriate platform semantics.
 
-Focus transfer, dismissal, keyboard navigation, and selection behavior belong to the owning Popover/Menu/selection pattern.
+Focus transfer, dismissal, keyboard navigation, and selection behavior belong to the owning secondary-surface pattern.
 
 ### Action
 
@@ -508,7 +519,8 @@ Exact DOM/ARIA choices remain unverified until the runtime implementation is reg
 - Override shared icon foreground where the consuming Chip state requires it.
 - Keep Divider structural: Summary/Detail properties store value only; do not prefix their values with `·` or `|`.
 - Use the shared 8px spacing variable for the main Chip content gap and 4px inside `Summary content` / `Detail content` between Divider and the value.
-- For structured surfaces, keep the semantic base and layer shared transparent Hover/Active overlays rather than swapping to state-specific surface tokens.
+- For default-base structured surfaces, preserve `surface/default` and layer shared transparent Hover/Active overlays.
+- For Accent-muted persistent states (Selectable Selected, Disclosure Applied, Removable), use `surface/accent-muted`, `surface/accent-muted-hover`, and `surface/accent-muted-active` directly; do not add transparent interaction overlays.
 - Use the shared `Radius / Full` variable for the current Chip direction; do not use a literal radius. This is a current family decision rather than a global control-radius change.
 - Do not create `_Chip Base` until repeated maintenance evidence proves a shared private primitive is useful.
 - Do not create new work from legacy Carbon-derived Chip or old Chip Group artifacts.
@@ -517,7 +529,7 @@ Exact DOM/ARIA choices remain unverified until the runtime implementation is reg
 
 - Figma file key: `rROD8ctH9UfPGAMrRrOzHe`
 - Page: `Chip`, node `13500:300199`
-- Documentation frame: `Chip / Documentation`, node `23143:531`
+- Documentation frame: `Chip / Documentation`, node `23190:1423`
 - Sections:
   1. Component Set
   2. Playground
