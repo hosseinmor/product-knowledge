@@ -40,9 +40,10 @@ Canonical file: `[DS] Job Vision NEXT`
 - Component set: `Content Switcher`
 - Figma node ID: `23083:1746`
 - Figma component key: `2d44a4df734823788a122e9a9c73fec3bd6e4ff2`
-- Variant properties: `Size = Small / Medium / Large`, `Content = Text / Icon`
+- Variant property: `Size = Small / Medium / Large`
 - Content property: native `Items` SLOT
-- Default: `Medium / Text`
+- Default: `Medium`
+- Exactly three parent variants; no internal Size/Content variable modes
 - Default authoring content: 3 equal-width items with exactly one `Selected`
 - Recommended item count: 2–5
 - Item count is composition, not a variant axis.
@@ -52,9 +53,12 @@ Canonical file: `[DS] Job Vision NEXT`
 - Internal component set: `_Content Switcher Item`
 - Figma node ID: `23038:127212`
 - Figma component key: `17b39a5fe6a7b1fbd1679202f90e2ca2a45aba35`
-- Variant property: `State = Default / Hover / Active / Focus / Disabled / Selected`
+- Variant properties:
+  - `State = Default / Hover / Active / Focus / Disabled / Selected`
+  - `Content = Text / Icon`
 - Content properties: `Label`, `Icon` instance swap
-- Item Size is not exposed. It inherits from the parent Content Switcher.
+- Item instances fill the parent Slot vertically; Size is controlled by the parent without variable modes.
+- Horizontal Item padding is fixed at `16px`.
 - `Selected` is a terminal visual state in Figma; there are no `Selected + Hover/Active/Disabled` Cartesian variants.
 
 ## Composition
@@ -68,7 +72,7 @@ The `Items` Slot:
 - stays on one line;
 - never wraps;
 - may be customized for count, labels/icons, and Item State;
-- inherits Size and Content mode from the parent even after Slot customization.
+- Item height fills the Slot, so parent Size changes remain automatic after Slot customization.
 
 Exactly one item is `State=Selected`.
 
@@ -76,12 +80,9 @@ Do not create a zero-selected or multi-selected Content Switcher.
 
 ## Content Modes
 
-A Content Switcher is consistently one of:
+Each Item has `Content = Text / Icon`.
 
-```text
-Text
-Icon
-```
+Keep one Content value consistently across all Items in a Content Switcher.
 
 Do not mix Text and Icon items within one control.
 
@@ -114,9 +115,9 @@ Total Content Switcher height aligns with the shared control scale:
 
 | Size | Total height | Inner Item height | Horizontal Item padding |
 |---|---:|---:|---:|
-| Small | 32px | 28px | 12px |
+| Small | 32px | 28px | 16px |
 | Medium | 40px | 36px | 16px |
-| Large | 48px | 44px | 20px |
+| Large | 48px | 44px | 16px |
 
 There is no XS size. Small is the compact floor.
 
@@ -210,12 +211,12 @@ Therefore the exact runtime component/API, DOM/ARIA implementation, keyboard imp
 
 Verify:
 
-- Parent API contains only `Size / Content / Items`.
-- Item API contains only `State / Label / Icon`.
+- Parent API contains only `Size / Items`.
+- Item API contains `State / Content / Label / Icon`.
 - Parent Size is `Small / Medium / Large`; no XS.
 - Total heights are `32 / 40 / 48`.
-- A customized Slot still follows parent Size changes.
-- Text and Icon modes switch at the parent level.
+- A customized Slot still follows parent Size changes through vertical Fill sizing.
+- Text and Icon are Item Content variants; keep the same Content across all Items.
 - Icon + Text is not authored as a shared mode.
 - Exactly one Item is Selected.
 - Selected has no redundant Hover/Active/Disabled variants.
