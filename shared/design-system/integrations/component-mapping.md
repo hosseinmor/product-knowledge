@@ -505,8 +505,8 @@ The Toggle design identity, Size × State × Toggled matrix, label contract, neu
 | Item states | `Default / Hover / Active / Focus / Disabled / Selected`; Selected is terminal |
 | Size behavior | Parent owns 32/40/48 total height and 28/36/44 Slot height; slotted Items use vertical Fill. No internal Size/Content variable modes. |
 | Geometry | Track radius 8; Item radius 6; 2px inset; 2px Item gap; fixed 16px Item horizontal padding; no divider |
-| Track | `surface/muted` |
-| Selected | `surface/default + fg/primary` |
+| Track | `surface/inset` |
+| Typography | `Label/SM` = Vazirmatn Medium 14/20, aligned with Button Small/Medium/Large |\n| Selected | `surface/default + fg/primary` |
 | Icon color override | Shared Icons retain purple guard source color; Item overrides Default → `fg/secondary`, Hover/Active/Focus/Selected → `fg/primary`, Disabled → `fg/disabled`; verified to survive Icon swap |
 | Responsive | Never wrap; Icon-only only when unambiguous, otherwise use Menu/Select |
 | RTL | No RTL/Position variant; compose in logical reading order |
