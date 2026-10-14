@@ -8,7 +8,7 @@ knowledge_state: verified
 document_maturity: draft
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: '2026-09-21'
+last_reviewed: '2026-10-14'
 related:
   - design-system.component.tabs
   - design-system.component.toggle-button
@@ -125,8 +125,8 @@ The outer Track owns a 2px inset on all sides; the inset is included inside the 
 
 Geometry:
 
-- Track radius: `8px · Group`
-- Item radius: `6px · Control`
+- Track radius: `8px` component-local value; do not bind the deprecated `8px Group` token.
+- Item radius: canonical `6px · Medium` radius token
 - Item gap: `2px`
 - No divider between items
 - No persistent Item border
@@ -222,6 +222,8 @@ Verify:
 - Selected has no redundant Hover/Active/Disabled variants.
 - 2, 3, 4, and 5 Item compositions remain equal-width and single-line.
 - Track remains distinguishable on default and neutral-muted surfaces.
+- No deprecated Radius variables are bound in the canonical component masters.
+- No internal Content Switcher Size/Content variable collections remain.
 - Icon colors match Item State, including after Icon swap.
 - Focus uses the shared focus-visible treatment.
 - Disabled content uses `fg/disabled`.
