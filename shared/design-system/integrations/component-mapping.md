@@ -543,7 +543,7 @@ The Content Switcher design identity, Size × Content parent model, native Items
 | Item states | `Default / Hover / Active / Focus / Selected / Selected Focus / Disabled` |
 | Item content properties | `Label / Icon`; Label remains the accessible-name authoring source for Icon-only |
 | Content consistency | One content mode per tablist; do not mix Text / Text + Icon / Icon-only items in one group |
-| Selection treatment | 2px `line/accent` bottom indicator + `fg/primary`; selected text remains Regular |
+| Interaction treatment | Hover = foreground-only; Active = `fg/primary` + 2px `line/emphasis` bottom indicator; Selected = `fg/primary` + 2px `line/accent` bottom indicator; no Hover/Active backgrounds |
 | Shared tablist line | 1px `line/default` |
 | Focus | shared `focus/default` outer ring with 1px surface gap; Selected Focus authored explicitly |
 | Overflow | no wrap; runtime horizontal scroll/equivalent mechanism; no canonical Previous/Next arrow API |
