@@ -5,8 +5,8 @@ type: component
 title: Tabs
 summary: Tabs switch between peer content panels within the same context using one current tab.
 knowledge_state: verified
-document_maturity: draft
-last_reviewed: '2026-10-13'
+document_maturity: reviewed
+last_reviewed: '2026-10-14'
 related:
   - design-system.component.content-switcher
   - design-system.reference.component-mapping
@@ -349,6 +349,30 @@ File key: `rROD8ctH9UfPGAMrRrOzHe`
 - `Legacy / Tabs Skeleton Item` — node `5657:278356`
 
 Do not use Legacy components for new design.
+
+## TBD / Future Exploration
+
+The following are deliberately **not part of the current developer contract** and must not be inferred as supported variants:
+
+### Vertical Tabs
+
+TBD. Explore only after a real product use case is validated. The future review must cover:
+
+- whether the pattern is still semantically Tabs rather than local navigation;
+- vertical keyboard behavior;
+- selected-indicator placement;
+- width, truncation, and overflow;
+- RTL geometry.
+
+### Pill-style Tabs
+
+TBD. Explore only if a real use case is semantically Tabs and needs stronger visual differentiation — for example a validated second-level Tabs case — and cannot be served cleanly by Content Switcher / Segmented Control.
+
+Until then:
+
+- Level 1 Tabs use the canonical Line appearance.
+- Level 2 Tabs, when genuinely needed, reuse the same Line appearance and rely on placement/context for hierarchy.
+- Do not introduce a Pill appearance solely to distinguish hierarchy.
 
 ## Runtime / Storybook Boundary
 
