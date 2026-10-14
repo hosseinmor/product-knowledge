@@ -149,13 +149,14 @@ Tabs owns a 1px bottom line using `line/default`.
 
 ### Hover
 
-- `surface/transparent-hover`;
+- no background;
 - Label / Icon: `fg/primary`; both must use the same semantic foreground token.
 
 ### Active
 
-- `surface/transparent-active`;
-- Label / Icon: `fg/primary`.
+- no background;
+- Label / Icon: `fg/primary`;
+- 2px neutral bottom indicator: `line/emphasis`.
 
 ### Focus
 
@@ -396,7 +397,7 @@ Verify:
 - Selected Focus preserves both current indicator and focus-visible treatment;
 - every state remains 40px high;
 - changing Label content changes width without changing height;
-- selected text remains Regular and does not shift layout;
+- selected text keeps Label/SM and does not shift layout;
 - Text and Text + Icon items use 0px inline padding and hug content;
 - Tabs owns a 24px inter-item gap;
 - Icon-only items stay 40×40px;
@@ -404,6 +405,7 @@ Verify:
 - no tablist wraps;
 - long-label and narrow-overflow examples remain single-line;
 - Icon-only Tabs retain a Label value for the accessible-name source;
+- Hover has no background; Active uses a 2px `line/emphasis` indicator; Selected uses a 2px `line/accent` indicator;
 - Disabled content uses `fg/disabled`;
 - RTL authoring remains visually correct;
 - legacy Contained / Chip / Size / Grid-aware / Skeleton / overflow-arrow APIs do not appear in canonical components.
