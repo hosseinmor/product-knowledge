@@ -504,9 +504,11 @@ The Toggle design identity, Size × State × Toggled matrix, label contract, neu
 | Item properties | `State / Content / Label / Icon` |
 | Item states | `Default / Hover / Active / Focus / Disabled / Selected`; Selected is terminal |
 | Size behavior | Parent owns 32/40/48 total height and 28/36/44 Slot height; slotted Items use vertical Fill. No internal Size/Content variable modes. |
-| Geometry | Track radius 8; Item radius 6; 2px inset; 2px Item gap; fixed 16px Item horizontal padding; no divider |
+| Geometry | Track radius 8px component-local; Item radius canonical `6px · Medium`; 2px inset; 2px Item gap; fixed 16px Item horizontal padding; no divider |
 | Track | `surface/inset` |
-| Typography | `Label/SM` = Vazirmatn Medium 14/20, aligned with Button Small/Medium/Large |\n| Selected | `surface/default + fg/primary` |
+| Deprecated-token check | No deprecated Radius bindings; no internal Content Switcher Size/Content variable collections |
+| Typography | `Label/SM` = Vazirmatn Medium 14/20, aligned with Button Small/Medium/Large |
+| Selected | `surface/default + fg/primary` |
 | Icon color override | Shared Icons retain purple guard source color; Item overrides Default → `fg/secondary`, Hover/Active/Focus/Selected → `fg/primary`, Disabled → `fg/disabled`; verified to survive Icon swap |
 | Responsive | Never wrap; Icon-only only when unambiguous, otherwise use Menu/Select |
 | RTL | No RTL/Position variant; compose in logical reading order |
@@ -515,7 +517,7 @@ The Toggle design identity, Size × State × Toggled matrix, label contract, neu
 | Property mapping | **Unverified** — do not infer runtime prop names or DOM/ARIA roles from Figma |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-09-21 |
+| Last Figma verification | 2026-10-14 |
 
 The Content Switcher design identity, three-size parent model, native Items Slot, State × Content internal Item model, fill-based sizing, Text/Icon boundary, selected treatment, semantic foreground mapping, equal-width composition, responsive rule, RTL behavior, and accessibility contract are verified in `../components/content-switcher.md`. Runtime API, exact DOM/ARIA and keyboard implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime source is registered.
 
