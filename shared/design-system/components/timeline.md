@@ -42,7 +42,7 @@ The Timeline must not acquire Stepper's completed/current/upcoming state model.
 - Page: `Timeline`, node `23509:9`
 - Component set: `Timeline Item`, node `23509:48`
 - Parent component: `Timeline`, node `23509:49`
-- Unified documentation frame: `23576:15065` (1280px Tabs-style review presentation), containing Intro, Component Set with labeled Density × Marker axes, Axes & Properties, Playground, Usage & Boundaries, and Responsive RTL QA.
+- Unified documentation frame: `23576:15065` (1280px Tabs-style review presentation), containing Intro, Density-only Timeline Item variants, a populated Timeline parent specimen, Axes & Properties, product Playground, Usage & Boundaries, and Responsive RTL QA.
 - Playground with both product use cases: `23511:13370`
 - Narrow/long-title QA: `23519:121`, verified at 360px width
 
@@ -54,7 +54,7 @@ Exact published component keys are **not yet verified**; do not invent them.
 
 ### Timeline
 
-`Timeline` is a vertical auto-layout container with a native **Items Slot**. The consumer inserts any number of `Timeline Item` instances in chronological order. It does not have an event-count variant and does not sort data.
+`Timeline` is a vertical auto-layout container with **six prebuilt nested Timeline Item instances** rather than an Items Slot. The `Show item 1` through `Show item 6` Boolean properties control which nested items are visible; the first four are visible by default and items five and six are hidden. Designers select nested items to edit their titles, timestamps, icons, and other properties. The Figma component has a deliberate six-item maximum; consumers needing a longer or unbounded event stream require an explicitly designed composition or the eventual runtime list implementation. The component does not automatically sort data. Adjust `Show connector` on the last visible item whenever visible item count changes.
 
 ### Timeline Item
 
@@ -63,38 +63,38 @@ Structure:
 ```
 Timeline Item
 ├── Content (vertical, RTL right-aligned)
-│   ├── Title (TEXT property)
-│   ├── Timestamp (TEXT property, optional via BOOLEAN)
+│   ├── Header (4px vertical gap)
+│   │   ├── Title (TEXT property)
+│   │   └── Timestamp (TEXT property, optional via BOOLEAN)
 │   └── Content slot (native Figma SLOT, optional and hidden by default)
 └── Axis (24px, right-hand side in RTL)
-    ├── Marker (Dot or icon)
+    ├── Marker (DS Icon instance; no Marker variant)
     └── Connector (BOOLEAN visibility)
 ```
 
 | Property | Contract |
 |---|---|
 | `Density` | `Default`, `Compact` |
-| `Marker` | `Dot`, `Icon` |
+| `Icon` | Required DS icon instance swap; the dot-like marker also uses an icon (e.g. `Icon/radio_button_checked`) |
 | `Title` | Editable string |
 | `Timestamp` | Editable display string |
 | `Show timestamp` | Boolean |
 | `Show connector` | Boolean. Normally false on last visible item |
 | `Show content` | Boolean; default false. Enable only when the Content slot is needed. Empty history events do not reserve slot space |
-| `Icon` | Instance-swap property, available for Icon marker |
 | `Content slot` | Native Figma SLOT for optional descriptions, task lists, metadata, links, or actions |
 
-Four main visual variants: `Density=Default/Compact × Marker=Dot/Icon`. Icon identity, task count, event count, content presence, semantic status, and ordering **are not variant axes**.
+Exactly two Timeline Item variants: `Density=Default` and `Density=Compact`. Marker is **not** a variant axis; all marker shapes are chosen via Icon instance swap. Icon identity, task count, event count, content presence, semantic status, and ordering are not variant axes.
 
 ### Anatomy, tokens, and geometry
 
 - Axis: fixed 24px wide, on the **right** of content in RTL.
-- Dot: neutral 8px circle.
+- Dot-like markers come from the DS icon library rather than a second hand-drawn Marker variant.
 - Icon: 20px visual inside the 24px axis; use the approved DS Icon component and override its fixed source color to the appropriate semantic foreground.
-- Connector: 1px, `line/default`; stretches with item content, hidden on the final item. Its start is separated from the 24px marker container by 8px, and the axis reserves 8px beneath the connector. Never attach the line directly to an icon.
+- Connector: 1px, `line/default`; **Axis must stretch to exactly the Timeline Item height**, including wrapped titles and multi-task Content slots. Connector itself flexes within that axis, hidden on the final visible item. Its start is separated from the 24px marker container by 8px, and the axis reserves 8px beneath the connector. Never attach the line directly to an icon.
 - Text: title uses `Label/SM`; timestamp uses `Body/XS`; both use Vazirmatn text styles.
 - Foreground: `fg/primary` for title, `fg/tertiary` for timestamp, `fg/secondary` for the default marker/icon.
-- Spacing: axis–content gap 12px Default / 8px Compact; content vertical gap 8px Default / 4px Compact; marker–connector gap 8px and axis bottom padding 8px. Base content bottom spacing is 16px Default / 12px Compact. Derive these from existing Spacing variables.
-- The 560px Figma component canvas width is an example, **not** a required runtime width; content, title, timestamp and slots support fill and wrap.
+- Spacing: axis–content gap 12px Default / 8px Compact. Inside Header, Title-to-Timestamp = **4px in both densities**. Header-to-optional-Content Slot gap = **16px Default / 12px Compact**. Marker-to-connector gap = 8px, with 8px axis bottom padding. Derive these from existing Spacing variables.
+- The fixed Figma master example width is not the runtime API width; **not** a required runtime width; content, title, timestamp and slots support fill and wrap.
 - Use the DS radius variables for any surrounding cards. Timeline itself has no card surface or border.
 
 Avoid a color scale tied to relative timing ("before / starting day / after") as generic Timeline state; those distinctions belong to the use case/content semantics, not the Timeline component contract.
