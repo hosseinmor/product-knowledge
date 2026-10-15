@@ -1304,7 +1304,7 @@
       "id": "design-system.component.progress-bar",
       "kind": "design-system-component",
       "title": "Progress Bar",
-      "summary": "A continuous operation-progress component with real determinate values and explicit success/error feedback; Indeterminate is specified semantically but pending in the public Figma parent.",
+      "summary": "Continuous operation-progress component with measured determinate values, public Figma Indeterminate variants, and explicit success/error feedback.",
       "status": "reviewed",
       "owner": "Design System team",
       "last_reviewed": "2026-10-15",
