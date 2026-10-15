@@ -627,14 +627,14 @@ The Chip design identity is verified as four capability-specific public componen
 | Figma page | `Progress bar`, node `8930:400384` |
 | Parent component set | `Progress bar` |
 | Parent key / node ID | `1d9983588bb228a44ca2b3af89195bd1e2b51c9d` / `12603:272925` |
-| Parent variants | 20; `Size=Small/Big`, `Alignment=Default/Inline/Indent`, `State=Active/Success/Error`, `Progress=0%/25%/50%/75%/Success/Error`; **not all permutations are authored** |
+| Parent variants | **25** (20 preserved + 5 Indeterminate); `Size=Small/Big`, `Alignment=Default/Inline/Indent`, `State=Active/Success/Error`, `Progress=0%/25%/50%/75%/Indeterminate/Success/Error`; **not all permutations are authored** |
 | Parent Text properties | `Label text / Helper text / Success text / Error text`; no public numeric Value property |
 | Nested source | `_Progress bar track item` |
 | Track key / node ID | `b765a10f45d8d3ad69489a266bc6e623ba94d5b1` / `12603:273022` |
 | Nested Track variants | 14 = `Small/Big` × `Progress=0%/25%/50%/75%/Success/Error/Indeterminate` |
 | Geometry | Small 4px, Big 8px; neutral Track uses `line/default` as **inside bottom Stroke**, not Fill |
 | Foreground tokens | Active: `surface/accent-emphasis`; Success: `fg/success`; Error: `fg/error` |
-| Indeterminate in public parent | **TBD — Figma**; only nested Track is implemented visually. Numeric percentages must be absent when Indeterminate is implemented |
+| Indeterminate in public parent | **Verified in Figma** — 5 variants: Default Small/Big, Inline Small/Big, Indent Big. Source-linked nested Track (static visual; do not show numeric percentage). Motion remains runtime-owned |
 | Runtime value treatment | True numeric progress is **required in development**, not limited to fixed Figma illustrative percentages |
 | Documentation frame | [Progress bar / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23867-126381), node `23867:126381` |
 | Code repository/package | **Unregistered** |
@@ -644,7 +644,7 @@ The Chip design identity is verified as four capability-specific public componen
 | Code Connect | **No registered mapping** |
 | Last live Figma verification | **2026-10-15** |
 
-The **Figma component identities and currently authored visual contract** above were verified against the live file. The design document can be final while the public-parent Indeterminate variant remains **TBD** and runtime/browser/assistive-technology testing remains a development responsibility. See `../components/progress-bar.md`.
+The **Figma component identities and currently authored visual contract** above were verified against the live file. The public-parent Indeterminate variants are now implemented in Figma as **static design states**; runtime animation, value API and browser/assistive-technology testing remain development responsibilities. See `../components/progress-bar.md`.
 
 ### Progress Indicator (HOS-31)
 
