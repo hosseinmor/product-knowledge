@@ -8,7 +8,7 @@ knowledge_state: verified
 document_maturity: draft
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: '2026-10-14'
+last_reviewed: '2026-10-15'
 related:
   - design-system.component.timeline
   - design-system.component.breadcrumb
@@ -68,23 +68,23 @@ Progress Indicator uses two compositional component sets.
 
 ### Progress indicator
 
-The parent component owns only authoring-level sequence composition:
+The parent component owns direction and an extensible native Figma slot:
 
 | Property | Values | Contract |
 |---|---|---|
 | `Direction` | `Horizontal`, `Vertical` | Layout orientation |
-| `Count` | `3`, `4`, `5`, `6` | **Figma authoring only**; not a required runtime prop |
+| `Items` | native `SLOT` | Contains Progress Indicator Item instances |
 
-Variant count: **8 = 2 Direction × 4 Count**.
+Variant count: **2 = Horizontal / Vertical**.
 
-Each Count variant contains exactly that number of nested Progress Indicator Items. The parent does not use hidden extra items as its canonical authoring model.
+Each Direction variant exposes one native `Items` slot with **three default Progress Indicator Item instances**. Designers may add or remove Item instances directly inside the slot when a product flow needs a different step count.
 
-The last visible Item's connector is already hidden in every parent variant:
+The default three-item composition terminates its connector correctly. When a designer adds a new terminal Item in Figma, they must:
 
-- Horizontal RTL: the visual final/leftmost Item has `Show connector=false`;
-- Vertical: the bottom Item has `Show connector=false`.
+1. set `Show connector=true` on the previous terminal Item;
+2. keep `Show connector=false` on the new terminal Item.
 
-Designers should not manually repair terminal connectors when using the canonical parent.
+This connector adjustment is a Figma authoring responsibility only. Runtime must derive terminal connector visibility from item position automatically.
 
 ### Progress indicator item
 
@@ -280,13 +280,14 @@ If a product needs navigation to previous steps, define that behavior deliberate
 
 1. Insert `Progress indicator`.
 2. Select `Direction`.
-3. Set `Count` to 3–6 for the design-time composition.
-4. Select each nested Item and set `State`, `Label`, and optional `Helper`.
-5. Leave `Show helper=false` unless real supporting or validation copy is needed.
-6. The parent Count variant already handles the terminal connector. Do not manually patch the last Item's connector in normal use.
-7. Use Vertical instead of forcing dense or long content into Horizontal.
+3. The native `Items` slot starts with three default Progress Indicator Items.
+4. Select nested Items and set `State`, `Label`, and optional `Helper`.
+5. To add a step, place another Progress Indicator Item inside the `Items` slot in sequence order.
+6. When adding a new terminal Item, enable `Show connector` on the previous terminal Item and disable it on the new terminal Item.
+7. Leave `Show helper=false` unless real supporting or validation copy is needed.
+8. Use Vertical instead of forcing dense or long content into Horizontal.
 
-The Count axis is a **Figma authoring optimization**, not a product-data limit and not a required runtime API.
+The three default Items are an **authoring starting point**, not a product-data limit. Runtime sequence length remains data-driven.
 
 ## RTL
 
@@ -336,7 +337,7 @@ These are conceptual fields, not verified TypeScript/Angular prop names.
 
 ### Runtime rules
 
-- Do not hardcode Figma `Count=3..6` as the runtime data limit.
+- Do not treat Figma's three default slot Items as a runtime data limit.
 - Derive the number of Items from the supplied step data.
 - Derive terminal connector visibility from array position; consumers should not coordinate the final connector manually.
 - Render exactly one Item per workflow step.
@@ -344,7 +345,7 @@ These are conceptual fields, not verified TypeScript/Angular prop names.
 - The component does not sort or reorder steps.
 - Error is a state of the current step, not an extra workflow step.
 - Responsive layout choice should preserve readability; do not automatically shrink step geometry below the visual contract.
-- Runtime may render more than six steps if a validated product flow requires it, but product design must choose an appropriate layout rather than assuming the Figma 3–6 authoring examples prove every longer horizontal sequence is usable.
+- Runtime may render any validated step count required by the product flow, but product design must choose an appropriate layout rather than assuming a longer horizontal sequence is always usable.
 
 ### Suggested semantic shape
 
@@ -365,9 +366,11 @@ Exact component names, Angular inputs, DOM wrappers, event names, and TypeScript
 | Test | Required result | Status |
 |---|---|---|
 | Figma Direction × State matrix | 10 Item variants render correctly | **Verified in Figma** |
-| Figma Direction × Count matrix | 8 parent variants for Count 3–6 | **Verified in Figma** |
-| Horizontal terminal connector | No trailing connector after visual final Item in RTL | **Verified in Figma** |
-| Vertical terminal connector | No connector after bottom/final Item for Count 3, 4, 5, 6 | **Verified in Figma** |
+| Figma parent Direction variants | 2 parent variants: Horizontal / Vertical | **Verified in Figma** |
+| Native Items slot | One shared SLOT property in both Direction variants | **Verified in Figma** |
+| Default slot content | 3 Progress Indicator Item instances in each Direction variant | **Verified in Figma** |
+| Add-item authoring | A fourth Item can be added successfully inside an instance slot | **Verified in Figma** |
+| Default terminal connector | No connector after the default terminal Item | **Verified in Figma** |
 | Helper default | Hidden by default | **Verified in Figma** |
 | Helper placement | Directly below Label | **Verified in Figma** |
 | Typography | Label = Label/SM; Helper = Label/XS | **Verified in Figma** |
@@ -404,13 +407,15 @@ External design systems are references, not runtime sources for Job Vision.
 ## Figma QA performed
 
 - [x] Canonical Item set reduced to `Direction × State`.
-- [x] Canonical Parent set reduced to `Direction × Count`.
-- [x] Count variants 3–6 contain the intended number of Items.
+- [x] Canonical Parent set reduced to `Direction` only.
+- [x] One native shared `Items` SLOT property exists in Horizontal and Vertical variants.
+- [x] Each slot contains three default Items.
+- [x] Adding a fourth Item to an instance slot was structurally verified.
 - [x] Carbon-like anatomy retained while JV marker assets replace Carbon iconography.
 - [x] 20px marker assets verified.
 - [x] 3px connectors verified.
 - [x] Connector semantic tokens verified: Current/Completed accent; future/error/disabled neutral.
-- [x] Terminal connector behavior verified in all 8 parent variants.
+- [x] Default three-item terminal connector behavior verified; Figma add/remove workflow documents the required previous/new terminal connector adjustment.
 - [x] Label/SM and Helper Label/XS verified.
 - [x] Helper default hidden.
 - [x] Helper sits directly below Label.
@@ -429,6 +434,8 @@ External design systems are references, not runtime sources for Job Vision.
 Code repository/package: **Unregistered**
 
 Runtime component/API: **Unverified**
+
+Figma parent authoring: **Direction + native Items SLOT with 3 default Items**
 
 Storybook: **Bypassed for current handoff**
 
@@ -450,11 +457,11 @@ Canonical v1 now uses:
 
 Removed from the canonical contract:
 
-- legacy fixed-count/hidden-item composition;
+- legacy Count-axis / fixed-count composition;
 - Expressive duplicate;
 - Skeleton state;
 - Compact/mobile variant;
 - step-number property experiment;
 - visual explorations that were not part of the final component.
 
-The canonical contract is intentionally small: workflow state and item content live on the Item; direction and authoring count live on the Parent; runtime sequence length remains data-driven.
+The canonical contract is intentionally small: workflow state and item content live on the Item; Direction and the native extensible Items slot live on the Parent; runtime sequence length remains data-driven.
