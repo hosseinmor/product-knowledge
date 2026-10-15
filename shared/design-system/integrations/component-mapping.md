@@ -617,6 +617,35 @@ The Tabs design identity, line-only v1 appearance, native Items Slot composition
 The Chip design identity is verified as four capability-specific public component sets that share one visual recipe without a mega Type matrix. Selectable, Removable, Disclosure, and Action contracts, current Full radius, 8px main content gap, separate Divider + Summary/Detail secondary-content anatomy, Accent treatment for Selectable Selected / Disclosure Applied / Removable, shared structured-surface Hover/Active overlays across all Chip families, leading selected check anatomy, Action icon at logical End, focus-visible behavior, RTL anatomy, software lifecycle, Tag/Button/selection-control boundaries, real Disclosure + Popover composition, and legacy migration are documented in `../components/chip.md`. Runtime API, exact DOM/ARIA implementation, compound Removable structure, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
 
+### Progress Bar (HOS-37)
+
+| Field | Verified Figma source / status |
+|---|---|
+| DS component | Progress Bar |
+| Knowledge document | `../components/progress-bar.md` — **final design documentation** |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma page | `Progress bar`, node `8930:400384` |
+| Parent component set | `Progress bar` |
+| Parent key / node ID | `1d9983588bb228a44ca2b3af89195bd1e2b51c9d` / `12603:272925` |
+| Parent variants | 20; `Size=Small/Big`, `Alignment=Default/Inline/Indent`, `State=Active/Success/Error`, `Progress=0%/25%/50%/75%/Success/Error`; **not all permutations are authored** |
+| Parent Text properties | `Label text / Helper text / Success text / Error text`; no public numeric Value property |
+| Nested source | `_Progress bar track item` |
+| Track key / node ID | `b765a10f45d8d3ad69489a266bc6e623ba94d5b1` / `12603:273022` |
+| Nested Track variants | 14 = `Small/Big` × `Progress=0%/25%/50%/75%/Success/Error/Indeterminate` |
+| Geometry | Small 4px, Big 8px; neutral Track uses `line/default` as **inside bottom Stroke**, not Fill |
+| Foreground tokens | Active: `surface/accent-emphasis`; Success: `fg/success`; Error: `fg/error` |
+| Indeterminate in public parent | **TBD — Figma**; only nested Track is implemented visually. Numeric percentages must be absent when Indeterminate is implemented |
+| Runtime value treatment | True numeric progress is **required in development**, not limited to fixed Figma illustrative percentages |
+| Documentation frame | [Progress bar / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23867-126381), node `23867:126381` |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — Figma axis labels are not runtime prop names |
+| Storybook | **Bypassed for current design handoff** |
+| Code Connect | **No registered mapping** |
+| Last live Figma verification | **2026-10-15** |
+
+The **Figma component identities and currently authored visual contract** above were verified against the live file. The design document can be final while the public-parent Indeterminate variant remains **TBD** and runtime/browser/assistive-technology testing remains a development responsibility. See `../components/progress-bar.md`.
+
 ### Progress Indicator (HOS-31)
 
 | Field | Current value |
