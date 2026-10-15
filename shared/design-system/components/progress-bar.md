@@ -3,7 +3,7 @@ id: design-system.component.progress-bar
 collection: design-system
 type: component
 title: Progress Bar
-summary: A continuous operation-progress component with real determinate values and explicit success/error feedback; Indeterminate is specified semantically but pending in the public Figma parent.
+summary: Continuous operation-progress component with measured determinate values, public Figma Indeterminate variants, and explicit success/error feedback.
 knowledge_state: verified
 document_maturity: final
 design_status: ready-for-dev
@@ -29,7 +29,7 @@ topics:
 
 # Progress Bar
 
-> **Document status: Final — HOS-37.** The current **Determinate / Success / Error** visual and semantic contract is ready for development handoff. **Indeterminate is part of the documented intended behavior, but exposing it in the public Figma component remains TBD.** "Final" applies to this documentation, not to finished runtime code, visual implementation of the deferred state, or tested accessibility.
+> **Document status: Final — HOS-37.** The **Determinate / Indeterminate / Success / Error** design contract and corresponding public Figma variants are ready for development handoff. In Figma, Indeterminate is a **static visual reference**, not verified animation. "Final" applies to the documented design contract, not to finished runtime code, production motion, or tested accessibility.
 
 ## Purpose
 
@@ -42,7 +42,7 @@ Use cases include uploading a resume, processing applications in a batch, or pre
 | Need | Use | Why |
 | --- | --- | --- |
 | Known completed proportion of one operation | **Progress Bar — Determinate** | Actual completed amount can be compared to a total |
-| Operation ongoing; completed proportion unknown | **Progress Bar — Indeterminate** (parent Figma **TBD**) or an appropriate Loading pattern | No trustworthy percentage exists |
+| Operation ongoing; completed proportion unknown | **Progress Bar — Indeterminate** or an appropriate Loading pattern | No trustworthy percentage exists |
 | Current position in a known sequence of workflow steps | **Progress Indicator / Stepper** | Represents ordered workflow states, not a continuous proportion |
 | Short/local busy feedback without meaningful linear operation progress | **Loading / Spinner pattern** | An inline or localized busy indicator is sufficient |
 | Historical sequence of events | **Timeline** | Describes what occurred and when |
@@ -66,7 +66,7 @@ Mode describes **knowledge of progression**. Outcome describes **what happened t
 
 **Figma authoring limitation:** The public parent currently offers only `0%`, `25%`, `50%`, and `75%` visual `Progress` choices for Active. Its text properties provide Label/Helper/Success/Error copy, but **no public numeric Value text property**. This Figma authoring limitation is **not** a runtime requirement. Arbitrary-percentage authoring in Figma is deferred; developers should implement real data-driven progress.
 
-### Indeterminate — documented behavior; public Figma **TBD**
+### Indeterminate — implemented as static public Figma variants
 
 Use Indeterminate when an operation is active but its completed proportion, remaining work, or ETA **cannot be measured reliably**.
 
@@ -81,21 +81,11 @@ Use Indeterminate when an operation is active but its completed proportion, rema
 
 **Figma status (2026-10-15):**
 
-- `_Progress bar track item` already has `Progress=Indeterminate` in **Small 4px** and **Big 8px**.
-- **The public parent `Progress bar` does not contain an Indeterminate variant** or a complete parent composition exposing this state.
-- **TBD — Figma (deferred by design decision):** expose Indeterminate on the public parent using the existing Track source, retaining the original master identities; ensure appropriate Label/Helper composition and **no numeric value**.
-- **TBD — Figma QA:** validate both sizes, applicable alignments, RTL, long/mixed-script labels, text visibility, and representation of the moving segment.
-- **This documentation finalization does not authorize or make any Figma changes.**
-
-### Terminal outcomes — currently represented in Figma
-
-| Outcome | Meaning | Representation |
-| --- | --- | --- |
-| `Success` | Operation is **confirmed completed successfully** | Success color/icon and meaningful text; not a guessed 100% |
-| `Error` | Operation **failed** | Error color/icon and meaningful description or recovery guidance when supported |
-| `Cancelled` | Operation was **actually cancelled** | Product-level status; **no current Progress Bar Figma state** — do not invent a visual variant |
-
-The current Error and Success foreground fills are full-width status treatments, **not literal determinate values**. Do not announce Error as 100% completion. On a runtime transition to an outcome, communicate the outcome explicitly; avoid leaving an indefinite “processing” message visible.
+- The nested `_Progress bar track item` retains `Progress=Indeterminate` in **Small 4px** and **Big 8px**; no internal Track master was duplicated.
+- The public `Progress bar` now exposes **five** `State=Active, Progress=Indeterminate` variants: `Default/Small`, `Default/Big`, `Inline/Small`, `Inline/Big`, and `Indent/Big`. These match currently supported Active size/alignment combinations; `Indent/Small` was not invented.
+- Each Indeterminate master nests its corresponding Track and preserves linked Label/Helper text authoring where present. Indeterminate is a **Progress axis value**, not a separate Mode axis.
+- **Verified in Figma:** component links, both sizes, available alignment treatments, RTL/Persian Playground, neutral Track stroke, accent **static segment**, and absence of numeric progress copy. The segment must move appropriately at runtime, not act as a static 25% claim.
+- **Runtime QA needed:** actual animation, reduced-motion handling, accessible progress naming/value/announcements, and long/mixed-script responsive behavior.
 
 ## Current Figma implementation — verified source
 
@@ -109,7 +99,7 @@ Figma: [Progress bar / Documentation](https://www.figma.com/design/rROD8ctH9UfPG
 | **Nested track set** | `_Progress bar track item` — node `12603:273022`; component key `b765a10f45d8d3ad69489a266bc6e623ba94d5b1` |
 | Presentation | `Progress bar / Documentation` — node `23867:126381`, 1600px shared presentation system |
 
-The Figma source has **20 public variants** and **14 nested Track variants**. The presentation includes source-connected instances, not replacement master component sets. Source keys establish design identity; they do not prove library publication, Code Connect, or implementation.
+The Figma source has **25 public variants** (20 preserved, 5 Indeterminate additions) and **14 nested Track variants**. The presentation includes source-connected instances, not replacement master component sets. Source keys establish design identity; they do not prove library publication, Code Connect, or implementation.
 
 ### Actual authoring properties
 
@@ -118,12 +108,12 @@ The Figma source has **20 public variants** and **14 nested Track variants**. Th
 | Parent | `Size` | `Small` (4px), `Big` (8px) |
 | Parent | `Alignment` | `Default`, `Inline`, `Indent` |
 | Parent | `State` | `Active`, `Success`, `Error` |
-| Parent | `Progress` | `0%`, `25%`, `50%`, `75%`, `Success`, `Error` |
+| Parent | `Progress` | `0%`, `25%`, `50%`, `75%`, `Indeterminate`, `Success`, `Error` |
 | Parent | Text | `Label text`, `Helper text`, `Success text`, `Error text` |
 | Nested Track | `Size` | `Small` (4px), `Big` (8px) |
 | Nested Track | `Progress` | `0%`, `25%`, `50%`, `75%`, `Success`, `Error`, `Indeterminate` |
 
-**Do not assume a full Cartesian variant matrix.** In particular, `State`, `Progress`, `Alignment`, and `Size` have only the 20 authored parent combinations. There is no separate `Indeterminate`, `Value`, `Show helper`, or `RTL` parent property. Hide any unneeded copy through supported instance authoring/layer visibility rather than assuming a Boolean property exists.
+**Do not assume a full Cartesian variant matrix.** In particular, `State`, `Progress`, `Alignment`, and `Size` have only the 25 authored parent combinations. `Indeterminate` is an option of the existing `Progress` axis, not a separate Mode. There is no separate `Value`, `Show helper`, or `RTL` parent property. Hide any unneeded copy through supported instance authoring/layer visibility rather than assuming a Boolean property exists.
 
 ### Anatomy
 
@@ -202,7 +192,7 @@ Follow the canonical [Dynamic Content and Feedback](../accessibility/dynamic-con
 
 | Test | Acceptance condition | Verification status |
 | --- | --- | --- |
-| Public Figma variants | 20 original parent variants, same master ID | **Verified in Figma** |
+| Public Figma variants | 25 parent variants (20 preserved, 5 new Indeterminate), same component-set ID/key | **Verified in Figma** |
 | Nested Figma variants | 14 original Track variants, including Indeterminate Small/Big | **Verified in Figma** |
 | Track semantic token / Scope | `line/default` on inside Stroke; 4/8px; no Track background Fill | **Verified in Figma** |
 | Visual presentation | Shared 1600px documentation layout with linked matrix and RTL Playground | **Verified in Figma** |
@@ -211,22 +201,23 @@ Follow the canonical [Dynamic Content and Feedback](../accessibility/dynamic-con
 | Numeric dynamic progress | Any validated numeric value maps to matching fill/value semantics; not limited to fixed Figma percentages | **Required in development** |
 | Determinate edge cases | 0%, intermediate, 100%, missing total/invalid input handled truthfully | **Required in development** |
 | Indeterminate behavior | No numeric value, named busy state, sensible motion/reduced-motion fallback | **Specified; runtime verification required** |
-| Parent Figma Indeterminate | Public component exposes nested Indeterminate without changing canonical source identity | **TBD — Figma** |
-| Parent Figma Indeterminate QA | Both sizes, supported layouts, RTL and status copy | **TBD — Figma** |
+| Parent Figma Indeterminate | Public `Progress=Indeterminate` includes Default Small/Big, Inline Small/Big, Indent Big; nested Track connected | **Verified in Figma** |
+| Parent Figma Indeterminate QA | Both sizes and supported layouts, Persian RTL example, no percentage, static segment | **Verified in Figma** (long/mixed-script and motion still need runtime QA) |
 | Screen-reader semantics | Accurate determinate/unknown progress; terminal states announced; no update spam | **Required in development** |
 | Responsive composition | Long Persian/mixed-script labels stay readable, no unacceptable overlap/clipping | **Required in development** |
 | Runtime/Storybook | Owning Angular API, tests and Storybook link | **Unregistered / bypassed for design handoff** |
 
 Storybook is **not a prerequisite for the current design handoff**. Product runtime QA, browser and assistive-technology tests remain development responsibilities; they must not be represented as already passing.
 
-## Deferred work and explicit TBDs
+## Verified work and remaining TBDs
 
-1. **TBD — Figma Indeterminate:** Add Indeterminate to the public `Progress bar` without replacing the existing canonical masters; reuse the nested track. Confirm what Parent `Progress`/State properties should expose before creating combinations.
-2. **TBD — Figma Indeterminate QA:** Size, layout, RTL, no percentage, Label/Helper, and any visible motion sample.
-3. **TBD — Figma value authoring:** Decide whether/how designers should author intermediate numeric values beyond the four fixed illustrative variants. Runtime **must not** be restricted to them.
-4. **Runtime verification:** Define exact Angular inputs, DOM layout, motion timing, reduced-motion fallback and screen-reader outputs when implementation exists. Register the owning repository/Storybook identity later.
+1. **Done — public Indeterminate Figma:** Five connected master variants added to the original public component set; no prior master identity or nested Track master replaced.
+2. **Done — design-level QA:** Small/Big, Default/Inline/Indent supported combinations, semantic Stroke and Fill tokens, real-instance RTL Playground, and no progress percentage.
+3. **TBD — Figma numeric authoring:** Decide how designers should show other intermediate determinate values beyond the four fixed examples. Runtime **must not** be restricted to these Figma presets.
+4. **Required runtime QA:** Numeric progress mapping, indeterminate motion timing, `prefers-reduced-motion`, screen-reader announcements, and long/mixed-script responsive content. Exact Angular props and DOM remain unverified until the owning source exists.
+5. **Existing size inconsistency to review separately:** Some legacy Inline variants labeled `Size=Big` use a 4px Small Track. New Indeterminate Inline/Big correctly uses an 8px Big Track. Existing masters were intentionally preserved.
 
-These are **tracked implementation/authoring gaps**, not missing definitions of Indeterminate meaning or permission to claim the feature currently exists in the parent Figma component.
+The **Indeterminate Figma state is implemented**. Its Figma visual is a static reference; motion and accessibility implementation are not yet verified.
 
 ## Sources and handoff status
 
@@ -237,4 +228,4 @@ These are **tracked implementation/authoring gaps**, not missing definitions of 
 - [Dynamic Content and Feedback](../accessibility/dynamic-content-and-feedback.md) — accessible status requirements.
 - HOS-37: https://linear.app/hossein-mor/issue/HOS-37/pilot-progress-bar-component-across-figma-and-design-system-knowledge
 
-**Handoff status:** Documentation **final**; existing Figma visual scope **ready for development**; public-parent Indeterminate **deferred/TBD**; runtime source/API, implementation and test results **unverified**. No additional Figma edits were made to finalize this documentation.
+**Handoff status:** Documentation **final**; Determinate/Indeterminate/Success/Error Figma authoring **ready for development**. Indeterminate is **static in Figma**; runtime animation, API, accessibility behavior and tests remain **unverified**. Original 20 variant masters and both component-set identities are preserved.
