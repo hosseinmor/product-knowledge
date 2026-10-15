@@ -30,23 +30,25 @@ Do not replicate full API/state tables, token inventories, keyboard specificatio
 
 ## Standard page structure
 
-Use **one visually dominant documentation frame** per component. The presentation frame may coexist with the original canonical Component Sets and legacy materials while migration is underway. Existing Master IDs and connected instances must not be broken.
+Use **one visually dominant documentation frame** per component. **The original canonical Main Component / Component Set must live inside the presentation frame**. Older documentation frames may remain temporarily as archives, but must no longer contain the active master sources. Reparent existing masters; preserve node IDs, component keys, published identities, variant children, slots, variables, and connected instances.
 
 | Order | Section name | Required | Content |
 | --- | --- | --- | --- |
 | 00 | **Header** | Yes | Component name, one-line purpose, optional category/task/source link |
-| 01 | **Component set** | Yes | Canonical source reference, clear presentation of main variant axes, concise authoring/property summary |
+| 01 | **Component set** | Yes | **Original public Main Component / Component Set (not an instance)**, all canonical variants, and concise authoring/property summary |
 | 02 | **Playground** | Yes | Real component instances in representative usages and meaningful edge cases |
-| 03 | **Anatomy & composition** | For composite components | Nested components, slots, relationships, and key composition rules |
+| 03 | **Anatomy & composition** | For composite components | **Actual internal Component Sets and standalone Main Components**, slots, relationships, and composition rules |
 | 04 | **Usage & handoff** | Only when needed | Essential do/don't, known boundary, source links, and implementation caveats |
 
 **Keep section numbers fixed even when optional sections are absent** (for example: Radio has 00, 01, 02, 04). Do not fill the canvas with an empty optional section.
 
 ### Source vs presentation distinction
 
-A matrix constructed from connected **instances** is a *visual index*, **not** a new Component Set or replacement for the canonical Masters.
+**Section 01 must contain the original canonical public Master / Component Set itself, not an instance-based visual index.** The Component Set retains its real children/variant properties; no separate matrix is needed to imitate it.
 
-The source may be in the documentation frame or elsewhere on the same component page. When it is elsewhere, identify the canonical set by name and preserve its node identity. Never clone a master merely to make the page appear symmetrical; avoid multiple live sources. In authoring and AI summaries, distinguish **source Component Set** from **presentation matrix**.
+**Section 03 must contain the original nested Component Sets and standalone Main Components** when the public component has reusable internal source families. Large masters are placed at their natural dimensions in full-width source rows or an explicit wide exception. Do not present only instances or text-only references as substitutes for these sources.
+
+**Section 02 is the instance-only zone:** its examples must remain connected to those original sources. Never duplicate, detach, recreate, or swap the canonical master simply to achieve a symmetric layout. Preserve its source identity during reparenting.
 
 The canonical public component must be searchable in Figma and remain attached to its expected file/library identity.
 
@@ -67,14 +69,14 @@ The canonical public component must be searchable in Figma and remain attached t
 | Borders | Avoid repeated section borders; use only when needed for separation |
 | Layout behavior | Auto Layout, fixed intentional widths, Hug content height, no clipping of content |
 
-The **1600 px frame is a documentation canvas convention**, not a product breakpoint. For components with genuinely wider interaction patterns, give the content a full-width playground or a clearly labeled exception; do not silently shrink, crop, or detach source instances.
+The **1600 px frame is a documentation canvas convention**, not a product breakpoint. For components with genuinely wider masters, use a full-width source row or a clearly labeled wide exception; do not scale, crop, detach, or recreate the canonical source.
 
 ### Alignment and responsive presentation
 
 - Use one left-aligned frame grid for documentation labels; product content inside samples keeps its own RTL behavior.
 - Do not mirror the whole English documentation scaffold merely because sample content is Persian.
 - For examples, use meaningful widths. A subcomponent that is 976 px wide must not be put into a 477 px anatomy card.
-- Use full-width examples or **textual source references** for large nested components.
+- Use full-width source containers for wide internal Masters. Text-only references are supplementary and cannot replace the actual source inside Section 03.
 - Size/density axes are about the **product component**, not arbitrary documentation card sizes.
 
 ## Required section details
@@ -85,7 +87,8 @@ Show the component's official Figma name, a concise purpose and (when known) tas
 
 ### 01 · Component set
 
-- Display primary variant axes as a legible labeled matrix; when all permutations are too large, show meaningful representatives and identify the full canonical source.
+- Place the **existing public canonical Component Set** directly in this section; display its real variants and axes. Do not use an instance-generated matrix as the sole source display.
+- Keep the full original variant set intact even when large; use full-width rows or a documented width exception rather than hiding canonical variants.
 - Identify secondary component families separately (e.g., Radio Group under Radio).
 - Put the *Axes & properties* panel beside the matrix when width permits; avoid a long standalone text section.
 - Show true `Variant` axes separately from Text, Boolean, Instance Swap, and Slot authoring properties.
@@ -102,9 +105,9 @@ Show the component's official Figma name, a concise purpose and (when known) tas
 
 ### 03 · Anatomy & composition (conditional)
 
-Use for composite elements, such as Data Table, Select, Timeline, or complex overlays. Show the public parent first, then relevant internal responsibilities and slots.
+Use for composite elements, such as Data Table, Select, Timeline, or complex overlays. The public parent Master stays in Section 01; put its **actual internal Master/Component Sets** in Section 03, with short descriptions of responsibilities and slots.
 
-Keep internal information short. For a full-width Row or Header Row, include its purpose and a reference to its actual source; show it at full width elsewhere rather than scaling or clipping it inside a narrow card.
+Use original node identities and preserve all variants. Display a wide Row or Header Row Master in a full-width source card at its original size. Small internal Masters may share a row when both fit without scaling or clipping.
 
 ### 04 · Usage & handoff (conditional)
 
@@ -126,21 +129,23 @@ A change to one of these utilities may affect every presentation instance; inspe
 
 ## Canonical reference pilots
 
-- [Radio Button / Presentation Template v1](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23835-186): six Radio states, two Radio Group directions, a simple Playground.
-- [Data Table / Presentation Template v1](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23835-127556): composable public table presets, wide playground, conditional Anatomy.
+- [Radio Button / Documentation (canonical sources)](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23835-186): six Radio states, two Radio Group directions, a simple Playground.
+- [Data Table / Documentation (canonical sources)](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23835-127556): composable public table presets, wide playground, conditional Anatomy.
 - [Internal utilities](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23840-10): shared presentation-only components.
 
-These are **presentation pilots**, not component maturity or runtime approval signals. The original canonical component sources remain untouched.
+These are **presentation pilots**, not component maturity or runtime approval signals. Both pilots now contain the **original canonical sources moved in place with unchanged node IDs and variant counts**; master APIs were not redesigned.
 
 ## Migration / cleanup protocol
 
 1. Identify published masters, nested source components, existing component-set IDs, slots, and connected instances.
 2. Identify the *single* current canonical source per public component family.
-3. Add or compose the presentation frame **without creating duplicate masters**.
-4. Build Matrix and Playground from instances. Apply reusable `_Docs` blocks for repeated scaffold elements.
-5. If legacy assets exist, move them only after checking consumers and migration requirements; preserve source identity.
-6. Perform visual and structural QA (below) before accepting the new presentation.
-7. Update the relevant component documentation only for a **real contract change**, not presentation-only rearrangement.
+3. Compose the presentation frame **without creating duplicate masters**.
+4. **Reparent the original public Main Component / Component Set into Section 01**. Verify its node ID, published key, variants, nested dependencies and instance links are unchanged.
+5. **Reparent the original internal Component Sets and standalone Masters into Section 03** for composite components; preserve natural sizes and stable identities.
+6. Use existing source-linked instances in Section 02 Playground. Reuse `_Docs` utilities for headings and notes; a reusable documentation card is never itself a product master.
+7. Mark superseded documentation frames as archive and position them out of the main presentation. Check any externally documented Figma frame links and update references after moving sources.
+8. Perform visual and structural QA (below) before accepting the new presentation.
+9. Update component documentation when live source links move, but do not change component behavior/runtime contracts for a presentation-only migration.
 
 ### QA checklist
 
@@ -150,8 +155,10 @@ These are **presentation pilots**, not component maturity or runtime approval si
 - [ ] Auto Layout governs all documentation groups; text uses shared styles and hugs height
 - [ ] No overlap, clipped text, or narrow-card overflow
 - [ ] Semantic token bindings used for documentation surfaces/foreground where available
-- [ ] Main source Component Sets and nested dependencies are preserved with their current IDs
-- [ ] Visual matrix and playground items are genuine source-linked instances
+- [ ] **Original canonical public Main Component / Component Set is physically inside Section 01**, not merely linked or imitated by instances
+- [ ] **All reusable internal Main Components and Component Sets are inside Section 03**, when applicable
+- [ ] Master node IDs, component keys, variant counts, slots, token bindings, and connected consumers remain unchanged after reparenting
+- [ ] Playground items are genuine source-linked instances and do not duplicate public masters
 - [ ] Primary variant axes and non-variant properties are distinguished
 - [ ] Playground covers representative product use, RTL and relevant edge behavior
 - [ ] Documentation-only `_Docs` components are not published as product components
@@ -164,7 +171,7 @@ When asked to standardize a Figma component page:
 
 1. Read this rule **only when editing the Figma presentation**, then read the target component contract and inspect the actual current Figma nodes.
 2. Treat existing canonical Masters, published IDs, variable bindings and nested component contracts as protected; ask for owner review before changing them.
-3. First build a clean documentation layout using **existing** instances and `_Docs` utilities.
+3. Build the documentation layout using `_Docs` utilities; then **move the existing canonical Master nodes** into Sections 01 and 03. Never create substitute instances in their place.
 4. Never infer undocumented axis/state options from a generic template. Display only the target's real options.
 5. Add conditional Anatomy/Handoff sections only when necessary.
 6. Return the changed presentation link, affected node IDs, exceptions, and a short audit result. A passing Figma screenshot is not evidence of working runtime interaction.
@@ -173,4 +180,4 @@ When asked to standardize a Figma component page:
 
 - Confirm whether all component pages adopt 1600 px, or whether an explicitly defined **wide exception** is needed for unusual editors/data views.
 - Confirm publication-exclusion enforcement for internal `_Docs` sources in library settings (the naming convention alone must not be treated as technical enforcement).
-- Decide the order and governance for migrating already published legacy documentation frames. Never silently substitute published component sources.
+- Plan cleanup of already published legacy documentation frames carefully. Keep master identities stable and mark superseded documentation as archive; never silently substitute published component sources.
