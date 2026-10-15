@@ -647,7 +647,7 @@ The Chip design identity is verified as four capability-specific public componen
 | Property mapping | **Unverified** — do not infer runtime prop names from Figma property labels |
 | Storybook | **Bypassed for current handoff** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-10-14 |
+| Last Figma verification | 2026-10-15 |
 
 Progress Indicator and Item design identities, final Carbon-derived visual contract, state model, RTL authoring behavior, connector termination, helper placement, and text constraints are verified in Figma. Runtime sequence rendering, exact DOM/API, responsive product composition, and accessibility implementation remain development responsibilities. See `../components/progress-indicator.md`.
 
