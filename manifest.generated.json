@@ -1064,7 +1064,7 @@
       "summary": "Content Switcher switches immediately between closely related views of the same content using one current choice.",
       "status": "draft",
       "owner": null,
-      "last_reviewed": "2026-09-21",
+      "last_reviewed": "2026-10-14",
       "related": [
         "design-system.component.tabs",
         "design-system.component.toggle-button",
@@ -1301,6 +1301,29 @@
       "path": "shared/design-system/components/popover.md"
     },
     {
+      "id": "design-system.component.progress-indicator",
+      "kind": "design-system-component",
+      "title": "Progress Indicator",
+      "summary": "Carbon-derived RTL progress indicator for known, ordered multi-step workflows, with explicit current/completed/incomplete/error/disabled states and compositional Figma authoring.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": "2026-10-15",
+      "related": [
+        "design-system.component.timeline",
+        "design-system.component.breadcrumb",
+        "design-system.component.tabs",
+        "design-system.accessibility.core",
+        "design-system.accessibility.forms",
+        "design-system.reference.component-mapping"
+      ],
+      "topics": [
+        "components",
+        "design-system-component",
+        "progress-indicator"
+      ],
+      "path": "shared/design-system/components/progress-indicator.md"
+    },
+    {
       "id": "design-system.component.radio",
       "kind": "design-system-component",
       "title": "Radio",
@@ -1440,11 +1463,15 @@
       "id": "design-system.component.tabs",
       "kind": "design-system-component",
       "title": "Tabs",
-      "summary": "> Status: structure only; v4 Color mapping stress-tested",
+      "summary": "Tabs switch between peer content panels within the same context using one current tab.",
       "status": "draft",
       "owner": null,
-      "last_reviewed": null,
-      "related": [],
+      "last_reviewed": "2026-10-14",
+      "related": [
+        "design-system.component.content-switcher",
+        "design-system.reference.component-mapping",
+        "design-system.accessibility.keyboard-navigation"
+      ],
       "topics": [
         "components",
         "design-system-component",
@@ -1507,6 +1534,25 @@
         "textarea"
       ],
       "path": "shared/design-system/components/textarea.md"
+    },
+    {
+      "id": "design-system.component.timeline",
+      "kind": "design-system-component",
+      "title": "Timeline",
+      "summary": "A compositional vertical RTL sequence of chronological events or scheduled time groups, shared by Job Vision My Applications and employee Onboarding.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": "2026-10-14",
+      "related": [
+        "design-system.component.progress-indicator",
+        "design-system.accessibility.core"
+      ],
+      "topics": [
+        "components",
+        "design-system-component",
+        "timeline"
+      ],
+      "path": "shared/design-system/components/timeline.md"
     },
     {
       "id": "design-system.component.toggle-button",
@@ -2080,6 +2126,26 @@
         "release-and-versioning"
       ],
       "path": "shared/design-system/governance/release-and-versioning.md"
+    },
+    {
+      "id": "design-system.integration.figma-component-presentation",
+      "kind": "design-system-integration",
+      "title": "Figma Component Presentation",
+      "summary": "Defines a consistent, AI-readable presentation layout for JobVision Design System component pages without duplicating canonical component or runtime contracts.",
+      "status": "draft",
+      "owner": "Design System team",
+      "last_reviewed": null,
+      "related": [
+        "design-system.structure",
+        "design-system.governance.documentation-maintenance",
+        "design-system.reference.source-of-truth"
+      ],
+      "topics": [
+        "design-system-integration",
+        "figma-component-presentation",
+        "integrations"
+      ],
+      "path": "shared/design-system/integrations/figma-component-presentation.md"
     },
     {
       "id": "design-system.overview",
@@ -2836,15 +2902,16 @@
     }
   ],
   "summary": {
-    "documents": 142,
+    "documents": 145,
     "by_kind": {
-      "design-system-component": 35,
       "content-guideline": 17,
       "design-system-accessibility": 18,
+      "design-system-component": 37,
       "design-system-design-language": 1,
       "design-system-experience-rule": 11,
       "design-system-foundation": 11,
       "design-system-governance": 6,
+      "design-system-integration": 1,
       "design-system-overview": 2,
       "design-system-pattern": 14,
       "design-system-product-variation": 3,
