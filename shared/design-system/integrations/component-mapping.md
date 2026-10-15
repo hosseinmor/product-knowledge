@@ -634,7 +634,7 @@ The Chip design identity is verified as four capability-specific public componen
 | Item key / node ID | `ebd4a7beb03d58ea243faaed501712880ffa2669` / `23704:348` |
 | Item variants | `Direction=Horizontal/Vertical × State=Incomplete/Current/Completed/Error/Disabled` = **10 variants** |
 | Item content properties | `Label / Helper / Show helper / Show connector` |
-| Typography | Label = `Label/SM`; Helper = `Label/XS`; `Show helper` default = `true` in finalized Figma |
+| Typography | Label = `Label/SM`; Helper = `Body/Compact/XS`; `Show helper` default = `true` in finalized Figma |
 | Text limits | Horizontal Label 1 line / Helper 2; Vertical Label 2 / Helper 3; ending truncation |
 | Marker size | 20px |
 | Marker assets | Incomplete/Disabled: `Icon / dot mark outline`; Current: `Icon / dot mark`; Completed: `Icon/check_circle_outline`; Error: `Icon/error_outline` |
