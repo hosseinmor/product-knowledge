@@ -560,7 +560,7 @@ The Content Switcher design identity, three-size parent model, native Items Slot
 | Property mapping | **Unverified** — do not infer runtime prop names, DOM/ARIA roles, route behavior, activation mode, or overflow algorithm from Figma |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-10-14 |
+| Last Figma verification | 2026-10-15 |
 
 The Tabs design identity, line-only v1 appearance, native Items Slot composition, Content × State internal Item model, 40px density, zero-inline-padding + 24px parent-gap layout, Text/Text+Icon/Icon-only content modes, selected/focus treatment, overflow rule, Content Switcher/navigation/filter boundaries, RTL behavior, and accessibility contract are verified in `../components/tabs.md`. Runtime API, exact DOM/ARIA implementation, activation mode, routing integration, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime source is registered.
 
@@ -634,13 +634,13 @@ The Chip design identity is verified as four capability-specific public componen
 | Item key / node ID | `ebd4a7beb03d58ea243faaed501712880ffa2669` / `23704:348` |
 | Item variants | `Direction=Horizontal/Vertical × State=Incomplete/Current/Completed/Error/Disabled` = **10 variants** |
 | Item content properties | `Label / Helper / Show helper / Show connector` |
-| Typography | Label = `Label/SM`; Helper = `Label/XS`; Helper default hidden |
+| Typography | Label = `Label/SM`; Helper = `Label/XS`; `Show helper` default = `true` in finalized Figma |
 | Text limits | Horizontal Label 1 line / Helper 2; Vertical Label 2 / Helper 3; ending truncation |
 | Marker size | 20px |
 | Marker assets | Incomplete/Disabled: `Icon / dot mark outline`; Current: `Icon / dot mark`; Completed: `Icon/check_circle_outline`; Error: `Icon/error_outline` |
 | Connector | 3px; Current/Completed = `line/accent`; Incomplete/Error/Disabled = `line/default`; none after final Item |
 | Error contract | Error replaces Current for the affected step; helper communicates validation/problem detail |
-| Responsive contract | No Compact/mobile variant in v1; do not compress Horizontal below usable width; prefer Vertical or a product-level responsive composition |
+| Responsive contract | No Compact/mobile variant in v1; mobile/narrow breakpoint and minimum supported size = **TBD**; until defined, do not compress Horizontal below usable width; prefer Vertical or a product-level responsive composition |
 | Documentation frame | `Progress indicator / Documentation`, node `23730:499` |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified**; do not treat the 3 default Figma slot Items as a runtime limit |
