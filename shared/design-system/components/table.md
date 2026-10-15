@@ -16,7 +16,7 @@ last_reviewed: '2026-10-14'
 
 # Data Table
 
-> **HOS-35 · Ready for Angular/Storybook sandbox, not production approved.** The Figma page now follows the JV Documentation layout (Header, Component set, Playground, Usage & handoff). Legacy Carbon sources and V1 experiments have been moved to the separate *Archive / Data Table Legacy* Figma page without breaking source references. Runtime, cross-browser and AT tests have not been executed. This remains draft guidance, not a verified production component.
+> **HOS-35 · Ready for Angular/Storybook sandbox, not production approved.** The Figma page follows the JV Documentation layout (Header, actual canonical Component Set, instance Playground, internal Master Anatomy, Usage & handoff). Legacy Carbon sources and V1 experiments have been moved to the separate *Archive / Data Table Legacy* Figma page without breaking source references. Runtime, cross-browser and AT tests have not been executed. This remains draft guidance, not a verified production component.
 
 ## Purpose and boundary
 
@@ -26,7 +26,7 @@ Use **Data Table** when users need to compare multiple entities across labeled c
 
 ## Canonical Figma sources (pilot)
 
-File: [JV NEXT DS — Data Table / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23522-13721)
+File: [JV NEXT DS — Data Table / Documentation · canonical sources](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23835-127556). The original public and internal Master nodes were reparented into Sections 01 and 03; their IDs and variant contracts remain unchanged. The superseded documentation frame is archived on the same page.
 
 | Source | Figma API | Responsibilities |
 | --- | --- | --- |

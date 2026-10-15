@@ -1301,6 +1301,28 @@
       "path": "shared/design-system/components/popover.md"
     },
     {
+      "id": "design-system.component.progress-bar",
+      "kind": "design-system-component",
+      "title": "Progress Bar",
+      "summary": "Continuous progress for asynchronous operations; documents the current Figma component and a proposed indeterminate mode that is not yet exposed on the public parent.",
+      "status": "draft",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-15",
+      "related": [
+        "design-system.component.progress-indicator",
+        "design-system.pattern.loading-and-progress",
+        "content.pattern.loading-and-progress",
+        "design-system.accessibility.dynamic-content-and-feedback",
+        "design-system.reference.component-mapping"
+      ],
+      "topics": [
+        "components",
+        "design-system-component",
+        "progress-bar"
+      ],
+      "path": "shared/design-system/components/progress-bar.md"
+    },
+    {
       "id": "design-system.component.progress-indicator",
       "kind": "design-system-component",
       "title": "Progress Indicator",
@@ -2902,11 +2924,11 @@
     }
   ],
   "summary": {
-    "documents": 145,
+    "documents": 146,
     "by_kind": {
       "content-guideline": 17,
       "design-system-accessibility": 18,
-      "design-system-component": 37,
+      "design-system-component": 38,
       "design-system-design-language": 1,
       "design-system-experience-rule": 11,
       "design-system-foundation": 11,
