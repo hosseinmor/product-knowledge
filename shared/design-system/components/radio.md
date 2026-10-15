@@ -249,7 +249,7 @@ File key: `rROD8ctH9UfPGAMrRrOzHe`
 - Variant properties: `Direction`
 - Content properties: `Group label / Show group label`
 
-The Figma page also contains Axes & properties, real-instance Playground coverage, and a migration note for removed legacy variants.
+Canonical Presentation: [Radio Button / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23835-186). Both original Component Sets above are embedded in Section 01 with their existing node IDs, while the Playground uses source-linked instances. The previous documentation layout is archived on the same Figma page.
 
 ## Runtime / Storybook Reference
 
