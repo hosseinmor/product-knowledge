@@ -517,7 +517,7 @@ The Toggle design identity, Size × State × Toggled matrix, label contract, neu
 | Property mapping | **Unverified** — do not infer runtime prop names or DOM/ARIA roles from Figma |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-10-14 |
+| Last Figma verification | 2026-10-15 |
 
 The Content Switcher design identity, three-size parent model, native Items Slot, State × Content internal Item model, fill-based sizing, Text/Icon boundary, selected treatment, semantic foreground mapping, equal-width composition, responsive rule, RTL behavior, and accessibility contract are verified in `../components/content-switcher.md`. Runtime API, exact DOM/ARIA and keyboard implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime source is registered.
 
@@ -627,8 +627,9 @@ The Chip design identity is verified as four capability-specific public componen
 | Figma page | `Progress indicator`, node `521:16785` |
 | Parent component set | `Progress indicator` |
 | Parent key / node ID | `335d54d47ea28e6329f88a8bb34dc3b2d02e5c77` / `23704:699` |
-| Parent variants | `Direction=Horizontal/Vertical × Count=3/4/5/6` = **8 variants** |
-| Parent authoring rule | Count is Figma-only; runtime derives sequence length from step data. Terminal connector is preconfigured per Count variant |
+| Parent variants | `Direction=Horizontal/Vertical` = **2 variants** |
+| Parent content property | Native `Items` SLOT shared by both Direction variants; each starts with 3 default Item instances |
+| Parent authoring rule | Add/remove Progress Indicator Items inside the slot. When adding a new terminal Item in Figma, enable the previous terminal connector and disable the new terminal connector. Runtime derives sequence length and terminal connector from step data |
 | Item component set | `_Progress indicator item` |
 | Item key / node ID | `ebd4a7beb03d58ea243faaed501712880ffa2669` / `23704:348` |
 | Item variants | `Direction=Horizontal/Vertical × State=Incomplete/Current/Completed/Error/Disabled` = **10 variants** |
@@ -642,7 +643,7 @@ The Chip design identity is verified as four capability-specific public componen
 | Responsive contract | No Compact/mobile variant in v1; do not compress Horizontal below usable width; prefer Vertical or a product-level responsive composition |
 | Documentation frame | `Progress indicator / Documentation`, node `23730:499` |
 | Code repository/package | **Unregistered** |
-| Runtime component/API | **Unverified**; do not copy Figma Count into a hard runtime cap or required `count` prop |
+| Runtime component/API | **Unverified**; do not treat the 3 default Figma slot Items as a runtime limit |
 | Property mapping | **Unverified** — do not infer runtime prop names from Figma property labels |
 | Storybook | **Bypassed for current handoff** |
 | Code Connect | **No registered mapping** |
