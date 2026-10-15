@@ -1304,8 +1304,8 @@
       "id": "design-system.component.progress-bar",
       "kind": "design-system-component",
       "title": "Progress Bar",
-      "summary": "Continuous progress for asynchronous operations; documents the current Figma component and a proposed indeterminate mode that is not yet exposed on the public parent.",
-      "status": "draft",
+      "summary": "A continuous operation-progress component with real determinate values and explicit success/error feedback; Indeterminate is specified semantically but pending in the public Figma parent.",
+      "status": "reviewed",
       "owner": "Design System team",
       "last_reviewed": "2026-10-15",
       "related": [
@@ -1316,9 +1316,15 @@
         "design-system.reference.component-mapping"
       ],
       "topics": [
+        "accessibility",
         "components",
         "design-system-component",
-        "progress-bar"
+        "determinate",
+        "feedback",
+        "indeterminate",
+        "progress",
+        "progress-bar",
+        "rtl"
       ],
       "path": "shared/design-system/components/progress-bar.md"
     },
