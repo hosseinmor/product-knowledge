@@ -170,7 +170,7 @@ Do not redraw equivalent markers inside Progress Indicator. Use the approved DS 
 ### Typography
 
 - Label: `Label/SM`;
-- Helper: `Label/XS`;
+- Helper: `Body/Compact/XS`;
 - Label-to-Helper gap: **4px**;
 - `Show helper` currently defaults to `true` in the Figma master; turn it off when a step has no supporting or validation copy.
 
@@ -373,7 +373,7 @@ Exact component names, Angular inputs, DOM wrappers, event names, and TypeScript
 | Default terminal connector | No connector after the default terminal Item | **Verified in Figma** |
 | Helper default | `Show helper=true` in the finalized Figma master | **Verified in Figma** |
 | Helper placement | Directly below Label | **Verified in Figma** |
-| Typography | Label = Label/SM; Helper = Label/XS | **Verified in Figma** |
+| Typography | Label = Label/SM; Helper = Body/Compact/XS | **Verified in Figma** |
 | Horizontal text limits | Label 1 line; Helper 2 lines; ending truncation | **Verified in Figma** |
 | Vertical text limits | Label 2 lines; Helper 3 lines; ending truncation | **Verified in Figma** |
 | Error scenario | Error replaces Current; Error Helper visible | **Verified in Figma** |
@@ -417,7 +417,7 @@ External design systems are references, not runtime sources for Job Vision.
 - [x] 3px connectors verified.
 - [x] Connector semantic tokens verified: Current/Completed accent; future/error/disabled neutral.
 - [x] Default three-item terminal connector behavior verified; Figma add/remove workflow documents the required previous/new terminal connector adjustment.
-- [x] Label/SM and Helper Label/XS verified.
+- [x] Label/SM and Helper Body/Compact/XS verified.
 - [x] Finalized Figma default verified: `Show helper=true`.
 - [x] Helper sits directly below Label.
 - [x] Horizontal and Vertical text-line constraints verified.
