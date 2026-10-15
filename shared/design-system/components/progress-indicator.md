@@ -5,7 +5,7 @@ type: component
 title: Progress Indicator
 summary: Carbon-derived RTL progress indicator for known, ordered multi-step workflows, with explicit current/completed/incomplete/error/disabled states and compositional Figma authoring.
 knowledge_state: verified
-document_maturity: draft
+document_maturity: final
 design_status: ready-for-dev
 design_maturity: handoff-ready
 last_reviewed: '2026-10-15'
@@ -60,7 +60,7 @@ Progress Indicator answers **"where am I in this workflow?"**. Timeline answers 
 Figma review link:
 https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23730-499
 
-The component identities above were read directly from the owning Figma source on 2026-10-14. A Figma component key proves design identity; it does **not** by itself prove shared-library publication, Code Connect, or an existing runtime implementation.
+The component identities above were read directly from the owning Figma source on 2026-10-15. A Figma component key proves design identity; it does **not** by itself prove shared-library publication, Code Connect, or an existing runtime implementation.
 
 ## Component architecture
 
@@ -96,7 +96,7 @@ The Item owns status, content, marker, and connector.
 | `State` | `Incomplete`, `Current`, `Completed`, `Error`, `Disabled` | Workflow step state |
 | `Label` | text | Required visible step name |
 | `Helper` | text | Optional helper/error content |
-| `Show helper` | Boolean; default `false` | Shows Helper directly below Label |
+| `Show helper` | Boolean; default `true` | Shows Helper directly below Label |
 | `Show connector` | Boolean; default `true` | Connector visibility; normally false on terminal Item |
 
 Variant count: **10 = 2 Direction × 5 State**.
@@ -172,7 +172,7 @@ Do not redraw equivalent markers inside Progress Indicator. Use the approved DS 
 - Label: `Label/SM`;
 - Helper: `Label/XS`;
 - Label-to-Helper gap: **4px**;
-- Helper is hidden by default.
+- `Show helper` currently defaults to `true` in the Figma master; turn it off when a step has no supporting or validation copy.
 
 State foregrounds:
 
@@ -239,9 +239,9 @@ Vertical order stays top-to-bottom in RTL.
 
 There is **no Compact/mobile Progress Indicator variant in v1**.
 
-This is intentional.
+**Mobile / narrow-width breakpoint and minimum supported size: TBD.**
 
-For narrow layouts:
+Until that size is defined, use the following boundary:
 
 1. do not compress the full Horizontal component below its usable width;
 2. prefer Vertical when the product still needs to show the whole sequence;
@@ -254,7 +254,7 @@ A progress bar or segmented mobile track is not part of v1. Add one only after a
 Helper provides supplementary step information and validation feedback.
 
 - Helper appears directly below the Label.
-- Default `Show helper=false`.
+- `Show helper` currently defaults to `true` in Figma; disable it when no supporting or validation copy is needed.
 - Error Helper uses `fg/error`.
 - An Error step should contain enough text to explain what needs attention; do not rely only on the Error icon or color.
 - Validation belongs to the current workflow step. Do not style unrelated future steps as Error.
@@ -284,7 +284,7 @@ If a product needs navigation to previous steps, define that behavior deliberate
 4. Select nested Items and set `State`, `Label`, and optional `Helper`.
 5. To add a step, place another Progress Indicator Item inside the `Items` slot in sequence order.
 6. When adding a new terminal Item, enable `Show connector` on the previous terminal Item and disable it on the new terminal Item.
-7. Leave `Show helper=false` unless real supporting or validation copy is needed.
+7. `Show helper` currently defaults to `true`; disable it when the step has no supporting or validation copy.
 8. Use Vertical instead of forcing dense or long content into Horizontal.
 
 The three default Items are an **authoring starting point**, not a product-data limit. Runtime sequence length remains data-driven.
@@ -371,7 +371,7 @@ Exact component names, Angular inputs, DOM wrappers, event names, and TypeScript
 | Default slot content | 3 Progress Indicator Item instances in each Direction variant | **Verified in Figma** |
 | Add-item authoring | A fourth Item can be added successfully inside an instance slot | **Verified in Figma** |
 | Default terminal connector | No connector after the default terminal Item | **Verified in Figma** |
-| Helper default | Hidden by default | **Verified in Figma** |
+| Helper default | `Show helper=true` in the finalized Figma master | **Verified in Figma** |
 | Helper placement | Directly below Label | **Verified in Figma** |
 | Typography | Label = Label/SM; Helper = Label/XS | **Verified in Figma** |
 | Horizontal text limits | Label 1 line; Helper 2 lines; ending truncation | **Verified in Figma** |
@@ -382,6 +382,7 @@ Exact component names, Angular inputs, DOM wrappers, event names, and TypeScript
 | Runtime connector termination | Exactly one connector between adjacent steps, none after final step | **Required in development** |
 | Runtime semantics | Ordered sequence, current-step semantics, non-color status communication | **Required in development** |
 | Runtime responsive behavior | No unreadable horizontal compression; layout choice preserves text/state meaning | **Required in development** |
+| Mobile size / breakpoint | Define the narrow-width breakpoint/minimum supported size | **TBD** |
 
 Storybook is **not required** for this design handoff phase. Runtime tests and accessibility QA remain development responsibilities.
 
@@ -417,7 +418,7 @@ External design systems are references, not runtime sources for Job Vision.
 - [x] Connector semantic tokens verified: Current/Completed accent; future/error/disabled neutral.
 - [x] Default three-item terminal connector behavior verified; Figma add/remove workflow documents the required previous/new terminal connector adjustment.
 - [x] Label/SM and Helper Label/XS verified.
-- [x] Helper default hidden.
+- [x] Finalized Figma default verified: `Show helper=true`.
 - [x] Helper sits directly below Label.
 - [x] Horizontal and Vertical text-line constraints verified.
 - [x] Current-step Error scenario verified in Playground.
@@ -425,7 +426,7 @@ External design systems are references, not runtime sources for Job Vision.
 - [x] Legacy/Expressive explorations archived/hidden from the canonical review surface.
 - [x] Compact/mobile experiment removed from the v1 component contract.
 - [x] Canonical documentation presentation rebuilt using the shared component-page presentation pattern.
-- [x] Final Figma structural/visual audit completed 2026-10-14.
+- [x] Final Figma structural/visual audit completed 2026-10-15.
 - [ ] Runtime implementation tests and accessibility review after development.
 - [ ] Shared-library publication status / Code Connect if required later.
 
