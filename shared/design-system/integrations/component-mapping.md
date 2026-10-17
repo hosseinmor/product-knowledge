@@ -637,6 +637,8 @@ The Chip design identity is verified as four capability-specific public componen
 | Indeterminate in public parent | **Verified in Figma** — 5 variants: Default Small/Big, Inline Small/Big, Indent Big. Source-linked nested Track (static visual; do not show numeric percentage). Motion remains runtime-owned |
 | Runtime value treatment | True numeric progress is **required in development**, unrestricted by fixed Figma illustrative percentages. No numeric Figma property exists in current component architecture |
 | Documentation frame | [Progress bar / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23867-126381), node `23867:126381` |
+| Presentation source structure | **01 · Component set** contains the original public Master `12603:272925`; **03 · Anatomy & composition** contains original internal Track Master `12603:273022`; **02 · Playground** holds real linked instances. Compact two-column source-only canvas layout; no source re-creation |
+| Presentation cleanup | One 1600px documentation frame on Progress bar page. Two obsolete IBM artboards plus their redundant instance-only visual matrix/anatomy removed; all master node IDs/keys and variants preserved |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified** |
 | Property mapping | **Unverified** — Figma axis labels are not runtime prop names |
@@ -645,7 +647,7 @@ The Chip design identity is verified as four capability-specific public componen
 | Long-text Figma QA | Default/Indent auto-grow vertically for Persian long copy; Inline label is one line with ending ellipsis. Playground contains linked mixed-script and long-text examples |
 | Last live Figma verification | **2026-10-17** |
 
-The **Figma component identities and currently authored visual contract** above were verified against the live file. The public-parent Indeterminate variants are implemented in Figma as **static design states**; the original Inline/Big track-height mismatch and long-copy overflow are corrected. Numeric Figma percentages intentionally remain illustration presets; actual numeric value, Indeterminate animation, reduced motion, and browser/assistive-technology testing remain runtime development responsibilities. See `../components/progress-bar.md`.
+The **original master identities, physical Section 01/03 placement, and authored visual contract** above were verified against the live Figma file. Playground examples remain connected to these sources. The public-parent Indeterminate variants are implemented in Figma as **static design states**; the original Inline/Big track-height mismatch and long-copy overflow are corrected. Numeric Figma percentages intentionally remain illustration presets; actual numeric value, Indeterminate animation, reduced motion, and browser/assistive-technology testing remain runtime development responsibilities. See `../components/progress-bar.md`.
 
 ### Progress Indicator (HOS-31)
 
