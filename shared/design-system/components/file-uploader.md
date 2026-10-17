@@ -63,7 +63,7 @@ Do not put a multi-file uploader in a constrained modal unless the list remains 
 | Presentation | `23907:394` | 1600px; Header, Component set, Playground, Anatomy, Handoff |
 | File Uploader | `23905:614` | Mode × State; **4 variants**; one shared File list Slot; no Size axis |
 | File Item | `23903:127017` | Status; **5 variants**; editable File name and Error message; 40px base row |
-| Dropzone | `23905:565` | State; **5 variants** (Default / Hover / Drag-over / Focus / Disabled); editable Instruction; 176px / 12px radius |
+| Dropzone | `23905:565` | State; **6 variants** (Default / Hover / Drag-over / Drag-reject / Focus / Disabled); editable Instruction, Reject reason and Reject recovery; 176px / 12px radius |
 | Existing legacy File Uploader | `5465:294860` | 18 legacy variants; preserved, not migrated |
 | Existing image uploader | `19337:1420` | Image-specific legacy; preserved |
 
@@ -85,7 +85,7 @@ Content should remain readable when wrapped and in narrow widths; runtime respon
 
 ### Latest HOS-39 Figma interaction and copy decisions — 2026-10-17
 
-**Dropzone label:** «فایل را اینجا بکشید و رها کنید یا روی «انتخاب فایل» کلیک کنید». The copy is intentional: the product provides a **visible Browse Button**. Do not imply the whole region is clickable unless the product explicitly implements that separate behavior without nested interactive conflicts. The instruction is an editable TEXT property, centered, with Fill Container width and multiline wrapping; a 320px Figma instance displayed two lines inside the 176px region.
+**Default Dropzone instruction:** «فایل را اینجا بکشید و رها کنید یا روی «انتخاب فایل» کلیک کنید». The copy is intentional: the product provides a **visible Browse Button**. Do not imply the whole region is clickable unless the product explicitly implements that separate behavior without nested interactive conflicts. The instruction is an editable TEXT property, centered, with Fill Container width and multiline wrapping; a 320px Figma instance displayed two lines inside the 176px region.
 
 **File Item action hierarchy:**
 - **Uploading:** Cancel as a neutral **Ghost text / Extra Small (28px)** control, labeled «لغو» (if cancellation is supported); keep determinate/indeterminate progress separate.
@@ -93,6 +93,29 @@ Content should remain readable when wrapped and in narrow widths; runtime respon
 - **Other removable states:** Ghost Icon Button / Extra Small (28px); action semantics and whether removal deletes a remote persisted object remain product-owned.
 
 The uploader source Slot defaults are for **Figma convenience only**: `resume-final.pdf` (Uploaded), `portfolio.pdf` (Uploading), `certificate.pdf` (Upload error). Change/drop these source-linked items per screen; empty input requires clearing the Slot. The Playground intentionally demonstrates alternative Slot overrides, including one-file, mixed-file and invalid-file states. A Disabled selection may still display previously attached files; file-action eligibility in Disabled remains a product decision.
+
+### Dropzone content, drag rejection and illustration — visual proposal (2026-10-17)
+
+This contract uses the shared [Error Messages](../../content/patterns/errors.md) pattern: name the known failure, identify where it belongs and give a supported recovery step. No blame, vague cause or invented quotas.
+
+| UI state | Visible copy and action | Illustration |
+| --- | --- | --- |
+| Default / Hover / Focus | Keep visible Browse Button «انتخاب فایل» and editable instruction «فایل را اینجا بکشید و رها کنید یا روی «انتخاب فایل» کلیک کنید». | **Optional / TBD**: investigate later; do not require or introduce in current default |
+| Drag-over | Replace default instruction and Browse Button **visually** with concise title «فایل‌ها را اینجا رها کنید». No additional helper copy is necessary. | **Illustration / TBD required as design follow-up**, represented by a labeled authoring placeholder, **not an actual upload icon** or a shippable asset |
+| Drag-reject | Only if rejection can **already be determined**: example title «فرمت این فایل پشتیبانی نمی‌شود» and helper «فایلی با فرمت مجاز انتخاب کنید». Both must match the actual allowed file formats; use `Reject reason` and `Reject recovery` TEXT props. | An existing semantic **Error icon** is used; no illustration requirement |
+| Disabled | Base instruction and disabled Browse, with semantic disabled colors; do not imply that removing already-selected files is necessarily disabled. | Not currently proposed |
+
+**Error ownership:**
+
+- **`Drag-reject`** is a **temporary, drag-time** feedback state for reliably known unsupported data, such as a disallowed MIME type. It is *not* a persistent generic `Error` and is not the destination for upload failures.
+- Before drop, browser APIs may not expose the file name, byte size or trustworthy MIME type. [react-dropzone accept documentation](https://github.com/react-dropzone/react-dropzone/blob/master/docs/pages/examples/accept.mdx) explicitly limits when drag-accept/drag-reject can be determined. When acceptance is unknown, stay in a neutral Drag-over appearance; **do not promise acceptance** based on unknown validation.
+- **After drop or selection**, attach errors about individual files to the respective **File Item / Validation error**. Upload transfer failures stay in **File Item / Upload error**. For failures that apply to the whole operation, use appropriately scoped inline notification/feedback rather than permanently painting every Dropzone error-colored.
+- When content varies by rule (type, count, size), use only the real validated reason and corresponding actionable recovery. Never embed speculative acceptable extensions or size limits. The example copy for Drag-reject assumes a **known unsupported file type**; if runtime cannot establish that, do not use this variant.
+- Visually hide Browse Button only during active Drag-over and Drag-reject; native file-picking must remain available in ordinary/default state and for keyboard/touch. Keep Drag-leave → Default and Drag-over/Reject → post-drop transition free of layout jumps. Confirm any invalid announcement using accessibility guidance rather than emitting a noisy assertive alert for every drag event.
+
+**Implementation boundaries:** Illustration artwork, composition and motion remain **TBD**. The Drag-over Figma component uses a labeled *Illustration / TBD* placeholder; it must be replaced before development handoff. Default illustration is explicitly **optional/TBD** and currently absent. Animated transitions and accepting/rejecting drag items in runtime have not been implemented or verified. The visual Dropzone baseline remains **176px × flexible width**, **12px Large radius**.
+
+**Benchmarks:** [Mantine Dropzone](https://mantine.dev/x/dropzone/) distinguishes Idle/Accept/Reject, [Polaris Drop Zone](https://polaris-react.shopify.com/components/selection-and-input/drop-zone) separates validation/drop errors from server-side upload failures, and [PatternFly Multiple File Upload](https://www.patternfly.org/components/file-upload/multiple-file-upload/design-guidelines/) attaches file-specific validation errors to the corresponding file item. We adopt the scoped ownership without treating every file error as a Dropzone error.
 
 ### Button and Dropzone surface contract — owner-directed update (2026-10-17)
 
@@ -102,7 +125,7 @@ The **default file-picker trigger uses the shared `Button / Tertiary`**, at the 
 | --- | --- | --- | --- |
 | Default | `surface/default` | Dashed 1px `line/emphasis` | Clear drop target without competing with inputs |
 | Hover | **`surface/transparent-hover` overlay over `surface/default`** | Dashed 1px `line/emphasis` | Subtle pointer-hover feedback, no product-colored emphasis |
-| Drag-over | `surface/accent-muted` | Solid **2px** `line/accent` | File actively dragged over a valid drop target |
+| Drag-over | `surface/accent-muted` | Solid **2px** `line/accent` | Active drop target; swap Browse for a concise instruction and **Illustration TBD** |\n| Drag-reject | `surface/error-muted` | Solid **2px** `line/error` | Conditional: a dragged file is confidently known to be unaccepted; reason/recovery must be grounded |
 | Focus | `surface/default` | Dashed 1px `line/emphasis` + shared `Focus/Default` effect | Keyboard focus, not equivalent to Drag-over |
 | Disabled | `surface/disabled` | Dashed 1px `line/disabled` | Browse and drop are unavailable |
 
@@ -171,13 +194,13 @@ The **Cancel affordance is now included in the Figma Uploading visual specimen**
 2. Decide single-file completed state, replacement action and selection-count limit.
 3. Decide upload timing (immediate after selection vs after form submission), cancellation and retry policy from product requirements.
 4. Approve the currently implemented **one-line visual truncation** after Figma 360px QA, and verify full-name access and bidirectional text in runtime.
-5. Review per-file vs uploader-level errors and persistent feedback.
-6. Verify image uploader boundary, then migrate or archive legacy masters without breaking existing consumers.
-7. Register runtime/Storybook sources and map actual API names; perform keyboard, assistive-technology and upload-network tests before handoff.
+5. Verify drag-time Reject detection capabilities and fallback to neutral Drag-over on unknown acceptance; confirm File Item vs global error routing.\n6. Design final Drag-over Illustration (TBD) and decide whether Default needs an optional Illustration; preserve 176px layout, no fixed illustration until approved.
+7. Verify image uploader boundary, then migrate or archive legacy masters without breaking existing consumers.
+8. Register runtime/Storybook sources and map actual API names; perform keyboard, assistive-technology and upload-network tests before handoff.
 
 **Figma page cleanup:** the 1600px pilot documentation frame (`23907:394`) now starts at the page origin. Preserved Carbon File Uploader/File Item and the prior Image Uploader live in a separate, visible `Archive — legacy & scratch` frame (`23931:643`). Legacy source sets and their original node IDs remain intact and accessible; no consumer migration or publication cutover was performed.
 
-**Current Figma refactor QA (2026-10-17):** Original legacy masters remain intact. Existing HOS-39 pilot Component Set IDs and all former Medium child Component IDs are preserved: **File Uploader 4 variants** (Mode × State); **Dropzone 5 variants** (State); **File Item 5 variants** (Status). **Size is absent from all three variant APIs**. Uploader retains exactly one shared File list Slot across four variants (seeded with three file examples per source variant) and Label/Helper props; Dropzone keeps Instruction; File Item keeps File name/Error message. Dropzone uses bound `12px · Large` radius and `176px` specimen height, File Item keeps 6px Medium radius and a 40px base row. All default Browse triggers use 40px Tertiary Button. Semantic state tokens and Focus/Default remain. The 1600px documentation frame still contains source masters; four real linked Playground scenarios include mixed file statuses, 360px long filename, and disabled Dropzone. Figma rendering verifies layout and identity, **not** keyboard, upload, networking, or assistive technology behavior.
+**Current Figma refactor QA (2026-10-17):** Original legacy masters remain intact. Existing HOS-39 pilot Component Set IDs and former Medium child Component IDs are preserved: **File Uploader 4 variants** (Mode × State); **Dropzone 6 variants** (State; new `Drag-reject`); **File Item 5 variants** (Status). **Size is absent from all three variant APIs**. Uploader retains exactly one shared File list Slot across four variants (seeded with three file examples per source variant) and Label/Helper props; Dropzone keeps Instruction and adds Reject reason/Reject recovery TEXT authoring properties; File Item keeps File name/Error message. Dropzone uses bound `12px · Large` radius and `176px` specimen height, File Item keeps 6px Medium radius and a 40px base row. All default Browse triggers use 40px Tertiary Button. Semantic state tokens and Focus/Default remain. The 1600px documentation frame still contains source masters; six live Playground cases include mixed file statuses, 360px long filename, disabled selection, Drag-over Illustration TBD, and conditional Drag-reject. Figma rendering verifies layout and identity, **not** keyboard, upload, networking, or assistive technology behavior.
 
 **Open visual review:** owner feedback on Carbon-derived compact rows, icon/action placement and error treatment. One Dropzone size (176px base, 12px Large radius) now exists in Figma; responsiveness and runtime interaction remain unverified. Do not replace the public Carbon master or merge the draft without approval.
 
