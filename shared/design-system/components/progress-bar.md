@@ -142,7 +142,18 @@ Progress bar (public)
 | Label | `fg/primary` |
 | Ordinary helper | `fg/secondary` |
 
-The original track has **square ends** in the current master. Do not introduce Full/Pill radii as part of this documentation update. Respect the current typography and sizing found in the owning Figma source; no independent component-specific color tokens are required.
+The original track has **square ends** in the current master. Do not introduce Full/Pill radii as part of this documentation update; no independent component-specific color tokens are required.
+
+### Typography roles — verified in Figma (2026-10-17)
+
+| Text role | Text style | Size / line height | Font weight | Semantic foreground |
+| --- | --- | --- | --- | --- |
+| Primary operation Label (all alignments) | `Label/SM` | 14px / 20px | Medium 500 | `fg/primary` |
+| Ordinary Helper | `Body/Compact/XS` | 12px / 16px | Regular 400 | `fg/secondary` |
+| Success message | `Body/Compact/XS` | 12px / 16px | Regular 400 | `fg/success` |
+| Error message | `Body/Compact/XS` | 12px / 16px | Regular 400 | `fg/error` |
+
+The operation Label is the primary identifier of the running task; Helper and terminal-state messages are supporting text. **Do not use `Body/Compact/SM` for the operation Label or `Label/XS` for Helper/Success/Error in this component.** Semantic status colors and clear copy, rather than heavier helper typography, distinguish outcomes. Retain existing RTL alignment, Default/Indent multi-line height growth, and the one-line ending ellipsis in Inline variants. This is a typography role correction, **not** a change to font sizes, line heights, component sizes, or the runtime API.
 
 ## Content and status text
 
