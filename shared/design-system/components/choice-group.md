@@ -35,17 +35,23 @@ Canonical file: `[DS] Job Vision NEXT`.
 - Component set: `Choice Group`
 - Figma node ID: `23229:133`
 - Figma component key: `a96c066c443021689ce6add1a47be745c8aa160b`
-- Variant count: `6 = 2 Selection × 3 Layout`
+- Variant count: `18 = 2 Selection × 3 Layout × 3 State`
 
 ### Variant properties
 
 - `Selection = Single / Multiple`
 - `Layout = Horizontal / Horizontal wrap / Vertical`
+- `State = Default / Error / Warning`
 
 ### Content properties
 
 - `Group label`
 - `Show group label`
+- `Required`
+- `Show info`
+- `Error message`
+- `Warning message`
+- exposed nested `Info / Tooltip` instance for tooltip configuration
 - native `Items` SLOT
 
 The Items Slot:
@@ -55,21 +61,28 @@ The Items Slot:
 - is restricted to the preferred `Chip / Selectable` component set;
 - lets authors add, remove, reorder, and configure real Selectable Chip instances.
 
-`Required / allow empty` is deliberately runtime-only and is not a Figma variant.
+`Required` is a Figma authoring property that shows the required asterisk in the shared label anatomy. It does not itself enforce required behavior. Required enforcement and `allow empty` remain runtime/product rules.
+
+`Show info` exposes the label's contextual-info affordance. The nested Tooltip instance is exposed for tooltip configuration; tooltip open/visible behavior is not a Choice Group variant.
 
 Available width is controlled by resizing the Choice Group instance; width is not a variant axis.
 
 Shared presentation details:
 
-- `Group label` uses `Label/SM` and fills the group width so it stays right-aligned in RTL;
+- the label row follows the Select/shared field-label anatomy, spans the group width, and aligns to logical Start (visual right in RTL);
+- `Group label` uses `Label/SM`;
+- `Required` uses the shared required-marker treatment;
+- `Info / Tooltip` is optional and independently configurable through the exposed nested instance;
 - the group-to-items gap uses the shared `8px` spacing token;
-- item spacing also uses the shared `8px` spacing token.
+- item spacing also uses the shared `8px` spacing token;
+- validation message spacing below `Items` uses the shared `4px` spacing token.
 
 ## Ownership Contract
 
 Choice Group owns:
 
-- the shared group label;
+- the shared group label and label affordances;
+- group validation `State` and supporting validation copy;
 - item relationship;
 - selection mode;
 - layout and wrapping behavior.
@@ -82,7 +95,7 @@ Each `Chip / Selectable` item owns:
 - interaction `State`;
 - its own Hover, Active, Focus, Disabled, and selected Accent visuals.
 
-Choice Group adds no duplicate interaction overlay, selected indicator, or Chip-level visual state.
+Choice Group adds no duplicate Chip interaction overlay, selected indicator, or Chip-level validation state. Group `Error` / `Warning` is communicated by the supporting message beneath the Items collection.
 
 ## Selection Semantics
 
@@ -102,6 +115,25 @@ Multiple behaves like a checkbox-group-style choice set:
 
 - zero, one, or many Chips may be selected;
 - changing one Chip does not automatically select, clear, or mutate another item.
+
+## Label and validation
+
+The Choice Group label follows the same field-label grammar used by Select:
+
+- `Group label` is the visible label copy;
+- `Required=true` shows the required asterisk;
+- `Show info=true` shows the contextual-info affordance;
+- the nested `Info / Tooltip` instance is exposed so tooltip content/configuration can be edited without adding tooltip state to Choice Group.
+
+`State` is group-level validation status:
+
+- `Default` — no validation message;
+- `Error` — shows `Error message` below Items using `Body/Compact/XS` + `fg/error`;
+- `Warning` — shows `Warning message` below Items using `Body/Compact/XS` + `fg/warning`.
+
+Validation messaging does not recolor or change nested Chip state. `Chip / Selectable` continues to own Selected, Hover, Active, Focus, and Disabled visuals.
+
+`Required` is a visual/authoring indicator in Figma. The product/runtime layer still owns whether an empty value is allowed, when validation runs, and how required state is announced programmatically.
 
 ## Layout
 
@@ -141,6 +173,7 @@ Expose one accessible group relationship and one accessible group label when a v
 - Single uses radio-group-like selection and keyboard semantics.
 - Multiple uses checkbox-group-like selection semantics.
 - Item labels remain the accessible names of the individual choices.
+- Required semantics and the current Error/Warning supporting message must be programmatically associated with the group at runtime; exact ARIA wiring remains unverified.
 - Disabled belongs to an individual Chip unless the entire surrounding form/group is disabled.
 - Focus visuals come from `Chip / Selectable`; Choice Group does not draw a second focus treatment.
 
@@ -186,13 +219,18 @@ Therefore these remain unverified:
 
 Verify:
 
-- exactly six parent variants: `2 Selection × 3 Layout`;
+- exactly eighteen parent variants: `2 Selection × 3 Layout × 3 State`;
 - `Selection = Single / Multiple`;
 - `Layout = Horizontal / Horizontal wrap / Vertical`;
+- `State = Default / Error / Warning`;
+- `Required` and `Show info` correctly control the label affordances;
+- the nested Info/Tooltip instance remains exposed for tooltip configuration;
+- Default shows no validation message; Error uses `Error message` + `fg/error`; Warning uses `Warning message` + `fg/warning`;
+- Error/Warning supporting copy uses `Body/Compact/XS` and stays RTL/right-aligned;
 - Items Slot contains at least two real `Chip / Selectable` instances;
 - width is controlled by resizing the group, not by a variant;
-- Required/allow-empty remains runtime-only;
-- item visual states remain owned by `Chip / Selectable`;
+- Required enforcement / allow-empty and tooltip open behavior remain runtime-owned;
+- item visual states remain owned by `Chip / Selectable` and are not recolored by group validation;
 - Single never has more than one selected Chip;
 - Multiple never auto-clears another Chip;
 - Group label is `Label/SM`, full-width, and right-aligned in RTL;
