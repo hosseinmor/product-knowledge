@@ -3,13 +3,13 @@ id: design-system.audit.chip-final-2026-10-17
 collection: design-system
 type: audit
 title: Chip family — final Figma and interaction audit (2026-10-17)
+summary: Superseded historical Figma audit of the earlier Chip variant model; retained for migration context only.
 knowledge_state: verified
 document_maturity: superseded
 design_status: superseded
 related:
   - design-system.component.chip
   - design-system.component.tag
-  - design-system.pattern.anchored-disclosure
 ---
 
 # Chip family — historical 150-variant snapshot (superseded)

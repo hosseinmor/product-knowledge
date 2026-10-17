@@ -3,12 +3,12 @@ id: design-system.audit.chip-open-simplification-2026-10-17
 collection: design-system
 type: audit
 title: Chip — Chevron-only Open and reduced variant architecture
+summary: Current Chip Chevron-only Open behavior, simplified variants, migration and final Figma audit.
 knowledge_state: verified
 document_maturity: reviewed
 design_status: ready-for-sandbox
 related:
   - design-system.component.chip
-  - design-system.pattern.anchored-disclosure
 ---
 
 # Chip — final Open simplification and migration audit (2026-10-17)

@@ -939,6 +939,64 @@
       "path": "shared/design-system/accessibility/testing.md"
     },
     {
+      "id": "design-system.audit.chip-final-2026-10-17",
+      "kind": "design-system-audit",
+      "title": "Chip family — final Figma and interaction audit (2026-10-17)",
+      "summary": "Superseded historical Figma audit of the earlier Chip variant model; retained for migration context only.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "design-system.component.chip",
+        "design-system.component.tag"
+      ],
+      "topics": [
+        "audits",
+        "chip-final-2026-10-17",
+        "design-system-audit"
+      ],
+      "path": "shared/design-system/audits/chip-final-2026-10-17.md"
+    },
+    {
+      "id": "design-system.audit.chip-open-simplification-2026-10-17",
+      "kind": "design-system-audit",
+      "title": "Chip — Chevron-only Open and reduced variant architecture",
+      "summary": "Current Chip Chevron-only Open behavior, simplified variants, migration and final Figma audit.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "design-system.component.chip"
+      ],
+      "topics": [
+        "audits",
+        "chip-open-simplification-2026-10-17",
+        "design-system-audit"
+      ],
+      "path": "shared/design-system/audits/chip-open-simplification-2026-10-17.md"
+    },
+    {
+      "id": "design-system.component.autocomplete",
+      "kind": "design-system-component",
+      "title": "Autocomplete",
+      "summary": "Editable single-value query input with suggestions; explicit free-form and selection-required value policies.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "design-system.component.select",
+        "design-system.component.search",
+        "design-system.component.text-input",
+        "design-system.accessibility.forms"
+      ],
+      "topics": [
+        "autocomplete",
+        "components",
+        "design-system-component"
+      ],
+      "path": "shared/design-system/components/autocomplete.md"
+    },
+    {
       "id": "design-system.component.badge",
       "kind": "design-system-component",
       "title": "Badge",
@@ -1000,7 +1058,7 @@
       "summary": "Chip is the interactive compact-control family for direct selection, committed removable values, disclosure controls, and value-level add/start actions.",
       "status": "draft",
       "owner": null,
-      "last_reviewed": "2026-09-23",
+      "last_reviewed": "2026-10-17",
       "related": [
         "design-system.component.tag",
         "design-system.component.badge",
@@ -1043,7 +1101,7 @@
       "summary": "Combo Button keeps one dominant action directly available and exposes closely related alternative actions from a separate menu trigger.",
       "status": "draft",
       "owner": null,
-      "last_reviewed": "2026-09-20",
+      "last_reviewed": "2026-10-17",
       "related": [
         "button",
         "design-system.component.icon-button",
@@ -1076,6 +1134,28 @@
         "design-system-component"
       ],
       "path": "shared/design-system/components/content-switcher.md"
+    },
+    {
+      "id": "design-system.component.dialog",
+      "kind": "design-system-component",
+      "title": "Dialog",
+      "summary": "Canonical design contract for modal, blocking task dialogs, including dismiss/focus, responsive presentation and scroll.",
+      "status": "reviewed",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-17",
+      "related": [
+        "design-system.reference.component-mapping",
+        "design-system.foundation.responsive-layout-spec",
+        "design-system.accessibility.focus-management",
+        "design-system.accessibility.keyboard-navigation",
+        "design-system.accessibility.screen-reader-semantics"
+      ],
+      "topics": [
+        "components",
+        "design-system-component",
+        "dialog"
+      ],
+      "path": "shared/design-system/components/dialog.md"
     },
     {
       "id": "design-system.component.drawer",
@@ -1219,7 +1299,7 @@
       "summary": "Menu Button opens a replaceable menu of peer actions from one labeled Button trigger without surfacing a separate primary action.",
       "status": "draft",
       "owner": null,
-      "last_reviewed": "2026-09-20",
+      "last_reviewed": "2026-10-17",
       "related": [
         "button",
         "design-system.component.menu",
@@ -1236,15 +1316,13 @@
     {
       "id": "design-system.component.modal",
       "kind": "design-system-component",
-      "title": "Modal",
-      "summary": "Modal creates a temporary blocking interaction context for a focused decision or task.",
-      "status": "draft",
+      "title": "Modal (legacy name)",
+      "summary": "Backward-compatible redirect to the canonical Dialog component.",
+      "status": "reviewed",
       "owner": null,
-      "last_reviewed": "2026-09-21",
+      "last_reviewed": "2026-10-17",
       "related": [
-        "design-system.accessibility.focus-management",
-        "design-system.accessibility.keyboard-navigation",
-        "design-system.accessibility.screen-reader-semantics"
+        "design-system.component.dialog"
       ],
       "topics": [
         "components",
@@ -1446,11 +1524,15 @@
       "id": "design-system.component.select",
       "kind": "design-system-component",
       "title": "Select",
-      "summary": "> Status: structure only",
+      "summary": "Single- and multiple-value selection from predefined options, with a shared Selection Panel.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.component.text-input",
+        "design-system.component.autocomplete",
+        "design-system.accessibility.forms"
+      ],
       "topics": [
         "components",
         "design-system-component",
@@ -2185,6 +2267,27 @@
       "path": "shared/design-system/governance/release-and-versioning.md"
     },
     {
+      "id": "design-system.handoff.select-autocomplete-sandbox",
+      "kind": "design-system-development-handoff",
+      "title": "Select & Autocomplete — Sandbox Handoff",
+      "summary": "Implementation-ready decisions, source mapping, event/state model, acceptance tests, and explicit non-blocking Figma migration debt.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "design-system.component.select",
+        "design-system.component.autocomplete",
+        "design-system.component.text-input",
+        "design-system.accessibility.forms"
+      ],
+      "topics": [
+        "design-system-development-handoff",
+        "handoffs",
+        "select-autocomplete-sandbox"
+      ],
+      "path": "shared/design-system/handoffs/select-autocomplete-sandbox.md"
+    },
+    {
       "id": "design-system.integration.figma-component-presentation",
       "kind": "design-system-integration",
       "title": "Figma Component Presentation",
@@ -2539,7 +2642,7 @@
       "summary": "Registry contract for mapping stable Figma component identities to runtime components and Storybook; records current verified mappings and gaps.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-10-14",
+      "last_reviewed": "2026-10-17",
       "related": [
         "design-system.reference.figma",
         "design-system.reference.code",
@@ -2959,12 +3062,14 @@
     }
   ],
   "summary": {
-    "documents": 147,
+    "documents": 152,
     "by_kind": {
       "content-guideline": 17,
       "design-system-accessibility": 18,
-      "design-system-component": 39,
+      "design-system-audit": 2,
+      "design-system-component": 41,
       "design-system-design-language": 1,
+      "design-system-development-handoff": 1,
       "design-system-experience-rule": 11,
       "design-system-foundation": 11,
       "design-system-governance": 6,
