@@ -178,9 +178,9 @@ The Menu Button design identity, Button composition, native Menu Slot, Size × O
 | Figma variant properties | `Style / Size / Open` |
 | Variant count | `24 = 3 Style × 4 Size × 2 Open` |
 | Figma styles | `Primary / Secondary / Tertiary` |
-| Figma sizes | Heights: `Extra Small 28 / Small 32 / Medium 40 / Large 48`; current default widths including Divider: `99 / 119 / 135 / 151px` |
+| Figma sizes | Heights: `Extra Small 28 / Small 32 / Medium 40 / Large 48`; current default widths: `98 / 118 / 134 / 150px` (Divider adds zero layout width) |
 | Composition | Shared `Unified shell / Wrapper` (horizontal Auto Layout) containing canonical `Menu Trigger / Icon Button` + 1px semantic `Divider` Rectangle + canonical exposed `Primary Action / Button`; native `Menu content` SLOT is a direct child of the public Combo variant, out of layout |
-| Inter-segment treatment | 0px Wrapper item gap; 1px non-interactive Divider with height `control height − 16px` and semantic fill: Primary `line/inverse`, Secondary `line/emphasis`, Tertiary `line/default`. No child joining strokes. Tertiary has 1px outside-aligned `line/default` border on Wrapper |
+| Inter-segment treatment | Canonical Buttons touch with **zero gap**. The non-interactive Divider is a **1px visible Rectangle positioned ABSOLUTE** at `Trigger.width − 1px`, centered vertically, height `control height − 16px`, and **0px layout width**. Wrapper is Hug-width. Semantic fills: Primary `line/inverse`, Secondary `line/emphasis`, Tertiary `line/default`. No child joining strokes. Tertiary retains 1px outside-aligned `line/default` border on Wrapper |
 | Open representation | Only Menu Trigger maps to Active + chevron-up; Primary Action state remains independent |
 | Anchor gap | `2px` |
 | Loading | Owned by nested Primary Action; no outer Loading axis |
