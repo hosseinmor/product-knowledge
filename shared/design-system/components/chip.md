@@ -517,12 +517,15 @@ Exact DOM/ARIA choices remain unverified until the runtime implementation is reg
 
 - Figma file key: `rROD8ctH9UfPGAMrRrOzHe`
 - Page: `Chip`, node `13500:300199`
-- Documentation frame: `Chip / Documentation`, node `23143:531`
+- Canonical presentation: [Chip / Documentation · canonical sources](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23900-128061), node `23900:128061`
 - Sections:
-  1. Component Set
-  2. Playground
-  3. Usage & composition
-  4. Migration note
+  1. **Component set** — original Selectable, Removable, Disclosure and Action Component Sets
+  2. **Playground** — original linked examples, reflowed into five RTL use cases
+  3. **Anatomy & composition** — original internal `__Chip Remove Action` Component Set
+  4. **Usage & handoff** — capability boundaries and runtime handoff notes
+- The previous documentation frame is retained as `Archive / Chip Documentation v0 · masters moved` and is not the canonical presentation.
+
+**Live-source discrepancy requiring owner review (2026-10-17):** the current Figma Masters expose `Extra Small / Small / Medium` with 30 / 15 / 30 / 15 variants (Selectable / Removable / Disclosure / Action), while portions of this reviewed document describe two sizes and 20 / 10 / 20 / 10 variants. This presentation migration **did not** change Figma component APIs, nor does it approve a normative size-contract update. Reconcile the size/variant contract in a separate scoped owner review.
 
 Playground coverage includes:
 
@@ -533,7 +536,7 @@ Playground coverage includes:
 - Add Software with `+`;
 - Focus/Disabled states;
 - long-label behavior;
-- real Disclosure + existing Popover composition for Industry.
+- Disclosure filter examples; a standalone Disclosure + Popover composition is not currently displayed in the updated Playground and remains a documentation/coverage follow-up.
 
 ## Legacy and Migration
 
