@@ -517,7 +517,7 @@ The Toggle design identity, Size × State × Toggled matrix, label contract, neu
 | Property mapping | **Unverified** — do not infer runtime prop names or DOM/ARIA roles from Figma |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-10-14 |
+| Last Figma verification | 2026-10-17 |
 
 The Content Switcher design identity, three-size parent model, native Items Slot, State × Content internal Item model, fill-based sizing, Text/Icon boundary, selected treatment, semantic foreground mapping, equal-width composition, responsive rule, RTL behavior, and accessibility contract are verified in `../components/content-switcher.md`. Runtime API, exact DOM/ARIA and keyboard implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime source is registered.
 
@@ -580,7 +580,7 @@ The Tabs design identity, line-only v1 appearance, native Items Slot composition
 | Removable key / node | `193062043a2194024cc06c6d45f11b96b4a238b3` / `23124:358` |
 | Removable variants | `15 = 3 Size × 5 State` |
 | Removable properties | Variant: `Size / State`; content: `Label / Detail / Show detail / Show leading visual / Leading visual`; `Show detail` controls the whole `Detail content` container |
-| Removable behavioral capability | Body may be independently actionable; body and trailing Remove are separate runtime interaction/focus targets; Body action is not a Figma variant |
+| Removable behavioral capability | Body is always an independent interaction target for a product-defined value action; body and trailing Remove are separate runtime interaction/focus targets; Body action outcome is not a Figma variant |
 | Removable Remove action | Private `Size × State` component; `28 / 32 / 40px` matches Chip height; `Radius / Full`; logical-End padding on Removable is `0px` so Remove is flush with the edge |
 | Removable surface | Default/Focus `surface/accent-muted`; Hover `surface/accent-muted-hover`; Active `surface/accent-muted-active`; keep `line/accent + fg/accent`; no transparent overlay |
 | Disclosure set | `Chip / Disclosure` |
@@ -596,9 +596,10 @@ The Tabs design identity, line-only v1 appearance, native Items Slot composition
 | Action anatomy | Optional add/action icon at logical End — visually left of the label in RTL |
 | Action properties | Variant: `Size / State`; content: `Label / Show trailing icon / Trailing icon` |
 | Shared states | `Default / Hover / Active / Focus / Disabled` |
-| Figma sizes | `Extra Small 28 / Small 32 / Medium 40` |
+| Figma sizes | `Extra Small 28 / Small 32 / Medium 40`; default Size = `Medium` |
 | Standard inline padding | `8 / 12 / 16px` for Extra Small / Small / Medium; Removable logical-End side is `0px` |
-| Label text style | `Body/Compact/SM` across all four Chip sets |
+| Label text style | Extra Small → `Label/XS`; Small/Medium → `Label/SM` across all four public Chip sets |
+| Secondary text style | Extra Small Detail/Summary/Divider → `Body/Compact/XS`; Small/Medium → `Body/Compact/SM` |
 | Main content gap | `8px` shared spacing variable |
 | Secondary content | Disclosure uses `Summary content`; Removable uses `Detail content`; each contains `Divider (·) + value` with `4px` internal gap |
 | Summary / Detail property value | Value only; separator is structural and must not be embedded in the property string |
@@ -610,7 +611,7 @@ The Tabs design identity, line-only v1 appearance, native Items Slot composition
 | Product-pattern boundary | Selection mode, required/allow-empty, filter composition, tokenized-input behavior, and software Available→Selected layout live at Group/Pattern level |
 | Tag boundary | Tag remains passive/descriptive/categorical and owns `tag/{color}/*`; Chip is interactive and must not consume Tag color tokens |
 | Legacy Figma | Old Carbon-derived Chip sets, Control-chip artifacts, and old Chip Group components are removed from the active Chip page and must not be used for new design |
-| Documentation frame | `Chip / Documentation`, node `23190:1423`; Component Set, Playground, and Migration note |
+| Documentation frame | `Chip / Documentation · canonical sources`, node `23900:128061`; Header, Component set, Playground, Anatomy & composition, Usage & handoff |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified** |
 | Property mapping | **Unverified** — do not infer runtime props, DOM/ARIA roles, compound-control structure, or secondary-surface implementation from Figma |
@@ -618,7 +619,7 @@ The Tabs design identity, line-only v1 appearance, native Items Slot composition
 | Code Connect | **No registered mapping** |
 | Last Figma verification | 2026-10-14 |
 
-The Chip design identity is verified as four capability-specific public component sets that share one visual recipe without a mega Type matrix. The current contract includes Extra Small / Small / Medium sizing, dedicated Accent-muted state tokens for persistent Accent states, compound Removable body/remove behavior with a size-matched flush round Remove action, surface-agnostic Disclosure, shared Full radius, RTL anatomy, software lifecycle, and Tag/Button/selection-control boundaries. Runtime API, exact DOM/ARIA implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
+The Chip design identity is verified as four capability-specific public component sets that share one visual recipe without a mega Type matrix. The current contract includes Extra Small / Small / Medium sizing with Medium as the default, size-aware Label typography, dedicated Accent-muted state tokens for persistent Accent states, compound Removable body/remove behavior with an always-actionable body target and a size-matched flush round Remove action, surface-agnostic Disclosure, shared Full radius, RTL anatomy, software lifecycle, and Tag/Button/selection-control boundaries. Runtime API, exact DOM/ARIA implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
 ### Choice Group
 
