@@ -53,7 +53,7 @@ Do not put a multi-file uploader in a constrained modal unless the list remains 
 - **Label** and **Helper**: TEXT properties. Helper must describe *actual*, enforced format, size and count limits; never copy the placeholder limits blindly.
 - **File list / Slot**: a Figma native Slot. Compose zero, one, or multiple `File Item` instances; **file count is not a visual variant axis**.
 - **Single vs multiple** is a selection/business-behavior setting, not a size variant. Single-file designs may replace/remove then browse again. When a single-file selection is complete, retaining or suppressing the trigger depends on the flow; examples should not imply a universal rule.
-- **Density**: one default medium treatment in the HOS-39 pilot; additional compact sizes require a concrete product need. Do not inherit the legacy Large/Medium/Small matrix automatically.
+- **Size**: Small / Medium / Large are preserved from Carbon for visual review. Browse controls align to the canonical Button heights **32 / 40 / 48px**; Dropzone has corresponding height presets. File Items keep a compact **32 / 40 / 48px base row**, growing only when the upload progress or error content requires space. Whether all sizes are needed in production remains an owner-review decision.
 - **RTL**: name, file status and metadata align to the right; primary file actions occupy the left side. Do not force RTL ordering on the English Figma documentation scaffold.
 
 ### Figma pilot identities (verified 2026-10-17)
@@ -61,15 +61,15 @@ Do not put a multi-file uploader in a constrained modal unless the list remains 
 | Asset | Node ID | Variant axes / count |
 | --- | --- | --- |
 | Presentation | `23907:394` | 1600px; Header, Component set, Playground, Anatomy, Handoff |
-| File Uploader | `23905:614` | Mode × State; 4 variants; File list Slot |
-| File Item | `23903:127017` | Status; 5 variants |
-| Dropzone | `23905:565` | State; 4 variants |
+| File Uploader | `23905:614` | Mode × State × Size; **12 variants**; one shared File list Slot |
+| File Item | `23903:127017` | Status × Size; **15 variants**; editable File name and Error message |
+| Dropzone | `23905:565` | State × Size; **12 variants**; editable Instruction |
 | Existing legacy File Uploader | `5465:294860` | 18 legacy variants; preserved, not migrated |
 | Existing image uploader | `19337:1420` | Image-specific legacy; preserved |
 
 [View the pilot in Figma](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23907-394)
 
-The File Item pilot uses the canonical Button for text actions and an instance of the shared Progress Bar track for its illustrative 50% state. Figma's 50% progress is a static specimen, not an automatically measured transfer. Public Figma component keys and published-library status are pending verification. Runtime API and Storybook remain **unregistered/unverified**.
+The refactored File Item keeps Carbon's compact neutral-filled row, separates error text as expandable content, uses shared Ghost **Icon Button** for Remove, shared labeled Button for Retry, and composes an instance of the shared Progress Bar track for its illustrative 50% state. Figma's 50% progress is a static specimen, not an automatically measured transfer. Public Figma component keys and published-library status are pending verification. Runtime API and Storybook remain **unregistered/unverified**.
 
 ## File-item states
 
@@ -97,7 +97,7 @@ The File Item pilot uses the canonical Button for text actions and an instance o
 ### Filename and metadata
 
 - Always show the identifiable filename, with its extension preserved where feasible.
-- Name should occupy flexible space; the action and status must remain visible. The pilot demonstrates a long mixed-script filename; final one-line versus two-line truncation is pending narrow-viewport QA.
+- Name occupies flexible space and truncates to one visual line when necessary, while status and Remove/Retry remain visible. The source-linked Playground contains a **360px RTL sample** with a very long LTR filename and multiline Persian validation feedback; Figma visual layout passed without clipping. Mixed-script bidirectional isolation and full accessible filename exposure remain runtime QA requirements.
 - Full untruncated name remains available to assistive technologies; optional tooltip can supplement visual overflow but must not be the only way to recover the name.
 - Optional byte size, file type and progress should not dominate the name or be mistaken for successful upload.
 
@@ -131,9 +131,13 @@ The File Item pilot uses the canonical Button for text actions and an instance o
 1. Approve Browse vs Dropzone input and whether whole dropzone or only its Browse button is clickable.
 2. Decide single-file completed state, replacement action and selection-count limit.
 3. Decide upload timing (immediate after selection vs after form submission), cancellation and retry policy from product requirements.
-4. Decide default long-filename treatment after 360px QA.
+4. Approve the currently implemented **one-line visual truncation** after Figma 360px QA, and verify full-name access and bidirectional text in runtime.
 5. Review per-file vs uploader-level errors and persistent feedback.
 6. Verify image uploader boundary, then migrate or archive legacy masters without breaking existing consumers.
 7. Register runtime/Storybook sources and map actual API names; perform keyboard, assistive-technology and upload-network tests before handoff.
+
+**Current Figma refactor QA (2026-10-17):** Original legacy masters remain untouched. Existing pilot component-set node IDs are retained; original Medium variants were reused. File Item now has 15 variants (5 statuses × 3 sizes), Dropzone 12 (4 interaction states × 3 sizes), and File Uploader 12 (2 modes × 2 availability states × 3 sizes). The uploader exposes exactly one native File list Slot across all 12 variants, plus Label and Helper text properties; Dropzone has one shared Instruction property. All File Item and Dropzone controls use the public Medium radius token (6px); fills, borders, and text use semantic colors. Focus uses shared `Focus/Default` effect, not the drag-over treatment. The 1600px documentation frame retains original source masters and live Playground instances; 360px long-filename/multiline-error Figma QA passed. This evidence does not establish keyboard, drag/drop, networking or assistive-technology behavior.
+
+**Open visual review:** owner feedback on Carbon-derived compact rows, icon and action placement, error treatment, border/fill, Dropzone height and density-size necessity. Do not replace the public Carbon master or merge the draft without approval.
 
 This document is intentionally **draft** until owner approval, canonical master cutover and runtime integration checks.
