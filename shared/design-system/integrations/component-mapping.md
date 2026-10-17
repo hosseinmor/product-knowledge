@@ -178,9 +178,9 @@ The Menu Button design identity, Button composition, native Menu Slot, Size × O
 | Figma variant properties | `Style / Size / Open` |
 | Variant count | `24 = 3 Style × 4 Size × 2 Open` |
 | Figma styles | `Primary / Secondary / Tertiary` |
-| Figma sizes | `Extra Small 28 / Small 32 / Medium 40 / Large 48` |
-| Composition | Canonical `Primary Action / Button` instance + canonical `Menu Trigger / Icon Button` instance + native `Menu content` SLOT; no wrapper/custom separator node; `0px` layout gap |
-| Inter-segment treatment | No standalone Divider/custom separator and no layout gap; Primary/Secondary use a 1px inside `palette/bw/white` stroke on the Menu Trigger touching edge in normal filled states; Tertiary composes `line/default` borders from the two canonical instances, with the Primary Action left edge as the single visible joining border and the Menu Trigger touching right edge removed |
+| Figma sizes | Heights: `Extra Small 28 / Small 32 / Medium 40 / Large 48`; current default widths including Divider: `99 / 119 / 135 / 151px` |
+| Composition | Shared `Unified shell / Wrapper` (horizontal Auto Layout) containing canonical `Menu Trigger / Icon Button` + 1px semantic `Divider` Rectangle + canonical exposed `Primary Action / Button`; native `Menu content` SLOT is a direct child of the public Combo variant, out of layout |
+| Inter-segment treatment | 0px Wrapper item gap; 1px non-interactive Divider with height `control height − 16px` and semantic fill: Primary `line/inverse`, Secondary `line/emphasis`, Tertiary `line/default`. No child joining strokes. Tertiary has 1px outside-aligned `line/default` border on Wrapper |
 | Open representation | Only Menu Trigger maps to Active + chevron-up; Primary Action state remains independent |
 | Anchor gap | `2px` |
 | Loading | Owned by nested Primary Action; no outer Loading axis |
@@ -191,9 +191,9 @@ The Menu Button design identity, Button composition, native Menu Slot, Size × O
 | Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-09-20 |
+| Last Figma verification | 2026-10-17; 24/24 canonical variants and 13 Playground instances passed structural and visual-state QA |
 
-The Combo Button design identity, canonical Button/Icon Button instance composition, connected-segment geometry, native Menu Slot, Style × Size × Open matrix, fixed internal Menu Trigger authoring model, instance-owned filled-style join stroke, independent segment behavior, 2px anchoring rule, RTL geometry, loading boundary, and accessibility contract are verified in `../components/combo-button.md`. Runtime component/API, Storybook identity, and exact Figma-to-code property mapping remain unverified.
+The Combo Button design identity, shared Wrapper + semantic Divider architecture, preserved canonical Button/Icon Button instance links and native Menu Slot, Style × Size × Open matrix, independent segment behavior, 2px anchoring, RTL geometry, Loading boundary and accessibility contract are documented and Figma-verified in `../components/combo-button.md`. Runtime component/API, Storybook identity, and exact Figma-to-code property mapping remain unverified.
 
 
 ### Tooltip
