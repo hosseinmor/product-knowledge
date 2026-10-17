@@ -1129,15 +1129,17 @@
       "id": "design-system.component.file-uploader",
       "kind": "design-system-component",
       "title": "File Uploader",
-      "summary": "Composable browse and drag-and-drop file selection with per-file upload status, validation and feedback.",
-      "status": "draft",
+      "summary": "Canonical Carbon-derived file selection and drag-and-drop design contract, with native File list Slot, file-level feedback and verified Figma sources.",
+      "status": "reviewed",
       "owner": "Design System team",
       "last_reviewed": "2026-10-17",
       "related": [
         "design-system.component.progress-bar",
         "design-system.reference.component-mapping",
+        "design-system.accessibility.forms",
         "design-system.accessibility.dynamic-content-and-feedback",
-        "content.pattern.loading-and-progress"
+        "content.pattern.loading-and-progress",
+        "content.pattern.error"
       ],
       "topics": [
         "accessibility",
