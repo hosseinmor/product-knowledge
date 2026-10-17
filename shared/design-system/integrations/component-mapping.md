@@ -7,7 +7,7 @@ summary: Registry contract for mapping stable Figma component identities to runt
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-10-14
+last_reviewed: 2026-10-17
 related:
   - design-system.reference.figma
   - design-system.reference.code
@@ -42,6 +42,31 @@ Known mismatch/gap
 `Mapping mechanism` may be Figma Code Connect or another explicit registry. The mechanism is less important than having a stable, reviewable mapping.
 
 ## Current mapping registry
+
+### Dialog — HOS-42 design handoff (Figma verified; runtime unregistered)
+
+| Field | Verified design source / boundary |
+|---|---|
+| DS component | **Dialog** (modal dialog v1), canonical contract: [`../components/dialog.md`](../components/dialog.md) |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma presentation | [Dialog / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24058-9) · node `24058:9` |
+| Figma component set | `Dialog / Default` · node `24036:267` · key `b8bd11b06f27bac00225857315e0cb4f4c0887f7` |
+| Size axis | 4 variants: Small 400, Medium 560 (default), Large 800, XL 960; **max-width choices**, not screen-breakpoint names |
+| Shared authoring properties | `Title`, `Description`, `Description visible`, `Dismissible` (visible Close), `Body / Slot` and `Footer / Slot` |
+| Anatomy | Title and supporting description; native Body/Footer Slots; canonical shared Buttons; independent Close Button |
+| Close Button set | `Close Button / Default` · node `24046:476` · key `c19c7786bdbb03e1ad13695db575d5d7478e0d34`; 40px hit area, 5 visual states, Radius Medium 6, top/left 12px in RTL |
+| Narrow Figma preset | `Dialog / Narrow preset` · node `24087:129096` · key `70787797b38b3976da888be932b8cfdee90e897b` · linked to canonical Small source, **not** a Size or Layout variant |
+| Responsive | Intended Narrow adaptation below 768px: 24px padding, 40px Medium actions; Regular: 32px padding, 32px Small actions; fluid shell, min viewport gutters 16px |
+| Design behavior | Backdrop uses `semantic/utility/overlay` and never dismisses by default; Escape uses safe cancel, including destructive confirmation; unsaved edits guarded; focus trapped and restored; Body-only scrolling |
+| Alert vs confirmation | `alertdialog` only for genuinely urgent interruption; confirmation, destructive and form are composition patterns |
+| Legacy | `Modal` set node `4080:55366`, key `dbb168637e13405605604dd1ca479f298735c348`, retained for migration; not the new canonical source |
+| Design status | **Handoff-ready Figma and intended design/accessibility contract**; no proof of coded behavior/shipping |
+| Runtime repository/package/API | **Unregistered / unverified**; exact props, events, DOM and focus library must not be guessed |
+| Storybook / executed tests | **Unregistered / unverified**; implementation acceptance checklist is in `dialog.md` |
+| Cross-foundation note | Canonical GitHub Responsive ruler disagrees with recent Figma Tailwind v3 foundation at sm/lg/2xl; both agree at 768px, which is the Dialog threshold. Foundation reconciliation is a separate task |
+| Figma last verified | 2026-10-17 |
+
+Figma component keys and names above are verified on the live source. This is **not** a verified Figma-to-code mapping without registered owning runtime/Storybook identities.
 
 ### File Uploader — final Carbon design source (runtime unverified)
 
