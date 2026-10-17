@@ -51,9 +51,9 @@ Do not put a multi-file uploader in a constrained modal unless the list remains 
 - `Mode`: **Browse / Dropzone**. Both must support the native file picker.
 - `State`: **Enabled / Disabled**; disabled blocks new selection. The label, instruction and entry control all use explicit disabled semantic tokens, never hand-applied alpha. Existing uploaded content does not necessarily become disabled: its action policy belongs to the product.
 - **Label** and **Helper**: TEXT properties. Helper must describe *actual*, enforced format, size and count limits; never copy the placeholder limits blindly.
-- **File list / Slot**: a Figma native Slot. Compose zero, one, or multiple `File Item` instances; **file count is not a visual variant axis**.
+- **File list / Slot**: a Figma native Slot, pre-populated in each of the four Uploader source variants with **three editable, source-linked example files** (Uploaded, Uploading, Upload error). Designers can swap names/statuses, remove items, or clear the Slot for an empty upload field. These files are **Figma authoring specimens**, not a runtime default and not actual user-uploaded files. **File count is not a visual variant axis**.
 - **Single vs multiple** is a selection/business-behavior setting, not a size variant. Single-file designs may replace/remove then browse again. When a single-file selection is complete, retaining or suppressing the trigger depends on the flow; examples should not imply a universal rule.
-- **Sizing**: **No `Size` variant axis** in File Uploader, Dropzone or File Item. Preserve the former Medium spec as the only default: Tertiary Browse Button **40px**, File Item base row **40px** (content-driven taller when progress/error is present), Dropzone **192px** with **12px Large radius**. Dropzone width follows its container; runtime should allow its minimum content height to grow when text wraps. `Size` is not a runtime or Figma authoring choice.
+- **Sizing**: **No `Size` variant axis** in File Uploader, Dropzone or File Item. Preserve the former Medium spec as the only default: Tertiary Browse Button **40px**, File Item base row **40px** (content-driven taller when progress/error is present), Dropzone **176px** with **12px Large radius**. Dropzone width follows its container; runtime should allow its minimum content height to grow when text wraps. `Size` is not a runtime or Figma authoring choice.
 - **RTL**: name, file status and metadata align to the right; primary file actions occupy the left side. Do not force RTL ordering on the English Figma documentation scaffold.
 
 ### Figma pilot identities (verified 2026-10-17)
@@ -63,25 +63,36 @@ Do not put a multi-file uploader in a constrained modal unless the list remains 
 | Presentation | `23907:394` | 1600px; Header, Component set, Playground, Anatomy, Handoff |
 | File Uploader | `23905:614` | Mode × State; **4 variants**; one shared File list Slot; no Size axis |
 | File Item | `23903:127017` | Status; **5 variants**; editable File name and Error message; 40px base row |
-| Dropzone | `23905:565` | State; **5 variants** (Default / Hover / Drag-over / Focus / Disabled); editable Instruction; 192px / 12px radius |
+| Dropzone | `23905:565` | State; **5 variants** (Default / Hover / Drag-over / Focus / Disabled); editable Instruction; 176px / 12px radius |
 | Existing legacy File Uploader | `5465:294860` | 18 legacy variants; preserved, not migrated |
 | Existing image uploader | `19337:1420` | Image-specific legacy; preserved |
 
 [View the pilot in Figma](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23907-394)
 
-The refactored File Item keeps Carbon's compact neutral-filled row, separates error text as expandable content, uses shared Ghost **Icon Button** for Remove, shared labeled Button for Retry, and composes an instance of the shared Progress Bar track for its illustrative 50% state. Figma's 50% progress is a static specimen, not an automatically measured transfer. Public Figma component keys and published-library status are pending verification. Runtime API and Storybook remain **unregistered/unverified**.
+The refactored File Item keeps Carbon's compact neutral-filled row, separates error text as expandable content, uses shared **Ghost Icon Button / Extra Small (28px)** for Remove, **Tertiary Button / Extra Small (28px)** for Retry, and **Ghost Button / Extra Small (28px)** labeled «لغو» for canceling an active Uploading operation (only if runtime supports cancellation). It composes the shared Progress Bar track for its illustrative 50% state. Figma's 50% progress is a static specimen, not an automatically measured transfer. Public Figma component keys and published-library status are pending verification. Runtime API and Storybook remain **unregistered/unverified**.
 
 ### Dropzone size and shape — single-size decision (2026-10-17)
 
 The Drag & Drop target is a large, distinct interaction area, not another 40px input. It uses the existing **`12px · Large`** foundation radius; nested Button and File Item retain **6px · Medium**.
 
-**One default:** Dropzone **192px**, Tertiary Browse Button **40px**, File Item **40px minimum/base row** (height grows for file progress and error). The Figma source measures 480px wide as an illustration; use responsive width and content-aware height in actual layouts. There is no Small/Medium/Large toggle and no Size property on the three component sets.
+**One default:** Dropzone **176px**, Tertiary Browse Button **40px**, File Item **40px minimum/base row** (height grows for file progress and error). The Figma source measures 480px wide as an illustration; use responsive width and content-aware height in actual layouts. There is no Small/Medium/Large toggle and no Size property on the three component sets.
 
 The original 3-size pilot (Small 160, Medium 192, Large 224) was consolidated to the former Medium size because no distinct product use cases justified the variant matrix. This **does not establish Carbon or Polaris product-size specifications**.
 
-**Benchmarks:** [Carbon File Uploader](https://www.carbondesignsystem.com/building-blocks/core/components/file-uploader/guidelines) specifies button/file-row sizes but does not require a global Dropzone height; [PatternFly multiple file upload](https://www.patternfly.org/components/file-upload/multiple-file-upload/design-guidelines/) and [Polaris Drop Zone](https://polaris-react.shopify.com/components/selection-and-input/drop-zone) support a spacious area relative to content; [GOV.UK File Upload](https://design-system.service.gov.uk/components/file-upload/) recommends an improved larger drop target. **192px is a JV design decision**, not an externally mandated measurement.
+**Benchmarks:** [Carbon File Uploader](https://www.carbondesignsystem.com/building-blocks/core/components/file-uploader/guidelines) specifies button/file-row sizes but does not require a global Dropzone height; [PatternFly multiple file upload](https://www.patternfly.org/components/file-upload/multiple-file-upload/design-guidelines/) and [Polaris Drop Zone](https://polaris-react.shopify.com/components/selection-and-input/drop-zone) support a spacious area relative to content; [GOV.UK File Upload](https://design-system.service.gov.uk/components/file-upload/) recommends an improved larger drop target. **176px is a JV design decision**, not an externally mandated measurement.
 
 Content should remain readable when wrapped and in narrow widths; runtime responsive/focus/drop behavior is still unverified. Nested browse-button vs clickable-full-target policy remains to be decided.
+
+### Latest HOS-39 Figma interaction and copy decisions — 2026-10-17
+
+**Dropzone label:** «فایل را اینجا بکشید و رها کنید یا روی «انتخاب فایل» کلیک کنید». The copy is intentional: the product provides a **visible Browse Button**. Do not imply the whole region is clickable unless the product explicitly implements that separate behavior without nested interactive conflicts. The instruction is an editable TEXT property, centered, with Fill Container width and multiline wrapping; a 320px Figma instance displayed two lines inside the 176px region.
+
+**File Item action hierarchy:**
+- **Uploading:** Cancel as a neutral **Ghost text / Extra Small (28px)** control, labeled «لغو» (if cancellation is supported); keep determinate/indeterminate progress separate.
+- **Upload error:** Retry as **Tertiary text / Extra Small (28px)** for a visible recovery affordance; Remove as **Ghost Icon Button / Extra Small (28px)** so deletion does not compete with recovery.
+- **Other removable states:** Ghost Icon Button / Extra Small (28px); action semantics and whether removal deletes a remote persisted object remain product-owned.
+
+The uploader source Slot defaults are for **Figma convenience only**: `resume-final.pdf` (Uploaded), `portfolio.pdf` (Uploading), `certificate.pdf` (Upload error). Change/drop these source-linked items per screen; empty input requires clearing the Slot. The Playground intentionally demonstrates alternative Slot overrides, including one-file, mixed-file and invalid-file states. A Disabled selection may still display previously attached files; file-action eligibility in Disabled remains a product decision.
 
 ### Button and Dropzone surface contract — owner-directed update (2026-10-17)
 
@@ -104,12 +115,12 @@ The **default file-picker trigger uses the shared `Button / Tertiary`**, at the 
 | State | Meaning | Proposed feedback / next step |
 | --- | --- | --- |
 | Selected | File selected, not necessarily committed to network transfer | Filename, type and optional size; remove before upload |
-| Uploading | A real transfer is underway | Operation label plus **measured** determinate Progress Bar; unknown progress uses indeterminate without a percentage |
+| Uploading | A real transfer is underway | Measured/indeterminate progress; **«لغو» Ghost XS** control when cancellation is actually supported |
 | Uploaded | Server/product confirms a usable uploaded file | Success status and optional remove/replace according to product |
 | Validation error | Type, size, count or other selection constraints violated | Specific problem and how to fix it; file cannot be treated as successfully uploaded |
 | Upload error | Transfer failed or product could not accept it | Explain recoverable error; retry the same selected file if supported; remove always distinguishable |
 
-`Canceled` is **TBD** pending confirmation that runtime supports canceling an active transfer. Do not portray a failed upload as a successful cancel. Progress, selected, uploaded and error are file-level data; one failure must not silently mark other files as failed.
+The **Cancel affordance is now included in the Figma Uploading visual specimen**, but **actual Cancel support and a post-cancel `Canceled` lifecycle state are TBD**. Implementations without cancellation must omit/hide the Cancel control; they must not present an inert button. Cancel requests transfer interruption and is not synonymous with Remove. Do not portray a failed upload as a successful cancel. Progress, selected, uploaded and error are file-level data; one failure must not silently mark other files as failed.
 
 ### Validation and recovery
 
@@ -134,7 +145,7 @@ The **default file-picker trigger uses the shared `Button / Tertiary`**, at the 
 - Use a properly labeled native `<input type="file">` or an accessible trigger tied to one. Activate via keyboard using Tab and Enter/Space; provide an obvious focus-visible state.
 - Drag-and-drop is supplemental. A user with keyboard, switch access or touch must be able to complete the task without dragging. Do not force a nested button inside a button-like entire drop region; define one unambiguous interaction model.
 - Associate field label, actual constraints, and validation messages programmatically with the input. Expose specific file and uploader errors.
-- Each file Remove/Retry control requires an accessible name identifying the file (e.g., «حذف رزومه-نهایی.pdf»).
+- Each file Remove/Retry/Cancel control requires an accessible name identifying the file (e.g., «حذف رزومه-نهایی.pdf», «لغو بارگذاری رزومه-نهایی.pdf»). The visible XS buttons are 28px; verify adequate mobile hit-target spacing/size in the implementing product, without changing the design's density.
 - Use a real, named determinate progressbar with measured value/min/max, or a named indeterminate progress indicator **without fictitious values**.
 - Announce new selection, completion, failure and removal in an appropriate polite status/live region. Do not flood screen readers with every byte or every percentage point. Maintain keyboard focus predictably when items disappear.
 - Keep file/status relationship understandable in a list; inspect long and mixed RTL/LTR strings, zoom, reduced motion and 360px layouts before handoff.
@@ -166,8 +177,8 @@ The **default file-picker trigger uses the shared `Button / Tertiary`**, at the 
 
 **Figma page cleanup:** the 1600px pilot documentation frame (`23907:394`) now starts at the page origin. Preserved Carbon File Uploader/File Item and the prior Image Uploader live in a separate, visible `Archive — legacy & scratch` frame (`23931:643`). Legacy source sets and their original node IDs remain intact and accessible; no consumer migration or publication cutover was performed.
 
-**Current Figma refactor QA (2026-10-17):** Original legacy masters remain intact. Existing HOS-39 pilot Component Set IDs and all former Medium child Component IDs are preserved: **File Uploader 4 variants** (Mode × State); **Dropzone 5 variants** (State); **File Item 5 variants** (Status). **Size is absent from all three variant APIs**. Uploader retains exactly one shared File list Slot across four variants and Label/Helper props; Dropzone keeps Instruction; File Item keeps File name/Error message. Dropzone uses bound `12px · Large` radius and `192px` specimen height, File Item keeps 6px Medium radius and a 40px base row. All default Browse triggers use 40px Tertiary Button. Semantic state tokens and Focus/Default remain. The 1600px documentation frame still contains source masters; four real linked Playground scenarios include mixed file statuses, 360px long filename, and disabled Dropzone. Figma rendering verifies layout and identity, **not** keyboard, upload, networking, or assistive technology behavior.
+**Current Figma refactor QA (2026-10-17):** Original legacy masters remain intact. Existing HOS-39 pilot Component Set IDs and all former Medium child Component IDs are preserved: **File Uploader 4 variants** (Mode × State); **Dropzone 5 variants** (State); **File Item 5 variants** (Status). **Size is absent from all three variant APIs**. Uploader retains exactly one shared File list Slot across four variants (seeded with three file examples per source variant) and Label/Helper props; Dropzone keeps Instruction; File Item keeps File name/Error message. Dropzone uses bound `12px · Large` radius and `176px` specimen height, File Item keeps 6px Medium radius and a 40px base row. All default Browse triggers use 40px Tertiary Button. Semantic state tokens and Focus/Default remain. The 1600px documentation frame still contains source masters; four real linked Playground scenarios include mixed file statuses, 360px long filename, and disabled Dropzone. Figma rendering verifies layout and identity, **not** keyboard, upload, networking, or assistive technology behavior.
 
-**Open visual review:** owner feedback on Carbon-derived compact rows, icon/action placement and error treatment. One Dropzone size (192px base, 12px Large radius) now exists in Figma; responsiveness and runtime interaction remain unverified. Do not replace the public Carbon master or merge the draft without approval.
+**Open visual review:** owner feedback on Carbon-derived compact rows, icon/action placement and error treatment. One Dropzone size (176px base, 12px Large radius) now exists in Figma; responsiveness and runtime interaction remain unverified. Do not replace the public Carbon master or merge the draft without approval.
 
 This document is intentionally **draft** until owner approval, canonical master cutover and runtime integration checks.
