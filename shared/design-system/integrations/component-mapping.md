@@ -60,6 +60,7 @@ Known mismatch/gap
 | Figma authoring properties | Label, Helper, **one shared `File list / Slot`**; File Item: File name, Error message; Dropzone: Instruction |
 | Default Browse Button | Shared `Button / Tertiary` (same style inside Browse-only and Dropzone, sizes Small/Medium/Large) |
 | Dropzone semantic visuals | Default `surface/default` + dashed `line/emphasis`; Hover `surface/transparent-hover` overlay; Drag-over `surface/accent-muted` + 2px `line/accent`; Focus shared Focus/Default; Disabled semantic disabled roles |
+| Dropzone size & shape | **Small 160px / Medium 192px (default) / Large 224px**; all bound to **`12px · Large`** radius. Design pilot dimensions, not benchmark-specified or verified runtime sizes. |
 | Code repository / runtime props | **Unregistered / unverified** |
 | Storybook / testing | **Unregistered / unverified** |
 | Migration status | **Not cut over**; original Carbon public master preserved; visual owner review still pending |
