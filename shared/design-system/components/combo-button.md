@@ -100,8 +100,9 @@ The **Wrapper** owns the unified shape and Tertiary outer border. The two nested
 
 - Control heights stay `28 / 32 / 40 / 48px` (Extra Small / Small / Medium / Large).
 - Wrapper is horizontal Auto Layout, **0px item gap**, radius `6px`, with 6px outer Button corners and **0px touching corners**.
-- Divider width `1px`; height = control height minus `16px`, i.e. `12 / 16 / 24 / 32px`. It is centered vertically.
-- Divider adds **1px to total control width** versus the former no-divider composition. Default widths are `99 / 119 / 135 / 151px` by Size.
+- Divider has **1px visible width**, but is **absolute-positioned inside the Wrapper**: it consumes **0px of Auto Layout width**. Its left edge sits at `Menu Trigger width − 1px`, overlaying the Trigger's last pixel, so the two canonical Button surfaces touch with no exposed background at the top or bottom of the Divider.
+- Divider height = control height minus `16px`, i.e. `12 / 16 / 24 / 32px`, centered vertically (`y=8px`).
+- The Wrapper is **Hug width**, with total width equal to `Menu Trigger width + Primary Action width`; the Divider contributes **0px**. Default widths are `98 / 118 / 134 / 150px` by Size.
 - Menu Slot stays a direct child of the public Combo variant, out of the Wrapper's Auto Layout, anchored **2px** below the control. Open never changes control width or height.
 
 ### Divider and border tokens
@@ -114,11 +115,13 @@ The **Wrapper** owns the unified shape and Tertiary outer border. The two nested
 
 All Divider fills are bound to semantic variables; the old primitive `palette/bw/white` join stroke is gone. Both nested Button instances have their joining strokes removed, preventing a double boundary. The **Tertiary Wrapper stroke is outside-aligned in Figma** so its Auto Layout does not inset children or change control-frame height; the visible border extends beyond that layout box.
 
-Do not add a second instance-owned seam, positive gap, or clipping that hides the nested Button focus rings.
+Do not set Divider width to `0px` (that makes it invisible), add a second instance-owned seam, reserve an extra 1px gap for the Divider, or clip the nested Button focus rings. Keep Divider's **rendered width 1px** and its **layout participation zero**.
 
 ### Validated Figma migration — 2026-10-17
 
 An isolated Wrapper + Divider prototype passed **24/24** `Style × Size × Open` cases plus independent Action Focus, Trigger Focus, Action Loading and whole-control Disabled checks. The original **24 canonical variants** were then migrated without replacing their node IDs, component-set key, nested Button/Icon Button instance IDs, exposed Primary Action, or native Menu Slot property. Post-migration QA passed all 24 variants, all 13 source-linked Playground instances, RTL menu content, 2px anchoring and source-matrix collision checks. The temporary experiment and stray loose instance were removed.
+
+**Seam fix (2026-10-17):** after visual review revealed a background-colored 1px slit above and below the short Divider, all 24 canonical variants were updated in place to use an absolute Divider overlay and Hug-width Wrapper. Post-fix structural QA passed **24/24**, and all **13** live Playground instances retained independent Action/Trigger Focus, Action Loading and Disabled overrides. Primary, Secondary and Tertiary closed states were visually reviewed without the slit. Original component IDs, tokens and Menu Slot properties were preserved.
 
 These are Figma source/visual-state checks, **not** executed Angular, Storybook, keyboard or screen-reader tests.
 
@@ -341,9 +344,9 @@ The implementation may compose shared Button, Icon Button, Menu, non-interactive
 - Every variant has exactly two direct children: **Wrapper** and native **Menu Slot**.
 - Every Wrapper has three ordered children: canonical Icon Button, 1px semantic Divider Rectangle, canonical Button.
 - Exposed Primary Action, internal Menu Trigger, their canonical instance IDs and native Slot property are preserved.
-- Heights `28/32/40/48px`; widths `99/119/135/151px` respectively, including the 1px Divider.
-- 0px layout gap; 6px shared radius; inner Button corners 0; no doubled Button strokes.
-- Divider height = control height − 16px; semantic fill tokens: Primary `line/inverse`, Secondary `line/emphasis`, Tertiary `line/default`.
+- Heights `28/32/40/48px`; default widths `98/118/134/150px` respectively. Divider has **0px layout width**.
+- 0px layout gap; canonical Button and Icon Button surfaces physically touch (`Action.x = Trigger.width`); Wrapper is Hug-width; 6px shared radius; inner Button corners 0; no doubled Button strokes.
+- Divider is a visible 1px Rectangle positioned **ABSOLUTE** at `Trigger.width − 1px` (not a third Auto Layout column), with height = control height − 16px; semantic fill tokens: Primary `line/inverse`, Secondary `line/emphasis`, Tertiary `line/default`.
 - Tertiary outer `line/default` border is Wrapper-owned, outside-aligned and does not change control-frame height.
 - Open changes only Trigger Active/chevron; Open/Closed widths match.
 - Menu Slot remains out of flow, 2px below control; no matrix overlaps.
