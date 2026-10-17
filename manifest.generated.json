@@ -1126,6 +1126,35 @@
       "path": "shared/design-system/components/empty-state.md"
     },
     {
+      "id": "design-system.component.file-uploader",
+      "kind": "design-system-component",
+      "title": "File Uploader",
+      "summary": "Canonical Carbon-derived file selection and drag-and-drop design contract, with native File list Slot, file-level feedback and verified Figma sources.",
+      "status": "reviewed",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-17",
+      "related": [
+        "design-system.component.progress-bar",
+        "design-system.reference.component-mapping",
+        "design-system.accessibility.forms",
+        "design-system.accessibility.dynamic-content-and-feedback",
+        "content.pattern.loading-and-progress",
+        "content.pattern.error"
+      ],
+      "topics": [
+        "accessibility",
+        "components",
+        "design-system-component",
+        "dropzone",
+        "file-item",
+        "file-uploader",
+        "rtl",
+        "upload",
+        "validation"
+      ],
+      "path": "shared/design-system/components/file-uploader.md"
+    },
+    {
       "id": "design-system.component.icon-button",
       "kind": "design-system-component",
       "title": "Icon Button",
@@ -2930,11 +2959,11 @@
     }
   ],
   "summary": {
-    "documents": 146,
+    "documents": 147,
     "by_kind": {
       "content-guideline": 17,
       "design-system-accessibility": 18,
-      "design-system-component": 38,
+      "design-system-component": 39,
       "design-system-design-language": 1,
       "design-system-experience-rule": 11,
       "design-system-foundation": 11,
