@@ -218,7 +218,7 @@ Storybook is **not a prerequisite for the current design handoff**. Product runt
 2. **Done — size consistency:** Existing `Inline/Big` 0/25/50 variants were fixed to use the correct **8px Big Track**, preserving all original IDs and keys. Every public parent now embeds a nested Track matching its `Size`.
 3. **Done — robust text authoring:** Default/Indent instances grow vertically for long Persian text; Inline is fixed 20px height with a one-line ending ellipsis. The Figma presentation has overflow regression cases.
 4. **Decision — exact numeric values in Figma:** v1 intentionally uses illustrative 0/25/50/75 snapshots instead of a misleading or combinatorially large numeric variant family. No existing public numeric Figma control is claimed. **Runtime supports arbitrary valid values**, not these presets.
-5. **Pending development/runtime verification:** Indeterminate animation and reduced-motion fallback, runtime numeric geometry, Angular component/API registration, accessible name/value/status announcements, responsive content and browser/assistive-technology tests. These are not design-source defects and must be completed in the owning runtime code.
+5. **Pending development/runtime verification — [HOS-40](https://linear.app/hossein-mor/issue/HOS-40):** Indeterminate animation and reduced-motion fallback, runtime numeric geometry, Angular component/API registration, accessible name/value/status announcements, responsive content and browser/assistive-technology tests. These are not design-source defects and must be completed in the owning runtime code.
 
 
 The **Indeterminate Figma state is implemented**. Its Figma visual is a static reference; motion and accessibility implementation are not yet verified.
