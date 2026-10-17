@@ -628,23 +628,24 @@ The Chip design identity is verified as four capability-specific public componen
 | Parent component set | `Progress bar` |
 | Parent key / node ID | `1d9983588bb228a44ca2b3af89195bd1e2b51c9d` / `12603:272925` |
 | Parent variants | **25** (20 preserved + 5 Indeterminate); `Size=Small/Big`, `Alignment=Default/Inline/Indent`, `State=Active/Success/Error`, `Progress=0%/25%/50%/75%/Indeterminate/Success/Error`; **not all permutations are authored** |
-| Parent Text properties | `Label text / Helper text / Success text / Error text`; no public numeric Value property |
+| Parent Text properties | `Label text / Helper text / Success text / Error text`; no public numeric Value property. Figma 0/25/50/75 are illustrative presets; runtime must use measured values |
 | Nested source | `_Progress bar track item` |
 | Track key / node ID | `b765a10f45d8d3ad69489a266bc6e623ba94d5b1` / `12603:273022` |
 | Nested Track variants | 14 = `Small/Big` × `Progress=0%/25%/50%/75%/Success/Error/Indeterminate` |
-| Geometry | Small 4px, Big 8px; neutral Track uses `line/default` as **inside bottom Stroke**, not Fill |
+| Geometry | Small 4px, Big 8px; every public variant uses its matching nested Track Size (including original Inline Big 0/25/50 fixed on 2026-10-17). Neutral Track uses `line/default` as **inside bottom Stroke**, not Fill |
 | Foreground tokens | Active: `surface/accent-emphasis`; Success: `fg/success`; Error: `fg/error` |
 | Indeterminate in public parent | **Verified in Figma** — 5 variants: Default Small/Big, Inline Small/Big, Indent Big. Source-linked nested Track (static visual; do not show numeric percentage). Motion remains runtime-owned |
-| Runtime value treatment | True numeric progress is **required in development**, not limited to fixed Figma illustrative percentages |
+| Runtime value treatment | True numeric progress is **required in development**, unrestricted by fixed Figma illustrative percentages. No numeric Figma property exists in current component architecture |
 | Documentation frame | [Progress bar / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23867-126381), node `23867:126381` |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified** |
 | Property mapping | **Unverified** — Figma axis labels are not runtime prop names |
 | Storybook | **Bypassed for current design handoff** |
 | Code Connect | **No registered mapping** |
-| Last live Figma verification | **2026-10-15** |
+| Long-text Figma QA | Default/Indent auto-grow vertically for Persian long copy; Inline label is one line with ending ellipsis. Playground contains linked mixed-script and long-text examples |
+| Last live Figma verification | **2026-10-17** |
 
-The **Figma component identities and currently authored visual contract** above were verified against the live file. The public-parent Indeterminate variants are now implemented in Figma as **static design states**; runtime animation, value API and browser/assistive-technology testing remain development responsibilities. See `../components/progress-bar.md`.
+The **Figma component identities and currently authored visual contract** above were verified against the live file. The public-parent Indeterminate variants are implemented in Figma as **static design states**; the original Inline/Big track-height mismatch and long-copy overflow are corrected. Numeric Figma percentages intentionally remain illustration presets; actual numeric value, Indeterminate animation, reduced motion, and browser/assistive-technology testing remain runtime development responsibilities. See `../components/progress-bar.md`.
 
 ### Progress Indicator (HOS-31)
 
