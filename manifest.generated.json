@@ -2259,6 +2259,29 @@
       "path": "shared/design-system/patterns/ai-entry-points.md"
     },
     {
+      "id": "design-system.pattern.anchored-disclosure",
+      "kind": "design-system-pattern",
+      "title": "Anchored Disclosure",
+      "summary": "Composition contract for an actionable trigger and a replaceable floating secondary surface, with Chip filters and software skill-level selection as reference cases.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "design-system.component.chip",
+        "design-system.component.select",
+        "design-system.component.autocomplete",
+        "design-system.component.popover",
+        "design-system.accessibility.forms",
+        "design-system.audit.field-family-2026-10-17"
+      ],
+      "topics": [
+        "anchored-disclosure",
+        "design-system-pattern",
+        "patterns"
+      ],
+      "path": "shared/design-system/patterns/anchored-disclosure.md"
+    },
+    {
       "id": "design-system.pattern.bulk-actions",
       "kind": "design-system-pattern",
       "title": "Bulk Actions",
@@ -2979,7 +3002,7 @@
     }
   ],
   "summary": {
-    "documents": 148,
+    "documents": 149,
     "by_kind": {
       "content-guideline": 17,
       "design-system-accessibility": 18,
@@ -2991,7 +3014,7 @@
       "design-system-governance": 6,
       "design-system-integration": 1,
       "design-system-overview": 2,
-      "design-system-pattern": 14,
+      "design-system-pattern": 15,
       "design-system-product-variation": 3,
       "design-system-reference": 7,
       "design-system-token": 10,
