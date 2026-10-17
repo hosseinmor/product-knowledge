@@ -114,7 +114,7 @@ The component itself does not know whether it is Choice or Filter; the owning gr
 
 #### Selected treatment
 
-`Selected=true` uses a leading check at logical Start plus `surface/accent-muted`, `line/accent`, and `fg/accent`. Hover and Active preserve that selected base and add the shared structured-surface interaction overlays: `surface/transparent-hover` and `surface/transparent-active`. Focus preserves the base selected surface and adds `Focus/Default`. Disabled continues to use the shared disabled treatment.
+`Selected=true` uses a leading check at logical Start plus `surface/accent-muted`, `line/accent`, and `fg/accent`. Hover and Active use the corresponding direct semantic Accent surfaces: `surface/accent-muted-hover` and `surface/accent-muted-active`. Focus preserves the base selected surface and adds `Focus/Default`. Disabled continues to use the shared disabled treatment.
 
 Rules:
 
@@ -176,6 +176,8 @@ Runtime requirements:
 - body and Remove are independent hit targets;
 - when body is actionable, body and Remove are independent focus targets;
 - do not nest one button inside another;
+- when body opens a secondary surface, `aria-expanded` is placed on the body trigger, not the Remove action;
+- disabled forces effective `open=false` in runtime;
 - use an appropriate compound-control DOM structure;
 - body action may be edit, inspect, disclosure, or another value-level interaction; do not rename the capability to Disclosure.
 
@@ -347,7 +349,7 @@ Activation opens the Level configuration surface.
 
 Only after the required Level is chosen and committed:
 
-`[ Microsoft Word · متوسط × ]` → Chip / Removable
+`[ Microsoft Word · متوسط × ]` → Chip / Removable (Open=True while editing surface is shown)
 
 Then:
 
@@ -368,14 +370,14 @@ Current mappings:
 - default-base hover: `surface/default` base + `surface/transparent-hover` overlay;
 - default-base active: `surface/default` base + `surface/transparent-active` overlay;
 - Selectable selected default/focus: `surface/accent-muted + line/accent + fg/accent`;
-- Selectable selected hover: `surface/accent-muted` base + `surface/transparent-hover` overlay + `line/accent + fg/accent`;
-- Selectable selected active: `surface/accent-muted` base + `surface/transparent-active` overlay + `line/accent + fg/accent`;
+- Selectable selected hover: `surface/accent-muted-hover + line/accent + fg/accent`;
+- Selectable selected active: `surface/accent-muted-active + line/accent + fg/accent`;
 - Disclosure applied default/focus: `surface/accent-muted + line/accent + fg/accent`;
-- Disclosure applied hover: `surface/accent-muted` base + `surface/transparent-hover` overlay + `line/accent + fg/accent`;
-- Disclosure applied active: `surface/accent-muted` base + `surface/transparent-active` overlay + `line/accent + fg/accent`;
+- Disclosure applied hover: `surface/accent-muted-hover + line/accent + fg/accent`;
+- Disclosure applied active: `surface/accent-muted-active + line/accent + fg/accent`;
 - Removable default/focus: `surface/accent-muted + line/accent + fg/accent`;
-- Removable hover: `surface/accent-muted` base + `surface/transparent-hover` overlay + `line/accent + fg/accent`;
-- Removable active: `surface/accent-muted` base + `surface/transparent-active` overlay + `line/accent + fg/accent`;
+- Removable hover: `surface/accent-muted-hover + line/accent + fg/accent`;
+- Removable active: `surface/accent-muted-active + line/accent + fg/accent`;
 - disabled: shared disabled foreground/line/surface treatment;
 - focus: preserve the underlying persistent state and add the shared focus effect.
 
@@ -400,7 +402,7 @@ Rules:
 - parent containers must not clip the ring;
 - pointer activation alone need not force keyboard-style focus when the platform's focus-visible algorithm does not require it.
 
-For compound Removable Chips, runtime focus must make it clear whether the body or Remove action is focused.
+For compound Removable Chips, runtime focus must make it clear whether the body or Remove action is focused. Open=True is not a permanent Focus ring; the Remove action remains independently focusable.
 
 ## Content, Long Labels, and Layout
 
@@ -588,7 +590,7 @@ Verify:
 - radius is the shared Full variable for the current Chip direction;
 - State is Default / Hover / Active / Focus / Disabled;
 - Selectable has persistent Selected and uses a leading ✓ at logical Start, never ×;
-- Removable always has × and supports optional Detail / leading visual;
+- Removable always has ×, optional Detail / leading visual, and a separate Open=False/True body state;
 - Removable body-action capability does not create invalid nested-button semantics;
 - Disclosure has persistent Applied, optional Summary, and mandatory chevron;
 - Disclosure and Removable both have a meaningful Open=False/True Figma Variant axis and an independent Boolean expanded condition at runtime;
