@@ -8,7 +8,7 @@ knowledge_state: verified
 document_maturity: reviewed
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: '2026-10-14'
+last_reviewed: '2026-10-17'
 related:
   - design-system.component.choice-group
   - design-system.component.tag
@@ -28,7 +28,7 @@ Chip is the compact interactive-control family for value/data interaction.
 The public family is split by **interaction capability**, not by product use case:
 
 - **Chip / Selectable** — the value itself is selected or deselected.
-- **Chip / Removable** — a committed value/object can be removed; its body may also be independently actionable.
+- **Chip / Removable** — a committed value/object can be removed; its body is an independent interaction target for a product-defined value action.
 - **Chip / Disclosure** — a compact control opens a secondary surface to choose or edit its state.
 - **Chip / Action** — a compact, stateless action starts/adds/configures a value.
 
@@ -74,9 +74,11 @@ All public Chip sets share the same control recipe:
 | Removable end-side exception | `0px` at logical End so the Remove action is flush with the Chip edge |
 | Radius | `Radius / Full` — current Chip visual direction |
 | Radius status | Temporary/current direction; revisit if the family moves back to the shared control radius |
+| Default size | `Medium` |
 | Default width | Hug content |
 | Label | Single-line |
-| Label text style | `Body/Compact/SM` |
+| Label text style | Extra Small → `Label/XS` (12/16, 500); Small/Medium → `Label/SM` (14/20, 500) |
+| Secondary text style | Extra Small Detail/Summary/Divider → `Body/Compact/XS` (12/16, 400); Small/Medium → `Body/Compact/SM` (14/20, 400) |
 | Main content gap | `8px` |
 | Secondary content internal gap | `4px` |
 | Direction | RTL-first; use logical start/end |
@@ -166,7 +168,7 @@ The optional leading visual may be an icon or avatar when the value benefits fro
 
 #### Body action
 
-The body may be independently actionable.
+The body is always an independent interaction target. The product owns the body action outcome.
 
 Example:
 
@@ -180,13 +182,13 @@ Example:
 Runtime requirements:
 
 - body and Remove are independent hit targets;
-- when body is actionable, body and Remove are independent focus targets;
+- body and Remove are independent focus targets;
 - body uses whole-Chip Hover/Active feedback;
 - Remove owns independent local Hover/Active/Focus feedback;
 - Remove target size matches Chip height (`28 / 32 / 40px`) and remains fully round;
 - do not nest one button inside another;
 - use an appropriate compound-control DOM structure;
-- body action may be edit, inspect, disclosure, or another value-level interaction; do not rename the capability to Disclosure.
+- body action may be edit, inspect, disclosure, or another value-level interaction; the exact outcome is product-owned and does not create a Figma variant; do not rename the capability to Disclosure.
 
 ### Chip / Disclosure
 
@@ -361,7 +363,7 @@ Only after the required Level is chosen and committed:
 
 Then:
 
-- body may reopen Level editing;
+- body activation reopens Level editing for this product pattern;
 - `×` removes the committed software.
 
 Whether the committed item stays in the same location or moves from Available to Selected is a **product-level collection decision**, not part of the Chip component contract.
@@ -494,7 +496,7 @@ Runtime must expose selected state semantically. Do not infer a specific DOM rol
 
 Remove has its own accessible name, e.g. “Remove Microsoft Word”.
 
-If the body is actionable, body and Remove are separate operable/focusable targets with a valid compound-control DOM structure.
+Body and Remove are separate operable/focusable targets with a valid compound-control DOM structure. The product defines the body action outcome.
 
 ### Disclosure
 
@@ -519,6 +521,8 @@ Exact DOM/ARIA choices remain unverified until the runtime implementation is reg
 - Override shared icon foreground where the consuming Chip state requires it.
 - Keep Divider structural: Summary/Detail properties store value only; do not prefix their values with `·` or `|`.
 - Use the shared 8px spacing variable for the main Chip content gap and 4px inside `Summary content` / `Detail content` between Divider and the value.
+- Typography is size-aware: Extra Small uses `Label/XS` and `Body/Compact/XS`; Small/Medium use `Label/SM` and `Body/Compact/SM` for secondary Detail/Summary/Divider content.
+- The canonical/default Chip size is `Medium`; Extra Small is a density option, not the baseline.
 - For default-base structured surfaces, preserve `surface/default` and layer shared transparent Hover/Active overlays.
 - For Accent-muted persistent states (Selectable Selected, Disclosure Applied, Removable), use `surface/accent-muted`, `surface/accent-muted-hover`, and `surface/accent-muted-active` directly; do not add transparent interaction overlays.
 - Use the shared `Radius / Full` variable for the current Chip direction; do not use a literal radius. This is a current family decision rather than a global control-radius change.
@@ -529,23 +533,24 @@ Exact DOM/ARIA choices remain unverified until the runtime implementation is reg
 
 - Figma file key: `rROD8ctH9UfPGAMrRrOzHe`
 - Page: `Chip`, node `13500:300199`
-- Documentation frame: `Chip / Documentation`, node `23190:1423`
+- Documentation frame: `Chip / Documentation · canonical sources`, node `23900:128061`
 - Sections:
-  1. Component Set
-  2. Playground
-  3. Usage & composition
-  4. Migration note
+  1. `00 · Header`
+  2. `01 · Component set`
+  3. `02 · Playground`
+  4. `03 · Anatomy & composition`
+  5. `04 · Usage & handoff`
 
 Playground coverage includes:
 
 - employment-type Choice and direct Remote filter;
-- Industry and Manager Disclosure filters;
-- Email recipient;
-- Software + Level;
-- Add Software with `+`;
+- Disclosure filter examples;
+- committed Removable values;
+- Action → configure/commit → Removable lifecycle;
 - Focus/Disabled states;
-- long-label behavior;
-- real Disclosure + existing Popover composition for Industry.
+- long-label behavior.
+
+No canonical Disclosure secondary-surface composition is shown until Selection Panel is finalized.
 
 ## Legacy and Migration
 
@@ -590,12 +595,13 @@ Verify:
 
 - four public sets exist: Selectable / Removable / Disclosure / Action;
 - no `Type=Filter/Input/Suggestion` mega set exists;
-- Small = 32px; Medium = 40px;
+- Extra Small = 28px; Small = 32px; Medium = 40px; default Size = Medium;
+- Extra Small labels use `Label/XS`; Small/Medium labels use `Label/SM`; secondary Detail/Summary/Divider uses the matching Compact Body size;
 - radius is the shared Full variable for the current Chip direction;
 - State is Default / Hover / Active / Focus / Disabled;
 - Selectable has persistent Selected and uses a leading ✓ at logical Start, never ×;
 - Removable always has × and supports optional Detail / leading visual;
-- Removable body-action capability does not create invalid nested-button semantics;
+- Removable body is always an independent interaction target, while Remove is a separate target; the compound-control model must not create invalid nested-button semantics;
 - Disclosure has persistent Applied, optional Summary, and mandatory chevron;
 - Disclosure Open is runtime-only until a distinct visual treatment exists;
 - Action is stateless and can express `+` add/start with the optional trailing icon after the label;
@@ -604,7 +610,7 @@ Verify:
 - labels remain one line;
 - RTL anatomy is correct;
 - parent collections can wrap whole Chips;
-- Playground covers Choice, direct filter, faceted filter, committed values, software lifecycle, long label, focus/disabled, and Disclosure + Popover;
+- Playground covers Choice, direct filter, Disclosure, committed values, software lifecycle, long label, and focus/disabled states; no canonical Disclosure surface composition is required until Selection Panel is finalized;
 - legacy components are clearly reference-only;
 - runtime semantics are re-verified when the owning implementation source is registered.
 
