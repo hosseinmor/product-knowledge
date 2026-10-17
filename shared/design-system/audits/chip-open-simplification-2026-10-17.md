@@ -9,7 +9,6 @@ document_maturity: reviewed
 design_status: ready-for-sandbox
 related:
   - design-system.component.chip
-  - design-system.pattern.anchored-disclosure
 ---
 
 # Chip — final Open simplification and migration audit (2026-10-17)
