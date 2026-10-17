@@ -99,7 +99,7 @@ Figma: [Progress bar / Documentation](https://www.figma.com/design/rROD8ctH9UfPG
 | **Nested track set** | `_Progress bar track item` — node `12603:273022`; component key `b765a10f45d8d3ad69489a266bc6e623ba94d5b1` |
 | Presentation | `Progress bar / Documentation` — node `23867:126381`, 1600px shared presentation system |
 
-The Figma source has **25 public variants** (20 preserved, 5 Indeterminate additions) and **14 nested Track variants**. The presentation includes source-connected instances, not replacement master component sets. Source keys establish design identity; they do not prove library publication, Code Connect, or implementation.
+The Figma source has **25 public variants** (20 preserved, 5 Indeterminate additions) and **14 nested Track variants**. Under the [Figma Component Presentation Guideline](../integrations/figma-component-presentation.md), the **original public Component Set** (unchanged node ID/key) is physically placed in the presentation's **01 · Component set** section and the **original internal Track Component Set** in **03 · Anatomy & composition**. Both canonical sources retain all their variants, token bindings, and connected instances. Their variants have a more compact two-column *canvas arrangement*, not new APIs or duplicate sources. **02 · Playground** uses actual source-linked instances. Superseded IBM/Carbon documentation artboards and the redundant instance-only visual matrix/anatomy copies were removed. Source keys establish design identity; they do not prove library publication, Code Connect, or implementation.
 
 ### Actual authoring properties
 
@@ -197,7 +197,7 @@ Follow the canonical [Dynamic Content and Feedback](../accessibility/dynamic-con
 | Public Figma variants | 25 parent variants (20 preserved, 5 new Indeterminate), same component-set ID/key | **Verified in Figma** |
 | Nested Figma variants | 14 original Track variants, including Indeterminate Small/Big | **Verified in Figma** |
 | Track semantic token / Scope | `line/default` on inside Stroke; 4/8px; no Track background Fill | **Verified in Figma** |
-| Visual presentation | Shared 1600px documentation layout with linked matrix and RTL Playground | **Verified in Figma** |
+| Visual presentation | One 1600px documentation frame with **original** public Master in 01, original Track Master in 03, and five real RTL Playground instances in 02; no stray legacy artboards | **Verified in Figma** |
 | Status appearance | Active, Success and Error render with semantic color and supporting text | **Verified in Figma** |
 | RTL sample | Representative Persian content and orientation shown | **Verified in Figma** (design only) |
 | Numeric dynamic progress | Any validated numeric value maps to matching fill/value semantics; not limited to fixed Figma percentages | **Required in development** |
