@@ -939,6 +939,27 @@
       "path": "shared/design-system/accessibility/testing.md"
     },
     {
+      "id": "design-system.component.autocomplete",
+      "kind": "design-system-component",
+      "title": "Autocomplete",
+      "summary": "Editable single-value query input with suggestions; explicit free-form and selection-required value policies.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "design-system.component.select",
+        "design-system.component.search",
+        "design-system.component.text-input",
+        "design-system.accessibility.forms"
+      ],
+      "topics": [
+        "autocomplete",
+        "components",
+        "design-system-component"
+      ],
+      "path": "shared/design-system/components/autocomplete.md"
+    },
+    {
       "id": "design-system.component.badge",
       "kind": "design-system-component",
       "title": "Badge",
@@ -1417,11 +1438,15 @@
       "id": "design-system.component.select",
       "kind": "design-system-component",
       "title": "Select",
-      "summary": "> Status: structure only",
+      "summary": "Single- and multiple-value selection from predefined options, with a shared Selection Panel.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.component.text-input",
+        "design-system.component.autocomplete",
+        "design-system.accessibility.forms"
+      ],
       "topics": [
         "components",
         "design-system-component",
@@ -2154,6 +2179,27 @@
         "release-and-versioning"
       ],
       "path": "shared/design-system/governance/release-and-versioning.md"
+    },
+    {
+      "id": "design-system.handoff.select-autocomplete-sandbox",
+      "kind": "design-system-development-handoff",
+      "title": "Select & Autocomplete — Sandbox Handoff",
+      "summary": "Implementation-ready decisions, source mapping, event/state model, acceptance tests, and explicit non-blocking Figma migration debt.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "design-system.component.select",
+        "design-system.component.autocomplete",
+        "design-system.component.text-input",
+        "design-system.accessibility.forms"
+      ],
+      "topics": [
+        "design-system-development-handoff",
+        "handoffs",
+        "select-autocomplete-sandbox"
+      ],
+      "path": "shared/design-system/handoffs/select-autocomplete-sandbox.md"
     },
     {
       "id": "design-system.integration.figma-component-presentation",
@@ -2930,12 +2976,13 @@
     }
   ],
   "summary": {
-    "documents": 146,
+    "documents": 148,
     "by_kind": {
       "content-guideline": 17,
       "design-system-accessibility": 18,
-      "design-system-component": 38,
+      "design-system-component": 39,
       "design-system-design-language": 1,
+      "design-system-development-handoff": 1,
       "design-system-experience-rule": 11,
       "design-system-foundation": 11,
       "design-system-governance": 6,
