@@ -43,6 +43,28 @@ Known mismatch/gap
 
 ## Current mapping registry
 
+### File Uploader — HOS-39 pilot (draft)
+
+| Field | Current value |
+| --- | --- |
+| DS component | File Uploader |
+| Design maturity | **Pilot / not approved for canonical migration** |
+| Knowledge document | `../components/file-uploader.md` (draft) |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Pilot presentation | `23907:394` |
+| Proposed uploader component set | `File Uploader / HOS-39 Pilot` — node `23905:614`, 4 variants |
+| Proposed File Item set | `File Item / HOS-39 Pilot` — node `23903:127017`, 5 variants |
+| Proposed Dropzone set | `Dropzone / HOS-39 Pilot` — node `23905:565`, 4 variants |
+| Figma component keys / publication | **Pending verification** |
+| Current legacy public master | `File uploader` — node `5465:294860`, preserved |
+| Native authoring slot | `File list / Slot` |
+| Code repository / runtime props | **Unregistered / unverified** |
+| Storybook / testing | **Unregistered / unverified** |
+| Migration status | **Not cut over**; retain existing consumer instances |
+| Last Figma verification | 2026-10-17 |
+
+[Open draft pilot](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23907-394)
+
 ### Button
 
 | Field | Current value |
