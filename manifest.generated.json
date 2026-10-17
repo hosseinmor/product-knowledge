@@ -1307,7 +1307,7 @@
       "summary": "Continuous operation-progress component with measured determinate values, public Figma Indeterminate variants, and explicit success/error feedback.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-10-15",
+      "last_reviewed": "2026-10-17",
       "related": [
         "design-system.component.progress-indicator",
         "design-system.pattern.loading-and-progress",
