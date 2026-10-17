@@ -8,7 +8,7 @@ knowledge_state: verified
 document_maturity: draft
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: 2026-09-20
+last_reviewed: 2026-10-17
 source_figma: https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=22932-134187
 source_node: 22932:134187
 related:
@@ -61,6 +61,10 @@ Combo Button is not a generic Button Group. The two controls have fixed roles: o
 - Primary Action foundation: canonical `Button / Default`
 - Menu Trigger foundation: canonical `Icon Button / Default`
 - Menu composition: native `Menu content` SLOT
+
+### Figma presentation — verified 2026-10-17
+
+[Combo Button / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=22935-2651) follows the [Figma Component Presentation Guideline](../integrations/figma-component-presentation.md): one 1600px documentation frame with **the original 24-variant public Component Set** (same node ID/key) in **01 · Component set**. The source's canvas-only layout is now compact: three Style columns and paired Closed/Open rows for each Size, without creating variants or changing their APIs. **02 · Playground** has 13 genuine source-linked Combo Button instances covering dominant action, three styles, Persian/RTL related alternatives, four sizes, Action/Trigger Focus, Action Loading and whole-control Disabled. **03 · Anatomy & composition** documents the canonical shared Button/Icon Button instances and native Menu Slot; their own public masters remain on their owning pages. **04 · Usage & handoff** records usage and runtime caveats. The obsolete oversized scaffold and an unrelated loose QA instance were removed; the original documentation frame ID remains unchanged. This is Figma source/presentation verification, not executable runtime QA.
 
 ### Figma properties
 
@@ -329,7 +333,7 @@ The implementation may compose shared Button, Icon Button, and Menu primitives i
 
 Verify:
 
-- exactly 24 variants: `3 Style × 4 Size × 2 Open`;
+- exactly 24 variants: `3 Style × 4 Size × 2 Open`, preserved in the canonical 1600px presentation with the same component-set ID/key;
 - each variant contains an exposed canonical Primary Action Button and an internal canonical Menu Trigger Icon Button;
 - each variant contains one native Menu Slot;
 - heights are 28 / 32 / 40 / 48;
@@ -352,6 +356,7 @@ Verify:
 
 ## Known gaps
 
+- **Theme-sensitive internal join remains under review:** the current Primary/Secondary Menu Trigger join stroke is bound to the primitive `palette/bw/white`, rather than a mode-aware semantic `line/*` token. The current Figma construction and 24-variant structural checks pass, but color/contrast appropriateness across product/theme modes is **not** verified. Resolve token choice with the Design System owner before treating cross-theme appearance as signed off; do not replace the canonical child instances with a custom separator node.
 - runtime component/API, code repository/package, and Storybook are unregistered;
 - exact overlay/collision implementation is unverified;
 - exact partial-disabled runtime API is intentionally not specified;
