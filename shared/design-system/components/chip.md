@@ -8,7 +8,7 @@ knowledge_state: verified
 document_maturity: reviewed
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: '2026-09-23'
+last_reviewed: '2026-10-17'
 related:
   - design-system.component.tag
   - design-system.component.badge
@@ -66,13 +66,14 @@ All public Chip sets share the same control recipe:
 
 | Property | Contract |
 |---|---|
+| Extra Small height | `28px` |
 | Small height | `32px` |
 | Medium height | `40px` |
 | Radius | `Radius / Full` — current Chip visual direction |
 | Radius status | Temporary/current direction; revisit if the family moves back to the shared control radius |
 | Default width | Hug content |
 | Label | Single-line |
-| Label text style | `Body/Compact/SM` |
+| Label text style | `Label/XS` (Extra Small); `Label/SM` (Small/Medium) |
 | Main content gap | `8px` |
 | Secondary content internal gap | `4px` |
 | Direction | RTL-first; use logical start/end |
@@ -81,7 +82,7 @@ All public Chip sets share the same control recipe:
 | Color | Semantic roles only |
 | Interaction State | `Default / Hover / Active / Focus / Disabled` |
 
-Persistent meaning such as `Selected` or `Applied` is always modeled independently from transient interaction `State`.
+Persistent meaning (`Selected`, `Applied`), transient interaction (`State`), and temporary popup visibility (`Open`) are distinct dimensions. `Open` is available on Disclosure and Removable only; it is a two-value Figma Variant axis but a Boolean runtime condition.
 
 The current family intentionally has no public `Type=Filter/Input/Suggestion` axis and no public `Color` axis.
 
@@ -95,12 +96,12 @@ Canonical file: `[DS] Job Vision NEXT`
 - Figma node ID: `20783:128158`
 - Figma component key: `5571e8e324b47155d7e9fd384aaea289c2e54d89`
 - Variant properties:
-  - `Size = Small / Medium`
+  - `Size = Extra Small / Small / Medium`
   - `Selected = false / true`
   - `State = Default / Hover / Active / Focus / Disabled`
 - Content properties:
   - `Label`
-- Variant count: `20 = 2 Size × 2 Selected × 5 State`
+- Variant count: `30 = 3 Size × 2 Selected × 5 State`
 
 Purpose: use when the value itself is directly selected or deselected.
 
@@ -113,7 +114,7 @@ The component itself does not know whether it is Choice or Filter; the owning gr
 
 #### Selected treatment
 
-`Selected=true` uses a leading check at logical Start plus `surface/accent-muted`, `line/accent`, and `fg/accent`. Hover and Active preserve that selected base and add the shared structured-surface interaction overlays: `surface/transparent-hover` and `surface/transparent-active`. Focus preserves the base selected surface and adds `Focus/Default`. Disabled continues to use the shared disabled treatment.
+`Selected=true` uses a leading check at logical Start plus `surface/accent-muted`, `line/accent`, and `fg/accent`. Hover and Active use the corresponding direct semantic Accent surfaces: `surface/accent-muted-hover` and `surface/accent-muted-active`. Focus preserves the base selected surface and adds `Focus/Default`. Disabled continues to use the shared disabled treatment.
 
 Rules:
 
@@ -128,15 +129,16 @@ Rules:
 - Figma node ID: `23124:358`
 - Figma component key: `193062043a2194024cc06c6d45f11b96b4a238b3`
 - Variant properties:
-  - `Size = Small / Medium`
+  - `Size = Extra Small / Small / Medium`
   - `State = Default / Hover / Active / Focus / Disabled`
+  - `Open = False / True` (Figma Variant, independent of State)
 - Content properties:
   - `Label`
   - `Detail`
   - `Show detail`
   - `Show leading visual`
   - `Leading visual` instance swap
-- Variant count: `10 = 2 Size × 5 State`
+- Variant count: `30 = 3 Size × 5 State × 2 Open`
 - Trailing remove affordance: mandatory
 
 Purpose: represent a **committed value/object** that can be removed. Because the value is already committed, Removable uses the same Accent value treatment as other committed/selected Chip states.
@@ -167,13 +169,15 @@ Example:
 - body activation → edit/inspect/open detail such as Level editing;
 - `×` → remove the committed software.
 
-`Body action` is a behavioral capability, **not a Figma variant**, because the current visual/geometry contract does not change.
+`Body action` is a behavioral capability, not a variant. **Open=False/True** is a new independent Figma axis for the optional body-opening editing surface. Open=True has semantic Accent Active surface treatment; the Remove control remains independent and does not receive `aria-expanded`. Non-popup uses keep Open=False.
 
 Runtime requirements:
 
 - body and Remove are independent hit targets;
 - when body is actionable, body and Remove are independent focus targets;
 - do not nest one button inside another;
+- when body opens a secondary surface, `aria-expanded` is placed on the body trigger, not the Remove action;
+- disabled forces effective `open=false` in runtime;
 - use an appropriate compound-control DOM structure;
 - body action may be edit, inspect, disclosure, or another value-level interaction; do not rename the capability to Disclosure.
 
@@ -183,15 +187,16 @@ Runtime requirements:
 - Figma node ID: `20783:534`
 - Figma component key: `3ba6c8dc36a76632d1569108e024ae47c841a50c`
 - Variant properties:
-  - `Size = Small / Medium`
+  - `Size = Extra Small / Small / Medium`
   - `Applied = false / true`
   - `State = Default / Hover / Active / Focus / Disabled`
+  - `Open = False / True` (Figma Variant, independent of State)
 - Content properties:
   - `Label`
   - `Summary`
   - `Show summary`
-- Variant count: `20 = 2 Size × 2 Applied × 5 State`
-- Trailing chevron: mandatory
+- Variant count: `60 = 3 Size × 2 Applied × 5 State × 2 Open`
+- Trailing chevron: mandatory; down (Closed) / up (Open)
 
 Purpose: use for compact facets/controls that open a secondary surface such as Popover or Menu to choose or edit state.
 
@@ -207,9 +212,7 @@ Examples:
 - `Applied` = the control currently has a committed/applied value;
 - `Open` = the owning secondary surface is currently visible.
 
-The current reviewed Figma treatment has **no distinct visual state for Open**, so Open is runtime-only and is deliberately not a Figma variant.
-
-Do not add `Open` back unless a meaningful, persistent visual difference is designed.
+**Current Figma treatment (2026-10-17):** `Open=False/True` is a separate two-value Variant axis. Open=True changes Chevron to `Icon/chevron_up` and uses the corresponding semantic Active surface independently of Applied and transient Focus. Focus+Open retains its outside ring. Disabled cannot actually open in runtime; Disabled/Open=True is a matrix authoring combination, visually still disabled. At runtime, Open remains a Boolean, but Figma uses a Variant axis for coupled icon/color changes.
 
 #### Summary
 
@@ -237,13 +240,13 @@ The trailing chevron remains the disclosure affordance after a value is applied.
 - Figma node ID: `23123:125056`
 - Figma component key: `876535cdb18030fe2d38c6c6221036d770838586`
 - Variant properties:
-  - `Size = Small / Medium`
+  - `Size = Extra Small / Small / Medium`
   - `State = Default / Hover / Active / Focus / Disabled`
 - Content properties:
   - `Label`
   - `Show trailing icon`
   - `Trailing icon` instance swap
-- Variant count: `10 = 2 Size × 5 State`
+- Variant count: `15 = 3 Size × 5 State`
 
 Purpose: a compact, stateless value-level action.
 
@@ -281,7 +284,7 @@ Generic task actions such as “Summarize”, “Generate questions”, or “Ed
 Use the affordances consistently:
 
 - `✓` = selected; place it at logical Start before the label;
-- `▾` = disclose/edit through a secondary surface;
+- `▾` / `▴` = secondary surface closed/open;
 - `×` = remove committed value;
 - `+` = add/start/configure a value.
 
@@ -346,12 +349,12 @@ Activation opens the Level configuration surface.
 
 Only after the required Level is chosen and committed:
 
-`[ Microsoft Word · متوسط × ]` → Chip / Removable
+`[ Microsoft Word · متوسط × ]` → Chip / Removable (Open=True while editing surface is shown)
 
 Then:
 
-- body may reopen Level editing;
-- `×` removes the committed software.
+- body may reopen Level editing with `Open=True` when the level panel is visible;
+- `×` removes the committed software independently of the Open state.
 
 Whether the committed item stays in the same location or moves from Available to Selected is a **product-level collection decision**, not part of the Chip component contract.
 
@@ -367,18 +370,18 @@ Current mappings:
 - default-base hover: `surface/default` base + `surface/transparent-hover` overlay;
 - default-base active: `surface/default` base + `surface/transparent-active` overlay;
 - Selectable selected default/focus: `surface/accent-muted + line/accent + fg/accent`;
-- Selectable selected hover: `surface/accent-muted` base + `surface/transparent-hover` overlay + `line/accent + fg/accent`;
-- Selectable selected active: `surface/accent-muted` base + `surface/transparent-active` overlay + `line/accent + fg/accent`;
+- Selectable selected hover: `surface/accent-muted-hover + line/accent + fg/accent`;
+- Selectable selected active: `surface/accent-muted-active + line/accent + fg/accent`;
 - Disclosure applied default/focus: `surface/accent-muted + line/accent + fg/accent`;
-- Disclosure applied hover: `surface/accent-muted` base + `surface/transparent-hover` overlay + `line/accent + fg/accent`;
-- Disclosure applied active: `surface/accent-muted` base + `surface/transparent-active` overlay + `line/accent + fg/accent`;
+- Disclosure applied hover: `surface/accent-muted-hover + line/accent + fg/accent`;
+- Disclosure applied active: `surface/accent-muted-active + line/accent + fg/accent`;
 - Removable default/focus: `surface/accent-muted + line/accent + fg/accent`;
-- Removable hover: `surface/accent-muted` base + `surface/transparent-hover` overlay + `line/accent + fg/accent`;
-- Removable active: `surface/accent-muted` base + `surface/transparent-active` overlay + `line/accent + fg/accent`;
+- Removable hover: `surface/accent-muted-hover + line/accent + fg/accent`;
+- Removable active: `surface/accent-muted-active + line/accent + fg/accent`;
 - disabled: shared disabled foreground/line/surface treatment;
 - focus: preserve the underlying persistent state and add the shared focus effect.
 
-For every structured Chip surface, interaction does not replace the semantic base. Default/unselected/unapplied and Action preserve `surface/default`; Selectable Selected, Disclosure Applied, and Removable preserve `surface/accent-muted`. Hover and Active always layer the shared `surface/transparent-hover` / `surface/transparent-active` tokens over that base.
+Structured Chip colors must stay in their semantic family: default/unselected/unapplied and Action use `surface/default` with transparent Hover/Active overlay; Selected Selectable, Applied Disclosure and Removable use direct `surface/accent-muted` / `surface/accent-muted-hover` / `surface/accent-muted-active` state tokens. Open=True uses semantic Active treatment without faking Focus.
 
 Do not:
 
@@ -399,7 +402,7 @@ Rules:
 - parent containers must not clip the ring;
 - pointer activation alone need not force keyboard-style focus when the platform's focus-visible algorithm does not require it.
 
-For compound Removable Chips, runtime focus must make it clear whether the body or Remove action is focused.
+For compound Removable Chips, runtime focus must make it clear whether the body or Remove action is focused. Open=True is not a permanent Focus ring; the Remove action remains independently focusable.
 
 ## Content, Long Labels, and Layout
 
@@ -502,7 +505,7 @@ Exact DOM/ARIA choices remain unverified until the runtime implementation is reg
 - Choose the Component Set by interaction capability, not product wording.
 - Keep `Selected` / `Applied` separate from `State`.
 - Do not add product-use-case variants.
-- Do not add `Open` unless it receives a meaningful visual treatment.
+- `Open` belongs only to Disclosure and optionally Removable; do not add it to Selectable or Action without an approved use case.
 - Do not add Single/Multiple to Disclosure; it belongs to the secondary surface.
 - Use the existing icon library; do not draw ad hoc Chip icons.
 - Override shared icon foreground where the consuming Chip state requires it.
@@ -517,12 +520,12 @@ Exact DOM/ARIA choices remain unverified until the runtime implementation is reg
 
 - Figma file key: `rROD8ctH9UfPGAMrRrOzHe`
 - Page: `Chip`, node `13500:300199`
-- Documentation frame: `Chip / Documentation`, node `23143:531`
+- Documentation frame: `Chip / Documentation · canonical sources`, node `23900:128061`
 - Sections:
   1. Component Set
   2. Playground
   3. Usage & composition
-  4. Migration note
+  4. Usage & handoff
 
 Playground coverage includes:
 
@@ -543,7 +546,7 @@ Identity-preserving migration:
 
 - old Toggle identity/key → `Chip / Selectable`;
 - old Trigger identity/key → `Chip / Disclosure`;
-- previous Disclosure `Open` variants were removed after audit because they duplicated Hover visually; Open is runtime-only;
+- earlier Disclosure Open variants were removed when visually redundant; on 2026-10-17 a distinct up-chevron + Active-surface Open treatment was approved on Disclosure and Removable, preserving all original variant IDs as Open=False;
 - `Chip / Removable` and `Chip / Action` are new canonical capability sets.
 
 Older Carbon-derived Chip artifacts and old Chip Group components remain reference-only where deleting them could break existing consumers.
@@ -572,20 +575,25 @@ Therefore these remain explicitly unverified:
 
 Do not infer them from Figma property names.
 
+## Current Open-state contract — 2026-10-17
+
+The canonical Figma document now has **30 Selectable, 30 Removable, 60 Disclosure, 15 Action**, and **15 private Remove** variants. Original 30 Disclosure and 15 Removable Variant IDs remain as Open=False; 45 Open=True variants are new. Toggling Open in real instances preserved Label and Detail overrides. Both family sources use the same Full radius, 8px gap, 28/32/40px sizes, Label/XS or Label/SM styles and semantic color tokens. Read the [final Chip audit](../audits/chip-final-2026-10-17.md) for test coverage and runtime limitations.
+
 ## QA Checklist
 
 Verify:
 
 - four public sets exist: Selectable / Removable / Disclosure / Action;
 - no `Type=Filter/Input/Suggestion` mega set exists;
-- Small = 32px; Medium = 40px;
+- Figma variant counts are Selectable 30, Removable 30, Disclosure 60, Action 15, internal Remove 15;
+- Extra Small = 28px; Small = 32px; Medium = 40px;
 - radius is the shared Full variable for the current Chip direction;
 - State is Default / Hover / Active / Focus / Disabled;
 - Selectable has persistent Selected and uses a leading ✓ at logical Start, never ×;
-- Removable always has × and supports optional Detail / leading visual;
+- Removable always has ×, optional Detail / leading visual, and a separate Open=False/True body state;
 - Removable body-action capability does not create invalid nested-button semantics;
 - Disclosure has persistent Applied, optional Summary, and mandatory chevron;
-- Disclosure Open is runtime-only until a distinct visual treatment exists;
+- Disclosure and Removable both have a meaningful Open=False/True Figma Variant axis and an independent Boolean expanded condition at runtime;
 - Action is stateless and can express `+` add/start with the optional trailing icon after the label;
 - focus uses the shared outside ring;
 - semantic colors are used; Tag/Chip-specific colors are not;
