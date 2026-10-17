@@ -82,7 +82,7 @@ All public Chip sets share the same control recipe:
 | Color | Semantic roles only |
 | Interaction State | `Default / Hover / Active / Focus / Disabled` |
 
-Persistent meaning (`Selected`, `Applied`), transient interaction (`State`), and temporary popup visibility (`Open`) are distinct dimensions. `Open` is available on Disclosure and Removable only; it is a two-value Figma Variant axis but a Boolean runtime condition.
+Persistent meaning (`Selected`, `Applied`), transient interaction (`State`) and popup visibility (`open`) are independent. **Opening does not change Chip surface colors.** For Disclosure, only the Chevron direction changes through an exposed nested `Chevron / Open` control (not a parent Variant axis); for Removable, no separate Figma Open control or visual treatment is needed.
 
 The current family intentionally has no public `Type=Filter/Input/Suggestion` axis and no public `Color` axis.
 
@@ -131,14 +131,13 @@ Rules:
 - Variant properties:
   - `Size = Extra Small / Small / Medium`
   - `State = Default / Hover / Active / Focus / Disabled`
-  - `Open = False / True` (Figma Variant, independent of State)
 - Content properties:
   - `Label`
   - `Detail`
   - `Show detail`
   - `Show leading visual`
   - `Leading visual` instance swap
-- Variant count: `30 = 3 Size × 5 State × 2 Open`
+- Variant count: `15 = 3 Size × 5 State`
 - Trailing remove affordance: mandatory
 
 Purpose: represent a **committed value/object** that can be removed. Because the value is already committed, Removable uses the same Accent value treatment as other committed/selected Chip states.
@@ -169,7 +168,7 @@ Example:
 - body activation → edit/inspect/open detail such as Level editing;
 - `×` → remove the committed software.
 
-`Body action` is a behavioral capability, not a variant. **Open=False/True** is a new independent Figma axis for the optional body-opening editing surface. Open=True has semantic Accent Active surface treatment; the Remove control remains independent and does not receive `aria-expanded`. Non-popup uses keep Open=False.
+`Body action` is a behavioral capability, not a Variant. **There is no Open authoring property or Open-specific visual style** in Removable: a committed chip looks the same whether a related editor is open or closed. The component now has two structurally independent targets: `Body / action target` and the existing `__Chip Remove Action`, with independent Hover/Active/Focus and remove behavior. Popup visibility belongs to the owning interaction pattern; `aria-expanded` (where needed) belongs to Body only.
 
 Runtime requirements:
 
@@ -190,12 +189,12 @@ Runtime requirements:
   - `Size = Extra Small / Small / Medium`
   - `Applied = false / true`
   - `State = Default / Hover / Active / Focus / Disabled`
-  - `Open = False / True` (Figma Variant, independent of State)
+- Exposed nested instance: `Chevron / Open = false / true` (glyph direction; **not** a parent Variant axis)
 - Content properties:
   - `Label`
   - `Summary`
   - `Show summary`
-- Variant count: `60 = 3 Size × 2 Applied × 5 State × 2 Open`
+- Variant count: `30 = 3 Size × 2 Applied × 5 State`
 - Trailing chevron: mandatory; down (Closed) / up (Open)
 
 Purpose: use for compact facets/controls that open a secondary surface such as Popover or Menu to choose or edit state.
@@ -212,7 +211,7 @@ Examples:
 - `Applied` = the control currently has a committed/applied value;
 - `Open` = the owning secondary surface is currently visible.
 
-**Current Figma treatment (2026-10-17):** `Open=False/True` is a separate two-value Variant axis. Open=True changes Chevron to `Icon/chevron_up` and uses the corresponding semantic Active surface independently of Applied and transient Focus. Focus+Open retains its outside ring. Disabled cannot actually open in runtime; Disabled/Open=True is a matrix authoring combination, visually still disabled. At runtime, Open remains a Boolean, but Figma uses a Variant axis for coupled icon/color changes.
+**Current Figma treatment (2026-10-17, updated after benchmark review):** The Chip's surface styling is entirely driven by `Applied × State`, never by Open. An exposed nested `__Chip Chevron / Neutral` or `__Chip Chevron / Accent` instance has an `Open=false/true` option: `Icon/chevron_down` when closed, `Icon/chevron_up` when expanded. It preserves the semantic Chevron color for the Applied condition. This nested property is exposed to the consuming Figma instance. In runtime `open` is owned by the popup/pattern, controls Chevron orientation and `aria-expanded`, and is forced false when disabled; opening must not add a persistent Active background or Focus ring.
 
 #### Summary
 
@@ -349,11 +348,11 @@ Activation opens the Level configuration surface.
 
 Only after the required Level is chosen and committed:
 
-`[ Microsoft Word · متوسط × ]` → Chip / Removable (Open=True while editing surface is shown)
+`[ Microsoft Word · متوسط × ]` → Chip / Removable (same appearance while editing surface is shown)
 
 Then:
 
-- body may reopen Level editing with `Open=True` when the level panel is visible;
+- body may reopen Level editing; there is no special Open style on the Removable Chip;
 - `×` removes the committed software independently of the Open state.
 
 Whether the committed item stays in the same location or moves from Available to Selected is a **product-level collection decision**, not part of the Chip component contract.
@@ -381,7 +380,7 @@ Current mappings:
 - disabled: shared disabled foreground/line/surface treatment;
 - focus: preserve the underlying persistent state and add the shared focus effect.
 
-Structured Chip colors must stay in their semantic family: default/unselected/unapplied and Action use `surface/default` with transparent Hover/Active overlay; Selected Selectable, Applied Disclosure and Removable use direct `surface/accent-muted` / `surface/accent-muted-hover` / `surface/accent-muted-active` state tokens. Open=True uses semantic Active treatment without faking Focus.
+Structured Chip colors must stay in their semantic family: default/unselected/unapplied and Action use `surface/default` with transparent Hover/Active overlay; Selected Selectable and Applied Disclosure use their direct semantic state tokens. Removable has a stable committed Accent base, while Hover/Active feedback is applied to **Body only**, leaving the separate Remove control unchanged. **Open never alters a Chip surface color or Focus ring.**
 
 Do not:
 
@@ -402,7 +401,7 @@ Rules:
 - parent containers must not clip the ring;
 - pointer activation alone need not force keyboard-style focus when the platform's focus-visible algorithm does not require it.
 
-For compound Removable Chips, runtime focus must make it clear whether the body or Remove action is focused. Open=True is not a permanent Focus ring; the Remove action remains independently focusable.
+For compound Removable Chips, Body and Remove have separate focus targets. The Figma Body now receives its own Focus/Default effect and Remove retains independent Focus/Default; neither is a permanent indicator of popup visibility.
 
 ## Content, Long Labels, and Layout
 
@@ -505,13 +504,13 @@ Exact DOM/ARIA choices remain unverified until the runtime implementation is reg
 - Choose the Component Set by interaction capability, not product wording.
 - Keep `Selected` / `Applied` separate from `State`.
 - Do not add product-use-case variants.
-- `Open` belongs only to Disclosure and optionally Removable; do not add it to Selectable or Action without an approved use case.
+- Do not add Open to the parent Chip State/Variant axes. Disclosure exposes a nested Chevron direction property only; Removable, Selectable and Action have no Open visual property.
 - Do not add Single/Multiple to Disclosure; it belongs to the secondary surface.
 - Use the existing icon library; do not draw ad hoc Chip icons.
 - Override shared icon foreground where the consuming Chip state requires it.
 - Keep Divider structural: Summary/Detail properties store value only; do not prefix their values with `·` or `|`.
 - Use the shared 8px spacing variable for the main Chip content gap and 4px inside `Summary content` / `Detail content` between Divider and the value.
-- For structured surfaces, keep the semantic base and layer shared transparent Hover/Active overlays rather than swapping to state-specific surface tokens.
+- Use semantic State tokens as shown in the canonical Figma components. In Removable, apply transient Hover/Active/Focus to Body independently of Remove. Do not style Open as Active.
 - Use the shared `Radius / Full` variable for the current Chip direction; do not use a literal radius. This is a current family decision rather than a global control-radius change.
 - Do not create `_Chip Base` until repeated maintenance evidence proves a shared private primitive is useful.
 - Do not create new work from legacy Carbon-derived Chip or old Chip Group artifacts.
@@ -546,7 +545,7 @@ Identity-preserving migration:
 
 - old Toggle identity/key → `Chip / Selectable`;
 - old Trigger identity/key → `Chip / Disclosure`;
-- earlier Disclosure Open variants were removed when visually redundant; on 2026-10-17 a distinct up-chevron + Active-surface Open treatment was approved on Disclosure and Removable, preserving all original variant IDs as Open=False;
+- On 2026-10-17, the initial Open background treatment was rejected after benchmark review. The canonical Disclosure retains the original 30 closed-variant component IDs, with nested Chevron direction instead; Removable retains the original 15 component IDs and two independent target areas. The 45 old Open=True source components were retained in a separate __Legacy frame for compatibility rather than deleted;
 - `Chip / Removable` and `Chip / Action` are new canonical capability sets.
 
 Older Carbon-derived Chip artifacts and old Chip Group components remain reference-only where deleting them could break existing consumers.
@@ -575,9 +574,9 @@ Therefore these remain explicitly unverified:
 
 Do not infer them from Figma property names.
 
-## Current Open-state contract — 2026-10-17
+## Current simplified Open-state contract — 2026-10-17
 
-The canonical Figma document now has **30 Selectable, 30 Removable, 60 Disclosure, 15 Action**, and **15 private Remove** variants. Original 30 Disclosure and 15 Removable Variant IDs remain as Open=False; 45 Open=True variants are new. Toggling Open in real instances preserved Label and Detail overrides. Both family sources use the same Full radius, 8px gap, 28/32/40px sizes, Label/XS or Label/SM styles and semantic color tokens. Read the [final Chip audit](../audits/chip-final-2026-10-17.md) for test coverage and runtime limitations.
+The canonical Figma library now contains **30 Selectable, 15 Removable, 30 Disclosure and 15 Action** public variants (**90 total**) plus **15 internal Remove** variants. `Open` is not a parent Variant axis in either set: Disclosure exposes only nested Chevron orientation, and Removable has no Open visual treatment. The original 45 closed component IDs were preserved and the 45 historical Open=True components remain available in an __Legacy frame so prior linked instances are not deleted. New designs should not use the legacy sources. [Final simplification audit](../audits/chip-open-simplification-2026-10-17.md) supersedes the earlier [150-variant audit](../audits/chip-final-2026-10-17.md).
 
 ## QA Checklist
 
@@ -585,15 +584,15 @@ Verify:
 
 - four public sets exist: Selectable / Removable / Disclosure / Action;
 - no `Type=Filter/Input/Suggestion` mega set exists;
-- Figma variant counts are Selectable 30, Removable 30, Disclosure 60, Action 15, internal Remove 15;
+- Figma variant counts are Selectable 30, Removable 15, Disclosure 30, Action 15, internal Remove 15;
 - Extra Small = 28px; Small = 32px; Medium = 40px;
 - radius is the shared Full variable for the current Chip direction;
 - State is Default / Hover / Active / Focus / Disabled;
 - Selectable has persistent Selected and uses a leading ✓ at logical Start, never ×;
-- Removable always has ×, optional Detail / leading visual, and a separate Open=False/True body state;
+- Removable always has ×, optional Detail / leading visual, independent Body/Remove visual feedback, and no Figma Open property;
 - Removable body-action capability does not create invalid nested-button semantics;
 - Disclosure has persistent Applied, optional Summary, and mandatory chevron;
-- Disclosure and Removable both have a meaningful Open=False/True Figma Variant axis and an independent Boolean expanded condition at runtime;
+- Disclosure exposes a nested Chevron/ Open false/true control that changes only the icon orientation; runtime owns independent expanded state. Removable has no visual Open property;
 - Action is stateless and can express `+` add/start with the optional trailing icon after the label;
 - focus uses the shared outside ring;
 - semantic colors are used; Tag/Chip-specific colors are not;
