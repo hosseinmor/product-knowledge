@@ -54,15 +54,18 @@ Known mismatch/gap
 | Pilot presentation | `23907:394` |
 | Proposed uploader component set | `File Uploader / HOS-39 Pilot` — node `23905:614`, **4 variants** (Mode × State; no Size axis) |
 | Proposed File Item set | `File Item / HOS-39 Pilot` — node `23903:127017`, **5 variants** (Status; no Size axis) |
-| Proposed Dropzone set | `Dropzone / HOS-39 Pilot` — node `23905:565`, **5 variants** (Default / Hover / Drag-over / Focus / Disabled; no Size axis) |
+| Proposed Dropzone set | `Dropzone / HOS-39 Pilot` — node `23905:565`, **6 variants** (Default / Hover / Drag-over / Drag-reject / Focus / Disabled; no Size axis) |
 | Figma component keys / publication | **Pending verification** |
 | Current legacy public master | `File uploader` — node `5465:294860`, preserved |
-| Figma authoring properties | Label, Helper, **one shared `File list / Slot`**; File Item: File name, Error message; Dropzone: Instruction |
+| Figma authoring properties | Label, Helper, **one shared `File list / Slot`**; File Item: File name, Error message; Dropzone: Instruction, **Reject reason**, **Reject recovery** |
 | Source default Slot content | 3 source-linked File Items per Uploader variant: Uploaded, Uploading, Upload error. Editable/removable illustrative Figma content, **not default runtime data**. |
 | File Item XS actions | **Uploading:** Ghost text / XS (28px) Cancel «لغو», conditional on runtime support; **Upload error:** Tertiary / XS Retry + Ghost Icon Button / XS Remove; **other removable:** Ghost Icon Button / XS. |
 | Dropzone instruction | «فایل را اینجا بکشید و رها کنید یا روی «انتخاب فایل» کلیک کنید»; Browse Button is explicit, full-region click policy TBD. |
 | Default Browse Button | Shared `Button / Tertiary`, 40px (former Medium) in Browse-only and Dropzone |
 | Dropzone semantic visuals | Default `surface/default` + dashed `line/emphasis`; Hover `surface/transparent-hover` overlay; Drag-over `surface/accent-muted` + 2px `line/accent`; Focus shared Focus/Default; Disabled semantic disabled roles |
+| Drag-over copy & art | «فایل‌ها را اینجا رها کنید»; Hide Browse visually; **Illustration / TBD** (placeholder is not a real asset). **Default illustration: optional / TBD**. |
+| Drag-reject | Conditional (only if known during drag) `surface/error-muted` + 2px `line/error`, example title «فرمت این فایل پشتیبانی نمی‌شود» and helper «فایلی با فرمت مجاز انتخاب کنید»; not a substitute for File Item errors. |
+| Drag-reject source node | `24000:827` (new variant under existing set `23905:565`) |
 | Dropzone size & shape | Single **176px base height**; bound to **`12px · Large`** radius. Text has Fill width and wraps (320px preview checked). No Size variant; actual runtime sizing unverified. |
 | Code repository / runtime props | **Unregistered / unverified** |
 | Storybook / testing | **Unregistered / unverified** |
