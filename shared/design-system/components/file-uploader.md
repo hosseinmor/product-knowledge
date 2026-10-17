@@ -3,19 +3,21 @@ id: design-system.component.file-uploader
 collection: design-system
 type: component
 title: File Uploader
-summary: Carbon-derived file selection and drag-and-drop component with composable file list and file-level states.
-knowledge_state: draft
-document_maturity: draft
-design_status: review-ready
-design_maturity: figma-source-reconciled
+summary: Canonical Carbon-derived file selection and drag-and-drop design contract, with native File list Slot, file-level feedback and verified Figma sources.
+knowledge_state: verified
+document_maturity: final
+design_status: ready-for-dev
+design_maturity: handoff-ready
+status: reviewed
 owner: Design System team
 last_reviewed: '2026-10-17'
 related:
   - design-system.component.progress-bar
   - design-system.reference.component-mapping
+  - design-system.accessibility.forms
   - design-system.accessibility.dynamic-content-and-feedback
   - content.pattern.loading-and-progress
-  - content.pattern.errors
+  - content.pattern.error
 topics:
   - file-uploader
   - file-item
@@ -26,89 +28,107 @@ topics:
   - validation
 ---
 
-# File Uploader
+# File Uploader — HOS-39
 
-> **HOS-39 — Carbon Figma source is canonical for design authoring.** The editable component and presentation have been standardized; this is **not yet a development/runtime acceptance**. The former experimental HOS-39 pilot is retained in Archive as a noncanonical exploration. All runtime props/endpoints, network transfer, retry/cancel and accessibility implementation claims remain unregistered or unverified.
+> **Final design contract; ready for implementation/sandbox handoff, not production certified.** This specification describes the **original Carbon component now canonical in Figma**, NOT the archived single-size pilot. The original components and their existing appearances are preserved. No actual upload endpoint, runtime API, Storybook story, keyboard behavior or assistive-technology result has been verified. These are implementation acceptance requirements, not claims of working code.
 
-## Purpose
+## Purpose, composition and boundaries
 
-Use **File Uploader** for selecting one or more files, optionally by dragging into the drop target, and displaying selected-file feedback. Do not use it for passive attachments with no selection/transfer workflow. Image/avatar crop or preview is a separate product pattern.
+File Uploader lets a user choose one or more files, optionally drag them into a target, and inspect the selected files and their independent statuses. It owns the **entry area** and composes a **File list** of File Items.
 
-The root component coordinates the entry control and visible list. Its nested **File Item** owns one file's name and presentational status. The Dropzone is the drag-target treatment, not a second parallel uploader API. Progress semantics, persistent errors and network handling remain product/runtime concerns.
+- **File Uploader**: selection entry point, label/constraints, enabled/disabled treatment and nested list visibility.
+- **Dropzone**: optional alternative pointer drop target; **never the only input method** and not a second upload-state owner.
+- **File Item**: one file's name, visually identifiable loading/outcome/error and associated permitted action(s). A file-level failure must not mark other files failed.
+- **Progress Bar**: shared component for trustworthy determinate or indeterminate continuous progress, when needed. Original Carbon `Loading` is only a spinner treatment and is **not a real percentage**.
+- **Attachment / Image Uploader**: passive already-stored attachment or crop/preview-specific flow, respectively; not automatically a File Uploader state.
+- **Inline feedback**: field/batch-wide error that cannot be localized to one File Item; use the Content System error pattern instead of painting all files red.
 
-## Canonical Figma sources — verified October 17, 2026
+Selection constraints, upload network timing, virus/security validation, remote deletion, persistence and cancellation semantics are owned by the **consuming product and runtime**. They are not Design System defaults.
 
-| Role | Original preserved node | Contract visible in Figma |
+## Canonical Figma authoring (verified)
+
+[Open actual Carbon File Uploader documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24020-785)
+
+| Actual Figma master | ID | Verified structure |
 | --- | --- | --- |
-| 1600px documentation | `24020:785` | Actual sources, Playground, Anatomy, handoff |
-| Public `File uploader` Component Set | `5465:294860` | **15 variants:** Type × Size × supported State |
-| Internal `_File uploader file item` Component Set | `3199:35182` | **18 variants:** Size × File Item State |
-| Internal `_File uploader - Drag and drop box states` Component Set | `3183:29103` | **4 states** |
-| Internal `_File uploader file list item` Component | `4188:102462` | **1 native `File list` Slot** containing 3 real File Item instances |
-| Source Slot | `24003:831` | Editable, variable count, Auto Layout Hug |
-| Exploratory HOS-39 pilot | `23907:394` | **Archived / not canonical**, do not use its API in place of Carbon |
+| Public `File uploader` | `5465:294860` | **15 variants**: Type × Size × supported State |
+| Internal `_File uploader file item` | `3199:35182` | **18 variants**: Size × 6 presentational States |
+| Internal `_File uploader - Drag and drop box states` | `3183:29103` | **4 states**, original Carbon |
+| Internal `_File uploader file list item` | `4188:102462` | **1 native `File list` Slot**, ID `24003:831` |
+| Figma presentation | `24020:785` | Actual masters in §01/§03, six connected Playground examples |
+| Superseded HOS-39 pilot | `23907:394` | Archived experiment; **not** an API/source for Carbon |
 
-[Open File Uploader / Documentation (Carbon canonical)](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24020-785)
+Public properties: `Type` = Default / Drag and drop; `Size` = Large / Medium / Small; `State` = Enabled / Disabled (plus Skeleton only where provided for Drag and drop); `Label text` and `Desc. text` are Text; `Files` is Boolean for list visibility. Do **not** invent separate runtime `Mode`, `UploadStatus`, `FileCount` or `DragReject` props from these names.
 
-The original Carbon master/node identities, instance connections, tokens and each component variant are preserved. The public and nested masters were **reparented** to the documentation frame, not recreated. Their variant children were laid out into compact grids for inspection without changing the variant contracts. The old IBM documentation frames remain in Archive for link compatibility; the previous experimental pilot has also been archived.
+Internal File Item: `Size` (L/M/S), `State` (Uploaded, Loading, Success, Focus, Error short, Error long), and `File name`, `Short desc.`, `Long desc.` Text properties. Internal Dropzone: Enabled, Drag + Hover, Focus and Disabled, with editable `Helper text`. These are original presentational variants, not evidence of network behavior.
 
-### Public Figma authoring properties
+The File list has **one** shared `File list` authoring Slot containing exactly **three existing source-linked File Item examples**. Designers can add, replace and remove items; do not add a count variant. In the source these three items measure **L 160px / M 136px / S 112px** total height. These are *Figma specimens*, never files automatically present in the consuming product.
 
-| Property | Type | Observed options / purpose |
+### Copy and default visuals
+
+- Public helper default: **«فایل موردنظر را انتخاب کنید.»** No assumed type, size or count limit.
+- Dropzone instruction: **«فایل را اینجا بکشید و رها کنید یا روی «انتخاب فایل» کلیک کنید»**. The explicit Browse action must work without dragging. The instruction does not establish that the whole region is clickable.
+- Where a product has verified format, byte-size or count limits, replace the generic helper with the actual relevant constraints *before selection*. A generic Carbon example such as “500KB, jpg/png” **must not ship as an unverified product policy**.
+- Error copy must describe a **known** failure and, if available, a supported recovery: e.g. «فرمت این فایل پشتیبانی نمی‌شود. فایل دیگری انتخاب کنید.» Do not assert network causes or recovery guarantees without evidence.
+- Original Carbon radii and button styles remain intact in v1. The archived pilot's 12px/176px Dropzone, six states, Drag-reject, illustration TBD, and XS Cancel/Retry choices are **not silently migrated**.
+
+## Design behavior contract (normative)
+
+### Entry, file count and disabled state
+
+1. **Browse works for all enabled entry types**. Drag and drop is an enhancement for capable environments, never a mandatory path. Keyboard and touch must retain Browse.
+2. **Single versus multiple is a consuming-product selection policy**, not a `Size` or file-count variant. A single-file flow must not silently replace an existing file. Use an explicit Remove/Replace path approved by the product. Multi-file flows may append only up to real configured limits.
+3. **No implicit upload timing**. A file may be merely selected until submit, or transfer may start immediately, depending on the product. Never label a selected file as successfully uploaded unless a trusted source confirms success.
+4. **Disabled** prevents new selection and drag/drop. Existing uploaded files may remain visible as a separate content policy; the legacy Carbon disabled specimen hides the list, so consumers needing visible saved files must explicitly compose that state rather than assuming Carbon's disabled variant provides it.
+5. **Duplicate files**: default to preserving existing selections; do not silently replace or deduplicate without product policy. If rejected by a known rule, identify the affected file and provide a viable next step.
+
+### File lifecycle and mapping to Carbon
+
+| Logical/runtime state | Intended behavior | Current Carbon representation / caveat |
 | --- | --- | --- |
-| `Type` | Variant | `Default`, `Drag and drop` |
-| `Size` | Variant | `Large`, `Medium`, `Small` |
-| `State` | Variant | `Enabled`, `Disabled`; `Skeleton` only for `Drag and drop` |
-| `Label text` | Text | Field label |
-| `Desc. text` | Text | Help/constraints copy; requires real product rules |
-| `Files` | Boolean | Show or hide nested File List |
+| Selected / pending | File accepted locally for this flow; transfer not necessarily started | `Uploaded` is a **legacy visual label only** and must not be interpreted as server success |
+| Uploading | Transfer actually underway | `Loading`; spinner is indeterminate only, no invented percentage |
+| Uploaded / success | A trusted product/backend result establishes success | `Success`, or an approved persisted-file presentation |
+| Validation error | File rejected by an enforced type/size/count/security rule | `Error short` or `Error long` based on **content length**, not error category |
+| Upload error | An attempted transfer failed | `Error short` or `Error long` with a truthful transfer-failure message |
+| Focus | Keyboard interaction state; **not a lifecycle step** | `Focus` is purely interaction feedback |
+| Canceled | Transfer interrupted on request, only if supported | **No Carbon state in v1**; requires a separate product/runtime decision |
 
-This is the **actual Carbon property model**. It intentionally differs from the abandoned single-size experimental pilot. Do not infer a `Mode` or separate public `Dropzone State` prop from the archived pilot.
+State names above are a *semantic mapping for implementers*, **not verified runtime prop names**. The two Error length variants must never become separate error codes.
 
-### Original internal sources
+### Remove, Retry, Cancel and Progress
 
-**File Item** exposes Size (Large/Medium/Small), states `Uploaded`, `Loading`, `Success`, `Focus`, `Error short`, `Error long`, and text properties `File name`, `Short desc.`, `Long desc.`. The short/long error names are presentational legacy states, not proof of separate business errors. Exactly which state means selected, uploading, persisted success, validation failure or transfer failure must be reconciled with product/runtime before implementation.
+- **Remove**: only when the product permits removing that file. Remove-before-upload discards a local selection; removing an already persisted file may require a different authorized operation. Neither one necessarily cancels a running transfer.
+- **Retry**: show only when a failed attempt can genuinely be repeated from preserved file data. Preserve unrelated successful files and show any real result. The original Carbon error Item has no approved dedicated Retry button; until such a control is implemented, a supported re-selection path is acceptable.
+- **Cancel**: the earlier experimental pilot explored a Ghost/XS «لغو» action, but the canonical Carbon `Loading` source does **not** contain it. **Do not render an inert Cancel** or mislabel Remove as Cancel. An explicit Cancel + post-cancel outcome is a separate optional enhancement requiring runtime capability.
+- **Progress**: show actual measured amount via the shared Progress Bar (determinate) only where the product exposes valid loaded and total bytes; otherwise the existing spinner/indeterminate pattern is appropriate. Announce important transition milestones, not every percentage-point update.
+- **Error recovery**: a field-level upload failure must not erase other files; if a file is retained for retry, do not claim its bytes are available after reload unless the product guarantees that.
 
-**Dropzone** source has `Enabled`, `Drag + Hover`, `Focus` and `Disabled`. These are original Carbon visuals, **not** the six states of the archived pilot. Whether the whole target is clickable, and whether drag validation/reject feedback is possible, remain runtime decisions.
+### Error ownership and validation timing
 
-**File List** now owns only **one native Slot** named `File list`; the original three uploaded-file Item instances have been moved inside it and the four previously hidden extra items removed. Every consuming enabled parent still shows the corresponding Large/Medium/Small File Item style. The list uses Hug height: **Large 160px, Medium 136px, Small 112px** with three items and an 8px gap. Designers can keep, delete, replace or append File Item instances for a specific scenario. The **three items are authoring examples**, never preselected user data at runtime.
+- On file selection/drop, validate the enforced limits available locally, then apply authoritative server validation. `accept` is only a hint, not authoritative security validation.
+- **During drag**, the browser may not expose enough file information to decide accept/reject. Carbon's `Drag + Hover` is not a promise that a file will be accepted. The archived pilot's Drag-reject is **out of v1 scope** until its capability is verified.
+- **After drop/selection**, type/size and per-file violations belong on the affected File Item. File transfer error also belongs to that File Item. A batch/field-level problem belongs to associated inline field feedback.
+- Format, maximum bytes, count, duplicate/replacement policy and requiredness are configured by product, **not by the shared design system**; do not invent values in Figma examples or error messages.
 
-## Composition and intended use
+### Responsive, RTL and accessibility acceptance criteria
 
-- **Browse only:** the `Type=Default` entry provides a visible file-selection button and may show the File List via `Files`.
-- **Drag and drop:** the `Type=Drag and drop` entry displays the Carbon drop target. Users must also have a keyboard/touch-accessible file picker; do not make dragging mandatory.
-- **One file:** use a parent Uploader instance and retain one Item in the nested Slot.
-- **Several files:** add individual Items to the Slot. Each file can have independent state and error copy; no special file-count variant is needed.
-- **Disabled:** original disabled source removes access to selection; the current visual hides File List. Product decisions about existing files and whether Remove remains available are not specified by this visual.
-- **File validation error:** attach information about an affected file to its File Item. A batch-wide failure can use appropriate field-level feedback when owned by a product requirement.
-- **Responsive / RTL:** RTL content should read naturally in Persian and preserve file extensions. The Carbon source uses 288px specimen widths; a dynamic Fill Container runtime behavior has **not** been verified and must not be assumed.
+- Original Carbon Figma specimens are 288px wide; this is not a fixed product breakpoint. Runtime must handle narrow widths, wrap helper/error text without cropping actions and preserve readable file extensions. No unverified claim is made that the Figma master itself is fluid.
+- Align Persian instructions to the product RTL reading order. Isolate mixed RTL/LTR filename segments bidirectionally; visually truncate excessively long filenames where needed but expose the **full accessible name** and provide a non-pointer-only way to retrieve the full filename.
+- The file input has a persistent accessible label; actionable errors must be associated with the relevant file/field. Use native input/keyboard semantics and a visible focus indicator. No nested interactive controls within an already-interactive drop target.
+- Every active file action needs a unique accessible name including the filename (e.g. «حذف رزومه.pdf»). Disabled/hidden actions must not remain keyboard-operable.
+- Announce selection, completed upload, failures and removal with nonintrusive status semantics when focus does not move. A spinner is not itself an adequate announcement of success or failure.
+- If selection is required, communicate requiredness visibly/programmatically. Do not clear unrelated valid files after a recoverable error. Respect reduced motion for transitions if introduced.
+- **Release/QA matrix:** empty / 1 / 3+ files; Browse and drag/drop; per-file Loading/Success/Validation/Upload failure; different file counts; long Persian/Latin name; 320–360px / zoom; focus, disabled, keyboard-only, screen reader; actual network retry/cancel only when enabled by product.
 
-### Source-linked Figma QA examples
+## Scope and implementation handoff
 
-Playground demonstrates: (1) browse with one file, (2) drag-and-drop with three files, (3) Persian file-level validation error, (4) disabled selection. All are live instances of the **original public Carbon variants**, not detached copies. They establish Figma authoring and layout coverage, not end-to-end working upload behavior.
+**Design-approved v1:** existing Carbon Type/Size/State families, actual original button/dropzone styling, native variable-length File List Slot, nonfabricated copy, file-level errors, product-configured limits, a non-drag file picker and the accessibility/validation behavior above. **No new canonical variants** are required merely for content length, count or product policy.
 
-## Copy and error ownership
+**Excluded from v1**: branded illustration, separate Drag-reject state, generic global upload error state, arbitrary file-count variants, additional Cancel/Retry visual controls from the archived pilot, assumed remote deletion, hard-coded accepted formats or upload endpoints. Future capabilities require specific product scope and cannot be imported just because a Figma draft contains them.
 
-- **Constraints:** the old Carbon helper `Max file size is 500kb. Supported file types are .jpg and .png.` remains visible in the preserved original source. It is **legacy sample copy**, not a JobVision limit or approved product rule. Before product use, set `Desc. text` from verified constraints and the Content System.
-- Explain the known problem and feasible recovery; do not promise supported types/sizes or a retry that the product cannot perform.
-- Keep `File Item` errors about individual files separate from transfer failures affecting the whole uploader.
-- Filename truncation, duplicate files, maximum count, replacement after single selection and whether a failed upload can be retried are **product/runtime decisions**, not guaranteed by Carbon visual state names.
+**Verified on October 17, 2026:** canonical component IDs and 15 / 18 / 4 variant counts, one native Slot with three connected default items, six source-linked Playground cases (one file, three files, Persian validation, disabled, mixed file statuses, long filename), standard 1600px Figma presentation, and default text changes. These are **Figma/source checks, not executed runtime/AT tests**.
 
-## Accessibility and runtime contract — requirements, not executed tests
+**Required of implementing team:** map the code API and actual product constraints, wire native input/drop handling, pass the behavioral and accessibility matrix, and record Storybook/code source identities in `component-mapping.md` after verification. Failure in any required runtime criterion blocks production release, **not the Design System design handoff**.
 
-- Use a native, correctly labeled file input or a fully accessible trigger; keep keyboard/touch Browse regardless of optional drag-and-drop.
-- Associate true format/size/count constraints and actionable errors with the input; `accept` is only a file-picker hint and does not replace server validation.
-- Give each Remove/Retry/Cancel control a file-specific accessible label where supported; never show an inert action.
-- Announce selection, completion, failure and removal appropriately; avoid spamming status updates.
-- If progress is implemented, use genuine measured values for a determinate Progress Bar or a correctly named indeterminate indicator; Carbon `Loading` visuals do not establish actual transfer progress.
-- Preserve focus predictably when file items are removed, test RTL/LTR long filenames, 320–360px layouts and zoomed views.
-
-## Finalization status and follow-up
-
-**Verified in Figma:** canonical original Carbon master in Section 01; all original reusable internal masters in Section 03; 15 / 18 / 4 original variants retained; one native File List Slot with exactly three existing items; 4 connected Playground scenarios; 1600px standard _Docs presentation; source layout and page-link reconciliation.
-
-**Not verified or approved:** product-specific type/size/count rules, actual network upload, cancel/retry/replace, whether Carbon error variants map cleanly onto business statuses, exact responsive production behavior, assistive-technology/runtime QA, Storybook/code mapping, and whether older helper/drag copy meets current Product Content standards. Those are blockers for declaring **ready for development**, not blockers for adopting the Carbon source as the current Figma authoring reference.
-
-The previously discussed Uploading Cancel, Tertiary/XS Retry, six-state Dropzone with Drag-reject, 176px/12px size and Illustration TBD **belong to the archived experimental pilot only**. They have **not** been retroactively applied to the original Carbon component. Transfer those decisions only through an explicit scope/owner review.
-
-**Design System Knowledge remains a Draft PR until owner approves the functional contract**. Do not represent completed Figma presentation cleanup as verified runtime behavior.
+Design knowledge is finalized for review and development use; no claim is made that the component already uploads files in a browser.
