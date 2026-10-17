@@ -560,7 +560,7 @@ The Content Switcher design identity, three-size parent model, native Items Slot
 | Property mapping | **Unverified** — do not infer runtime prop names, DOM/ARIA roles, route behavior, activation mode, or overflow algorithm from Figma |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-10-14 |
+| Last Figma verification | 2026-10-17 |
 
 The Tabs design identity, line-only v1 appearance, native Items Slot composition, Content × State internal Item model, 40px density, zero-inline-padding + 24px parent-gap layout, Text/Text+Icon/Icon-only content modes, selected/focus treatment, overflow rule, Content Switcher/navigation/filter boundaries, RTL behavior, and accessibility contract are verified in `../components/tabs.md`. Runtime API, exact DOM/ARIA implementation, activation mode, routing integration, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime source is registered.
 
@@ -636,19 +636,21 @@ The Chip design identity is verified as four capability-specific public componen
 | Content properties | `Group label`; `Show group label`; native `Items` SLOT |
 | Items Slot | Minimum 2 children; preferred/allowed content is `Chip / Selectable`; variable count, reorderable/configurable |
 | Width | Resize the instance; no Width variant |
+| Group label | `Label/SM`; fills group width; right-aligned for RTL-first authoring |
+| Spacing | Shared `8px` token for group→items gap and item gap |
 | Runtime-only policy | `Required / allow empty` |
 | Ownership | Choice Group owns shared label, layout, item relationship, and selection mode; each Chip owns Label, Size, Selected, and State |
 | Single semantics | At most one selected; optional group may have no selection; Required is enforced/validated at runtime |
 | Multiple semantics | Zero, one, or many selected; changing one item does not auto-clear another |
 | State visuals | Delegated entirely to `Chip / Selectable`; Choice Group adds no duplicate Hover/Active/Focus/Selected layer |
-| RTL | Logical reading order; no RTL variant |
+| RTL | RTL-first Figma authoring; horizontal/wrap collections align right, vertical items align right, canonical horizontal slot content is authored right-to-left visually; no RTL variant. Figma native wrap cannot model true RTL line flow, so runtime preserves logical DOM/reading order |
 | Runtime component/API | **Unverified** |
 | Property mapping | **Unverified** — do not infer runtime prop names or exact DOM/ARIA implementation from Figma |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
 | Last Figma verification | 2026-10-14 |
 
-The Choice Group design identity, Single/Multiple selection contract, three layout modes, native Selectable-Chip Slot composition, resize-owned width, runtime-only Required/allow-empty policy, RTL behavior, and boundaries with Radio/Checkbox/Select are verified in `../components/choice-group.md`. Exact runtime API, DOM/ARIA structure, keyboard implementation details, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime source is registered.
+The Choice Group design identity, Single/Multiple selection contract, three layout modes, native Selectable-Chip Slot composition, resize-owned width, runtime-only Required/allow-empty policy, RTL-first alignment/authoring behavior, tokenized 8px spacing, Label/SM group label, and boundaries with Radio/Checkbox/Select are verified in `../components/choice-group.md`. Exact runtime API, DOM/ARIA structure, keyboard implementation details, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime source is registered.
 
 ### Timeline
 
