@@ -211,7 +211,7 @@ Examples:
 - `Applied` = the control currently has a committed/applied value;
 - `Open` = the owning secondary surface is currently visible.
 
-**Current Figma treatment (2026-10-17, updated after benchmark review):** The Chip's surface styling is entirely driven by `Applied × State`, never by Open. An exposed nested `__Chip Chevron / Neutral` or `__Chip Chevron / Accent` instance has an `Open=false/true` option: `Icon/chevron_down` when closed, `Icon/chevron_up` when expanded. It preserves the semantic Chevron color for the Applied condition. This nested property is exposed to the consuming Figma instance. In runtime `open` is owned by the popup/pattern, controls Chevron orientation and `aria-expanded`, and is forced false when disabled; opening must not add a persistent Active background or Focus ring.
+**Current Figma treatment (2026-10-17, updated after benchmark review):** The Chip's surface styling is entirely driven by `Applied × State`, never by Open. An exposed nested Chevron helper has an `Open=false/true` option: `Icon/chevron_down` when closed, `Icon/chevron_up` when expanded. Its semantic color follows the **actual State**: `__Chip Chevron / Neutral` uses `fg/secondary` when unapplied and enabled; `__Chip Chevron / Accent` uses `fg/accent` when applied and enabled; `__Chip Chevron / Disabled` uses `fg/disabled` in **both Applied conditions and both icon directions**. Always match the adjacent Label foreground token, not just Applied. This nested property is exposed to the consuming Figma instance. In runtime `open` is owned by the popup/pattern, controls Chevron orientation and `aria-expanded`, and is forced false when disabled; opening must not add a persistent Active background or Focus ring.
 
 #### Summary
 
@@ -593,6 +593,7 @@ Verify:
 - Removable body-action capability does not create invalid nested-button semantics;
 - Disclosure has persistent Applied, optional Summary, and mandatory chevron;
 - Disclosure exposes a nested Chevron/ Open false/true control that changes only the icon orientation; runtime owns independent expanded state. Removable has no visual Open property;
+- Disclosure Chevron icon foreground must match the Label token for each State: `fg/secondary`, `fg/accent`, or `fg/disabled`; verify **both Chevron directions** and both Applied values. Disabled icon colors are bound to semantic variables, never hard-coded.
 - Action is stateless and can express `+` add/start with the optional trailing icon after the label;
 - focus uses the shared outside ring;
 - semantic colors are used; Tag/Chip-specific colors are not;
