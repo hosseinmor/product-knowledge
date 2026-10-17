@@ -63,13 +63,29 @@ Do not put a multi-file uploader in a constrained modal unless the list remains 
 | Presentation | `23907:394` | 1600px; Header, Component set, Playground, Anatomy, Handoff |
 | File Uploader | `23905:614` | Mode × State × Size; **12 variants**; one shared File list Slot |
 | File Item | `23903:127017` | Status × Size; **15 variants**; editable File name and Error message |
-| Dropzone | `23905:565` | State × Size; **12 variants**; editable Instruction |
+| Dropzone | `23905:565` | State × Size; **15 variants** (Default / Hover / Drag-over / Focus / Disabled × 3 sizes); editable Instruction |
 | Existing legacy File Uploader | `5465:294860` | 18 legacy variants; preserved, not migrated |
 | Existing image uploader | `19337:1420` | Image-specific legacy; preserved |
 
 [View the pilot in Figma](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23907-394)
 
 The refactored File Item keeps Carbon's compact neutral-filled row, separates error text as expandable content, uses shared Ghost **Icon Button** for Remove, shared labeled Button for Retry, and composes an instance of the shared Progress Bar track for its illustrative 50% state. Figma's 50% progress is a static specimen, not an automatically measured transfer. Public Figma component keys and published-library status are pending verification. Runtime API and Storybook remain **unregistered/unverified**.
+
+### Button and Dropzone surface contract — owner-directed update (2026-10-17)
+
+The **default file-picker trigger uses the shared `Button / Tertiary`** across Browse-only and Dropzone entry, Small/Medium/Large, and Enabled/Disabled. This is a supporting utility to choose a file, not the page's main Submit/Save action. Avoid using a Brand or Primary Button for routine file selection. A stronger Button style in a particular product context requires product-design review; it is **not** a separate File Uploader variant axis.
+
+| Dropzone State | Background | Border / effect | Meaning |
+| --- | --- | --- | --- |
+| Default | `surface/default` | Dashed 1px `line/emphasis` | Clear drop target without competing with inputs |
+| Hover | **`surface/transparent-hover` overlay over `surface/default`** | Dashed 1px `line/emphasis` | Subtle pointer-hover feedback, no product-colored emphasis |
+| Drag-over | `surface/accent-muted` | Solid **2px** `line/accent` | File actively dragged over a valid drop target |
+| Focus | `surface/default` | Dashed 1px `line/emphasis` + shared `Focus/Default` effect | Keyboard focus, not equivalent to Drag-over |
+| Disabled | `surface/disabled` | Dashed 1px `line/disabled` | Browse and drop are unavailable |
+
+**Hover token semantics:** `surface/transparent-hover` resolves to a translucent neutral overlay (4% black in the verified Light JobVision mode). It must be composited **over** the default surface, not replaced by the opaque `surface/muted` token. Semantic token binding must remain intact for Dark mode and Product routing. Do not introduce a File-Uploader-only Hover color.
+
+`Hover` is a variant of the **nested Dropzone** for design authoring. The parent File Uploader keeps its independent `Mode × State × Size` axes; runtime pointer-hover styling should follow actual pointer events, not become a required application prop. Actual event behavior is not verified by the Figma representation.
 
 ## File-item states
 
@@ -138,7 +154,7 @@ The refactored File Item keeps Carbon's compact neutral-filled row, separates er
 
 **Figma page cleanup:** the 1600px pilot documentation frame (`23907:394`) now starts at the page origin. Preserved Carbon File Uploader/File Item and the prior Image Uploader live in a separate, visible `Archive — legacy & scratch` frame (`23931:643`). Legacy source sets and their original node IDs remain intact and accessible; no consumer migration or publication cutover was performed.
 
-**Current Figma refactor QA (2026-10-17):** Original legacy masters remain untouched. Existing pilot component-set node IDs are retained; original Medium variants were reused. File Item now has 15 variants (5 statuses × 3 sizes), Dropzone 12 (4 interaction states × 3 sizes), and File Uploader 12 (2 modes × 2 availability states × 3 sizes). The uploader exposes exactly one native File list Slot across all 12 variants, plus Label and Helper text properties; Dropzone has one shared Instruction property. All File Item and Dropzone controls use the public Medium radius token (6px); fills, borders, and text use semantic colors. Focus uses shared `Focus/Default` effect, not the drag-over treatment. The 1600px documentation frame retains original source masters and live Playground instances; 360px long-filename/multiline-error Figma QA passed. This evidence does not establish keyboard, drag/drop, networking or assistive-technology behavior.
+**Current Figma refactor QA (2026-10-17):** Original legacy masters remain untouched. Existing pilot component-set node IDs are retained; original Medium variants were reused. File Item now has 15 variants (5 statuses × 3 sizes), Dropzone 15 (5 interaction states × 3 sizes), and File Uploader 12 (2 modes × 2 availability states × 3 sizes). The uploader exposes exactly one native File list Slot across all 12 variants, plus Label and Helper text properties; Dropzone has one shared Instruction property. All File Item and Dropzone controls use the public Medium radius token (6px); fills, borders, and text use semantic colors. Focus uses shared `Focus/Default` effect, not the drag-over treatment. **Default Browse buttons are Tertiary** in the public Uploader and nested Dropzone, regardless of size; Disabled uses the Tertiary disabled state. The Dropzone's default/focus/hover roles are independent from the nested Button's hover behavior. The 1600px documentation frame retains original source masters and live Playground instances; 360px long-filename/multiline-error Figma QA passed. This evidence does not establish keyboard, drag/drop, networking or assistive-technology behavior.
 
 **Open visual review:** owner feedback on Carbon-derived compact rows, icon and action placement, error treatment, border/fill, Dropzone height and density-size necessity. Do not replace the public Carbon master or merge the draft without approval.
 
