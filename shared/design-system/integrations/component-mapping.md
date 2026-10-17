@@ -54,10 +54,12 @@ Known mismatch/gap
 | Pilot presentation | `23907:394` |
 | Proposed uploader component set | `File Uploader / HOS-39 Pilot` — node `23905:614`, **12 variants** (Mode × State × Size) |
 | Proposed File Item set | `File Item / HOS-39 Pilot` — node `23903:127017`, **15 variants** (Status × Size) |
-| Proposed Dropzone set | `Dropzone / HOS-39 Pilot` — node `23905:565`, **12 variants** (State × Size) |
+| Proposed Dropzone set | `Dropzone / HOS-39 Pilot` — node `23905:565`, **15 variants** (Default/Hover/Drag-over/Focus/Disabled × Small/Medium/Large) |
 | Figma component keys / publication | **Pending verification** |
 | Current legacy public master | `File uploader` — node `5465:294860`, preserved |
 | Figma authoring properties | Label, Helper, **one shared `File list / Slot`**; File Item: File name, Error message; Dropzone: Instruction |
+| Default Browse Button | Shared `Button / Tertiary` (same style inside Browse-only and Dropzone, sizes Small/Medium/Large) |
+| Dropzone semantic visuals | Default `surface/default` + dashed `line/emphasis`; Hover `surface/transparent-hover` overlay; Drag-over `surface/accent-muted` + 2px `line/accent`; Focus shared Focus/Default; Disabled semantic disabled roles |
 | Code repository / runtime props | **Unregistered / unverified** |
 | Storybook / testing | **Unregistered / unverified** |
 | Migration status | **Not cut over**; original Carbon public master preserved; visual owner review still pending |
