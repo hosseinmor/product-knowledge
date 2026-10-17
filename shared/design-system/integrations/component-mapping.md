@@ -43,36 +43,29 @@ Known mismatch/gap
 
 ## Current mapping registry
 
-### File Uploader — HOS-39 pilot (draft)
+### File Uploader — original Carbon sources (Figma canonical; runtime unverified)
 
-| Field | Current value |
+| Field | Verified Figma source |
 | --- | --- |
-| DS component | File Uploader |
-| Design maturity | **Pilot / not approved for canonical migration** |
-| Knowledge document | `../components/file-uploader.md` (draft) |
+| DS component | File Uploader (Carbon-derived) |
+| Figma presentation (canonical) | `24020:785` — 1600px _Docs structure |
 | Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
-| Pilot presentation | `23907:394` |
-| Proposed uploader component set | `File Uploader / HOS-39 Pilot` — node `23905:614`, **4 variants** (Mode × State; no Size axis) |
-| Proposed File Item set | `File Item / HOS-39 Pilot` — node `23903:127017`, **5 variants** (Status; no Size axis) |
-| Proposed Dropzone set | `Dropzone / HOS-39 Pilot` — node `23905:565`, **6 variants** (Default / Hover / Drag-over / Drag-reject / Focus / Disabled; no Size axis) |
-| Figma component keys / publication | **Pending verification** |
-| Current legacy public master | `File uploader` — node `5465:294860`, preserved |
-| Figma authoring properties | Label, Helper, **one shared `File list / Slot`**; File Item: File name, Error message; Dropzone: Instruction, **Reject reason**, **Reject recovery** |
-| Source default Slot content | 3 source-linked File Items per Uploader variant: Uploaded, Uploading, Upload error. Editable/removable illustrative Figma content, **not default runtime data**. |
-| File Item XS actions | **Uploading:** Ghost text / XS (28px) Cancel «لغو», conditional on runtime support; **Upload error:** Tertiary / XS Retry + Ghost Icon Button / XS Remove; **other removable:** Ghost Icon Button / XS. |
-| Dropzone instruction | «فایل را اینجا بکشید و رها کنید یا روی «انتخاب فایل» کلیک کنید»; Browse Button is explicit, full-region click policy TBD. |
-| Default Browse Button | Shared `Button / Tertiary`, 40px (former Medium) in Browse-only and Dropzone |
-| Dropzone semantic visuals | Default `surface/default` + dashed `line/emphasis`; Hover `surface/transparent-hover` overlay; Drag-over `surface/accent-muted` + 2px `line/accent`; Focus shared Focus/Default; Disabled semantic disabled roles |
-| Drag-over copy & art | «فایل‌ها را اینجا رها کنید»; Hide Browse visually; **Illustration / TBD** (placeholder is not a real asset). **Default illustration: optional / TBD**. |
-| Drag-reject | Conditional (only if known during drag) `surface/error-muted` + 2px `line/error`, example title «فرمت این فایل پشتیبانی نمی‌شود» and helper «فایلی با فرمت مجاز انتخاب کنید»; not a substitute for File Item errors. |
-| Drag-reject source node | `24000:827` (new variant under existing set `23905:565`) |
-| Dropzone size & shape | Single **176px base height**; bound to **`12px · Large`** radius. Text has Fill width and wraps (320px preview checked). No Size variant; actual runtime sizing unverified. |
-| Code repository / runtime props | **Unregistered / unverified** |
-| Storybook / testing | **Unregistered / unverified** |
-| Migration status | **Not cut over**; original Carbon public master preserved; visual owner review still pending |
-| Last Figma verification | 2026-10-17 |
+| Original public component set | `File uploader` — `5465:294860` — **15 variants** (Type × Size × State) |
+| Public variant axes | Type: Default / Drag and drop; Size: Large / Medium / Small; State: Enabled / Disabled; Drag and drop also Skeleton |
+| Public authoring | Text: Label text, Desc. text; Boolean: Files (file-list visibility) |
+| Original internal File Item set | `_File uploader file item` — `3199:35182` — **18 variants** (6 states × 3 sizes) |
+| Original internal Dropzone state set | `_File uploader - Drag and drop box states` — `3183:29103` — **4 states** |
+| Original File List master | `_File uploader file list item` — `4188:102462` — **one native `File list#23998:0` Slot** |
+| File List default content | Exactly **three existing source-linked File Item instances**, original IDs preserved, hidden duplicates removed; no fixed count variant |
+| Presentation arrangement | Original public set in §01; all three original internal masters in §03; four source-linked scenarios in §02 |
+| Figma published component keys | Not independently verified in this audit; node IDs and instance links verified |
+| Runtime / code props | **Unregistered / unverified** |
+| Storybook and executed tests | **Unregistered / unverified** |
+| Design handoff | Figma presentation/source identity reconciled; product behavior, placeholder constraints, errors and accessibility pending |
 
-[Open draft pilot](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23907-394)
+[Open canonical Carbon presentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24020-785)
+
+**Superseded exploratory source, retained for comparison (not canonical):** HOS-39 pilot documentation `23907:394`, Uploader `23905:614` (4 variants), File Item `23903:127017` (5), Dropzone `23905:565` (6). All are archived visually in the Figma Archive; their runtime behavior/illustration proposals must **not** be read as properties of the Carbon master. No consumer components were detached or force-migrated.
 
 ### Button
 
