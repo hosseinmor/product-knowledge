@@ -939,6 +939,50 @@
       "path": "shared/design-system/accessibility/testing.md"
     },
     {
+      "id": "design-system.audit.field-family-2026-10-17",
+      "kind": "design-system-audit",
+      "title": "Field Family Consistency Audit — HOS-41",
+      "summary": "Verified structural drift across the current field-family Figma components, with prioritization and explicit exceptions.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "design-system.component.text-input",
+        "design-system.component.search",
+        "design-system.component.select",
+        "design-system.component.autocomplete",
+        "design-system.accessibility.forms"
+      ],
+      "topics": [
+        "audits",
+        "design-system-audit",
+        "field-family-2026-10-17"
+      ],
+      "path": "shared/design-system/audits/field-family-2026-10-17.md"
+    },
+    {
+      "id": "design-system.component.autocomplete",
+      "kind": "design-system-component",
+      "title": "Autocomplete",
+      "summary": "Typed-query-assisted single selection using a text field and shared Selection Panel; its free-text acceptance policy is unresolved.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "design-system.component.select",
+        "design-system.component.search",
+        "design-system.component.text-input",
+        "design-system.accessibility.forms",
+        "design-system.audit.field-family-2026-10-17"
+      ],
+      "topics": [
+        "autocomplete",
+        "components",
+        "design-system-component"
+      ],
+      "path": "shared/design-system/components/autocomplete.md"
+    },
+    {
       "id": "design-system.component.badge",
       "kind": "design-system-component",
       "title": "Badge",
@@ -1417,11 +1461,16 @@
       "id": "design-system.component.select",
       "kind": "design-system-component",
       "title": "Select",
-      "summary": "> Status: structure only",
+      "summary": "A bounded form selection control for predefined options, with single/multiple variants and a shared selection panel.",
       "status": "draft",
       "owner": null,
       "last_reviewed": null,
-      "related": [],
+      "related": [
+        "design-system.component.text-input",
+        "design-system.component.autocomplete",
+        "design-system.accessibility.forms",
+        "design-system.audit.field-family-2026-10-17"
+      ],
       "topics": [
         "components",
         "design-system-component",
@@ -2930,11 +2979,12 @@
     }
   ],
   "summary": {
-    "documents": 146,
+    "documents": 148,
     "by_kind": {
       "content-guideline": 17,
       "design-system-accessibility": 18,
-      "design-system-component": 38,
+      "design-system-audit": 1,
+      "design-system-component": 39,
       "design-system-design-language": 1,
       "design-system-experience-rule": 11,
       "design-system-foundation": 11,
