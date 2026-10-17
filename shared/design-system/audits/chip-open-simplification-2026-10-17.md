@@ -53,6 +53,14 @@ Original 30 Closed Disclosure source IDs and original 15 Closed Removable source
 - Canonical [Chip Figma page](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23900-128061) shows the 30/15 matrices and corrected axes/property descriptions.
 - Held [Disclosure Pattern Figma examples](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23945-788) have been reconciled visually, but the separate Disclosure Pattern remains on Hold.
 
+## Chevron color regression correction — 2026-10-17
+
+The post-simplification audit identified **6 mismatches** (3 sizes × Applied false/true) in `State=Disabled`: the neutral/accent nested Chevron helper retained `fg/secondary` or `fg/accent`, while the adjacent Label used `fg/disabled`.
+
+**Fix in canonical Figma:** added `__Chip Chevron / Disabled` (`24087:577`), with closed/up direction variants bound to `fg/disabled` (`VariableID:16871:59440`). Swapped the six Disabled original Disclosure components to this helper **in place**, preserving their IDs and the publicly exposed nested Open control. Neutral and Accent helpers were retained for enabled states.
+
+**Regression:** 30 canonical Disclosure variants × 2 Chevron directions = **60/60 PASS** for icon type, icon semantic color == Label semantic color, and unchanged Chip width/height. Applied false/true, Default/Hover/Active/Focus/Disabled, all three sizes included. Playground **5/5 PASS** and linked Disclosure Pattern **6/6 PASS** for icon/Label token equality; archived older Disabled variant colors **6/6 already correct**. Disabled helper both directions are bound to semantic color (including themes), not a literal RGB.
+
 ## Verified QA
 
 | Test | Result |
