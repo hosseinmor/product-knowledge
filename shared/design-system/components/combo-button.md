@@ -64,7 +64,7 @@ Combo Button is not a generic Button Group. The two controls have fixed roles: o
 
 ### Figma presentation — verified 2026-10-17
 
-[Combo Button / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=22935-2651) follows the [Figma Component Presentation Guideline](../integrations/figma-component-presentation.md): one 1600px documentation frame with **the original 24-variant public Component Set** (same node ID/key) in **01 · Component set**. The source's canvas-only layout is now compact: three Style columns and paired Closed/Open rows for each Size, without creating variants or changing their APIs. **02 · Playground** has 13 genuine source-linked Combo Button instances covering dominant action, three styles, Persian/RTL related alternatives, four sizes, Action/Trigger Focus, Action Loading and whole-control Disabled. **03 · Anatomy & composition** documents the canonical shared Button/Icon Button instances and native Menu Slot; their own public masters remain on their owning pages. **04 · Usage & handoff** records usage and runtime caveats. The obsolete oversized scaffold and an unrelated loose QA instance were removed; the original documentation frame ID remains unchanged. This is Figma source/presentation verification, not executable runtime QA.
+[Combo Button / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=22935-2651) follows the [Figma Component Presentation Guideline](../integrations/figma-component-presentation.md): one 1600px documentation frame with **the original 24-variant public Component Set** (same node ID/key) in **01 · Component set**. The source's canvas-only layout is now compact: three Style columns and paired Closed/Open rows for each Size, without creating variants or changing their APIs. **02 · Playground** has 13 genuine source-linked Combo Button instances covering dominant action, three styles, Persian/RTL related alternatives, four sizes, Action/Trigger Focus, Action Loading and whole-control Disabled. **03 · Anatomy & composition** documents the shared Wrapper, semantic Divider, canonical Button/Icon Button instances and native Menu Slot; the shared Button masters remain on their own pages. **04 · Usage & handoff** records usage and runtime caveats. The obsolete oversized scaffold and an unrelated loose QA instance were removed; the original documentation frame ID remains unchanged. This is Figma source/presentation verification, not executable runtime QA.
 
 ### Figma properties
 
@@ -83,40 +83,44 @@ Interaction states are intentionally not multiplied into the outer variant matri
 
 ## Anatomy
 
-RTL-authored visual anatomy:
+RTL-authored Figma source:
 
 ```text
-[ Menu Trigger ][ Primary Action ]
-        End              Start
+Combo Button / Default (Style × Size × Open)
+├─ Unified shell / Wrapper (horizontal Auto Layout, 0px gap, radius 6)
+│  ├─ Menu Trigger / Icon Button (canonical instance; logical End)
+│  ├─ Divider / semantic {Style} (non-interactive 1px Rectangle)
+│  └─ Primary Action / Button (exposed canonical instance; logical Start)
+└─ Menu content (native Slot, absolute/out of layout)
 ```
 
-Logical anatomy:
-
-1. **Primary Action** — labeled Button at logical Start.
-2. **Menu Trigger** — chevron Icon Button at logical End.
-3. **Internal boundary** — a 1px visual boundary at the join, rendered from the canonical nested instances; it is not a separate node and adds no width.
-4. **Menu content** — native Slot anchored outside normal control flow.
+The **Wrapper** owns the unified shape and Tertiary outer border. The two nested Button instances retain their canonical source links and independent activation, Focus, Disabled and Primary Action Loading. The Divider is an **internal Rectangle**, not a new public component or an interactive target.
 
 ### Shared geometry
 
-- overall height follows Size: `28 / 32 / 40 / 48px`;
-- **0px layout gap** between the two interactive segments; separation is rendered by a 1px internal boundary;
-- outer radius: `6px`;
-- touching inner corners: `0px`;
-- menu-to-control gap: **2px**;
-- open Menu never changes Combo Button width or height.
+- Control heights stay `28 / 32 / 40 / 48px` (Extra Small / Small / Medium / Large).
+- Wrapper is horizontal Auto Layout, **0px item gap**, radius `6px`, with 6px outer Button corners and **0px touching corners**.
+- Divider width `1px`; height = control height minus `16px`, i.e. `12 / 16 / 24 / 32px`. It is centered vertically.
+- Divider adds **1px to total control width** versus the former no-divider composition. Default widths are `99 / 119 / 135 / 151px` by Size.
+- Menu Slot stays a direct child of the public Combo variant, out of the Wrapper's Auto Layout, anchored **2px** below the control. Open never changes control width or height.
 
-### Internal boundary treatment
+### Divider and border tokens
 
-There is **no standalone Divider node** and **no layout gap** between Combo Button segments.
+| Style | Divider fill token | Outer Wrapper border |
+|---|---|---|
+| Primary | `line/inverse` | None |
+| Secondary | `line/emphasis` | None |
+| Tertiary | `line/default` | 1px `line/default` |
 
-- **Primary:** the canonical Menu Trigger / Icon Button instance owns a 1px inside stroke on its touching edge using `palette/bw/white`; the Primary Action / Button instance has no touching-edge stroke.
-- **Secondary:** the same instance-owned join treatment is used: 1px inside `palette/bw/white` on the Menu Trigger touching edge; the Primary Action has no touching-edge stroke.
-- **Tertiary:** the outer border is composed from the two canonical nested instances, not from the Combo parent. The Menu Trigger keeps `line/default` on top/bottom/outer-left and removes only its touching right edge. The Primary Action keeps its normal `line/default` border, including the touching left edge, which becomes the single clearly visible 1px separator.
-- The boundary contributes **0px** to total Combo width because strokes are inside and excluded from layout.
-- Canonical Focus/Disabled state visuals remain authoritative. When the Menu Trigger itself is Focused or Disabled, its canonical state treatment may replace the normal-state join stroke rather than layering a custom separator over the state.
+All Divider fills are bound to semantic variables; the old primitive `palette/bw/white` join stroke is gone. Both nested Button instances have their joining strokes removed, preventing a double boundary. The **Tertiary Wrapper stroke is outside-aligned in Figma** so its Auto Layout does not inset children or change control-frame height; the visible border extends beyond that layout box.
 
-Do not implement this as positive spacing, a wrapper, a custom separator shape, or a standalone/shared Divider component. Combo Button composes the canonical Button and Icon Button instances directly.
+Do not add a second instance-owned seam, positive gap, or clipping that hides the nested Button focus rings.
+
+### Validated Figma migration — 2026-10-17
+
+An isolated Wrapper + Divider prototype passed **24/24** `Style × Size × Open` cases plus independent Action Focus, Trigger Focus, Action Loading and whole-control Disabled checks. The original **24 canonical variants** were then migrated without replacing their node IDs, component-set key, nested Button/Icon Button instance IDs, exposed Primary Action, or native Menu Slot property. Post-migration QA passed all 24 variants, all 13 source-linked Playground instances, RTL menu content, 2px anchoring and source-matrix collision checks. The temporary experiment and stray loose instance were removed.
+
+These are Figma source/visual-state checks, **not** executed Angular, Storybook, keyboard or screen-reader tests.
 
 ## Style contract
 
@@ -260,7 +264,7 @@ In RTL:
 
 - Primary Action is on the right — logical Start.
 - Menu Trigger is on the left — logical End.
-- the 1px internal boundary remains at the join without becoming a separate Divider element.
+- the 1px non-interactive semantic Divider sits between the two Button instances inside their shared Wrapper.
 - chevron up/down does not horizontally mirror.
 - menu positioning uses logical alignment and viewport collision rules.
 
@@ -327,36 +331,30 @@ Combo Button
 
 Exact Angular structure, prop names, class architecture, popup implementation, and Storybook identifiers remain unverified.
 
-The implementation may compose shared Button, Icon Button, and Menu primitives internally if it can preserve the connected-group radius/internal-boundary/focus behavior.
+The implementation may compose shared Button, Icon Button, Menu, non-interactive Divider and Wrapper primitives internally if it preserves the unified shape, semantic separator, 2px menu gap and independent focus/activation behavior.
 
 ## QA checklist
 
-Verify:
+**Figma design-source QA — PASS (2026-10-17)**
 
-- exactly 24 variants: `3 Style × 4 Size × 2 Open`, preserved in the canonical 1600px presentation with the same component-set ID/key;
-- each variant contains an exposed canonical Primary Action Button and an internal canonical Menu Trigger Icon Button;
-- each variant contains one native Menu Slot;
-- heights are 28 / 32 / 40 / 48;
-- Open/Closed width is identical for every Style/Size;
-- outer corners are 6px and touching corners are 0;
-- no standalone Divider node exists;
-- the two segments use 0px layout gap;
-- in normal Enabled/Active filled states, Primary and Secondary render a 1px inside `palette/bw/white` join stroke on the canonical Menu Trigger instance; no custom separator node exists;
-- Tertiary composes its full `line/default` outer border from the two canonical child instances; the Primary Action left edge is the single visible 1px separator and the Menu Trigger removes its touching right edge;
-- Open changes only Menu Trigger active treatment/chevron;
-- Primary Action remains independently interactive;
-- Loading on Primary Action does not move/resize the control;
-- whole-control Disabled suppresses both targets;
-- Menu is outside normal layout and uses 2px anchor gap;
-- Primary Action is not duplicated in Menu;
-- both focus targets show visible focus;
-- Menu Trigger has accessible name and Tooltip;
-- RTL/LTR segment ordering follows logical Start/End;
-- Extra Small uses the canonical Extra Small Menu.
+- Original component-set node ID/key preserved; exactly `3 Style × 4 Size × 2 Open = 24` variants.
+- Every variant has exactly two direct children: **Wrapper** and native **Menu Slot**.
+- Every Wrapper has three ordered children: canonical Icon Button, 1px semantic Divider Rectangle, canonical Button.
+- Exposed Primary Action, internal Menu Trigger, their canonical instance IDs and native Slot property are preserved.
+- Heights `28/32/40/48px`; widths `99/119/135/151px` respectively, including the 1px Divider.
+- 0px layout gap; 6px shared radius; inner Button corners 0; no doubled Button strokes.
+- Divider height = control height − 16px; semantic fill tokens: Primary `line/inverse`, Secondary `line/emphasis`, Tertiary `line/default`.
+- Tertiary outer `line/default` border is Wrapper-owned, outside-aligned and does not change control-frame height.
+- Open changes only Trigger Active/chevron; Open/Closed widths match.
+- Menu Slot remains out of flow, 2px below control; no matrix overlaps.
+- All 13 live Playground instances remain connected; Action Focus, Trigger Focus, Action Loading and whole-control Disabled overrides pass.
+- RTL open-menu labels and Extra Small shared Menu remain intact; temporary prototype removed.
+
+**Implementation QA — pending:** real browser Focus, keyboard/screen-reader behavior, dynamic label width, token contrast across supported product/theme modes, overlay collision/portal behavior and Loading semantics.
 
 ## Known gaps
 
-- **Theme-sensitive internal join remains under review:** the current Primary/Secondary Menu Trigger join stroke is bound to the primitive `palette/bw/white`, rather than a mode-aware semantic `line/*` token. The current Figma construction and 24-variant structural checks pass, but color/contrast appropriateness across product/theme modes is **not** verified. Resolve token choice with the Design System owner before treating cross-theme appearance as signed off; do not replace the canonical child instances with a custom separator node.
+- The Divider now uses semantic `line/*` tokens, but **actual contrast across product/theme modes remains pending runtime/theming QA**. Translate the Tertiary outside-aligned Figma border carefully into the implementation's box-sizing model.
 - runtime component/API, code repository/package, and Storybook are unregistered;
 - exact overlay/collision implementation is unverified;
 - exact partial-disabled runtime API is intentionally not specified;
