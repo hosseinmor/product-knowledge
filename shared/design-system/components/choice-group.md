@@ -8,7 +8,7 @@ knowledge_state: verified
 document_maturity: reviewed
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: '2026-10-14'
+last_reviewed: '2026-10-17'
 related:
   - design-system.component.chip
   - design-system.component.radio
@@ -24,7 +24,7 @@ Choice Group is the semantic group component for short, compact choices rendered
 
 Use it when the choices are intentionally Chip-shaped, labels are short and scannable, and the group should support either single or multiple selection without introducing a generic mega Chip Group.
 
-Choice Group owns group-level semantics and layout. Each nested Chip owns its own label, size, selected state, and transient interaction state.
+Choice Group owns group-level semantics and layout. Each nested Chip owns its own label, size, selected state, and transient interaction state. The Figma component is RTL-first: the group label and item collection align to logical Start (visual right).
 
 ## Canonical Figma Model
 
@@ -58,6 +58,12 @@ The Items Slot:
 `Required / allow empty` is deliberately runtime-only and is not a Figma variant.
 
 Available width is controlled by resizing the Choice Group instance; width is not a variant axis.
+
+Shared presentation details:
+
+- `Group label` uses `Label/SM` and fills the group width so it stays right-aligned in RTL;
+- the group-to-items gap uses the shared `8px` spacing token;
+- item spacing also uses the shared `8px` spacing token.
 
 ## Ownership Contract
 
@@ -101,26 +107,32 @@ Multiple behaves like a checkbox-group-style choice set:
 
 ### Horizontal
 
-Use for short options that fit in one row.
+Use for short options that fit in one row. In the RTL-first Figma master, the item collection aligns to logical Start (visual right), and the canonical default slot content is authored in right-to-left visual order.
 
 ### Horizontal wrap
 
 Resize the group to define available width. Whole Chips wrap to additional rows; do not introduce a separate width variant.
 
+Figma native Auto Layout has no RTL wrap-flow primitive. The Figma master therefore right-aligns the wrapped collection and keeps RTL-oriented authoring examples, while the runtime must own true RTL line flow and preserve logical option/DOM order when wrapping.
+
 ### Vertical
 
-Use when labels or available inline space make a horizontal row harder to scan.
+Use when labels or available inline space make a horizontal row harder to scan. Items align to logical Start (visual right in RTL).
 
-Current Vertical item spacing is `8px`.
+Vertical item spacing is the shared `8px` spacing token.
 
 ## RTL
 
 Do not create an RTL variant.
 
-- Preserve logical reading order.
-- Group layout follows product direction.
+- Choice Group is authored RTL-first in Figma.
+- `Group label` is full-width and right-aligned.
+- Horizontal and wrapped item collections align to logical Start (visual right).
+- Vertical items align to logical Start (visual right).
+- Canonical horizontal Figma slot content is authored in right-to-left visual order so the default component reads correctly.
 - Each nested Chip keeps its own RTL anatomy.
-- Resizing and wrapping must not reverse logical option order.
+- Runtime RTL flow must preserve logical option/DOM order; resizing and wrapping must not reverse semantic reading order.
+- Figma native wrap is a representational limitation, not the runtime behavior contract.
 
 ## Accessibility Contract
 
@@ -183,4 +195,8 @@ Verify:
 - item visual states remain owned by `Chip / Selectable`;
 - Single never has more than one selected Chip;
 - Multiple never auto-clears another Chip;
-- RTL reading order remains logical.
+- Group label is `Label/SM`, full-width, and right-aligned in RTL;
+- root and item gaps consume the shared `8px` spacing token;
+- horizontal/wrap collections align to visual right and canonical horizontal default content is authored RTL-first;
+- vertical items align to visual right;
+- runtime RTL reading/DOM order remains logical even when wrapping.
