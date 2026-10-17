@@ -10,7 +10,7 @@ design_status: ready-for-dev
 design_maturity: handoff-ready
 status: reviewed
 owner: Design System team
-last_reviewed: '2026-10-15'
+last_reviewed: '2026-10-17'
 related:
   - design-system.component.progress-indicator
   - design-system.pattern.loading-and-progress
@@ -64,7 +64,7 @@ Mode describes **knowledge of progression**. Outcome describes **what happened t
 - Visible numeric progress text is **optional** and must be based on the same true source as the fill. Do not show a visual percentage that disagrees with the fill.
 - A long-running action may remain determinate even when its measured progress is temporarily unchanged. Do not fake incremental advancement to reassure users.
 
-**Figma authoring limitation:** The public parent currently offers only `0%`, `25%`, `50%`, and `75%` visual `Progress` choices for Active. Its text properties provide Label/Helper/Success/Error copy, but **no public numeric Value text property**. This Figma authoring limitation is **not** a runtime requirement. Arbitrary-percentage authoring in Figma is deferred; developers should implement real data-driven progress.
+**Figma authoring decision (v1, verified 2026-10-17):** Retain the `0%`, `25%`, `50%`, and `75%` design-time `Progress` presets as **illustrative snapshots**; do not create a variant for every possible percentage. Figma's component property model in this file exposes no numeric Value property. Testing direct nested Fill geometry overrides did **not** provide a reliable editable numeric percentage in a component instance. Consequently, the current public component does **not** support exact arbitrary-percentage authoring in Figma. Do not label a 50% visual as “37%” or treat these presets as measured data. A precise one-off illustration needs separate, explicitly non-canonical visual composition and review, not a claimed Progress Bar instance API. **Runtime must accept and render actual validated numeric values, including 1%, 37%, 99% and 100%.** The lack of a numeric Figma property is intentionally **not** a development blocker.
 
 ### Indeterminate — implemented as static public Figma variants
 
@@ -127,6 +127,8 @@ Progress bar (public)
 ```
 
 `Default` places text around the bar; `Inline` uses a horizontal arrangement; `Indent` is another documented authoring arrangement. These are **layout choices**, not operation modes. Preserve the existing layout semantics in implementation only where the product uses them.
+
+**Text resilience (Figma-verified 2026-10-17):** Default and Indent parent variants use content-hug vertical sizing with height-autoresizing Label/Helper; longer Persian strings can wrap and increase the component's height without clipping. Inline keeps a compact 20px row; its Label is fixed width and single-line truncated with an ending ellipsis. The presentation Playground includes **real source-linked long-Persian and mixed-script instances** demonstrating both strategies. In runtime, the full operation name must remain available to assistive technology even if visually truncated; do not depend on a tooltip alone for the accessible name.
 
 ### Visual and token contract
 
@@ -202,20 +204,22 @@ Follow the canonical [Dynamic Content and Feedback](../accessibility/dynamic-con
 | Determinate edge cases | 0%, intermediate, 100%, missing total/invalid input handled truthfully | **Required in development** |
 | Indeterminate behavior | No numeric value, named busy state, sensible motion/reduced-motion fallback | **Specified; runtime verification required** |
 | Parent Figma Indeterminate | Public `Progress=Indeterminate` includes Default Small/Big, Inline Small/Big, Indent Big; nested Track connected | **Verified in Figma** |
-| Parent Figma Indeterminate QA | Both sizes and supported layouts, Persian RTL example, no percentage, static segment | **Verified in Figma** (long/mixed-script and motion still need runtime QA) |
+| Parent Figma Indeterminate QA | Both sizes/layouts, Persian RTL and mixed-script truncation samples, no percentage, static segment | **Verified in Figma** (animation still requires runtime QA) |
 | Screen-reader semantics | Accurate determinate/unknown progress; terminal states announced; no update spam | **Required in development** |
-| Responsive composition | Long Persian/mixed-script labels stay readable, no unacceptable overlap/clipping | **Required in development** |
+| Figma overflow composition | Long Persian Label/Helper reflow in Default/Indent; Inline ellipsis stays one line; Playground QA shows unclipped cards | **Verified in Figma** |
+| Runtime responsive composition | Long Persian/mixed-script labels remain accessible and readable at actual product widths | **Required in development** |
 | Runtime/Storybook | Owning Angular API, tests and Storybook link | **Unregistered / bypassed for design handoff** |
 
 Storybook is **not a prerequisite for the current design handoff**. Product runtime QA, browser and assistive-technology tests remain development responsibilities; they must not be represented as already passing.
 
-## Verified work and remaining TBDs
+## Verified design work and implementation boundary
 
-1. **Done — public Indeterminate Figma:** Five connected master variants added to the original public component set; no prior master identity or nested Track master replaced.
-2. **Done — design-level QA:** Small/Big, Default/Inline/Indent supported combinations, semantic Stroke and Fill tokens, real-instance RTL Playground, and no progress percentage.
-3. **TBD — Figma numeric authoring:** Decide how designers should show other intermediate determinate values beyond the four fixed examples. Runtime **must not** be restricted to these Figma presets.
-4. **Required runtime QA:** Numeric progress mapping, indeterminate motion timing, `prefers-reduced-motion`, screen-reader announcements, and long/mixed-script responsive content. Exact Angular props and DOM remain unverified until the owning source exists.
-5. **Existing size inconsistency to review separately:** Some legacy Inline variants labeled `Size=Big` use a 4px Small Track. New Indeterminate Inline/Big correctly uses an 8px Big Track. Existing masters were intentionally preserved.
+1. **Done — public Figma:** 25 original/new public variants and 14 nested Track variants; Indeterminate is connected and static in Figma.
+2. **Done — size consistency:** Existing `Inline/Big` 0/25/50 variants were fixed to use the correct **8px Big Track**, preserving all original IDs and keys. Every public parent now embeds a nested Track matching its `Size`.
+3. **Done — robust text authoring:** Default/Indent instances grow vertically for long Persian text; Inline is fixed 20px height with a one-line ending ellipsis. The Figma presentation has overflow regression cases.
+4. **Decision — exact numeric values in Figma:** v1 intentionally uses illustrative 0/25/50/75 snapshots instead of a misleading or combinatorially large numeric variant family. No existing public numeric Figma control is claimed. **Runtime supports arbitrary valid values**, not these presets.
+5. **Pending development/runtime verification:** Indeterminate animation and reduced-motion fallback, runtime numeric geometry, Angular component/API registration, accessible name/value/status announcements, responsive content and browser/assistive-technology tests. These are not design-source defects and must be completed in the owning runtime code.
+
 
 The **Indeterminate Figma state is implemented**. Its Figma visual is a static reference; motion and accessibility implementation are not yet verified.
 
@@ -228,4 +232,4 @@ The **Indeterminate Figma state is implemented**. Its Figma visual is a static r
 - [Dynamic Content and Feedback](../accessibility/dynamic-content-and-feedback.md) — accessible status requirements.
 - HOS-37: https://linear.app/hossein-mor/issue/HOS-37/pilot-progress-bar-component-across-figma-and-design-system-knowledge
 
-**Handoff status:** Documentation **final**; Determinate/Indeterminate/Success/Error Figma authoring **ready for development**. Indeterminate is **static in Figma**; runtime animation, API, accessibility behavior and tests remain **unverified**. Original 20 variant masters and both component-set identities are preserved.
+**Handoff status:** Documentation **final**; Progress Bar Figma composition and content/size QA **ready for development**. Indeterminate is **static in Figma** and Figma numeric presets are **illustrative only**; runtime animation, numeric API, accessibility behavior and tests remain **unverified**. Original 20 variant masters and both component-set identities are preserved.
