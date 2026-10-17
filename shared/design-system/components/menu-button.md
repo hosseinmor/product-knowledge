@@ -8,7 +8,7 @@ knowledge_state: verified
 document_maturity: draft
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: 2026-09-20
+last_reviewed: 2026-10-17
 source_figma: https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=22930-811
 source_node: 22930:811
 related:
@@ -54,6 +54,10 @@ Do not duplicate Menu item behavior inside Menu Button.
 - Trigger foundation: canonical `Button / Default`
 - Menu composition: native `Menu content` SLOT
 
+### Figma presentation — verified 2026-10-17
+
+[Menu Button / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=22935-512) follows the [Figma Component Presentation Guideline](../integrations/figma-component-presentation.md): one 1600px documentation frame with **the original eight-variant Component Set** (same node ID and key) physically in **01 · Component set**. **02 · Playground** contains 12 genuine source-linked Menu Button instances covering default peer actions, Brand/Primary/Tertiary/Ghost treatments, an expanded Persian/RTL menu, all four sizes, Focus and Disabled. **03 · Anatomy & composition** and **04 · Usage & handoff** explain the source boundary and implementation caveats. Shared Button and Menu masters stay on their own owning pages; no internal master is duplicated. The old oversized presentation was removed, while the original documentation frame ID was retained. This verifies design-source structure and visual examples, **not** runtime keyboard or screen-reader behavior.
+
 ### Figma properties
 
 | Property | Type | Values / behavior |
@@ -98,15 +102,12 @@ Default trigger style is **Tertiary**, matching the Design System rule that drop
 
 Approved Menu Button trigger styles for v1:
 
-- `Primary`
-- `Tertiary`
-- `Ghost`
+- `Tertiary` — default for control-like action menus;
+- `Primary` — when the action menu deserves stronger hierarchy;
+- `Ghost` — low-emphasis contextual use;
+- `Brand` — **controlled exception** for explicitly approved, high-emphasis action menus; it is represented in the Playground, not the default.
 
-Do not use:
-
-- `Brand` merely to emphasize a menu;
-- `Secondary` as an ad-hoc fourth Menu Button treatment;
-- Danger styles for a mixed-action menu.
+Do not use `Brand` merely to emphasize an ordinary menu. `Secondary` is not an approved Menu Button treatment, and Danger styles are not appropriate for a mixed-action menu.
 
 If every action in a menu is destructive, reconsider the interaction rather than making the menu trigger Danger by default.
 
@@ -222,7 +223,7 @@ Current external systems reinforce the component boundary:
 - Fluent 2 describes Menu Button as a button that toggles a menu without surfacing a primary action.
 - WAI-ARIA APG defines Menu Button semantics and keyboard interaction.
 
-Carbon currently permits Primary, Tertiary, and Ghost Menu Button styles. That aligns with the approved JV v1 style subset.
+Carbon currently permits Primary, Tertiary, and Ghost Menu Button styles. JV additionally documents a controlled Brand exception for approved high-emphasis action menus; this is a deliberate JV-specific authoring choice, not a claim about Carbon.
 
 JV intentionally differs from Carbon sizing at Extra Small: JV controls use 28px, not Carbon's 24px.
 
@@ -272,7 +273,7 @@ Verify:
 - Menu content is outside normal trigger layout;
 - trigger-to-menu gap is 2px;
 - default trigger style is Tertiary;
-- approved style subset is respected;
+- approved style subset is respected, including Brand only in intentionally approved high-emphasis contexts;
 - Disabled cannot open;
 - no top-level Loading state is introduced;
 - RTL logical geometry is correct;
