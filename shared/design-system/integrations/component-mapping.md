@@ -58,9 +58,12 @@ Known mismatch/gap
 | Figma component keys / publication | **Pending verification** |
 | Current legacy public master | `File uploader` — node `5465:294860`, preserved |
 | Figma authoring properties | Label, Helper, **one shared `File list / Slot`**; File Item: File name, Error message; Dropzone: Instruction |
+| Source default Slot content | 3 source-linked File Items per Uploader variant: Uploaded, Uploading, Upload error. Editable/removable illustrative Figma content, **not default runtime data**. |
+| File Item XS actions | **Uploading:** Ghost text / XS (28px) Cancel «لغو», conditional on runtime support; **Upload error:** Tertiary / XS Retry + Ghost Icon Button / XS Remove; **other removable:** Ghost Icon Button / XS. |
+| Dropzone instruction | «فایل را اینجا بکشید و رها کنید یا روی «انتخاب فایل» کلیک کنید»; Browse Button is explicit, full-region click policy TBD. |
 | Default Browse Button | Shared `Button / Tertiary`, 40px (former Medium) in Browse-only and Dropzone |
 | Dropzone semantic visuals | Default `surface/default` + dashed `line/emphasis`; Hover `surface/transparent-hover` overlay; Drag-over `surface/accent-muted` + 2px `line/accent`; Focus shared Focus/Default; Disabled semantic disabled roles |
-| Dropzone size & shape | Single **192px base height**; bound to **`12px · Large`** radius. Width is responsive. No Size variant; design dimensions are not verified runtime measurements. |
+| Dropzone size & shape | Single **176px base height**; bound to **`12px · Large`** radius. Text has Fill width and wraps (320px preview checked). No Size variant; actual runtime sizing unverified. |
 | Code repository / runtime props | **Unregistered / unverified** |
 | Storybook / testing | **Unregistered / unverified** |
 | Migration status | **Not cut over**; original Carbon public master preserved; visual owner review still pending |
