@@ -52,15 +52,15 @@ Known mismatch/gap
 | Knowledge document | `../components/file-uploader.md` (draft) |
 | Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
 | Pilot presentation | `23907:394` |
-| Proposed uploader component set | `File Uploader / HOS-39 Pilot` — node `23905:614`, 4 variants |
-| Proposed File Item set | `File Item / HOS-39 Pilot` — node `23903:127017`, 5 variants |
-| Proposed Dropzone set | `Dropzone / HOS-39 Pilot` — node `23905:565`, 4 variants |
+| Proposed uploader component set | `File Uploader / HOS-39 Pilot` — node `23905:614`, **12 variants** (Mode × State × Size) |
+| Proposed File Item set | `File Item / HOS-39 Pilot` — node `23903:127017`, **15 variants** (Status × Size) |
+| Proposed Dropzone set | `Dropzone / HOS-39 Pilot` — node `23905:565`, **12 variants** (State × Size) |
 | Figma component keys / publication | **Pending verification** |
 | Current legacy public master | `File uploader` — node `5465:294860`, preserved |
-| Native authoring slot | `File list / Slot` |
+| Figma authoring properties | Label, Helper, **one shared `File list / Slot`**; File Item: File name, Error message; Dropzone: Instruction |
 | Code repository / runtime props | **Unregistered / unverified** |
 | Storybook / testing | **Unregistered / unverified** |
-| Migration status | **Not cut over**; retain existing consumer instances |
+| Migration status | **Not cut over**; original Carbon public master preserved; visual owner review still pending |
 | Last Figma verification | 2026-10-17 |
 
 [Open draft pilot](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23907-394)
