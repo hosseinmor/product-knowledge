@@ -93,7 +93,7 @@ Dialog uses **content-height (Hug)** until constrained by available visual viewp
 
 - [Dialog page and presentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24058-9)
 - Main Figma Dialog Component Set: node `24036:267`, key `b8bd11b06f27bac00225857315e0cb4f4c0887f7`.
-- [Close Button source](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24046-476), key `cited in component mapping`.
+- [Close Button source](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24046-476), key `c19c7786bdbb03e1ad13695db575d5d7478e0d34`.
 - [Narrow preset source](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24087-129096); Figma authoring only.
 - Legacy [Modal](modal.md) retained as a redirect; original Figma master is preserved for migration.
 - WAI-ARIA APG: [modal dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) and [alert dialog](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/).
