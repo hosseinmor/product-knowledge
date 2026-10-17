@@ -52,15 +52,15 @@ Known mismatch/gap
 | Knowledge document | `../components/file-uploader.md` (draft) |
 | Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
 | Pilot presentation | `23907:394` |
-| Proposed uploader component set | `File Uploader / HOS-39 Pilot` — node `23905:614`, **12 variants** (Mode × State × Size) |
-| Proposed File Item set | `File Item / HOS-39 Pilot` — node `23903:127017`, **15 variants** (Status × Size) |
-| Proposed Dropzone set | `Dropzone / HOS-39 Pilot` — node `23905:565`, **15 variants** (Default/Hover/Drag-over/Focus/Disabled × Small/Medium/Large) |
+| Proposed uploader component set | `File Uploader / HOS-39 Pilot` — node `23905:614`, **4 variants** (Mode × State; no Size axis) |
+| Proposed File Item set | `File Item / HOS-39 Pilot` — node `23903:127017`, **5 variants** (Status; no Size axis) |
+| Proposed Dropzone set | `Dropzone / HOS-39 Pilot` — node `23905:565`, **5 variants** (Default / Hover / Drag-over / Focus / Disabled; no Size axis) |
 | Figma component keys / publication | **Pending verification** |
 | Current legacy public master | `File uploader` — node `5465:294860`, preserved |
 | Figma authoring properties | Label, Helper, **one shared `File list / Slot`**; File Item: File name, Error message; Dropzone: Instruction |
-| Default Browse Button | Shared `Button / Tertiary` (same style inside Browse-only and Dropzone, sizes Small/Medium/Large) |
+| Default Browse Button | Shared `Button / Tertiary`, 40px (former Medium) in Browse-only and Dropzone |
 | Dropzone semantic visuals | Default `surface/default` + dashed `line/emphasis`; Hover `surface/transparent-hover` overlay; Drag-over `surface/accent-muted` + 2px `line/accent`; Focus shared Focus/Default; Disabled semantic disabled roles |
-| Dropzone size & shape | **Small 160px / Medium 192px (default) / Large 224px**; all bound to **`12px · Large`** radius. Design pilot dimensions, not benchmark-specified or verified runtime sizes. |
+| Dropzone size & shape | Single **192px base height**; bound to **`12px · Large`** radius. Width is responsive. No Size variant; design dimensions are not verified runtime measurements. |
 | Code repository / runtime props | **Unregistered / unverified** |
 | Storybook / testing | **Unregistered / unverified** |
 | Migration status | **Not cut over**; original Carbon public master preserved; visual owner review still pending |
