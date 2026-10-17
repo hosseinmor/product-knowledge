@@ -4,15 +4,17 @@ collection: design-system
 type: audit
 title: Chip family — final Figma and interaction audit (2026-10-17)
 knowledge_state: verified
-document_maturity: reviewed
-design_status: handoff-ready
+document_maturity: superseded
+design_status: superseded
 related:
   - design-system.component.chip
   - design-system.component.tag
   - design-system.pattern.anchored-disclosure
 ---
 
-# Chip family — final Figma audit
+# Chip family — historical 150-variant snapshot (superseded)
+
+> **SUPERSEDED on 2026-10-17 after Chevron-only benchmark review.** This document describes the earlier 150-variant state and must not be used as the current implementation contract. The authoritative current audit is [Chip — Open simplification](chip-open-simplification-2026-10-17.md), and current component contract is [Chip](../components/chip.md). Canonical counts are now 90 public + 15 internal. Historical Open=True nodes were archived for compatibility. 
 
 **Scope:** The four published Chip component sets and the private nested Remove target, Figma presentation/playground, authoring properties, visual tokens/states, RTL and interface contracts. This is **Figma/design validation**, not a pass for production Angular behavior or screen readers.
 
