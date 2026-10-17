@@ -10,7 +10,6 @@ design_status: superseded
 related:
   - design-system.component.chip
   - design-system.component.tag
-  - design-system.pattern.anchored-disclosure
 ---
 
 # Chip family — historical 150-variant snapshot (superseded)
