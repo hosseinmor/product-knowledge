@@ -631,8 +631,8 @@ The Chip design identity is verified as four capability-specific public componen
 | Figma page / docs | `Choice Group` node `23226:9` / `Choice Group / Documentation` node `23226:10` |
 | Component set | `Choice Group` |
 | Component key / node | `a96c066c443021689ce6add1a47be745c8aa160b` / `23229:133` |
-| Variants | `18 = 2 Selection × 3 Layout × 3 State` |
-| Variant properties | `Selection = Single / Multiple`; `Layout = Horizontal / Horizontal wrap / Vertical`; `State = Default / Error / Warning` |
+| Variants | `12 = 2 Selection × 2 Layout × 3 State` |
+| Variant properties | `Selection = Single / Multiple`; `Layout = Horizontal / Horizontal wrap`; `State = Default / Error / Warning` |
 | Content properties | `Group label`; `Show group label`; `Required`; `Show info`; `Error message`; `Warning message`; exposed nested `Info / Tooltip`; native `Items` SLOT |
 | Items Slot | Minimum 2 children; preferred/allowed content is `Chip / Selectable`; variable count, reorderable/configurable |
 | Width | Resize the instance; no Width variant |
@@ -642,15 +642,15 @@ The Chip design identity is verified as four capability-specific public componen
 | Ownership | Choice Group owns shared label affordances, group validation State/supporting copy, layout, item relationship, and selection mode; each Chip owns Label, Size, Selected, and interaction State |
 | Single semantics | At most one selected; optional group may have no selection; Required is enforced/validated at runtime |
 | Multiple semantics | Zero, one, or many selected; changing one item does not auto-clear another |
-| State visuals | Choice Group `Error` / `Warning` adds only the group supporting message (`Body/Compact/XS`, `fg/error` / `fg/warning`); nested Chip Hover/Active/Focus/Selected/Disabled visuals remain entirely item-owned |
-| RTL | RTL-first Figma authoring; horizontal/wrap collections align right, vertical items align right, canonical horizontal slot content is authored right-to-left visually; no RTL variant. Figma native wrap cannot model true RTL line flow, so runtime preserves logical DOM/reading order |
+| State visuals | Label remains neutral `fg/secondary`; Choice Group `Error` / `Warning` adds only the group supporting message (`Body/Compact/XS`, `fg/error` / `fg/warning`); nested Chip Hover/Active/Focus/Selected/Disabled visuals remain entirely item-owned |
+| RTL | RTL-first Figma authoring; horizontal/wrap collections align right and canonical horizontal slot content is authored right-to-left visually; no RTL variant. Figma native wrap cannot model true RTL line flow, so runtime preserves logical DOM/reading order |
 | Runtime component/API | **Unverified** |
 | Property mapping | **Unverified** — do not infer runtime prop names or exact DOM/ARIA implementation from Figma |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-10-14 |
+| Last Figma verification | 2026-10-18 |
 
-The Choice Group design identity, Single/Multiple selection contract, three layout modes, Default/Error/Warning validation states, Select-like Required + Info/Tooltip label anatomy, group-level supporting validation copy, native Selectable-Chip Slot composition, resize-owned width, runtime-owned Required enforcement/allow-empty and tooltip-open behavior, RTL-first alignment/authoring behavior, tokenized 8px/4px spacing, and boundaries with Radio/Checkbox/Select are verified in `../components/choice-group.md`. Exact runtime API, DOM/ARIA structure, keyboard implementation details, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime source is registered.
+The Choice Group design identity, Single/Multiple selection contract, two layout modes (Horizontal / Horizontal wrap), Default/Error/Warning validation states, Select-like Required + Info/Tooltip label anatomy, neutral label + semantic group-level supporting validation copy, native Selectable-Chip Slot composition, resize-owned width, runtime-owned Required enforcement/allow-empty and tooltip-open behavior, RTL-first alignment/authoring behavior, tokenized 8px/4px spacing, and boundaries with Radio/Checkbox/Select are verified in `../components/choice-group.md`. Exact runtime API, DOM/ARIA structure, keyboard implementation details, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime source is registered.
 
 ### Timeline
 
