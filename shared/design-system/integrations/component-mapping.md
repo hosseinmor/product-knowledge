@@ -643,14 +643,14 @@ The Chip design identity is verified as four capability-specific public componen
 | Single semantics | At most one selected; optional group may have no selection; Required is enforced/validated at runtime |
 | Multiple semantics | Zero, one, or many selected; changing one item does not auto-clear another |
 | State visuals | Label remains neutral `fg/secondary`; Choice Group `Error` / `Warning` adds a 16px semantic status icon (`Icon/error_outline` / `Icon/warning_amber`) + `Body/Compact/XS` supporting message with a 4px icon/text gap and `fg/error` / `fg/warning`; nested Chip Hover/Active/Focus/Selected/Disabled visuals remain entirely item-owned |
-| RTL | RTL-first Figma authoring; horizontal/wrap collections align right and canonical horizontal slot content is authored right-to-left visually; no RTL variant. Figma native wrap cannot model true RTL line flow, so runtime preserves logical DOM/reading order |
+| RTL | RTL-first. Horizontal uses normal logical-Start/right alignment. Horizontal wrap uses a Figma-only mirrored `Items` slot + counter-mirrored default Chip children while preserving logical source order; no RTL variant. Runtime must not reproduce the transforms and instead uses true RTL flow with logical DOM/reading order |
 | Runtime component/API | **Unverified** |
 | Property mapping | **Unverified** — do not infer runtime prop names or exact DOM/ARIA implementation from Figma |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
 | Last Figma verification | 2026-10-18 |
 
-The Choice Group design identity, Single/Multiple selection contract, two layout modes (Horizontal / Horizontal wrap), Default/Error/Warning validation states, Select-like Required + Info/Tooltip label anatomy, neutral label + semantic group-level supporting validation copy, native Selectable-Chip Slot composition, resize-owned width, runtime-owned Required enforcement/allow-empty and tooltip-open behavior, RTL-first alignment/authoring behavior, tokenized 8px/4px spacing, and boundaries with Radio/Checkbox/Select are verified in `../components/choice-group.md`. Exact runtime API, DOM/ARIA structure, keyboard implementation details, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime source is registered.
+The Choice Group design identity, Single/Multiple selection contract, two layout modes (Horizontal / Horizontal wrap), Default/Error/Warning validation states, Select-like Required + Info/Tooltip label anatomy, neutral label + semantic group-level supporting validation copy, native Selectable-Chip Slot composition, resize-owned width, runtime-owned Required enforcement/allow-empty and tooltip-open behavior, RTL-first alignment plus the documented Figma-only wrap-mirror workaround, tokenized 8px/4px spacing, and boundaries with Radio/Checkbox/Select are verified in `../components/choice-group.md`. Exact runtime API, DOM/ARIA structure, keyboard implementation details, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime source is registered.
 
 ### Timeline
 
