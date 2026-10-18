@@ -128,10 +128,10 @@ The Choice Group label follows the same field-label grammar used by Select:
 `State` is group-level validation status:
 
 - `Default` — no validation message;
-- `Error` — shows `Error message` below Items using `Body/Compact/XS` + `fg/error`;
-- `Warning` — shows `Warning message` below Items using `Body/Compact/XS` + `fg/warning`.
+- `Error` — shows a 16px `Icon/error_outline` + `Error message` below Items using `Body/Compact/XS` + `fg/error`;
+- `Warning` — shows a 16px `Icon/warning_amber` + `Warning message` below Items using `Body/Compact/XS` + `fg/warning`.
 
-Validation styling follows Select: the group label remains neutral (`fg/secondary`), Error uses `Body/Compact/XS` + `fg/error`, Warning uses `Body/Compact/XS` + `fg/warning`, and nested Chips are not recolored. `Chip / Selectable` continues to own Selected, Hover, Active, Focus, and Disabled visuals.
+Validation styling follows Select: the group label remains neutral (`fg/secondary`); Error uses a 16px semantic error icon + `Body/Compact/XS` + `fg/error`; Warning uses a 16px semantic warning icon + `Body/Compact/XS` + `fg/warning`; icon-to-text gap is `4px`; nested Chips are not recolored. `Chip / Selectable` continues to own Selected, Hover, Active, Focus, and Disabled visuals.
 
 `Required` is a visual/authoring indicator in Figma. The product/runtime layer still owns whether an empty value is allowed, when validation runs, and how required state is announced programmatically.
 
@@ -219,7 +219,7 @@ Verify:
 - `Required` and `Show info` correctly control the label affordances;
 - the nested Info/Tooltip instance remains exposed for tooltip configuration;
 - Default shows no validation message; Error uses `Error message` + `fg/error`; Warning uses `Warning message` + `fg/warning`;
-- Error/Warning supporting copy uses `Body/Compact/XS`, Error=`fg/error`, Warning=`fg/warning`, and the group label stays neutral (`fg/secondary`);
+- Error/Warning feedback uses a 16px semantic status icon + `Body/Compact/XS`, with a `4px` icon/text gap; Error=`fg/error`, Warning=`fg/warning`, and the group label stays neutral (`fg/secondary`);
 - Items Slot contains at least two real `Chip / Selectable` instances;
 - width is controlled by resizing the group, not by a variant;
 - Required enforcement / allow-empty and tooltip open behavior remain runtime-owned;
