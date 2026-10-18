@@ -8,7 +8,7 @@ knowledge_state: verified
 document_maturity: reviewed
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: '2026-10-17'
+last_reviewed: '2026-10-18'
 related:
   - design-system.component.chip
   - design-system.component.radio
@@ -35,12 +35,12 @@ Canonical file: `[DS] Job Vision NEXT`.
 - Component set: `Choice Group`
 - Figma node ID: `23229:133`
 - Figma component key: `a96c066c443021689ce6add1a47be745c8aa160b`
-- Variant count: `18 = 2 Selection × 3 Layout × 3 State`
+- Variant count: `12 = 2 Selection × 2 Layout × 3 State`
 
 ### Variant properties
 
 - `Selection = Single / Multiple`
-- `Layout = Horizontal / Horizontal wrap / Vertical`
+- `Layout = Horizontal / Horizontal wrap`
 - `State = Default / Error / Warning`
 
 ### Content properties
@@ -131,7 +131,7 @@ The Choice Group label follows the same field-label grammar used by Select:
 - `Error` — shows `Error message` below Items using `Body/Compact/XS` + `fg/error`;
 - `Warning` — shows `Warning message` below Items using `Body/Compact/XS` + `fg/warning`.
 
-Validation messaging does not recolor or change nested Chip state. `Chip / Selectable` continues to own Selected, Hover, Active, Focus, and Disabled visuals.
+Validation styling follows Select: the group label remains neutral (`fg/secondary`), Error uses `Body/Compact/XS` + `fg/error`, Warning uses `Body/Compact/XS` + `fg/warning`, and nested Chips are not recolored. `Chip / Selectable` continues to own Selected, Hover, Active, Focus, and Disabled visuals.
 
 `Required` is a visual/authoring indicator in Figma. The product/runtime layer still owns whether an empty value is allowed, when validation runs, and how required state is announced programmatically.
 
@@ -147,12 +147,6 @@ Resize the group to define available width. Whole Chips wrap to additional rows;
 
 Figma native Auto Layout has no RTL wrap-flow primitive. The Figma master therefore right-aligns the wrapped collection and keeps RTL-oriented authoring examples, while the runtime must own true RTL line flow and preserve logical option/DOM order when wrapping.
 
-### Vertical
-
-Use when labels or available inline space make a horizontal row harder to scan. Items align to logical Start (visual right in RTL).
-
-Vertical item spacing is the shared `8px` spacing token.
-
 ## RTL
 
 Do not create an RTL variant.
@@ -160,7 +154,6 @@ Do not create an RTL variant.
 - Choice Group is authored RTL-first in Figma.
 - `Group label` is full-width and right-aligned.
 - Horizontal and wrapped item collections align to logical Start (visual right).
-- Vertical items align to logical Start (visual right).
 - Canonical horizontal Figma slot content is authored in right-to-left visual order so the default component reads correctly.
 - Each nested Chip keeps its own RTL anatomy.
 - Runtime RTL flow must preserve logical option/DOM order; resizing and wrapping must not reverse semantic reading order.
@@ -219,14 +212,14 @@ Therefore these remain unverified:
 
 Verify:
 
-- exactly eighteen parent variants: `2 Selection × 3 Layout × 3 State`;
+- exactly twelve parent variants: `2 Selection × 2 Layout × 3 State`;
 - `Selection = Single / Multiple`;
-- `Layout = Horizontal / Horizontal wrap / Vertical`;
+- `Layout = Horizontal / Horizontal wrap`;
 - `State = Default / Error / Warning`;
 - `Required` and `Show info` correctly control the label affordances;
 - the nested Info/Tooltip instance remains exposed for tooltip configuration;
 - Default shows no validation message; Error uses `Error message` + `fg/error`; Warning uses `Warning message` + `fg/warning`;
-- Error/Warning supporting copy uses `Body/Compact/XS` and stays RTL/right-aligned;
+- Error/Warning supporting copy uses `Body/Compact/XS`, Error=`fg/error`, Warning=`fg/warning`, and the group label stays neutral (`fg/secondary`);
 - Items Slot contains at least two real `Chip / Selectable` instances;
 - width is controlled by resizing the group, not by a variant;
 - Required enforcement / allow-empty and tooltip open behavior remain runtime-owned;
@@ -236,5 +229,4 @@ Verify:
 - Group label is `Label/SM`, full-width, and right-aligned in RTL;
 - root and item gaps consume the shared `8px` spacing token;
 - horizontal/wrap collections align to visual right and canonical horizontal default content is authored RTL-first;
-- vertical items align to visual right;
 - runtime RTL reading/DOM order remains logical even when wrapping.
