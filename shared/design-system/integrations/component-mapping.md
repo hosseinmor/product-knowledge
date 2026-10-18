@@ -642,7 +642,7 @@ The Chip design identity is verified as four capability-specific public componen
 | Ownership | Choice Group owns shared label affordances, group validation State/supporting copy, layout, item relationship, and selection mode; each Chip owns Label, Size, Selected, and interaction State |
 | Single semantics | At most one selected; optional group may have no selection; Required is enforced/validated at runtime |
 | Multiple semantics | Zero, one, or many selected; changing one item does not auto-clear another |
-| State visuals | Label remains neutral `fg/secondary`; Choice Group `Error` / `Warning` adds only the group supporting message (`Body/Compact/XS`, `fg/error` / `fg/warning`); nested Chip Hover/Active/Focus/Selected/Disabled visuals remain entirely item-owned |
+| State visuals | Label remains neutral `fg/secondary`; Choice Group `Error` / `Warning` adds a 16px semantic status icon (`Icon/error_outline` / `Icon/warning_amber`) + `Body/Compact/XS` supporting message with a 4px icon/text gap and `fg/error` / `fg/warning`; nested Chip Hover/Active/Focus/Selected/Disabled visuals remain entirely item-owned |
 | RTL | RTL-first Figma authoring; horizontal/wrap collections align right and canonical horizontal slot content is authored right-to-left visually; no RTL variant. Figma native wrap cannot model true RTL line flow, so runtime preserves logical DOM/reading order |
 | Runtime component/API | **Unverified** |
 | Property mapping | **Unverified** — do not infer runtime prop names or exact DOM/ARIA implementation from Figma |
