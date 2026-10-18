@@ -145,7 +145,7 @@ Use for short options that fit in one row. In the RTL-first Figma master, the it
 
 Resize the group to define available width. Whole Chips wrap to additional rows; do not introduce a separate width variant.
 
-Figma native Auto Layout has no RTL wrap-flow primitive. The Figma master therefore right-aligns the wrapped collection and keeps RTL-oriented authoring examples, while the runtime must own true RTL line flow and preserve logical option/DOM order when wrapping.
+Figma native Auto Layout has no RTL wrap-flow primitive. The Figma master therefore uses a **preview-only mirror workaround** for `Horizontal wrap`: the `Items` slot is horizontally mirrored and each default Chip child is counter-mirrored so its content remains readable. The internal Auto Layout still flows from `MIN`, and the logical source order stays intact. This transform is an authoring/preview workaround only; runtime must use true RTL line flow and preserve logical option/DOM order when wrapping.
 
 ## RTL
 
@@ -153,11 +153,12 @@ Do not create an RTL variant.
 
 - Choice Group is authored RTL-first in Figma.
 - `Group label` is full-width and right-aligned.
-- Horizontal and wrapped item collections align to logical Start (visual right).
-- Canonical horizontal Figma slot content is authored in right-to-left visual order so the default component reads correctly.
+- Horizontal aligns to logical Start (visual right) without transforms.
+- Horizontal wrap uses a Figma-only horizontal mirror on the `Items` slot plus counter-mirroring on its default Chip children.
+- Wrap source order remains logical; the mirror owns visual RTL instead of manually reversing child order.
 - Each nested Chip keeps its own RTL anatomy.
 - Runtime RTL flow must preserve logical option/DOM order; resizing and wrapping must not reverse semantic reading order.
-- Figma native wrap is a representational limitation, not the runtime behavior contract.
+- Development must not reproduce the Figma mirror transforms; use real RTL layout semantics instead.
 
 ## Accessibility Contract
 
@@ -228,5 +229,7 @@ Verify:
 - Multiple never auto-clears another Chip;
 - Group label is `Label/SM`, full-width, and right-aligned in RTL;
 - root and item gaps consume the shared `8px` spacing token;
-- horizontal/wrap collections align to visual right and canonical horizontal default content is authored RTL-first;
+- Horizontal aligns to visual right with normal RTL authoring;
+- Horizontal wrap uses the mirrored-Items / counter-mirrored-children Figma preview workaround;
+- source child order remains logical and runtime must not copy the mirror transforms;
 - runtime RTL reading/DOM order remains logical even when wrapping.
