@@ -124,6 +124,6 @@ Use [Field Family QA board](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/
 
 ## PR provenance / governance
 
-Original [PR #92](https://github.com/hosseinmor/product-knowledge/pull/92) included early Select/Autocomplete documentation and Anchored Disclosure Pattern drafts that are now superseded or held. It was **not** a safe merge candidate. This audit is migrated onto a **fresh branch from current main**, containing only the Field Family discrepancy register; it does not touch `components/select.md`, `components/autocomplete.md`, `manifest.generated.json`, or `patterns/anchored-disclosure.md`.
+Original [PR #92](https://github.com/hosseinmor/product-knowledge/pull/92) included early Select/Autocomplete documentation and Anchored Disclosure Pattern drafts that are now superseded or held. It was **not** a safe merge candidate. This audit is migrated onto a **fresh branch from current main**, containing only the Field Family discrepancy register; it does not change `components/select.md`, `components/autocomplete.md`, or `patterns/anchored-disclosure.md`. The repository automatically regenerates `manifest.generated.json` to index this new audit document; its extra diff is an expected documentation-index update, not a manual component or Pattern change.
 
 The separate Anchored Disclosure Pattern remains **on Hold** for review of its interaction contract; no new design decision is asserted by this PR.
