@@ -517,7 +517,7 @@ The Toggle design identity, Size × State × Toggled matrix, label contract, neu
 | Property mapping | **Unverified** — do not infer runtime prop names or DOM/ARIA roles from Figma |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-10-17 |
+| Last Figma verification | 2026-10-19 |
 
 The Content Switcher design identity, three-size parent model, native Items Slot, State × Content internal Item model, fill-based sizing, Text/Icon boundary, selected treatment, semantic foreground mapping, equal-width composition, responsive rule, RTL behavior, and accessibility contract are verified in `../components/content-switcher.md`. Runtime API, exact DOM/ARIA and keyboard implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime source is registered.
 
@@ -580,7 +580,7 @@ The Tabs design identity, line-only v1 appearance, native Items Slot composition
 | Removable key / node | `193062043a2194024cc06c6d45f11b96b4a238b3` / `23124:358` |
 | Removable variants | `15 = 3 Size × 5 State` |
 | Removable properties | Variant: `Size / State`; content: `Label / Detail / Show detail / Show leading visual / Leading visual`; `Show detail` controls the whole `Detail content` container |
-| Removable behavioral capability | Body is always an independent interaction target for a product-defined value action; body and trailing Remove are separate runtime interaction/focus targets; Body action outcome is not a Figma variant |
+| Removable interaction ownership | Body/Edit covers every point except `×` and owns the public whole-Chip Hover/Active transitions; the compound root has no pointer reactions. Body activation = Edit. Trailing `×` is an independent Remove target whose local Hover/Active changes only the Remove control; activation = Remove |
 | Removable Remove action | Private `Size × State` component; `28 / 32 / 40px` matches Chip height; `Radius / Full`; logical-End padding on Removable is `0px` so Remove is flush with the edge |
 | Removable surface | Default/Focus `surface/accent-muted`; Hover `surface/accent-muted-hover`; Active `surface/accent-muted-active`; keep `line/accent + fg/accent`; no transparent overlay |
 | Disclosure set | `Chip / Disclosure` |
@@ -619,7 +619,7 @@ The Tabs design identity, line-only v1 appearance, native Items Slot composition
 | Code Connect | **No registered mapping** |
 | Last Figma verification | 2026-10-17 |
 
-The Chip design identity is verified as four capability-specific public component sets that share one visual recipe without a mega Type matrix. The current contract includes Extra Small / Small / Medium sizing with Medium as the default, size-aware Label typography, dedicated Accent-muted state tokens for persistent Accent states, compound Removable body/remove behavior with an always-actionable body target and a size-matched flush round Remove action, surface-agnostic Disclosure, shared Full radius, RTL anatomy, software lifecycle, and Tag/Button/selection-control boundaries. Runtime API, exact DOM/ARIA implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
+The Chip design identity is verified as four capability-specific public component sets that share one visual recipe without a mega Type matrix. The current contract includes Extra Small / Small / Medium sizing with Medium as the default, size-aware Label typography, dedicated Accent-muted state tokens for persistent Accent states, compound Removable behavior with Body/Edit driving whole-Chip Hover/Active and trailing ×/Remove owning independent local Hover/Active, plus a size-matched flush round Remove action, surface-agnostic Disclosure, shared Full radius, RTL anatomy, software lifecycle, and Tag/Button/selection-control boundaries. Runtime API, exact DOM/ARIA implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
 
 ### Choice Group
 
