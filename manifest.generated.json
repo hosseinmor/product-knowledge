@@ -1075,6 +1075,27 @@
       "path": "shared/design-system/components/chip.md"
     },
     {
+      "id": "design-system.component.choice-group",
+      "kind": "design-system-component",
+      "title": "Choice Group",
+      "summary": "Choice Group composes Chip / Selectable items into a labeled single- or multiple-selection group for compact choices.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": "2026-10-18",
+      "related": [
+        "design-system.component.chip",
+        "design-system.component.radio",
+        "design-system.component.checkbox",
+        "design-system.reference.component-mapping"
+      ],
+      "topics": [
+        "choice-group",
+        "components",
+        "design-system-component"
+      ],
+      "path": "shared/design-system/components/choice-group.md"
+    },
+    {
       "id": "design-system.component.coachmark",
       "kind": "design-system-component",
       "title": "Coachmark",
@@ -3062,12 +3083,12 @@
     }
   ],
   "summary": {
-    "documents": 152,
+    "documents": 153,
     "by_kind": {
       "content-guideline": 17,
       "design-system-accessibility": 18,
       "design-system-audit": 2,
-      "design-system-component": 41,
+      "design-system-component": 42,
       "design-system-design-language": 1,
       "design-system-development-handoff": 1,
       "design-system-experience-rule": 11,
