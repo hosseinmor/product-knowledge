@@ -976,6 +976,28 @@
       "path": "shared/design-system/audits/chip-open-simplification-2026-10-17.md"
     },
     {
+      "id": "design-system.audit.field-family-2026-10-17",
+      "kind": "design-system-audit",
+      "title": "Field Family Consistency Audit — HOS-41",
+      "summary": "Current field-family decisions, verified Figma discrepancies, intentional exceptions, migration debt and runtime QA boundary.",
+      "status": "draft",
+      "owner": null,
+      "last_reviewed": null,
+      "related": [
+        "design-system.component.text-input",
+        "design-system.component.search",
+        "design-system.component.select",
+        "design-system.component.autocomplete",
+        "design-system.accessibility.forms"
+      ],
+      "topics": [
+        "audits",
+        "design-system-audit",
+        "field-family-2026-10-17"
+      ],
+      "path": "shared/design-system/audits/field-family-2026-10-17.md"
+    },
+    {
       "id": "design-system.component.autocomplete",
       "kind": "design-system-component",
       "title": "Autocomplete",
@@ -3083,11 +3105,11 @@
     }
   ],
   "summary": {
-    "documents": 153,
+    "documents": 154,
     "by_kind": {
       "content-guideline": 17,
       "design-system-accessibility": 18,
-      "design-system-audit": 2,
+      "design-system-audit": 3,
       "design-system-component": 42,
       "design-system-design-language": 1,
       "design-system-development-handoff": 1,
