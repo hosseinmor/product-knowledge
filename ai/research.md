@@ -3,9 +3,9 @@
 ## Source gate
 
 - JobVision context comes from the relevant pages at
-  <https://docs-jv.jvoffice.ir/> through the internal VPN and browser.
-- Cando has no canonical source; disclose the gap and use only explicitly
-  authorised inputs.
+  <https://docs-jv.jvoffice.ir/> through a verified internal-browser path.
+- Cando context comes from the relevant pages at
+  <https://docs-cd.jvoffice.ir/> through a verified internal-browser path.
 - `manifest.generated.json` supplies repository-owned Content, Design System,
   and standards—not Product Knowledge.
 
