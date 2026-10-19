@@ -56,17 +56,41 @@ Known mismatch/gap
 | Anatomy | Title and supporting description; native Body/Footer Slots; canonical shared Buttons; independent Close Button |
 | Close Button set | `Close Button / Default` · node `24046:476` · key `c19c7786bdbb03e1ad13695db575d5d7478e0d34`; 40px hit area, 5 visual states, Radius Medium 6, top/left 12px in RTL |
 | Narrow Figma preset | `Dialog / Narrow preset` · node `24087:129096` · key `70787797b38b3976da888be932b8cfdee90e897b` · linked to canonical Small source, **not** a Size or Layout variant |
-| Responsive | Intended Narrow adaptation below 768px: 24px padding, 40px Medium actions; Regular: 32px padding, 32px Small actions; fluid shell, min viewport gutters 16px |
+| Responsive | Generic Dialog: Narrow <768 uses 16px padding and Medium 40px buttons; Regular uses 24px padding and Small 32px buttons. Specialist Confirmation/Alert: Narrow 24px / Regular 32px padding. Fluid shell, min viewport gutters 16px |
 | Design behavior | Backdrop uses `semantic/utility/overlay` and never dismisses by default; Escape uses safe cancel, including destructive confirmation; unsaved edits guarded; focus trapped and restored; Body-only scrolling |
-| Alert vs confirmation | `alertdialog` only for genuinely urgent interruption; confirmation, destructive and form are composition patterns |
+| Alert vs confirmation | Independent Figma Confirmation Dialog and Alert Dialog components share behavior rules, **not a nested Dialog or Figma Base**. `alertdialog` semantic role only when urgency warrants it; confirmation and destructive remain intent patterns |
 | Legacy | `Modal` set node `4080:55366`, key `dbb168637e13405605604dd1ca479f298735c348`, retained for migration; not the new canonical source |
 | Design status | **Handoff-ready Figma and intended design/accessibility contract**; no proof of coded behavior/shipping |
 | Runtime repository/package/API | **Unregistered / unverified**; exact props, events, DOM and focus library must not be guessed |
 | Storybook / executed tests | **Unregistered / unverified**; implementation acceptance checklist is in `dialog.md` |
 | Cross-foundation note | Canonical GitHub Responsive ruler disagrees with recent Figma Tailwind v3 foundation at sm/lg/2xl; both agree at 768px, which is the Dialog threshold. Foundation reconciliation is a separate task |
-| Figma last verified | 2026-10-17 |
+| Figma last verified | 2026-10-19 |
 
 Figma component keys and names above are verified on the live source. This is **not** a verified Figma-to-code mapping without registered owning runtime/Storybook identities.
+
+### Confirmation Dialog — standalone Figma component (review draft)
+
+| Field | Current verified design source |
+|---|---|
+| Main component set | `Confirmation Dialog / Default` · node `24144:1108` · key `13645b3dea156f24f6c84e12a463c4b15b448bb4` |
+| Presentation | [Confirmation Dialog](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24147-56) |
+| Variants | `Intent=Default/Danger`; canonical Primary/Secondary (Danger Primary for destructive) |
+| Content | Title/Description (short consequence belongs in Description), `Show body` false by default, optional native Body Slot and Footer Slot |
+| Visual rules | Independent Shell in Figma, shared semantic tokens and behavioral rules with Dialog, **no nested Dialog/Base**. Regular padding 32px; Narrow padding 24px |
+| Semantics | Ordinary confirmation uses `dialog`, explicit safe Cancel and Escape path; avoid blanket `alertdialog` |
+| Status | Figma design review draft, **not** registered runtime/Storybook or production-ready |
+
+### Alert Dialog — standalone Figma component (review draft)
+
+| Field | Current verified design source |
+|---|---|
+| Main component set | `Alert Dialog / Default` · node `24144:128997` · key `19c4b10ed481dfda38bec782e2e5fa762294db25` |
+| Presentation | [Alert Dialog](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24147-203) |
+| Variants | `Severity=Warning/Error`; inline canonical warning/error icon bound to existing public `fg/warning` / `fg/danger` tokens |
+| Content | Title, required short message in Description, optional hidden native Body Slot, native Footer Slot (acknowledge or retry/cancel examples) |
+| Visual rules | Independent Shell in Figma, shared semantic tokens and behavioral rules with Dialog, **no nested Dialog/Base**. Regular padding 32px; Narrow padding 24px |
+| Semantics | `alertdialog` only when an urgent modal interruption is warranted; ordinary notifications remain inline or Toast |
+| Status | Figma design review draft, **not** registered runtime/Storybook or production-ready |
 
 ### File Uploader — final Carbon design source (runtime unverified)
 
