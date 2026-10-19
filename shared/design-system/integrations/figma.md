@@ -7,7 +7,7 @@ summary: Operational reference for the current JV Design System Figma file, its 
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: '2026-09-19'
+last_reviewed: '2026-10-19'
 related:
   - design-system.reference.source-of-truth
   - design-system.reference.component-mapping
@@ -209,6 +209,12 @@ Verified design identity:
 Use the live Figma component for current variants, properties, anatomy, and visual construction. Do not copy its full property matrix into this reference because that information changes during component pilots.
 
 These are **design identifiers**. Do not infer runtime component names, props, or shipped support until the Code mapping is registered.
+
+## Token authoring compliance
+
+Read [Figma Component Token Compliance](figma-token-compliance.md) before authoring or handing off a canonical component. Check semantic Color role versus actual collection binding; owned Spacing and Radius bindings; Typography Text Styles; documented exceptions; and whether a component source or borrowed instance owns each property. The [read-only audit recipe](figma-token-compliance-audit.js) runs on one loaded component page at a time. The [2026-10-19 audit register](../audits/component-token-compliance-2026-10-19.md) tracks current Figma remediation and remaining migration debt.
+
+Deprecated radius variables remain live for existing consumers but are hidden from new selection. Do not remove a legacy variable or regenerate published variant identities to pass audit checks.
 
 ## Figma → code mapping
 
