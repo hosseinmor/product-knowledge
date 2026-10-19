@@ -751,8 +751,8 @@ The Chip design identity is verified as four capability-specific public componen
 | Nested source | `_Progress bar track item` |
 | Track key / node ID | `b765a10f45d8d3ad69489a266bc6e623ba94d5b1` / `12603:273022` |
 | Nested Track variants | 16 = `Small/Big` × `Progress=0%/25%/50%/75%/100%/Success/Error/Indeterminate` |
-| Geometry | Small 4px, Big 8px; every public variant uses its matching nested Track Size (including original Inline Big 0/25/50 fixed on 2026-10-17). Neutral Track uses `line/default` as **inside bottom Stroke**, not Fill |
-| Foreground tokens | Active segment: `line/accent`; Success segment: `line/success`; Error segment: `line/error`; icons/text retain their existing `fg/*` roles |
+| Geometry | Small 4px, Big 8px; every public variant uses its matching nested Track Size. **Neutral Track and colored segments** all use 4/8px **inside bottom Strokes** with flat ends; no colored path Fill; no source master identity changes |
+| Path Stroke tokens | Neutral Track: `line/default`; Active (including 100%/Indeterminate): `line/accent`; complete Success: `line/success`; complete Error: `line/error`. All have `STROKE_COLOR` scope and are bound to Strokes, never segment Fills. Text/icons retain existing `fg/*` roles |
 | Indeterminate in public parent | **Verified in Figma** — 5 variants: Default Small/Big, Inline Small/Big, Indent Big. Source-linked nested Track (static visual; do not show numeric percentage). Motion remains runtime-owned |
 | Runtime value treatment | True numeric progress is **required in development**, unrestricted by fixed Figma illustrative percentages. No numeric Figma property exists in current component architecture |
 | Documentation frame | [Progress bar / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23867-126381), node `23867:126381` |
@@ -764,9 +764,9 @@ The Chip design identity is verified as four capability-specific public componen
 | Storybook | **Bypassed for current design handoff** |
 | Code Connect | **No registered mapping** |
 | Long-text Figma QA | Default/Indent auto-grow vertically for Persian long copy; Inline label is one line with ending ellipsis. Playground contains linked mixed-script and long-text examples |
-| Last live Figma verification | **2026-10-19** |
+| Last live Figma verification | **2026-10-19** — all 16 nested and 30 public variants stroke-only path QA passed |
 
-The **original master identities, physical Section 01/03 placement, and authored visual contract** above were verified against the live Figma file. Playground examples remain connected to these sources. The public-parent Indeterminate variants are implemented in Figma as **static design states**; the original Inline/Big track-height mismatch and long-copy overflow are corrected. Numeric Figma percentages intentionally remain illustration presets; actual numeric value, Indeterminate animation, reduced motion, and browser/assistive-technology testing remain runtime development responsibilities. See `../components/progress-bar.md`.
+The **original master identities, physical Section 01/03 placement, and authored visual contract** above were verified against the live Figma file. Progress Bar uses the same four line-token roles as Progress Circle, now **implemented as Stroke-only path geometry**. The original old Figma Fill overrides in nested instances have been cleared. Playground examples remain connected to these sources. The public-parent Indeterminate variants are implemented in Figma as **static design states**; the original Inline/Big track-height mismatch and long-copy overflow are corrected. Numeric Figma percentages intentionally remain illustration presets; actual numeric value, Indeterminate animation, reduced motion, and browser/assistive-technology testing remain runtime development responsibilities. See `../components/progress-bar.md`.
 
 ### Progress Indicator (HOS-31)
 
