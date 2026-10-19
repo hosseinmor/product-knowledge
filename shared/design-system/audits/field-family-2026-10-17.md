@@ -91,6 +91,14 @@ Select Figma's default Size remains **Large** for compatibility; the approved **
 | RTL | Logical start/end, icons and controls consistent; mixed Persian/Latin tests | Popup/list navigation semantics tested in runtime |
 | Select / Autocomplete | Different non-editable-select vs editable-query semantics | Refer to separate approved handoff; keep runtime value policies explicit |
 
+## Independent migration and held Pattern follow-ups
+
+- [HOS-48 — Number Input migration](https://linear.app/hossein-mor/issue/HOS-48/audit-and-migrate-number-input-to-field-family) (Backlog): validate the historical 4px radius finding, Filled/Outline topology, numerical semantics and safe migration.
+- [HOS-49 — Date/Time Picker migration](https://linear.app/hossein-mor/issue/HOS-49/audit-and-migrate-datetime-picker-field-contract) (Backlog): resolve legacy `State + Open` axes, calendar/time keyboard behavior and specialized validation.
+- [HOS-50 — Anchored Disclosure Pattern review](https://linear.app/hossein-mor/issue/HOS-50/review-anchored-disclosure-pattern-and-slot-contract) (**ON HOLD**): own Trigger/Surface Slot architecture and reopen decisions **outside** HOS-41. The Figma prototype and old PR #92 content remain references, not approved current documentation.
+
+These are separate items. Their implementation or review is **not required** to close the core Field Family consistency audit once the unresolved core differences are documented, assigned and non-blocking.
+
 ## Cross-component QA plan
 
 Use [Field Family QA board](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23915-841) as a **live instance dashboard**, not a replacement for component-level tests.
@@ -109,7 +117,7 @@ Use [Field Family QA board](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/
 - [ ] Validate shared Label/Required/Info and support/error anatomy across core controls on current Figma QA board.
 - [ ] Review current Figma defaults and Filled migration **risk**, record whether further Figma refactor is worth it.
 - [ ] Refresh the representative Form Playground and test long text / bidi / visual overflow.
-- [ ] Split Number Input and Date/Time migration into independent tracked deliverables.
+- [x] Split Number Input and Date/Time migration into independently tracked HOS-48 and HOS-49.
 - [ ] Confirm any remaining core visual discrepancy and its owner/severity; leave none silently open.
 - [ ] Record Angular/Storybook QA outcome when runtime is registered; missing runtime checks must remain explicitly unverified (not assumed PASS).
 - [ ] Review and merge this **audit-only PR**. This is independent of the held Disclosure Pattern.
