@@ -8,7 +8,7 @@ knowledge_state: verified
 document_maturity: reviewed
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: '2026-10-17'
+last_reviewed: '2026-10-19'
 related:
   - design-system.component.choice-group
   - design-system.component.tag
@@ -28,7 +28,7 @@ Chip is the compact interactive-control family for value/data interaction.
 The public family is split by **interaction capability**, not by product use case:
 
 - **Chip / Selectable** — the value itself is selected or deselected.
-- **Chip / Removable** — a committed value/object can be removed; its body is an independent interaction target for a product-defined value action.
+- **Chip / Removable** — a committed value/object can be edited from its body and removed from its trailing `×`; Body/Edit and Remove are independent interaction targets.
 - **Chip / Disclosure** — a compact control opens a secondary surface to choose or edit its state.
 - **Chip / Action** — a compact, stateless action starts/adds/configures a value.
 
@@ -166,29 +166,31 @@ The optional leading visual may be an icon or avatar when the value benefits fro
 
 `Detail` is compact secondary value information such as skill level or proficiency. The `Detail` property stores the value only, for example `متوسط` or `B2`; it must not include the separator. Visually, Detail is composed inside a `Detail content` container as `Divider (·) + Detail`, with a 4px internal gap. `Show detail` controls the whole container. It is content, not a semantic state.
 
-#### Body action
+#### Body / Edit action
 
-The body is always an independent interaction target. The product owns the body action outcome.
+The body is always an independent **Edit** interaction target. It covers every point in the Chip except the trailing `×` Remove target.
 
 Example:
 
 `[ Microsoft Word · متوسط × ]`
 
-- body activation → edit/inspect/open detail such as Level editing;
-- `×` → remove the committed software.
+- Body/Edit activation → edit the committed value, such as changing software level;
+- `×` activation → remove the committed value.
 
-`Body action` is a behavioral capability, **not a Figma variant**, because the current visual/geometry contract does not change.
+`Body/Edit` is a behavioral capability, **not a Figma variant**. The public `State` axis represents Body/Edit interaction feedback; the trailing Remove target owns its own private interaction state.
 
 Runtime requirements:
 
-- body and Remove are independent hit targets;
-- body and Remove are independent focus targets;
-- body uses whole-Chip Hover/Active feedback;
-- Remove owns independent local Hover/Active/Focus feedback;
+- Body/Edit and Remove are independent hit targets;
+- Body/Edit and Remove are independent focus targets;
+- hovering or pressing anywhere in Body/Edit — every point except `×` — changes the **whole Chip** to `State=Hover` / `State=Active`;
+- the compound Chip root itself has no pointer reaction; Body/Edit owns the public Hover/Active transitions;
+- hovering or pressing `×` changes **only the Remove target** through its private `State=Hover / Active`; it must not change the parent Chip surface;
+- Body/Edit activation semantics = **Edit**;
+- `×` activation semantics = **Remove**;
 - Remove target size matches Chip height (`28 / 32 / 40px`) and remains fully round;
 - do not nest one button inside another;
-- use an appropriate compound-control DOM structure;
-- body action may be edit, inspect, disclosure, or another value-level interaction; the exact outcome is product-owned and does not create a Figma variant; do not rename the capability to Disclosure.
+- use an appropriate compound-control DOM structure.
 
 ### Chip / Disclosure
 
