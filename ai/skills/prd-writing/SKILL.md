@@ -25,12 +25,14 @@ The manifest retrieves Content, Design System, and standards only.
 
 ## Product context
 
-- JobVision: open <https://docs-jv.jvoffice.ir/> through the internal VPN and
-  browser, then load and cite only relevant domains.
-- Cando: disclose that no canonical source exists. Use only explicit owner
-  input, reviewed evidence, and approved decisions, preserving their authority.
-- Never fall back to Git history, deleted repository documents, Figma,
-  screenshots, runtime UI, or memory.
+- JobVision: open <https://docs-jv.jvoffice.ir/> through a verified
+  internal-browser path, then load and cite only relevant domains.
+- Cando: open <https://docs-cd.jvoffice.ir/> through a verified internal-browser
+  path, then load and cite only relevant domains. If the canonical source is
+  inaccessible or insufficient, preserve the limitation and keep supporting
+  evidence at its actual authority.
+- Never fall back to the other product's canonical source, Git history, deleted
+  repository documents, Figma, screenshots, runtime UI, or memory.
 
 ## Workflow
 
