@@ -4,8 +4,8 @@ This directory contains reusable product-language decisions for JobVision and
 Cando. It complements Product Knowledge and the Design System:
 
 JobVision Product Knowledge is external at <https://docs-jv.jvoffice.ir/>.
-Cando currently has no canonical Product Knowledge source. This directory must
-not be used as a fallback for either product.
+Cando Product Knowledge is external at <https://docs-cd.jvoffice.ir/>. This
+directory must not be used as a fallback for either product.
 
 ```text
 Product Knowledge
@@ -127,7 +127,7 @@ The terminology system intentionally separates:
 
 ```text
 Product truth and code mapping
-→ Internal JobVision documentation site; no canonical Cando source yet
+→ Owning canonical product site: JobVision docs-jv; Cando docs-cd
 
 User-facing label decisions
 → Shared Content terminology rules
