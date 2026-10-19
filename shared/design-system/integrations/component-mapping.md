@@ -7,7 +7,7 @@ summary: Registry contract for mapping stable Figma component identities to runt
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-10-17
+last_reviewed: 2026-10-19
 related:
   - design-system.reference.figma
   - design-system.reference.code
@@ -66,6 +66,27 @@ Known mismatch/gap
 | Runtime / Storybook / Code Connect | Unregistered / unverified; no production animation, reduced-motion or assistive-technology test claim |
 | Figma last verified | 2026-10-19 |
 
+### Skeleton — HOS-47 design handoff (Figma verified; runtime unregistered)
+
+| Field | Verified design source / boundary |
+|---|---|
+| DS component | **Skeleton**, contract: [`../components/skeleton.md`](../components/skeleton.md) |
+| Figma file / page | `rROD8ctH9UfPGAMrRrOzHe` / `Skeleton` page `24146:46` |
+| Presentation | [Skeleton / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24146-47) · node `24146:47` |
+| Public component set | `Skeleton` · node `24146:62` · key `d38438dc508671b18e814db895f0cab0cc13b95e` |
+| Text primitive | `Shape=Text` · node `24146:56` · key `b04c95bd011ad7a840ba9c83a16a6d6ba4cf8a3f` |
+| Block primitive | `Shape=Block` · node `24146:58` · key `9ebaeb10b3d3b5dd8a5b046d35ba3f7378591e75` |
+| Circle primitive | `Shape=Circle` · node `24146:60` · key `5d32bf679bc931e3a2bc253a5175a88df5c8d95e` |
+| Authoring contract | One `Shape` axis, three primitives. Width/height are geometry. Text reference is Body/SM 24px line box / 12px bar; Circle remains square. No public animation-phase or interaction-state axis |
+| Color / radius | Existing Semantic `utility/skeleton-base` and `utility/skeleton-shimmer`; Text Small, Block Medium by default, Circle Full |
+| Motion design | One intended `animate-skeleton` utility; left-to-right 1800ms linear Shimmer, 60% feathered band, 50% center intensity; immediate 150ms ease-out content reveal; static/direct reduced-motion treatment |
+| Visual / motion reference | [Playground sequence](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24212-63) · `24212:63`; [native Motion preview](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24212-110) · `24212:110` |
+| Motion TBD | Revisit duration, easing, reveal and related parameters after shared DS Motion foundations are completed; current values remain the v1 handoff target |
+| Runtime repository/package/API | **Unregistered / unverified for Skeleton**. The class name is an intended contract, not an observed exported API; no Angular selector/props are inferred |
+| Storybook / executed tests | **Unregistered / unverified**. Native Figma authoring is design evidence, not production execution or accessibility conformance |
+| Mapping mechanism / verified | Explicit design-source registry, **2026-10-19**; exact Figma-to-code property mapping awaits an owning runtime source |
+| Known gap | Comprehensive existing-product consumer migration audit remains separate; preview gradients are derived Semantic snapshots, not proof of live runtime theming |
+
 ### Dialog — HOS-42 design handoff (Figma verified; runtime unregistered)
 
 | Field | Verified design source / boundary |
@@ -79,7 +100,7 @@ Known mismatch/gap
 | Anatomy | Title and supporting description; native Body/Footer Slots; canonical shared Buttons; independent Close Button |
 | Close Button set | `Close Button / Default` · node `24046:476` · key `c19c7786bdbb03e1ad13695db575d5d7478e0d34`; 40px hit area, 5 visual states, Radius Medium 6, top/left 12px in RTL |
 | Narrow Figma preset | `Dialog / Narrow preset` · node `24087:129096` · key `70787797b38b3976da888be932b8cfdee90e897b` · linked to canonical Small source, **not** a Size or Layout variant |
-| Responsive | Generic Dialog: Narrow <768 uses 16px padding and Medium 40px buttons; Regular uses 24px padding and Small 32px buttons. Specialist Confirmation/Alert: Narrow 24px / Regular 32px padding. Fluid shell, min viewport gutters 16px |
+| Responsive | **Shell padding 0.** Generic section inline: Regular 24px, Narrow <768 16px (Header left 64px in RTL for Close); General Footer top 24px. Confirmation/Alert section inline: Regular 32px, Narrow 24px; Footer top 32px / 24px respectively. Medium 40px Narrow actions, Small 32px Regular actions. Fluid shell with min 16px viewport gutters |
 | Design behavior | Backdrop uses `semantic/utility/overlay` and never dismisses by default; Escape uses safe cancel, including destructive confirmation; unsaved edits guarded; focus trapped and restored; Body-only scrolling |
 | Alert vs confirmation | Independent Figma Confirmation Dialog and Alert Dialog components share behavior rules, **not a nested Dialog or Figma Base**. `alertdialog` semantic role only when urgency warrants it; confirmation and destructive remain intent patterns |
 | Legacy | `Modal` set node `4080:55366`, key `dbb168637e13405605604dd1ca479f298735c348`, retained for migration; not the new canonical source |
@@ -99,7 +120,7 @@ Figma component keys and names above are verified on the live source. This is **
 | Presentation | [Confirmation Dialog](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24147-56) |
 | Variants | `Intent=Default/Danger`; canonical Primary/Secondary (Danger Primary for destructive) |
 | Content | Title/Description (short consequence belongs in Description), `Show body` false by default, optional native Body Slot and Footer Slot |
-| Visual rules | Independent Shell in Figma, shared semantic tokens and behavioral rules with Dialog, **no nested Dialog/Base**. Regular padding 32px; Narrow padding 24px |
+| Visual rules | Independent Shell in Figma, zero shell padding and no nested Dialog/Base. Existing semantic tokens. Header top/inline Regular 32px, Narrow 24px; optional Body top 16px; Footer top/inline/bottom Regular 32px, Narrow 24px (explicit content-to-actions gap). Title/Description gap 8px |
 | Semantics | Ordinary confirmation uses `dialog`, explicit safe Cancel and Escape path; avoid blanket `alertdialog` |
 | Status | Figma design review draft, **not** registered runtime/Storybook or production-ready |
 
@@ -109,9 +130,9 @@ Figma component keys and names above are verified on the live source. This is **
 |---|---|
 | Main component set | `Alert Dialog / Default` · node `24144:128997` · key `19c4b10ed481dfda38bec782e2e5fa762294db25` |
 | Presentation | [Alert Dialog](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24147-203) |
-| Variants | `Severity=Warning/Error`; inline canonical warning/error icon bound to existing public `fg/warning` / `fg/danger` tokens |
+| Variants | `Severity=Warning/Error`; canonical **24px icon is an in-flow child of the RTL Title Row** (physical right of title), gap 8px, bound to existing public `fg/warning` / `fg/danger` tokens; no absolute icon |
 | Content | Title, required short message in Description, optional hidden native Body Slot, native Footer Slot (acknowledge or retry/cancel examples) |
-| Visual rules | Independent Shell in Figma, shared semantic tokens and behavioral rules with Dialog, **no nested Dialog/Base**. Regular padding 32px; Narrow padding 24px |
+| Visual rules | Independent Shell in Figma, zero shell padding and no nested Dialog/Base. Existing semantic tokens. Header top/inline Regular 32px, Narrow 24px; optional Body top 16px; Footer top/inline/bottom Regular 32px, Narrow 24px (explicit content-to-actions gap). Title/Description gap 8px |
 | Semantics | `alertdialog` only when an urgent modal interruption is warranted; ordinary notifications remain inline or Toast |
 | Status | Figma design review draft, **not** registered runtime/Storybook or production-ready |
 

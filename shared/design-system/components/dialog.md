@@ -32,12 +32,30 @@ Use **Dialog** for focused informational content, short forms, edits and content
 
 The modal overlay consists of an inert underlying page, a semantic **backdrop** using `semantic/utility/overlay` and an accessible Dialog shell. The shell owns required Title, optional Description, optional Close Button, native Body Slot and optional Footer Slot. Backdrop is not baked into the Figma shell master.
 
-- Shell uses semantic default surface, **Radius/Large = 12px**, **no shadow** and no shell outline. Outer padding is token-bound.
+- Shell uses semantic default surface, **Radius/Large = 12px**, **no shadow** and no shell outline. **Shell padding is zero.** Padding belongs to the Header, Body and Footer sections and is bound to existing spacing variables. No new shell/base or component-specific spacing tokens are needed.
 - Title: existing Figma text style `Heading/LG` (**18px / 28px**, Bold). Short supporting Description: `Body/Compact/SM` (**14px / 20px**) and the existing public semantic token **`fg/secondary`**. Do not create additional color variables or alias a component-only token for this. Use a more prominent semantic foreground for important consequences if hierarchy/legibility demands it; preserve adequate contrast.
 - **Close Button** is a distinct component: `40 × 40px` operable area, `Radius/Medium = 6px`, visible cross approximately 13px, all required hover/focus states, accessible name **«بستن»**. In RTL it is absolutely positioned **12px from the physical top and left**, outside the Header Auto Layout. Mirror placement when a genuine LTR layout is supported.
 - Body and Footer are Figma native Slots: product content and canonical Button instances, never fixed "type" variants. Keep Heading/Description out of scrollable Body.
 - The visual Footer uses canonical Buttons. Regular example actions use **Button/Small (32px)**; Narrow authoring examples use **Button/Medium (40px)**. The runtime must not infer touch/pointer capabilities from viewport width: minimum target size and capability-specific accessibility remain separate rules.
 - In RTL, action order keeps the Primary/Danger action on the physical **left** of the adjacent Secondary/Cancel action (reading end). Do not flip labels or action semantics without a reason.
+
+### Section-owned spacing (Figma final design rule)
+
+**All three shells have `padding: 0` and `itemSpacing: 0`.** They own only surface, radius, width, and responsive/scroll boundaries; Header, Body and Footer own their padding. Figma components remain independent—**no shared Base Component**—and use existing Spacing variables. A row below describes `top / inline (left-right) / bottom` padding.
+
+| Component and viewport | Header | Body (optional) | Footer | Gap from last content to actions |
+|---|---|---|---|---|
+| General Dialog / Regular | `24 / 24* / 0` | `16 / 24 / 0` | `24 / 24 / 24` | 24px via Footer top |
+| General Dialog / Narrow | `16 / 16* / 0` | `16 / 16 / 0` | `24 / 16 / 16` | 24px via Footer top |
+| Confirmation & Alert / Regular | `32 / 32 / 0` | `16 / 32 / 0` | `32 / 32 / 32` | 32px via Footer top |
+| Confirmation & Alert / Narrow | `24 / 24 / 0` | `16 / 24 / 0` | `24 / 24 / 24` | 24px via Footer top |
+
+`*` In the **general Dialog with a visible Close Button**, Header uses a **64px physical-left inset** in RTL to clear its `40×40px` hit target at `left:12px; top:12px`; the physical right inset is 24px Regular / 16px Narrow. This is a Header-only override, not shell padding. Follow the direction contract if implementing a genuine LTR layout.
+
+- The 8px **Title → Description** gap is internal to the Heading group for all variants. Content in short Confirmation/Alert dialogs goes in Description by default; Body remains hidden unless extra structured content is present.
+- The Footer owns the separation from whichever content section precedes it. Do **not** add a second 24px/32px gap on the parent or on the Body's bottom: this would double the spacing. If there is **no Footer**, add bottom space to the final visible content section (e.g. Body bottom 24px Regular / 16px Narrow in general Dialog).
+- Alert Dialog: **Icon is an actual child of the Title Row**, not an absolute sibling of Header. The RTL row is `[Title (flex), Alert icon (24px)]` with an **8px gap**; Title is right-aligned and shares Heading/LG. Description is its own line underneath, aligned with the Header's right edge. Icons and their colors reuse canonical icon components and existing public `fg/warning` / `fg/danger` variables.
+- At viewport height limits, keep Header/Footer outside the scroll container and scroll only Body. When Body is hidden, the Footer's top padding still supplies exactly one content-to-actions gap. This is intended runtime behavior; visual Figma checks do not constitute executed scroll/a11y tests.
 
 ### Size and responsive choices
 
@@ -50,7 +68,7 @@ The modal overlay consists of an inert underlying page, a semantic **backdrop** 
 
 These are **content capacity choices**, not breakpoint names or unconditional fixed widths. Display width must remain fluid, bounded by the selected maximum and **at least 16px** viewport gutters on both sides. Never overflow to preserve a requested Size; if XL still requires a large complex workflow, reconsider Dialog.
 
-Use `narrow` below the shared **768px** viewport boundary; regular at/above 768px. The **generic content/form Dialog** uses token-bound **24px Regular / 16px Narrow padding**. The **dedicated Confirmation and Alert Dialog** components use **32px Regular / 24px Narrow padding**. This difference is assigned by component responsibility and available viewport, **not** a freely selectable density/spacing property. There is **no** `Layout=Narrow` or `Mobile` Variant axis. A single **Dialog / Narrow preset** exists in Figma as a *linked composition/authoring aid*, not a freely selectable desktop density or runtime API. The actual component should adapt to available viewport/host width at runtime rather than exposing a user-selectable Narrow switch. Current supported Figma previews: widths 320/360/390px; also validate boundary 767/768px.
+Use `narrow` below the shared **768px** viewport boundary; regular at/above 768px. The **generic content/form Dialog** uses **24px Regular / 16px Narrow section inline padding**. The **dedicated Confirmation and Alert Dialog** components use **32px Regular / 24px Narrow section inline padding**. This difference is assigned by component responsibility and available viewport, **not** a freely selectable density/spacing property. There is **no** `Layout=Narrow` or `Mobile` Variant axis. A single **Dialog / Narrow preset** exists in Figma as a *linked composition/authoring aid*, not a freely selectable desktop density or runtime API. The actual component should adapt to available viewport/host width at runtime rather than exposing a user-selectable Narrow switch. Current supported Figma previews: widths 320/360/390px; also validate boundary 767/768px.
 
 **Foundation discrepancy note (non-blocking for Dialog):** Current Figma `Responsive Layout Foundation / Tailwind v3` uses sm=640, lg=1024, 2xl=1536, while current GitHub Responsive Layout specification still lists legacy ruler sm=544, lg=1012, xxlarge=1400. Both agree on `medium/md=768`, the only global threshold Dialog consumes. Do **not** silently rewrite the foundation or invent a second breakpoint scale in code. Resolve the larger foundation migration separately with its owner.
 
@@ -79,7 +97,7 @@ Dialog uses **content-height (Hug)** until constrained by available visual viewp
 ## Implementation acceptance checklist
 
 - [ ] Four widths 400/560/800/960 with fluid shrinking and 16px minimum gutters; check 320, 390, 767, 768, 1024, 1280 and 1920; long Persian strings / RTL.
-- [ ] Generic Dialog: Narrow 16px / Regular 24px padding. Specialized Confirmation and Alert Dialog: Narrow 24px / Regular 32px padding. All retain accessible action targets. No public arbitrary `Narrow` density prop inferred from Figma.
+- [ ] Shell padding=0 for all three families; verify section-level spacings in the matrix below (and special no-Footer Body bottom space). No public arbitrary `Narrow` density prop. All retain accessible action targets.
 - [ ] Short information with X and no Footer; confirmation with no X and explicit safe Cancel; destructive confirmation with correct Danger emphasis; focused form with validation and loading/error.
 - [ ] Escape routes to safe exit; Backdrop click does nothing; changes remain intact unless explicitly discarded; Cancel/Close/Escape share the same guard.
 - [ ] Initial focus by scenario, Tab/Shift+Tab cycle, visible focus ring, background inertness, focus restoration after cancel/submit/delete.
@@ -96,7 +114,7 @@ Dialog uses **content-height (Hug)** until constrained by available visual viewp
 - [Close Button source](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24046-476), key `c19c7786bdbb03e1ad13695db575d5d7478e0d34`.
 - [Narrow preset source](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24087-129096); generic Dialog Figma authoring only.
 - [Confirmation Dialog](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24147-56): independent component, Default/Danger, Title/Description, optional Body Slot, Footer actions; Figma draft awaiting separate handoff QA.
-- [Alert Dialog](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24147-203): independent component, Warning/Error, inline semantic icon, short message in Description and optional Body Slot; Figma draft awaiting separate handoff QA.
+- [Alert Dialog](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24147-203): independent component, Warning/Error, **24px icon inline in the RTL Title Row** with an 8px gap (not absolute), short message in Description and optional Body Slot; Figma draft awaiting separate handoff QA.
 - Legacy [Modal](modal.md) retained as a redirect; original Figma master is preserved for migration.
 - WAI-ARIA APG: [modal dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) and [alert dialog](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/).
 - Runtime repository/package, code API, Storybook mapping and executed tests: **unregistered/unverified**. They require a distinct implementation/QA owner; design is ready for handoff, not declared shipped.
