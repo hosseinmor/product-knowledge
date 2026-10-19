@@ -10,14 +10,10 @@ products:
     access: internal_vpn_browser
     repository_fallback: forbidden
   cando:
-    authority: unavailable
-    url: null
+    authority: canonical_external
+    url: https://docs-cd.jvoffice.ir/
+    access: internal_browser
     repository_fallback: forbidden
-    allowed_inputs:
-      - explicit_product_owner_input
-      - reviewed_walkthrough_evidence
-      - approved_product_decision
-    rule: preserve_as_unknown_until_a_canonical_source_is_approved
 
 forbidden_active_roots:
   - products
@@ -34,7 +30,7 @@ source_precedence:
 
 rules:
   - JobVision product claims must be verified in the internal documentation site.
-  - Cando has no canonical Product Knowledge source yet.
+  - Cando product claims must be verified in the internal Cando documentation site.
   - Repository content and Design System guidance cannot establish product behavior.
   - Figma, screenshots, runtime UI, and walkthroughs are evidence, not canonical Product Knowledge.
   - Missing or inaccessible Product Knowledge must remain unknown; no repository fallback is allowed.
