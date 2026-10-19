@@ -49,7 +49,9 @@ Use this section only when the product depends on a cross-product service such a
 
 ## Related Product Knowledge
 
-List the canonical source URLs and any explicit approved decisions used. For
-Cando, state that no canonical source exists and label each authorised input.
+List the canonical source URLs and any explicit approved decisions used. Use
+<https://docs-jv.jvoffice.ir/> for JobVision and
+<https://docs-cd.jvoffice.ir/> for Cando; label non-canonical evidence with its
+actual authority.
 
 ## Design references
