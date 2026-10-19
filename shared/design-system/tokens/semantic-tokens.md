@@ -214,12 +214,12 @@ line/error
 ```
 
 - `line/muted`: subtle structural separation.
-- `line/default`: normal control/container boundary.
+- `line/default`: normal control/container boundary; also the neutral unfilled path of operation-progress indicators.
 - `line/emphasis`: stronger neutral interactive boundary.
 - `line/disabled`: disabled control boundary.
 - `line/inverse`: neutral boundary on an inverse surface.
 
-Use `line/accent` for chromatic indicators such as a selected line Tab when appropriate. `line/brand` and `line/selected` are not part of v4.
+Use `line/accent` for chromatic indicators such as a selected line Tab and the active arc/segment of Progress Circle and Progress Bar, including measured 100%. Use `line/success` / `line/error` for their complete static terminal outcome rings/segments. These are graphic line roles, independent of whether Figma/runtime renders them using Stroke or Fill. `line/brand` and `line/selected` are not part of v4.
 
 Keep `line` rather than `border` as the source-token family; implementation utilities may use different naming.
 

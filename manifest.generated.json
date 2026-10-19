@@ -1459,7 +1459,7 @@
       "summary": "Continuous operation-progress component with measured determinate values, public Figma Indeterminate variants, and explicit success/error feedback.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-10-17",
+      "last_reviewed": "2026-10-19",
       "related": [
         "design-system.component.progress-indicator",
         "design-system.pattern.loading-and-progress",
@@ -1485,7 +1485,7 @@
       "kind": "design-system-component",
       "title": "Progress Circle",
       "summary": "Shared circular progress component for measured work and unknown activity; Button and loading patterns consume its indeterminate mode directly.",
-      "status": "draft",
+      "status": "reviewed",
       "owner": "Design System team",
       "last_reviewed": "2026-10-19",
       "related": [
@@ -2544,7 +2544,7 @@
       "kind": "design-system-pattern",
       "title": "Loading and Progress",
       "summary": "Loading usage pattern using Progress Circle Indeterminate directly, with measured progress, Skeleton boundaries, stable Button composition and announcement ownership.",
-      "status": "draft",
+      "status": "reviewed",
       "owner": "Design System team",
       "last_reviewed": "2026-10-19",
       "related": [

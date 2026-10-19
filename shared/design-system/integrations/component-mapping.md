@@ -43,7 +43,7 @@ Known mismatch/gap
 
 ## Current mapping registry
 
-### Progress Circle and Loading pattern — HOS-46 migration (design-review draft)
+### Progress Circle and Loading pattern — HOS-46 final design contract
 
 | Field | Verified design source / boundary |
 |---|---|
@@ -52,15 +52,15 @@ Known mismatch/gap
 | Loading ownership | Usage pattern; **no separate public Loading component or wrapper**. Compose Progress Circle / Indeterminate directly; context owns busy state and announcements |
 | Removed sources (historical only) | Old Loading set `3238:28455` and its 9 masters removed after all consumers migrated and instance count reached zero. Old key `14302ada5f73ab107d80509082cb3cb79ec4ca0f` is not a live source |
 | Progress Circle presentation | [Progress Circle / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24203-116) · page `24201:379` |
-| Progress Circle public set | `24200:460` · key `fa4ad066cca165f8869d86b8d8133b41d89a4bd3` · 18 variants: Mode Indeterminate / Determinate × 3 sizes × 3 colors |
-| Determinate authoring | Nested exposed `Progress value`: 0 / 25 / 50 / 75 / 100% snapshots. No arbitrary numeric Figma property; runtime must render actual validated intermediate values |
+| Progress Circle public set | `24200:460` · key `fa4ad066cca165f8869d86b8d8133b41d89a4bd3` · 12 valid variants: 3 sizes × (Indeterminate Active + Determinate Active / Success / Error); no Color axis |
+| Determinate authoring | Only Active Determinate exposes nested `Progress value`: 0 / 25 / 50 / 75 / 100%. Success/Error use complete static geometry, with no editable percentage or rotation. Runtime renders actual validated values |
 | Private geometry sources | `_Progress Circle / Track / Small` `3172:28703` (original base set/key `b7204e59832cad521eb94064e060623fb2fb189e` retained); Medium `24200:311`; Large `24200:336`; 5 snapshots each |
 | Preserved geometry masters | Original Small `3172:28675`, Medium `24149:1205`, Large `3165:28654` remain the 25% sources; existing rotation links retained |
 | Private rotation | `_Progress Circle / Rotation` `3165:28659` · original key `6155930ad6dade6abebb70ad047b1fa9078e9c31` · 12 variants, Size × Phase; four-phase prototype reference |
-| Button dependency | All 160 Loading=True masters directly use `Progress Circle / Indeterminate / Small / Neutral` source `24200:361`, 16px; `Button → Progress Circle` |
+| Button dependency | All 160 Loading=True masters directly use `Progress Circle / Indeterminate / Small / Active` source `24200:361`, 16px; `Button → Progress Circle` |
 | Other migrated consumers | Three File Uploader spinner sources, current Loading/Circle examples and slot content directly use Progress Circle; inherited Button/File Uploader instances follow their original parent sources |
-| Button colors | Arc matches label foreground; Track uses `line/inverse` on filled styles, `line/default` on other enabled styles, `line/disabled` on all disabled styles. 48 / 80 / 32 masters respectively; dimensions unchanged by migration |
-| Visual contract | Existing semantic tokens, neutral unfilled Accent track, flat arc endpoints, full layer/paint opacity; no new component color tokens |
+| Button colors | All 160 Loading=True masters use `surface/disabled` neutral background, no Style border, `line/default` track and `line/accent` arc; original dimensions and focus treatment retained. Busy styling takes visual precedence; Disabled and busy semantics remain distinct |
+| Visual contract | Editable Stroke; line/default track; line/accent Active (including 100%), line/success and line/error terminal rings; flat endpoints and full opacity. No new tokens or scope changes |
 | Legacy Inline outcomes | Unused legacy set `24149:1204` removed after verifying zero consumers; no outcome family remains under Loading |
 | Contracts | [Loading pattern](../patterns/loading-and-progress.md) · [Progress Circle](../components/progress-circle.md) |
 | Runtime / Storybook / Code Connect | Unregistered / unverified; no production animation, reduced-motion or assistive-technology test claim |
@@ -176,7 +176,7 @@ Figma component keys and names above are verified on the live source. This is **
 | Figma styles | `Brand / Primary / Secondary / Tertiary / Ghost / Danger Primary / Danger Tertiary / Danger Ghost` |
 | Figma sizes | `Extra Small 28 / Small 32 / Medium 40 / Large 48` |
 | Figma states | `Enabled / Hover / Active / Focus / Disabled` |
-| Loading representation | `False / True`, separate from interaction State; directly uses Progress Circle / Indeterminate / Small, 16px, with contextual semantic colors (HOS-46); no Loading wrapper |
+| Loading representation | `False / True`, separate from interaction State; directly uses Progress Circle / Indeterminate / Small, 16px, State=Active, line/default track + line/accent arc on surface/disabled (HOS-46); no Loading wrapper |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified** |
 | Property mapping | **Unverified** — do not infer code prop names from Figma property names |
@@ -746,13 +746,13 @@ The Chip design identity is verified as four capability-specific public componen
 | Figma page | `Progress bar`, node `8930:400384` |
 | Parent component set | `Progress bar` |
 | Parent key / node ID | `1d9983588bb228a44ca2b3af89195bd1e2b51c9d` / `12603:272925` |
-| Parent variants | **25** (20 preserved + 5 Indeterminate); `Size=Small/Big`, `Alignment=Default/Inline/Indent`, `State=Active/Success/Error`, `Progress=0%/25%/50%/75%/Indeterminate/Success/Error`; **not all permutations are authored** |
-| Parent Text properties | `Label text / Helper text / Success text / Error text`; no public numeric Value property. Figma 0/25/50/75 are illustrative presets; runtime must use measured values |
+| Parent variants | **30** (25 preserved + 5 Active 100%); `Size=Small/Big`, `Alignment=Default/Inline/Indent`, `State=Active/Success/Error`, `Progress=0%/25%/50%/75%/100%/Indeterminate/Success/Error`; **not all permutations are authored** |
+| Parent Text properties | `Label text / Helper text / Success text / Error text`; no public numeric Value property. Figma 0/25/50/75/100 are illustrative presets; runtime must use measured values |
 | Nested source | `_Progress bar track item` |
 | Track key / node ID | `b765a10f45d8d3ad69489a266bc6e623ba94d5b1` / `12603:273022` |
-| Nested Track variants | 14 = `Small/Big` × `Progress=0%/25%/50%/75%/Success/Error/Indeterminate` |
+| Nested Track variants | 16 = `Small/Big` × `Progress=0%/25%/50%/75%/100%/Success/Error/Indeterminate` |
 | Geometry | Small 4px, Big 8px; every public variant uses its matching nested Track Size (including original Inline Big 0/25/50 fixed on 2026-10-17). Neutral Track uses `line/default` as **inside bottom Stroke**, not Fill |
-| Foreground tokens | Active: `surface/accent-emphasis`; Success: `fg/success`; Error: `fg/error` |
+| Foreground tokens | Active segment: `line/accent`; Success segment: `line/success`; Error segment: `line/error`; icons/text retain their existing `fg/*` roles |
 | Indeterminate in public parent | **Verified in Figma** — 5 variants: Default Small/Big, Inline Small/Big, Indent Big. Source-linked nested Track (static visual; do not show numeric percentage). Motion remains runtime-owned |
 | Runtime value treatment | True numeric progress is **required in development**, unrestricted by fixed Figma illustrative percentages. No numeric Figma property exists in current component architecture |
 | Documentation frame | [Progress bar / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23867-126381), node `23867:126381` |
@@ -764,7 +764,7 @@ The Chip design identity is verified as four capability-specific public componen
 | Storybook | **Bypassed for current design handoff** |
 | Code Connect | **No registered mapping** |
 | Long-text Figma QA | Default/Indent auto-grow vertically for Persian long copy; Inline label is one line with ending ellipsis. Playground contains linked mixed-script and long-text examples |
-| Last live Figma verification | **2026-10-17** |
+| Last live Figma verification | **2026-10-19** |
 
 The **original master identities, physical Section 01/03 placement, and authored visual contract** above were verified against the live Figma file. Playground examples remain connected to these sources. The public-parent Indeterminate variants are implemented in Figma as **static design states**; the original Inline/Big track-height mismatch and long-copy overflow are corrected. Numeric Figma percentages intentionally remain illustration presets; actual numeric value, Indeterminate animation, reduced motion, and browser/assistive-technology testing remain runtime development responsibilities. See `../components/progress-bar.md`.
 

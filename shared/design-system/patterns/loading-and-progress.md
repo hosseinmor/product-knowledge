@@ -5,9 +5,9 @@ type: pattern
 title: Loading and Progress
 summary: Loading usage pattern using Progress Circle Indeterminate directly, with measured progress, Skeleton boundaries, stable Button composition and announcement ownership.
 knowledge_state: verified
-document_maturity: draft
-design_status: in-review
-status: draft
+document_maturity: final
+design_status: ready-for-dev
+status: reviewed
 owner: Design System team
 last_reviewed: '2026-10-19'
 related:
@@ -22,7 +22,7 @@ topics: [loading, progress, busy, spinner, skeleton, feedback]
 
 # Loading and Progress
 
-**Loading is a usage pattern, not a separate component.** Compose [Progress Circle](../components/progress-circle.md) in **Indeterminate** mode directly with the action or region's task context. Button consumes the same component directly; no Loading wrapper is required.
+**Loading is a usage pattern, not a separate component.** Compose [Progress Circle](../components/progress-circle.md) in **Indeterminate / Active** mode directly with the action or region's task context. Button consumes the same component directly; no Loading wrapper is required.
 
 ## Problem
 
@@ -47,22 +47,22 @@ The pattern consists of an indicator, understandable task context and a clear bu
 ## Behavior
 
 - Use Indeterminate for unknown or unreliable progress; expose no guessed percentage or ETA. Switch to Determinate when a trustworthy value and total become available.
-- Keep known zero distinct from unknown work. Fill and visible percentage must share the same real source. Reaching 100% does not establish success; show the operation's actual result separately.
+- Keep known zero distinct from unknown work. Fill and visible percentage must share the same real source. Measured completion stays blue at 100%. Only after the real result is known may the consuming flow optionally show a complete, static Determinate Success/Error ring. A complete Error ring describes an outcome, not 100% successful transfer; never fabricate progress to enter it.
 - Block only dependent interactions and prevent duplicate activation. The flow owns whether other actions are blocked; the indicator does not define that policy.
 - Preserve keyboard focus and the operation's accessible name. Loading must not itself move focus.
 - Rotation remains clockwise in RTL and LTR. Respect reduced-motion preferences while keeping readable busy context. Figma's four-phase reference does not establish validated production animation or final shared motion timing.
 
 ## Component Composition
 
-- **Button:** directly nest Progress Circle / Indeterminate / Small, 16px at every Button size. Preserve width, height and label/icon layout space while visually hiding the replaced content. Keep the ring centered when labels and optional icons change.
+- **Button:** directly nest Progress Circle / Indeterminate / Active / Small, 16px at every Button size. Preserve width, height and label/icon layout space while visually hiding the replaced content. Keep the ring centered when labels and optional icons change.
 - **Inline status:** Small ring at logical start, with an 8px gap to text. In RTL it appears to the right. Let long text wrap without shrinking the ring or changing its position.
 - **Local content region:** Medium is the normal choice; Large fits an appropriately large area. Center feedback within the affected region and identify the pending operation.
-- Use existing semantic colors and full opacity. Accent keeps a neutral unfilled track; arc endpoints are flat. No Loading-specific color tokens, LoopState property, Inline size or outcome variant family is introduced.
-- In Button, match the arc to the label foreground. Track uses `line/inverse` for filled Brand/Primary/Danger Primary styles, `line/default` for other enabled styles and `line/disabled` for every disabled style. Preserve the busy style's identity rather than automatically restyling it as Disabled.
+- Use `line/default` for the track and `line/accent` for the arc, at full opacity with flat endpoints. There is one activity treatment. No Loading-specific color tokens, Color axis, LoopState property, Inline size or outcome family is introduced.
+- Every Loading Button uses the neutral `surface/disabled` background with no style border, keeping the canonical blue activity arc and neutral track. This replaces Brand/Primary/Danger backgrounds while busy. Preserve dimensions and keyboard focus treatment. Loading takes visual precedence over interaction tone, including authored Loading + Disabled combinations; it does not change the operation into an unavailable/Disabled semantic state.
 
 ## Variations
 
-Neutral is the default; Accent emphasizes an active operation, and On color is for a contrasting emphasis surface. Size and color are choices of Progress Circle itself. Loading does not add another public component API.
+Choose the Circle size for the local scope. Loading uses **Indeterminate / Active only**. Success/Error are complete static Determinate outcomes after the operation ends; they are not Loading variations. Loading adds no public component API or wrapper.
 
 ## Accessibility
 
@@ -70,7 +70,7 @@ The consuming action or region owns its accessible name, busy state and announce
 
 ## Product Examples
 
-The [Figma Loading · Pattern page](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24144-128998) demonstrates RTL inline status, local regions, larger areas, real Button styles, Light/Dark and long mixed-script text. These are design compositions, not evidence of product-specific behavior.
+The [Figma Loading · Pattern page](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24144-128998) demonstrates RTL inline status, local regions, larger areas, neutral busy Button compositions and long mixed-script text on ordinary light surfaces. These are design compositions, not evidence of product-specific behavior.
 
 ## Anti-Patterns
 
@@ -82,7 +82,7 @@ The [Figma Loading · Pattern page](https://www.figma.com/design/rROD8ctH9UfPGAM
 
 ## Verification and Live Sources
 
-HOS-46: all 160 loading Button masters and three File Uploader spinner sources directly use Progress Circle; current examples were migrated. Old Loading masters were removed after their instance count reached zero. The unused legacy Inline status family was also removed. Figma geometry and contextual semantic bindings are verified; runtime/Storybook identities, production motion, reduced motion and executed assistive-technology behavior remain unregistered or untested.
+HOS-46: all 160 loading Button masters and three File Uploader spinner sources directly use Progress Circle; current examples were migrated. Old Loading masters were removed after their instance count reached zero. The unused legacy Inline status family was also removed. All Loading Button masters now have neutral busy backgrounds and the shared line-token activity treatment; Circle has 12 valid variants with complete static Determinate outcomes. Figma geometry and semantic bindings are verified; runtime/Storybook identities, production motion, reduced motion and executed assistive-technology behavior remain unregistered or untested.
 
 - [Progress Circle / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24203-116)
 - [Loading · Pattern](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24144-128998)
