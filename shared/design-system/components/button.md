@@ -125,15 +125,16 @@ Loading is independent from interaction `State` in the Figma API and should map 
 
 When `Loading=True`:
 
-- Directly use `Progress Circle / Mode=Indeterminate / Size=Small / Color=Neutral` (`16×16`), with contextual semantic overrides. The arc takes the Button label foreground and the neutral track suits the surface/disabled state; see the [Loading pattern](../patterns/loading-and-progress.md). No separate Loading component is required.
+- Directly use `Progress Circle / Mode=Indeterminate / Size=Small / State=Active` (`16×16`). Track uses `line/default`, arc uses `line/accent`; see the [Loading pattern](../patterns/loading-and-progress.md). No separate Loading component is required.
 - Preserve the Button's exact width and height.
 - Preserve the label and icon layout space while visually hiding their content, so entering Loading never causes layout shift.
 - Center Progress Circle relative to the current Button width. It must remain centered when the label changes or Start/End icons are toggled.
 - Prevent repeated activation/submission while the operation is in progress.
 - Preserve focus when possible; Loading must not unexpectedly move keyboard focus.
 - Expose the busy state to assistive technology, e.g. `aria-busy="true"` where appropriate.
-- Do not visually convert Loading into Disabled. Style identity remains Brand/Primary/etc. while the action is busy.
+- Use the shared neutral `surface/disabled` background and suppress the original Style border/tone while busy. The blue active ring distinguishes ongoing work from an unavailable Disabled action. Keep focus treatment and busy semantics; Loading does not mean the operation was never available. The busy visual takes precedence in authored Loading + Disabled combinations.
 - Do not animate Button width or layout when entering or leaving Loading.
+- In Focus + Loading variants, hide the redundant internal Background rectangle: the Button root already owns the neutral busy surface. Preserve existing focus-ring effects; the internal backdrop must not cover the spinner.
 
 Framework-specific implementation may use `disabled`, `aria-disabled`, event suppression, or a combination, but must satisfy the behavior above. Prefer an approach that does not unexpectedly remove keyboard focus from the triggering Button.
 
@@ -221,7 +222,7 @@ Everyday Cando operational actions remain Neutral even when Brand usage is rare.
 - Preserve native keyboard activation: `Enter` and `Space` must activate a focused Button according to platform semantics.
 - Every Button requires an accessible name; for standard Button this is normally the visible label.
 - Visible focus must follow the shared Focus contract.
-- Disabled and Loading are different concepts and must not be collapsed into one visual/semantic state.
+- Disabled and Loading have distinct meanings. Loading can share the neutral Disabled background, but keeps the visible blue activity ring, operation name and busy semantics.
 - Prevent duplicate activation while Loading.
 - Loading should preserve focus when possible and expose busy state semantically.
 - Start/End icons are decorative when the visible label already communicates the action; avoid duplicate accessible names from decorative icons.
@@ -303,7 +304,7 @@ These are implementation-system decisions; the Button visual and behavioral cont
 
 - Figma component set: `Button / Default` in `[DS] Job Vision NEXT`.
 - Figma properties: `Style`, `Size`, `State`, `Loading`, `Button text`, Start/End Icon, Start/End Icon swap.
-- Loading dependency: direct `Progress Circle / Mode=Indeterminate / Size=Small / Color=Neutral`, with contextual semantic color overrides; see the [Loading pattern](../patterns/loading-and-progress.md) and [Progress Circle](progress-circle.md).
+- Loading dependency: direct `Progress Circle / Mode=Indeterminate / Size=Small / State=Active`, with `line/default` track and `line/accent` arc on a neutral `surface/disabled` busy background; see the [Loading pattern](../patterns/loading-and-progress.md) and [Progress Circle](progress-circle.md).
 - Storybook / Code: not yet connected as a canonical live reference.
 
 ## Related

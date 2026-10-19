@@ -10,7 +10,7 @@ design_status: ready-for-dev
 design_maturity: handoff-ready
 status: reviewed
 owner: Design System team
-last_reviewed: '2026-10-17'
+last_reviewed: '2026-10-19'
 related:
   - design-system.component.progress-indicator
   - design-system.pattern.loading-and-progress
@@ -64,7 +64,7 @@ Mode describes **knowledge of progression**. Outcome describes **what happened t
 - Visible numeric progress text is **optional** and must be based on the same true source as the fill. Do not show a visual percentage that disagrees with the fill.
 - A long-running action may remain determinate even when its measured progress is temporarily unchanged. Do not fake incremental advancement to reassure users.
 
-**Figma authoring decision (v1, verified 2026-10-17):** Retain the `0%`, `25%`, `50%`, and `75%` design-time `Progress` presets as **illustrative snapshots**; do not create a variant for every possible percentage. Figma's component property model in this file exposes no numeric Value property. Testing direct nested Fill geometry overrides did **not** provide a reliable editable numeric percentage in a component instance. Consequently, the current public component does **not** support exact arbitrary-percentage authoring in Figma. Do not label a 50% visual as “37%” or treat these presets as measured data. A precise one-off illustration needs separate, explicitly non-canonical visual composition and review, not a claimed Progress Bar instance API. **Runtime must accept and render actual validated numeric values, including 1%, 37%, 99% and 100%.** The lack of a numeric Figma property is intentionally **not** a development blocker.
+**Figma authoring decision (v1, verified 2026-10-19):** Retain the `0%`, `25%`, `50%`, `75%`, and `100%` design-time `Progress` presets as **illustrative snapshots**; do not create a variant for every possible percentage. Figma's component property model in this file exposes no numeric Value property. Testing direct nested Fill geometry overrides did **not** provide a reliable editable numeric percentage in a component instance. Consequently, the current public component does **not** support exact arbitrary-percentage authoring in Figma. Do not label a 50% visual as “37%” or treat these presets as measured data. A precise one-off illustration needs separate, explicitly non-canonical visual composition and review, not a claimed Progress Bar instance API. **Runtime must accept and render actual validated numeric values, including 1%, 37%, 99% and 100%.** The lack of a numeric Figma property is intentionally **not** a development blocker.
 
 ### Indeterminate — implemented as static public Figma variants
 
@@ -87,6 +87,14 @@ Use Indeterminate when an operation is active but its completed proportion, rema
 - **Verified in Figma:** component links, both sizes, available alignment treatments, RTL/Persian Playground, neutral Track stroke, accent **static segment**, and absence of numeric progress copy. The segment must move appropriately at runtime, not act as a static 25% claim.
 - **Runtime QA needed:** actual animation, reduced-motion handling, accessible progress naming/value/announcements, and long/mixed-script responsive behavior.
 
+### Completion and settled outcomes — aligned with Progress Circle
+
+Measured advancement stays **Active / line/accent through 100%**. The normal measured sequence is Active partial → Active 100% → optional stable Success or Error once the actual result is known. There is no mandatory completion delay or automatic green state at 100%.
+
+Success/Error are complete, static result treatments; they are not indeterminate or partially filled running states. A complete Error track does not assert successful transfer of all data: if work fails early, stop activity and report the actual failure without animating a fabricated numeric value to 100%. Keep truthful values distinct from terminal outcome presentation and announcements.
+
+Figma now includes five Active 100% parents matching the five supported size/alignment combinations, plus a private 100% track for each size. Success/Error retain the Bar's existing supporting text/icons; the compact Circle intentionally has no message slot or built-in icon.
+
 ## Current Figma implementation — verified source
 
 Figma: [Progress bar / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23867-126381)
@@ -99,7 +107,7 @@ Figma: [Progress bar / Documentation](https://www.figma.com/design/rROD8ctH9UfPG
 | **Nested track set** | `_Progress bar track item` — node `12603:273022`; component key `b765a10f45d8d3ad69489a266bc6e623ba94d5b1` |
 | Presentation | `Progress bar / Documentation` — node `23867:126381`, 1600px shared presentation system |
 
-The Figma source has **25 public variants** (20 preserved, 5 Indeterminate additions) and **14 nested Track variants**. Under the [Figma Component Presentation Guideline](../integrations/figma-component-presentation.md), the **original public Component Set** (unchanged node ID/key) is physically placed in the presentation's **01 · Component set** section and the **original internal Track Component Set** in **03 · Anatomy & composition**. Both canonical sources retain all their variants, token bindings, and connected instances. Their variants have a more compact two-column *canvas arrangement*, not new APIs or duplicate sources. **02 · Playground** uses actual source-linked instances. Superseded IBM/Carbon documentation artboards and the redundant instance-only visual matrix/anatomy copies were removed. Source keys establish design identity; they do not prove library publication, Code Connect, or implementation.
+The Figma source has **30 public variants** (25 preserved and 5 Active 100% additions) and **16 nested Track variants**. Under the [Figma Component Presentation Guideline](../integrations/figma-component-presentation.md), the **original public Component Set** (unchanged node ID/key) is physically placed in the presentation's **01 · Component set** section and the **original internal Track Component Set** in **03 · Anatomy & composition**. Both canonical sources retain all their variants, token bindings, and connected instances. Their variants have a more compact two-column *canvas arrangement*, not new APIs or duplicate sources. **02 · Playground** uses actual source-linked instances. Superseded IBM/Carbon documentation artboards and the redundant instance-only visual matrix/anatomy copies were removed. Source keys establish design identity; they do not prove library publication, Code Connect, or implementation.
 
 ### Actual authoring properties
 
@@ -108,12 +116,12 @@ The Figma source has **25 public variants** (20 preserved, 5 Indeterminate addit
 | Parent | `Size` | `Small` (4px), `Big` (8px) |
 | Parent | `Alignment` | `Default`, `Inline`, `Indent` |
 | Parent | `State` | `Active`, `Success`, `Error` |
-| Parent | `Progress` | `0%`, `25%`, `50%`, `75%`, `Indeterminate`, `Success`, `Error` |
+| Parent | `Progress` | `0%`, `25%`, `50%`, `75%`, `100%`, `Indeterminate`, `Success`, `Error` |
 | Parent | Text | `Label text`, `Helper text`, `Success text`, `Error text` |
 | Nested Track | `Size` | `Small` (4px), `Big` (8px) |
-| Nested Track | `Progress` | `0%`, `25%`, `50%`, `75%`, `Success`, `Error`, `Indeterminate` |
+| Nested Track | `Progress` | `0%`, `25%`, `50%`, `75%`, `100%`, `Success`, `Error`, `Indeterminate` |
 
-**Do not assume a full Cartesian variant matrix.** In particular, `State`, `Progress`, `Alignment`, and `Size` have only the 25 authored parent combinations. `Indeterminate` is an option of the existing `Progress` axis, not a separate Mode. There is no separate `Value`, `Show helper`, or `RTL` parent property. Hide any unneeded copy through supported instance authoring/layer visibility rather than assuming a Boolean property exists.
+**Do not assume a full Cartesian variant matrix.** In particular, `State`, `Progress`, `Alignment`, and `Size` have only the 30 authored parent combinations. `Indeterminate` is an option of the existing `Progress` axis, not a separate Mode. There is no separate `Value`, `Show helper`, or `RTL` parent property. Hide any unneeded copy through supported instance authoring/layer visibility rather than assuming a Boolean property exists.
 
 ### Anatomy
 
@@ -136,9 +144,11 @@ Progress bar (public)
 | --- | --- |
 | Track background | `line/default` bound to **Stroke**, `STROKE_COLOR` scope |
 | Track construction | **Inside bottom Stroke** with weight **4px Small / 8px Big**; no Track background Fill |
-| Active Fill | `surface/accent-emphasis` |
-| Success Fill/icon | `fg/success` |
-| Error Fill/icon/text | `fg/error` |
+| Active segment, including 100% | `line/accent` |
+| Complete Success segment | `line/success` |
+| Complete Error segment | `line/error` |
+| Success icon / message | `fg/success` |
+| Error icon / message | `fg/error` |
 | Label | `fg/primary` |
 | Ordinary helper | `fg/secondary` |
 
@@ -205,8 +215,8 @@ Follow the canonical [Dynamic Content and Feedback](../accessibility/dynamic-con
 
 | Test | Acceptance condition | Verification status |
 | --- | --- | --- |
-| Public Figma variants | 25 parent variants (20 preserved, 5 new Indeterminate), same component-set ID/key | **Verified in Figma** |
-| Nested Figma variants | 14 original Track variants, including Indeterminate Small/Big | **Verified in Figma** |
+| Public Figma variants | 30 parent variants (including 5 Active 100% and 5 Indeterminate), same component-set ID/key | **Verified in Figma** |
+| Nested Figma variants | 16 Track variants, including 100% and Indeterminate Small/Big | **Verified in Figma** |
 | Track semantic token / Scope | `line/default` on inside Stroke; 4/8px; no Track background Fill | **Verified in Figma** |
 | Visual presentation | One 1600px documentation frame with **original** public Master in 01, original Track Master in 03, and five real RTL Playground instances in 02; no stray legacy artboards | **Verified in Figma** |
 | Status appearance | Active, Success and Error render with semantic color and supporting text | **Verified in Figma** |
@@ -225,10 +235,10 @@ Storybook is **not a prerequisite for the current design handoff**. Product runt
 
 ## Verified design work and implementation boundary
 
-1. **Done — public Figma:** 25 original/new public variants and 14 nested Track variants; Indeterminate is connected and static in Figma.
+1. **Done — public Figma:** 30 public variants and 16 nested Track variants; Indeterminate is connected and static in Figma.
 2. **Done — size consistency:** Existing `Inline/Big` 0/25/50 variants were fixed to use the correct **8px Big Track**, preserving all original IDs and keys. Every public parent now embeds a nested Track matching its `Size`.
 3. **Done — robust text authoring:** Default/Indent instances grow vertically for long Persian text; Inline is fixed 20px height with a one-line ending ellipsis. The Figma presentation has overflow regression cases.
-4. **Decision — exact numeric values in Figma:** v1 intentionally uses illustrative 0/25/50/75 snapshots instead of a misleading or combinatorially large numeric variant family. No existing public numeric Figma control is claimed. **Runtime supports arbitrary valid values**, not these presets.
+4. **Decision — exact numeric values in Figma:** v1 intentionally uses illustrative 0/25/50/75/100 snapshots instead of a misleading or combinatorially large numeric variant family. No existing public numeric Figma control is claimed. **Runtime supports arbitrary valid values**, not these presets.
 5. **Pending development/runtime verification — [HOS-40](https://linear.app/hossein-mor/issue/HOS-40):** Indeterminate animation and reduced-motion fallback, runtime numeric geometry, Angular component/API registration, accessible name/value/status announcements, responsive content and browser/assistive-technology tests. These are not design-source defects and must be completed in the owning runtime code.
 
 
