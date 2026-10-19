@@ -1584,6 +1584,34 @@
       "path": "shared/design-system/components/select.md"
     },
     {
+      "id": "design-system.component.skeleton",
+      "kind": "design-system-component",
+      "title": "Skeleton",
+      "summary": "Composable content placeholders with Text, Block and Circle primitives, one shared Shimmer motion utility, and region-owned loading feedback.",
+      "status": "reviewed",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-19",
+      "related": [
+        "design-system.component.progress-bar",
+        "design-system.pattern.loading-and-progress",
+        "design-system.foundation.motion",
+        "design-system.accessibility.motion",
+        "design-system.accessibility.dynamic-content-and-feedback",
+        "design-system.reference.component-mapping"
+      ],
+      "topics": [
+        "accessibility",
+        "components",
+        "composition",
+        "design-system-component",
+        "loading",
+        "reduced-motion",
+        "shimmer",
+        "skeleton"
+      ],
+      "path": "shared/design-system/components/skeleton.md"
+    },
+    {
       "id": "design-system.component.switch",
       "kind": "design-system-component",
       "title": "Toggle",
@@ -2685,7 +2713,7 @@
       "summary": "Registry contract for mapping stable Figma component identities to runtime components and Storybook; records current verified mappings and gaps.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-10-17",
+      "last_reviewed": "2026-10-19",
       "related": [
         "design-system.reference.figma",
         "design-system.reference.code",
@@ -3105,12 +3133,12 @@
     }
   ],
   "summary": {
-    "documents": 154,
+    "documents": 155,
     "by_kind": {
       "content-guideline": 17,
       "design-system-accessibility": 18,
       "design-system-audit": 3,
-      "design-system-component": 42,
+      "design-system-component": 43,
       "design-system-design-language": 1,
       "design-system-development-handoff": 1,
       "design-system-experience-rule": 11,

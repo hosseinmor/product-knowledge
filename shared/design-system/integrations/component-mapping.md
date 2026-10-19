@@ -7,7 +7,7 @@ summary: Registry contract for mapping stable Figma component identities to runt
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-10-17
+last_reviewed: 2026-10-19
 related:
   - design-system.reference.figma
   - design-system.reference.code
@@ -42,6 +42,27 @@ Known mismatch/gap
 `Mapping mechanism` may be Figma Code Connect or another explicit registry. The mechanism is less important than having a stable, reviewable mapping.
 
 ## Current mapping registry
+
+### Skeleton — HOS-47 design handoff (Figma verified; runtime unregistered)
+
+| Field | Verified design source / boundary |
+|---|---|
+| DS component | **Skeleton**, contract: [`../components/skeleton.md`](../components/skeleton.md) |
+| Figma file / page | `rROD8ctH9UfPGAMrRrOzHe` / `Skeleton` page `24146:46` |
+| Presentation | [Skeleton / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24146-47) · node `24146:47` |
+| Public component set | `Skeleton` · node `24146:62` · key `d38438dc508671b18e814db895f0cab0cc13b95e` |
+| Text primitive | `Shape=Text` · node `24146:56` · key `b04c95bd011ad7a840ba9c83a16a6d6ba4cf8a3f` |
+| Block primitive | `Shape=Block` · node `24146:58` · key `9ebaeb10b3d3b5dd8a5b046d35ba3f7378591e75` |
+| Circle primitive | `Shape=Circle` · node `24146:60` · key `5d32bf679bc931e3a2bc253a5175a88df5c8d95e` |
+| Authoring contract | One `Shape` axis, three primitives. Width/height are geometry. Text reference is Body/SM 24px line box / 12px bar; Circle remains square. No public animation-phase or interaction-state axis |
+| Color / radius | Existing Semantic `utility/skeleton-base` and `utility/skeleton-shimmer`; Text Small, Block Medium by default, Circle Full |
+| Motion design | One intended `animate-skeleton` utility; left-to-right 1800ms linear Shimmer, 60% feathered band, 50% center intensity; immediate 150ms ease-out content reveal; static/direct reduced-motion treatment |
+| Visual / motion reference | [Playground sequence](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24212-63) · `24212:63`; [native Motion preview](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24212-110) · `24212:110` |
+| Motion TBD | Revisit duration, easing, reveal and related parameters after shared DS Motion foundations are completed; current values remain the v1 handoff target |
+| Runtime repository/package/API | **Unregistered / unverified for Skeleton**. The class name is an intended contract, not an observed exported API; no Angular selector/props are inferred |
+| Storybook / executed tests | **Unregistered / unverified**. Native Figma authoring is design evidence, not production execution or accessibility conformance |
+| Mapping mechanism / verified | Explicit design-source registry, **2026-10-19**; exact Figma-to-code property mapping awaits an owning runtime source |
+| Known gap | Comprehensive existing-product consumer migration audit remains separate; preview gradients are derived Semantic snapshots, not proof of live runtime theming |
 
 ### Dialog — HOS-42 design handoff (Figma verified; runtime unregistered)
 
