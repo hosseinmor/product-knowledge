@@ -56,7 +56,7 @@ Known mismatch/gap
 | Anatomy | Title and supporting description; native Body/Footer Slots; canonical shared Buttons; independent Close Button |
 | Close Button set | `Close Button / Default` · node `24046:476` · key `c19c7786bdbb03e1ad13695db575d5d7478e0d34`; 40px hit area, 5 visual states, Radius Medium 6, top/left 12px in RTL |
 | Narrow Figma preset | `Dialog / Narrow preset` · node `24087:129096` · key `70787797b38b3976da888be932b8cfdee90e897b` · linked to canonical Small source, **not** a Size or Layout variant |
-| Responsive | Generic Dialog: Narrow <768 uses 16px padding and Medium 40px buttons; Regular uses 24px padding and Small 32px buttons. Specialist Confirmation/Alert: Narrow 24px / Regular 32px padding. Fluid shell, min viewport gutters 16px |
+| Responsive | **Shell padding 0.** Generic section inline: Regular 24px, Narrow <768 16px (Header left 64px in RTL for Close); General Footer top 24px. Confirmation/Alert section inline: Regular 32px, Narrow 24px; Footer top 32px / 24px respectively. Medium 40px Narrow actions, Small 32px Regular actions. Fluid shell with min 16px viewport gutters |
 | Design behavior | Backdrop uses `semantic/utility/overlay` and never dismisses by default; Escape uses safe cancel, including destructive confirmation; unsaved edits guarded; focus trapped and restored; Body-only scrolling |
 | Alert vs confirmation | Independent Figma Confirmation Dialog and Alert Dialog components share behavior rules, **not a nested Dialog or Figma Base**. `alertdialog` semantic role only when urgency warrants it; confirmation and destructive remain intent patterns |
 | Legacy | `Modal` set node `4080:55366`, key `dbb168637e13405605604dd1ca479f298735c348`, retained for migration; not the new canonical source |
@@ -76,7 +76,7 @@ Figma component keys and names above are verified on the live source. This is **
 | Presentation | [Confirmation Dialog](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24147-56) |
 | Variants | `Intent=Default/Danger`; canonical Primary/Secondary (Danger Primary for destructive) |
 | Content | Title/Description (short consequence belongs in Description), `Show body` false by default, optional native Body Slot and Footer Slot |
-| Visual rules | Independent Shell in Figma, shared semantic tokens and behavioral rules with Dialog, **no nested Dialog/Base**. Regular padding 32px; Narrow padding 24px |
+| Visual rules | Independent Shell in Figma, zero shell padding and no nested Dialog/Base. Existing semantic tokens. Header top/inline Regular 32px, Narrow 24px; optional Body top 16px; Footer top/inline/bottom Regular 32px, Narrow 24px (explicit content-to-actions gap). Title/Description gap 8px |
 | Semantics | Ordinary confirmation uses `dialog`, explicit safe Cancel and Escape path; avoid blanket `alertdialog` |
 | Status | Figma design review draft, **not** registered runtime/Storybook or production-ready |
 
@@ -86,9 +86,9 @@ Figma component keys and names above are verified on the live source. This is **
 |---|---|
 | Main component set | `Alert Dialog / Default` · node `24144:128997` · key `19c4b10ed481dfda38bec782e2e5fa762294db25` |
 | Presentation | [Alert Dialog](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24147-203) |
-| Variants | `Severity=Warning/Error`; inline canonical warning/error icon bound to existing public `fg/warning` / `fg/danger` tokens |
+| Variants | `Severity=Warning/Error`; canonical **24px icon is an in-flow child of the RTL Title Row** (physical right of title), gap 8px, bound to existing public `fg/warning` / `fg/danger` tokens; no absolute icon |
 | Content | Title, required short message in Description, optional hidden native Body Slot, native Footer Slot (acknowledge or retry/cancel examples) |
-| Visual rules | Independent Shell in Figma, shared semantic tokens and behavioral rules with Dialog, **no nested Dialog/Base**. Regular padding 32px; Narrow padding 24px |
+| Visual rules | Independent Shell in Figma, zero shell padding and no nested Dialog/Base. Existing semantic tokens. Header top/inline Regular 32px, Narrow 24px; optional Body top 16px; Footer top/inline/bottom Regular 32px, Narrow 24px (explicit content-to-actions gap). Title/Description gap 8px |
 | Semantics | `alertdialog` only when an urgent modal interruption is warranted; ordinary notifications remain inline or Toast |
 | Status | Figma design review draft, **not** registered runtime/Storybook or production-ready |
 
