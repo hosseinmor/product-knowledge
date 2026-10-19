@@ -95,13 +95,13 @@ Known mismatch/gap
 | Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
 | Figma presentation | [Dialog / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24058-9) · node `24058:9` |
 | Figma component set | `Dialog / Default` · node `24036:267` · key `b8bd11b06f27bac00225857315e0cb4f4c0887f7` |
-| Size axis | 4 variants: Small 400, Medium 560 (default), Large 800, XL 960; **max-width choices**, not screen-breakpoint names |
+| Size / Viewport axes | 5 supported combinations: 4 Regular Sizes (Small 400, Medium 560 default, Large 800, XL 960) plus `Size=Small, Viewport=Mobile` at 328px. Mobile is a Figma authoring label for the <768px layout, not device detection |
 | Shared authoring properties | `Title`, `Description`, `Description visible`, `Dismissible` (visible Close), `Body / Slot` and `Footer / Slot` |
 | Anatomy | Title and supporting description; native Body/Footer Slots; canonical shared Buttons; independent Close Button |
 | Close Button set | `Close Button / Default` · node `24046:476` · key `c19c7786bdbb03e1ad13695db575d5d7478e0d34`; 40px hit area, 5 visual states, Radius Medium 6, top/left 12px in RTL |
-| Narrow Figma preset | `Dialog / Narrow preset` · node `24087:129096` · key `70787797b38b3976da888be932b8cfdee90e897b` · linked to canonical Small source, **not** a Size or Layout variant |
+| Former Narrow Figma preset | `Dialog / Narrow preset` · node `24087:129096` · legacy authoring composition pending migration; use the main `Viewport=Mobile` source variant instead |
 | Responsive | **Shell padding 0.** Generic section inline: Regular 24px, Narrow <768 16px (Header left 64px in RTL for Close); General Footer top 24px. Confirmation/Alert section inline: Regular 32px, Narrow 24px; Footer top 32px / 24px respectively. Medium 40px Narrow actions, Small 32px Regular actions. Fluid shell with min 16px viewport gutters |
-| Design behavior | Backdrop uses `semantic/utility/overlay` and never dismisses by default; Escape uses safe cancel, including destructive confirmation; unsaved edits guarded; focus trapped and restored; Body-only scrolling |
+| Design behavior | Backdrop uses `semantic/utility/overlay` and never dismisses by default; Escape safe-cancels; unsaved edits guarded; focus trapped and restored; Body-only scrolling. `Overflow fade` Boolean, default false in Figma only: 48px transparent-to-default-surface Body-bottom fade. Runtime conditionally shows it when more content remains below; no pointer capture |
 | Alert vs confirmation | Independent Figma Confirmation Dialog and Alert Dialog components share behavior rules, **not a nested Dialog or Figma Base**. `alertdialog` semantic role only when urgency warrants it; confirmation and destructive remain intent patterns |
 | Legacy | `Modal` set node `4080:55366`, key `dbb168637e13405605604dd1ca479f298735c348`, retained for migration; not the new canonical source |
 | Design status | **Handoff-ready Figma and intended design/accessibility contract**; no proof of coded behavior/shipping |
