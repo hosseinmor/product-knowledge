@@ -14,9 +14,9 @@ When indexed knowledge changes in an internal pull request, the workflow:
 Pull requests from forks remain read-only and are validated without an automated push.
 
 `scripts/check_product_knowledge_sources.py` enforces the source-authority
-contract in `product-knowledge-sources.yml`: JobVision points only to the
-internal documentation site, Cando remains explicitly unavailable, repository
-fallback is forbidden, and active Product Knowledge roots cannot be restored.
+contract in `product-knowledge-sources.yml`: JobVision and Cando point only to
+their approved internal documentation sites, repository fallback is forbidden,
+and active Product Knowledge roots cannot be restored.
 
 The same workflow validates `shared/content/terminology/terms.yml` with
 `scripts/check_content_terminology.py`. This check covers YAML structure, unique
