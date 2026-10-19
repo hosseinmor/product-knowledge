@@ -734,6 +734,38 @@ The **original master identities, physical Section 01/03 placement, and authored
 
 Progress Indicator and Item design identities, final Carbon-derived visual contract, state model, RTL authoring behavior, connector termination, helper placement, and text constraints are verified in Figma. Runtime sequence rendering, exact DOM/API, responsive product composition, and accessibility implementation remain development responsibilities. See `../components/progress-indicator.md`.
 
+
+### Choice Group
+
+| Field | Current value |
+|---|---|
+| DS component | Choice Group |
+| Knowledge document | `../components/choice-group.md` |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma page / docs | `Choice Group` node `23226:9` / `Choice Group / Documentation` node `23226:10` |
+| Component set | `Choice Group` |
+| Component key / node | `a96c066c443021689ce6add1a47be745c8aa160b` / `23229:133` |
+| Variants | `12 = 2 Selection × 2 Layout × 3 State` |
+| Variant properties | `Selection = Single / Multiple`; `Layout = Horizontal / Horizontal wrap`; `State = Default / Error / Warning` |
+| Content properties | `Group label`; `Show group label`; `Required`; `Show info`; `Error message`; `Warning message`; exposed nested `Info / Tooltip`; native `Items` SLOT |
+| Items Slot | Minimum 2 children; preferred/allowed content is `Chip / Selectable`; variable count, reorderable/configurable |
+| Width | Resize the instance; no Width variant |
+| Group label | Select-like label row; `Label/SM`; optional Required marker + Info/Tooltip; logical Start / visual right in RTL |
+| Spacing | Shared `8px` token for group→items gap and item gap; shared `4px` token from Items→validation message |
+| Runtime-only policy | Required enforcement / allow-empty; validation timing; tooltip open behavior |
+| Ownership | Choice Group owns shared label affordances, group validation State/supporting copy, layout, item relationship, and selection mode; each Chip owns Label, Size, Selected, and interaction State |
+| Single semantics | At most one selected; optional group may have no selection; Required is enforced/validated at runtime |
+| Multiple semantics | Zero, one, or many selected; changing one item does not auto-clear another |
+| State visuals | Label remains neutral `fg/secondary`; Choice Group `Error` / `Warning` adds a 16px semantic status icon (`Icon/error_outline` / `Icon/warning_amber`) + `Body/Compact/XS` supporting message with a 4px icon/text gap and `fg/error` / `fg/warning`; nested Chip Hover/Active/Focus/Selected/Disabled visuals remain entirely item-owned |
+| RTL | RTL-first. Horizontal uses normal logical-Start/right alignment. Horizontal wrap uses a Figma-only mirrored `Items` slot + counter-mirrored default Chip children while preserving logical source order; no RTL variant. Runtime must not reproduce the transforms and instead uses true RTL flow with logical DOM/reading order |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — do not infer runtime prop names or exact DOM/ARIA implementation from Figma |
+| Storybook | **Unregistered** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-10-18 |
+
+The Choice Group design identity, Single/Multiple selection contract, two layout modes (Horizontal / Horizontal wrap), Default/Error/Warning validation states, Select-like Required + Info/Tooltip label anatomy, neutral label + semantic group-level supporting validation copy, native Selectable-Chip Slot composition, resize-owned width, runtime-owned Required enforcement/allow-empty and tooltip-open behavior, RTL-first alignment plus the documented Figma-only wrap-mirror workaround, tokenized 8px/4px spacing, and boundaries with Radio/Checkbox/Select are verified in `../components/choice-group.md`. Exact runtime API, DOM/ARIA structure, keyboard implementation details, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime source is registered.
+
 ### Timeline
 
 | Field | Current value |
