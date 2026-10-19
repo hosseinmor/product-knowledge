@@ -976,6 +976,22 @@
       "path": "shared/design-system/audits/chip-open-simplification-2026-10-17.md"
     },
     {
+      "id": "design-system.audit.component-token-compliance-2026-10-19",
+      "kind": "design-system-audit",
+      "title": "Figma Component Token Compliance Audit — 2026-10-19",
+      "summary": "Baseline of cross-component token bindings and first in-place remediations; remaining migration and runtime QA.",
+      "status": "draft",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-19",
+      "related": [],
+      "topics": [
+        "audits",
+        "component-token-compliance-2026-10-19",
+        "design-system-audit"
+      ],
+      "path": "shared/design-system/audits/component-token-compliance-2026-10-19.md"
+    },
+    {
       "id": "design-system.audit.field-family-2026-10-17",
       "kind": "design-system-audit",
       "title": "Field Family Consistency Audit — HOS-41",
@@ -2151,7 +2167,7 @@
       "summary": "Defines the canonical Small/Medium/Large radius scale shared by controls, surfaces, and fully rounded shapes.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-21",
+      "last_reviewed": "2026-10-19",
       "related": [
         "design-system.reference.tailwind"
       ],
@@ -2246,7 +2262,7 @@
       "summary": "Defines the shared Label, Body, and Heading recipes, Product-aware font identity, compact and fluid variants, and the boundary with local Tailwind typography.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-19",
+      "last_reviewed": "2026-10-19",
       "related": [
         "design-system.reference.tailwind"
       ],
@@ -2774,7 +2790,7 @@
       "summary": "Operational reference for the current JV Design System Figma file, its variable architecture, stable component identities, and live-source boundaries.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-19",
+      "last_reviewed": "2026-10-19",
       "related": [
         "design-system.reference.source-of-truth",
         "design-system.reference.component-mapping"
@@ -2785,6 +2801,22 @@
         "integrations"
       ],
       "path": "shared/design-system/integrations/figma.md"
+    },
+    {
+      "id": "design-system.reference.figma-token-compliance",
+      "kind": "design-system-reference",
+      "title": "Figma Component Token Compliance",
+      "summary": "Required binding and semantic QA gate for canonical Figma design system components.",
+      "status": "draft",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-19",
+      "related": [],
+      "topics": [
+        "design-system-reference",
+        "figma-token-compliance",
+        "integrations"
+      ],
+      "path": "shared/design-system/integrations/figma-token-compliance.md"
     },
     {
       "id": "design-system.reference.source-of-truth",
@@ -3174,11 +3206,11 @@
     }
   ],
   "summary": {
-    "documents": 156,
+    "documents": 158,
     "by_kind": {
       "content-guideline": 17,
       "design-system-accessibility": 18,
-      "design-system-audit": 3,
+      "design-system-audit": 4,
       "design-system-component": 44,
       "design-system-design-language": 1,
       "design-system-development-handoff": 1,
@@ -3189,7 +3221,7 @@
       "design-system-overview": 2,
       "design-system-pattern": 14,
       "design-system-product-variation": 3,
-      "design-system-reference": 7,
+      "design-system-reference": 8,
       "design-system-token": 10,
       "design-system-ui-template": 4,
       "product-standard": 3
