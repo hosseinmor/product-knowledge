@@ -13,6 +13,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_PATH = ROOT / "product-knowledge-sources.yml"
 JOBVISION_URL = "https://docs-jv.jvoffice.ir/"
+CANDO_URL = "https://docs-cd.jvoffice.ir/"
 FORBIDDEN_ROOTS = (
     "products",
     "shared/product-concepts",
@@ -80,14 +81,12 @@ def main() -> int:
         errors.append("JobVision repository fallback must be forbidden")
 
     cando = products.get("cando", {})
-    if cando.get("authority") != "unavailable":
-        errors.append("Cando authority must remain unavailable until approved")
-    if cando.get("url") is not None:
-        errors.append("Cando URL must be null while no canonical source exists")
+    if cando.get("authority") != "canonical_external":
+        errors.append("Cando authority must be canonical_external")
+    if cando.get("url") != CANDO_URL:
+        errors.append(f"Cando URL must be {CANDO_URL}")
     if cando.get("repository_fallback") != "forbidden":
         errors.append("Cando repository fallback must be forbidden")
-    if not isinstance(cando.get("allowed_inputs"), list) or not cando["allowed_inputs"]:
-        errors.append("Cando allowed_inputs must be a non-empty list")
 
     declared_roots = data.get("forbidden_active_roots")
     if declared_roots != list(FORBIDDEN_ROOTS):
@@ -99,15 +98,17 @@ def main() -> int:
             errors.append(f"active Product Knowledge files are forbidden under {relative}/")
 
     required_references = {
-        "AGENTS.md": JOBVISION_URL,
-        "README.md": JOBVISION_URL,
-        "ai/router.md": JOBVISION_URL,
-        "docs/ai-tool-setup.md": JOBVISION_URL,
+        "AGENTS.md": [JOBVISION_URL, CANDO_URL],
+        "README.md": [JOBVISION_URL, CANDO_URL],
+        "ai/router.md": [JOBVISION_URL, CANDO_URL],
+        "docs/ai-tool-setup.md": [JOBVISION_URL, CANDO_URL],
     }
-    for relative, required in required_references.items():
+    for relative, required_urls in required_references.items():
         path = ROOT / relative
-        if not path.exists() or required not in path.read_text(encoding="utf-8"):
-            errors.append(f"{relative} must reference {required}")
+        content = path.read_text(encoding="utf-8") if path.exists() else ""
+        for required in required_urls:
+            if required not in content:
+                errors.append(f"{relative} must reference {required}")
 
     if errors:
         for error in errors:
@@ -116,7 +117,7 @@ def main() -> int:
 
     print(
         "Product Knowledge source authority is valid: "
-        "JobVision=canonical_external, Cando=unavailable, repository fallback=forbidden"
+        "JobVision=canonical_external, Cando=canonical_external, repository fallback=forbidden"
     )
     return 0
 

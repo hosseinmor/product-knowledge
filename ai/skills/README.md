@@ -15,5 +15,5 @@ The Skill must read `product-knowledge-sources.yml` before product work.
 System, and standards; it is not a Product Knowledge source.
 
 Do not add a Product Knowledge authoring Skill here. JobVision authoring belongs
-with the source behind <https://docs-jv.jvoffice.ir/>; Cando first needs an
-approved canonical source.
+with the source behind <https://docs-jv.jvoffice.ir/>; Cando authoring belongs
+with the source behind <https://docs-cd.jvoffice.ir/>.

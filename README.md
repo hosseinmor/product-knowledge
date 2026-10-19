@@ -12,14 +12,14 @@ product work.
 
 | Product | Canonical Product Knowledge | Repository fallback |
 |---|---|---|
-| JobVision | <https://docs-jv.jvoffice.ir/> — internal VPN and browser required | Forbidden |
-| Cando | No canonical source yet | Forbidden |
+| JobVision | <https://docs-jv.jvoffice.ir/> — internal source | Forbidden |
+| Cando | <https://docs-cd.jvoffice.ir/> — internal source | Forbidden |
 
-When JobVision documentation is inaccessible, stop product-claim work or ask
-for the relevant source. For Cando, preserve behavior as unknown unless the
-user supplies explicit owner input, reviewed evidence, or an approved decision.
-Those inputs do not silently become canonical Product Knowledge in this
-repository.
+When the owning product's canonical documentation is inaccessible, preserve the
+access limitation and ask for relevant source material when needed. Explicit
+owner input, reviewed evidence, approved decisions, observations, and
+implementation evidence may support bounded investigation, but they do not
+silently replace the owning product's canonical Product Knowledge.
 
 The previous repository Product Knowledge was removed from `main`. It remains
 recoverable through Git history and archive refs; do not restore it as a
@@ -104,16 +104,16 @@ shared/product-services/
 
 ### Cando
 
-Cando has no canonical Product Knowledge source. Until one is approved:
-
-- label owner input, approved decisions, and reviewed evidence explicitly;
-- preserve unresolved product behavior as unknown;
-- do not use Content Contexts, Figma, screenshots, observed UI, or deleted files
-  as product truth;
-- do not write canonical Cando Product Knowledge into this repository.
-
-The recommended long-term solution is a dedicated internal Cando knowledge
-repository and site with independent ownership and a clear Cando URL.
+1. Open <https://docs-cd.jvoffice.ir/> through a verified internal-browser path.
+2. Load the smallest relevant domains.
+3. Record the source pages used.
+4. Load the relevant Content and Design System guidance from this repository.
+5. Keep Cando canonical truth separate from JobVision truth, reviewed evidence,
+   observations, hypotheses, and recommendations.
+6. If the canonical source is inaccessible or insufficient for a material claim,
+   preserve that limitation or uncertainty rather than using this repository,
+   JobVision Product Knowledge, Figma, screenshots, or observed UI as canonical
+   fallback.
 
 ## Validation
 
@@ -133,7 +133,7 @@ python scripts/check_accessibility_knowledge.py
 ```
 
 The source-authority validator rejects active files under the forbidden Product
-Knowledge roots and verifies the JobVision URL, Cando unavailable state, and
+Knowledge roots and verifies the JobVision and Cando canonical URLs plus the
 required entry-point references. The manifest indexes only repository-owned
 guidance; it is not a Product Knowledge index.
 

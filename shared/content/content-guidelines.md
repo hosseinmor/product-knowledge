@@ -59,9 +59,9 @@ Eval
 ```
 
 Do not copy Product Knowledge into this directory. JobVision concepts and
-behavior remain canonical at <https://docs-jv.jvoffice.ir/>; Cando currently
-has no canonical source. Content owns naming and communication rules, not
-product behavior.
+behavior remain canonical at <https://docs-jv.jvoffice.ir/>; Cando concepts and
+behavior remain canonical at <https://docs-cd.jvoffice.ir/>. Content owns
+naming and communication rules, not product behavior.
 
 ## Voice and Tone
 

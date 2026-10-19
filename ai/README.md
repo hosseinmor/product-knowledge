@@ -12,7 +12,7 @@ ai/router.md
 → Intent routing
 
 product-knowledge-sources.yml
-→ JobVision external authority and Cando missing-source state
+→ JobVision and Cando external Product Knowledge authority
 
 manifest.generated.json
 → Repository-owned Content, Design System, and standards only
@@ -28,8 +28,8 @@ The PRD execution Skill is in [`skills/prd-writing/SKILL.md`](skills/prd-writing
 
 Product Knowledge authoring and update workflows were removed because
 canonical Product Knowledge is no longer stored here. JobVision updates belong
-in the source behind <https://docs-jv.jvoffice.ir/>. Cando requires a separate
-approved repository and internal site before canonical authoring can resume.
+in the source behind <https://docs-jv.jvoffice.ir/>. Cando updates belong in the
+source behind <https://docs-cd.jvoffice.ir/>.
 
 Every workflow must separate canonical truth, approved decisions, evidence,
 observations, hypotheses, recommendations, and unknowns.

@@ -24,21 +24,21 @@ memory, Figma, screenshots, or observed UI.
 
 ## Cando
 
-Cando currently has no canonical Product Knowledge source.
+Canonical Product Knowledge lives at:
 
-Until one is approved:
+<https://docs-cd.jvoffice.ir/>
 
-- preserve product behavior as unknown;
-- use explicit product-owner input, reviewed walkthrough evidence, and approved
-  product decisions only as clearly labelled inputs;
-- do not convert those inputs into canonical Product Knowledge in this
-  repository;
-- do not treat Content Contexts, Figma, screenshots, or observed UI as product
-  truth.
+Use that site for established Cando product meaning and current behavior. Access
+to the internal source must be verified in the current execution environment
+before relying on it.
 
-The recommended long-term solution is a dedicated internal Cando knowledge
-repository and site, using the JobVision documentation model but with separate
-ownership and an unambiguous Cando URL.
+If the site is inaccessible or does not establish a material claim, preserve the
+limitation or uncertainty explicitly. Reviewed walkthrough evidence, direct
+observation, implementation evidence, approved decisions, and explicit owner
+input may still support bounded investigation, but they do not silently replace
+canonical Cando Product Knowledge. Do not use JobVision Product Knowledge,
+Content Contexts, Figma, screenshots, or observed UI as a canonical fallback
+for Cando.
 
 ## Repository boundary
 

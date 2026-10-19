@@ -7,15 +7,16 @@ This file defines the PRD process. The execution wrapper is
 ## Source gate
 
 1. Read `product-knowledge-sources.yml`.
-2. For JobVision, open <https://docs-jv.jvoffice.ir/> through the internal VPN
-   and load the smallest relevant domains.
-3. For Cando, disclose that canonical Product Knowledge is unavailable and use
-   only explicit owner input, reviewed evidence, or approved decisions.
+2. For JobVision, open <https://docs-jv.jvoffice.ir/> through a verified
+   internal-browser path and load the smallest relevant domains.
+3. For Cando, open <https://docs-cd.jvoffice.ir/> through a verified
+   internal-browser path and load the smallest relevant domains.
 4. Use `manifest.generated.json` only for relevant Content, Design System, and
    product-standard guidance.
 
-If the required JobVision source is inaccessible, stop product-claim work or
-ask for the relevant material. Do not substitute this repository.
+If the required canonical source is inaccessible, preserve the access limitation
+and ask for the relevant material when needed. Do not substitute this repository
+or the other product's canonical source.
 
 ## Minimum input
 

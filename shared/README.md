@@ -14,8 +14,9 @@ shared/product-standards/
 ```
 
 It does not contain canonical product behavior. JobVision Product Knowledge is
-available at <https://docs-jv.jvoffice.ir/> through the internal VPN and
-browser. Cando currently has no canonical Product Knowledge source.
+available at <https://docs-jv.jvoffice.ir/>. Cando Product Knowledge is
+available at <https://docs-cd.jvoffice.ir/>. Access to each internal source
+must be verified in the current execution environment before use.
 
 Do not recreate `shared/product-concepts/` or `shared/product-services/` in
 this repository. Shared terminology and interface guidance may reference
