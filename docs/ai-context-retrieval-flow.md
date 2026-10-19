@@ -21,10 +21,11 @@ Open https://docs-jv.jvoffice.ir/ through VPN and browser
 ### Cando
 
 ```text
-No canonical source
-→ label explicit owner input / reviewed evidence / approved decisions
-→ preserve missing behavior as unknown
-→ do not create repository Product Knowledge
+Open https://docs-cd.jvoffice.ir/ through a verified internal-browser path
+→ start from the relevant Cando knowledge domain
+→ load the smallest relevant pages
+→ record the source URLs
+→ load relevant repository-owned Content and Design System guidance
 ```
 
 ## Repository retrieval
