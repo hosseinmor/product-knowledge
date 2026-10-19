@@ -15,18 +15,19 @@ JobVision product claim
 → record the URLs used
 
 Cando product claim
-→ canonical source unavailable
-→ use only explicit owner input, reviewed evidence, or approved decisions
-→ preserve everything else as unknown
+→ open https://docs-cd.jvoffice.ir/ through a verified internal-browser path
+→ load the smallest relevant domain pages
+→ record the URLs used
 
 Content or Design System request
 → use this repository for language and interface guidance
 → never let repository guidance invent product behavior
 ```
 
-If the JobVision site cannot be accessed, stop product-claim work or ask for the
-relevant material. Never use Git history, deleted repository documents, Figma,
-screenshots, observed UI, or memory as a replacement.
+If the owning product's canonical site cannot be accessed, preserve the access
+limitation and ask for relevant source material when needed. Never use the other
+product's canonical source, Git history, deleted repository documents, Figma,
+screenshots, observed UI, or memory as a canonical replacement.
 
 ## Routing sequence
 
@@ -86,10 +87,11 @@ moderation, publication behavior, or Candidate-side effects.
 
 ### Cando
 
-There is no canonical Cando Product Knowledge source. Do not use the draft
-Cando documents from Git history or the unmerged ATS Context PR as truth.
-Content work may proceed only from explicit inputs whose authority is labelled;
-unknown product behavior must remain visible.
+Use <https://docs-cd.jvoffice.ir/> as canonical Product Knowledge for Cando
+current-product meaning and behavior. Do not use draft Cando documents from Git
+history, Content Contexts, or unmerged work as canonical truth. If the canonical
+site is inaccessible or insufficient for a material claim, keep the limitation
+visible and use any supporting evidence only with its actual authority.
 
 ## Content pattern routing
 
@@ -140,8 +142,9 @@ templates/jira-prd.md
 ```
 
 Product context comes from the mandatory source gate, not from the repository
-manifest. For Cando, a PRD may use explicit owner input and approved decisions,
-but it must not claim that unavailable current behavior was verified.
+manifest. For Cando, current behavior must be grounded in `docs-cd` when the
+canonical source establishes it; evidence or owner input may supplement gaps but
+must keep their actual authority.
 
 ## Research and benchmarking
 
@@ -162,9 +165,9 @@ This repository no longer authors or stores canonical Product Knowledge.
 
 - JobVision changes belong in the workflow and source repository behind
   <https://docs-jv.jvoffice.ir/>.
-- Cando needs a dedicated canonical knowledge repository and internal site.
-- Until that source exists, produce a clearly labelled owner-review draft or
-  evidence summary outside this repository; do not write it to `main` here.
+- Cando changes belong in the workflow and source repository behind
+  <https://docs-cd.jvoffice.ir/>.
+- Do not author canonical Product Knowledge in this Content/Design repository.
 
 ## Multiple intents
 
@@ -177,5 +180,5 @@ Design, PRD, or research request must not silently update Product Knowledge.
 - Do not run every workflow for every task.
 - Do not treat observed UI as current product policy.
 - Do not use archived or deleted Product Knowledge as active context.
-- Preserve Cando's missing-source state until a human approves a canonical
-  source.
+- Preserve product-scoped authority: `docs-jv` does not establish Cando
+  internals and `docs-cd` does not establish JobVision internals.
