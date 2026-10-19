@@ -7,7 +7,7 @@ Product Knowledge authority is defined in
 [`../product-knowledge-sources.yml`](../product-knowledge-sources.yml):
 
 - JobVision: <https://docs-jv.jvoffice.ir/>
-- Cando: no canonical source
+- Cando: <https://docs-cd.jvoffice.ir/>
 
 ## Indexed collections
 
