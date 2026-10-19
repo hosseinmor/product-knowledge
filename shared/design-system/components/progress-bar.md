@@ -61,10 +61,10 @@ Mode describes **knowledge of progression**. Outcome describes **what happened t
 - Conceptually, when `max > min`, normalized proportion is `(value - min) / (max - min)`. Render it within 0–100% of the visual track.
 - The default conceptual percentage domain may be 0–100. A product using other units (count or bytes) must provide a valid min/max/value relationship.
 - For missing, invalid, or unreliable values, do **not** display a fabricated percentage. Use an indeterminate/busy presentation when that is the true state; do not silently treat unknown as 0%.
-- Visible numeric progress text is **optional** and must be based on the same true source as the fill. Do not show a visual percentage that disagrees with the fill.
+- Visible numeric progress text is **optional** and must be based on the same true source as the measured segment. Do not show a visual percentage that disagrees with the rendered progress length.
 - A long-running action may remain determinate even when its measured progress is temporarily unchanged. Do not fake incremental advancement to reassure users.
 
-**Figma authoring decision (v1, verified 2026-10-19):** Retain the `0%`, `25%`, `50%`, `75%`, and `100%` design-time `Progress` presets as **illustrative snapshots**; do not create a variant for every possible percentage. Figma's component property model in this file exposes no numeric Value property. Testing direct nested Fill geometry overrides did **not** provide a reliable editable numeric percentage in a component instance. Consequently, the current public component does **not** support exact arbitrary-percentage authoring in Figma. Do not label a 50% visual as “37%” or treat these presets as measured data. A precise one-off illustration needs separate, explicitly non-canonical visual composition and review, not a claimed Progress Bar instance API. **Runtime must accept and render actual validated numeric values, including 1%, 37%, 99% and 100%.** The lack of a numeric Figma property is intentionally **not** a development blocker.
+**Figma authoring decision (v1, verified 2026-10-19):** Retain the `0%`, `25%`, `50%`, `75%`, and `100%` design-time `Progress` presets as **illustrative snapshots**; do not create a variant for every possible percentage. Figma's component property model in this file exposes no numeric Value property. Testing direct nested segment geometry overrides did **not** provide a reliable editable numeric percentage in a component instance. Consequently, the current public component does **not** support exact arbitrary-percentage authoring in Figma. Do not label a 50% visual as “37%” or treat these presets as measured data. A precise one-off illustration needs separate, explicitly non-canonical visual composition and review, not a claimed Progress Bar instance API. **Runtime must accept and render actual validated numeric values, including 1%, 37%, 99% and 100%.** The lack of a numeric Figma property is intentionally **not** a development blocker.
 
 ### Indeterminate — implemented as static public Figma variants
 
@@ -130,7 +130,7 @@ Progress bar (public)
 ├── Label (+ status icon on outcome variants)
 ├── _Progress bar track item (nested)
 │   ├── Neutral Track stroke
-│   └── Progress Fill segments (when applicable)
+│   └── Colored progress Stroke segments (when applicable)
 └── Helper / Success message / Error message
 ```
 
@@ -142,17 +142,17 @@ Progress bar (public)
 
 | Role | Token / approved treatment |
 | --- | --- |
-| Track background | `line/default` bound to **Stroke**, `STROKE_COLOR` scope |
-| Track construction | **Inside bottom Stroke** with weight **4px Small / 8px Big**; no Track background Fill |
-| Active segment, including 100% | `line/accent` |
-| Complete Success segment | `line/success` |
-| Complete Error segment | `line/error` |
+| Neutral/unfilled Track | `line/default` — **Stroke**, never Fill |
+| Active progress segment, including 100% and static Indeterminate | `line/accent` — **Stroke**, never Fill |
+| Complete Success segment | `line/success` — **Stroke**, never Fill |
+| Complete Error segment | `line/error` — **Stroke**, never Fill |
+| Construction | Both unfilled Track and colored segments use **inside bottom Stroke** with weight **4px Small / 8px Big**; colored segments have **no Fill** |
 | Success icon / message | `fg/success` |
 | Error icon / message | `fg/error` |
 | Label | `fg/primary` |
 | Ordinary helper | `fg/secondary` |
 
-The original track has **square ends** in the current master. Do not introduce Full/Pill radii as part of this documentation update; no independent component-specific color tokens are required.
+The Track and colored segments have **square ends**. The entire progress path uses Strokes bound to existing `line/*` semantic tokens, consistent with [Progress Circle](progress-circle.md). The neutral Track is drawn by the nested Track component's bottom Stroke; each occupied segment uses a full-height **inside bottom Stroke**, no Fill, and unchanged 0/25/50/75/100/Indeterminate geometry. Figma preserves the source rectangles/spacers, master keys and RTL arrangement. No component-specific color tokens or expanded scopes are required. Foreground `fg/*` tokens remain appropriate for status text/icons rather than the progress path. In Angular, implement these roles as the semantic stroke/border colors; a line-drawing technique may differ as long as the output matches the contract.
 
 ### Typography roles — verified in Figma (2026-10-17)
 
@@ -187,7 +187,7 @@ Content rules belong to [Loading and Progress Content](../../content/patterns/lo
 
 This component is **passive and not keyboard-interactive**. It has no Hover, Pressed, Focus or Disabled operation state.
 
-- Determinate fill transitions must reflect **real progress value changes**, not an independent timer.
+- Determinate progress-segment transitions must reflect **real progress value changes**, not an independent timer.
 - Indeterminate may use a visibly moving segment on a stationary track. The exact timing, curve, and mechanics are **runtime-owned and unverified**.
 - When `prefers-reduced-motion: reduce` is active, disable nonessential looping motion and convey the busy state via text/semantics.
 - Do not move keyboard focus merely because progress starts or stops.
@@ -217,11 +217,11 @@ Follow the canonical [Dynamic Content and Feedback](../accessibility/dynamic-con
 | --- | --- | --- |
 | Public Figma variants | 30 parent variants (including 5 Active 100% and 5 Indeterminate), same component-set ID/key | **Verified in Figma** |
 | Nested Figma variants | 16 Track variants, including 100% and Indeterminate Small/Big | **Verified in Figma** |
-| Track semantic token / Scope | `line/default` on inside Stroke; 4/8px; no Track background Fill | **Verified in Figma** |
+| Complete line-only Progress path | `line/default` on neutral Track and `line/accent`, `line/success`, `line/error` on colored segments, all inside Strokes at 4/8px thickness, **no segment Fill** | **Verified in Figma** |
 | Visual presentation | One 1600px documentation frame with **original** public Master in 01, original Track Master in 03, and five real RTL Playground instances in 02; no stray legacy artboards | **Verified in Figma** |
 | Status appearance | Active, Success and Error render with semantic color and supporting text | **Verified in Figma** |
 | RTL sample | Representative Persian content and orientation shown | **Verified in Figma** (design only) |
-| Numeric dynamic progress | Any validated numeric value maps to matching fill/value semantics; not limited to fixed Figma percentages | **Required in development** |
+| Numeric dynamic progress | Any validated numeric value maps to matching segment length/value semantics; not limited to fixed Figma percentages | **Required in development** |
 | Determinate edge cases | 0%, intermediate, 100%, missing total/invalid input handled truthfully | **Required in development** |
 | Indeterminate behavior | No numeric value, named busy state, sensible motion/reduced-motion fallback | **Specified; runtime verification required** |
 | Parent Figma Indeterminate | Public `Progress=Indeterminate` includes Default Small/Big, Inline Small/Big, Indent Big; nested Track connected | **Verified in Figma** |
@@ -235,7 +235,7 @@ Storybook is **not a prerequisite for the current design handoff**. Product runt
 
 ## Verified design work and implementation boundary
 
-1. **Done — public Figma:** 30 public variants and 16 nested Track variants; Indeterminate is connected and static in Figma.
+1. **Done — public Figma:** 30 public variants and 16 nested Track variants; Indeterminate is connected and static in Figma. All neutral and colored progress segments are bound to properly scoped `line/*` Strokes with no segment Fill; visual and structural QA passed across every nested and public variant.
 2. **Done — size consistency:** Existing `Inline/Big` 0/25/50 variants were fixed to use the correct **8px Big Track**, preserving all original IDs and keys. Every public parent now embeds a nested Track matching its `Size`.
 3. **Done — robust text authoring:** Default/Indent instances grow vertically for long Persian text; Inline is fixed 20px height with a one-line ending ellipsis. The Figma presentation has overflow regression cases.
 4. **Decision — exact numeric values in Figma:** v1 intentionally uses illustrative 0/25/50/75/100 snapshots instead of a misleading or combinatorially large numeric variant family. No existing public numeric Figma control is claimed. **Runtime supports arbitrary valid values**, not these presets.
