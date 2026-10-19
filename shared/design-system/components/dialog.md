@@ -7,7 +7,7 @@ summary: Canonical design contract for modal, blocking task dialogs, including d
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-10-17
+last_reviewed: 2026-10-19
 related:
   - design-system.reference.component-mapping
   - design-system.foundation.responsive-layout-spec
@@ -24,9 +24,9 @@ related:
 
 Dialog provides a **modal, blocking** interaction scope for a short, focused task that requires a decision or completion before returning to the page. In this Design System **Dialog** is the component name and the current v1 is **always modal**. Non-modal Dialog is not part of v1; `modal` is a semantic behavior, not a second component.
 
-Use for: concise information requiring acknowledgement, ordinary/destructive confirmation and short forms/edits. Prefer a dedicated page or flow for navigation-heavy, long, multi-step work. Use Notification for passive feedback, Popover for lightweight contextual content, and Drawer/Side Sheet for an anchored panel or preserving more underlying context.
+Use **Dialog** for focused informational content, short forms, edits and content review. Prefer the dedicated **Confirmation Dialog** for confirming consequential actions and **Alert Dialog** for urgent, blocking notification and recovery; ordinary low-priority feedback belongs in Notification/Toast. Prefer a dedicated page or flow for navigation-heavy, long, multi-step work. Use Notification for passive feedback, Popover for lightweight contextual content, and Drawer/Side Sheet for an anchored panel or preserving more underlying context.
 
-**Confirmation**, **destructive confirmation**, **unsaved changes** and **form in Dialog** are composition **patterns**, not visual Size/Type variants. An urgent, interruptive alert may use `role="alertdialog"` when its content genuinely warrants it; a routine confirmation remains `role="dialog"`. Bottom Sheet is a **presentation pattern**, not a Dialog Size or an automatic Drawer sub-type. Do not add `Type=Alert/Destructive/Confirmation` to the Figma Component Set.
+**Confirmation**, **destructive confirmation**, **unsaved changes** and **form in Dialog** remain usage **patterns**, not visual Size/Type variants of general Dialog. Figma has separate **Confirmation Dialog** (`Intent=Default/Danger`) and **Alert Dialog** (`Severity=Warning/Error`) component families. **These specialized families are standalone Figma components** that share this document's visual/behavioral rules; they do **not** embed the generic Dialog, and there is **no shared Base/Shell component in Figma**. No shared semantic or spacing token is duplicated or created for them. An urgent, interruptive alert may use `role="alertdialog"` when its content genuinely warrants it; a routine confirmation remains `role="dialog"`. Bottom Sheet is a **presentation pattern**, not a Dialog Size or an automatic Drawer sub-type. Do not add `Type=Alert/Destructive/Confirmation` to the Figma Component Set.
 
 ## Anatomy and visual contract
 
@@ -50,7 +50,7 @@ The modal overlay consists of an inert underlying page, a semantic **backdrop** 
 
 These are **content capacity choices**, not breakpoint names or unconditional fixed widths. Display width must remain fluid, bounded by the selected maximum and **at least 16px** viewport gutters on both sides. Never overflow to preserve a requested Size; if XL still requires a large complex workflow, reconsider Dialog.
 
-Use `narrow` below the shared **768px** viewport boundary; regular at/above 768px. Regular shell padding is **32px**; Narrow padding **24px**, using shared Spacing variables. There is **no** `Layout=Narrow` or `Mobile` Variant axis. A single **Dialog / Narrow preset** exists in Figma as a *linked composition/authoring aid*, not a freely selectable desktop density or runtime API. The actual component should adapt to available viewport/host width at runtime rather than exposing a user-selectable Narrow switch. Current supported Figma previews: widths 320/360/390px; also validate boundary 767/768px.
+Use `narrow` below the shared **768px** viewport boundary; regular at/above 768px. The **generic content/form Dialog** uses token-bound **24px Regular / 16px Narrow padding**. The **dedicated Confirmation and Alert Dialog** components use **32px Regular / 24px Narrow padding**. This difference is assigned by component responsibility and available viewport, **not** a freely selectable density/spacing property. There is **no** `Layout=Narrow` or `Mobile` Variant axis. A single **Dialog / Narrow preset** exists in Figma as a *linked composition/authoring aid*, not a freely selectable desktop density or runtime API. The actual component should adapt to available viewport/host width at runtime rather than exposing a user-selectable Narrow switch. Current supported Figma previews: widths 320/360/390px; also validate boundary 767/768px.
 
 **Foundation discrepancy note (non-blocking for Dialog):** Current Figma `Responsive Layout Foundation / Tailwind v3` uses sm=640, lg=1024, 2xl=1536, while current GitHub Responsive Layout specification still lists legacy ruler sm=544, lg=1012, xxlarge=1400. Both agree on `medium/md=768`, the only global threshold Dialog consumes. Do **not** silently rewrite the foundation or invent a second breakpoint scale in code. Resolve the larger foundation migration separately with its owner.
 
@@ -79,7 +79,7 @@ Dialog uses **content-height (Hug)** until constrained by available visual viewp
 ## Implementation acceptance checklist
 
 - [ ] Four widths 400/560/800/960 with fluid shrinking and 16px minimum gutters; check 320, 390, 767, 768, 1024, 1280 and 1920; long Persian strings / RTL.
-- [ ] At Narrow: 24px internal padding and accessible action targets; regular: 32px; no public `Narrow` density prop inferred from Figma.
+- [ ] Generic Dialog: Narrow 16px / Regular 24px padding. Specialized Confirmation and Alert Dialog: Narrow 24px / Regular 32px padding. All retain accessible action targets. No public arbitrary `Narrow` density prop inferred from Figma.
 - [ ] Short information with X and no Footer; confirmation with no X and explicit safe Cancel; destructive confirmation with correct Danger emphasis; focused form with validation and loading/error.
 - [ ] Escape routes to safe exit; Backdrop click does nothing; changes remain intact unless explicitly discarded; Cancel/Close/Escape share the same guard.
 - [ ] Initial focus by scenario, Tab/Shift+Tab cycle, visible focus ring, background inertness, focus restoration after cancel/submit/delete.
@@ -94,7 +94,9 @@ Dialog uses **content-height (Hug)** until constrained by available visual viewp
 - [Dialog page and presentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24058-9)
 - Main Figma Dialog Component Set: node `24036:267`, key `b8bd11b06f27bac00225857315e0cb4f4c0887f7`.
 - [Close Button source](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24046-476), key `c19c7786bdbb03e1ad13695db575d5d7478e0d34`.
-- [Narrow preset source](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24087-129096); Figma authoring only.
+- [Narrow preset source](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24087-129096); generic Dialog Figma authoring only.
+- [Confirmation Dialog](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24147-56): independent component, Default/Danger, Title/Description, optional Body Slot, Footer actions; Figma draft awaiting separate handoff QA.
+- [Alert Dialog](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24147-203): independent component, Warning/Error, inline semantic icon, short message in Description and optional Body Slot; Figma draft awaiting separate handoff QA.
 - Legacy [Modal](modal.md) retained as a redirect; original Figma master is preserved for migration.
 - WAI-ARIA APG: [modal dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) and [alert dialog](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/).
 - Runtime repository/package, code API, Storybook mapping and executed tests: **unregistered/unverified**. They require a distinct implementation/QA owner; design is ready for handoff, not declared shipped.
