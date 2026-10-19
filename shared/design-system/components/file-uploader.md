@@ -13,6 +13,8 @@ owner: Design System team
 last_reviewed: '2026-10-17'
 related:
   - design-system.component.progress-bar
+  - design-system.component.progress-circle
+  - design-system.pattern.loading-and-progress
   - design-system.reference.component-mapping
   - design-system.accessibility.forms
   - design-system.accessibility.dynamic-content-and-feedback
@@ -39,7 +41,8 @@ File Uploader lets a user choose one or more files, optionally drag them into a 
 - **File Uploader**: selection entry point, label/constraints, enabled/disabled treatment and nested list visibility.
 - **Dropzone**: optional alternative pointer drop target; **never the only input method** and not a second upload-state owner.
 - **File Item**: one file's name, visually identifiable loading/outcome/error and associated permitted action(s). A file-level failure must not mark other files failed.
-- **Progress Bar**: shared component for trustworthy determinate or indeterminate continuous progress, when needed. Original Carbon `Loading` is only a spinner treatment and is **not a real percentage**.
+- **Progress Circle / Indeterminate**: directly supplies the 16px spinner in all three File Item `State=Loading` sources. Loading remains a File Item state and a [usage pattern](../patterns/loading-and-progress.md), not a separate spinner component or a real percentage.
+- **Progress Bar**: shared component for trustworthy determinate or indeterminate continuous progress, when needed.
 - **Attachment / Image Uploader**: passive already-stored attachment or crop/preview-specific flow, respectively; not automatically a File Uploader state.
 - **Inline feedback**: field/batch-wide error that cannot be localized to one File Item; use the Content System error pattern instead of painting all files red.
 

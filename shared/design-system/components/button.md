@@ -125,10 +125,10 @@ Loading is independent from interaction `State` in the Figma API and should map 
 
 When `Loading=True`:
 
-- Use the existing `Loading / Size=Small / State=Active` component (`16×16`); do not create a Button-specific spinner.
+- Directly use `Progress Circle / Mode=Indeterminate / Size=Small / Color=Neutral` (`16×16`), with contextual semantic overrides. The arc takes the Button label foreground and the neutral track suits the surface/disabled state; see the [Loading pattern](../patterns/loading-and-progress.md). No separate Loading component is required.
 - Preserve the Button's exact width and height.
 - Preserve the label and icon layout space while visually hiding their content, so entering Loading never causes layout shift.
-- Center the Loading component relative to the current Button width. It must remain centered when the label changes or Start/End icons are toggled.
+- Center Progress Circle relative to the current Button width. It must remain centered when the label changes or Start/End icons are toggled.
 - Prevent repeated activation/submission while the operation is in progress.
 - Preserve focus when possible; Loading must not unexpectedly move keyboard focus.
 - Expose the busy state to assistive technology, e.g. `aria-busy="true"` where appropriate.
@@ -177,7 +177,7 @@ Use the shared motion/transition tokens when available. Button does not define a
 
 Allowed transition targets are visual state properties such as background, foreground, border, and focus treatment. Do not transition width, height, padding, gap, or other layout-affecting properties.
 
-Loading may animate internally through the shared Loading component, but the Button container must remain dimensionally stable.
+Loading activity may animate through Progress Circle / Indeterminate, while the Button container remains dimensionally stable.
 
 ## Composition and Content
 
@@ -257,7 +257,7 @@ Implementation requirements:
 - icon size: 18 px;
 - icon-label gap: 8 px;
 - no layout-changing transitions;
-- loading spinner: shared Loading Small / Active, 16 px;
+- loading spinner: direct Progress Circle / Indeterminate / Small, 16 px, with contextual foreground and neutral track;
 - no width jump during Loading;
 - suppress repeated activation while Loading;
 - preserve keyboard/focus behavior and visible focus treatment.
@@ -286,7 +286,7 @@ For each Style and Size, verify:
 - Disabled does not trigger the action.
 - Loading prevents repeated activation.
 - Switching Loading on/off does not change width or height, including with custom labels and Start/End icon combinations.
-- Shared Loading Small / Active remains centered at every Button width.
+- Progress Circle / Indeterminate / Small remains centered at every Button width.
 - No interaction state causes layout shift.
 
 ## Open Items
@@ -303,7 +303,7 @@ These are implementation-system decisions; the Button visual and behavioral cont
 
 - Figma component set: `Button / Default` in `[DS] Job Vision NEXT`.
 - Figma properties: `Style`, `Size`, `State`, `Loading`, `Button text`, Start/End Icon, Start/End Icon swap.
-- Loading dependency: shared `Loading / Size=Small / State=Active`.
+- Loading dependency: direct `Progress Circle / Mode=Indeterminate / Size=Small / Color=Neutral`, with contextual semantic color overrides; see the [Loading pattern](../patterns/loading-and-progress.md) and [Progress Circle](progress-circle.md).
 - Storybook / Code: not yet connected as a canonical live reference.
 
 ## Related
