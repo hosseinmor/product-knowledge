@@ -9,9 +9,11 @@
 ## Source gate
 
 For JobVision, load the smallest relevant domains from
-<https://docs-jv.jvoffice.ir/> through the internal VPN and browser. For Cando,
-state that no canonical source exists and distinguish authorised inputs from
-unknowns. Never use this repository, Figma, or observed UI as product truth.
+<https://docs-jv.jvoffice.ir/> through a verified internal-browser path. For
+Cando, load the smallest relevant domains from
+<https://docs-cd.jvoffice.ir/> through a verified internal-browser path. Never
+use this repository, the other product's canonical source, Figma, or observed
+UI as canonical product truth.
 
 ## Repository retrieval
 
