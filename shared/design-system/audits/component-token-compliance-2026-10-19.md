@@ -25,6 +25,8 @@ The applicable contract is [Figma Component Token Compliance](../integrations/fi
 |---|---|---|
 | Radius collection | Hide five Deprecated variables from publishing/selection; keep IDs and numeric values intact | hiddenFromPublishing=true, scopes=[] for 6px Control, 12px Surface, Legacy 12px, 20px Large surface, 8px Group |
 | Toggle | Rebind all unstyled 14px/20px regular labels to Body/Compact/SM | 24 source node IDs changed; 24/24 subsequently confirmed styled |
+| Select required markers | Bind existing 14px/20px Regular Mandatory stars in both sets to visually identical Body/Compact/SM Text Style | 108 layers; 54 Single + 54 Multiple, checked after write |
+| Shared Field Label | Bind required star to same 14px/20px Regular Body/Compact/SM recipe | 1 source node in _Field Label; existing fg/error unchanged |
 | Dialog / Default | Change private 02 Product semantic/* bindings to public 03 Semantic roles | 19 direct source bindings changed |
 | Alert Dialog / Default | Change private color bindings to public semantic roles | 4 bindings changed |
 | Confirmation Dialog / Default | Change private color bindings to public semantic roles | 4 bindings changed |
@@ -38,13 +40,13 @@ No canonical public component set was recreated or detached. Publication/consume
 
 | ID | Priority | Finding | Disposition |
 |---|---|---|---|
-| TC-01 | P1 | Dialog private semantic collection | Direct masters fixed; verify all inherited icon instances, visual states and Product x Appearance |
+| TC-01 | P1 | Dialog private semantic collection | Source and Close Button corrected; post-read found **0** residual private semantic/* bindings across scanned Dialog masters and nested instances; Product x Appearance still open |
 | TC-02 | P1 | Select Deprecated radius source | Rebound in place; test published overrides, all error/focus/open variants and responsive layout |
-| TC-03 | P1 | Select Text Style holes: Mandatory markers, Option metadata/secondary content | Typography migration pending; do not blindly restyle text without role/metric parity |
+| TC-03 | P1/P2 | Select Text Style holes: Mandatory markers, Option metadata/secondary content and Panel title | **Mandatory markers fixed (108)** and **shared Field Label fixed (1)**; 12/18 Regular Option metadata and 14/Auto SemiBold Panel title need recipe/role decision |
 | TC-04 | P2 | Data Table raw shared spacing | Owned master source corrected; investigate 110 nested-instance inherited raw observations upstream |
 | TC-05 | P1 | File Uploader: Deprecated 12px Surface plus raw 4/6px radii, raw spacing and multiple generations of masters | Separate canonical from legacy; preserve approved component visuals |
 | TC-06 | P2 | Button, Chip, Progress Bar and some input families: unbound but numerically correct layout spacing | Targeted owned-source binding migration, visual regression |
-| TC-07 | P2 | Autocomplete Selection Panel open instances initially displayed raw 12px radius | Recheck inheritance after shared Selection Panel migration |
+| TC-07 | P2 | Autocomplete Selection Panel open instances initially displayed raw 12px radius | **Resolved by inheritance:** 24/24 Autocomplete / Open panels now bound to 12px Large |
 | TC-08 | P1 migration | Number Input and Date Picker (already tracked in HOS-48/49), Pagination, Structured List, UI Shell, Slider and other legacy assets | Compatibility migration; no indiscriminate palette/radius replacement |
 | TC-09 | P2 | Typography guideline pointed to obsolete 02 Brand variable name | Correct to 02 Product / typography/font-family in governance branch |
 | TC-10 | QA | Semantic meaning, Light/Dark, JobVision/Cando, contrast and runtime accessibility cannot be certified by an automated scan | Open manual and runtime acceptance gate |
