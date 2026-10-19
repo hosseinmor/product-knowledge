@@ -44,11 +44,11 @@ Use cases include uploading a resume, processing applications in a batch, or pre
 | Known completed proportion of one operation | **Progress Bar — Determinate**, or **[Progress Circle](progress-circle.md)** for compact circular presentation | Actual completed amount can be compared to a total |
 | Operation ongoing; completed proportion unknown | **Progress Bar — Indeterminate** or an appropriate Loading pattern | No trustworthy percentage exists |
 | Current position in a known sequence of workflow steps | **Progress Indicator / Stepper** | Represents ordered workflow states, not a continuous proportion |
-| Short/local busy feedback without meaningful linear operation progress | **[Loading](loading.md)** | An inline or localized busy indicator is sufficient |
+| Short/local busy feedback without meaningful linear operation progress | **[Loading pattern](../patterns/loading-and-progress.md)** using Progress Circle / Indeterminate | An inline or localized busy indicator is sufficient |
 | Historical sequence of events | **Timeline** | Describes what occurred and when |
 | Capacity, static KPI, score, confidence, or rating | **Not Progress Bar** | Not progress through an ongoing operation |
 
-Do not invent a fixed time threshold for choosing Loading versus a Progress Bar. The amount of useful progress/context, not a universal duration, drives the choice. The [Loading component](loading.md) now documents its reviewed Figma composition as an indeterminate Progress Circle preset; the broader Design System Loading pattern remains scaffold/unverified. Runtime behavior still requires implementation validation.
+Do not invent a fixed time threshold for choosing circular activity feedback versus a Progress Bar. The amount of useful progress/context, not a universal duration, drives the choice. The [Loading pattern](../patterns/loading-and-progress.md) composes Progress Circle / Indeterminate directly; Loading is not a separate component. Runtime behavior still requires implementation validation.
 
 ## Modes and status semantics
 

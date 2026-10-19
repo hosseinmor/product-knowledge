@@ -3,7 +3,7 @@ id: design-system.component.progress-circle
 collection: design-system
 type: component
 title: Progress Circle
-summary: Shared circular progress component for measured work and unknown activity; Loading consumes its indeterminate preset.
+summary: Shared circular progress component for measured work and unknown activity; Button and loading patterns consume its indeterminate mode directly.
 knowledge_state: verified
 document_maturity: draft
 design_status: in-review
@@ -11,7 +11,7 @@ status: draft
 owner: Design System team
 last_reviewed: '2026-10-19'
 related:
-  - design-system.component.loading
+  - design-system.pattern.loading-and-progress
   - design-system.component.progress-bar
   - design-system.accessibility.dynamic-content-and-feedback
   - content.pattern.loading-and-progress
@@ -23,7 +23,7 @@ topics: [progress, progress-circle, determinate, indeterminate, feedback]
 
 ## Purpose and Use
 
-Progress Circle communicates an ongoing operation in a compact circular form. Use Determinate when completed work and a reliable total are known; use Indeterminate when they are unknown. Prefer Progress Bar when a horizontal track supports reading and comparison. Use [Loading](loading.md) for a standard local busy indicator and Button integration.
+Progress Circle communicates an ongoing operation in a compact circular form. Use Determinate when completed work and a reliable total are known; use Indeterminate when they are unknown. Prefer Progress Bar when a horizontal track supports reading and comparison. Button and [loading compositions](../patterns/loading-and-progress.md) use Progress Circle / Indeterminate directly. Loading is a usage pattern, not a separate component or wrapper.
 
 Workflow steps belong to Progress Indicator / Stepper. Static capacity, scores and ratings are not operation progress. Completion and failure require their own result feedback; a circle reaching 100% does not establish success.
 
@@ -31,7 +31,7 @@ Workflow steps belong to Progress Indicator / Stepper. Static capacity, scores a
 
 Choose Small, Medium or Large to fit the surrounding composition. Neutral is the default; Accent emphasizes the active operation while keeping a neutral track; On color is for a contrasting emphasis surface. Place any operation label and visible percentage outside the ring, especially at compact sizes.
 
-Determinate Figma instances expose the nested **Progress value** with 0, 25, 50, 75 and 100% snapshots. These are design illustrations, not a numeric API or a limit on runtime precision. Do not label a 50% illustration as 37%. Loading intentionally hides this authoring choice.
+Determinate Figma instances expose the nested **Progress value** with 0, 25, 50, 75 and 100% snapshots. These are design illustrations, not a numeric API or a limit on runtime precision. Do not label a 50% illustration as 37%. Indeterminate instances expose no Progress value; use them directly for the loading pattern.
 
 ## Behavior and States
 
