@@ -8,9 +8,8 @@ knowledge_state: verified
 document_maturity: reviewed
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: '2026-10-19'
+last_reviewed: '2026-10-17'
 related:
-  - design-system.component.choice-group
   - design-system.component.tag
   - design-system.component.badge
   - design-system.component.switch
@@ -28,7 +27,7 @@ Chip is the compact interactive-control family for value/data interaction.
 The public family is split by **interaction capability**, not by product use case:
 
 - **Chip / Selectable** — the value itself is selected or deselected.
-- **Chip / Removable** — a committed value/object can be edited from its body and removed from its trailing `×`; Body/Edit and Remove are independent interaction targets.
+- **Chip / Removable** — a committed value/object can be removed; its body may also be independently actionable.
 - **Chip / Disclosure** — a compact control opens a secondary surface to choose or edit its state.
 - **Chip / Action** — a compact, stateless action starts/adds/configures a value.
 
@@ -70,15 +69,11 @@ All public Chip sets share the same control recipe:
 | Extra Small height | `28px` |
 | Small height | `32px` |
 | Medium height | `40px` |
-| Standard inline padding | Extra Small `8px`; Small `12px`; Medium `16px` |
-| Removable end-side exception | `0px` at logical End so the Remove action is flush with the Chip edge |
 | Radius | `Radius / Full` — current Chip visual direction |
 | Radius status | Temporary/current direction; revisit if the family moves back to the shared control radius |
-| Default size | `Medium` |
 | Default width | Hug content |
 | Label | Single-line |
-| Label text style | Extra Small → `Label/XS` (12/16, 500); Small/Medium → `Label/SM` (14/20, 500) |
-| Secondary text style | Extra Small Detail/Summary/Divider → `Body/Compact/XS` (12/16, 400); Small/Medium → `Body/Compact/SM` (14/20, 400) |
+| Label text style | `Label/XS` (Extra Small); `Label/SM` (Small/Medium) |
 | Main content gap | `8px` |
 | Secondary content internal gap | `4px` |
 | Direction | RTL-first; use logical start/end |
@@ -87,7 +82,7 @@ All public Chip sets share the same control recipe:
 | Color | Semantic roles only |
 | Interaction State | `Default / Hover / Active / Focus / Disabled` |
 
-Persistent meaning such as `Selected` or `Applied` is always modeled independently from transient interaction `State`.
+Persistent meaning (`Selected`, `Applied`), transient interaction (`State`) and popup visibility (`open`) are independent. **Opening does not change Chip surface colors.** For Disclosure, only the Chevron direction changes through an exposed nested `Chevron / Open` control (not a parent Variant axis); for Removable, no separate Figma Open control or visual treatment is needed.
 
 The current family intentionally has no public `Type=Filter/Input/Suggestion` axis and no public `Color` axis.
 
@@ -107,7 +102,6 @@ Canonical file: `[DS] Job Vision NEXT`
 - Content properties:
   - `Label`
 - Variant count: `30 = 3 Size × 2 Selected × 5 State`
-- Figma prototype behavior: Default → Hover on hover; activation toggles `Selected=false/true`; Disabled is inert.
 
 Purpose: use when the value itself is directly selected or deselected.
 
@@ -120,7 +114,7 @@ The component itself does not know whether it is Choice or Filter; the owning gr
 
 #### Selected treatment
 
-`Selected=true` uses a leading check at logical Start plus `line/accent` and `fg/accent`. Surface state consumes the dedicated Accent semantic tokens directly: Default/Focus → `surface/accent-muted`, Hover → `surface/accent-muted-hover`, Active → `surface/accent-muted-active`. Do not layer transparent Hover/Active overlays on Accent-muted Chip states. Focus preserves the persistent selected surface and adds `Focus/Default`. Disabled continues to use the shared disabled treatment.
+`Selected=true` uses a leading check at logical Start plus `surface/accent-muted`, `line/accent`, and `fg/accent`. Hover and Active use the corresponding direct semantic Accent surfaces: `surface/accent-muted-hover` and `surface/accent-muted-active`. Focus preserves the base selected surface and adds `Focus/Default`. Disabled continues to use the shared disabled treatment.
 
 Rules:
 
@@ -145,9 +139,6 @@ Rules:
   - `Leading visual` instance swap
 - Variant count: `15 = 3 Size × 5 State`
 - Trailing remove affordance: mandatory
-- Private Remove action: `Size = Extra Small / Small / Medium` × `State = Default / Hover / Active / Focus / Disabled`
-- Remove action geometry: `28 / 32 / 40px` to match Chip height; `Radius / Full`
-- Removable logical-End padding: `0px` so the Remove action is flush with the Chip edge
 
 Purpose: represent a **committed value/object** that can be removed. Because the value is already committed, Removable uses the same Accent value treatment as other committed/selected Chip states.
 
@@ -166,31 +157,28 @@ The optional leading visual may be an icon or avatar when the value benefits fro
 
 `Detail` is compact secondary value information such as skill level or proficiency. The `Detail` property stores the value only, for example `متوسط` or `B2`; it must not include the separator. Visually, Detail is composed inside a `Detail content` container as `Divider (·) + Detail`, with a 4px internal gap. `Show detail` controls the whole container. It is content, not a semantic state.
 
-#### Body / Edit action
+#### Body action
 
-The body is always an independent **Edit** interaction target. It covers every point in the Chip except the trailing `×` Remove target.
+The body may be independently actionable.
 
 Example:
 
 `[ Microsoft Word · متوسط × ]`
 
-- Body/Edit activation → edit the committed value, such as changing software level;
-- `×` activation → remove the committed value.
+- body activation → edit/inspect/open detail such as Level editing;
+- `×` → remove the committed software.
 
-`Body/Edit` is a behavioral capability, **not a Figma variant**. The public `State` axis represents Body/Edit interaction feedback; the trailing Remove target owns its own private interaction state.
+`Body action` is a behavioral capability, not a Variant. **There is no Open authoring property or Open-specific visual style** in Removable: a committed chip looks the same whether a related editor is open or closed. The component now has two structurally independent targets: `Body / action target` and the existing `__Chip Remove Action`, with independent Hover/Active/Focus and remove behavior. Popup visibility belongs to the owning interaction pattern; `aria-expanded` (where needed) belongs to Body only.
 
 Runtime requirements:
 
-- Body/Edit and Remove are independent hit targets;
-- Body/Edit and Remove are independent focus targets;
-- hovering or pressing anywhere in Body/Edit — every point except `×` — changes the **whole Chip** to `State=Hover` / `State=Active`;
-- the compound Chip root itself has no pointer reaction; Body/Edit owns the public Hover/Active transitions;
-- hovering or pressing `×` changes **only the Remove target** through its private `State=Hover / Active`; it must not change the parent Chip surface;
-- Body/Edit activation semantics = **Edit**;
-- `×` activation semantics = **Remove**;
-- Remove target size matches Chip height (`28 / 32 / 40px`) and remains fully round;
+- body and Remove are independent hit targets;
+- when body is actionable, body and Remove are independent focus targets;
 - do not nest one button inside another;
-- use an appropriate compound-control DOM structure.
+- when body opens a secondary surface, `aria-expanded` is placed on the body trigger, not the Remove action;
+- disabled forces effective `open=false` in runtime;
+- use an appropriate compound-control DOM structure;
+- body action may be edit, inspect, disclosure, or another value-level interaction; do not rename the capability to Disclosure.
 
 ### Chip / Disclosure
 
@@ -201,14 +189,15 @@ Runtime requirements:
   - `Size = Extra Small / Small / Medium`
   - `Applied = false / true`
   - `State = Default / Hover / Active / Focus / Disabled`
+- Exposed nested instance: `Chevron / Open = false / true` (glyph direction; **not** a parent Variant axis)
 - Content properties:
   - `Label`
   - `Summary`
   - `Show summary`
 - Variant count: `30 = 3 Size × 2 Applied × 5 State`
-- Trailing chevron: mandatory
+- Trailing chevron: mandatory; down (Closed) / up (Open)
 
-Purpose: use for compact facets/controls that open a secondary surface to choose or edit state. Disclosure is surface-agnostic; the owning pattern chooses the appropriate secondary surface.
+Purpose: use for compact facets/controls that open a secondary surface such as Popover or Menu to choose or edit state.
 
 Examples:
 
@@ -222,9 +211,7 @@ Examples:
 - `Applied` = the control currently has a committed/applied value;
 - `Open` = the owning secondary surface is currently visible.
 
-The current reviewed Figma treatment has **no distinct visual state for Open**, so Open is runtime-only and is deliberately not a Figma variant.
-
-Do not add `Open` back unless a meaningful, persistent visual difference is designed.
+**Current Figma treatment (2026-10-17, updated after benchmark review):** The Chip's surface styling is entirely driven by `Applied × State`, never by Open. An exposed nested Chevron helper has an `Open=false/true` option: `Icon/chevron_down` when closed, `Icon/chevron_up` when expanded. Its semantic color follows the **actual State**: `__Chip Chevron / Neutral` uses `fg/secondary` when unapplied and enabled; `__Chip Chevron / Accent` uses `fg/accent` when applied and enabled; `__Chip Chevron / Disabled` uses `fg/disabled` in **both Applied conditions and both icon directions**. Always match the adjacent Label foreground token, not just Applied. This nested property is exposed to the consuming Figma instance. In runtime `open` is owned by the popup/pattern, controls Chevron orientation and `aria-expanded`, and is forced false when disabled; opening must not add a persistent Active background or Focus ring.
 
 #### Summary
 
@@ -242,7 +229,7 @@ Rules:
 - `Summary` is supplemental content, not another state axis;
 - `Show summary` is available on applied instances and controls the whole `Summary content` container;
 - keep Summary compact and store only the value, without a leading `·` or `|`;
-- Single/Multiple selection is not a Chip property; the owning secondary surface or selection pattern owns that behavior.
+- Single/Multiple selection is not a Chip property; the owning Popover/Menu/selection surface owns that behavior.
 
 The trailing chevron remains the disclosure affordance after a value is applied. Do not replace it with `×`; clearing belongs to the owning surface unless a separate product pattern is approved.
 
@@ -284,7 +271,7 @@ Generic task actions such as “Summarize”, “Generate questions”, or “Ed
 |---|---|
 | Choice / short compact data selection | Chip / Selectable |
 | Direct filter | Chip / Selectable |
-| Faceted filter / opens a secondary surface | Chip / Disclosure |
+| Faceted filter / opens Popover or Menu | Chip / Disclosure |
 | Committed input/value/object | Chip / Removable |
 | Available value / add-start action | Chip / Action |
 | Contextual suggestion | Chip / Action only when it is genuinely a value-level compact action |
@@ -296,7 +283,7 @@ Generic task actions such as “Summarize”, “Generate questions”, or “Ed
 Use the affordances consistently:
 
 - `✓` = selected; place it at logical Start before the label;
-- `▾` = disclose/edit through a secondary surface;
+- `▾` / `▴` = secondary surface closed/open;
 - `×` = remove committed value;
 - `+` = add/start/configure a value.
 
@@ -361,16 +348,16 @@ Activation opens the Level configuration surface.
 
 Only after the required Level is chosen and committed:
 
-`[ Microsoft Word · متوسط × ]` → Chip / Removable
+`[ Microsoft Word · متوسط × ]` → Chip / Removable (same appearance while editing surface is shown)
 
 Then:
 
-- body activation reopens Level editing for this product pattern;
-- `×` removes the committed software.
+- body may reopen Level editing; there is no special Open style on the Removable Chip;
+- `×` removes the committed software independently of the Open state.
 
 Whether the committed item stays in the same location or moves from Available to Selected is a **product-level collection decision**, not part of the Chip component contract.
 
-No canonical Disclosure surface composition is documented yet. The default Selection Panel composition will be documented after the Selection Panel component is finalized; `Chip / Disclosure` itself remains surface-agnostic.
+The Figma Chip documentation includes a real `Chip / Disclosure` + existing Popover composition example for the Industry filter to make the component/surface boundary explicit.
 
 ## State and Token Contract
 
@@ -393,7 +380,7 @@ Current mappings:
 - disabled: shared disabled foreground/line/surface treatment;
 - focus: preserve the underlying persistent state and add the shared focus effect.
 
-Default/unselected/unapplied and Action use the default-base structured-surface treatment: preserve `surface/default` and layer the shared `surface/transparent-hover` / `surface/transparent-active` interaction tokens. Accent-persistent states are different: Selectable Selected, Disclosure Applied, and Removable consume the dedicated state tokens `surface/accent-muted`, `surface/accent-muted-hover`, and `surface/accent-muted-active` directly, with no transparent interaction overlay.
+Structured Chip colors must stay in their semantic family: default/unselected/unapplied and Action use `surface/default` with transparent Hover/Active overlay; Selected Selectable and Applied Disclosure use their direct semantic state tokens. Removable has a stable committed Accent base, while Hover/Active feedback is applied to **Body only**, leaving the separate Remove control unchanged. **Open never alters a Chip surface color or Focus ring.**
 
 Do not:
 
@@ -414,7 +401,7 @@ Rules:
 - parent containers must not clip the ring;
 - pointer activation alone need not force keyboard-style focus when the platform's focus-visible algorithm does not require it.
 
-For compound Removable Chips, runtime focus must make it clear whether the body or Remove action is focused.
+For compound Removable Chips, Body and Remove have separate focus targets. The Figma Body now receives its own Focus/Default effect and Remove retains independent Focus/Default; neither is a permanent indicator of popup visibility.
 
 ## Content, Long Labels, and Layout
 
@@ -498,13 +485,13 @@ Runtime must expose selected state semantically. Do not infer a specific DOM rol
 
 Remove has its own accessible name, e.g. “Remove Microsoft Word”.
 
-Body and Remove are separate operable/focusable targets with a valid compound-control DOM structure. The product defines the body action outcome.
+If the body is actionable, body and Remove are separate operable/focusable targets with a valid compound-control DOM structure.
 
 ### Disclosure
 
 Runtime must expose that the control owns/opens a secondary surface and expose open/closed state using appropriate platform semantics.
 
-Focus transfer, dismissal, keyboard navigation, and selection behavior belong to the owning secondary-surface pattern.
+Focus transfer, dismissal, keyboard navigation, and selection behavior belong to the owning Popover/Menu/selection pattern.
 
 ### Action
 
@@ -517,16 +504,13 @@ Exact DOM/ARIA choices remain unverified until the runtime implementation is reg
 - Choose the Component Set by interaction capability, not product wording.
 - Keep `Selected` / `Applied` separate from `State`.
 - Do not add product-use-case variants.
-- Do not add `Open` unless it receives a meaningful visual treatment.
+- Do not add Open to the parent Chip State/Variant axes. Disclosure exposes a nested Chevron direction property only; Removable, Selectable and Action have no Open visual property.
 - Do not add Single/Multiple to Disclosure; it belongs to the secondary surface.
 - Use the existing icon library; do not draw ad hoc Chip icons.
 - Override shared icon foreground where the consuming Chip state requires it.
 - Keep Divider structural: Summary/Detail properties store value only; do not prefix their values with `·` or `|`.
 - Use the shared 8px spacing variable for the main Chip content gap and 4px inside `Summary content` / `Detail content` between Divider and the value.
-- Typography is size-aware: Extra Small uses `Label/XS` and `Body/Compact/XS`; Small/Medium use `Label/SM` and `Body/Compact/SM` for secondary Detail/Summary/Divider content.
-- The canonical/default Chip size is `Medium`; Extra Small is a density option, not the baseline.
-- For default-base structured surfaces, preserve `surface/default` and layer shared transparent Hover/Active overlays.
-- For Accent-muted persistent states (Selectable Selected, Disclosure Applied, Removable), use `surface/accent-muted`, `surface/accent-muted-hover`, and `surface/accent-muted-active` directly; do not add transparent interaction overlays.
+- Use semantic State tokens as shown in the canonical Figma components. In Removable, apply transient Hover/Active/Focus to Body independently of Remove. Do not style Open as Active.
 - Use the shared `Radius / Full` variable for the current Chip direction; do not use a literal radius. This is a current family decision rather than a global control-radius change.
 - Do not create `_Chip Base` until repeated maintenance evidence proves a shared private primitive is useful.
 - Do not create new work from legacy Carbon-derived Chip or old Chip Group artifacts.
@@ -537,22 +521,21 @@ Exact DOM/ARIA choices remain unverified until the runtime implementation is reg
 - Page: `Chip`, node `13500:300199`
 - Documentation frame: `Chip / Documentation · canonical sources`, node `23900:128061`
 - Sections:
-  1. `00 · Header`
-  2. `01 · Component set`
-  3. `02 · Playground`
-  4. `03 · Anatomy & composition`
-  5. `04 · Usage & handoff`
+  1. Component Set
+  2. Playground
+  3. Usage & composition
+  4. Usage & handoff
 
 Playground coverage includes:
 
 - employment-type Choice and direct Remote filter;
-- Disclosure filter examples;
-- committed Removable values;
-- Action → configure/commit → Removable lifecycle;
+- Industry and Manager Disclosure filters;
+- Email recipient;
+- Software + Level;
+- Add Software with `+`;
 - Focus/Disabled states;
-- long-label behavior.
-
-No canonical Disclosure secondary-surface composition is shown until Selection Panel is finalized.
+- long-label behavior;
+- real Disclosure + existing Popover composition for Industry.
 
 ## Legacy and Migration
 
@@ -562,7 +545,7 @@ Identity-preserving migration:
 
 - old Toggle identity/key → `Chip / Selectable`;
 - old Trigger identity/key → `Chip / Disclosure`;
-- previous Disclosure `Open` variants were removed after audit because they duplicated Hover visually; Open is runtime-only;
+- On 2026-10-17, the initial Open background treatment was rejected after benchmark review. The canonical Disclosure retains the original 30 closed-variant component IDs, with nested Chevron direction instead; Removable retains the original 15 component IDs and two independent target areas. The 45 old Open=True source components were retained in a separate __Legacy frame for compatibility rather than deleted;
 - `Chip / Removable` and `Chip / Action` are new canonical capability sets.
 
 Older Carbon-derived Chip artifacts and old Chip Group components remain reference-only where deleting them could break existing consumers.
@@ -591,28 +574,33 @@ Therefore these remain explicitly unverified:
 
 Do not infer them from Figma property names.
 
+## Current simplified Open-state contract — 2026-10-17
+
+The canonical Figma library now contains **30 Selectable, 15 Removable, 30 Disclosure and 15 Action** public variants (**90 total**) plus **15 internal Remove** variants. `Open` is not a parent Variant axis in either set: Disclosure exposes only nested Chevron orientation, and Removable has no Open visual treatment. The original 45 closed component IDs were preserved and the 45 historical Open=True components remain available in an __Legacy frame so prior linked instances are not deleted. New designs should not use the legacy sources. [Final simplification audit](../audits/chip-open-simplification-2026-10-17.md) supersedes the earlier [150-variant audit](../audits/chip-final-2026-10-17.md).
+
 ## QA Checklist
 
 Verify:
 
 - four public sets exist: Selectable / Removable / Disclosure / Action;
 - no `Type=Filter/Input/Suggestion` mega set exists;
-- Extra Small = 28px; Small = 32px; Medium = 40px; default Size = Medium;
-- Extra Small labels use `Label/XS`; Small/Medium labels use `Label/SM`; secondary Detail/Summary/Divider uses the matching Compact Body size;
+- Figma variant counts are Selectable 30, Removable 15, Disclosure 30, Action 15, internal Remove 15;
+- Extra Small = 28px; Small = 32px; Medium = 40px;
 - radius is the shared Full variable for the current Chip direction;
 - State is Default / Hover / Active / Focus / Disabled;
 - Selectable has persistent Selected and uses a leading ✓ at logical Start, never ×;
-- Removable always has × and supports optional Detail / leading visual;
-- Removable body is always an independent interaction target, while Remove is a separate target; the compound-control model must not create invalid nested-button semantics;
+- Removable always has ×, optional Detail / leading visual, independent Body/Remove visual feedback, and no Figma Open property;
+- Removable body-action capability does not create invalid nested-button semantics;
 - Disclosure has persistent Applied, optional Summary, and mandatory chevron;
-- Disclosure Open is runtime-only until a distinct visual treatment exists;
+- Disclosure exposes a nested Chevron/ Open false/true control that changes only the icon orientation; runtime owns independent expanded state. Removable has no visual Open property;
+- Disclosure Chevron icon foreground must match the Label token for each State: `fg/secondary`, `fg/accent`, or `fg/disabled`; verify **both Chevron directions** and both Applied values. Disabled icon colors are bound to semantic variables, never hard-coded.
 - Action is stateless and can express `+` add/start with the optional trailing icon after the label;
 - focus uses the shared outside ring;
 - semantic colors are used; Tag/Chip-specific colors are not;
 - labels remain one line;
 - RTL anatomy is correct;
 - parent collections can wrap whole Chips;
-- Playground covers Choice, direct filter, Disclosure, committed values, software lifecycle, long label, and focus/disabled states; no canonical Disclosure surface composition is required until Selection Panel is finalized;
+- Playground covers Choice, direct filter, faceted filter, committed values, software lifecycle, long label, focus/disabled, and Disclosure + Popover;
 - legacy components are clearly reference-only;
 - runtime semantics are re-verified when the owning implementation source is registered.
 
