@@ -5,8 +5,8 @@ type: audit
 title: Field Family Consistency Audit — HOS-41
 summary: Current field-family decisions, verified Figma discrepancies, intentional exceptions, migration debt and runtime QA boundary.
 knowledge_state: verified
-document_maturity: draft
-design_status: audit-in-progress
+document_maturity: reviewed
+design_status: audit-complete
 related:
   - design-system.component.text-input
   - design-system.component.search
@@ -20,7 +20,7 @@ related:
 **First audit:** 2026-10-17 · **Updated against live Figma and main:** 2026-10-19  
 **Tracker:** [HOS-41](https://linear.app/hossein-mor/issue/HOS-41/audit-and-standardize-field-family-across-figma-and-design-system)  
 **Live comparison:** [QA · Field Family](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23915-841)  
-**Status:** In progress. The core Select and Autocomplete **design handoffs** have been approved for Sandbox independently; this audit does not re-open those approvals or claim Angular/Storybook implementation has been tested.
+**Status:** Core **design/Figma audit complete** with recorded non-blocking authoring debt, independently tracked follow-ups and remaining **runtime QA**. Select and Autocomplete design handoffs remain Ready for Sandbox; this report neither reopens those decisions nor certifies Angular/Storybook.
 
 ## Scope and separation of responsibilities
 
@@ -57,9 +57,9 @@ Select Figma's default Size remains **Large** for compatibility; the approved **
 
 | ID | Priority | Decision / observation | Current status | Next action and owner |
 |---|---|---|---|---|
-| FF-01 | P2 design authoring | Select `Filled` is a 2-valued variant axis, whereas peer controls use a Boolean preview property. This doubles Select's variant count, but is **not** a runtime value state. | **Accepted compatibility debt**, not Sandbox blocker | Design System: evaluate migration only after an override-preservation audit of existing consumer instances |
-| FF-02 | P1 → resolved in Figma | Both Select sets were missing `Error focus`. | **Resolved**: 6 new Error focus per set; 54 variants/set; red error border + focus ring | Runtime/QA: verify keyboard-only Focus+Error, helper/error announcement in Storybook |
-| FF-03 | P1 authoring → P2 migration | Select Label row/Helper and `Mandatory` naming differ from shared `_Field Label`/`Required` authoring patterns. | **Runtime semantics approved**, visual/API migration **open** | Design System: standardize shared contract and separately test compatibility before renaming/restructuring Figma |
+| FF-01 | P2 design authoring | Select `Filled` remains a 2-value Variant axis (54 variants per set); peers use Boolean. The current runtime contract derives filled from value. | **Decision: retain Figma Filled axis for now**; removing it would require remapping published component IDs and overrides, with no approved visual benefit | [HOS-51](https://linear.app/hossein-mor/issue/HOS-51/align-select-field-label-and-authoring-properties): optional migration study after inventory of consumers; not a Sandbox blocker |
+| FF-02 | P1 → **fully resolved in Figma** | Both Select sets have 6 Error focus variants. **QA discovered those 12 variants had lost 108 component-property references** during earlier variant authoring: Label/Mandatory/Error message/Open/Clear/Leading and related controls. | **Fixed in canonical sets in place**; all 108 references repaired; **12/12** authoring override tests PASS; IDs/counts unchanged (54 each). Red border + focus ring preserved. | Runtime/QA: screen reader/error relation and keyboard-only Focus+Error remain implementation acceptance cases, not Figma failures |
+| FF-03 | P2 authoring | Text Input, Password and Autocomplete use `_Field Label` with Label, Required and Show info; Select uses its own Label row, `Mandatory` and a `Helper` text node with Error message binding in error states. **Select has no Show info**. | **Confirmed P2 gap**, but shared Label type style/20px row, red marker, helper/error colors and 4px anatomy are visually consistent. Runtime required semantics remain approved. | [HOS-51](https://linear.app/hossein-mor/issue/HOS-51/align-select-field-label-and-authoring-properties) for API/component-composition migration; preserve existing 108 Select variant IDs and published consumer overrides |
 | FF-04 | P1 specialized migration | Number Input / Outline historically measured 4px field radius vs 6px standard; Fill legacy presentation conflicts with border-only field baseline. | **Open**; current Outline's 18 legacy variants verified; radius measurement from earlier audit | Number Input pilot: verify actual Control radius/token, choose retirement or migration for Fill, test validation states |
 | FF-05 | P2 compatibility | Text Input and Autocomplete Medium default; Select Figma Large default. Number Input and Date Picker also use legacy defaults. | **Decided:** Medium for new standard runtime usages; Figma published defaults left unchanged | Migrate Figma default only with existing-instance and override plan; no Sandbox block |
 | FF-06 | P1 specialized migration | Date Picker has State strings `Focus + Open`/`Active + Open` alongside a separate `Open` axis, and `Filled`, `Skeleton`, Warning state labels. | **Open** — live 33-variant structure confirmed | Date/Time pilot: simplify semantic axes, map keyboard/calendar semantics and responsive behavior |
@@ -69,7 +69,7 @@ Select Figma's default Size remains **Large** for compatibility; the approved **
 | FF-10 | P2 docs → resolved | Component-specific Select and Autocomplete design contracts absent from main at original audit. | **Resolved** via PR #93 | Keep per-component docs and shared handoff |
 | FF-11 | Exception → approved | Search is query-only; does not require Error/Required/Readonly axes solely for symmetry. | **Accepted intentional exception** | Maintain a valid accessible name; validated form text uses Text Input |
 | FF-12 | Exception → approved | Textarea and Rich Text Editor do not share single-line control size taxonomy. | **Accepted intentional exception** | Share only relevant label/supporting/validation/accessibility rules |
-| FF-13 | P2 Figma QA | Representative cross-control Playground and Label/Required/Info alignment are not yet fully reconciled after recent component changes. | **Open** | Design System: refresh QA instances and verify five states, RTL, error/required, helper geometry without editing controls unnecessarily |
+| FF-13 | QA → **resolved in Figma** | Original State matrix contained an outdated Select Error focus warning and lacked a comparative Required/Info + bidi view and composed form example. | **Fixed:** [six-column Required/Info/Error focus/RTL comparison](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24186-129333), [RTL Form Playground](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24190-1516), discrepancy captions revised. No card overlap; error labels and messages verified after FF-02 repair. | Runtime visual regression for long mixed bidi content and overlay/zoom remains separate; Figma QA is complete |
 | FF-14 | P1 runtime | Exact Angular/Storybook props, DOM role strategy, ControlValueAccessor wiring and automated tests have not been verified here. | **Unverified — not a confirmed defect** | Dev/QA: run and record Sandbox acceptance matrix; do not fabricate runtime facts |
 
 **Critical distinction:** `Resolved in Figma`, `Approved design semantics`, `Runtime verified`, and `Closed migration` are different statuses. This document does not conflate them.
@@ -95,9 +95,26 @@ Select Figma's default Size remains **Large** for compatibility; the approved **
 
 - [HOS-48 — Number Input migration](https://linear.app/hossein-mor/issue/HOS-48/audit-and-migrate-number-input-to-field-family) (Backlog): validate the historical 4px radius finding, Filled/Outline topology, numerical semantics and safe migration.
 - [HOS-49 — Date/Time Picker migration](https://linear.app/hossein-mor/issue/HOS-49/audit-and-migrate-datetime-picker-field-contract) (Backlog): resolve legacy `State + Open` axes, calendar/time keyboard behavior and specialized validation.
-- [HOS-50 — Anchored Disclosure Pattern review](https://linear.app/hossein-mor/issue/HOS-50/review-anchored-disclosure-pattern-and-slot-contract) (**ON HOLD**): own Trigger/Surface Slot architecture and reopen decisions **outside** HOS-41. The Figma prototype and old PR #92 content remain references, not approved current documentation.
+- [HOS-51 — Select Field Label/Info authoring migration](https://linear.app/hossein-mor/issue/HOS-51/align-select-field-label-and-authoring-properties) (Backlog): address `Mandatory` vs `Required`, missing `Show info`, and optionally evaluate Filled authoring axis only with migration safety tests.\n- [HOS-50 — Anchored Disclosure Pattern review](https://linear.app/hossein-mor/issue/HOS-50/review-anchored-disclosure-pattern-and-slot-contract) (**ON HOLD**): own Trigger/Surface Slot architecture and reopen decisions **outside** HOS-41. The Figma prototype and old PR #92 content remain references, not approved current documentation.
 
 These are separate items. Their implementation or review is **not required** to close the core Field Family consistency audit once the unresolved core differences are documented, assigned and non-blocking.
+
+## Current Figma QA execution — completed 2026-10-19
+
+**Structural comparison:** [Six-column cross-control board](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24186-129333). Linked real component instances for Text Input, Password, Search, Select / Single, Autocomplete / Single and Select / Multiple. Three scenarios: **Required + Info**, **Error + Focus**, and **mixed Persian/Latin long content**. Search legitimately has no Required or form Error axis.
+
+**Form Playground:** [Composed RTL form](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24190-1516), with editable Text Input/Autocomplete labels, Select Error focus, required markers and contextual error copy. Live instances remain linked to canonical published sources; no speculative new Field shell was added. Example text includes `Senior Product Designer — تهران / Remote`.
+
+**Verified observations**
+- Shared `_Field Label` supports Label, Required, Show info in Text Input/Password/Autocomplete. Select renders Label/Mandatory with equivalent measured type style and 20px row but has **no Show info**. This is a P2 authoring gap, now owned by HOS-51.
+- Text Input/Password/Autocomplete use shared `_Field Helper` / `_Field Error`; Select's direct `Helper` text layer uses the appropriate error foreground in Error and Error focus, but the layer name/composition is legacy and must not be treated as a second separate helper at runtime.
+- **High-priority defect resolved:** 12 Select Error focus components initially lacked 108 Property bindings inherited from the corresponding Error variants. All mappings were restored in place, including Label, Mandatory, custom Error message, Clear, Leading and Open. **12/12 temporary real-instance override tests passed**, and test instances were removed. The Form Playground now correctly displays customized city label/error.
+- Figma screenshot and geometry checks: **0 overlapping QA cards**, **28px vertical spacing** between board sections, no label overflow in the displayed mixed-language **label** specimen (observed 272px label text within 288px field boundary). Input/Search/Autocomplete long **values** have visual truncation in the specimen. Long Select option **values** and keyboard bidi behavior are not certified without runtime tests.
+- Reviewed Default, Focus and Error focus with helper/error messaging plus Disabled and Read only in the original five-state matrix; no confirmed residual core Figma visual blocker. The existing open Selection Panel specimen is a visual stacking check only; accessibility still needs runtime QA.
+
+**Accepted non-blocking authoring debt:** published Select `Filled` variant axis; Large default in Figma vs Medium new runtime usage; shared Label/Info migration (HOS-51). Do not alter 108 published component IDs to chase API symmetry without consumer override migration. Search/textarea/rich-editor specialized exceptions remain intentional.
+
+**Outcome:** Core **Figma/authoring audit PASS**; runtime implementation/keyboard/a11y QA **NOT VERIFIED** and not implied by this document.
 
 ## Cross-component QA plan
 
@@ -114,13 +131,13 @@ Use [Field Family QA board](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/
 - [x] Add and visually QA Select Error focus in Figma.
 - [x] Approve Standard Size 32/40/48 and runtime/default usage = Medium, with compatibility exception documented.
 - [x] Accept intentional Search, Textarea, Rich Text Editor differences.
-- [ ] Validate shared Label/Required/Info and support/error anatomy across core controls on current Figma QA board.
-- [ ] Review current Figma defaults and Filled migration **risk**, record whether further Figma refactor is worth it.
-- [ ] Refresh the representative Form Playground and test long text / bidi / visual overflow.
+- [x] Validate shared Label/Required/Info and support/error anatomy across core controls on current Figma QA board (P2 Select Info gap delegated to HOS-51).
+- [x] Review Filled/default migration risk; retain compatibility, defer optional Select authoring migration to HOS-51.
+- [x] Refresh live RTL Form Playground and bilingual long-text specimens; record residual runtime-only cases.
 - [x] Split Number Input and Date/Time migration into independently tracked HOS-48 and HOS-49.
-- [ ] Confirm any remaining core visual discrepancy and its owner/severity; leave none silently open.
-- [ ] Record Angular/Storybook QA outcome when runtime is registered; missing runtime checks must remain explicitly unverified (not assumed PASS).
-- [ ] Review and merge this **audit-only PR**. This is independent of the held Disclosure Pattern.
+- [x] Resolve discovered P1 Select Error focus authoring binding regression; assign remaining P2 Label/Info gap to HOS-51.
+- [ ] **Runtime-owned follow-up:** record Angular/Storybook acceptance results when implementation is available. Not a Figma-audit closure gate; status stays unverified.
+- [x] Complete QA review of the audit-only PR and prepare it for merge; independent of held Disclosure Pattern.
 
 ## PR provenance / governance
 
