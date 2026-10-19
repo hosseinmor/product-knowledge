@@ -7,7 +7,7 @@ summary: Registry contract for mapping stable Figma component identities to runt
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-10-14
+last_reviewed: 2026-10-17
 related:
   - design-system.reference.figma
   - design-system.reference.code
@@ -42,6 +42,57 @@ Known mismatch/gap
 `Mapping mechanism` may be Figma Code Connect or another explicit registry. The mechanism is less important than having a stable, reviewable mapping.
 
 ## Current mapping registry
+
+### Dialog — HOS-42 design handoff (Figma verified; runtime unregistered)
+
+| Field | Verified design source / boundary |
+|---|---|
+| DS component | **Dialog** (modal dialog v1), canonical contract: [`../components/dialog.md`](../components/dialog.md) |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma presentation | [Dialog / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24058-9) · node `24058:9` |
+| Figma component set | `Dialog / Default` · node `24036:267` · key `b8bd11b06f27bac00225857315e0cb4f4c0887f7` |
+| Size axis | 4 variants: Small 400, Medium 560 (default), Large 800, XL 960; **max-width choices**, not screen-breakpoint names |
+| Shared authoring properties | `Title`, `Description`, `Description visible`, `Dismissible` (visible Close), `Body / Slot` and `Footer / Slot` |
+| Anatomy | Title and supporting description; native Body/Footer Slots; canonical shared Buttons; independent Close Button |
+| Close Button set | `Close Button / Default` · node `24046:476` · key `c19c7786bdbb03e1ad13695db575d5d7478e0d34`; 40px hit area, 5 visual states, Radius Medium 6, top/left 12px in RTL |
+| Narrow Figma preset | `Dialog / Narrow preset` · node `24087:129096` · key `70787797b38b3976da888be932b8cfdee90e897b` · linked to canonical Small source, **not** a Size or Layout variant |
+| Responsive | Intended Narrow adaptation below 768px: 24px padding, 40px Medium actions; Regular: 32px padding, 32px Small actions; fluid shell, min viewport gutters 16px |
+| Design behavior | Backdrop uses `semantic/utility/overlay` and never dismisses by default; Escape uses safe cancel, including destructive confirmation; unsaved edits guarded; focus trapped and restored; Body-only scrolling |
+| Alert vs confirmation | `alertdialog` only for genuinely urgent interruption; confirmation, destructive and form are composition patterns |
+| Legacy | `Modal` set node `4080:55366`, key `dbb168637e13405605604dd1ca479f298735c348`, retained for migration; not the new canonical source |
+| Design status | **Handoff-ready Figma and intended design/accessibility contract**; no proof of coded behavior/shipping |
+| Runtime repository/package/API | **Unregistered / unverified**; exact props, events, DOM and focus library must not be guessed |
+| Storybook / executed tests | **Unregistered / unverified**; implementation acceptance checklist is in `dialog.md` |
+| Cross-foundation note | Canonical GitHub Responsive ruler disagrees with recent Figma Tailwind v3 foundation at sm/lg/2xl; both agree at 768px, which is the Dialog threshold. Foundation reconciliation is a separate task |
+| Figma last verified | 2026-10-17 |
+
+Figma component keys and names above are verified on the live source. This is **not** a verified Figma-to-code mapping without registered owning runtime/Storybook identities.
+
+### File Uploader — final Carbon design source (runtime unverified)
+
+| Field | Verified Figma source |
+| --- | --- |
+| DS component | File Uploader (Carbon-derived) |
+| Figma presentation (canonical) | `24020:785` — 1600px _Docs structure |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Original public component set | `File uploader` — `5465:294860` — **15 variants** (Type × Size × State) |
+| Public variant axes | Type: Default / Drag and drop; Size: Large / Medium / Small; State: Enabled / Disabled; Drag and drop also Skeleton |
+| Public authoring | Text: Label text, Desc. text; Boolean: Files (file-list visibility) |
+| Default copy | `Desc. text`: «فایل موردنظر را انتخاب کنید.»; Dropzone `Helper text`: «فایل را اینجا بکشید و رها کنید یا روی «انتخاب فایل» کلیک کنید». No hard-coded file limits. |
+| Design status | **Final (Figma + component contract)**, not runtime-verified and not production-released |
+| Original internal File Item set | `_File uploader file item` — `3199:35182` — **18 variants** (6 states × 3 sizes) |
+| Original internal Dropzone state set | `_File uploader - Drag and drop box states` — `3183:29103` — **4 states** |
+| Original File List master | `_File uploader file list item` — `4188:102462` — **one native `File list#23998:0` Slot** |
+| File List default content | Exactly **three existing source-linked File Item instances**, original IDs preserved, hidden duplicates removed; no fixed count variant |
+| Presentation arrangement | Original public set in §01; all three original internal masters in §03; **six** source-linked scenarios in §02 (one/multiple, RTL error, disabled, mixed states, long filename) |
+| Figma published component keys | Not independently verified in this audit; node IDs and instance links verified |
+| Runtime / code props | **Unregistered / unverified** |
+| Storybook and executed tests | **Unregistered / unverified** |
+| Design handoff | **Ready for development/sandbox** with finalized design contract; runtime/API, validated product policies, executed accessibility/network tests still pending |
+
+[Open canonical Carbon presentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24020-785)
+
+**Superseded exploratory source, retained for comparison (not canonical):** HOS-39 pilot documentation `23907:394`, Uploader `23905:614` (4 variants), File Item `23903:127017` (5), Dropzone `23905:565` (6). All are archived visually in the Figma Archive; their runtime behavior/illustration proposals must **not** be read as properties of the Carbon master. No consumer components were detached or force-migrated.
 
 ### Button
 
@@ -178,9 +229,9 @@ The Menu Button design identity, Button composition, native Menu Slot, Size × O
 | Figma variant properties | `Style / Size / Open` |
 | Variant count | `24 = 3 Style × 4 Size × 2 Open` |
 | Figma styles | `Primary / Secondary / Tertiary` |
-| Figma sizes | `Extra Small 28 / Small 32 / Medium 40 / Large 48` |
-| Composition | Canonical `Primary Action / Button` instance + canonical `Menu Trigger / Icon Button` instance + native `Menu content` SLOT; no wrapper/custom separator node; `0px` layout gap |
-| Inter-segment treatment | No standalone Divider/custom separator and no layout gap; Primary/Secondary use a 1px inside `palette/bw/white` stroke on the Menu Trigger touching edge in normal filled states; Tertiary composes `line/default` borders from the two canonical instances, with the Primary Action left edge as the single visible joining border and the Menu Trigger touching right edge removed |
+| Figma sizes | Heights: `Extra Small 28 / Small 32 / Medium 40 / Large 48`; current default widths: `98 / 118 / 134 / 150px` (Divider adds zero layout width) |
+| Composition | Shared `Unified shell / Wrapper` (horizontal Auto Layout) containing canonical `Menu Trigger / Icon Button` + 1px semantic `Divider` Rectangle + canonical exposed `Primary Action / Button`; native `Menu content` SLOT is a direct child of the public Combo variant, out of layout |
+| Inter-segment treatment | Canonical Buttons touch with **zero gap**. The non-interactive Divider is a **1px visible Rectangle positioned ABSOLUTE** at `Trigger.width − 1px`, centered vertically, height `control height − 16px`, and **0px layout width**. Wrapper is Hug-width. Semantic fills: Primary `line/inverse`, Secondary `line/emphasis`, Tertiary `line/default`. No child joining strokes. Tertiary retains 1px outside-aligned `line/default` border on Wrapper |
 | Open representation | Only Menu Trigger maps to Active + chevron-up; Primary Action state remains independent |
 | Anchor gap | `2px` |
 | Loading | Owned by nested Primary Action; no outer Loading axis |
@@ -191,9 +242,9 @@ The Menu Button design identity, Button composition, native Menu Slot, Size × O
 | Property mapping | **Unverified** — do not infer runtime prop names from Figma property names |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-09-20 |
+| Last Figma verification | 2026-10-17; 24/24 canonical variants and 13 Playground instances passed structural and visual-state QA |
 
-The Combo Button design identity, canonical Button/Icon Button instance composition, connected-segment geometry, native Menu Slot, Style × Size × Open matrix, fixed internal Menu Trigger authoring model, instance-owned filled-style join stroke, independent segment behavior, 2px anchoring rule, RTL geometry, loading boundary, and accessibility contract are verified in `../components/combo-button.md`. Runtime component/API, Storybook identity, and exact Figma-to-code property mapping remain unverified.
+The Combo Button design identity, shared Wrapper + semantic Divider architecture, preserved canonical Button/Icon Button instance links and native Menu Slot, Style × Size × Open matrix, independent segment behavior, 2px anchoring, RTL geometry, Loading boundary and accessibility contract are documented and Figma-verified in `../components/combo-button.md`. Runtime component/API, Storybook identity, and exact Figma-to-code property mapping remain unverified.
 
 
 ### Tooltip
@@ -517,7 +568,7 @@ The Toggle design identity, Size × State × Toggled matrix, label contract, neu
 | Property mapping | **Unverified** — do not infer runtime prop names or DOM/ARIA roles from Figma |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-10-19 |
+| Last Figma verification | 2026-10-15 |
 
 The Content Switcher design identity, three-size parent model, native Items Slot, State × Content internal Item model, fill-based sizing, Text/Icon boundary, selected treatment, semantic foreground mapping, equal-width composition, responsive rule, RTL behavior, and accessibility contract are verified in `../components/content-switcher.md`. Runtime API, exact DOM/ARIA and keyboard implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime source is registered.
 
@@ -560,7 +611,7 @@ The Content Switcher design identity, three-size parent model, native Items Slot
 | Property mapping | **Unverified** — do not infer runtime prop names, DOM/ARIA roles, route behavior, activation mode, or overflow algorithm from Figma |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-10-17 |
+| Last Figma verification | 2026-10-15 |
 
 The Tabs design identity, line-only v1 appearance, native Items Slot composition, Content × State internal Item model, 40px density, zero-inline-padding + 24px parent-gap layout, Text/Text+Icon/Icon-only content modes, selected/focus treatment, overflow rule, Content Switcher/navigation/filter boundaries, RTL behavior, and accessibility contract are verified in `../components/tabs.md`. Runtime API, exact DOM/ARIA implementation, activation mode, routing integration, Storybook identity, and Figma-to-code mapping remain deliberately unverified until the owning runtime source is registered.
 
@@ -573,53 +624,116 @@ The Tabs design identity, line-only v1 appearance, native Items Slot composition
 | Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
 | Selectable set | `Chip / Selectable` |
 | Selectable key / node | `5571e8e324b47155d7e9fd384aaea289c2e54d89` / `20783:128158` |
-| Selectable variants | `30 = 3 Size × 2 Selected × 5 State` |
+| Selectable variants | `20 = 2 Size × 2 Selected × 5 State` |
 | Selectable properties | Variant: `Size / Selected / State`; content: `Label` |
-| Selectable interaction | Default→Hover on hover; activation toggles Selected; Disabled inert |
 | Removable set | `Chip / Removable` |
 | Removable key / node | `193062043a2194024cc06c6d45f11b96b4a238b3` / `23124:358` |
-| Removable variants | `15 = 3 Size × 5 State` |
+| Removable variants | `10 = 2 Size × 5 State` |
 | Removable properties | Variant: `Size / State`; content: `Label / Detail / Show detail / Show leading visual / Leading visual`; `Show detail` controls the whole `Detail content` container |
-| Removable interaction ownership | Body/Edit covers every point except `×` and owns the public whole-Chip Hover/Active transitions; the compound root has no pointer reactions. Body activation = Edit. Trailing `×` is an independent Remove target whose local Hover/Active changes only the Remove control; activation = Remove |
-| Removable Remove action | Private `Size × State` component; `28 / 32 / 40px` matches Chip height; `Radius / Full`; logical-End padding on Removable is `0px` so Remove is flush with the edge |
-| Removable surface | Default/Focus `surface/accent-muted`; Hover `surface/accent-muted-hover`; Active `surface/accent-muted-active`; keep `line/accent + fg/accent`; no transparent overlay |
+| Removable behavioral capability | Body may be independently actionable; body and trailing Remove are separate runtime interaction/focus targets; Body action is not a Figma variant |
+| Removable surface | `surface/accent-muted + line/accent + fg/accent`; Hover/Active preserve the Accent base and layer `surface/transparent-hover/active`; Disabled uses shared selected-disabled treatment |
 | Disclosure set | `Chip / Disclosure` |
 | Disclosure key / node | `3ba6c8dc36a76632d1569108e024ae47c841a50c` / `20783:534` |
-| Disclosure variants | `30 = 3 Size × 2 Applied × 5 State` |
+| Disclosure variants | `20 = 2 Size × 2 Applied × 5 State` |
 | Disclosure properties | Variant: `Size / Applied / State`; content: `Label / Summary / Show summary`; `Show summary` controls the whole `Summary content` container |
 | Disclosure Open | Runtime-only; removed from Figma variants because reviewed Open treatment duplicated Hover visually |
-| Disclosure Applied surface | Default/Focus `surface/accent-muted`; Hover `surface/accent-muted-hover`; Active `surface/accent-muted-active`; keep `line/accent + fg/accent`; no transparent overlay |
-| Disclosure surface boundary | Surface-agnostic trigger. No canonical surface composition until Selection Panel is finalized; default Selection Panel composition will be documented then |
+| Disclosure Applied surface | `surface/accent-muted + line/accent + fg/accent`; Hover/Active preserve the Accent base and layer `surface/transparent-hover/active`; Focus preserves base + `Focus/Default` |
 | Action set | `Chip / Action` |
 | Action key / node | `876535cdb18030fe2d38c6c6221036d770838586` / `23123:125056` |
-| Action variants | `15 = 3 Size × 5 State` |
+| Action variants | `10 = 2 Size × 5 State` |
 | Action anatomy | Optional add/action icon at logical End — visually left of the label in RTL |
 | Action properties | Variant: `Size / State`; content: `Label / Show trailing icon / Trailing icon` |
 | Shared states | `Default / Hover / Active / Focus / Disabled` |
-| Figma sizes | `Extra Small 28 / Small 32 / Medium 40`; default Size = `Medium` |
-| Standard inline padding | `8 / 12 / 16px` for Extra Small / Small / Medium; Removable logical-End side is `0px` |
-| Label text style | Extra Small → `Label/XS`; Small/Medium → `Label/SM` across all four public Chip sets |
-| Secondary text style | Extra Small Detail/Summary/Divider → `Body/Compact/XS`; Small/Medium → `Body/Compact/SM` |
+| Figma sizes | `Small 32 / Medium 40` |
+| Label text style | `Body/Compact/SM` across all four Chip sets |
 | Main content gap | `8px` shared spacing variable |
 | Secondary content | Disclosure uses `Summary content`; Removable uses `Detail content`; each contains `Divider (·) + value` with `4px` internal gap |
 | Summary / Detail property value | Value only; separator is structural and must not be embedded in the property string |
 | Radius | shared `Radius / Full` — current Chip visual direction |
 | Focus | shared `Focus/Default` outside focus-visible ring |
-| Color | Default-base states preserve `surface/default` and use shared transparent Hover/Active overlays. Accent-persistent states — Selectable Selected, Disclosure Applied, Removable — directly use `surface/accent-muted / surface/accent-muted-hover / surface/accent-muted-active + line/accent + fg/accent`; no public Color axis or Chip-specific color tokens |
-| Usage mapping | Choice + Direct Filter → Selectable; faceted/secondary-surface filter → Disclosure; committed/input value → Removable; add/start available value → Action |
+| Color | Semantic tokens only; every Chip Hover/Active preserves its semantic base and layers `surface/transparent-hover/active`: default-base states use `surface/default`; Selectable Selected, Disclosure Applied, and Removable use `surface/accent-muted + line/accent + fg/accent`; no public Color axis or Chip-specific color tokens |
+| Usage mapping | Choice + Direct Filter → Selectable; Faceted/Popover Filter → Disclosure; committed/input value → Removable; add/start available value → Action |
 | Visual grammar | `✓ selected at logical Start before label / ▾ disclose / × remove / + add-start` |
 | Product-pattern boundary | Selection mode, required/allow-empty, filter composition, tokenized-input behavior, and software Available→Selected layout live at Group/Pattern level |
 | Tag boundary | Tag remains passive/descriptive/categorical and owns `tag/{color}/*`; Chip is interactive and must not consume Tag color tokens |
-| Legacy Figma | Old Carbon-derived Chip sets, Control-chip artifacts, and old Chip Group components are removed from the active Chip page and must not be used for new design |
-| Documentation frame | `Chip / Documentation · canonical sources`, node `23900:128061`; Header, Component set, Playground, Anatomy & composition, Usage & handoff |
+| Legacy Figma | old Carbon-derived Chip sets, Control-chip artifacts, and old Chip Group components are reference-only; published identities preserved where safe |
+| Documentation frame | `Chip / Documentation`, node `23143:531`; includes Component Set, Playground, real Disclosure+Popover composition, and migration note |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified** |
-| Property mapping | **Unverified** — do not infer runtime props, DOM/ARIA roles, compound-control structure, or secondary-surface implementation from Figma |
+| Property mapping | **Unverified** — do not infer runtime props, DOM/ARIA roles, compound-control structure, or popup implementation from Figma |
 | Storybook | **Unregistered** |
 | Code Connect | **No registered mapping** |
-| Last Figma verification | 2026-10-17 |
+| Last Figma verification | 2026-09-23 |
 
-The Chip design identity is verified as four capability-specific public component sets that share one visual recipe without a mega Type matrix. The current contract includes Extra Small / Small / Medium sizing with Medium as the default, size-aware Label typography, dedicated Accent-muted state tokens for persistent Accent states, compound Removable behavior with Body/Edit driving whole-Chip Hover/Active and trailing ×/Remove owning independent local Hover/Active, plus a size-matched flush round Remove action, surface-agnostic Disclosure, shared Full radius, RTL anatomy, software lifecycle, and Tag/Button/selection-control boundaries. Runtime API, exact DOM/ARIA implementation, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
+The Chip design identity is verified as four capability-specific public component sets that share one visual recipe without a mega Type matrix. Selectable, Removable, Disclosure, and Action contracts, current Full radius, 8px main content gap, separate Divider + Summary/Detail secondary-content anatomy, Accent treatment for Selectable Selected / Disclosure Applied / Removable, shared structured-surface Hover/Active overlays across all Chip families, leading selected check anatomy, Action icon at logical End, focus-visible behavior, RTL anatomy, software lifecycle, Tag/Button/selection-control boundaries, real Disclosure + Popover composition, and legacy migration are documented in `../components/chip.md`. Runtime API, exact DOM/ARIA implementation, compound Removable structure, Storybook identity, and Figma-to-code property mapping remain deliberately unverified until the owning runtime Design System source is registered.
+
+
+### Progress Bar (HOS-37)
+
+| Field | Verified Figma source / status |
+|---|---|
+| DS component | Progress Bar |
+| Knowledge document | `../components/progress-bar.md` — **final design documentation** |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma page | `Progress bar`, node `8930:400384` |
+| Parent component set | `Progress bar` |
+| Parent key / node ID | `1d9983588bb228a44ca2b3af89195bd1e2b51c9d` / `12603:272925` |
+| Parent variants | **25** (20 preserved + 5 Indeterminate); `Size=Small/Big`, `Alignment=Default/Inline/Indent`, `State=Active/Success/Error`, `Progress=0%/25%/50%/75%/Indeterminate/Success/Error`; **not all permutations are authored** |
+| Parent Text properties | `Label text / Helper text / Success text / Error text`; no public numeric Value property. Figma 0/25/50/75 are illustrative presets; runtime must use measured values |
+| Nested source | `_Progress bar track item` |
+| Track key / node ID | `b765a10f45d8d3ad69489a266bc6e623ba94d5b1` / `12603:273022` |
+| Nested Track variants | 14 = `Small/Big` × `Progress=0%/25%/50%/75%/Success/Error/Indeterminate` |
+| Geometry | Small 4px, Big 8px; every public variant uses its matching nested Track Size (including original Inline Big 0/25/50 fixed on 2026-10-17). Neutral Track uses `line/default` as **inside bottom Stroke**, not Fill |
+| Foreground tokens | Active: `surface/accent-emphasis`; Success: `fg/success`; Error: `fg/error` |
+| Indeterminate in public parent | **Verified in Figma** — 5 variants: Default Small/Big, Inline Small/Big, Indent Big. Source-linked nested Track (static visual; do not show numeric percentage). Motion remains runtime-owned |
+| Runtime value treatment | True numeric progress is **required in development**, unrestricted by fixed Figma illustrative percentages. No numeric Figma property exists in current component architecture |
+| Documentation frame | [Progress bar / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=23867-126381), node `23867:126381` |
+| Presentation source structure | **01 · Component set** contains the original public Master `12603:272925`; **03 · Anatomy & composition** contains original internal Track Master `12603:273022`; **02 · Playground** holds real linked instances. Compact two-column source-only canvas layout; no source re-creation |
+| Presentation cleanup | One 1600px documentation frame on Progress bar page. Two obsolete IBM artboards plus their redundant instance-only visual matrix/anatomy removed; all master node IDs/keys and variants preserved |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified** |
+| Property mapping | **Unverified** — Figma axis labels are not runtime prop names |
+| Storybook | **Bypassed for current design handoff** |
+| Code Connect | **No registered mapping** |
+| Long-text Figma QA | Default/Indent auto-grow vertically for Persian long copy; Inline label is one line with ending ellipsis. Playground contains linked mixed-script and long-text examples |
+| Last live Figma verification | **2026-10-17** |
+
+The **original master identities, physical Section 01/03 placement, and authored visual contract** above were verified against the live Figma file. Playground examples remain connected to these sources. The public-parent Indeterminate variants are implemented in Figma as **static design states**; the original Inline/Big track-height mismatch and long-copy overflow are corrected. Numeric Figma percentages intentionally remain illustration presets; actual numeric value, Indeterminate animation, reduced motion, and browser/assistive-technology testing remain runtime development responsibilities. See `../components/progress-bar.md`.
+
+### Progress Indicator (HOS-31)
+
+| Field | Current value |
+|---|---|
+| DS component | Progress Indicator |
+| Knowledge document | `../components/progress-indicator.md` |
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Figma page | `Progress indicator`, node `521:16785` |
+| Parent component set | `Progress indicator` |
+| Parent key / node ID | `335d54d47ea28e6329f88a8bb34dc3b2d02e5c77` / `23704:699` |
+| Parent variants | `Direction=Horizontal/Vertical` = **2 variants** |
+| Parent content property | Native `Items` SLOT shared by both Direction variants; each starts with 3 default Item instances |
+| Parent authoring rule | Add/remove Progress Indicator Items inside the slot. When adding a new terminal Item in Figma, enable the previous terminal connector and disable the new terminal connector. Runtime derives sequence length and terminal connector from step data |
+| Item component set | `_Progress indicator item` |
+| Item key / node ID | `ebd4a7beb03d58ea243faaed501712880ffa2669` / `23704:348` |
+| Item variants | `Direction=Horizontal/Vertical × State=Incomplete/Current/Completed/Error/Disabled` = **10 variants** |
+| Item content properties | `Label / Helper / Show helper / Show connector` |
+| Typography | Label = `Label/SM`; Helper = `Body/Compact/XS`; `Show helper` default = `true` in finalized Figma |
+| Text limits | Horizontal Label 1 line / Helper 2; Vertical Label 2 / Helper 3; ending truncation |
+| Marker size | 20px |
+| Marker assets | Incomplete/Disabled: `Icon / dot mark outline`; Current: `Icon / dot mark`; Completed: `Icon/check_circle_outline`; Error: `Icon/error_outline` |
+| Connector | 3px; Current/Completed = `line/accent`; Incomplete/Error/Disabled = `line/default`; none after final Item |
+| Error contract | Error replaces Current for the affected step; helper communicates validation/problem detail |
+| Responsive contract | No Compact/mobile variant in v1; mobile/narrow breakpoint and minimum supported size = **TBD**; until defined, do not compress Horizontal below usable width; prefer Vertical or a product-level responsive composition |
+| Documentation frame | `Progress indicator / Documentation`, node `23730:499` |
+| Code repository/package | **Unregistered** |
+| Runtime component/API | **Unverified**; do not treat the 3 default Figma slot Items as a runtime limit |
+| Property mapping | **Unverified** — do not infer runtime prop names from Figma property labels |
+| Storybook | **Bypassed for current handoff** |
+| Code Connect | **No registered mapping** |
+| Last Figma verification | 2026-10-15 |
+
+Progress Indicator and Item design identities, final Carbon-derived visual contract, state model, RTL authoring behavior, connector termination, helper placement, and text constraints are verified in Figma. Runtime sequence rendering, exact DOM/API, responsive product composition, and accessibility implementation remain development responsibilities. See `../components/progress-indicator.md`.
+
 
 ### Choice Group
 
