@@ -47,7 +47,7 @@ The modal overlay consists of an inert underlying page, a semantic **backdrop** 
 | Component and viewport | Header | Body (optional) | Footer | Gap from last content to actions |
 |---|---|---|---|---|
 | General Dialog / Regular | `24 / 24* / 0` | `16 / 24 / 0` | `24 / 24 / 24` | 24px via Footer top |
-| General Dialog / Narrow | `16 / 16* / 0` | `16 / 16 / 0` | `24 / 16 / 16` | 24px via Footer top |
+| General Dialog / Mobile | `16 / 16* / 0` | `16 / 16 / 0` | `16 / 16 / 16` | 16px via Footer top |
 | Confirmation & Alert / Regular | `32 / 32 / 0` | `16 / 32 / 0` | `32 / 32 / 32` | 32px via Footer top |
 | Confirmation & Alert / Narrow | `24 / 24 / 0` | `16 / 24 / 0` | `24 / 24 / 24` | 24px via Footer top |
 
@@ -56,7 +56,7 @@ The modal overlay consists of an inert underlying page, a semantic **backdrop** 
 - The 8px **Title → Description** gap is internal to the Heading group for all variants. Content in short Confirmation/Alert dialogs goes in Description by default; Body remains hidden unless extra structured content is present.
 - The Footer owns the separation from whichever content section precedes it. Do **not** add a second 24px/32px gap on the parent or on the Body's bottom: this would double the spacing. If there is **no Footer**, add bottom space to the final visible content section (e.g. Body bottom 24px Regular / 16px Narrow in general Dialog).
 - Alert Dialog: **Icon is an actual child of the Title Row**, not an absolute sibling of Header. The RTL row is `[Title (flex), Alert icon (24px)]` with an **8px gap**; Title is right-aligned and shares Heading/LG. Description is its own line underneath, aligned with the Header's right edge. Icons and their colors reuse canonical icon components and existing public `fg/warning` / `fg/danger` variables.
-- At viewport height limits, keep Header/Footer outside the scroll container and scroll only Body. When Body is hidden, the Footer's top padding still supplies exactly one content-to-actions gap. This is intended runtime behavior; visual Figma checks do not constitute executed scroll/a11y tests.
+- At viewport height limits, keep Header/Footer outside the scroll container and scroll only Body. When Body is hidden, the Footer's top padding still supplies exactly one content-to-actions gap (16px in general Mobile, 24px in general Regular and specialized Mobile, 32px in specialized Regular). This is intended runtime behavior; visual Figma checks do not constitute executed scroll/a11y tests.
 
 ### Size and responsive choices
 
