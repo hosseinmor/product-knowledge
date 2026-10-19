@@ -43,6 +43,28 @@ Known mismatch/gap
 
 ## Current mapping registry
 
+### Loading and Progress Circle — HOS-46 migration (design-review draft)
+
+| Field | Verified design source / boundary |
+|---|---|
+| Figma file key | `rROD8ctH9UfPGAMrRrOzHe` |
+| Loading presentation | [Loading / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24144-128998) · page `370:0` |
+| Loading original public set | `3238:28455` · key `14302ada5f73ab107d80509082cb3cb79ec4ca0f` · 9 variants, original public master IDs retained |
+| Loading authoring boundary | Size Small / Medium / Large × Color Neutral / Accent / On color. Indeterminate Progress Circle preset; no State, LoopState, percentage or Inline size |
+| Progress Circle presentation | [Progress Circle / Documentation](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=24203-116) · page `24201:379` |
+| Progress Circle public set | `24200:460` · key `fa4ad066cca165f8869d86b8d8133b41d89a4bd3` · 18 variants: Mode Indeterminate / Determinate × 3 sizes × 3 colors |
+| Determinate authoring | Nested exposed `Progress value`: 0 / 25 / 50 / 75 / 100% snapshots. No arbitrary numeric Figma property; runtime must render actual validated intermediate values |
+| Private geometry sources | `_Progress Circle / Track / Small` `3172:28703` (original base set/key `b7204e59832cad521eb94064e060623fb2fb189e` retained); Medium `24200:311`; Large `24200:336`; 5 snapshots each |
+| Preserved geometry masters | Original Small `3172:28675`, Medium `24149:1205`, Large `3165:28654` remain the 25% sources; existing rotation links retained |
+| Private rotation | `_Progress Circle / Rotation` `3165:28659` · original key `6155930ad6dade6abebb70ad047b1fa9078e9c31` · 12 variants, Size × Phase; four-phase prototype reference |
+| Button dependency | All 160 Loading=True masters retain the original Small Loading source `3238:28456`, 16px, through `Button → Loading → Progress Circle / Indeterminate` |
+| Button colors | Arc matches label foreground; Track uses `line/inverse` on filled styles, `line/default` on other enabled styles, `line/disabled` on all disabled styles. 48 / 80 / 32 masters respectively; dimensions unchanged by migration |
+| Visual contract | Existing semantic tokens, neutral unfilled Accent track, flat arc endpoints, full layer/paint opacity; no new component color tokens |
+| Legacy Inline outcomes | `_Loading / Legacy inline status` `24149:1204` retained for migration only; not a public Loading state API |
+| Contracts | [Loading](../components/loading.md) · [Progress Circle](../components/progress-circle.md) |
+| Runtime / Storybook / Code Connect | Unregistered / unverified; no production animation, reduced-motion or assistive-technology test claim |
+| Figma last verified | 2026-10-19 |
+
 ### Dialog — HOS-42 design handoff (Figma verified; runtime unregistered)
 
 | Field | Verified design source / boundary |
@@ -132,7 +154,7 @@ Figma component keys and names above are verified on the live source. This is **
 | Figma styles | `Brand / Primary / Secondary / Tertiary / Ghost / Danger Primary / Danger Tertiary / Danger Ghost` |
 | Figma sizes | `Extra Small 28 / Small 32 / Medium 40 / Large 48` |
 | Figma states | `Enabled / Hover / Active / Focus / Disabled` |
-| Loading representation | `False / True`, separate from interaction State; uses shared `Loading / Small / Active` component |
+| Loading representation | `False / True`, separate from interaction State; uses shared `Loading / Small` source with contextual semantic colors, composed from Progress Circle / Indeterminate (HOS-46) |
 | Code repository/package | **Unregistered** |
 | Runtime component/API | **Unverified** |
 | Property mapping | **Unverified** — do not infer code prop names from Figma property names |

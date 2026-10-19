@@ -125,7 +125,7 @@ Loading is independent from interaction `State` in the Figma API and should map 
 
 When `Loading=True`:
 
-- Use the existing `Loading / Size=Small / State=Active` component (`16×16`); do not create a Button-specific spinner.
+- Use the existing `Loading / Size=Small / Color=Neutral` source (`16×16`), now composed from Progress Circle / Indeterminate; do not create a Button-specific spinner. The nested arc takes the Button label foreground, with a semantic neutral track appropriate to the surface and disabled state; see [Loading](loading.md).
 - Preserve the Button's exact width and height.
 - Preserve the label and icon layout space while visually hiding their content, so entering Loading never causes layout shift.
 - Center the Loading component relative to the current Button width. It must remain centered when the label changes or Start/End icons are toggled.
@@ -257,7 +257,7 @@ Implementation requirements:
 - icon size: 18 px;
 - icon-label gap: 8 px;
 - no layout-changing transitions;
-- loading spinner: shared Loading Small / Active, 16 px;
+- loading spinner: shared Loading Small, 16 px, composed from Progress Circle / Indeterminate with contextual foreground and neutral track;
 - no width jump during Loading;
 - suppress repeated activation while Loading;
 - preserve keyboard/focus behavior and visible focus treatment.
@@ -286,7 +286,7 @@ For each Style and Size, verify:
 - Disabled does not trigger the action.
 - Loading prevents repeated activation.
 - Switching Loading on/off does not change width or height, including with custom labels and Start/End icon combinations.
-- Shared Loading Small / Active remains centered at every Button width.
+- Shared Loading Small remains centered at every Button width.
 - No interaction state causes layout shift.
 
 ## Open Items
@@ -303,7 +303,7 @@ These are implementation-system decisions; the Button visual and behavioral cont
 
 - Figma component set: `Button / Default` in `[DS] Job Vision NEXT`.
 - Figma properties: `Style`, `Size`, `State`, `Loading`, `Button text`, Start/End Icon, Start/End Icon swap.
-- Loading dependency: shared `Loading / Size=Small / State=Active`.
+- Loading dependency: shared `Loading / Size=Small / Color=Neutral` source, with contextual semantic color overrides; see [Loading](loading.md) and [Progress Circle](progress-circle.md).
 - Storybook / Code: not yet connected as a canonical live reference.
 
 ## Related

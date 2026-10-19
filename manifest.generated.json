@@ -1315,6 +1315,32 @@
       "path": "shared/design-system/components/link.md"
     },
     {
+      "id": "design-system.component.loading",
+      "kind": "design-system-component",
+      "title": "Loading",
+      "summary": "Compact indeterminate activity feedback composed from Progress Circle, including dimensionally stable Button loading.",
+      "status": "draft",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-19",
+      "related": [
+        "design-system.component.progress-circle",
+        "button",
+        "design-system.component.progress-bar",
+        "design-system.accessibility.dynamic-content-and-feedback",
+        "content.pattern.loading-and-progress",
+        "design-system.reference.component-mapping"
+      ],
+      "topics": [
+        "busy",
+        "components",
+        "design-system-component",
+        "feedback",
+        "loading",
+        "spinner"
+      ],
+      "path": "shared/design-system/components/loading.md"
+    },
+    {
       "id": "design-system.component.menu",
       "kind": "design-system-component",
       "title": "Menu",
@@ -1477,6 +1503,32 @@
         "rtl"
       ],
       "path": "shared/design-system/components/progress-bar.md"
+    },
+    {
+      "id": "design-system.component.progress-circle",
+      "kind": "design-system-component",
+      "title": "Progress Circle",
+      "summary": "Shared circular progress component for measured work and unknown activity; Loading consumes its indeterminate preset.",
+      "status": "draft",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-19",
+      "related": [
+        "design-system.component.loading",
+        "design-system.component.progress-bar",
+        "design-system.accessibility.dynamic-content-and-feedback",
+        "content.pattern.loading-and-progress",
+        "design-system.reference.component-mapping"
+      ],
+      "topics": [
+        "components",
+        "design-system-component",
+        "determinate",
+        "feedback",
+        "indeterminate",
+        "progress",
+        "progress-circle"
+      ],
+      "path": "shared/design-system/components/progress-circle.md"
     },
     {
       "id": "design-system.component.progress-indicator",
@@ -3105,12 +3157,12 @@
     }
   ],
   "summary": {
-    "documents": 154,
+    "documents": 156,
     "by_kind": {
       "content-guideline": 17,
       "design-system-accessibility": 18,
       "design-system-audit": 3,
-      "design-system-component": 42,
+      "design-system-component": 44,
       "design-system-design-language": 1,
       "design-system-development-handoff": 1,
       "design-system-experience-rule": 11,
