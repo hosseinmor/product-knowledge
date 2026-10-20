@@ -48,6 +48,9 @@ for (const master of masters) {
     if (n.type === "INSTANCE") continue;
     metrics.ownedLayers++;
     const bind = n.boundVariables || {};
+    // The COMPONENT_SET shell decorates the variants on the Figma canvas;
+    // its border/fill is not part of a consumable component instance.
+    if (n.type !== "COMPONENT_SET") {
     for (const pair of [["fills", "fillStyleId"], ["strokes", "strokeStyleId"]]) {
       const prop = pair[0], styleProp = pair[1];
       if (!Array.isArray(n[prop])) continue;
@@ -81,6 +84,7 @@ for (const master of masters) {
           record("Raw color", "P1", n, prop, "unbound", master.name);
         }
       }
+    }
     }
     if (n.type === "TEXT") {
       metrics.text++;
