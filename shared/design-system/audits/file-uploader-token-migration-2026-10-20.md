@@ -3,10 +3,10 @@ id: design-system.audit.file-uploader-token-migration-2026-10-20
 collection: design-system
 type: audit
 title: File Uploader — Token Migration Audit (HOS-39)
-summary: Canonical Carbon File Uploader bindings migrated in place; local geometry, semantic color and focus decisions explicitly tracked.
+summary: Canonical Carbon File Uploader foundation and semantic token changes implemented in Figma; focus and runtime QA remain.
 knowledge_state: verified
 document_maturity: reviewed
-design_status: figma-binding-qa-complete-semantic-review-open
+design_status: figma-semantic-fixes-applied-runtime-qa-open
 owner: Design System team
 last_reviewed: '2026-10-20'
 related:
@@ -52,25 +52,44 @@ The public 15 variants, internal 18 file-item variants, 4 Dropzone states, File 
 | Component | Shared scale values left unbound | Deprecated radius left | Raw radius left | Unstyled product text |
 |---|---:|---:|---:|---:|
 | File uploader | 0 | 0 | 0 | 0 |
-| File Item | 0 | 0 | **18 × 4px** | 0 |
+| File Item | 0 | 0 | **0 after semantic follow-up** (18 old 4px variants migrated to Medium 6px) | 0 |
 | Dropzone States | 0 | 0 | 0 | 0 |
 | File list | 0 | 0 | 0 | 0 |
 
 The Dropzone master contains 8 non-scale optical padding observations (10px/50px). The File Item has 36 non-scale observations (7px/11px/15px). Component Set presentation layout properties were excluded from canonical component geometry counts. Borrowed nested instances were not double-counted as owned source properties.
 
-## Semantic and exception decisions still open
+## Semantic decisions and follow-up fixes — 2026-10-20
 
-**FU-01 / P1 — File Item background role:** All 18 source variants currently use surface/neutral-muted on the File Item container. The Carbon file item generally displays file/status information and separate remove/other actions; the **whole container is not established as an interactive neutral control**. The Semantic Surface contract says surface/neutral-muted is for interactive neutral treatment and surface/muted is for passive supporting structure. Recommend reviewing whether **surface/muted** better represents the anatomy, including Light/Dark appearance and contrast. Do not silently change a long-standing Carbon fill: the current v1 contract explicitly preserves original visual treatment. If kept, record an anatomy-specific, reviewed exception explaining interactivity/meaning.
+The original 147 bindings were value-preserving Foundation cleanup. The following changes are a **subsequent intentional semantic and visual refinement**, not part of those 147:
 
-**FU-02 / P1 — Dropzone Focus:** Focus state 3183:29118 has **2px inside line/accent** and no effect/style layer for a separate focus/default ring. The shared Focus contract expects a distinct focus role. Review keyboard interaction ownership (Browse action vs Dropzone target), then add an approved focus/default indication with compatible geometry and test keyboard only, error coexistence and Theme contrasts. Do not assume changing the border token alone satisfies this.
+| Finding | Source modification | Result |
+|---|---|---|
+| FU-01 File Item passive surface | 18 File Item variant fills: surface/neutral-muted → **surface/muted** | 18/18 bound to public semantic token |
+| FU-02 Dropzone Focus | Variant 3183:29118: 2px line/accent → **1px line/emphasis**; shared **Focus/Default** Effect Style added | Two effect layers bind focus/default (outside ring) and surface/default (1px gap); identical Effect Style ID to canonical Text Input |
+| FU-03 File Item corner Radius | 18 variants × 4 corners: 4px raw → **6px Medium** | **72/72** canonical corner bindings, 18/18 component widths/heights retained |
+| FU-07 Error text contrast | 3 Error short text layers → **fg/primary**; 3 Error long descriptions → **fg/secondary** | 6/6 roles rebound; icon and border keep Error semantics |
 
-**FU-03 / P2 — File Item Radius:** Every File Item variant has a literal **4px** corner radius (18/18). This is outside the canonical Radius scale (None/3/6/12/Full) and is not bound. Current file-uploader.md specifically preserves original Carbon radii in v1. **Compatibility debt, not a silently approved global exception.** Decide explicitly between migrating all 18 in place to 6px Medium with visual signoff, or documenting a temporary File Item geometry exception with an owner/retirement date. No change performed.
+**FU-04 optical padding still local:** File Item 7/11/15px vertical padding and Dropzone 10/50px construction offsets remain intentionally outside the shared spacing scale pending component-height/optical review.
 
-**FU-04 / P2 — Local construction geometry:** File Item 7/11/15px vertical padding and Dropzone 10/50px optical offsets remain literal. All documented scale spacing is now bound. Confirm that each non-scale value is actually needed for fixed-height 160/136/112px File Item specimens and Dropzone composition; do not round independently, which could damage height/vertical centering.
+**FU-05 legacy Paint Styles pending:** Transparent/Transparent is currently a white Multiply paint and must not be replaced by an opaque color without appearance review. Existing icon Accessibility/White is inherited from another source. These are tracked migration debts.
 
-**FU-05 / P2 — Legacy Paint Style:** Some canonical variants still use the old Transparent/Transparent Paint Style (white Multiply paint) to achieve a neutral/transparent-looking base; at least one error-item icon inherits Accessibility/White. Neither should be replaced mechanically by surface/default or another opaque Semantic fill, because that can alter contrast or blending on nonwhite surfaces. Resolve Paint Style migration only after appearance matrix and nested-source ownership checks.
+**FU-06 image uploader separately scoped:** nine Image Uploader variants still have deprecated Radius, raw spacing and unresolved colors; no edits were made to that neighboring component.
 
-**FU-06 / separate migration — image uploader:** Its 9 variants still show 9 deprecated 12px radius bindings, 46 exact-scale nonzero spacing properties without variables (at owned-source level), 3 raw colors and 18 unresolved variable references in the current source inventory. Some image/placeholder coloration may be intentional assets. Treat it as a distinct component ownership/migration audit; do not use the Carbon File Uploader counts to certify it.
+### Theme, contrast and focus QA
+
+Resolved actual Figma token alias graph across **JobVision × Light, JobVision × Dark, Cando × Light, Cando × Dark**; both Products currently yield the same evaluated numeric contrasts:
+
+| Foreground versus File Item surface/muted | Light | Dark |
+|---|---:|---:|
+| fg/primary normal text | 18.48:1 | 8.83:1 |
+| fg/secondary normal text | 7.41:1 | 5.85:1 |
+| fg/error icon (non-text) | 5.87:1 | 3.91:1 |
+
+The original 12px fg/error explanatory text would have had **3.91:1 in Dark**, below the standard 4.5:1 normal-text ratio. The new text styles exceed 4.5:1. The status icon exceeds 3:1. The text styles and content characters were not changed.
+
+**Focus/default contrast:** on surface/default, **4.59:1 Light / 4.31:1 Dark**. On surface/muted, **4.29:1 Light / 2.85:1 Dark**, so the shared ring needs contextual contrast evaluation if the Dropzone is placed on a muted dark background. The intended normal backdrop is surface/default.
+
+The Dropzone Focus has the same Figma Effect Style as canonical Text Input Control 22780:357. The screenshot renderer did not visibly draw the bound focus-shadow ring on **either** reference; this prevents screenshot-based certification of its visual outline. The style has two active effects and the correct colors/spreads in Figma source. **Do not infer real editor/browser focus visibility or keyboard access from that source evidence alone.** No additional custom ring was added to sidestep this renderer limitation.
 
 ## Visual and structural checks
 
@@ -93,10 +112,10 @@ These are Figma source and screenshot checks. **No actual browser upload, screen
 
 ## Next actions
 
-1. Review FU-01 surface role and FU-02 Focus semantics with Light/Dark and keyboard behavior; design decision required before changing appearance.
-2. Decide FU-03 raw 4px File Item radius compatibility vs migration to 6px.
-3. Validate the original File Item size/height matrix, 3-file Slot and all error states at narrow widths.
-4. Audit image uploader separately; preserve its distinct usage model and required asset/color exceptions.
-5. Perform Product × Appearance and published-instance override QA; runtime accessibility and real upload operations remain code-owned.
+1. Confirm shared Focus/Default visual appearance in the actual Figma editor/browser, keyboard focus-within ownership and background-dependent focus contrast.
+2. Run Figma visual matrix across all four Product/Appearance contexts after the intentional File Item fill/radius change.
+3. Regression-test published instances, text/slot overrides, RTL/narrow 320–360px layouts and long filenames.
+4. Audit the separate Image Uploader masters and their asset-color exceptions.
+5. Keep local optical spacing and legacy Paint Styles tracked for a controlled follow-up; runtime upload and assistive-technology tests remain code-owned.
 
-**Outcome:** Canonical Carbon File Uploader foundation **binding hygiene** is fixed for shared spacing and deprecated radius; semantic color/focus and intentional local-radius exceptions remain open. Do **not** declare complete token-compliance signoff until FU-01 through FU-03 are decided.
+**Outcome:** Foundation and the three agreed **semantic design fixes have been applied in Figma**. FU-01/FU-03 structurally pass; FU-02 has the shared correct effect/border token but needs live visual/editor and keyboard QA. Full appearance matrix, published-instance compatibility and browser accessibility are **not yet certified**.
