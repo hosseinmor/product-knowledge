@@ -14,7 +14,7 @@ related:
   - design-system.component.chip
   - design-system.component.progress-bar
   - design-system.component.select
-  - design-system.component.button
+  - button
   - design-system.component.dialog
   - design-system.component.table
 ---
