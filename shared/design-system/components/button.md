@@ -275,6 +275,21 @@ btn-[style]
 
 Before implementation, align with frontend on whether this remains separate composable classes, becomes a variant utility/CVA-style API, or follows the existing Angular/Tailwind component convention. The semantic API and behavior contract above are fixed; the class-authoring strategy is not.
 
+## Figma Spacing binding QA — 2026-10-20
+
+The canonical Button / Default component set (node `1854:1776`) still has the existing 320 variants. A source-only Figma audit identified 808 correct but unbound effective layout properties. They were rebound **in place** to the existing Spacing variables, without changing values, variant dimensions, component identities or API.
+
+- **244** new content `paddingLeft` bindings and **244** new content `paddingRight` bindings.
+- **320** new content `itemSpacing` bindings, for the real 8px icon–label gap.
+- **152** effective bindings were already present, giving **960/960** correct bound non-zero effective `Button content` spacing properties.
+- All four sizes retain documented 28/32/40/48px heights and 8/12/16/20px horizontal padding.
+- The 320 Variant source text styles and Radius bindings were unchanged; all were already governed.
+
+Each variant additionally contains one `Start Icon` and one `End Icon` frame, each with only one direct child. Those **640** raw `itemSpacing=8px` values are **inactive** because no sibling spacing can be produced within a single-child frame. They are not a layout-token failure, were left unchanged, and are exempted by the scoped source audit. If the icon wrapper anatomy gains multiple children, review its gap.
+
+**Remaining:** Legacy `Transparent/Transparent` Paint Style remains in some Button Focus visuals; it uses blending behavior and was not indiscriminately replaced. Product × Appearance visual regression, published instance overrides, keyboard focus and Angular/Storybook QA still require separate verification.
+
+Detailed evidence: [Button Spacing Migration Audit](../audits/button-spacing-2026-10-20.md). No new tokens were added.
 ## QA Checklist
 
 For each Style and Size, verify:
