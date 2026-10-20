@@ -36,7 +36,7 @@ The applicable contract is [Figma Component Token Compliance](../integrations/fi
 
 No canonical public component set was recreated or detached. Publication/consumer and runtime regression tests remain to be performed.
 
-See also the [2026-10-20 File Uploader migration audit](file-uploader-token-migration-2026-10-20.md): 147 numeric property rebindings on 75 owned nodes and 1 corrected Disabled foreground binding; not full semantic signoff.
+See also the [2026-10-20 File Uploader migration audit](file-uploader-token-migration-2026-10-20.md): first 147 Foundation bindings corrected, then 18 File Item surfaces, 72 radius corners, one shared Focus treatment and 6 Dark-contrast error-text roles. Structural token QA passed; actual Focus render/keyboard, Theme matrix and published-instance QA remain open.
 
 ## Open discrepancy register
 
@@ -46,7 +46,7 @@ See also the [2026-10-20 File Uploader migration audit](file-uploader-token-migr
 | TC-02 | P1 | Select Deprecated radius source | Rebound in place; test published overrides, all error/focus/open variants and responsive layout |
 | TC-03 | P1/P2 | Select Text Style holes: Mandatory markers, Option metadata/secondary content and Panel title | **Mandatory markers fixed (108)** and **shared Field Label fixed (1)**; 12/18 Regular Option metadata and 14/Auto SemiBold Panel title need recipe/role decision |
 | TC-04 | P2 | Data Table raw shared spacing | Owned master source corrected; investigate 110 nested-instance inherited raw observations upstream |
-| TC-05 | P1/P2 | File Uploader: Carbon canonical vs image uploader; deprecated 12px Dropzone; File Item 4px radius, semantic surface/focus review | **131 shared Spacing + 16 Dropzone corner bindings corrected; disabled text rebound**. Canonical has 0 deprecated radius and 0 unbound shared scale spacing in owned source layers. **Open:** 18 × raw File Item 4px, surface/neutral-muted semantic review, missing distinct focus/default effect. Image uploader remains separate. [Details](file-uploader-token-migration-2026-10-20.md) |
+| TC-05 | P1/P2 | File Uploader semantic roles, legacy styling and separate Image Uploader | **Resolved in Figma:** 131 Spacing, 16 Dropzone Large Radius corners, 72 File Item Medium Radius corners, 18 passive surface/muted fills, 6 readable error-text semantic fills, and shared Focus/Default on Dropzone. **Remaining:** verify Focus ring visually/keyboard and on muted Dark backdrop, review all Product × Appearance and published overrides, preserve local optical values; separately audit image uploader. [Details](file-uploader-token-migration-2026-10-20.md) |
 | TC-06 | P2 | Button, Chip, Progress Bar and some input families: unbound but numerically correct layout spacing | Targeted owned-source binding migration, visual regression |
 | TC-07 | P2 | Autocomplete Selection Panel open instances initially displayed raw 12px radius | **Resolved by inheritance:** 24/24 Autocomplete / Open panels now bound to 12px Large |
 | TC-08 | P1 migration | Number Input and Date Picker (already tracked in HOS-48/49), Pagination, Structured List, UI Shell, Slider and other legacy assets | Compatibility migration; no indiscriminate palette/radius replacement |
