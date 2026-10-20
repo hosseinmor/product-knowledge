@@ -1290,7 +1290,7 @@
       "summary": "Canonical Carbon-derived file selection and drag-and-drop design contract, with native File list Slot, file-level feedback and verified Figma sources.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-10-17",
+      "last_reviewed": "2026-10-20",
       "related": [
         "design-system.component.progress-bar",
         "design-system.component.progress-circle",
