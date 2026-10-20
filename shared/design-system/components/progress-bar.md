@@ -10,7 +10,7 @@ design_status: ready-for-dev
 design_maturity: handoff-ready
 status: reviewed
 owner: Design System team
-last_reviewed: '2026-10-19'
+last_reviewed: '2026-10-20'
 related:
   - design-system.component.progress-indicator
   - design-system.pattern.loading-and-progress
@@ -165,6 +165,21 @@ The Track and colored segments have **square ends**. The entire progress path us
 
 The operation Label is the primary identifier of the running task; Helper and terminal-state messages are supporting text. **Do not use `Body/Compact/SM` for the operation Label or `Label/XS` for Helper/Success/Error in this component.** Semantic status colors and clear copy, rather than heavier helper typography, distinguish outcomes. Retain existing RTL alignment, Default/Indent multi-line height growth, and the one-line ending ellipsis in Inline variants. This is a typography role correction, **not** a change to font sizes, line heights, component sizes, or the runtime API.
 
+### Figma token-compliance refinement — 2026-10-20
+
+A source-only audit of the **original** `Progress bar` (30 public variants) and `_Progress bar track item` (16 internal variants) verified the current semantic Stroke, Typography and geometry contract. **46** existing shared-scale spacing properties lacked a Figma Spacing variable binding. They were rebound **in place** without modifying numeric values, component IDs/keys, layout dimensions, or the set's existing Figma API:
+
+- **30** public parent `itemSpacing` bindings: **22 × 8px** in Default/Indent and **8 × 16px** in Inline.
+- **4 × 16px** `Label + Icon` gap bindings in Success/Error parent variants.
+- **12 × 16px** `paddingRight` bindings on Label and Helper frames in Indent variants.
+
+**Outcome-copy correction:** Both existing `Success message text` layers had consumed `fg/secondary`, despite the Status Typography contract above. They now consume **`fg/success`**, preserving Body/Compact/XS and the original text/content geometry. On the normal `surface/default` background, resolved `fg/success` contrast is **5.02:1 Light / 6.98:1 Dark**; `fg/error` is **6.29:1 / 5.91:1**, for both current Product mappings. This is calculated token contrast, not browser/AT certification.
+
+**Final source evidence:** 46/46 active Spacing properties bound, 52/52 Text layers styled, **44/44 internal bottom-inside Strokes** using `line/default` (16), `line/accent` (18), `line/success` (5) and `line/error` (5). Every progress-path Stroke is bottom-only, 4px Small or 8px Big; no progress-path Fill or foreign semantic token remains. The old paint applied to the **Figma Component Set presentation shell** is not part of consumer instances and was excluded from the source audit.
+
+No new variable, variant, mode, success/error runtime behavior or percentage-authoring capability was added. Indeterminate remains a static Figma reference. Light/Dark editor screenshots, published-instance overrides, actual animation, reduced-motion and accessibility testing remain separate runtime/consumer QA gates.
+
+See the [dedicated Progress Bar token audit](../audits/progress-bar-token-compliance-2026-10-20.md) for node IDs, counts and validation details.
 ## Content and status text
 
 Content rules belong to [Loading and Progress Content](../../content/patterns/loading-and-progress.md); use its writing rules and machine-readable evaluation where relevant.
