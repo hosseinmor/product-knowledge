@@ -100,10 +100,10 @@ shared/product-standards/
 → reusable product and documentation standards
 
 ai/
-→ routing and workflow contracts that consume external Product Knowledge
+→ transitional generic routes awaiting replacement by the Harness
 
 templates/
-→ repository-owned output templates such as the Jira PRD template
+→ legacy Jira PRD template awaiting retirement; the Harness PRD contract is authoritative
 
 docs/
 → source authority, retrieval, setup, and repository documentation
