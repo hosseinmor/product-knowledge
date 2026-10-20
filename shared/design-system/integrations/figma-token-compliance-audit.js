@@ -43,6 +43,9 @@ for (const master of masters) {
   const stack = [master];
   while (stack.length) {
     const n = stack.pop();
+    // Instances and their internals belong to an upstream component source.
+    // Excluding only children still counts instance-wrapper overrides as owned.
+    if (n.type === "INSTANCE") continue;
     metrics.ownedLayers++;
     const bind = n.boundVariables || {};
     for (const pair of [["fills", "fillStyleId"], ["strokes", "strokeStyleId"]]) {
