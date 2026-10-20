@@ -11,7 +11,7 @@ design_maturity: pilot
 related:
   - design-system.accessibility.tables-and-data-visualization
   - design-system.pattern.data-views
-last_reviewed: '2026-10-14'
+last_reviewed: '2026-10-20'
 ---
 
 # Data Table
@@ -87,6 +87,21 @@ Header labels: `Label/SM` (Vazirmatn 14/20, weight 500), neutral secondary foreg
 - Header/Body widths and column starts must stay aligned when the containing Table width changes.
 - Provide accessible contextual action names (for example “View Ali Rezaei's application”), not just “View” repeated in every row.
 - Expanded content must remain programmatically associated with the owning row; wire `aria-expanded`/`aria-controls` appropriately in runtime.
+
+## Design-token compliance follow-up — 2026-10-20
+
+A read-only, source-scoped audit confirmed all **10 canonical Data Table masters** meet the current Karbon token binding contract. This check excludes Figma component-set presentation geometry, borrowed Instance wrappers, and one-child icon gaps that cannot affect layout.
+
+- **94/94 effective nonzero Spacing properties in owned source layers** are bound to Spacing variables.
+- **13/13 owned Text layers** use Text Styles. **50/50 owned visible SOLID paints** use public Semantic Color tokens.
+- Table/Row/Cell containers retain their intentionally square geometry; they do not need a nonzero Radius token. The Row / Header dividers keep `line/muted` semantics.
+- Semantic Color matches current anatomy: Header `surface/muted`, Row `surface/default`, Hover `surface/transparent-hover`, Selected `surface/selected`, Selected Hover `surface/selected-hover`, readable text `fg/primary` and secondary content `fg/secondary`.
+
+**The previously open 110 nested-instance spacing observations are now resolved as false positives.** Each was a raw `itemSpacing=8px` on an inherited **Icon Button → Start Icon** frame with only one direct child, so the gap is inactive. They are repeated instance-descendant observations rather than 110 independent Table defects. The upstream [Button audit](../audits/button-spacing-2026-10-20.md) records the same intentional inactive-gap exception. No Table or Icon Button Figma layers were changed in this follow-up. If a source icon wrapper gains multiple children, its gap must be re-audited.
+
+Normal, Multiple Selection, Selected Row, and Expanded Row Figma screenshots were reviewed. This **Figma token-authoring QA does not upgrade the draft/pilot Table to production-ready**. Browser/Storybook RTL layout, dynamic two-line cell heights, keyboard/accessibility behavior, Product × Appearance visual contrasts and published Slot overrides remain separate acceptance tests.
+
+See [Data Table Token Compliance and Nested Instance Provenance](../audits/data-table-token-compliance-2026-10-20.md) for source IDs, exact counts and rationale.
 
 ## QA evidence (Figma pilot)
 
