@@ -10,7 +10,7 @@ design_status: figma-source-spacing-qa-complete
 owner: Design System team
 last_reviewed: '2026-10-20'
 related:
-  - design-system.component.button
+  - button
   - design-system.reference.figma-token-compliance
 ---
 
