@@ -16,7 +16,7 @@ related:
 
 # Chip Token Compliance — 2026-10-20
 
-Live source: [JobVision NEXT Figma — Chip](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=13500-300199). This audit intentionally covers four **canonical public component sets and their owned source layers only**, excluding Playground, inherited/nested instances, the private Chevron helper, and \`__Legacy Chip Open=True variants\` retained for linked instances. It does not migrate old detached consumer references.
+Live source: [JobVision NEXT Figma — Chip](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT?node-id=13500-300199). This audit intentionally covers four **canonical public component sets and their owned source layers only**, excluding Playground, inherited/nested instances, the private Chevron helper, and `__Legacy Chip Open=True variants` retained for linked instances. It does not migrate old detached consumer references.
 
 ## Canonical master inventory and source validation
 
@@ -28,11 +28,11 @@ Live source: [JobVision NEXT Figma — Chip](https://www.figma.com/design/rROD8c
 | Chip / Action | 23123:125056 | 15 | 45/45 |
 | **Total** | | **90** | **315/315** |
 
-The current \`Radius / Full\` recipe is explicitly approved in chip.md; no 6px Medium migration was attempted. The existing sizes **Extra Small 28px**, **Small 32px** and **Medium 40px** were verified across all state variants. Canonical source text-style references and public Semantic Color references were inspected and preserved. No variant count, component key, API axis, content property, or authoring Slot was recreated.
+The current `Radius / Full` recipe is explicitly approved in chip.md; no 6px Medium migration was attempted. The existing sizes **Extra Small 28px**, **Small 32px** and **Medium 40px** were verified across all state variants. Canonical source text-style references and public Semantic Color references were inspected and preserved. No variant count, component key, API axis, content property, or authoring Slot was recreated.
 
 ## 45 Spacing bindings migrated in place
 
-Only **Chip / Removable** had unbound effective scale spacing in its owned source. Its 15 \`Body / Edit action target\` frames previously used correct numeric values without bindings:
+Only **Chip / Removable** had unbound effective scale spacing in its owned source. Its 15 `Body / Edit action target` frames previously used correct numeric values without bindings:
 
 | Property | Changed bindings | Existing geometry |
 |---|---:|---|
@@ -41,19 +41,19 @@ Only **Chip / Removable** had unbound effective scale spacing in its owned sourc
 | itemSpacing | 15 | 8px |
 | **Total** | **45** | Unchanged |
 
-Each Body frame has three direct children; unlike a one-child icon wrapper, its \`itemSpacing\` is effective. The body remains independently actionable from the trailing \`__Chip Remove Action\`. The latter, its hover/focus target and compound-control contract were **not** changed. All 15 source body frames kept their width and height. Source binding validation passed with zero failures.
+Each Body frame has three direct children; unlike a one-child icon wrapper, its `itemSpacing` is effective. The body remains independently actionable from the trailing `__Chip Remove Action`. The latter, its hover/focus target and compound-control contract were **not** changed. All 15 source body frames kept their width and height. Source binding validation passed with zero failures.
 
 ## Nine obsolete Disabled surface bindings corrected
 
-A separate Color inspection found that nine Disabled variants still referenced \`surface/surface-selected-disabled\` in the public 03 Semantic collection, an obsolete role **not in the current Token Usage Rules**. It appeared in three sizes for each of:
+A separate Color inspection found that nine Disabled variants still referenced `surface/surface-selected-disabled` in the public 03 Semantic collection, an obsolete role **not in the current Token Usage Rules**. It appeared in three sizes for each of:
 
 - Selectable / Selected=true / Disabled;
 - Removable / Disabled;
 - Disclosure / Applied=true / Disabled.
 
-All nine source root fills now consume the current public **\`surface/disabled\`** variable; Action had no such obsolete reference. **This intentionally changes the Disabled fill appearance**, unlike the spacing-only bindings.
+All nine source root fills now consume the current public **`surface/disabled`** variable; Action had no such obsolete reference. **This intentionally changes the Disabled fill appearance**, unlike the spacing-only bindings.
 
-The old role resolved to approximately #EBEBEB in both Light and Dark. By contrast, current \`surface/disabled\` resolves to approximately #F2F2F2 in Light and #3F3F3F in Dark for both JobVision and Cando. Thus the legacy role was specifically wrong in Dark, in addition to violating naming/usage policy. The legacy variable itself was **not deleted or redefined**, since other consumers may depend on it.
+The old role resolved to approximately #EBEBEB in both Light and Dark. By contrast, current `surface/disabled` resolves to approximately #F2F2F2 in Light and #3F3F3F in Dark for both JobVision and Cando. Thus the legacy role was specifically wrong in Dark, in addition to violating naming/usage policy. The legacy variable itself was **not deleted or redefined**, since other consumers may depend on it.
 
 ## Final mechanical QA
 
@@ -75,7 +75,7 @@ Reviewed visual snapshots before/after of canonical Removable Small and Medium B
 
 - Run appearance/contrast, hover, active, focus, selection, disabled and RTL composition tests in the actual editor and runtime.
 - Preserve the separate keyboard/focus targets of Removable Body and Remove in implementation.
-- \`__Legacy Chip Open=True variants\` remain retained for existing linked instances, untouched; they must be managed through an explicit compatibility plan.
+- `__Legacy Chip Open=True variants` remain retained for existing linked instances, untouched; they must be managed through an explicit compatibility plan.
 - Do not modify File/Image Uploader as part of Chip remediation. In particular, **Image Uploader is explicitly out of scope**.
 
 **Status:** canonical four Chip component sets pass owned-source mechanical Color/Spacing/Typography/Radius checks. Consumer/runtime and four-mode visual QA remain separate acceptance activities.
