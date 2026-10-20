@@ -90,7 +90,8 @@ for (const master of masters) {
           n.characters?.slice(0, 35), master.name);
       }
     }
-    if (n.layoutMode && n.layoutMode !== "NONE") {
+    // Component Set auto-layout arranges the Figma variant matrix, not product UI.
+    if (n.type !== "COMPONENT_SET" && n.layoutMode && n.layoutMode !== "NONE") {
       for (const prop of ["paddingTop", "paddingRight", "paddingBottom",
                           "paddingLeft", "itemSpacing"]) {
         const value = n[prop];
