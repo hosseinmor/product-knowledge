@@ -1,8 +1,36 @@
-# Product Content and Design Knowledge
+# Karbon · JobVision Group Design Language
 
-This repository contains JobVision and Cando Product Content guidance, Design
-System knowledge, reusable product standards, and AI workflow contracts. It is
-not the canonical store for product behavior.
+**کاربن، زبان طراحی محصولات گروه جاب‌ویژن**
+
+Karbon is the **internal**, shared Design Language of JobVision Group. Shared
+foundations, components and reusable interaction rules coexist with explicit,
+approved JobVision/Cando product identity variations. The scope includes tokens,
+foundations, components, patterns, accessibility, governance and usage/implementation
+guidance connected to live Figma, Code and Storybook sources. Iconography, motion
+and illustration can evolve here as needed; empty future scaffolds are not required.
+
+**Migration status:** this is still the existing `product-knowledge` GitHub
+repository until the administrative rename to `karbon-design-language` occurs.
+The Content System and its validators also **remain here temporarily** until
+they are fully copied and validated in independent `product-content-system`.
+No file is treated as transferred or retired merely because of this plan.
+See [migration ownership and cutover](migration/ownership-and-cutover.md).
+
+## Two Karbon usage paths
+
+- **Designing with Karbon:** [DESIGN.md](shared/design-system/DESIGN.md)
+  → relevant component/pattern → specialized accessibility/variation rule
+  → live Figma/Code/Storybook facts as applicable.
+- **Building and maintaining Karbon:** [STRUCTURE.md](shared/design-system/STRUCTURE.md)
+  → [governance](shared/design-system/governance/README.md),
+  [integrations](shared/design-system/integrations/README.md) and
+  source-owned quality checks.
+
+For multi-step Product work (PRD, research, Design Exploration, review, readiness),
+use the separate [Product Development Harness](https://github.com/hosseinmor/product-development-harness)
+starting at its `AGENTS.md`. This repository does not own a parallel general
+Product workflow. Its former `ai/` and `templates/` routes are retained only
+until their consumers and replacements are reconciled.
 
 ## Product Knowledge sources
 
@@ -45,21 +73,18 @@ This separation is mandatory. Content Contexts can choose language and set
 claim boundaries, but they cannot establish lifecycle, permission, validation,
 eligibility, consequence, or flow.
 
-## Start here
+## Transitional source boundaries
 
-```text
-AGENTS.md
-→ source-authority and repository rules
-
-ai/router.md
-→ route the requested outcome
-
-product-knowledge-sources.yml
-→ machine-readable Product Knowledge authority
-
-manifest.generated.json
-→ retrieve repository-owned Content, Design System, and standards only
-```
+- Current Product Knowledge remains external and product-scoped:
+  JobVision <https://docs-jv.jvoffice.ir/>, Cando <https://docs-cd.jvoffice.ir/>.
+  Verify access; neither the legacy repository nor design/copy sources are
+  fallback authorities for current behavior.
+- Design Language: `shared/design-system/DESIGN.md` and only related docs.
+- Content System until independent cutover: `shared/content/README.md` and
+  only related docs/evals.
+- Existing combined `manifest.generated.json` and `product-knowledge-sources.yml`
+  remain transitional compatibility assets; they must be split or retired only
+  after the new owners can validate and retrieve their own content.
 
 ## Active structure
 
