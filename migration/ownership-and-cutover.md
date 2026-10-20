@@ -7,7 +7,7 @@
 - Source: `hosseinmor/product-knowledge`, `main`, recursive tree `6b0214530b80f858c7d1c5f120135a1f5dc3d0d6` (233 tracked files; no truncated tree).
 - Harness: `hosseinmor/product-development-harness`, `main`, recursive tree `a8fd406bb3df605285c2bfa1db4c4c3a98b3b240`.
 - Product Knowledge already lives **outside** this GitHub repository; the existing source contract identifies JobVision `https://docs-jv.jvoffice.ir/` and Cando `https://docs-cd.jvoffice.ir/`. Actual internal browser access must be verified during execution.
-- Open source PRs: [#83](https://github.com/hosseinmor/product-knowledge/pull/83) Content/Cando context, [#106](https://github.com/hosseinmor/product-knowledge/pull/106) Dialog, [#108](https://github.com/hosseinmor/product-knowledge/pull/108) token compliance/Figma and manifest. None is treated as merged into this snapshot.
+- Source PR inventory at this **pinned historical snapshot** included [#83](https://github.com/hosseinmor/product-knowledge/pull/83), [#106](https://github.com/hosseinmor/product-knowledge/pull/106), and [#108](https://github.com/hosseinmor/product-knowledge/pull/108). **2026-10-20 disposition update:** #108 has since merged; #83 was intentionally closed without merge and must be preserved as pinned Content migration source (`8068647d829270a694292f4511a35171229660c8`); #106 remains open. Do not assume the initial snapshot reflects current PR states.
 
 ## Inventory and ownership (classify by purpose, not folder spelling)
 
