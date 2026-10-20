@@ -10,7 +10,7 @@ design_status: ready-for-dev
 design_maturity: handoff-ready
 status: reviewed
 owner: Design System team
-last_reviewed: '2026-10-17'
+last_reviewed: '2026-10-20'
 related:
   - design-system.component.progress-bar
   - design-system.component.progress-circle
@@ -135,3 +135,19 @@ State names above are a *semantic mapping for implementers*, **not verified runt
 **Required of implementing team:** map the code API and actual product constraints, wire native input/drop handling, pass the behavioral and accessibility matrix, and record Storybook/code source identities in `component-mapping.md` after verification. Failure in any required runtime criterion blocks production release, **not the Design System design handoff**.
 
 Design knowledge is finalized for review and development use; no claim is made that the component already uploads files in a browser.
+
+
+## Token compliance and current Figma migration (2026-10-20)
+
+The v1 Carbon master identities and original visual anatomy are preserved. Source-layer Figma token hygiene was updated in place: **131** shared Spacing properties rebound to existing scale variables across the public Uploader, File Items and File list; **16** Dropzone corner bindings changed from deprecated 12px Surface to canonical 12px Large (unchanged numeric radius). Dropzone Disabled instruction text now uses public fg/disabled rather than an unresolved legacy reference. Original component/variant counts and the three-item File list Slot were retained.
+
+The following are **open design-semantic decisions**, *not* approved automatic redesigns:
+
+1. **File Item background:** all 18 original file-item variants currently use interactive surface/neutral-muted on an information-oriented container. Review passive surface/muted as the semantic alternative and verify the visual/contrast changes in JobVision/Cando × Light/Dark before choosing.
+2. **Dropzone Focus:** the original Focus variant has a 2px line/accent inside border but no distinct focus/default ring/effect. Determine actual keyboard target and add the shared visible Focus treatment where appropriate; Accent border alone should not be treated as passing focus QA.
+3. **File Item radius:** all 18 original File Item variants retain a raw 4px radius. It is *compatibility debt*, preserved under the original Carbon v1 visual contract; decide explicitly whether to migrate to shared 6px Medium or formally approve a temporary component-local exception.
+4. **Optical geometry/legacy Paint Styles:** 7/11/15px file-name padding, 10/50px Dropzone construction and old Transparent/Transparent Paint Style remain until component-level review; shared scale spacing is fully bound.
+
+The **image uploader** with 9 distinct variants is a separate component, not part of the canonical Carbon File Uploader source. It still needs its own legacy/authoring and asset-color audit.
+
+See [full File Uploader token migration audit](../audits/file-uploader-token-migration-2026-10-20.md), including IDs, before/after pixel dimensions, stable variants, exceptions, and remaining source/runtime QA. Foundation *binding hygiene* has passed for the canonical four masters, while **semantic Color/Focus and Radius exception signoff remain open**. This does not revise the previously approved v1 upload interaction contract or certify production.
