@@ -2,6 +2,10 @@
 // Paste this code into a Figma JavaScript execution context with access to figma.
 // It returns review candidates; it does not modify the file or certify token semantics.
 
+// Optional: supply exact canonical master IDs for mixed-purpose pages (e.g. File Uploader).
+// Empty means inventory every non-archived root component on the loaded page.
+const CANONICAL_MASTER_IDS = [];
+
 const page = figma.currentPage;
 const collections = await figma.variables.getLocalVariableCollectionsAsync();
 const variables = await figma.variables.getLocalVariablesAsync();
@@ -15,7 +19,8 @@ const spacingValues = new Set(
 const masters = page.findAllWithCriteria({ types: ["COMPONENT", "COMPONENT_SET"] })
   .filter(n => n.type === "COMPONENT_SET" ||
     (n.type === "COMPONENT" && n.parent?.type !== "COMPONENT_SET"))
-  .filter(n => !/(^|[ /])(?:Archive|Legacy|Deprecated|Scratch)(?:[ /]|$)/i.test(n.name));
+  .filter(n => !/(^|[ /])(?:Archive|Legacy|Deprecated|Scratch)(?:[ /]|$)/i.test(n.name))
+  .filter(n => CANONICAL_MASTER_IDS.length === 0 || CANONICAL_MASTER_IDS.includes(n.id));
 
 const metrics = {
   masters: masters.length, ownedLayers: 0,
