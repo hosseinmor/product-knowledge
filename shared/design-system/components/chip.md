@@ -8,7 +8,7 @@ knowledge_state: verified
 document_maturity: reviewed
 design_status: ready-for-dev
 design_maturity: handoff-ready
-last_reviewed: '2026-10-17'
+last_reviewed: '2026-10-20'
 related:
   - design-system.component.tag
   - design-system.component.badge
@@ -359,6 +359,18 @@ Whether the committed item stays in the same location or moves from Available to
 
 The Figma Chip documentation includes a real `Chip / Disclosure` + existing Popover composition example for the Industry filter to make the component/surface boundary explicit.
 
+### Figma token-compliance audit — 2026-10-20
+
+The **four current public Chip component sets** have been audited separately from Playground, helper sources and legacy Open=True variants. Current Size, State, Selected/Applied, interaction API and **Radius / Full** decisions remain unchanged.
+
+- All 90 public source variants (30 Selectable, 15 Removable, 30 Disclosure, 15 Action) now use governed Spacing, Typography, Radius and public Semantic Color bindings at their owned source layers.
+- In **Chip / Removable**, 45 previously raw but scale-correct properties on the 15 `Body / Edit action target` frames are now bound to shared Spacing variables: 15 each of `paddingRight` (8/12/16 by Size), `paddingLeft` (8px), and `itemSpacing` (8px). The independent Remove target was not changed.
+- Exactly **nine** disabled root fills (Selected Selectable, Removable, Applied Disclosure × three Sizes) were bound to the current **surface/disabled** role instead of the retired `surface/surface-selected-disabled` alias. This is an intentional appearance refinement, especially for Dark. The legacy variable remains intact for other consumers.
+- Source QA: **315/315 effective Spacing** property bindings, **180/180 Text Styles**, **90/90 Radius/Full** source radii and **378/378 solid visible public Semantic paints**. Heights remain 28/32/40px by Size; no set identities or variant axes were regenerated.
+
+Scope and risk: the old `__Legacy Chip Open=True variants` collection was **not** migrated or deleted; existing Figma references must be handled through a separate compatibility review. QA in both Products × Light/Dark, keyboard interaction and consumer published overrides remains required before runtime certification.
+
+See [Chip Token Compliance Audit](../audits/chip-token-compliance-2026-10-20.md) for node IDs, migration counts and remaining acceptance checks.
 ## State and Token Contract
 
 Color is a semantic state mapping, not a public Chip axis.
