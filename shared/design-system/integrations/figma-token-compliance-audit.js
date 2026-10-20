@@ -96,6 +96,9 @@ for (const master of masters) {
                           "paddingLeft", "itemSpacing"]) {
         const value = n[prop];
         if (typeof value !== "number" || value <= 0) continue;
+        // A positive itemSpacing on a single-child icon/wrapper frame cannot
+        // separate siblings. It is inert geometry, not active spacing debt.
+        if (prop === "itemSpacing" && "children" in n && n.children.length < 2 && n.layoutWrap !== "WRAP") continue;
         metrics.nonzeroSpacing++;
         const v = variableById.get(bind[prop]?.id);
         if (v && collectionById.get(v.variableCollectionId) === "Spacing") {
