@@ -79,7 +79,7 @@ Cando internal site inaccessible
 → Never fall back to JobVision Product Knowledge or this repository
 
 Repository read access available
-→ Use shared Content, Design System, standards, workflows, and templates
+→ Use relevant Karbon guidance (and temporarily Content guidance); general Product workflows route to the Harness
 
 Repository read access unavailable
 → Ask for the minimum relevant files; do not claim repository-backed guidance
