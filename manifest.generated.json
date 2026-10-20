@@ -939,6 +939,45 @@
       "path": "shared/design-system/accessibility/testing.md"
     },
     {
+      "id": "design-system.audit.autocomplete-token-compliance-2026-10-20",
+      "kind": "design-system-audit",
+      "title": "Autocomplete Token Compliance — 2026-10-20",
+      "summary": "Canonical Autocomplete source and shared Selection Panel inheritance pass token audit without component edits.",
+      "status": "draft",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-20",
+      "related": [
+        "design-system.component.autocomplete",
+        "design-system.component.select",
+        "design-system.reference.figma-token-compliance"
+      ],
+      "topics": [
+        "audits",
+        "autocomplete-token-compliance-2026-10-20",
+        "design-system-audit"
+      ],
+      "path": "shared/design-system/audits/autocomplete-token-compliance-2026-10-20.md"
+    },
+    {
+      "id": "design-system.audit.button-spacing-2026-10-20",
+      "kind": "design-system-audit",
+      "title": "Button Source Spacing Migration — 2026-10-20",
+      "summary": "Canonical Button spacing bindings corrected in Figma without changing dimensions, variant APIs or visuals.",
+      "status": "draft",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-20",
+      "related": [
+        "button",
+        "design-system.reference.figma-token-compliance"
+      ],
+      "topics": [
+        "audits",
+        "button-spacing-2026-10-20",
+        "design-system-audit"
+      ],
+      "path": "shared/design-system/audits/button-spacing-2026-10-20.md"
+    },
+    {
       "id": "design-system.audit.chip-final-2026-10-17",
       "kind": "design-system-audit",
       "title": "Chip family — final Figma and interaction audit (2026-10-17)",
@@ -976,6 +1015,60 @@
       "path": "shared/design-system/audits/chip-open-simplification-2026-10-17.md"
     },
     {
+      "id": "design-system.audit.chip-token-compliance-2026-10-20",
+      "kind": "design-system-audit",
+      "title": "Chip Token Compliance — 2026-10-20",
+      "summary": "Corrects canonical Removable spacing bindings and obsolete Disabled surface references across four Chip component families.",
+      "status": "draft",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-20",
+      "related": [
+        "design-system.component.chip",
+        "design-system.reference.figma-token-compliance"
+      ],
+      "topics": [
+        "audits",
+        "chip-token-compliance-2026-10-20",
+        "design-system-audit"
+      ],
+      "path": "shared/design-system/audits/chip-token-compliance-2026-10-20.md"
+    },
+    {
+      "id": "design-system.audit.component-token-compliance-2026-10-19",
+      "kind": "design-system-audit",
+      "title": "Figma Component Token Compliance Audit — 2026-10-19",
+      "summary": "Baseline of cross-component token bindings and first in-place remediations; remaining migration and runtime QA.",
+      "status": "draft",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-19",
+      "related": [],
+      "topics": [
+        "audits",
+        "component-token-compliance-2026-10-19",
+        "design-system-audit"
+      ],
+      "path": "shared/design-system/audits/component-token-compliance-2026-10-19.md"
+    },
+    {
+      "id": "design-system.audit.data-table-token-compliance-2026-10-20",
+      "kind": "design-system-audit",
+      "title": "Data Table Token Compliance and Nested Instance Provenance — 2026-10-20",
+      "summary": "Resolves the prior 110 apparent nested spacing violations as inactive Icon Button gaps, verifies all ten canonical Data Table sources and their semantic roles without Figma edits.",
+      "status": "draft",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-20",
+      "related": [
+        "design-system.component.table",
+        "design-system.reference.figma-token-compliance"
+      ],
+      "topics": [
+        "audits",
+        "data-table-token-compliance-2026-10-20",
+        "design-system-audit"
+      ],
+      "path": "shared/design-system/audits/data-table-token-compliance-2026-10-20.md"
+    },
+    {
       "id": "design-system.audit.field-family-2026-10-17",
       "kind": "design-system-audit",
       "title": "Field Family Consistency Audit — HOS-41",
@@ -996,6 +1089,45 @@
         "field-family-2026-10-17"
       ],
       "path": "shared/design-system/audits/field-family-2026-10-17.md"
+    },
+    {
+      "id": "design-system.audit.file-uploader-token-migration-2026-10-20",
+      "kind": "design-system-audit",
+      "title": "File Uploader — Token Migration Audit (HOS-39)",
+      "summary": "Canonical Carbon File Uploader foundation and semantic token changes implemented in Figma; focus and runtime QA remain.",
+      "status": "draft",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-20",
+      "related": [
+        "design-system.component.file-uploader",
+        "design-system.reference.figma-token-compliance"
+      ],
+      "topics": [
+        "audits",
+        "design-system-audit",
+        "file-uploader-token-migration-2026-10-20"
+      ],
+      "path": "shared/design-system/audits/file-uploader-token-migration-2026-10-20.md"
+    },
+    {
+      "id": "design-system.audit.progress-bar-token-compliance-2026-10-20",
+      "kind": "design-system-audit",
+      "title": "Progress Bar Token Compliance — 2026-10-20",
+      "summary": "Verifies semantic line-stroke construction and canonical typography; binds shared Spacing and corrects Success text foreground.",
+      "status": "draft",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-20",
+      "related": [
+        "design-system.component.progress-bar",
+        "design-system.component.progress-circle",
+        "design-system.reference.figma-token-compliance"
+      ],
+      "topics": [
+        "audits",
+        "design-system-audit",
+        "progress-bar-token-compliance-2026-10-20"
+      ],
+      "path": "shared/design-system/audits/progress-bar-token-compliance-2026-10-20.md"
     },
     {
       "id": "design-system.component.autocomplete",
@@ -1080,7 +1212,7 @@
       "summary": "Chip is the interactive compact-control family for direct selection, committed removable values, disclosure controls, and value-level add/start actions.",
       "status": "draft",
       "owner": null,
-      "last_reviewed": "2026-10-17",
+      "last_reviewed": "2026-10-20",
       "related": [
         "design-system.component.tag",
         "design-system.component.badge",
@@ -1255,7 +1387,7 @@
       "summary": "Canonical Carbon-derived file selection and drag-and-drop design contract, with native File list Slot, file-level feedback and verified Figma sources.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-10-17",
+      "last_reviewed": "2026-10-20",
       "related": [
         "design-system.component.progress-bar",
         "design-system.component.progress-circle",
@@ -1459,7 +1591,7 @@
       "summary": "Continuous operation-progress component with measured determinate values, public Figma Indeterminate variants, and explicit success/error feedback.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-10-19",
+      "last_reviewed": "2026-10-20",
       "related": [
         "design-system.component.progress-indicator",
         "design-system.pattern.loading-and-progress",
@@ -1665,7 +1797,7 @@
       "summary": "Composable RTL table for comparing and managing structured data in Job Vision products; HOS-35 working Figma pilot.",
       "status": "draft",
       "owner": null,
-      "last_reviewed": "2026-10-14",
+      "last_reviewed": "2026-10-20",
       "related": [
         "design-system.accessibility.tables-and-data-visualization",
         "design-system.pattern.data-views"
@@ -2151,7 +2283,7 @@
       "summary": "Defines the canonical Small/Medium/Large radius scale shared by controls, surfaces, and fully rounded shapes.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-21",
+      "last_reviewed": "2026-10-19",
       "related": [
         "design-system.reference.tailwind"
       ],
@@ -2246,7 +2378,7 @@
       "summary": "Defines the shared Label, Body, and Heading recipes, Product-aware font identity, compact and fluid variants, and the boundary with local Tailwind typography.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-19",
+      "last_reviewed": "2026-10-19",
       "related": [
         "design-system.reference.tailwind"
       ],
@@ -2364,6 +2496,30 @@
         "release-and-versioning"
       ],
       "path": "shared/design-system/governance/release-and-versioning.md"
+    },
+    {
+      "id": "design-system.handoff.component-token-changes-storybook-2026-10-20",
+      "kind": "design-system-development-handoff",
+      "title": "Karbon Component Token Changes — Storybook Handoff",
+      "summary": "Implementation deltas from the October 2026 token audit, separated from Figma-only variable bindings; intended for Angular/Storybook owners.",
+      "status": "draft",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-20",
+      "related": [
+        "design-system.component.file-uploader",
+        "design-system.component.chip",
+        "design-system.component.progress-bar",
+        "design-system.component.select",
+        "button",
+        "design-system.component.dialog",
+        "design-system.component.table"
+      ],
+      "topics": [
+        "component-token-changes-storybook-2026-10-20",
+        "design-system-development-handoff",
+        "handoffs"
+      ],
+      "path": "shared/design-system/handoffs/component-token-changes-storybook-2026-10-20.md"
     },
     {
       "id": "design-system.handoff.select-autocomplete-sandbox",
@@ -2774,7 +2930,7 @@
       "summary": "Operational reference for the current JV Design System Figma file, its variable architecture, stable component identities, and live-source boundaries.",
       "status": "reviewed",
       "owner": "Design System team",
-      "last_reviewed": "2026-09-19",
+      "last_reviewed": "2026-10-19",
       "related": [
         "design-system.reference.source-of-truth",
         "design-system.reference.component-mapping"
@@ -2785,6 +2941,22 @@
         "integrations"
       ],
       "path": "shared/design-system/integrations/figma.md"
+    },
+    {
+      "id": "design-system.reference.figma-token-compliance",
+      "kind": "design-system-reference",
+      "title": "Figma Component Token Compliance",
+      "summary": "Required binding and semantic QA gate for canonical Figma design system components.",
+      "status": "draft",
+      "owner": "Design System team",
+      "last_reviewed": "2026-10-19",
+      "related": [],
+      "topics": [
+        "design-system-reference",
+        "figma-token-compliance",
+        "integrations"
+      ],
+      "path": "shared/design-system/integrations/figma-token-compliance.md"
     },
     {
       "id": "design-system.reference.source-of-truth",
@@ -3174,14 +3346,14 @@
     }
   ],
   "summary": {
-    "documents": 156,
+    "documents": 165,
     "by_kind": {
       "content-guideline": 17,
       "design-system-accessibility": 18,
-      "design-system-audit": 3,
+      "design-system-audit": 10,
       "design-system-component": 44,
       "design-system-design-language": 1,
-      "design-system-development-handoff": 1,
+      "design-system-development-handoff": 2,
       "design-system-experience-rule": 11,
       "design-system-foundation": 11,
       "design-system-governance": 6,
@@ -3189,7 +3361,7 @@
       "design-system-overview": 2,
       "design-system-pattern": 14,
       "design-system-product-variation": 3,
-      "design-system-reference": 7,
+      "design-system-reference": 8,
       "design-system-token": 10,
       "design-system-ui-template": 4,
       "product-standard": 3

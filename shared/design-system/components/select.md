@@ -56,6 +56,24 @@ Helper OR Error/Warning supporting region
 
 Field: neutral border 1px; error border 2px; existing shared 2px focus effect with 1px offset; no component-specific color tokens. Floating panel: radius 12px, 2px anchor offset, floating shadow, correct RTL alignment; it is **not** wrapped in an additional Popover shell. Label/helper/error use canonical semantic typography and field tokens. No layout jump between Focus/Error/Error focus. Error text must remain readable/associated even if a floating panel visually overlaps.
 
+
+### Selection Panel and Option typography (Figma source QA, 2026-10-20)
+
+The shared panel and row text use the Typography Foundation according to their semantic roles rather than a custom local scale:
+
+| Element | Canonical Text Style | Purpose |
+|---|---|---|
+| Option label | Body/Compact/SM · 14/20 Regular | Main selectable value |
+| Option metadata | Label/XS · 12/16 Medium | Short categorical/auxiliary metadata |
+| Option secondary text | Body/Compact/XS · 12/16 Regular | Short supplementary explanation |
+| Option group header | Label/XS · 12/16 Medium | Nonselectable group label |
+| Selection Panel title | Heading/SM · 14/20 Bold | Panel title when presented |
+| Empty/result message | Body/Compact/SM · 14/20 Regular | Short list feedback |
+
+Previously unstyled Option metadata and secondary text used 12/18 Regular. Both were migrated in all 16 Option variants. The 12 unstyled Panel title layers previously used 14 SemiBold with Auto line height and now use Heading/SM. This intentionally standardizes type metrics and weight without changing component axes, option selection behavior, content, or authoring properties.
+
+**Structural Figma QA:** All 16 Option, 12 Selection Panel, and two Option Group Header variants retained their source identity and dimensions, with zero unstyled owned text nodes remaining in the inspected sets. Option metadata and secondary text are hidden in all 16 source variants; visible examples with multiline and mixed-script content should be tested in Playground before full visual signoff. No new Typography variable or Text Style was created. The 32px Option row and panel source dimensions were unchanged.
+
 ## Required runtime behavior
 
 ### Single

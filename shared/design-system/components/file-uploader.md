@@ -10,7 +10,7 @@ design_status: ready-for-dev
 design_maturity: handoff-ready
 status: reviewed
 owner: Design System team
-last_reviewed: '2026-10-17'
+last_reviewed: '2026-10-20'
 related:
   - design-system.component.progress-bar
   - design-system.component.progress-circle
@@ -32,7 +32,7 @@ topics:
 
 # File Uploader — HOS-39
 
-> **Final design contract; ready for implementation/sandbox handoff, not production certified.** This specification describes the **original Carbon component now canonical in Figma**, NOT the archived single-size pilot. The original components and their existing appearances are preserved. No actual upload endpoint, runtime API, Storybook story, keyboard behavior or assistive-technology result has been verified. These are implementation acceptance requirements, not claims of working code.
+> **Final design contract; ready for implementation/sandbox handoff, not production certified.** This specification describes the **original Carbon component now canonical in Figma**, NOT the archived single-size pilot. The original Carbon component identities and composition are preserved; subsequent token-compliance visual refinements are documented in the 2026-10-20 section below. No actual upload endpoint, runtime API, Storybook story, keyboard behavior or assistive-technology result has been verified. These are implementation acceptance requirements, not claims of working code.
 
 ## Purpose, composition and boundaries
 
@@ -73,7 +73,7 @@ The File list has **one** shared `File list` authoring Slot containing exactly *
 - Dropzone instruction: **«فایل را اینجا بکشید و رها کنید یا روی «انتخاب فایل» کلیک کنید»**. The explicit Browse action must work without dragging. The instruction does not establish that the whole region is clickable.
 - Where a product has verified format, byte-size or count limits, replace the generic helper with the actual relevant constraints *before selection*. A generic Carbon example such as “500KB, jpg/png” **must not ship as an unverified product policy**.
 - Error copy must describe a **known** failure and, if available, a supported recovery: e.g. «فرمت این فایل پشتیبانی نمی‌شود. فایل دیگری انتخاب کنید.» Do not assert network causes or recovery guarantees without evidence.
-- Original Carbon radii and button styles remain intact in v1. The archived pilot's 12px/176px Dropzone, six states, Drag-reject, illustration TBD, and XS Cancel/Retry choices are **not silently migrated**.
+- Original Carbon Button styles and Dropzone composition remain; the File Item radius is now 6px Medium (previously 4px) and the passive item surface is now surface/muted. These are deliberate DS refinements, not imports from the archived pilot. The pilot's 12px/176px Dropzone, Drag-reject, illustration TBD, and XS Cancel/Retry choices are **not silently migrated**.
 
 ## Design behavior contract (normative)
 
@@ -135,3 +135,39 @@ State names above are a *semantic mapping for implementers*, **not verified runt
 **Required of implementing team:** map the code API and actual product constraints, wire native input/drop handling, pass the behavioral and accessibility matrix, and record Storybook/code source identities in `component-mapping.md` after verification. Failure in any required runtime criterion blocks production release, **not the Design System design handoff**.
 
 Design knowledge is finalized for review and development use; no claim is made that the component already uploads files in a browser.
+
+
+## Token compliance and current Figma migration (2026-10-20)
+
+Original component identities and authoring API remain intact: **15 public variants, 18 File Item variants, 4 Dropzone variants, and one File list Slot with three connected specimens**. No component/variant identities or slots were recreated.
+
+### Foundation binding changes
+
+- **131** spacing properties were bound to existing Spacing variables (27 public / 102 File Item / 2 File list).
+- **16** Dropzone corners were rebound from deprecated 12px Surface to shared 12px Large, without changing geometry.
+- Disabled Dropzone helper was rebound to public **fg/disabled** from an unresolved legacy reference.
+
+### Approved semantic and appearance changes
+
+- **File Item background:** all 18 variants now consume **surface/muted** instead of surface/neutral-muted. The container presents file/status information passively; Remove/other actions remain separate interactive controls.
+- **File Item corner radius:** all 18 variants now bind four corners to **6px Medium** (72 radius properties). This intentionally replaces the previous raw 4px radius, but preserves variant identities, widths/heights and file contents.
+- **Dropzone Focus:** the existing Focus variant uses a **1px line/emphasis** boundary and the shared **Focus/Default** Effect Style from Text Input. The style encodes a 2px outside focus ring with a 1px gap. The runtime should show it only when the actual input/interactive target receives keyboard focus; Drag + Hover is a separate state. The Effect Style applies in Figma but the screenshot renderer did not visibly draw its shadow ring on *either* Dropzone *or* the canonical Text Input reference, so actual Figma editor/browser visibility requires acceptance testing.
+- **Error message contrast:** the three short 12px failure messages now use **fg/primary**; three long secondary descriptions use **fg/secondary**. Their icon **fg/error** and border **line/error** remain. Earlier fg/error error text was only 3.91:1 in Dark against the newly passive File Item surface.
+
+### Contrast checks and restrictions
+
+Computed from actual JobVision/Cando x Light/Dark Figma alias values on surface/muted:
+
+| Role | Light | Dark |
+|---|---:|---:|
+| fg/primary | 18.48:1 | 8.83:1 |
+| fg/secondary | 7.41:1 | 5.85:1 |
+| fg/error icon, non-text | 5.87:1 | 3.91:1 |
+
+The new normal text combinations exceed 4.5:1; the error icon exceeds the 3:1 non-text threshold. Values are identical in the inspected Product mappings. These are **calculated token contrasts**, not browser or assistive-technology test results.
+
+**Focus/default contrast against surface/default:** 4.59:1 Light and 4.31:1 Dark. Against surface/muted in Dark it is **2.85:1**, requiring separate review whenever that backdrop is used for the Focus ring. Do not assert global keyboard/focus compliance merely from the token/style binding.
+
+**Open maintenance and runtime debt:** File Item 7/11/15px optical padding; Dropzone 10/50px local construction; old Transparent/Transparent Paint Styles; actual focus-ring editor/browser rendering; mixed-content, screen-reader and native file input testing; published instance override regression; product appearance visual matrix. The neighboring nine-variant **image uploader** is a separate component with its own migration debt, not part of this scope.
+
+Detailed evidence: [File Uploader Token Migration Audit](../audits/file-uploader-token-migration-2026-10-20.md). Foundation/semantic fixes are **applied in Figma**, while runtime, focus and published-consumer QA remain open.

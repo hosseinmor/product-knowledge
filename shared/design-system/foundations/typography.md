@@ -7,7 +7,7 @@ summary: Defines the shared Label, Body, and Heading recipes, Product-aware font
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-09-19
+last_reviewed: '2026-10-19'
 related:
   - design-system.reference.tailwind
 --- 
@@ -48,7 +48,7 @@ JobVision → Vazirmatn
 Cando     → IRANYekanX
 ```
 
-Figma binds all Typography Text Styles directly to `02 Brand / brand/Brand font`, so the Product mode changes font identity without duplicating the semantic scale.
+Figma binds the Typography Text Styles' fontFamily to `02 Product / typography/font-family` (JobVision / Cando), so switching Product changes font identity without duplicating the semantic scale. The former `02 Brand / brand/Brand font` reference is obsolete and must not be used for new components.
 
 Typography does not depend on Appearance. Exact Cando font style/weight compatibility remains subject to visual validation when IRANYekanX is available in the implementation environment.
 

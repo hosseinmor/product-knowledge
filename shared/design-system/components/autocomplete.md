@@ -40,6 +40,21 @@ Autocomplete is an **editable text field** with suggestions. It handles typed qu
 - Medium 40px default, Small 32px, Large 48px; border-only radius 6px; shared focus effect, 2px error border + visible error text; 12px floating panel radius with 2px trigger offset.
 - Leading icon on logical start (right in RTL); clear/chevron at logical end (left in RTL). Chevron is **optional** and not a required default for an editable Autocomplete.
 
+## Figma token-compliance check — 2026-10-20
+
+The [canonical source audit](../audits/autocomplete-token-compliance-2026-10-20.md) verified the original **24 Autocomplete / Single** variants and shared Selection Panel inheritance. **No Autocomplete source edits were required.**
+
+- **96/96** effective layout Spacing properties use Foundation Spacing variables.
+- **48/48** owned text layers are linked to approved Text Styles.
+- **48/48** owned positive Radius properties use `6px · Medium`.
+- **120/120** owned visible solid fills/strokes consume public `03 Semantic` color variables.
+- All **24/24** nested Selection Panel instances inherit `12px · Large` from the upstream Selection Panel source, without local raw Radius overrides.
+- Focus, Error focus and Read only focus have the existing shared `Focus/Default` effect; Error focus keeps its 2px `line/error` Border and visible Error helper. Controls remain 32/40/48px by Size.
+
+The page's three existing open linked Playground samples (job title, city, job group) are source-linked and display correctly in RTL. `Open` is intentionally false for the default 24 master variants; it is true in the consumer examples. Treat it as a Figma authoring property, not a default always-visible Popup.
+
+**Remaining acceptance:** published override integrity following the upstream Selection Panel migration, live keyboard focus ring visibility (the screenshot renderer may not show the existing shadow), Product × Appearance editor/runtime visual testing and editable-combobox interaction/AT tests. This mechanical source audit does not upgrade the component's **Ready for Sandbox** status to production-ready. Image Uploader remains out of scope.
+
 ## State and event model — normative
 
 Distinguish:

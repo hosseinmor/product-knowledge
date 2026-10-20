@@ -7,7 +7,7 @@ summary: Defines the canonical Small/Medium/Large radius scale shared by control
 knowledge_state: canonical
 document_maturity: reviewed
 owner: Design System team
-last_reviewed: 2026-09-21
+last_reviewed: '2026-10-19'
 related:
   - design-system.reference.tailwind
 ---
@@ -63,3 +63,5 @@ The previous role-based and intermediate Figma variables remain deprecated only 
 | `Deprecated · Legacy 12px` | `12px · Large` |
 
 New or actively maintained components must bind to the canonical variables rather than the deprecated set.
+
+As of 2026-10-19, the five deprecated Radius variables are marked `hiddenFromPublishing=true` and their scopes are empty in the live Figma source, to prevent new authoring selection. They were **not deleted**, renamed or numerically changed: existing bindings and published consumers remain intact pending migration. Confirm each legacy binding is replaced in its owning source component before considering removal. See [Figma Component Token Compliance](../integrations/figma-token-compliance.md) and the [2026-10-19 audit](../audits/component-token-compliance-2026-10-19.md).
