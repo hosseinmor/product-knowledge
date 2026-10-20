@@ -1,7 +1,31 @@
-# AI Entry Point
+# Karbon Design Language — AI Entry Point
 
-Use this file as the tool-agnostic starting point for AI-assisted work in this
-repository.
+Use this file for **this repository's own** reusable Design Language knowledge,
+authoring and maintenance work. This repository is scheduled to retain its Git
+history and be renamed `karbon-design-language`; the admin rename has not yet
+occurred. The intended full title is **Karbon · JobVision Group Design Language**
+(کاربن، زبان طراحی محصولات گروه جاب‌ویژن). Karbon is an internal shared design
+language of JobVision Group, not a standalone public brand.
+
+- **Using Karbon to design products:** start at
+  `shared/design-system/DESIGN.md`, then the relevant component/pattern,
+  accessibility or product-variation document. Verify exact Figma/Code/Storybook
+  facts in their respective live sources.
+- **Building or maintaining Karbon:** start with
+  `shared/design-system/STRUCTURE.md`, relevant governance,
+  integrations, templates, and validators. Keep meaningful JobVision/Cando
+  product-identity variations.
+- **Independent Content work (temporary):** use `shared/content/README.md`
+  and relevant files while `product-content-system` is being created,
+  copied and validated. Do not treat it as permanent Karbon ownership.
+- **Multi-step Product/PRD/Design work:** start instead at
+  `https://github.com/hosseinmor/product-development-harness` `AGENTS.md`.
+  The Harness owns generic workflows, artifacts, review and clarification.
+  Legacy `ai/` and `templates/` routes here are transitional, not competing
+  workflow contracts.
+- See `migration/ownership-and-cutover.md` for the staged non-destructive plan.
+
+Do not assert that the rename or content transfer has already happened.
 
 ## Source authority — read first
 
@@ -23,19 +47,19 @@ This repository is **not** the canonical Product Knowledge source.
 - Never substitute Git history, deleted repository documents, memory, or an
   observed interface when the approved source is missing or inaccessible.
 
-## Start every product task
+## Transitional source use (until content and general routes are cut over)
 
-1. Read `product-knowledge-sources.yml`.
-2. Read `ai/router.md` and select the smallest relevant workflow.
-3. For JobVision product claims, open the internal documentation site in a
-   browser and load only the relevant domains.
-4. For Cando product claims, open <https://docs-cd.jvoffice.ir/> through a
-   verified internal-browser path and load only the relevant domains.
-5. Load only the relevant Content System, Design System, and product-standard
-   documents from this repository.
-6. Keep canonical truth, approved decisions, evidence, observations,
-   hypotheses, recommendations, and unknowns separate.
-7. Do not invent missing product behavior or human decisions.
+1. For product-behavior claims, read `product-knowledge-sources.yml` and
+   verify access to the owning JobVision/Cando internal source.
+2. For a Karbon task, retrieve only relevant Design Language documents using
+   the local entry point and, if needed, `manifest.generated.json`.
+3. For a Product Content task, retrieve only relevant Content System documents
+   while they remain in this repository. The separate repo must pass its own
+   validators before these source files are removed.
+4. For generic PRD, research or Product Design workflows, follow the Harness;
+   do not execute the duplicate legacy `ai/router.md` as an independent
+   contract.
+5. Keep canonical product truth, decisions, evidence and hypotheses separated.
 
 ## Capability fallback
 
