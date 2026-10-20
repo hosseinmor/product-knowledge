@@ -13,6 +13,8 @@ last_reviewed: '2026-10-19'
 
 # Figma Component Token Compliance Audit — 2026-10-19
 
+**Developer handoff:** [Karbon Component Token Changes — Storybook](../handoffs/component-token-changes-storybook-2026-10-20.md) — a curated list of actual Color, Radius, Focus, Typography and Spacing contracts to verify/update in Angular/Storybook. Distinguishes design-visible changes from Figma-only variable rebinding. **Image Uploader excluded.**
+
 ## Scope and measurement boundary
 
 Live source: [Job Vision NEXT Figma](https://www.figma.com/design/rROD8ctH9UfPGAMrRrOzHe/-DS--Job-Vision-NEXT). Baseline survey: 62 component/pattern-related pages, 58 with at least one master component. This included some legacy, archived and borrowed instance content. These are **discovery totals**, not a canonical compliance percentage. Direct-owned master-layer counters and nested instance counters must stay separate. Visual semantic correctness, Product x Appearance contrast and runtime implementation have **not** been fully audited.
