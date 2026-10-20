@@ -1017,7 +1017,7 @@
       "id": "design-system.audit.file-uploader-token-migration-2026-10-20",
       "kind": "design-system-audit",
       "title": "File Uploader — Token Migration Audit (HOS-39)",
-      "summary": "Canonical Carbon File Uploader bindings migrated in place; local geometry, semantic color and focus decisions explicitly tracked.",
+      "summary": "Canonical Carbon File Uploader foundation and semantic token changes implemented in Figma; focus and runtime QA remain.",
       "status": "draft",
       "owner": "Design System team",
       "last_reviewed": "2026-10-20",
